@@ -3,7 +3,7 @@
 if exist out rmdir /S /Q out\ > nul
 mkdir out
 
-set STANDALONE=1
+set STANDALONE=0
 set DEBUG=0
 set REGION=0
 
