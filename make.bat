@@ -3,7 +3,7 @@
 if exist out rmdir /S /Q out\ > nul
 mkdir out
 
-set STANDALONE=0
+set STANDALONE=1
 set DEBUG=0
 set REGION=0
 
@@ -189,6 +189,6 @@ exit /b
 bin\asm68k /q /p /e STANDALONE=%STANDALONE% /e DEBUG=%DEBUG% /e REGION=%REGION% /o ae-,l.,ow+ src/R%ZONE%%ACT%%TIME%.asm,out/R%ZONE%%ACT%%TIME%.gen,,out/R%ZONE%%ACT%%TIME%.lst
 if "%STANDALONE%"=="0" (
     ren out\R%ZONE%%ACT%%TIME%.gen R%ZONE%%ACT%%TIME%__.MMD
-    fc /b out\R%ZONE%%ACT%%TIME%__.MMD original\R%ZONE%%ACT%%TIME%__.MMD
+    REM fc /b out\R%ZONE%%ACT%%TIME%__.MMD original\R%ZONE%%ACT%%TIME%__.MMD
 )
 if "%STANDALONE%"=="1" mdromfix out/R%ZONE%%ACT%%TIME%.gen
