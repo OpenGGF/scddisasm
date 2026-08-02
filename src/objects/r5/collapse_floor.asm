@@ -1,0 +1,297 @@
+; ------------------------------------------------------------------------------
+
+CollapseFloorObject:
+	tst.b	obj.subtype_2(a0)
+	bne.w	loc_20E436
+	moveq	#0,d0
+	move.b	obj.routine(a0),d0
+	move.w	off_20E2E4(pc,d0.w),d0
+	jmp	off_20E2E4(pc,d0.w)
+
+; ------------------------------------------------------------------------------
+
+off_20E2E4:
+	dc.w	CollapseFloorObject_1_Routine0-*
+	dc.w	CollapseFloorObject_1_Routine2-off_20E2E4
+	dc.w	CollapseFloorObject_1_Routine4-off_20E2E4
+	dc.w	CollapseFloorObject_1_Routine6-off_20E2E4
+
+; ------------------------------------------------------------------------------
+
+CollapseFloorObject_1_Routine0:
+	addq.b	#2,obj.routine(a0)
+	move.b	#4,obj.sprite_flags(a0)
+	move.l	#Spr_20E49E,obj.sprite_data(a0)
+	move.b	#3,obj.sprite_layer(a0)
+	move.b	#$11,obj.height(a0)
+	move.w	#$4350,d0
+	cmpi.b	#2,(act).l
+	bne.s	loc_20E31C
+	move.w	#$43A0,d0
+
+loc_20E31C:
+	move.w	d0,obj.sprite_tile(a0)
+	move.b	obj.subtype(a0),d0
+	move.b	d0,d1
+	subq.b	#1,d0
+	move.b	d0,obj.sprite_frame(a0)
+	lsl.b	#3,d1
+	move.b	d1,obj.width(a0)
+	move.b	d1,obj.width_2(a0)
+
+CollapseFloorObject_1_Routine2:
+	lea	(player_object).w,a1
+	jsr	TopSolidObject
+	beq.s	loc_20E368
+	addq.b	#2,obj.routine(a0)
+	clr.b	obj.state_id(a0)
+	move.w	#8,obj.var_2a(a0)
+	moveq	#8,d0
+	tst.w	(player_object+obj.x_speed).w
+	bpl.s	loc_20E35A
+	neg.w	d0
+
+loc_20E35A:
+	move.w	d0,obj.var_2c(a0)
+	move.w	#$A3,d0
+	jsr	PlayFmSound
+
+loc_20E368:
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
+
+; ------------------------------------------------------------------------------
+
+CollapseFloorObject_1_Routine4:
+	lea	(player_object).w,a1
+	jsr	TopSolidObject
+	subq.w	#1,obj.var_2a(a0)
+	bpl.s	loc_20E388
+	addq.b	#2,obj.routine(a0)
+
+loc_20E388:
+	jmp	DrawObject
+
+; ------------------------------------------------------------------------------
+
+CollapseFloorObject_1_Routine6:
+	movem.l	(a0),a2-a5
+	moveq	#$FFFFFFFF,d1
+	moveq	#8,d2
+	moveq	#0,d3
+	move.b	obj.subtype(a0),d3
+	subq.w	#1,d3
+	asl.w	#3,d3
+	tst.w	obj.var_2c(a0)
+	bmi.s	loc_20E3A8
+	neg.w	d3
+
+loc_20E3A8:
+	jsr	SpawnObject
+	bne.w	loc_20E3EE
+	movem.l	a2-a5,(a1)
+	move.b	d1,obj.subtype_2(a1)
+	sub.w	d2,obj.y(a1)
+	add.w	d3,obj.x(a1)
+	move.w	#4,obj.var_2a(a1)
+	move.b	#8,obj.sprite_frame(a1)
+	jsr	SpawnObject
+	bne.w	loc_20E3EE
+	movem.l	a2-a5,(a1)
+	move.b	d1,obj.subtype_2(a1)
+	add.w	d2,obj.y(a1)
+	add.w	d3,obj.x(a1)
+	move.b	#9,obj.sprite_frame(a1)
+
+loc_20E3EE:
+	lea	(player_object).w,a1
+	jsr	TopSolidObject
+	beq.s	loc_20E400
+	jsr	GetOffObject
+
+loc_20E400:
+	subq.b	#1,obj.subtype(a0)
+	ble.w	loc_20E498
+	subq.b	#2,obj.routine(a0)
+	subq.b	#1,obj.sprite_frame(a0)
+	subq.b	#8,obj.width(a0)
+	subq.b	#8,obj.width_2(a0)
+	move.w	#7,obj.var_2a(a0)
+	move.w	obj.var_2c(a0),d0
+	add.w	d0,obj.x(a0)
+	lea	(player_object).w,a1
+	jsr	TopSolidObject
+	jmp	DrawObject
+
+; ------------------------------------------------------------------------------
+
+loc_20E436:
+	moveq	#0,d0
+	move.b	obj.routine(a0),d0
+	move.w	off_20E444(pc,d0.w),d0
+	jmp	off_20E444(pc,d0.w)
+
+; ------------------------------------------------------------------------------
+
+off_20E444:
+	dc.w	CollapseFloorObject_0_Routine0-*
+	dc.w	CollapseFloorObject_0_Routine2-off_20E444
+	dc.w	CollapseFloorObject_0_Routine4-off_20E444
+
+; ------------------------------------------------------------------------------
+
+CollapseFloorObject_0_Routine0:
+	addq.b	#2,obj.routine(a0)
+	move.l	#$8080308,obj.height(a0)
+	jmp	DrawObject
+
+; ------------------------------------------------------------------------------
+
+CollapseFloorObject_0_Routine2:
+	subq.w	#1,obj.var_2a(a0)
+	bpl.s	loc_20E466
+	addq.b	#2,obj.routine(a0)
+
+loc_20E466:
+	jmp	DrawObject
+
+; ------------------------------------------------------------------------------
+
+CollapseFloorObject_0_Routine4:
+	tst.b	obj.sprite_flags(a0)
+	bpl.s	loc_20E498
+	move.l	obj.var_2c(a0),d0
+	addi.l	#$4000,d0
+	cmpi.l	#$160000,d0
+	ble.s	loc_20E48A
+	move.l	#$160000,d0
+
+loc_20E48A:
+	move.l	d0,obj.var_2c(a0)
+	add.l	d0,obj.y(a0)
+	jmp	DrawObject
+
+; ------------------------------------------------------------------------------
+
+loc_20E498:
+	jmp	DeleteObject
+
+; ------------------------------------------------------------------------------
+
+Spr_20E49E:
+	dc.w	@Spr_20E49E_0-*
+	dc.w	@Spr_20E49E_1-Spr_20E49E
+	dc.w	@Spr_20E49E_2-Spr_20E49E
+	dc.w	@Spr_20E49E_3-Spr_20E49E
+	dc.w	@Spr_20E49E_4-Spr_20E49E
+	dc.w	@Spr_20E49E_5-Spr_20E49E
+	dc.w	@Spr_20E49E_6-Spr_20E49E
+	dc.w	@Spr_20E49E_7-Spr_20E49E
+	dc.w	@Spr_20E49E_8-Spr_20E49E
+	dc.w	@Spr_20E49E_9-Spr_20E49E
+
+@Spr_20E49E_0:
+	dc.b	2
+	dc.b	$F0, 5, 0, 0, $F8
+	dc.b	0, 5, 0, 4, $F8
+
+@Spr_20E49E_1:
+	dc.b	4
+	dc.b	$F0, 5, 0, 0, $F0
+	dc.b	0, 5, 0, 4, $F0
+	dc.b	$F0, 5, 0, 0, 0
+	dc.b	0, 5, 0, 4, 0
+
+@Spr_20E49E_2:
+	dc.b	6
+	dc.b	$F0, 5, 0, 0, $E8
+	dc.b	0, 5, 0, 4, $E8
+	dc.b	$F0, 5, 0, 0, $F8
+	dc.b	0, 5, 0, 4, $F8
+	dc.b	$F0, 5, 0, 0, 8
+	dc.b	0, 5, 0, 4, 8
+
+@Spr_20E49E_3:
+	dc.b	8
+	dc.b	$F0, 5, 0, 0, $E0
+	dc.b	0, 5, 0, 4, $E0
+	dc.b	$F0, 5, 0, 0, $F0
+	dc.b	0, 5, 0, 4, $F0
+	dc.b	$F0, 5, 0, 0, 0
+	dc.b	0, 5, 0, 4, 0
+	dc.b	$F0, 5, 0, 0, $10
+	dc.b	0, 5, 0, 4, $10
+
+@Spr_20E49E_4:
+	dc.b	$A
+	dc.b	$F0, 5, 0, 0, $D8
+	dc.b	0, 5, 0, 4, $D8
+	dc.b	$F0, 5, 0, 0, $E8
+	dc.b	0, 5, 0, 4, $E8
+	dc.b	$F0, 5, 0, 0, $F8
+	dc.b	0, 5, 0, 4, $F8
+	dc.b	$F0, 5, 0, 0, 8
+	dc.b	0, 5, 0, 4, 8
+	dc.b	$F0, 5, 0, 0, $18
+	dc.b	0, 5, 0, 4, $18
+
+@Spr_20E49E_5:
+	dc.b	$C
+	dc.b	$F0, 5, 0, 0, $D0
+	dc.b	0, 5, 0, 4, $D0
+	dc.b	$F0, 5, 0, 0, $E0
+	dc.b	0, 5, 0, 4, $E0
+	dc.b	$F0, 5, 0, 0, $F0
+	dc.b	0, 5, 0, 4, $F0
+	dc.b	$F0, 5, 0, 0, 0
+	dc.b	0, 5, 0, 4, 0
+	dc.b	$F0, 5, 0, 0, $10
+	dc.b	0, 5, 0, 4, $10
+	dc.b	$F0, 5, 0, 0, $20
+	dc.b	0, 5, 0, 4, $20
+
+@Spr_20E49E_6:
+	dc.b	$E
+	dc.b	$F0, 5, 0, 0, $C8
+	dc.b	0, 5, 0, 4, $C8
+	dc.b	$F0, 5, 0, 0, $D8
+	dc.b	0, 5, 0, 4, $D8
+	dc.b	$F0, 5, 0, 0, $E8
+	dc.b	0, 5, 0, 4, $E8
+	dc.b	$F0, 5, 0, 0, $F8
+	dc.b	0, 5, 0, 4, $F8
+	dc.b	$F0, 5, 0, 0, 8
+	dc.b	0, 5, 0, 4, 8
+	dc.b	$F0, 5, 0, 0, $18
+	dc.b	0, 5, 0, 4, $18
+	dc.b	$F0, 5, 0, 0, $28
+	dc.b	0, 5, 0, 4, $28
+
+@Spr_20E49E_7:
+	dc.b	$10
+	dc.b	$F0, 5, 0, 0, $C0
+	dc.b	0, 5, 0, 4, $C0
+	dc.b	$F0, 5, 0, 0, $D0
+	dc.b	0, 5, 0, 4, $D0
+	dc.b	$F0, 5, 0, 0, $E0
+	dc.b	0, 5, 0, 4, $E0
+	dc.b	$F0, 5, 0, 0, $F0
+	dc.b	0, 5, 0, 4, $F0
+	dc.b	$F0, 5, 0, 0, 0
+	dc.b	0, 5, 0, 4, 0
+	dc.b	$F0, 5, 0, 0, $10
+	dc.b	0, 5, 0, 4, $10
+	dc.b	$F0, 5, 0, 0, $20
+	dc.b	0, 5, 0, 4, $20
+	dc.b	$F0, 5, 0, 0, $30
+	dc.b	0, 5, 0, 4, $30
+
+@Spr_20E49E_8:
+	dc.b	1
+	dc.b	$F8, 5, 0, 0, $F8
+
+@Spr_20E49E_9:
+	dc.b	1
+	dc.b	$F8, 5, 0, 4, $F8
+
+; ------------------------------------------------------------------------------

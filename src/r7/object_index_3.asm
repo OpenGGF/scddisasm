@@ -1,0 +1,65 @@
+; ------------------------------------------------------------------------------
+
+ObjectIndex:
+	dc.l	PlayerObject
+	dc.l	PlayerObject
+	dc.l	PowerupObject
+	dc.l	MeshObject
+	dc.l	NullObject
+	dc.l	TestObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	SpringObject
+	dc.l	HDoorSplashObject
+	dc.l	HDoorSplashSetObject
+	dc.l	HDoorObject
+	dc.l	TunnelSplashObject
+	dc.l	MobileSpringObject
+	dc.l	RingObject
+	dc.l	LostRingObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	BigRingObject
+	dc.l	CapsuleObject
+	dc.l	GoalObject
+	dc.l	SignpostObject
+	dc.l	ExplosionObject
+	dc.l	MonitorTimeObject
+	dc.l	MonitorItemObject
+	dc.l	BoulderObject
+	dc.l	HudPointsObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	FlowerObject
+	dc.l	SwingObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	HotaruObject
+	dc.l	BlockObject
+	dc.l	SpikeBallObject
+	dc.l	JumpSpikeBallObject
+	dc.l	ProjectorObject
+	dc.l	AnimalObject
+	dc.l	RobotGeneratorObject
+	dc.l	NullObject
+	dc.l	BossBlockObject
+	dc.l	EggmanObject
+	dc.l	BossExhaustObject
+	dc.l	BossLaserObject
+	dc.l	MetalSonicObject
+	dc.l	ElectricShieldObject
+	dc.l	MetalSonicDebrisObject
+	dc.l	SpikesObject
+	dc.l	AmyRoseObject
+	dc.l	HeartObject
+	dc.l	SwapPlatformObject
+	dc.l	LampObject
+	dc.l	DebrisObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	ResultsObject
+	dc.l	GameOverObject
+	dc.l	TitleCardObject
+
+; ------------------------------------------------------------------------------

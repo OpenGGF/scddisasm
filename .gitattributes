@@ -1,8 +1,0 @@
-*.asm		text
-*.inc		text linguist-language=Assembly
-*.lst		text
-*.txt		text
-*.xml		text
-*.cs		text
-*.ini		text
-*.bin		binary

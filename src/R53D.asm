@@ -1,0 +1,120 @@
+; ------------------------------------------------------------------------------
+; Sonic CD Disassembly
+; ------------------------------------------------------------------------------
+
+STAGE_ZONE		equ 3					; Zone ID
+STAGE_ACT		equ 2					; Act ID
+STAGE_TIME		equ 2					; Time zone
+STAGE_GOOD_FUTURE	equ 0					; Good future
+
+; ------------------------------------------------------------------------------
+
+	if STANDALONE=0
+		include	"include/main_cpu.inc"
+		include	"include/mmd.inc"
+	else
+		include	"standalone/main_cpu.inc"
+	endif
+	include	"include/global_variables.inc"
+	include	"src/common/stage.inc"
+
+; ------------------------------------------------------------------------------
+
+	if STANDALONE=0
+		include	"src/common/initialization.asm"
+	else
+		include	"standalone/initialization.asm"
+	endif
+	include "src/r5/palette_cycle_d.asm"
+	include "src/common/palette_fade.asm"
+	include "src/common/palette_load_fade.asm"
+	include "src/common/palette_load.asm"
+	include "src/common/palette_load_water.asm"
+	include "src/common/palette_load_water_fade.asm"
+	include "src/r5/palettes_d.asm"
+	include "src/common/s1_object_despawn.asm"
+	include "src/common/vsync.asm"
+	include "src/common/math.asm"
+	include "src/common/player_ground_collide.asm"
+	include "src/common/block_collide.asm"
+	include "src/common/main.asm"
+	include "src/common/random.asm"
+	include "src/common/joypad.asm"
+	include "src/common/vdp.asm"
+	include "src/common/z80.asm"
+	include "src/common/sound.asm"
+	include "src/common/tilemap.asm"
+	include "src/common/nemesis.asm"
+	include "src/common/gfx_queue.asm"
+	include "src/common/enigma.asm"
+	include "src/common/kosinski.asm"
+	include "src/r5/scroll_3d.asm"
+	include "src/r5/stage_draw_3d.asm"
+	if STANDALONE<>0
+		include	"standalone/block_write.asm"
+	endif
+	include "src/r5/stage_data_load_3d.asm"
+	include "src/common/events.asm"
+	include "src/common/object.asm"
+	include "src/r5/object_index_3.asm"
+	include "src/objects/null.asm"
+	include "src/objects/player.asm"
+	include "src/common/sub_cpu.asm"
+	include "src/common/object_animate.asm"
+	include "src/objects/checkpoint.asm"
+	include "src/common/drown_reset.asm"
+	include "src/objects/test.asm"
+	include "src/objects/explosion.asm"
+	include "src/objects/flower.asm"
+	include "src/objects/r1/tunnel_splash.asm"
+	include "src/objects/r1/h_door.asm"
+	include "src/objects/powerup.asm"
+	include "src/objects/roll_tunnel.asm"
+	include "src/r5/player_block_check.asm"
+	include "src/common/respawn_load.asm"
+	include "src/common/object_block_collide.asm"
+	include "src/r5/player_object_collide.asm"
+	include "src/common/debug_mode.asm"
+	include "src/r5/debug_objects_3.asm"
+	include "src/common/object_spawn.asm"
+	include "src/r5/stage_object_maps_3.asm"
+	include "src/objects/r5/tunnel_path.asm"
+	include "src/common/solid_object.asm"
+	include "src/objects/r1/boulder.asm"
+	include "src/objects/spring.asm"
+	include "src/objects/ring.asm"
+	include "src/objects/monitor_time.asm"
+	include "src/objects/hud_points.asm"
+	include "src/objects/stage_end.asm"
+	include "src/objects/game_over.asm"
+	include "src/objects/title_card.asm"
+	include "src/objects/results.asm"
+	include "src/r5/title_card_data.asm"
+	include "src/sprites/title_card_r5.asm"
+	include "src/objects/r5/boss.asm"
+	include "src/r5/section_gfx_3d.asm"
+	include "src/objects/r5/bridge.asm"
+	include "src/objects/r5/platform.asm"
+	include "src/objects/r5/conveyor_switch.asm"
+	include "src/objects/r5/noro_noro.asm"
+	include "src/objects/r5/sasori.asm"
+	include "src/objects/r5/kemusi.asm"
+	include "src/objects/r5/kumo_kumo.asm"
+	include "src/objects/r5/block.asm"
+	include "src/objects/r5/stalactite.asm"
+	include "src/objects/r5/spikes.asm"
+	include "src/objects/r5/circle_platform.asm"
+	include "src/objects/r5/collapse_floor.asm"
+	include "src/objects/r5/sine_platform.asm"
+	include "src/objects/r5/swing.asm"
+	include "src/objects/r5/large_break_wall.asm"
+	include "src/common/time_check.asm"
+	include "src/objects/r5/animal.asm"
+	include "src/objects/r5/projector.asm"
+	include "src/objects/r5/robot_generator.asm"
+	include "src/objects/r5/break_wall.asm"
+	include "src/r5/stage_gfx_animate_3d.asm"
+	include "src/r5/gfx_lists_3d.asm"
+	include "src/r5/data_3d.asm"
+
+; ------------------------------------------------------------------------------

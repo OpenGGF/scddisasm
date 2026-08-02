@@ -1,0 +1,290 @@
+; ------------------------------------------------------------------------------
+
+AnimalObject:
+	jsr	CheckAnimalPrescence
+	move.b	obj.subtype(a0),d0
+	andi.b	#$7F,d0
+	bne.w	loc_20E7B0
+	moveq	#0,d0
+	move.b	obj.routine(a0),d0
+	move.w	off_20E6AE(pc,d0.w),d0
+	jmp	off_20E6AE(pc,d0.w)
+
+; ------------------------------------------------------------------------------
+
+off_20E6AE:
+	dc.w	AnimalObject_1_Routine0-*
+	dc.w	AnimalObject_1_Routine2-off_20E6AE
+	dc.w	AnimalObject_1_Routine4-off_20E6AE
+
+; ------------------------------------------------------------------------------
+
+AnimalObject_1_Routine0:
+	addq.b	#2,obj.routine(a0)
+	move.b	#4,obj.sprite_flags(a0)
+	move.l	#$8080108,obj.height(a0)
+	move.l	#Spr_20E932,obj.sprite_data(a0)
+	move.w	obj.x(a0),obj.var_2a(a0)
+	move.w	obj.y(a0),obj.var_2c(a0)
+	bsr.w	loc_20E888
+	bsr.w	sub_20E896
+	tst.b	obj.subtype(a0)
+	bmi.s	loc_20E6FC
+	move.b	#1,obj.sprite_layer(a0)
+	ori.w	#$8000,obj.sprite_tile(a0)
+	move.w	#$101,obj.var_2e(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+
+loc_20E6FC:
+	addq.b	#2,obj.routine(a0)
+	move.b	#1,obj.anim_id(a0)
+	move.b	#3,obj.sprite_layer(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+
+AnimalObject_1_Routine2:
+	moveq	#1,d2
+	moveq	#1,d3
+	bsr.w	sub_20E790
+	move.b	obj.var_2e(a0),d0
+	add.b	obj.var_2f(a0),d0
+	move.b	d0,d1
+	subq.b	#1,d1
+	subi.b	#$7F,d1
+	bcs.s	loc_20E734
+	move.b	obj.var_2e(a0),d0
+	neg.b	obj.var_2f(a0)
+	bsr.w	loc_20E888
+
+loc_20E734:
+	move.b	d0,obj.var_2e(a0)
+	lea	Ani_20E8B4(pc),a1
+	jsr	AnimateObject
+	jsr	DrawObject
+	move.w	obj.var_2a(a0),d0
+	jmp	CheckObjectDespawn2
+
+; ------------------------------------------------------------------------------
+
+AnimalObject_1_Routine4:
+	movea.w	obj.var_3e(a0),a1
+	cmpi.b	#$38,0(a1)
+	bne.w	loc_20E882
+	tst.b	$3F(a1)
+	bne.w	loc_20E882
+	moveq	#3,d2
+	moveq	#4,d3
+	bsr.w	sub_20E790
+	addq.b	#4,obj.var_2e(a0)
+	move.b	obj.var_2e(a0),d0
+	andi.b	#$7F,d0
+	beq.w	loc_20E888
+	lea	Ani_20E8B4(pc),a1
+	jsr	AnimateObject
+	jmp	DrawObject
+
+; ------------------------------------------------------------------------------
+
+sub_20E790:
+	move.b	obj.var_2e(a0),d0
+	jsr	SineCosine
+	asr.w	d2,d1
+	asr.w	d3,d0
+	add.w	obj.var_2a(a0),d1
+	add.w	obj.var_2c(a0),d0
+	move.w	d1,obj.x(a0)
+	move.w	d0,obj.y(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+
+loc_20E7B0:
+	moveq	#0,d0
+	move.b	obj.routine(a0),d0
+	move.w	off_20E7BE(pc,d0.w),d0
+	jmp	off_20E7BE(pc,d0.w)
+
+; ------------------------------------------------------------------------------
+
+off_20E7BE:
+	dc.w	AnimalObject_0_Routine0-*
+	dc.w	AnimalObject_0_Routine2-off_20E7BE
+	dc.w	AnimalObject_0_Routine2-off_20E7BE
+	dc.w	AnimalObject_0_Routine6-off_20E7BE
+	dc.w	AnimalObject_0_Routine8-off_20E7BE
+
+; ------------------------------------------------------------------------------
+
+AnimalObject_0_Routine0:
+	addq.b	#2,obj.routine(a0)
+	move.b	#4,obj.sprite_flags(a0)
+	move.l	#$C080408,obj.height(a0)
+	move.l	#Spr_20E946,obj.sprite_data(a0)
+	bsr.w	sub_20E896
+	tst.b	obj.subtype(a0)
+	bmi.s	loc_20E7FE
+	move.l	#$10000,obj.var_2c(a0)
+	move.l	#-$40000,obj.var_30(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+
+loc_20E7FE:
+	move.b	#8,obj.routine(a0)
+	bra.w	loc_20E888
+
+; ------------------------------------------------------------------------------
+
+AnimalObject_0_Routine2:
+	move.l	obj.var_2c(a0),d0
+	add.l	d0,obj.x(a0)
+	move.l	obj.var_30(a0),d0
+	add.l	d0,obj.y(a0)
+	addi.l	#$2000,obj.var_30(a0)
+	smi	d0
+	addq.b	#1,d0
+	move.b	d0,obj.sprite_frame(a0)
+	jsr	CheckBlockDown
+	tst.w	d1
+	bpl.s	loc_20E842
+	addq.b	#2,obj.routine(a0)
+	add.w	d1,obj.y(a0)
+	move.l	#-$40000,obj.var_30(a0)
+
+loc_20E842:
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
+
+; ------------------------------------------------------------------------------
+
+AnimalObject_0_Routine6:
+	move.b	#2,obj.routine(a0)
+	neg.l	obj.var_2c(a0)
+	bsr.s	loc_20E888
+	bra.s	loc_20E842
+
+; ------------------------------------------------------------------------------
+
+AnimalObject_0_Routine8:
+	movea.w	obj.var_3e(a0),a1
+	cmpi.b	#$38,obj.id(a1)
+	bne.w	loc_20E882
+	tst.b	obj.var_3f(a1)
+	bne.w	loc_20E882
+	lea	Ani_20E8F6(pc),a1
+	jsr	AnimateObject
+	jmp	DrawObject
+
+; ------------------------------------------------------------------------------
+
+loc_20E882:
+	jmp	DeleteObject
+
+; ------------------------------------------------------------------------------
+
+loc_20E888:
+	bchg	#0,obj.sprite_flags(a0)
+	bchg	#0,obj.flags(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+
+sub_20E896:
+	lea	word_20E96A(pc),a1
+	moveq	#0,d0
+	move.b	(act).l,d0
+	asl.w	#2,d0
+	add.b	(time_zone).l,d0
+	add.w	d0,d0
+	move.w	(a1,d0.w),obj.sprite_tile(a0)
+	rts
+
+; ------------------------------------------------------------------------------
+
+Ani_20E8B4:
+	dc.w	@Ani_20E8B4_0-*
+	dc.w	@Ani_20E8B4_1-Ani_20E8B4
+
+@Ani_20E8B4_0:
+	dc.b	3
+	dc.b	0, 1
+	dc.b	$FF
+
+@Ani_20E8B4_1:
+	dc.b	0
+	dc.b	0, 0, 2, 0, 0, 2, 0, 0
+	dc.b	2, 0, 0, 2, 1, 1, 2, 2
+	dc.b	1, 1, 2, 2, 1, 1, 2, 2
+	dc.b	1, 1, 2, 2, 0, 0, 2, 0
+	dc.b	0, 2, 0, 0, 2, 0, 0, 2
+	dc.b	1, 1, 2, 2, 1, 1, 2, 2
+	dc.b	1, 1, 2, 2, 1, 1, 2, 2
+	dc.b	$FF
+
+Ani_20E8F6:
+	dc.w	@Ani_20E8F6_0-*
+
+@Ani_20E8F6_0:
+	dc.b	0
+	dc.b	3, 3, 2, 3, 3, 2, 3, 3
+	dc.b	2, 3, 3, 2, 3, 3, 2, 2
+	dc.b	3, 3, 2, 2, 3, 3, 2, 2
+	dc.b	3, 3, 2, 2, 4, 4, 2, 4
+	dc.b	4, 2, 4, 4, 2, 4, 4, 2
+	dc.b	4, 4, 2, 2, 4, 4, 2, 2
+	dc.b	4, 4, 2, 2, 4, 4, 2, 2
+	dc.b	$FF
+
+Spr_20E932:
+	dc.w	@Spr_20E932_0-*
+	dc.w	@Spr_20E932_1-Spr_20E932
+	dc.w	@Spr_20E932_2-Spr_20E932
+
+@Spr_20E932_0:
+	dc.b	1
+	dc.b	$F8, 5, 0, 0, $F8
+
+@Spr_20E932_1:
+	dc.b	1
+	dc.b	$F8, 5, 0, 4, $F8
+
+@Spr_20E932_2:
+	dc.b	0
+	dc.b	0
+
+Spr_20E946:
+	dc.w	@Spr_20E946_0-*
+	dc.w	@Spr_20E946_1-Spr_20E946
+	dc.w	@Spr_20E946_2-Spr_20E946
+	dc.w	@Spr_20E946_3-Spr_20E946
+	dc.w	@Spr_20E946_4-Spr_20E946
+
+@Spr_20E946_0:
+	dc.b	1
+	dc.b	$F4, 6, 0, $E, $F8
+
+@Spr_20E946_1:
+	dc.b	1
+	dc.b	$F4, 6, 0, 8, $F8
+
+@Spr_20E946_2:
+	dc.b	0
+
+@Spr_20E946_3:
+	dc.b	1
+	dc.b	$F4, 6, 0, 8, $F8
+
+@Spr_20E946_4:
+	dc.b	1
+	dc.b	$FC, 9, 0, $E, $F8
+	dc.b	0
+
+word_20E96A:
+	dc.w	$797, $3DA, $3DA, 0
+	dc.w	$797, $3DA, $3DA, 0
+	dc.w	0, 0, $3DA
+
+; ------------------------------------------------------------------------------

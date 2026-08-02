@@ -1,0 +1,65 @@
+; ------------------------------------------------------------------------------
+
+ObjectIndex:
+	dc.l	PlayerObject
+	dc.l	PlayerObject
+	dc.l	PowerupObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	TestObject
+	dc.l	TunnelPathObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	SpringObject
+	dc.l	HDoorSplashObject
+	dc.l	HDoorSplashSetObject
+	dc.l	HDoorObject
+	dc.l	TunnelSplashObject
+	dc.l	MobileSpringObject
+	dc.l	RingObject
+	dc.l	LostRingObject
+	dc.l	NullObject
+	dc.l	CheckpointObject
+	dc.l	BigRingObject
+	dc.l	CapsuleObject
+	dc.l	GoalObject
+	dc.l	SignpostObject
+	dc.l	ExplosionObject
+	dc.l	MonitorTimeObject
+	dc.l	MonitorItemObject
+	dc.l	BoulderObject
+	dc.l	HudPointsObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	FlowerObject
+	dc.l	NoroNoroObject
+	dc.l	SasoriObject
+	dc.l	KemusiObject
+	dc.l	KumoKumoObject
+	dc.l	BlockObject
+	dc.l	StalactiteObject
+	dc.l	SpikesObject
+	dc.l	CirclePlatformObject
+	dc.l	CollapseFloorObject
+	dc.l	SinePlatformObject
+	dc.l	SwingObject
+	dc.l	LargeBreakWallObject
+	dc.l	ProjectorObject
+	dc.l	AnimalObject
+	dc.l	RobotGeneratorObject
+	dc.l	BridgeObject
+	dc.l	PlatformObject
+	dc.l	ConveyorSwitchObject
+	dc.l	BreakWallObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	ResultsObject
+	dc.l	GameOverObject
+	dc.l	TitleCardObject
+
+; ------------------------------------------------------------------------------
