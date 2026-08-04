@@ -54,7 +54,7 @@ SectionGfxInitList0:
 	gfxEntry BoulderGfx, $6D80
 	gfxEntry SpinDiscGfx, $7000
 	gfxEntry LogShadowDecayGfx, $71E0
-	gfxEntry FlowerGfx2, $73E0
+	gfxEntry SceneryGfxCD, $73E0
 	gfxEntry MosquiGfx, $7460
 	gfxEntry SpringboardGfx, $7D80
 	gfxEntry PataBataGfx, $8040
@@ -68,7 +68,7 @@ SectionGfxInitList1:
 	gfxEntry BoulderGfx, $6D80
 	gfxEntry SpinDiscGfx, $7000
 	gfxEntry LogShadowDecayGfx, $71E0
-	gfxEntry FlowerGfx2, $73E0
+	gfxEntry SceneryGfxCD, $73E0
 	gfxEntry MosquiGfx, $7460
 	gfxEntry AntonGfx, $7D80
 	gfxEntry PataBataGfx, $8040
@@ -135,7 +135,7 @@ SectionGfxUpdateList0:
 SectionGfxUpdateList1:
 	gfxStart
 	gfxEntry LogShadowDecayGfx, $71E0
-	gfxEntry FlowerGfx2, $73E0
+	gfxEntry SceneryGfxCD, $73E0
 	gfxEntry MosquiGfx, $7460
 	gfxEntry AntonGfx, $7D80
 	gfxEnd

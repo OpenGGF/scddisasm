@@ -1,208 +1,206 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
-; Player graphics script (R1)
-; ------------------------------------------------------------------------------
 
-.GfxScript:
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript1-.GfxScript
-	dc.w	.GfxScript2-.GfxScript
-	dc.w	.GfxScript3-.GfxScript
-	dc.w	.GfxScript4-.GfxScript
-	dc.w	.GfxScript5-.GfxScript
-	dc.w	.GfxScript6-.GfxScript
-	dc.w	.GfxScript6-.GfxScript
-	dc.w	.GfxScript8-.GfxScript
-	dc.w	.GfxScript9-.GfxScript
-	dc.w	.GfxScriptA-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript11-.GfxScript
-	dc.w	.GfxScript12-.GfxScript
-	dc.w	.GfxScript13-.GfxScript
-	dc.w	.GfxScript14-.GfxScript
-	dc.w	.GfxScript15-.GfxScript
-	dc.w	.GfxScript16-.GfxScript
-	dc.w	.GfxScript17-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript1A-.GfxScript
-	dc.w	.GfxScript1B-.GfxScript
-	dc.w	.GfxScript1C-.GfxScript
-	dc.w	.GfxScript1D-.GfxScript
-	dc.w	.GfxScript1E-.GfxScript
-	dc.w	.GfxScript1F-.GfxScript
-	dc.w	.GfxScript20-.GfxScript
-	dc.w	.GfxScript21-.GfxScript
-	dc.w	.GfxScript22-.GfxScript
-	dc.w	.GfxScript23-.GfxScript
-	dc.w	.GfxScript24-.GfxScript
-	dc.w	.GfxScript25-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript2D-.GfxScript
-	dc.w	.GfxScript2E-.GfxScript
-	dc.w	.GfxScript2F-.GfxScript
-	dc.w	.GfxScript30-.GfxScript
-	dc.w	.GfxScript31-.GfxScript
-	dc.w	.GfxScript32-.GfxScript
-	dc.w	.GfxScript33-.GfxScript
-	dc.w	.GfxScript34-.GfxScript
-	dc.w	.GfxScript35-.GfxScript
-	dc.w	.GfxScript36-.GfxScript
-	dc.w	.GfxScript37-.GfxScript
-	dc.w	.GfxScript38-.GfxScript
-	dc.w	.GfxScript39-.GfxScript
-	dc.w	.GfxScript3A-.GfxScript
-	dc.w	.GfxScript3B-.GfxScript
-	dc.w	.GfxScript3C-.GfxScript
-	dc.w	.GfxScript3D-.GfxScript
-	dc.w	.GfxScript3E-.GfxScript
-	dc.w	.GfxScript3F-.GfxScript
-	dc.w	.GfxScript40-.GfxScript
-	dc.w	.GfxScript41-.GfxScript
-	dc.w	.GfxScript42-.GfxScript
-	dc.w	.GfxScript43-.GfxScript
-	dc.w	.GfxScript44-.GfxScript
-	dc.w	.GfxScript45-.GfxScript
-	dc.w	.GfxScript46-.GfxScript
-	dc.w	.GfxScript47-.GfxScript
-	dc.w	.GfxScript48-.GfxScript
-	dc.w	.GfxScript49-.GfxScript
-	dc.w	.GfxScript4A-.GfxScript
-	dc.w	.GfxScript4B-.GfxScript
-	dc.w	.GfxScript4C-.GfxScript
-	dc.w	.GfxScript4D-.GfxScript
-	dc.w	.GfxScript4E-.GfxScript
-	dc.w	.GfxScript4F-.GfxScript
-	dc.w	.GfxScript50-.GfxScript
-	dc.w	.GfxScript51-.GfxScript
-	dc.w	.GfxScript52-.GfxScript
-	dc.w	.GfxScript53-.GfxScript
-	dc.w	.GfxScript54-.GfxScript
-	dc.w	.GfxScript55-.GfxScript
-	dc.w	.GfxScript56-.GfxScript
-	dc.w	.GfxScript57-.GfxScript
-	dc.w	.GfxScript58-.GfxScript
-	dc.w	.GfxScript59-.GfxScript
-	dc.w	.GfxScript5A-.GfxScript
-	dc.w	.GfxScript5B-.GfxScript
-	dc.w	.GfxScript5C-.GfxScript
-	dc.w	.GfxScript5D-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript60-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript64-.GfxScript
-	dc.w	.GfxScript65-.GfxScript
-	dc.w	.GfxScript66-.GfxScript
-	dc.w	.GfxScript67-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript6A-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript6D-.GfxScript
-	dc.w	.GfxScript6E-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript7F-.GfxScript
-	dc.w	.GfxScript80-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript83-.GfxScript
-	dc.w	.GfxScript84-.GfxScript
-	dc.w	.GfxScript85-.GfxScript
-	dc.w	.GfxScript86-.GfxScript
-	dc.w	.GfxScript87-.GfxScript
-	dc.w	.GfxScript88-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript0-.GfxScript
-	dc.w	.GfxScript90-.GfxScript
-	dc.w	.GfxScript91-.GfxScript
-	dc.w	.GfxScript92-.GfxScript
-	dc.w	.GfxScript93-.GfxScript
-	dc.w	.GfxScript94-.GfxScript
-	dc.w	.GfxScript95-.GfxScript
-	dc.w	.GfxScript96-.GfxScript
-	dc.w	.GfxScript97-.GfxScript
-	dc.w	.GfxScript98-.GfxScript
-	dc.w	.GfxScript99-.GfxScript
-	dc.w	.GfxScript9A-.GfxScript
-	dc.w	.GfxScript9B-.GfxScript
-	dc.w	.GfxScript9C-.GfxScript
-	dc.w	.GfxScript9D-.GfxScript
-	dc.w	.GfxScript9E-.GfxScript
-	dc.w	.GfxScript9F-.GfxScript
-	dc.w	.GfxScriptA0-.GfxScript
-	dc.w	.GfxScriptA1-.GfxScript
-	dc.w	.GfxScriptA2-.GfxScript
-	dc.w	.GfxScriptA3-.GfxScript
-	dc.w	.GfxScriptA4-.GfxScript
-	dc.w	.GfxScriptA5-.GfxScript
-	dc.w	.GfxScriptA6-.GfxScript
-	dc.w	.GfxScriptA7-.GfxScript
-	dc.w	.GfxScriptA8-.GfxScript
-	dc.w	.GfxScriptA9-.GfxScript
-	dc.w	.GfxScriptAA-.GfxScript
-	dc.w	.GfxScriptAB-.GfxScript
-	dc.w	.GfxScriptAC-.GfxScript
-	dc.w	.GfxScriptAD-.GfxScript
-	dc.w	.GfxScriptAE-.GfxScript
-	dc.w	.GfxScriptAF-.GfxScript
-	dc.w	.GfxScriptB0-.GfxScript
-	dc.w	.GfxScriptB1-.GfxScript
-	dc.w	.GfxScriptAE-.GfxScript
-	dc.w	.GfxScriptAF-.GfxScript
-	dc.w	.GfxScriptB0-.GfxScript
-	dc.w	.GfxScriptB1-.GfxScript
-	dc.w	.GfxScriptB6-.GfxScript
-	dc.w	.GfxScriptB7-.GfxScript
-	dc.w	.GfxScriptB8-.GfxScript
-	dc.w	.GfxScriptB9-.GfxScript
-	dc.w	.GfxScriptBA-.GfxScript
-	dc.w	.GfxScriptBB-.GfxScript
-	dc.w	.GfxScriptBC-.GfxScript
-	dc.w	.GfxScriptBD-.GfxScript
-	dc.w	.GfxScriptBA-.GfxScript
-	dc.w	.GfxScriptBB-.GfxScript
-	dc.w	.GfxScriptBC-.GfxScript
-	dc.w	.GfxScriptBD-.GfxScript
-	dc.w	.GfxScriptC2-.GfxScript
-	dc.w	.GfxScriptC3-.GfxScript
-	dc.w	.GfxScriptC4-.GfxScript
-	dc.w	.GfxScriptC5-.GfxScript
+.GfxScripts:
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript1-.GfxScripts
+	dc.w	.GfxScript2-.GfxScripts
+	dc.w	.GfxScript3-.GfxScripts
+	dc.w	.GfxScript4-.GfxScripts
+	dc.w	.GfxScript5-.GfxScripts
+	dc.w	.GfxScript6-.GfxScripts
+	dc.w	.GfxScript6-.GfxScripts
+	dc.w	.GfxScript8-.GfxScripts
+	dc.w	.GfxScript9-.GfxScripts
+	dc.w	.GfxScripta-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript11-.GfxScripts
+	dc.w	.GfxScript12-.GfxScripts
+	dc.w	.GfxScript13-.GfxScripts
+	dc.w	.GfxScript14-.GfxScripts
+	dc.w	.GfxScript15-.GfxScripts
+	dc.w	.GfxScript16-.GfxScripts
+	dc.w	.GfxScript17-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript1a-.GfxScripts
+	dc.w	.GfxScript1b-.GfxScripts
+	dc.w	.GfxScript1c-.GfxScripts
+	dc.w	.GfxScript1d-.GfxScripts
+	dc.w	.GfxScript1e-.GfxScripts
+	dc.w	.GfxScript1f-.GfxScripts
+	dc.w	.GfxScript20-.GfxScripts
+	dc.w	.GfxScript21-.GfxScripts
+	dc.w	.GfxScript22-.GfxScripts
+	dc.w	.GfxScript23-.GfxScripts
+	dc.w	.GfxScript24-.GfxScripts
+	dc.w	.GfxScript25-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript2d-.GfxScripts
+	dc.w	.GfxScript2e-.GfxScripts
+	dc.w	.GfxScript2f-.GfxScripts
+	dc.w	.GfxScript30-.GfxScripts
+	dc.w	.GfxScript31-.GfxScripts
+	dc.w	.GfxScript32-.GfxScripts
+	dc.w	.GfxScript33-.GfxScripts
+	dc.w	.GfxScript34-.GfxScripts
+	dc.w	.GfxScript35-.GfxScripts
+	dc.w	.GfxScript36-.GfxScripts
+	dc.w	.GfxScript37-.GfxScripts
+	dc.w	.GfxScript38-.GfxScripts
+	dc.w	.GfxScript39-.GfxScripts
+	dc.w	.GfxScript3a-.GfxScripts
+	dc.w	.GfxScript3b-.GfxScripts
+	dc.w	.GfxScript3c-.GfxScripts
+	dc.w	.GfxScript3d-.GfxScripts
+	dc.w	.GfxScript3e-.GfxScripts
+	dc.w	.GfxScript3f-.GfxScripts
+	dc.w	.GfxScript40-.GfxScripts
+	dc.w	.GfxScript41-.GfxScripts
+	dc.w	.GfxScript42-.GfxScripts
+	dc.w	.GfxScript43-.GfxScripts
+	dc.w	.GfxScript44-.GfxScripts
+	dc.w	.GfxScript45-.GfxScripts
+	dc.w	.GfxScript46-.GfxScripts
+	dc.w	.GfxScript47-.GfxScripts
+	dc.w	.GfxScript48-.GfxScripts
+	dc.w	.GfxScript49-.GfxScripts
+	dc.w	.GfxScript4a-.GfxScripts
+	dc.w	.GfxScript4b-.GfxScripts
+	dc.w	.GfxScript4c-.GfxScripts
+	dc.w	.GfxScript4d-.GfxScripts
+	dc.w	.GfxScript4e-.GfxScripts
+	dc.w	.GfxScript4f-.GfxScripts
+	dc.w	.GfxScript50-.GfxScripts
+	dc.w	.GfxScript51-.GfxScripts
+	dc.w	.GfxScript52-.GfxScripts
+	dc.w	.GfxScript53-.GfxScripts
+	dc.w	.GfxScript54-.GfxScripts
+	dc.w	.GfxScript55-.GfxScripts
+	dc.w	.GfxScript56-.GfxScripts
+	dc.w	.GfxScript57-.GfxScripts
+	dc.w	.GfxScript58-.GfxScripts
+	dc.w	.GfxScript59-.GfxScripts
+	dc.w	.GfxScript5a-.GfxScripts
+	dc.w	.GfxScript5b-.GfxScripts
+	dc.w	.GfxScript5c-.GfxScripts
+	dc.w	.GfxScript5d-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript60-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript64-.GfxScripts
+	dc.w	.GfxScript65-.GfxScripts
+	dc.w	.GfxScript66-.GfxScripts
+	dc.w	.GfxScript67-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript6a-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript6d-.GfxScripts
+	dc.w	.GfxScript6e-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript7f-.GfxScripts
+	dc.w	.GfxScript80-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript83-.GfxScripts
+	dc.w	.GfxScript84-.GfxScripts
+	dc.w	.GfxScript85-.GfxScripts
+	dc.w	.GfxScript86-.GfxScripts
+	dc.w	.GfxScript87-.GfxScripts
+	dc.w	.GfxScript88-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript0-.GfxScripts
+	dc.w	.GfxScript90-.GfxScripts
+	dc.w	.GfxScript91-.GfxScripts
+	dc.w	.GfxScript92-.GfxScripts
+	dc.w	.GfxScript93-.GfxScripts
+	dc.w	.GfxScript94-.GfxScripts
+	dc.w	.GfxScript95-.GfxScripts
+	dc.w	.GfxScript96-.GfxScripts
+	dc.w	.GfxScript97-.GfxScripts
+	dc.w	.GfxScript98-.GfxScripts
+	dc.w	.GfxScript99-.GfxScripts
+	dc.w	.GfxScript9a-.GfxScripts
+	dc.w	.GfxScript9b-.GfxScripts
+	dc.w	.GfxScript9c-.GfxScripts
+	dc.w	.GfxScript9d-.GfxScripts
+	dc.w	.GfxScript9e-.GfxScripts
+	dc.w	.GfxScript9f-.GfxScripts
+	dc.w	.GfxScripta0-.GfxScripts
+	dc.w	.GfxScripta1-.GfxScripts
+	dc.w	.GfxScripta2-.GfxScripts
+	dc.w	.GfxScripta3-.GfxScripts
+	dc.w	.GfxScripta4-.GfxScripts
+	dc.w	.GfxScripta5-.GfxScripts
+	dc.w	.GfxScripta6-.GfxScripts
+	dc.w	.GfxScripta7-.GfxScripts
+	dc.w	.GfxScripta8-.GfxScripts
+	dc.w	.GfxScripta9-.GfxScripts
+	dc.w	.GfxScriptaa-.GfxScripts
+	dc.w	.GfxScriptab-.GfxScripts
+	dc.w	.GfxScriptac-.GfxScripts
+	dc.w	.GfxScriptad-.GfxScripts
+	dc.w	.GfxScriptae-.GfxScripts
+	dc.w	.GfxScriptaf-.GfxScripts
+	dc.w	.GfxScriptb0-.GfxScripts
+	dc.w	.GfxScriptb1-.GfxScripts
+	dc.w	.GfxScriptae-.GfxScripts
+	dc.w	.GfxScriptaf-.GfxScripts
+	dc.w	.GfxScriptb0-.GfxScripts
+	dc.w	.GfxScriptb1-.GfxScripts
+	dc.w	.GfxScriptb6-.GfxScripts
+	dc.w	.GfxScriptb7-.GfxScripts
+	dc.w	.GfxScriptb8-.GfxScripts
+	dc.w	.GfxScriptb9-.GfxScripts
+	dc.w	.GfxScriptba-.GfxScripts
+	dc.w	.GfxScriptbb-.GfxScripts
+	dc.w	.GfxScriptbc-.GfxScripts
+	dc.w	.GfxScriptbd-.GfxScripts
+	dc.w	.GfxScriptba-.GfxScripts
+	dc.w	.GfxScriptbb-.GfxScripts
+	dc.w	.GfxScriptbc-.GfxScripts
+	dc.w	.GfxScriptbd-.GfxScripts
+	dc.w	.GfxScriptc2-.GfxScripts
+	dc.w	.GfxScriptc3-.GfxScripts
+	dc.w	.GfxScriptc4-.GfxScripts
+	dc.w	.GfxScriptc5-.GfxScripts
 
 .GfxScript0:
 	dc.w	0
@@ -255,7 +253,7 @@
 	dc.w	$1055
 	dc.w	$1053
 
-.GfxScriptA:
+.GfxScripta:
 	dc.w	4
 	dc.w	$2000
 	dc.w	$7057
@@ -340,7 +338,7 @@
 	dc.w	$50FA
 	dc.w	$100
 
-.GfxScript3A:
+.GfxScript3a:
 	dc.w	6
 	dc.w	$30EC
 	dc.w	$30F0
@@ -349,7 +347,7 @@
 	dc.w	$3106
 	dc.w	$510A
 
-.GfxScript3B:
+.GfxScript3b:
 	dc.w	6
 	dc.w	$3110
 	dc.w	$1114
@@ -358,7 +356,7 @@
 	dc.w	$11F
 	dc.w	$2120
 
-.GfxScript3C:
+.GfxScript3c:
 	dc.w	6
 	dc.w	$3110
 	dc.w	$1114
@@ -367,7 +365,7 @@
 	dc.w	$112C
 	dc.w	$312E
 
-.GfxScript3D:
+.GfxScript3d:
 	dc.w	6
 	dc.w	$3110
 	dc.w	$1114
@@ -376,7 +374,7 @@
 	dc.w	$13A
 	dc.w	$213B
 
-.GfxScript3E:
+.GfxScript3e:
 	dc.w	5
 	dc.w	$30EC
 	dc.w	$30F0
@@ -384,7 +382,7 @@
 	dc.w	$146
 	dc.w	$2147
 
-.GfxScript3F:
+.GfxScript3f:
 	dc.w	5
 	dc.w	$514A
 	dc.w	$1150
@@ -468,7 +466,7 @@
 	dc.w	$1D6
 	dc.w	$1F2
 
-.GfxScript4A:
+.GfxScript4a:
 	dc.w	5
 	dc.w	$21F3
 	dc.w	$31A1
@@ -476,27 +474,27 @@
 	dc.w	$31AB
 	dc.w	$1FE
 
-.GfxScript4B:
+.GfxScript4b:
 	dc.w	2
 	dc.w	$51FF
 	dc.w	$B205
 
-.GfxScript4C:
+.GfxScript4c:
 	dc.w	2
 	dc.w	$5211
 	dc.w	$B217
 
-.GfxScript4D:
+.GfxScript4d:
 	dc.w	2
 	dc.w	$51FF
 	dc.w	$B223
 
-.GfxScript4E:
+.GfxScript4e:
 	dc.w	2
 	dc.w	$5211
 	dc.w	$B22F
 
-.GfxScript4F:
+.GfxScript4f:
 	dc.w	5
 	dc.w	$223B
 	dc.w	$223E
@@ -571,22 +569,22 @@
 	dc.w	$2C4
 	dc.w	$22E2
 
-.GfxScript5A:
+.GfxScript5a:
 	dc.w	4
 	dc.w	$32C5
 	dc.w	$2C9
 	dc.w	$22CA
 	dc.w	$B2E5
 
-.GfxScript2D:
+.GfxScript2d:
 	dc.w	1
 	dc.w	$F2F1
 
-.GfxScript2E:
+.GfxScript2e:
 	dc.w	1
 	dc.w	$F301
 
-.GfxScript2F:
+.GfxScript2f:
 	dc.w	1
 	dc.w	$F311
 
@@ -598,19 +596,19 @@
 	dc.w	1
 	dc.w	$F331
 
-.GfxScript5B:
+.GfxScript5b:
 	dc.w	3
 	dc.w	$5341
 	dc.w	$5347
 	dc.w	$534D
 
-.GfxScript5C:
+.GfxScript5c:
 	dc.w	3
 	dc.w	$5353
 	dc.w	$8359
 	dc.w	$1362
 
-.GfxScript7F:
+.GfxScript7f:
 	dc.w	4
 	dc.w	$5364
 	dc.w	$736A
@@ -624,7 +622,7 @@
 	dc.w	$1384
 	dc.w	$2386
 
-.GfxScript5D:
+.GfxScript5d:
 	dc.w	3
 	dc.w	$2389
 	dc.w	$B38C
@@ -661,7 +659,7 @@
 	dc.w	$53CD
 	dc.w	$13D3
 
-.GfxScript6A:
+.GfxScript6a:
 	dc.w	6
 	dc.w	$73D5
 	dc.w	$13DD
@@ -670,14 +668,14 @@
 	dc.w	$3E8
 	dc.w	$3E9
 
-.GfxScript6D:
+.GfxScript6d:
 	dc.w	4
 	dc.w	$23EA
 	dc.w	$B3ED
 	dc.w	$3F9
 	dc.w	$33FA
 
-.GfxScript6E:
+.GfxScript6e:
 	dc.w	3
 	dc.w	$23EA
 	dc.w	$23FE
@@ -762,13 +760,13 @@
 	dc.w	$34EA
 	dc.w	$54EE
 
-.GfxScriptA4:
+.GfxScripta4:
 	dc.w	3
 	dc.w	$B4F4
 	dc.w	$500
 	dc.w	$5501
 
-.GfxScriptA5:
+.GfxScripta5:
 	dc.w	4
 	dc.w	$8507
 	dc.w	$500
@@ -809,7 +807,7 @@
 	dc.w	$F577
 	dc.w	$1587
 
-.GfxScript9A:
+.GfxScript9a:
 	dc.w	5
 	dc.w	$2589
 	dc.w	$B58C
@@ -817,46 +815,46 @@
 	dc.w	$359B
 	dc.w	$59F
 
-.GfxScript9B:
+.GfxScript9b:
 	dc.w	3
 	dc.w	$25A0
 	dc.w	$F5A3
 	dc.w	$15B3
 
-.GfxScript9C:
+.GfxScript9c:
 	dc.w	2
 	dc.w	$F5B5
 	dc.w	$25C5
 
-.GfxScript9D:
+.GfxScript9d:
 	dc.w	2
 	dc.w	$F5C8
 	dc.w	$25D8
 
-.GfxScript9E:
+.GfxScript9e:
 	dc.w	2
 	dc.w	$F5DB
 	dc.w	$25EB
 
-.GfxScript9F:
+.GfxScript9f:
 	dc.w	2
 	dc.w	$F5EE
 	dc.w	$15FE
 
-.GfxScriptA0:
+.GfxScripta0:
 	dc.w	4
 	dc.w	$5600
 	dc.w	$2606
 	dc.w	$B609
 	dc.w	$1615
 
-.GfxScriptA1:
+.GfxScripta1:
 	dc.w	3
 	dc.w	$1617
 	dc.w	$2619
 	dc.w	$F61C
 
-.GfxScriptA2:
+.GfxScripta2:
 	dc.w	5
 	dc.w	$262C
 	dc.w	$262F
@@ -864,13 +862,13 @@
 	dc.w	$163E
 	dc.w	$2640
 
-.GfxScriptA3:
+.GfxScripta3:
 	dc.w	3
 	dc.w	$1643
 	dc.w	$2645
 	dc.w	$F648
 
-.GfxScriptA6:
+.GfxScripta6:
 	dc.w	5
 	dc.w	$2658
 	dc.w	$365B
@@ -878,14 +876,14 @@
 	dc.w	$2660
 	dc.w	$B663
 
-.GfxScriptA7:
+.GfxScripta7:
 	dc.w	4
 	dc.w	$566F
 	dc.w	$65F
 	dc.w	$2675
 	dc.w	$B678
 
-.GfxScriptA8:
+.GfxScripta8:
 	dc.w	5
 	dc.w	$2658
 	dc.w	$365B
@@ -893,40 +891,40 @@
 	dc.w	$B684
 	dc.w	$1690
 
-.GfxScriptA9:
+.GfxScripta9:
 	dc.w	4
 	dc.w	$566F
 	dc.w	$65F
 	dc.w	$B692
 	dc.w	$169E
 
-.GfxScriptAA:
+.GfxScriptaa:
 	dc.w	3
 	dc.w	$56A0
 	dc.w	$6A6
 	dc.w	$86A7
 
-.GfxScriptAB:
+.GfxScriptab:
 	dc.w	4
 	dc.w	$56B0
 	dc.w	$6B6
 	dc.w	$56B7
 	dc.w	$16BD
 
-.GfxScriptAC:
+.GfxScriptac:
 	dc.w	3
 	dc.w	$56A0
 	dc.w	$6A6
 	dc.w	$B6BF
 
-.GfxScriptAD:
+.GfxScriptad:
 	dc.w	4
 	dc.w	$56B0
 	dc.w	$6B6
 	dc.w	$6CB
 	dc.w	$86CC
 
-.GfxScriptAE:
+.GfxScriptae:
 	dc.w	5
 	dc.w	$26D5
 	dc.w	$26D8
@@ -934,7 +932,7 @@
 	dc.w	$76DC
 	dc.w	$16E4
 
-.GfxScriptAF:
+.GfxScriptaf:
 	dc.w	5
 	dc.w	$26E6
 	dc.w	$26E9
@@ -942,7 +940,7 @@
 	dc.w	$76ED
 	dc.w	$26F5
 
-.GfxScriptB0:
+.GfxScriptb0:
 	dc.w	5
 	dc.w	$26D5
 	dc.w	$26D8
@@ -950,7 +948,7 @@
 	dc.w	$76F9
 	dc.w	$1701
 
-.GfxScriptB1:
+.GfxScriptb1:
 	dc.w	5
 	dc.w	$26E6
 	dc.w	$26E9
@@ -958,7 +956,7 @@
 	dc.w	$7703
 	dc.w	$170B
 
-.GfxScriptB6:
+.GfxScriptb6:
 	dc.w	5
 	dc.w	$370D
 	dc.w	$2711
@@ -966,7 +964,7 @@
 	dc.w	$5716
 	dc.w	$171C
 
-.GfxScriptB7:
+.GfxScriptb7:
 	dc.w	5
 	dc.w	$371E
 	dc.w	$1722
@@ -974,7 +972,7 @@
 	dc.w	$7726
 	dc.w	$72E
 
-.GfxScriptB8:
+.GfxScriptb8:
 	dc.w	5
 	dc.w	$372F
 	dc.w	$1733
@@ -982,7 +980,7 @@
 	dc.w	$5738
 	dc.w	$73E
 
-.GfxScriptB9:
+.GfxScriptb9:
 	dc.w	5
 	dc.w	$371E
 	dc.w	$173F
@@ -990,12 +988,12 @@
 	dc.w	$7743
 	dc.w	$74B
 
-.GfxScriptBA:
+.GfxScriptba:
 	dc.w	2
 	dc.w	$774C
 	dc.w	$B754
 
-.GfxScriptBB:
+.GfxScriptbb:
 	dc.w	5
 	dc.w	$3760
 	dc.w	$2764
@@ -1003,38 +1001,38 @@
 	dc.w	$7768
 	dc.w	$2770
 
-.GfxScriptBC:
+.GfxScriptbc:
 	dc.w	4
 	dc.w	$774C
 	dc.w	$768
 	dc.w	$5773
 	dc.w	$1779
 
-.GfxScriptBD:
+.GfxScriptbd:
 	dc.w	4
 	dc.w	$3760
 	dc.w	$2764
 	dc.w	$277B
 	dc.w	$877E
 
-.GfxScriptC2:
+.GfxScriptc2:
 	dc.w	2
 	dc.w	$5787
 	dc.w	$B78D
 
-.GfxScriptC3:
+.GfxScriptc3:
 	dc.w	2
 	dc.w	$5799
 	dc.w	$B79F
 
-.GfxScriptC4:
+.GfxScriptc4:
 	dc.w	4
 	dc.w	$5787
 	dc.w	$57AB
 	dc.w	$7B1
 	dc.w	$17B2
 
-.GfxScriptC5:
+.GfxScriptc5:
 	dc.w	4
 	dc.w	$5799
 	dc.w	$57B4
@@ -1064,44 +1062,45 @@
 .GfxScript25:
 	dc.w	1
 	dc.w	$F80E
+	dc.b	0
+	dc.b	2
+	dc.b	$B8
+	dc.b	$1E
+	dc.b	$58
+	dc.b	$2A
 
-.GfxScriptUnused:
-	dc.w	2
-	dc.w	$B81E
-	dc.w	$582A
-
-.GfxScript1A:
+.GfxScript1a:
 	dc.w	3
 	dc.w	$B830
 	dc.w	$583C
 	dc.w	$842
 
-.GfxScript1B:
+.GfxScript1b:
 	dc.w	4
 	dc.w	$5843
 	dc.w	$1849
 	dc.w	$884B
 	dc.w	$1854
 
-.GfxScript1C:
+.GfxScript1c:
 	dc.w	3
 	dc.w	$B830
 	dc.w	$583C
 	dc.w	$842
 
-.GfxScript1D:
+.GfxScript1d:
 	dc.w	4
 	dc.w	$5856
 	dc.w	$185C
 	dc.w	$885E
 	dc.w	$185C
 
-.GfxScript1E:
+.GfxScript1e:
 	dc.w	2
 	dc.w	$F867
 	dc.w	$3877
 
-.GfxScript1F:
+.GfxScript1f:
 	dc.w	2
 	dc.w	$F867
 	dc.w	$3877

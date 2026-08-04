@@ -423,7 +423,7 @@ loc_202BCC:
 	sub.w	d1,d5
 	lea	(a2,d0.w),a2
 	lea	(unk_202BF8).l,a3
-	lea	(unk_23D27C).l,a4
+	lea	(byte_21D7A6).l,a4
 	addi.w	#$40,(bg_water_deform).w
 	bsr.w	sub_202C4C
 

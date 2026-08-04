@@ -87,7 +87,7 @@ SectionGfxInitList2:
 	gfxEntry TamabbohGfx, $7A00
 	gfxEntry TunnelSplashGfx, $8160
 	gfxEntry LogShadowDecayGfx, $8500
-	gfxEntry unk_23A8F2, $8700
+	gfxEntry SceneryGfxCD, $8700
 	gfxEntry AnimalGfx, $8C60
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
@@ -123,7 +123,7 @@ SectionGfxUpdateList2:
 	gfxEntry TamabbohGfx, $7A00
 	gfxEntry TunnelSplashGfx, $8160
 	gfxEntry LogShadowDecayGfx, $8500
-	gfxEntry unk_23A8F2, $8700
+	gfxEntry SceneryGfxCD, $8700
 	gfxEnd
 
 SectionGfxUpdateList3:

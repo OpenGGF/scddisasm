@@ -1,8 +1,6 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
-; Powerup sprites
-; ------------------------------------------------------------------------------
 
 .Sprites:
 	dc.w	.Sprite0-.Sprites
@@ -15,9 +13,9 @@
 	dc.w	.Sprite7-.Sprites
 	dc.w	.Sprite8-.Sprites
 	dc.w	.Sprite9-.Sprites
-	dc.w	.SpriteA-.Sprites
-	dc.w	.SpriteB-.Sprites
-	dc.w	.SpriteC-.Sprites
+	dc.w	.Spritea-.Sprites
+	dc.w	.Spriteb-.Sprites
+	dc.w	.Spritec-.Sprites
 
 .Sprite1:
 	dc.b	4
@@ -69,7 +67,7 @@
 	dc.b	$E8, $A, 8, $12, 0
 	dc.b	0, $A, $10, $12, $E8
 	dc.b	0, $A, $10, $1B, 0
-	even
+	dc.b	0
 
 .Sprite8:
 	dc.b	4
@@ -77,7 +75,7 @@
 	dc.b	$F0, 5, 8, 0, 0
 	dc.b	0, 5, $10, 0, $F0
 	dc.b	0, 5, $18, 0, 0
-	even
+	dc.b	0
 
 .Sprite9:
 	dc.b	4
@@ -85,27 +83,28 @@
 	dc.b	$F0, 5, 8, 4, 0
 	dc.b	0, 5, $10, 4, $F0
 	dc.b	0, 5, $18, 4, 0
-	even
+	dc.b	0
 
-.SpriteA:
+.Spritea:
 	dc.b	4
 	dc.b	$E8, $A, 0, 8, $E8
 	dc.b	$E8, $A, 8, 8, 0
 	dc.b	0, $A, $10, 8, $E8
 	dc.b	0, $A, $18, 8, 0
-	even
+	dc.b	0
 
-.SpriteB:
+.Spriteb:
 	dc.b	4
 	dc.b	$F0, 5, 0, $11, $F0
 	dc.b	$F0, 5, 0, $15, 0
 	dc.b	0, 5, $18, $15, $F0
 	dc.b	0, 5, $18, $11, 0
-	even
+	dc.b	0
 
-.SpriteC:
+.Spritec:
 	dc.b	2
 	dc.b	$F4, 6, 0, $19, $F0
 	dc.b	$F4, 6, 8, $19, 0
+	dc.b	0
 
 ; ------------------------------------------------------------------------------
