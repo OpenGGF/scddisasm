@@ -146,15 +146,15 @@ byte_2346DA:
 	even
 
 FlipperGfx:
-	incbin	"src/data/r32a/FlipperGfx.bin"
+	incbin	"src/gfx/r3/flipper.nem"
 	even
 
 BumperGfx:
-	incbin	"src/data/r32a/BumperGfx.bin"
+	incbin	"src/gfx/bumper.nem"
 	even
 
 MetalPlatformGfx:
-	incbin	"src/data/r32a/MetalPlatformGfx.bin"
+	incbin	"src/gfx/r3/metal_platform.nem"
 	even
 
 SpikesGfx:
@@ -162,75 +162,75 @@ SpikesGfx:
 	even
 
 BlockGfx:
-	incbin	"src/data/r32a/BlockGfx.bin"
+	incbin	"src/gfx/r3/block.nem"
 	even
 
 RetractBlockGfx:
-	incbin	"src/data/r32a/RetractBlockGfx.bin"
+	incbin	"src/gfx/r3/retract_block.nem"
 	even
 
 OneWayBarrierGfx:
-	incbin	"src/data/r32a/OneWayBarrierGfx.bin"
+	incbin	"src/gfx/r3/one_way_barrier.nem"
 	even
 
 FireShooterGfx:
-	incbin	"src/data/r32a/FireShooterGfx.bin"
+	incbin	"src/gfx/r3/fire_shooter.nem"
 	even
 
 RotatePlatformGfx:
-	incbin	"src/data/r32a/RotatePlatformGfx.bin"
+	incbin	"src/gfx/r3/rotate_platform.nem"
 	even
 
 KamaKamaGfx:
-	incbin	"src/data/r32a/KamaKamaGfx.bin"
+	incbin	"src/gfx/r3/kama_kama.nem"
 	even
 
 SpikesGfx2:
-	incbin	"src/data/r32a/SpikesGfx2.bin"
+	incbin	"src/gfx/r3/spikes_2.nem"
 	even
 
 KamaKamaSprites1:
-	include	"src/data/r32a/KamaKamaSprites1.asm"
+	include	"src/sprites/r3/kama_kama_1.asm"
 	even
 
 KamaKamaSprites2:
-	include	"src/data/r32a/KamaKamaSprites2.asm"
+	include	"src/sprites/r3/kama_kama_2.asm"
 	even
 
 GaGfx:
-	incbin	"src/data/r32a/GaGfx.bin"
+	incbin	"src/gfx/r3/ga.nem"
 	even
 
 TentouGfx:
-	incbin	"src/data/r32a/TentouGfx.bin"
+	incbin	"src/gfx/r3/tentou.nem"
 	even
 
 TentouBombGfx:
-	incbin	"src/data/r32a/TentouBombGfx.bin"
+	incbin	"src/gfx/bomb.nem"
 	even
 
 TeleporterGfx:
-	incbin	"src/data/r32a/TeleporterGfx.bin"
+	incbin	"src/gfx/r3/teleporter.nem"
 	even
 
 PointsPocketGfx:
-	incbin	"src/data/r32a/PointsPocketGfx.bin"
+	incbin	"src/gfx/r3/points_pocket_a.nem"
 	even
 
-BossBarrierGfx:
-	incbin	"src/data/r32a/BossBarrierGfx.bin"
+BossBarrierGfx2:
+	incbin	"src/gfx/r3/boss_barrier.nem"
 	even
 
 BouncePlatformGfx:
-	incbin	"src/data/r32a/BouncePlatformGfx.bin"
+	incbin	"src/gfx/r3/bounce_platform_a_b.nem"
 	even
 
 GlassShatterGfx:
-	incbin	"src/data/r32a/GlassShatterGfx.bin"
+	incbin	"src/gfx/r3/glass_shatter_a.nem"
 	even
 
 SpikeBallGfx:
-	incbin	"src/data/r32a/SpikeBallGfx.bin"
+	incbin	"src/gfx/spike_ball.nem"
 	even
 
 RobotGeneratorDecayGfx:
@@ -376,7 +376,7 @@ ExplosionSprites:
 	even
 
 byte_21D7A6:
-	incbin	"src/data/r32a/byte_21D7A6.bin"
+	incbin	"src/data/wobble.bin"
 	even
 
 CheckpointAnims:

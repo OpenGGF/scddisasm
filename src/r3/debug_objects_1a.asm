@@ -8,10 +8,10 @@ DebugObjects:
 	debugObject $A, 1, HSpringSprites, $520, 4, 1, 0, 0
 	debugObject $35, 3, PowerupSprites, $544, 0, 0, 0, 1
 	debugObject $35, 3, PowerupSprites, $544, 1, 0, 0, 2
-	debugObject $31, 1, Spr_23BC54, $3FE, 0, 0, 0, 6
+	debugObject $31, 1, MetalSonicSprites, $3FE, 0, 0, 0, 6
 	debugEnd
 
-	debugObject $31, 1, Spr_23BC54, $3FE, 0, 0, 0, 7
+	debugObject $31, 1, MetalSonicSprites, $3FE, 0, 0, 0, 7
 	debugObject $37, 1, RobotGeneratorSprites, $33E, 0, 0, 0, 0
 	debugObject $39, 3, Spr_20E932, $3DA, 0, 0, 0, 0
 	debugObject $39, 3, Spr_20E946, $3DA, 1, 0, 0, 3

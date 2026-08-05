@@ -308,7 +308,7 @@ ExplosionSprites:
 	even
 
 byte_21D7A6:
-	incbin	"src/data/r62b/byte_21D7A6.bin"
+	incbin	"src/data/wobble.bin"
 	even
 
 CheckpointAnims:
@@ -416,7 +416,7 @@ MinomusiGfx:
 	even
 
 SemiBombGfx:
-	incbin	"src/data/r62b/SemiBombGfx.bin"
+	incbin	"src/gfx/bomb.nem"
 	even
 
 SnakeBlocksGfx:
@@ -436,7 +436,7 @@ EggmanStatueGfx:
 	even
 
 SpikeBallGfx:
-	incbin	"src/data/r62b/SpikeBallGfx.bin"
+	incbin	"src/gfx/spike_ball.nem"
 	even
 
 AnimalGfx:

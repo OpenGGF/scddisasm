@@ -312,7 +312,7 @@ ExplosionSprites:
 	even
 
 byte_21D7A6:
-	incbin	"src/data/r81c/byte_21D7A6.bin"
+	incbin	"src/data/wobble.bin"
 	even
 
 CheckpointAnims:

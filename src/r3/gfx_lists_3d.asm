@@ -48,7 +48,7 @@ SectionGfxInitList0:
 	gfxEntry GlassShatterGfx, $8540
 	gfxEntry BossDrainBlockGfx, $87C0
 	gfxEntry BouncePlatformGfx, $8CC0
-	gfxEntry BossBarrierGfx2, $8E80
+	gfxEntry BossBarrierGfx, $8E80
 	gfxEntry BossBombLauncherGfx, $8F80
 	gfxEntry FlipperGfx, $93A0
 	gfxEntry BumperGfx, $99C0

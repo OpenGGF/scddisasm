@@ -27,7 +27,7 @@ MetalSonicObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$3D0,obj.sprite_tile(a0)
 	move.b	#2,obj.sprite_layer(a0)
-	move.l	#Spr_23BC54,obj.sprite_data(a0)
+	move.l	#MetalSonicSprites,obj.sprite_data(a0)
 	move.b	#$E,obj.sprite_frame(a0)
 	move.b	#$20,obj.height(a0)
 	move.b	#$3C,obj.var_3a(a0)
@@ -271,7 +271,7 @@ loc_20E0E8:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$235E,obj.sprite_tile(a0)
 	move.b	#1,obj.sprite_layer(a0)
-	move.l	#Spr_23BDB2,obj.sprite_data(a0)
+	move.l	#AmyRoseSprites,obj.sprite_data(a0)
 	bsr.w	sub_20E2C4
 	bsr.w	sub_20E300
 	bsr.w	sub_20E236
@@ -577,7 +577,7 @@ IntroSpikesObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_23BE60,obj.sprite_data(a0)
+	move.l	#IntroSpikesSprites,obj.sprite_data(a0)
 	move.b	#$12,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	cmpi.b	#1,obj.subtype(a0)
@@ -742,7 +742,7 @@ HeartObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$35E,obj.sprite_tile(a0)
-	move.l	#Spr_23BDB2,obj.sprite_data(a0)
+	move.l	#AmyRoseSprites,obj.sprite_data(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#-$60,obj.y_speed(a0)
 	move.b	#$A,obj.sprite_frame(a0)
@@ -805,7 +805,7 @@ MetalSonicExhaustObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$3D0,obj.sprite_tile(a0)
-	move.l	#Spr_23BC54,obj.sprite_data(a0)
+	move.l	#MetalSonicSprites,obj.sprite_data(a0)
 	move.b	#3,obj.sprite_layer(a0)
 
 MetalSonicExhaustObject_0_Routine2:

@@ -408,7 +408,7 @@ ExplosionSprites:
 	even
 
 byte_21D7A6:
-	incbin	"src/data/r83c/byte_21D7A6.bin"
+	incbin	"src/data/wobble.bin"
 	even
 
 CheckpointAnims:
@@ -468,7 +468,7 @@ SpikePoleGfx:
 	even
 
 BumperGfx:
-	incbin	"src/data/r83c/BumperGfx.bin"
+	incbin	"src/gfx/bumper.nem"
 	even
 
 BlockGfx:

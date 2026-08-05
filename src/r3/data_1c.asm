@@ -12,7 +12,7 @@ StageChunks:
 	even
 
 MetalPlatformGfx:
-	incbin	"src/data/r31c/MetalPlatformGfx.bin"
+	incbin	"src/gfx/r3/metal_platform.nem"
 	even
 
 SpikesGfx:
@@ -20,39 +20,39 @@ SpikesGfx:
 	even
 
 BlockGfx:
-	incbin	"src/data/r31c/BlockGfx.bin"
+	incbin	"src/gfx/r3/block.nem"
 	even
 
 RetractBlockGfx:
-	incbin	"src/data/r31c/RetractBlockGfx.bin"
+	incbin	"src/gfx/r3/retract_block.nem"
 	even
 
 OneWayBarrierGfx:
-	incbin	"src/data/r31c/OneWayBarrierGfx.bin"
+	incbin	"src/gfx/r3/one_way_barrier.nem"
 	even
 
 FireShooterGfx:
-	incbin	"src/data/r31c/FireShooterGfx.bin"
+	incbin	"src/gfx/r3/fire_shooter.nem"
 	even
 
 RotatePlatformGfx:
-	incbin	"src/data/r31c/RotatePlatformGfx.bin"
+	incbin	"src/gfx/r3/rotate_platform.nem"
 	even
 
 KamaKamaGfx:
-	incbin	"src/data/r31c/KamaKamaGfx.bin"
+	incbin	"src/gfx/r3/kama_kama.nem"
 	even
 
-SpikesGfx2:
-	incbin	"src/data/r31c/SpikesGfx2.bin"
+SpikesGfx3:
+	incbin	"src/gfx/r3/spikes_3.nem"
 	even
 
 KamaKamaSprites1:
-	include	"src/data/r31c/KamaKamaSprites1.asm"
+	include	"src/sprites/r3/kama_kama_1.asm"
 	even
 
 KamaKamaSprites2:
-	include	"src/data/r31c/KamaKamaSprites2.asm"
+	include	"src/sprites/r3/kama_kama_2.asm"
 
 Padding2:
 	incbin	"padding/r31c_e_2.bin"
@@ -174,63 +174,63 @@ byte_233A9A:
 	even
 
 FlipperGfx:
-	incbin	"src/data/r31c/FlipperGfx.bin"
+	incbin	"src/gfx/r3/flipper.nem"
 	even
 
 BumperGfx:
-	incbin	"src/data/r31c/BumperGfx.bin"
+	incbin	"src/gfx/bumper.nem"
 	even
 
 GaGfx:
-	incbin	"src/data/r31c/GaGfx.bin"
+	incbin	"src/gfx/r3/ga.nem"
 	even
 
 TentouGfx:
-	incbin	"src/data/r31c/TentouGfx.bin"
+	incbin	"src/gfx/r3/tentou.nem"
 	even
 
 TentouBombGfx:
-	incbin	"src/data/r31c/TentouBombGfx.bin"
+	incbin	"src/gfx/bomb.nem"
 	even
 
 TeleporterGfx:
-	incbin	"src/data/r31c/TeleporterGfx.bin"
+	incbin	"src/gfx/r3/teleporter.nem"
 	even
 
 PointsPocketGfx:
-	incbin	"src/data/r31c/PointsPocketGfx.bin"
-	even
-
-BossBarrierGfx:
-	incbin	"src/data/r31c/BossBarrierGfx.bin"
-	even
-
-BossDrainBlockGfx:
-	incbin	"src/data/r31c/BossDrainBlockGfx.bin"
-	even
-
-BouncePlatformGfx:
-	incbin	"src/data/r31c/BouncePlatformGfx.bin"
-	even
-
-GlassShatterGfx:
-	incbin	"src/data/r31c/GlassShatterGfx.bin"
-	even
-
-SpikeBallGfx:
-	incbin	"src/data/r31c/SpikeBallGfx.bin"
+	incbin	"src/gfx/r3/points_pocket_b_c.nem"
 	even
 
 BossBarrierGfx2:
-	incbin	"src/data/r31c/BossBarrierGfx2.bin"
+	incbin	"src/gfx/r3/boss_barrier.nem"
+	even
+
+BossDrainBlockGfx:
+	incbin	"src/gfx/r3/boss_drain_block_c.nem"
+	even
+
+BouncePlatformGfx:
+	incbin	"src/gfx/r3/bounce_platform_c.nem"
+	even
+
+GlassShatterGfx:
+	incbin	"src/gfx/r3/glass_shatter_c.nem"
+	even
+
+SpikeBallGfx:
+	incbin	"src/gfx/spike_ball.nem"
+	even
+
+BossBarrierGfx:
+	incbin	"src/gfx/r3/boss_barrier.nem"
 	even
 
 Art_Boss:
-	incbin	"src/data/r31c/Art_Boss.bin"
+	incbin	"src/gfx/r3/boss.nem"
 	even
 
 EggmanEscapeGfx:
-	incbin	"src/data/r31c/EggmanEscapeGfx.bin"
+	incbin	"src/gfx/r3/eggman_escape.nem"
 	even
 
 AnimalGfx:
@@ -238,7 +238,7 @@ AnimalGfx:
 	even
 
 BossBombLauncherGfx:
-	incbin	"src/data/r31c/BossBombLauncherGfx.bin"
+	incbin	"src/gfx/r3/boss_bomb_launcher.nem"
 	even
 
 StageCollisionAngles:
@@ -376,7 +376,7 @@ ExplosionSprites:
 	even
 
 byte_21D7A6:
-	incbin	"src/data/r31c/byte_21D7A6.bin"
+	incbin	"src/data/wobble.bin"
 	even
 
 CheckpointAnims:

@@ -12,11 +12,11 @@ StageChunks:
 	even
 
 BossMachineGfx:
-	incbin	"src/data/r13c/BossMachineGfx.bin"
+	incbin	"src/gfx/r1/boss_machine.nem"
 	even
 
 EggmanGfx:
-	incbin	"src/data/r13c/EggmanGfx.bin"
+	incbin	"src/gfx/r1/eggman.nem"
 
 Padding2:
 	incbin	"padding/r13c_e_2.bin"
@@ -360,7 +360,7 @@ ExplosionSprites:
 	even
 
 byte_21D7A6:
-	incbin	"src/data/r13c/byte_21D7A6.bin"
+	incbin	"src/data/wobble.bin"
 	even
 
 CheckpointAnims:
