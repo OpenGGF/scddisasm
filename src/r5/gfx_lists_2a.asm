@@ -27,20 +27,20 @@ GfxLists:
 StageGfxList:
 	gfxStart
 	gfxEntry StageGfx, 0
-	gfxEntry InsideBgGfx, $4B40
+	gfxEntry BgInsideGfxA, $4B40
 	gfxEntry CheckpointGfx, $D960
 	gfxEnd
 
 MainGfxList:
 	gfxStart
-	gfxEntry BridgeGfx, $6000
-	gfxEntry PlatformGfx, $6080
-	gfxEntry ConveyorControlGfx, $F2E0
-	gfxEntry RockGfx, $6640
+	gfxEntry BridgeGfxA, $6000
+	gfxEntry PlatformGfxA, $6080
+	gfxEntry ConveyorCtrlGfxA, $F2E0
+	gfxEntry RockGfxA, $6640
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry SpringGfx, $A400
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
 	gfxEntry ExplosionGfx, $D000
@@ -52,19 +52,19 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry GoalGfx, $5980
-	gfxEntry StalactiteGfx, $6840
-	gfxEntry CollapseFloorGfx, $6A00
+	gfxEntry StalactiteGfxAC, $6840
+	gfxEntry CollapseFloorGfxA, $6A00
 	gfxEntry ChainGfx, $6B00
 	gfxEntry NoroNoroGfx, $7200
 	gfxEntry SasoriGfx, $76C0
 	gfxEntry KemusiGfx, $7FC0
 	gfxEntry KumoKumoGfx, $8280
 	gfxEntry SpikesGfx, $8960
-	gfxEntry BreakWallGfx, $8D60
-	gfxEntry UnusedSinePlatformGfx, $90E0
-	gfxEntry CrackedCollapseFloorGfx, $94E0
-	gfxEntry AnimalGfx, $9740
-	gfxEntry RobotGeneratorDecayGfx, $9A40
+	gfxEntry BreakWallGfxA, $8D60
+	gfxEntry SinePlatformGfxA, $90E0
+	gfxEntry CrackFloorGfxA, $94E0
+	gfxEntry AnimalsGfx, $9740
+	gfxEntry RobotTransporterGfxA, $9A40
 	gfxEnd
 
 ResultsGfxList:
@@ -74,12 +74,12 @@ ResultsGfxList:
 
 word_20F9B8:
 	gfxStart
-	gfxEntry InsideBgGfx, $4B40
+	gfxEntry BgInsideGfxA, $4B40
 	gfxEnd
 
 word_20F9C0:
 	gfxStart
-	gfxEntry OutsideBgGfx, $4B40
+	gfxEntry BgOutsideGfxA, $4B40
 	gfxEnd
 
 SignpostGfxList:

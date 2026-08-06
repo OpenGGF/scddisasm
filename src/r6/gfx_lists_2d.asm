@@ -37,8 +37,8 @@ MainGfxList:
 	gfxEntry PohBeeGfx, $8AE0
 	gfxEntry MinomusiGfx, $9100
 	gfxEntry SemiGfx, $9500
-	gfxEntry SemiBombGfx, $9900
-	gfxEntry AnimalGfx, $9A00
+	gfxEntry SpikeBombGfx, $9900
+	gfxEntry AnimalsGfx, $9A00
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -54,17 +54,17 @@ SectionGfxInitList0:
 	gfxEntry IceBlockGfx, $5C20
 	gfxEntry FreezerGfx, $6200
 	gfxEntry PistonGfx, $6800
-	gfxEntry ElectricOrbGfxD, $6B00
+	gfxEntry ElectricOrbD, $6B00
 	gfxEntry PlatformGfxA, $6D40
 	gfxEntry SwitchGfx, $7340
 	gfxEntry DoorGfx, $7400
-	gfxEntry SnakeBlocksGfx, $7500
+	gfxEntry SnakeBlockGfx, $7500
 	gfxEntry SeesawGfx, $7700
 	gfxEntry BouncePlatformGfx, $7D00
-	gfxEntry SpikeBallGfx, $7F00
-	gfxEntry LauncherGfx, $8000
+	gfxEntry SpikeChainGfx, $7F00
+	gfxEntry LaunchGfx, $8000
 	gfxEntry TubeDoorGfx, $8200
-	gfxEntry CrusherGfx, $9D00
+	gfxEntry CrusherGfxABD, $9D00
 	gfxEnd
 
 ResultsGfxList:

@@ -79,8 +79,20 @@ byte_21EC96:
 	incbin	"src/data/r8/byte_2352CA_a.bin"
 	even
 
-UnknownAnimGfx:
-	incbin	"src/gfx/r8/unknown.nem"
+byte_2354CA:
+	incbin	"src/data/r8/byte_2354CA_a.bin"
+	even
+
+byte_2356CA:
+	incbin	"src/data/r8/byte_2356CA_a.bin"
+	even
+
+byte_2358CA:
+	incbin	"src/data/r8/byte_2358CA_a.bin"
+	even
+
+byte_235ACA:
+	incbin	"src/data/r8/byte_235ACA_a.bin"
 	even
 
 byte_21F696:
@@ -189,12 +201,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -213,8 +225,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -339,8 +351,8 @@ TrapDoorGfx:
 	incbin	"src/gfx/r8/trap_door.nem"
 	even
 
-SeesawGfx:
-	incbin	"src/gfx/r8/seesaw.nem"
+SeesawGfxABD:
+	incbin	"src/gfx/r8/seesaw_abd.nem"
 	even
 
 SeesawGfxC:
@@ -371,7 +383,7 @@ TubeCoverGfx:
 	incbin	"src/gfx/r8/tube_cover.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r8/animals.nem"
 	even
 
@@ -379,12 +391,12 @@ DangoGfx:
 	incbin	"src/gfx/r8/dango.nem"
 	even
 
-RobotGeneratorDecayGfx:
-	incbin	"src/gfx/r8/robot_generator_decay.nem"
+RobotTransporterGfxA:
+	incbin	"src/gfx/r8/robot_transporter_a.nem"
 	even
 
-RobotGeneratorGfx:
-	incbin	"src/gfx/r8/robot_generator.nem"
+RobotTransporterGfxB:
+	incbin	"src/gfx/r8/robot_transporter_b.nem"
 	even
 
 unk_23E876:

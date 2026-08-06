@@ -36,7 +36,7 @@ MainGfxList:
 	gfxEntry MeshGfxA, $5F00
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -48,15 +48,15 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry LauncherGfx, $6000
-	gfxEntry LauncherSparksGfx, $6700
-	gfxEntry PathSwapPanelGfx, $69A0
+	gfxEntry LaunchGfx, $6000
+	gfxEntry SparksGfx, $6700
+	gfxEntry PathSwapGfx, $69A0
 	gfxEntry SwingGfx, $6CC0
 	gfxEntry BlockGfxA, $6EC0
 	gfxEntry SpikeBallGfx, $70C0
-	gfxEntry SpikeLauncherGfx, $71C0
-	gfxEntry AnimalGfx, $72C0
-	gfxEntry RobotGeneratorDecayGfx, $75C0
+	gfxEntry SpikeLaunchGfx, $71C0
+	gfxEntry AnimalsGfx, $72C0
+	gfxEntry RobotTransporterGfxA, $75C0
 	gfxEntry KabasiraGfx, $78C0
 	gfxEntry KanabunGfx, $7D20
 	gfxEntry HotaruGfx, $8BA0
@@ -64,14 +64,14 @@ SectionGfxInitList0:
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry LauncherGfx, $6000
-	gfxEntry LauncherSparksGfx, $6700
-	gfxEntry PathSwapPanelGfx, $69A0
+	gfxEntry LaunchGfx, $6000
+	gfxEntry SparksGfx, $6700
+	gfxEntry PathSwapGfx, $69A0
 	gfxEntry SwingGfx, $6CC0
 	gfxEntry BlockGfxA, $6EC0
 	gfxEntry SpikeBallGfx, $70C0
-	gfxEntry SpikeLauncherGfx, $71C0
-	gfxEntry AnimalGfx, $72C0
+	gfxEntry SpikeLaunchGfx, $71C0
+	gfxEntry AnimalsGfx, $72C0
 	gfxEntry GoalGfx, $75C0
 	gfxEntry KabasiraGfx, $78C0
 	gfxEntry KanabunGfx, $7D20
@@ -80,7 +80,7 @@ SectionGfxInitList1:
 
 SectionGfxUpdateList0:
 	gfxStart
-	gfxEntry RobotGeneratorDecayGfx, $75C0
+	gfxEntry RobotTransporterGfxA, $75C0
 	gfxEnd
 
 SectionGfxUpdateList1:

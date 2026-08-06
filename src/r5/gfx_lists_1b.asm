@@ -27,19 +27,19 @@ GfxLists:
 StageGfxList:
 	gfxStart
 	gfxEntry StageGfx, 0
-	gfxEntry InsideBgGfx, $4160
+	gfxEntry BgInsideGfxB, $4160
 	gfxEnd
 
 MainGfxList:
 	gfxStart
-	gfxEntry BridgeGfx, $6000
-	gfxEntry PlatformGfx, $6080
-	gfxEntry ConveyorControlGfx, $F2E0
-	gfxEntry RockGfx, $6640
+	gfxEntry BridgeGfxB, $6000
+	gfxEntry PlatformGfxB, $6080
+	gfxEntry ConveyorCtrlGfxB, $F2E0
+	gfxEntry RockGfxB, $6640
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
-	gfxEntry AnimalGfx, $9740
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry AnimalsGfx, $9740
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -52,35 +52,35 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry GoalGfx, $5740
-	gfxEntry StalactiteGfx, $6840
-	gfxEntry CollapseFloorGfx, $6A00
+	gfxEntry StalactiteGfxB, $6840
+	gfxEntry CollapseFloorGfxB, $6A00
 	gfxEntry ChainGfx, $6B00
 	gfxEntry NoroNoroGfx, $7200
 	gfxEntry SasoriGfx, $76C0
 	gfxEntry KemusiGfx, $7FC0
 	gfxEntry KumoKumoGfx, $8280
 	gfxEntry SpikesGfx, $8960
-	gfxEntry BreakWallGfx, $8D60
-	gfxEntry UnusedSinePlatformGfx, $90E0
-	gfxEntry CrackedCollapseFloorGfx, $94E0
-	gfxEntry RobotGeneratorGfx, $9A40
+	gfxEntry BreakWallGfxB, $8D60
+	gfxEntry SinePlatformGfxB, $90E0
+	gfxEntry CrackFloorGfxB, $94E0
+	gfxEntry RobotTransporterGfxB, $9A40
 	gfxEnd
 
 AnimalsGfxList:
 	gfxStart
 	gfxEntry GoalGfx, $5740
-	gfxEntry StalactiteGfx, $6840
-	gfxEntry CollapseFloorGfx, $6A00
+	gfxEntry StalactiteGfxB, $6840
+	gfxEntry CollapseFloorGfxB, $6A00
 	gfxEntry ChainGfx, $6B00
 	gfxEntry NoroNoroGfx, $7200
-	gfxEntry ProjectorGfx, $76C0
+	gfxEntry HologramGfx, $76C0
 	gfxEntry KemusiGfx, $7FC0
 	gfxEntry KumoKumoGfx, $8280
 	gfxEntry SpikesGfx, $8960
-	gfxEntry BreakWallGfx, $8D60
-	gfxEntry UnusedSinePlatformGfx, $90E0
-	gfxEntry CrackedCollapseFloorGfx, $94E0
-	gfxEntry RobotGeneratorGfx, $9A40
+	gfxEntry BreakWallGfxB, $8D60
+	gfxEntry SinePlatformGfxB, $90E0
+	gfxEntry CrackFloorGfxB, $94E0
+	gfxEntry RobotTransporterGfxB, $9A40
 	gfxEnd
 
 ProjectorGfxList:
@@ -90,7 +90,7 @@ ProjectorGfxList:
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry ProjectorGfx, $76C0
+	gfxEntry HologramGfx, $76C0
 	gfxEnd
 
 ResultsGfxList:
@@ -100,12 +100,12 @@ ResultsGfxList:
 
 word_20FB1E:
 	gfxStart
-	gfxEntry InsideBgGfx, $4160
+	gfxEntry BgInsideGfxB, $4160
 	gfxEnd
 
 word_20FB26:
 	gfxStart
-	gfxEntry OutsideBgGfx, $4140
+	gfxEntry BgOutsideGfxB, $4140
 	gfxEnd
 
 SignpostGfxList:
@@ -117,12 +117,12 @@ SignpostGfxList:
 
 word_20FB42:
 	gfxStart
-	gfxEntry AnimalGfx, $9740
+	gfxEntry AnimalsGfx, $9740
 	gfxEnd
 
 word_20FB4A:
 	gfxStart
-	gfxEntry ProjectorAnimalGfx, $9740
+	gfxEntry HologramAnimalsGfx, $9740
 	gfxEnd
 
 ; ------------------------------------------------------------------------------

@@ -41,17 +41,17 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry Art_Boss, $63C0
-	gfxEntry SpikesGfx, $7F80
+	gfxEntry EggmanGfx, $63C0
+	gfxEntry SpikesGfx1, $7F80
 	gfxEntry TeleporterGfx, $8380
-	gfxEntry GlassShatterGfx, $8540
-	gfxEntry BossDrainBlockGfx, $87C0
-	gfxEntry BouncePlatformGfx, $8CC0
+	gfxEntry GlassBreakGfxC, $8540
+	gfxEntry BossDrainBlockGfxC, $87C0
+	gfxEntry BouncePlatformGfxC, $8CC0
 	gfxEntry BossBarrierGfx, $8E80
-	gfxEntry BossBombLauncherGfx, $8F80
+	gfxEntry BossBombLaunchGfx, $8F80
 	gfxEntry FlipperGfx, $93A0
 	gfxEntry BumperGfx, $99C0
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEnd
 

@@ -36,8 +36,8 @@ MainGfxList:
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry TonboGfx, $82C0
-	gfxEntry DoorPresentGfx, $8800
-	gfxEntry BlockPresentGfx, $8D40
+	gfxEntry DoorGfxA, $8800
+	gfxEntry BlockGfxA, $8D40
 	gfxEntry BubbleNumbersGfx, $9140
 	gfxEntry SwitchGfx, $A140
 	gfxEntry SpringGfx, $A400
@@ -56,48 +56,48 @@ ResultsGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry BreakPoleGfx, $5F00
+	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry GeyserGfx, $6000
-	gfxEntry SwingGfx, $6800
-	gfxEntry SlopeElevatorGfx, $6B80
-	gfxEntry CollapseFloorGfx, $6C80
+	gfxEntry SwingGfxAB, $6800
+	gfxEntry SlopeElevatorGfxA, $6B80
+	gfxEntry CollapseFloorGfxA, $6C80
 	gfxEntry ChainGfx, $6D00
 	gfxEntry SpikeBallGfx, $6E00
-	gfxEntry TurbineGfx, $7000
+	gfxEntry TurbineGfxA, $7000
 	gfxEntry SpikesGfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00
-	gfxEntry AnimalGfx, $8A00
+	gfxEntry AnimalsGfx, $8A00
 	gfxEntry GoalGfx, $9E40
 	gfxEnd
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry BreakPoleGfx, $5F00
+	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry GeyserGfx, $6000
-	gfxEntry SwingGfx, $6800
-	gfxEntry SlopeElevatorGfx, $6B80
-	gfxEntry CollapseFloorGfx, $6C80
+	gfxEntry SwingGfxAB, $6800
+	gfxEntry SlopeElevatorGfxA, $6B80
+	gfxEntry CollapseFloorGfxA, $6C80
 	gfxEntry ChainGfx, $6D00
 	gfxEntry SpikeBallGfx, $6E00
-	gfxEntry TurbineGfx, $7000
+	gfxEntry TurbineGfxA, $7000
 	gfxEntry SpikesGfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00
-	gfxEntry RobotGeneratorDecayGfx, $8A00
+	gfxEntry RobotTransporterGfxA, $8A00
 	gfxEntry GoalGfx, $9E40
 	gfxEnd
 
 SectionGfxUpdateList0:
 	gfxStart
-	gfxEntry AnimalGfx, $8A00
+	gfxEntry AnimalsGfx, $8A00
 	gfxEnd
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry RobotGeneratorDecayGfx, $8A00
+	gfxEntry RobotTransporterGfxA, $8A00
 	gfxEnd
 
 SignpostGfxList:

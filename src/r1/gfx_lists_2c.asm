@@ -32,11 +32,11 @@ StageGfxList:
 MainGfxList:
 	gfxStart
 	gfxEntry DoorGfx, $67C0
-	gfxEntry FloatBlockGfx, $6940
+	gfxEntry BlockGfx, $6940
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry CheckpointGfx, $9000
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEntry PlatformGfx, $97C0
 	gfxEntry GoalGfx, $9EE0
 	gfxEntry SpringGfx, $A400
@@ -54,13 +54,13 @@ SectionGfxInitList0:
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00
-	gfxEntry LogShadowDecayGfx, $6FE0
+	gfxEntry LogInsideGfxCD, $6FE0
 	gfxEntry SceneryGfxCD, $71E0
 	gfxEntry MosquiGfx, $7260
 	gfxEntry SpringboardGfx, $7B80
 	gfxEntry PataBataGfx, $7E40
 	gfxEntry TamabbohGfx, $84C0
-	gfxEntry AnimalGfx, $8C20
+	gfxEntry AnimalsGfx, $8C20
 	gfxEnd
 
 SectionGfxInitList1:
@@ -69,13 +69,13 @@ SectionGfxInitList1:
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00
-	gfxEntry LogShadowDecayGfx, $6FE0
+	gfxEntry LogInsideGfxCD, $6FE0
 	gfxEntry SceneryGfxCD, $71E0
 	gfxEntry MosquiGfx, $7260
 	gfxEntry AntonGfx, $7B80
 	gfxEntry PataBataGfx, $7E40
 	gfxEntry TamabbohGfx, $84C0
-	gfxEntry AnimalGfx, $8C20
+	gfxEntry AnimalsGfx, $8C20
 	gfxEnd
 
 SectionGfxInitList2:
@@ -88,7 +88,7 @@ SectionGfxInitList2:
 	gfxEntry SplashGfx, $7260
 	gfxEntry PataBataGfx, $7E40
 	gfxEntry TamabbohGfx, $84C0
-	gfxEntry AnimalGfx, $8C20
+	gfxEntry AnimalsGfx, $8C20
 	gfxEnd
 
 SectionGfxInitList3:
@@ -102,7 +102,7 @@ SectionGfxInitList3:
 	gfxEntry AntonGfx, $7B80
 	gfxEntry PataBataGfx, $7E40
 	gfxEntry TamabbohGfx, $84C0
-	gfxEntry AnimalGfx, $8C20
+	gfxEntry AnimalsGfx, $8C20
 	gfxEnd
 
 SectionGfxInitList4:
@@ -114,9 +114,9 @@ SectionGfxInitList4:
 	gfxEntry SwingGfx, $6FE0
 	gfxEntry MosquiGfx, $7260
 	gfxEntry AntonGfx, $7B80
-	gfxEntry TagaTagaGfx, $7E40
+	gfxEntry TagaTageGfx, $7E40
 	gfxEntry TamabbohGfx, $84C0
-	gfxEntry AnimalGfx, $8C20
+	gfxEntry AnimalsGfx, $8C20
 	gfxEnd
 
 SectionGfxInitList5:
@@ -127,9 +127,9 @@ SectionGfxInitList5:
 	gfxEntry SpinDiscGfx, $6E00
 	gfxEntry PataBataGfx, $6FE0
 	gfxEntry SpringboardGfx, $7B80
-	gfxEntry TagaTagaGfx, $7E40
+	gfxEntry TagaTageGfx, $7E40
 	gfxEntry TamabbohGfx, $84C0
-	gfxEntry AnimalGfx, $8C20
+	gfxEntry AnimalsGfx, $8C20
 	gfxEnd
 
 SectionGfxUpdateList0:
@@ -140,7 +140,7 @@ SectionGfxUpdateList0:
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry LogShadowDecayGfx, $6FE0
+	gfxEntry LogInsideGfxCD, $6FE0
 	gfxEntry SceneryGfxCD, $71E0
 	gfxEntry MosquiGfx, $7260
 	gfxEntry AntonGfx, $7B80
@@ -164,7 +164,7 @@ SectionGfxUpdateList4:
 	gfxEntry SwingGfx, $6FE0
 	gfxEntry MosquiGfx, $7260
 	gfxEntry AntonGfx, $7B80
-	gfxEntry TagaTagaGfx, $7E40
+	gfxEntry TagaTageGfx, $7E40
 	gfxEnd
 
 SectionGfxUpdateList5:

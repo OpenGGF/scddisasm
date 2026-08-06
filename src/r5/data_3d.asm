@@ -69,12 +69,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -93,8 +93,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -133,7 +133,7 @@ BossGfx2:
 	incbin	"src/gfx/r5/boss_2.nem"
 	even
 
-BossSpikesGfx:
+BossSpikesGfxD:
 	incbin	"src/gfx/r5/boss_spikes_d.nem"
 	even
 
@@ -307,39 +307,39 @@ CapsuleSprites:
 	include	"src/sprites/capsule.asm"
 	even
 
-InsideBgGfx:
-	incbin	"src/gfx/r5/background_inside_d.nem"
+BgInsideGfxD:
+	incbin	"src/gfx/r5/bg_inside_d.nem"
 	even
 
-OutsideBgGfx:
-	incbin	"src/gfx/r5/background_outside_d.nem"
+BgOutsideGfxD:
+	incbin	"src/gfx/r5/bg_outside_d.nem"
 	even
 
-BridgeGfx:
+BridgeGfxD:
 	incbin	"src/gfx/r5/bridge_d.nem"
 	even
 
-ConveyorControlGfx:
+ConveyorCtrlGfxD:
 	incbin	"src/gfx/r5/conveyor_control_d.nem"
 	even
 
-PlatformGfx:
+PlatformGfxD:
 	incbin	"src/gfx/r5/platform_d.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r5/animals.nem"
 	even
 
-ProjectorAnimalGfx:
-	incbin	"src/gfx/r5/projector_animals.nem"
+HologramAnimalsGfx:
+	incbin	"src/gfx/r5/hologram_animals.nem"
 	even
 
-ProjectorGfx:
-	incbin	"src/gfx/r5/projector.nem"
+HologramGfx:
+	incbin	"src/gfx/r5/hologram.nem"
 	even
 
-BreakWallGfx:
+BreakWallGfxD:
 	incbin	"src/gfx/r5/break_wall_d.nem"
 	even
 
@@ -347,7 +347,7 @@ ChainGfx:
 	incbin	"src/gfx/chain.nem"
 	even
 
-CollapseFloorGfx:
+CollapseFloorGfxD:
 	incbin	"src/gfx/r5/collapse_floor_d.nem"
 
 Padding3:

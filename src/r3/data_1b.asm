@@ -155,12 +155,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -179,8 +179,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -227,8 +227,8 @@ MetalPlatformGfx:
 	incbin	"src/gfx/r3/metal_platform.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r3/spikes.nem"
+SpikesGfx1:
+	incbin	"src/gfx/r3/spikes_1.nem"
 	even
 
 BlockGfx:
@@ -243,8 +243,8 @@ OneWayBarrierGfx:
 	incbin	"src/gfx/r3/one_way_barrier.nem"
 	even
 
-FireShooterGfx:
-	incbin	"src/gfx/r3/fire_shooter.nem"
+FireShootGfx:
+	incbin	"src/gfx/r3/fire_shoot.nem"
 	even
 
 RotatePlatformGfx:
@@ -275,48 +275,48 @@ TentouGfx:
 	incbin	"src/gfx/r3/tentou.nem"
 	even
 
-TentouBombGfx:
-	incbin	"src/gfx/bomb.nem"
+SpikeBombGfx:
+	incbin	"src/gfx/spike_bomb.nem"
 	even
 
 TeleporterGfx:
 	incbin	"src/gfx/r3/teleporter.nem"
 	even
 
-PointsPocketGfx:
-	incbin	"src/gfx/r3/points_pocket_b_c.nem"
+PointsPocketGfxBC:
+	incbin	"src/gfx/r3/points_pocket_bc.nem"
 	even
 
-BossBarrierGfx2:
+BossBarrierGfx:
 	incbin	"src/gfx/r3/boss_barrier.nem"
 	even
 
-BouncePlatformGfx:
-	incbin	"src/gfx/r3/bounce_platform_a_b.nem"
+BouncePlatformGfxAB:
+	incbin	"src/gfx/r3/bounce_platform_ab.nem"
 	even
 
-GlassShatterGfx:
-	incbin	"src/gfx/r3/glass_shatter_b.nem"
+GlassBreakGfxB:
+	incbin	"src/gfx/r3/glass_break_b.nem"
 	even
 
-SpikeBallGfx:
-	incbin	"src/gfx/spike_ball.nem"
+SpikeChainGfx:
+	incbin	"src/gfx/spike_chain.nem"
 	even
 
-RobotGeneratorGfx:
-	incbin	"src/gfx/r3/robot_generator.nem"
+RobotTransporterGfxB:
+	incbin	"src/gfx/r3/robot_transporter_b.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r3/animals.nem"
 	even
 
-ProjectorAnimalGfx:
-	incbin	"src/gfx/r3/projector_animals.nem"
+HologramAnimalsGfx:
+	incbin	"src/gfx/r3/hologram_animals.nem"
 	even
 
-ProjectorGfx:
-	incbin	"src/gfx/r3/projector.nem"
+HologramGfx:
+	incbin	"src/gfx/r3/hologram.nem"
 	even
 
 StageBlocks:

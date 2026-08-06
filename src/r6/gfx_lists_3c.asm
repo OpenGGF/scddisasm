@@ -39,8 +39,8 @@ MainGfxList:
 	gfxEntry PohBeeGfx, $8AE0
 	gfxEntry MinomusiGfx, $9100
 	gfxEntry SemiGfx, $9500
-	gfxEntry SemiBombGfx, $9900
-	gfxEntry AnimalGfx, $9A00
+	gfxEntry SpikeBombGfx, $9900
+	gfxEntry AnimalsGfx, $9A00
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -54,15 +54,15 @@ SectionGfxInitList0:
 	gfxStart
 	gfxEntry BossDoorGfx, $6600
 	gfxEntry PistonGfx, $6800
-	gfxEntry ElectricOrbGfxC, $6B00
+	gfxEntry ElectricOrbC, $6B00
 	gfxEntry PlatformGfxA, $6D40
 	gfxEntry SwitchGfx, $7340
-	gfxEntry SnakeBlocksGfx, $7500
+	gfxEntry SnakeBlockGfx, $7500
 	gfxEntry SeesawGfx, $7700
 	gfxEntry BouncePlatformGfx, $7D00
-	gfxEntry SpikeBallGfx, $7F00
+	gfxEntry SpikeChainGfx, $7F00
 	gfxEntry TubeDoorGfx, $8200
-	gfxEntry BossArenaPiecesGfx, $8B00
+	gfxEntry BossPiecesGfxC, $8B00
 	gfxEnd
 
 ResultsGfxList:
@@ -79,13 +79,13 @@ word_20E694:
 	gfxStart
 	gfxEntry BossMachineGfx, $6000
 	gfxEntry EggmanGfx, $7D80
-	gfxEntry BossBrokenFloorGfx, $8800
+	gfxEntry BossFloorGfxC, $8800
 	gfxEnd
 
 word_20E6A8:
 	gfxStart
 	gfxEntry EggmanEscapeGfx, $6000
-	gfxEntry BossDestroyedGfx, $7260
+	gfxEntry BossDestroyGfx, $7260
 	gfxEnd
 
 ; ------------------------------------------------------------------------------

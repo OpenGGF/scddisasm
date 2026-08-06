@@ -32,14 +32,14 @@ StageGfxList:
 
 MainGfxList:
 	gfxStart
-	gfxEntry AnimalGfx, $6000
+	gfxEntry AnimalsGfx, $6000
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry DoorGfx, $8FC0
 	gfxEntry SpikesGfx, $9100
 	gfxEntry CrusherGfx, $9300
 	gfxEntry BumperGfx, $99C0
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500

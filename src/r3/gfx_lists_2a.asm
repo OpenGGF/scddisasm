@@ -36,10 +36,10 @@ MainGfxList:
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry TentouGfx, $8D40
-	gfxEntry TentouBombGfx, $92A0
+	gfxEntry SpikeBombGfx, $92A0
 	gfxEntry FlipperGfx, $93A0
 	gfxEntry BumperGfx, $99C0
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -51,41 +51,41 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry SpikesGfx, $63C0
+	gfxEntry SpikesGfx1, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
-	gfxEntry BouncePlatformGfx, $6BC0
-	gfxEntry RobotGeneratorDecayGfx, $6D40
-	gfxEntry GlassShatterGfx, $7160
+	gfxEntry BouncePlatformGfxAB, $6BC0
+	gfxEntry RobotTransporterGfxA, $6D40
+	gfxEntry GlassBreakGfxA, $7160
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfx, $75E0
-	gfxEntry SpikeBallGfx, $77A0
-	gfxEntry AnimalGfx, $7B40
+	gfxEntry PointsPocketGfxA, $75E0
+	gfxEntry SpikeChainGfx, $77A0
+	gfxEntry AnimalsGfx, $7B40
 	gfxEntry KamaKamaGfx, $7E40
 	gfxEntry GaGfx, $8420
 	gfxEnd
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry SpikesGfx, $63C0
+	gfxEntry SpikesGfx1, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
-	gfxEntry BouncePlatformGfx, $6BC0
+	gfxEntry BouncePlatformGfxAB, $6BC0
 	gfxEntry RotatePlatformGfx, $6D40
-	gfxEntry GlassShatterGfx, $7160
+	gfxEntry GlassBreakGfxA, $7160
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfx, $75E0
-	gfxEntry SpikeBallGfx, $77A0
-	gfxEntry AnimalGfx, $7B40
+	gfxEntry PointsPocketGfxA, $75E0
+	gfxEntry SpikeChainGfx, $77A0
+	gfxEntry AnimalsGfx, $7B40
 	gfxEntry KamaKamaGfx, $7E40
 	gfxEntry GaGfx, $8420
 	gfxEnd
 
 SectionGfxUpdateList0:
 	gfxStart
-	gfxEntry RobotGeneratorDecayGfx, $6D40
+	gfxEntry RobotTransporterGfxA, $6D40
 	gfxEnd
 
 SectionGfxUpdateList1:

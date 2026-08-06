@@ -530,7 +530,7 @@ LoadLifeIcon:
 	bclr	#7,d2
 	lsl.w	#7,d2
 	move.l	d0,4(a6)
-	lea	(LifeIconGfx).l,a1
+	lea	(LivesIconsGfx).l,a1
 	lea	(a1,d2.w),a3
 	move.l	(a3)+,(a6)
 	move.l	(a3)+,(a6)

@@ -165,12 +165,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -189,8 +189,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -399,8 +399,8 @@ PropellerGfx:
 	incbin	"src/gfx/r8/propeller.nem"
 	even
 
-BuzzsawGfx:
-	incbin	"src/gfx/r8/buzzsaw.nem"
+BuzzsawGfxABD:
+	incbin	"src/gfx/r8/buzzsaw_abd.nem"
 	even
 
 BuzzsawGfxC:
@@ -415,8 +415,8 @@ HVPlatformGfx:
 	incbin	"src/gfx/r8/hv_platform.nem"
 	even
 
-SeesawGfx:
-	incbin	"src/gfx/r8/seesaw.nem"
+SeesawGfxABD:
+	incbin	"src/gfx/r8/seesaw_abd.nem"
 	even
 
 SeesawGfxC:
@@ -447,16 +447,16 @@ ScarabGfx:
 	incbin	"src/gfx/r8/scarab.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r8/animals.nem"
 	even
 
-RobotGeneratorDecayGfx:
-	incbin	"src/gfx/r8/robot_generator_decay.nem"
+RobotTransporterGfxA:
+	incbin	"src/gfx/r8/robot_transporter_a.nem"
 	even
 
-RobotGeneratorGfx:
-	incbin	"src/gfx/r8/robot_generator.nem"
+RobotTransporterGfxB:
+	incbin	"src/gfx/r8/robot_transporter_b.nem"
 	even
 
 unk_23E876:

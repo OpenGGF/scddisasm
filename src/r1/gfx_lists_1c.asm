@@ -33,11 +33,11 @@ MainGfxList:
 	gfxStart
 	gfxEntry SpikesGfx, $6400
 	gfxEntry DoorGfx, $6500
-	gfxEntry FloatBlockGfx, $6680
+	gfxEntry BlockGfx, $6680
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry CheckpointGfx, $9000
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEntry PlatformGfx, $97C0
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
@@ -57,8 +57,8 @@ SectionGfxInitList0:
 	gfxEntry AntonGfx, $70C0
 	gfxEntry PataBataGfx, $7380
 	gfxEntry MosquiGfx, $7A00
-	gfxEntry TagaTagaGfx, $8320
-	gfxEntry AnimalGfx, $8C60
+	gfxEntry TagaTageGfx, $8320
+	gfxEntry AnimalsGfx, $8C60
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
 
@@ -71,8 +71,8 @@ SectionGfxInitList1:
 	gfxEntry AntonGfx, $70C0
 	gfxEntry PataBataGfx, $7380
 	gfxEntry TamabbohGfx, $7A00
-	gfxEntry TagaTagaGfx, $8320
-	gfxEntry AnimalGfx, $8C60
+	gfxEntry TagaTageGfx, $8320
+	gfxEntry AnimalsGfx, $8C60
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
 
@@ -86,9 +86,9 @@ SectionGfxInitList2:
 	gfxEntry PataBataGfx, $7380
 	gfxEntry TamabbohGfx, $7A00
 	gfxEntry TunnelSplashGfx, $8160
-	gfxEntry LogShadowDecayGfx, $8500
+	gfxEntry LogInsideGfxCD, $8500
 	gfxEntry SceneryGfxCD, $8700
-	gfxEntry AnimalGfx, $8C60
+	gfxEntry AnimalsGfx, $8C60
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
 
@@ -101,35 +101,35 @@ SectionGfxInitList3:
 	gfxEntry AntonGfx, $70C0
 	gfxEntry PataBataGfx, $7380
 	gfxEntry MosquiGfx, $7A00
-	gfxEntry TagaTagaGfx, $8320
-	gfxEntry AnimalGfx, $8C60
+	gfxEntry TagaTageGfx, $8320
+	gfxEntry AnimalsGfx, $8C60
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
 
 SectionGfxUpdateList0:
 	gfxStart
 	gfxEntry MosquiGfx, $7A00
-	gfxEntry TagaTagaGfx, $8320
+	gfxEntry TagaTageGfx, $8320
 	gfxEnd
 
 SectionGfxUpdateList1:
 	gfxStart
 	gfxEntry TamabbohGfx, $7A00
-	gfxEntry TagaTagaGfx, $8320
+	gfxEntry TagaTageGfx, $8320
 	gfxEnd
 
 SectionGfxUpdateList2:
 	gfxStart
 	gfxEntry TamabbohGfx, $7A00
 	gfxEntry TunnelSplashGfx, $8160
-	gfxEntry LogShadowDecayGfx, $8500
+	gfxEntry LogInsideGfxCD, $8500
 	gfxEntry SceneryGfxCD, $8700
 	gfxEnd
 
 SectionGfxUpdateList3:
 	gfxStart
 	gfxEntry MosquiGfx, $7A00
-	gfxEntry TagaTagaGfx, $8320
+	gfxEntry TagaTageGfx, $8320
 	gfxEnd
 
 ResultsGfxList:

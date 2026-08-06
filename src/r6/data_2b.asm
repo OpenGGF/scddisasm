@@ -69,12 +69,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -93,8 +93,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -161,8 +161,8 @@ byte_23408C:
 	incbin	"src/data/r6/byte_23408C.bin"
 	even
 
-LauncherGfx:
-	incbin	"src/gfx/r6/launcher.nem"
+LaunchGfx:
+	incbin	"src/gfx/r6/launch.nem"
 	even
 
 FreezerGfx:
@@ -356,7 +356,7 @@ PlatformGfxB:
 	even
 
 PlatformGfxCD:
-	incbin	"src/gfx/r6/platform_c_d.nem"
+	incbin	"src/gfx/r6/platform_cd.nem"
 	even
 
 BouncePlatformGfx:
@@ -375,8 +375,8 @@ BossDoorGfx:
 	incbin	"src/gfx/r6/boss_door.nem"
 	even
 
-CrusherGfx:
-	incbin	"src/gfx/r6/crusher.nem"
+CrusherGfxABD:
+	incbin	"src/gfx/r6/crusher_abd.nem"
 	even
 
 CrusherGfxC:
@@ -387,19 +387,19 @@ TubeDoorGfx:
 	incbin	"src/gfx/r6/tube_door.nem"
 	even
 
-ElectricOrbGfxA:
+ElectricOrbA:
 	incbin	"src/gfx/r6/electric_orb_a.nem"
 	even
 
-ElectricOrbGfxB:
+ElectricOrbB:
 	incbin	"src/gfx/r6/electric_orb_b.nem"
 	even
 
-ElectricOrbGfxC:
+ElectricOrbC:
 	incbin	"src/gfx/r6/electric_orb_c.nem"
 	even
 
-ElectricOrbGfxD:
+ElectricOrbD:
 	incbin	"src/gfx/r6/electric_orb_d.nem"
 	even
 
@@ -415,12 +415,12 @@ MinomusiGfx:
 	incbin	"src/gfx/r6/minomusi.nem"
 	even
 
-SemiBombGfx:
-	incbin	"src/gfx/bomb.nem"
+SpikeBombGfx:
+	incbin	"src/gfx/spike_bomb.nem"
 	even
 
-SnakeBlocksGfx:
-	incbin	"src/gfx/r6/snake_blocks.nem"
+SnakeBlockGfx:
+	incbin	"src/gfx/r6/snake_block.nem"
 	even
 
 SemiGfx:
@@ -435,28 +435,28 @@ EggmanStatueGfx:
 	incbin	"src/gfx/r6/eggman_statue.nem"
 	even
 
-SpikeBallGfx:
-	incbin	"src/gfx/spike_ball.nem"
+SpikeChainGfx:
+	incbin	"src/gfx/spike_chain.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r6/animals.nem"
 	even
 
-ProjectorAnimalGfx:
-	incbin	"src/gfx/r6/projector_animals.nem"
+HologramAnimalsGfx:
+	incbin	"src/gfx/r6/hologram_animals.nem"
 	even
 
-RobotGeneratorDecayGfx:
-	incbin	"src/gfx/r6/robot_generator_decay.nem"
+RobotTransporterGfxA:
+	incbin	"src/gfx/r6/robot_transporter_a.nem"
 	even
 
-RobotGeneratorGfx:
-	incbin	"src/gfx/r6/robot_generator.nem"
+RobotTransporterGfxB:
+	incbin	"src/gfx/r6/robot_transporter_b.nem"
 	even
 
-ProjectorGfx:
-	incbin	"src/gfx/r6/projector.nem"
+HologramGfx:
+	incbin	"src/gfx/r6/hologram.nem"
 
 Padding3:
 	incbin	"padding/r62b_e_3.bin"

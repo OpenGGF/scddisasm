@@ -37,8 +37,8 @@ MainGfxList:
 	gfxEntry PohBeeGfx, $8AE0
 	gfxEntry MinomusiGfx, $9100
 	gfxEntry SemiGfx, $9500
-	gfxEntry SemiBombGfx, $9900
-	gfxEntry AnimalGfx, $9A00
+	gfxEntry SpikeBombGfx, $9900
+	gfxEntry AnimalsGfx, $9A00
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -51,30 +51,30 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry GoalGfx, $4A80
-	gfxEntry RobotGeneratorGfx, $5920
+	gfxEntry RobotTransporterGfxB, $5920
 	gfxEntry IceBlockGfx, $5C20
 	gfxEntry FreezerGfx, $6200
 	gfxEntry PistonGfx, $6800
-	gfxEntry ElectricOrbGfxB, $6B00
+	gfxEntry ElectricOrbB, $6B00
 	gfxEntry PlatformGfxB, $6D40
 	gfxEntry SwitchGfx, $7340
 	gfxEntry DoorGfx, $7400
-	gfxEntry SnakeBlocksGfx, $7500
+	gfxEntry SnakeBlockGfx, $7500
 	gfxEntry SeesawGfx, $7700
 	gfxEntry BouncePlatformGfx, $7D00
-	gfxEntry LauncherGfx, $8000
+	gfxEntry LaunchGfx, $8000
 	gfxEntry TubeDoorGfx, $8200
-	gfxEntry ProjectorGfx, $9D00
+	gfxEntry HologramGfx, $9D00
 	gfxEnd
 
 AnimalsGfxList:
 	gfxStart
-	gfxEntry AnimalGfx, $9A00
+	gfxEntry AnimalsGfx, $9A00
 	gfxEnd
 
 ProjectorGfxList:
 	gfxStart
-	gfxEntry ProjectorAnimalGfx, $9A00
+	gfxEntry HologramAnimalsGfx, $9A00
 	gfxEnd
 
 ResultsGfxList:

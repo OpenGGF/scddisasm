@@ -155,12 +155,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -179,8 +179,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -227,8 +227,8 @@ MetalPlatformGfx:
 	incbin	"src/gfx/r3/metal_platform.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r3/spikes.nem"
+SpikesGfx1:
+	incbin	"src/gfx/r3/spikes_1.nem"
 	even
 
 BlockGfx:
@@ -243,8 +243,8 @@ OneWayBarrierGfx:
 	incbin	"src/gfx/r3/one_way_barrier.nem"
 	even
 
-FireShooterGfx:
-	incbin	"src/gfx/r3/fire_shooter.nem"
+FireShootGfx:
+	incbin	"src/gfx/r3/fire_shoot.nem"
 	even
 
 RotatePlatformGfx:
@@ -275,39 +275,39 @@ TentouGfx:
 	incbin	"src/gfx/r3/tentou.nem"
 	even
 
-TentouBombGfx:
-	incbin	"src/gfx/bomb.nem"
+SpikeBombGfx:
+	incbin	"src/gfx/spike_bomb.nem"
 	even
 
 TeleporterGfx:
 	incbin	"src/gfx/r3/teleporter.nem"
 	even
 
-PointsPocketGfx:
+PointsPocketGfxA:
 	incbin	"src/gfx/r3/points_pocket_a.nem"
 	even
 
-BossBarrierGfx2:
+BossBarrierGfx:
 	incbin	"src/gfx/r3/boss_barrier.nem"
 	even
 
-BouncePlatformGfx:
-	incbin	"src/gfx/r3/bounce_platform_a_b.nem"
+BouncePlatformGfxAB:
+	incbin	"src/gfx/r3/bounce_platform_ab.nem"
 	even
 
-GlassShatterGfx:
-	incbin	"src/gfx/r3/glass_shatter_a.nem"
+GlassBreakGfxA:
+	incbin	"src/gfx/r3/glass_break_a.nem"
 	even
 
-SpikeBallGfx:
-	incbin	"src/gfx/spike_ball.nem"
+SpikeChainGfx:
+	incbin	"src/gfx/spike_chain.nem"
 	even
 
-RobotGeneratorDecayGfx:
-	incbin	"src/gfx/r3/robot_generator_decay.nem"
+RobotTransporterGfxA:
+	incbin	"src/gfx/r3/robot_transporter_a.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r3/animals.nem"
 	even
 

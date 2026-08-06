@@ -11,15 +11,15 @@ StageChunks:
 	incbin	"src/maps/r41b/chunks.bin"
 	even
 
-BreakPoleGfx:
-	incbin	"src/gfx/r4/break_pole_a_b.nem"
+BreakPoleGfxAB:
+	incbin	"src/gfx/r4/break_pole_ab.nem"
 	even
 
 SpikesGfx:
 	incbin	"src/gfx/r4/spikes.nem"
 	even
 
-BlockPastGfx:
+BlockGfxB:
 	incbin	"src/gfx/r4/block_b.nem"
 	even
 
@@ -27,15 +27,15 @@ SwitchGfx:
 	incbin	"src/gfx/r4/switch.nem"
 	even
 
-SwingGfx:
-	incbin	"src/gfx/r4/swing_a_b.nem"
+SwingGfxAB:
+	incbin	"src/gfx/r4/swing_ab.nem"
 	even
 
 PrizePointsGfx:
 	incbin	"src/gfx/r4/prize_points.nem"
 	even
 
-DoorPastGfx:
+DoorGfxB:
 	incbin	"src/gfx/r4/door_b.nem"
 	even
 
@@ -43,8 +43,8 @@ GeyserGfx:
 	incbin	"src/gfx/r4/geyser.nem"
 	even
 
-UnusedPlatformGfx:
-	incbin	"src/gfx/r4/unused_platform.nem"
+UnusedPlatformGfxB:
+	incbin	"src/gfx/r4/unused_platform_b.nem"
 	even
 
 RotateBlockGfx:
@@ -59,20 +59,20 @@ ChainGfx:
 	incbin	"src/gfx/chain.nem"
 	even
 
-TurbineGfx:
+TurbineGfxB:
 	incbin	"src/gfx/r4/turbine_b.nem"
 	even
 
-CollapseFloorGfx:
+CollapseFloorGfxB:
 	incbin	"src/gfx/r4/collapse_floor_b.nem"
 	even
 
-ElectricBeamGfx:
+ElectricBeamGfxB:
 	incbin	"src/gfx/r4/electric_beam_b.nem"
 	even
 
-ShooterGfx:
-	incbin	"src/gfx/r4/shooter.nem"
+ShootGfx:
+	incbin	"src/gfx/r4/shoot.nem"
 	even
 
 TonboGfx:
@@ -95,16 +95,16 @@ WoodBlockGfx:
 	incbin	"src/gfx/r4/wood_block.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r4/animals.nem"
 	even
 
-RobotGeneratorGfx:
-	incbin	"src/gfx/r4/robot_generator.nem"
+RobotTransporterGfxB:
+	incbin	"src/gfx/r4/robot_transporter_b.nem"
 	even
 
-ProjectorGfx:
-	incbin	"src/gfx/r4/projector.nem"
+HologramGfx:
+	incbin	"src/gfx/r4/hologram.nem"
 
 Padding2:
 	incbin	"padding/r41b_e_2.bin"
@@ -165,12 +165,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -189,8 +189,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:

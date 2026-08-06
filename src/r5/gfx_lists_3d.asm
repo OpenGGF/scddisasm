@@ -27,14 +27,14 @@ GfxLists:
 StageGfxList:
 	gfxStart
 	gfxEntry StageGfx, 0
-	gfxEntry InsideBgGfx, $4A80
+	gfxEntry BgInsideGfxD, $4A80
 	gfxEnd
 
 MainGfxList:
 	gfxStart
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -47,9 +47,9 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry BossGfx1, $5780
-	gfxEntry BossSpikesGfx, $6B60
-	gfxEntry PlatformGfx, $6F00
-	gfxEntry CollapseFloorGfx, $7400
+	gfxEntry BossSpikesGfxD, $6B60
+	gfxEntry PlatformGfxD, $6F00
+	gfxEntry CollapseFloorGfxD, $7400
 	gfxEnd
 
 SectionGfxInitList1:

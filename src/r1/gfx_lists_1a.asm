@@ -34,10 +34,10 @@ MainGfxList:
 	gfxStart
 	gfxEntry SpikesGfx, $6400
 	gfxEntry DoorGfx, $6500
-	gfxEntry FloatBlockGfx, $6680
+	gfxEntry BlockGfx, $6680
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEntry PlatformGfx, $97C0
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
@@ -51,10 +51,10 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry BoulderGfx, $6E80
-	gfxEntry AnimalGfx, $7100
+	gfxEntry AnimalsGfx, $7100
 	gfxEntry MosquiGfx, $7400
 	gfxEntry AntonGfx, $8120
-	gfxEntry Plant3dGfx, $8480
+	gfxEntry Plant3d, $8480
 	gfxEntry Booster3dGfx, $8820
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
@@ -62,7 +62,7 @@ SectionGfxInitList0:
 SectionGfxInitList1:
 	gfxStart
 	gfxEntry BoulderGfx, $6E80
-	gfxEntry AnimalGfx, $7100
+	gfxEntry AnimalsGfx, $7100
 	gfxEntry PataBataGfx, $7600
 	gfxEntry AntonGfx, $8120
 	gfxEntry TamabbohGfx, $8500
@@ -72,12 +72,12 @@ SectionGfxInitList1:
 SectionGfxInitList2:
 	gfxStart
 	gfxEntry BoulderGfx, $6E80
-	gfxEntry AnimalGfx, $7100
+	gfxEntry AnimalsGfx, $7100
 	gfxEntry PlayerHoleGfx, $7400
 	gfxEntry PataBataGfx, $7600
 	gfxEntry TunnelSplashGfx, $7C80
 	gfxEntry SpinDiscGfx, $8120
-	gfxEntry LogShadowGfx, $8300
+	gfxEntry LogInsideGfxAB, $8300
 	gfxEntry TamabbohGfx, $8500
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
@@ -85,10 +85,10 @@ SectionGfxInitList2:
 SectionGfxInitList3:
 	gfxStart
 	gfxEntry AntonGfx, $6E00
-	gfxEntry AnimalGfx, $7100
+	gfxEntry AnimalsGfx, $7100
 	gfxEntry MosquiGfx, $7400
 	gfxEntry SpinDiscGfx, $8120
-	gfxEntry Plant3dGfx, $8480
+	gfxEntry Plant3d, $8480
 	gfxEntry Booster3dGfx, $8820
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
@@ -96,8 +96,8 @@ SectionGfxInitList3:
 SectionGfxInitList4:
 	gfxStart
 	gfxEntry AmyRoseGfx, $6E00
-	gfxEntry RobotGeneratorDecayGfx, $8120
-	gfxEntry Plant3dGfx, $8480
+	gfxEntry RobotTransporterGfxA, $8120
+	gfxEntry Plant3d, $8480
 	gfxEntry Booster3dGfx, $8820
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
@@ -105,10 +105,10 @@ SectionGfxInitList4:
 SectionGfxUpdateList0:
 	gfxStart
 	gfxEntry BoulderGfx, $6E80
-	gfxEntry AnimalGfx, $7100
+	gfxEntry AnimalsGfx, $7100
 	gfxEntry MosquiGfx, $7400
 	gfxEntry AntonGfx, $8120
-	gfxEntry Plant3dGfx, $8480
+	gfxEntry Plant3d, $8480
 	gfxEntry Booster3dGfx, $8820
 	gfxEnd
 
@@ -126,24 +126,24 @@ SectionGfxUpdateList2:
 	gfxEntry PataBataGfx, $7600
 	gfxEntry TunnelSplashGfx, $7C80
 	gfxEntry SpinDiscGfx, $8120
-	gfxEntry LogShadowGfx, $8300
+	gfxEntry LogInsideGfxAB, $8300
 	gfxEntry TamabbohGfx, $8500
 	gfxEnd
 
 SectionGfxUpdateList3:
 	gfxStart
 	gfxEntry AntonGfx, $6E00
-	gfxEntry AnimalGfx, $7100
+	gfxEntry AnimalsGfx, $7100
 	gfxEntry MosquiGfx, $7400
 	gfxEntry SpinDiscGfx, $8120
-	gfxEntry Plant3dGfx, $8480
+	gfxEntry Plant3d, $8480
 	gfxEntry Booster3dGfx, $8820
 	gfxEnd
 
 SectionGfxUpdateList4:
 	gfxStart
 	gfxEntry AmyRoseGfx, $6E00
-	gfxEntry RobotGeneratorDecayGfx, $8120
+	gfxEntry RobotTransporterGfxA, $8120
 	gfxEnd
 
 ResultsGfxList:

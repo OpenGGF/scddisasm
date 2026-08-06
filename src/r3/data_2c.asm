@@ -15,8 +15,8 @@ MetalPlatformGfx:
 	incbin	"src/gfx/r3/metal_platform.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r3/spikes.nem"
+SpikesGfx1:
+	incbin	"src/gfx/r3/spikes_1.nem"
 	even
 
 BlockGfx:
@@ -31,8 +31,8 @@ OneWayBarrierGfx:
 	incbin	"src/gfx/r3/one_way_barrier.nem"
 	even
 
-FireShooterGfx:
-	incbin	"src/gfx/r3/fire_shooter.nem"
+FireShootGfx:
+	incbin	"src/gfx/r3/fire_shoot.nem"
 	even
 
 RotatePlatformGfx:
@@ -113,12 +113,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -137,8 +137,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -205,56 +205,56 @@ TentouGfx:
 	incbin	"src/gfx/r3/tentou.nem"
 	even
 
-TentouBombGfx:
-	incbin	"src/gfx/bomb.nem"
+SpikeBombGfx:
+	incbin	"src/gfx/spike_bomb.nem"
 	even
 
 TeleporterGfx:
 	incbin	"src/gfx/r3/teleporter.nem"
 	even
 
-PointsPocketGfx:
-	incbin	"src/gfx/r3/points_pocket_b_c.nem"
+PointsPocketGfxBC:
+	incbin	"src/gfx/r3/points_pocket_bc.nem"
 	even
 
 BossBarrierGfx2:
 	incbin	"src/gfx/r3/boss_barrier.nem"
 	even
 
-BossDrainBlockGfx:
+BossDrainBlockGfxC:
 	incbin	"src/gfx/r3/boss_drain_block_c.nem"
 	even
 
-BouncePlatformGfx:
+BouncePlatformGfxC:
 	incbin	"src/gfx/r3/bounce_platform_c.nem"
 	even
 
-GlassShatterGfx:
-	incbin	"src/gfx/r3/glass_shatter_c.nem"
+GlassBreakGfxC:
+	incbin	"src/gfx/r3/glass_break_c.nem"
 	even
 
-SpikeBallGfx:
-	incbin	"src/gfx/spike_ball.nem"
+SpikeChainGfx:
+	incbin	"src/gfx/spike_chain.nem"
 	even
 
 BossBarrierGfx:
 	incbin	"src/gfx/r3/boss_barrier.nem"
 	even
 
-Art_Boss:
-	incbin	"src/gfx/r3/boss.nem"
+EggmanGfx:
+	incbin	"src/gfx/r3/eggman.nem"
 	even
 
 EggmanEscapeGfx:
 	incbin	"src/gfx/r3/eggman_escape.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r3/animals.nem"
 	even
 
-BossBombLauncherGfx:
-	incbin	"src/gfx/r3/boss_bomb_launcher.nem"
+BossBombLaunchGfx:
+	incbin	"src/gfx/r3/boss_bomb_launch.nem"
 	even
 
 StageCollisionAngles:

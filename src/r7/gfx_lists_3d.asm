@@ -34,10 +34,10 @@ MainGfxList:
 	gfxEntry MeshGfxD, $5F00
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpikesGfx, $9F80
 	gfxEntry BlockGfxD, $A180
-	gfxEntry LampGfx, $A380
+	gfxEntry LampGfxD, $A380
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
 	gfxEntry ExplosionGfx, $D000

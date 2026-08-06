@@ -33,11 +33,11 @@ MainGfxList:
 	gfxStart
 	gfxEntry SpringWheelGfx, $6700
 	gfxEntry DoorGfx, $6800
-	gfxEntry FloatBlockGfx, $6980
+	gfxEntry BlockGfx, $6980
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry PlatformGfx, $97C0
-	gfxEntry AnimalGfx, $9EE0
+	gfxEntry AnimalsGfx, $9EE0
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -57,10 +57,10 @@ SectionGfxInitList0:
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry PataBataGfx, $7D40
 	gfxEntry SpringboardGfx, $83C0
-	gfxEntry LogShadowGfx, $8BC0
-	gfxEntry SceneryGfx, $8DC0
+	gfxEntry LogInsideGfxAB, $8BC0
+	gfxEntry SceneryGfxB, $8DC0
 	gfxEntry CheckpointGfx, $9000
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList1:
@@ -72,10 +72,10 @@ SectionGfxInitList1:
 	gfxEntry AntonGfx, $7320
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry MosquiGfx, $7D40
-	gfxEntry LogShadowGfx, $8BC0
-	gfxEntry SceneryGfx, $8DC0
+	gfxEntry LogInsideGfxAB, $8BC0
+	gfxEntry SceneryGfxB, $8DC0
 	gfxEntry CheckpointGfx, $9000
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList2:
@@ -87,10 +87,10 @@ SectionGfxInitList2:
 	gfxEntry AntonGfx, $7320
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry MosquiGfx, $7D40
-	gfxEntry RobotGeneratorGfx, $8A80
+	gfxEntry RobotTransporterGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEntry CheckpointGfx, $9000
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList3:
@@ -102,11 +102,11 @@ SectionGfxInitList3:
 	gfxEntry AntonGfx, $7320
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry PataBataGfx, $7D40
-	gfxEntry TagaTagaGfx, $83C0
-	gfxEntry RobotGeneratorGfx, $8A80
+	gfxEntry TagaTageGfx, $83C0
+	gfxEntry RobotTransporterGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEntry CheckpointGfx, $9000
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList4:
@@ -116,11 +116,11 @@ SectionGfxInitList4:
 	gfxEntry SpinDiscGfx, $6E40
 	gfxEntry GoalGfx, $7020
 	gfxEntry AntonGfx, $7320
-	gfxEntry ProjectorGfx, $75E0
+	gfxEntry HologramGfx, $75E0
 	gfxEntry PataBataGfx, $7D40
-	gfxEntry TagaTagaGfx, $83C0
+	gfxEntry TagaTageGfx, $83C0
 	gfxEntry CheckpointGfx, $9000
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxUpdateList0:
@@ -132,14 +132,14 @@ SectionGfxUpdateList0:
 SectionGfxUpdateList1:
 	gfxStart
 	gfxEntry MosquiGfx, $7D40
-	gfxEntry LogShadowGfx, $8BC0
-	gfxEntry SceneryGfx, $8DC0
+	gfxEntry LogInsideGfxAB, $8BC0
+	gfxEntry SceneryGfxB, $8DC0
 	gfxEnd
 
 SectionGfxUpdateList2:
 	gfxStart
 	gfxEntry MosquiGfx, $7D40
-	gfxEntry RobotGeneratorGfx, $8A80
+	gfxEntry RobotTransporterGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEnd
 
@@ -147,24 +147,24 @@ SectionGfxUpdateList3:
 	gfxStart
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry PataBataGfx, $7D40
-	gfxEntry TagaTagaGfx, $83C0
-	gfxEntry RobotGeneratorGfx, $8A80
+	gfxEntry TagaTageGfx, $83C0
+	gfxEntry RobotTransporterGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEnd
 
 SectionGfxUpdateList4:
 	gfxStart
-	gfxEntry ProjectorGfx, $75E0
+	gfxEntry HologramGfx, $75E0
 	gfxEnd
 
 AnimalsGfxList:
 	gfxStart
-	gfxEntry AnimalGfx, $9EE0
+	gfxEntry AnimalsGfx, $9EE0
 	gfxEnd
 
 ProjectorGfxList:
 	gfxStart
-	gfxEntry ProjectorAnimalGfx, $9EE0
+	gfxEntry HologramAnimalsGfx, $9EE0
 	gfxEnd
 
 ResultsGfxList:

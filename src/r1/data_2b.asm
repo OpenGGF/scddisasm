@@ -145,12 +145,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -169,8 +169,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -185,12 +185,12 @@ CheckpointGfx:
 	incbin	"src/gfx/checkpoint.nem"
 	even
 
-LogShadowDecayGfx:
-	incbin	"src/gfx/r1/log_shadow_decay.nem"
+LogInsideGfxCD:
+	incbin	"src/gfx/r1/log_inside_cd.nem"
 	even
 
-LogShadowGfx:
-	incbin	"src/gfx/r1/log_shadow.nem"
+LogInsideGfxAB:
+	incbin	"src/gfx/r1/log_inside_ab.nem"
 	even
 
 FlowerAnims:
@@ -217,8 +217,8 @@ BoulderGfx:
 	incbin	"src/gfx/r1/boulder.nem"
 	even
 
-FloatBlockGfx:
-	incbin	"src/gfx/r1/float_block.nem"
+BlockGfx:
+	incbin	"src/gfx/r1/block.nem"
 	even
 
 SpringWheelGfx:
@@ -257,7 +257,7 @@ PataBataGfx:
 	incbin	"src/gfx/r1/pata_bata.nem"
 	even
 
-TagaTagaGfx:
+TagaTageGfx:
 	incbin	"src/gfx/r1/taga_taga.nem"
 	even
 
@@ -281,7 +281,7 @@ SwingGfx:
 	incbin	"src/gfx/r1/swing.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r1/animals.nem"
 	even
 
@@ -289,8 +289,8 @@ DiscDrillGfx:
 	incbin	"src/gfx/r1/disc_drill.nem"
 	even
 
-RobotGeneratorDecayGfx:
-	incbin	"src/gfx/r1/robot_generator_decay.nem"
+RobotTransporterGfxA:
+	incbin	"src/gfx/r1/robot_transporter_a.nem"
 	even
 
 StageCollisionAngles:
@@ -379,7 +379,7 @@ StageMapUnk5:
 	incbin	"src/maps/empty.bin"
 	even
 
-SceneryGfx:
+SceneryGfxB:
 	incbin	"src/gfx/r1/scenery_b.nem"
 	even
 
@@ -391,16 +391,16 @@ StageGfx:
 	incbin	"src/maps/r12b/gfx.nem"
 	even
 
-RobotGeneratorGfx:
-	incbin	"src/gfx/r1/robot_generator.nem"
+RobotTransporterGfxB:
+	incbin	"src/gfx/r1/robot_transporter_b.nem"
 	even
 
-ProjectorAnimalGfx:
-	incbin	"src/gfx/r1/projector_animals.nem"
+HologramAnimalsGfx:
+	incbin	"src/gfx/r1/hologram_animals.nem"
 	even
 
-ProjectorGfx:
-	incbin	"src/gfx/r1/projector.nem"
+HologramGfx:
+	incbin	"src/gfx/r1/hologram.nem"
 
 Padding3:
 	incbin	"padding/r12b_e_3.bin"

@@ -155,12 +155,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -179,8 +179,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -311,31 +311,31 @@ TonboGfx:
 	incbin	"src/gfx/r4/tonbo.nem"
 	even
 
-DoorGoodFutureGfx:
+DoorGfxC:
 	incbin	"src/gfx/r4/door_c.nem"
 	even
 
-Art_DoorBadFuture:
+DoorGfxD:
 	incbin	"src/gfx/r4/door_d.nem"
 	even
 
-SwingGfx:
-	incbin	"src/gfx/r4/swing_c_d.nem"
+SwingGfxC:
+	incbin	"src/gfx/r4/swing_c.nem"
 	even
 
-SwingGfx2:
-	incbin	"src/gfx/r4/swing_c_d.nem"
+SwingGfxD:
+	incbin	"src/gfx/r4/swing_d.nem"
 	even
 
-BlockGoodFutureGfx:
+BlockGfxC:
 	incbin	"src/gfx/r4/block_c.nem"
 	even
 
-BlockGfxsBadFuture:
+BlockGfxD:
 	incbin	"src/gfx/r4/block_d.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r4/animals.nem"
 	even
 
@@ -343,11 +343,11 @@ SwitchGfx:
 	incbin	"src/gfx/r4/switch.nem"
 	even
 
-Art_BossChase:
+BossChaseGfx:
 	incbin	"src/gfx/r4/boss_chase.nem"
 	even
 
-Art_BossBubble:
+BossBubbleGfx:
 	incbin	"src/gfx/r4/boss_bubble.nem"
 
 Padding3:

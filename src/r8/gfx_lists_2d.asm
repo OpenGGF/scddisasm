@@ -38,7 +38,7 @@ MainGfxList:
 	gfxEntry SpikesGfx, $9100
 	gfxEntry CrusherGfx, $9300
 	gfxEntry CollapseFloorGfx, $9B00
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -85,7 +85,7 @@ SectionGfxInitList2:
 	gfxEntry TrapDoorGfx, $6580
 	gfxEntry TubeCoverGfx, $6780
 	gfxEntry BigbomGfx, $6800
-	gfxEntry SeesawGfx, $7400
+	gfxEntry SeesawGfxABD, $7400
 	gfxEntry RevolveDoorGfx, $8360
 	gfxEntry MechaBuGfx, $89C0
 	gfxEntry SwitchGfx, $9C80
@@ -119,7 +119,7 @@ SectionGfxUpdateList1:
 
 SectionGfxUpdateList2:
 	gfxStart
-	gfxEntry SeesawGfx, $7400
+	gfxEntry SeesawGfxABD, $7400
 	gfxEntry RevolveDoorGfx, $8360
 	gfxEntry MechaBuGfx, $89C0
 	gfxEnd

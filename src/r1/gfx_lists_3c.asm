@@ -45,7 +45,7 @@ SectionGfxInitList0:
 	gfxStart
 	gfxEntry DoorGfx, $75C0
 	gfxEntry WaterfallGfx, $7740
-	gfxEntry AnimalGfx, $79E0
+	gfxEntry AnimalsGfx, $79E0
 	gfxEntry TamabbohGfx, $7CE0
 	gfxEnd
 

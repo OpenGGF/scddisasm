@@ -69,12 +69,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -93,8 +93,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -126,11 +126,11 @@ TitleCardTextGfx:
 	even
 
 BossGfx1:
-	incbin	"src/gfx/r5/boss_1_old.nem"
+	incbin	"src/gfx/r5/boss_1_proto.nem"
 	even
 
 BossGfx2:
-	incbin	"src/gfx/r5/boss_2_old.nem"
+	incbin	"src/gfx/r5/boss_2_proto.nem"
 	even
 
 StageCollisionAngles:
@@ -303,39 +303,39 @@ CapsuleSprites:
 	include	"src/sprites/capsule.asm"
 	even
 
-InsideBgGfx:
-	incbin	"src/gfx/r5/background_inside_a.nem"
+BgInsideGfxA:
+	incbin	"src/gfx/r5/bg_inside_a.nem"
 	even
 
-OutsideBgGfx:
-	incbin	"src/gfx/r5/background_outside_a.nem"
+BgOutsideGfxA:
+	incbin	"src/gfx/r5/bg_outside_a.nem"
 	even
 
-BridgeGfx:
+BridgeGfxA:
 	incbin	"src/gfx/r5/bridge_a.nem"
 	even
 
-ConveyorControlGfx:
+ConveyorCtrlGfxA:
 	incbin	"src/gfx/r5/conveyor_control_a.nem"
 	even
 
-PlatformGfx:
+PlatformGfxA:
 	incbin	"src/gfx/r5/platform_a.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r5/animals.nem"
 	even
 
-ProjectorAnimalGfx:
-	incbin	"src/gfx/r5/projector_animals.nem"
+HologramAnimalsGfx:
+	incbin	"src/gfx/r5/hologram_animals.nem"
 	even
 
-ProjectorGfx:
-	incbin	"src/gfx/r5/projector.nem"
+HologramGfx:
+	incbin	"src/gfx/r5/hologram.nem"
 	even
 
-BreakWallGfx:
+BreakWallGfxA:
 	incbin	"src/gfx/r5/break_wall_a.nem"
 	even
 
@@ -343,7 +343,7 @@ ChainGfx:
 	incbin	"src/gfx/chain.nem"
 	even
 
-CollapseFloorGfx:
+CollapseFloorGfxA:
 	incbin	"src/gfx/r5/collapse_floor_a.nem"
 	even
 
@@ -351,11 +351,11 @@ SpikesGfx:
 	incbin	"src/gfx/r5/spikes.nem"
 	even
 
-StalactiteGfx:
-	incbin	"src/gfx/r5/stalactite_a_c.nem"
+StalactiteGfxAC:
+	incbin	"src/gfx/r5/stalactite_ac.nem"
 	even
 
-RockGfx:
+RockGfxA:
 	incbin	"src/gfx/r5/rock_a.nem"
 	even
 
@@ -375,16 +375,16 @@ NoroNoroGfx:
 	incbin	"src/gfx/r5/noro_noro.nem"
 	even
 
-RobotGeneratorDecayGfx:
-	incbin	"src/gfx/r5/robot_generator_decay.nem"
+RobotTransporterGfxA:
+	incbin	"src/gfx/r5/robot_transporter_a.nem"
 	even
 
-UnusedSinePlatformGfx:
+SinePlatformGfxA:
 	incbin	"src/gfx/r5/sine_platform_a.nem"
 	even
 
-CrackedCollapseFloorGfx:
-	incbin	"src/gfx/r5/cracked_collapse_floor_a.nem"
+CrackFloorGfxA:
+	incbin	"src/gfx/r5/crack_floor_a.nem"
 
 Padding3:
 	incbin	"padding/r52a_e_3.bin"

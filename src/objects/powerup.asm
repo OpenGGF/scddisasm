@@ -184,7 +184,7 @@ locret_206154:
 off_206156:
 	dc.l	ShieldGfx
 	dc.l	InvincibleGfx
-	dc.l	WarpStarGfx
+	dc.l	WarpGfx
 	dc.l	GameOverGfx
 	dc.l	TimeOverGfx
 

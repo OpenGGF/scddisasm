@@ -208,12 +208,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -232,8 +232,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
@@ -269,7 +269,51 @@ BossPanelsGfx3:
 	even
 
 BossMachineGfx:
-	incbin	"src/gfx/r8/boss_machine_old.nem"
+	incbin	"src/gfx/r8/boss_machine.nem"
+	even
+
+unk_2364C4:
+	dc.w	Spr_23669C-unk_2364C4
+	dc.w	Spr_236746-unk_2364C4
+	dc.w	Spr_236804-unk_2364C4
+	dc.w	Spr_2368DA-unk_2364C4
+	dc.w	Spr_236912-unk_2364C4
+	dc.w	Spr_236988-unk_2364C4
+
+Spr_2364D0:
+	include	"src/sprites/r8/Spr_2364D0.asm"
+	even
+
+Spr_2365BC:
+	include	"src/sprites/r8/Spr_2365BC.asm"
+	even
+
+Spr_2365CC:
+	include	"src/sprites/r8/Spr_2365CC.asm"
+	even
+
+Spr_23669C:
+	include	"src/sprites/r8/Spr_23669C.asm"
+	even
+
+Spr_236746:
+	include	"src/sprites/r8/Spr_236746.asm"
+	even
+
+Spr_236804:
+	include	"src/sprites/r8/Spr_236804.asm"
+	even
+
+Spr_2368DA:
+	include	"src/sprites/r8/Spr_2368DA.asm"
+	even
+
+Spr_236912:
+	include	"src/sprites/r8/Spr_236912.asm"
+	even
+
+Spr_236988:
+	include	"src/sprites/r8/Spr_236988.asm"
 	even
 
 AmyRoseGfx:
@@ -394,8 +438,8 @@ TrapDoorGfx:
 	incbin	"src/gfx/r8/trap_door.nem"
 	even
 
-SeesawGfx:
-	incbin	"src/gfx/r8/seesaw.nem"
+SeesawGfxABD:
+	incbin	"src/gfx/r8/seesaw_abd.nem"
 	even
 
 SeesawGfxC:
@@ -426,7 +470,7 @@ TubeCoverGfx:
 	incbin	"src/gfx/r8/tube_cover.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r8/animals.nem"
 	even
 
@@ -434,12 +478,12 @@ DangoGfx:
 	incbin	"src/gfx/r8/dango.nem"
 	even
 
-RobotGeneratorDecayGfx:
-	incbin	"src/gfx/r8/robot_generator_decay.nem"
+RobotTransporterGfxA:
+	incbin	"src/gfx/r8/robot_transporter_a.nem"
 	even
 
-RobotGeneratorGfx:
-	incbin	"src/gfx/r8/robot_generator.nem"
+RobotTransporterGfxB:
+	incbin	"src/gfx/r8/robot_transporter_b.nem"
 	even
 
 unk_23E876:

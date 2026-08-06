@@ -46,18 +46,18 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry Art_BossChase, $63C0
-	gfxEntry SwingGfx, $8000
+	gfxEntry BossChaseGfx, $63C0
+	gfxEntry SwingGfxC, $8000
 	gfxEntry TonboGfx, $82C0
-	gfxEntry DoorGoodFutureGfx, $8800
-	gfxEntry AnimalGfx, $8A00
-	gfxEntry BlockGoodFutureGfx, $8D40
+	gfxEntry DoorGfxC, $8800
+	gfxEntry AnimalsGfx, $8A00
+	gfxEntry BlockGfxC, $8D40
 	gfxEntry SwitchGfx, $A140
 	gfxEnd
 
 word_20D2C2:
 	gfxStart
-	gfxEntry Art_BossBubble, $63C0
+	gfxEntry BossBubbleGfx, $63C0
 	gfxEnd
 
 ResultsGfxList:

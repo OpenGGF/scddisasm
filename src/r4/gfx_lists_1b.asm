@@ -35,8 +35,8 @@ MainGfxList:
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry TonboGfx, $82C0
-	gfxEntry DoorPastGfx, $8800
-	gfxEntry BlockPastGfx, $8D40
+	gfxEntry DoorGfxB, $8800
+	gfxEntry BlockGfxB, $8D40
 	gfxEntry BubbleNumbersGfx, $9140
 	gfxEntry SwitchGfx, $A140
 	gfxEntry SpringGfx, $A400
@@ -55,39 +55,39 @@ ResultsGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry BreakPoleGfx, $5F00
+	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry RotateBlockGfx, $6000
-	gfxEntry TurbineGfx, $7000
+	gfxEntry TurbineGfxB, $7000
 	gfxEntry SpikesGfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00
-	gfxEntry AnimalGfx, $8A00
+	gfxEntry AnimalsGfx, $8A00
 	gfxEntry GoalGfx, $9E40
 	gfxEnd
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry BreakPoleGfx, $5F00
+	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry RotateBlockGfx, $6000
-	gfxEntry TurbineGfx, $7000
+	gfxEntry TurbineGfxB, $7000
 	gfxEntry SpikesGfx, $7400
-	gfxEntry ProjectorGfx, $7600
+	gfxEntry HologramGfx, $7600
 	gfxEntry YagoGfx, $7E00
-	gfxEntry AnimalGfx, $8A00
+	gfxEntry AnimalsGfx, $8A00
 	gfxEntry GoalGfx, $9E40
 	gfxEnd
 
 SectionGfxInitList3:
 	gfxStart
-	gfxEntry BreakPoleGfx, $5F00
+	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry RotateBlockGfx, $6000
-	gfxEntry TurbineGfx, $7000
+	gfxEntry TurbineGfxB, $7000
 	gfxEntry SpikesGfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00
-	gfxEntry RobotGeneratorGfx, $8A00
+	gfxEntry RobotTransporterGfxB, $8A00
 	gfxEntry GoalGfx, $9E40
 	gfxEnd
 
@@ -95,18 +95,18 @@ SectionGfxUpdateList0:
 	gfxStart
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
-	gfxEntry AnimalGfx, $8A00
+	gfxEntry AnimalsGfx, $8A00
 	gfxEnd
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry ProjectorGfx, $7600
-	gfxEntry AnimalGfx, $8A00
+	gfxEntry HologramGfx, $7600
+	gfxEntry AnimalsGfx, $8A00
 	gfxEnd
 
 SectionGfxUpdateList3:
 	gfxStart
-	gfxEntry RobotGeneratorGfx, $8A00
+	gfxEntry RobotTransporterGfxB, $8A00
 	gfxEnd
 
 SignpostGfxList:

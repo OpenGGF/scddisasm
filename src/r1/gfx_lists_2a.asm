@@ -50,105 +50,105 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry FloatBlockGfx, $6B40
+	gfxEntry BlockGfx, $6B40
 	gfxEntry BoulderGfx, $6D80
 	gfxEntry SpinDiscGfx, $7000
-	gfxEntry AnimalGfx, $71E0
+	gfxEntry AnimalsGfx, $71E0
 	gfxEntry PataBataGfx, $74E0
 	gfxEntry SpringboardGfx, $7B60
-	gfxEntry LogShadowGfx, $7E00
+	gfxEntry LogInsideGfxAB, $7E00
 	gfxEntry AntonGfx, $8000
 	gfxEntry SwingGfx, $8300
 	gfxEntry TamabbohGfx, $8580
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry FloatBlockGfx, $6B40
+	gfxEntry BlockGfx, $6B40
 	gfxEntry BoulderGfx, $6D80
 	gfxEntry SpinDiscGfx, $7000
-	gfxEntry AnimalGfx, $71E0
+	gfxEntry AnimalsGfx, $71E0
 	gfxEntry MosquiGfx, $74E0
-	gfxEntry LogShadowGfx, $7E00
+	gfxEntry LogInsideGfxAB, $7E00
 	gfxEntry AntonGfx, $8000
 	gfxEntry SwingGfx, $8300
 	gfxEntry TamabbohGfx, $8580
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList2:
 	gfxStart
-	gfxEntry FloatBlockGfx, $6B40
+	gfxEntry BlockGfx, $6B40
 	gfxEntry BoulderGfx, $6D80
 	gfxEntry SpinDiscGfx, $7000
-	gfxEntry AnimalGfx, $71E0
+	gfxEntry AnimalsGfx, $71E0
 	gfxEntry SplashGfx, $74E0
-	gfxEntry RobotGeneratorDecayGfx, $8000
+	gfxEntry RobotTransporterGfxA, $8000
 	gfxEntry SwingGfx, $8300
 	gfxEntry TamabbohGfx, $8580
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList3:
 	gfxStart
-	gfxEntry FloatBlockGfx, $6B40
+	gfxEntry BlockGfx, $6B40
 	gfxEntry BoulderGfx, $6D80
 	gfxEntry SpinDiscGfx, $7000
-	gfxEntry AnimalGfx, $71E0
+	gfxEntry AnimalsGfx, $71E0
 	gfxEntry PataBataGfx, $74E0
 	gfxEntry AntonGfx, $7B60
-	gfxEntry RobotGeneratorDecayGfx, $8000
+	gfxEntry RobotTransporterGfxA, $8000
 	gfxEntry SwingGfx, $8300
 	gfxEntry TamabbohGfx, $8580
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxInitList4:
 	gfxStart
-	gfxEntry FloatBlockGfx, $6B40
+	gfxEntry BlockGfx, $6B40
 	gfxEntry BoulderGfx, $6D80
 	gfxEntry SpinDiscGfx, $7000
-	gfxEntry AnimalGfx, $71E0
+	gfxEntry AnimalsGfx, $71E0
 	gfxEntry PataBataGfx, $74E0
-	gfxEntry TagaTagaGfx, $7B60
+	gfxEntry TagaTageGfx, $7B60
 	gfxEntry SwingGfx, $8300
 	gfxEntry TamabbohGfx, $8580
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxUpdateList0:
 	gfxStart
 	gfxEntry SpinDiscGfx, $7000
-	gfxEntry AnimalGfx, $71E0
+	gfxEntry AnimalsGfx, $71E0
 	gfxEntry PataBataGfx, $74E0
 	gfxEntry SpringboardGfx, $7B60
-	gfxEntry DSpringGfx, $9200
+	gfxEntry Spring45Gfx, $9200
 	gfxEnd
 
 SectionGfxUpdateList1:
 	gfxStart
 	gfxEntry MosquiGfx, $74E0
-	gfxEntry LogShadowGfx, $7E00
+	gfxEntry LogInsideGfxAB, $7E00
 	gfxEntry AntonGfx, $8000
 	gfxEnd
 
 SectionGfxUpdateList2:
 	gfxStart
 	gfxEntry SplashGfx, $74E0
-	gfxEntry RobotGeneratorDecayGfx, $8000
+	gfxEntry RobotTransporterGfxA, $8000
 	gfxEnd
 
 SectionGfxUpdateList3:
 	gfxStart
 	gfxEntry PataBataGfx, $74E0
 	gfxEntry AntonGfx, $7B60
-	gfxEntry RobotGeneratorDecayGfx, $8000
+	gfxEntry RobotTransporterGfxA, $8000
 	gfxEnd
 
 SectionGfxUpdateList4:
 	gfxStart
-	gfxEntry TagaTagaGfx, $7B60
+	gfxEntry TagaTageGfx, $7B60
 	gfxEnd
 
 ResultsGfxList:

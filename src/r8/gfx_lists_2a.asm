@@ -39,7 +39,7 @@ MainGfxList:
 	gfxEntry SpikesGfx, $9100
 	gfxEntry CrusherGfx, $9300
 	gfxEntry CollapseFloorGfx, $9B00
-	gfxEntry DSpringGfx, $9E40
+	gfxEntry Spring45Gfx, $9E40
 	gfxEntry SpringGfx, $A400
 	gfxEntry HudGfx, $AD00
 	gfxEntry MonitorTimeGfx, $B500
@@ -56,7 +56,7 @@ ResultsGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry AnimalGfx, $6000
+	gfxEntry AnimalsGfx, $6000
 	gfxEntry TwinWalkerGfx, $6300
 	gfxEntry TrapDoorGfx, $6580
 	gfxEntry TubeCoverGfx, $6780
@@ -70,7 +70,7 @@ SectionGfxInitList0:
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry RobotGeneratorDecayGfx, $5FC0
+	gfxEntry RobotTransporterGfxA, $5FC0
 	gfxEntry TwinWalkerGfx, $6300
 	gfxEntry TrapDoorGfx, $6580
 	gfxEntry TubeCoverGfx, $6780
@@ -84,12 +84,12 @@ SectionGfxInitList1:
 
 SectionGfxInitList2:
 	gfxStart
-	gfxEntry AnimalGfx, $6000
+	gfxEntry AnimalsGfx, $6000
 	gfxEntry TwinWalkerGfx, $6300
 	gfxEntry TrapDoorGfx, $6580
 	gfxEntry TubeCoverGfx, $6780
 	gfxEntry BigbomGfx, $6800
-	gfxEntry SeesawGfx, $7400
+	gfxEntry SeesawGfxABD, $7400
 	gfxEntry RevolveDoorGfx, $8360
 	gfxEntry MechaBuGfx, $89C0
 	gfxEntry SwitchGfx, $9C80
@@ -98,7 +98,7 @@ SectionGfxInitList2:
 
 SectionGfxInitList3:
 	gfxStart
-	gfxEntry AnimalGfx, $6000
+	gfxEntry AnimalsGfx, $6000
 	gfxEntry TwinWalkerGfx, $6300
 	gfxEntry TrapDoorGfx, $6580
 	gfxEntry TubeCoverGfx, $6780
@@ -112,13 +112,13 @@ SectionGfxInitList3:
 
 SectionGfxUpdateList0:
 	gfxStart
-	gfxEntry AnimalGfx, $6000
+	gfxEntry AnimalsGfx, $6000
 	gfxEntry MechaBuGfx, $89C0
 	gfxEnd
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry RobotGeneratorDecayGfx, $5FC0
+	gfxEntry RobotTransporterGfxA, $5FC0
 	gfxEntry LaserGfx, $7C00
 	gfxEntry SpikeCrusherGfx, $8000
 	gfxEntry DangoGfx, $85E0
@@ -128,8 +128,8 @@ SectionGfxUpdateList2:
 	gfxStart
 	gfxEntry RevolveDoorGfx, $8360
 	gfxEntry MechaBuGfx, $89C0
-	gfxEntry AnimalGfx, $6000
-	gfxEntry SeesawGfx, $7400
+	gfxEntry AnimalsGfx, $6000
+	gfxEntry SeesawGfxABD, $7400
 	gfxEnd
 
 SectionGfxUpdateList3:

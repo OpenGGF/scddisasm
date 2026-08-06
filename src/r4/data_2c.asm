@@ -11,7 +11,7 @@ StageChunks:
 	incbin	"src/maps/r42c/chunks.bin"
 	even
 
-BreakPoleGfx:
+BreakPoleGfxC:
 	incbin	"src/gfx/r4/break_pole_c.nem"
 	even
 
@@ -19,11 +19,11 @@ SpikesGfx:
 	incbin	"src/gfx/r4/spikes.nem"
 	even
 
-UnusedThinPlatformGfx:
-	incbin	"src/gfx/r4/unused_thin_platform_c.nem"
+UnusedPlatformGfxC:
+	incbin	"src/gfx/r4/unused_platform_c.nem"
 	even
 
-BlockGoodFutureGfx:
+BlockGfxC:
 	incbin	"src/gfx/r4/block_c.nem"
 	even
 
@@ -31,15 +31,15 @@ SwitchGfx:
 	incbin	"src/gfx/r4/switch.nem"
 	even
 
-SwingGfx:
-	incbin	"src/gfx/r4/swing_c_d.nem"
+SwingGfxC:
+	incbin	"src/gfx/r4/swing_c.nem"
 	even
 
 PrizePointsGfx:
 	incbin	"src/gfx/r4/prize_points.nem"
 	even
 
-DoorGoodFutureGfx:
+DoorGfxC:
 	incbin	"src/gfx/r4/door_c.nem"
 	even
 
@@ -51,11 +51,11 @@ GeyserGfx:
 	incbin	"src/gfx/r4/geyser.nem"
 	even
 
-UnusedPlatformGfx:
-	incbin	"src/gfx/r4/unused_platform.nem"
+UnusedPlatformGfxB:
+	incbin	"src/gfx/r4/unused_platform_b.nem"
 	even
 
-SlopeElevatorGfx:
+SlopeElevatorGfxC:
 	incbin	"src/gfx/r4/slope_elevator_c.nem"
 	even
 
@@ -67,20 +67,20 @@ ChainGfx:
 	incbin	"src/gfx/chain.nem"
 	even
 
-TurbineGfx:
+TurbineGfxC:
 	incbin	"src/gfx/r4/turbine_c.nem"
 	even
 
-CollapseFloorGfx:
+CollapseFloorGfxC:
 	incbin	"src/gfx/r4/collapse_floor_c.nem"
 	even
 
-ElectricBeamGfx:
+ElectricBeamGfxC:
 	incbin	"src/gfx/r4/electric_beam_c.nem"
 	even
 
-ShooterGfx:
-	incbin	"src/gfx/r4/shooter.nem"
+ShootGfx:
+	incbin	"src/gfx/r4/shoot.nem"
 	even
 
 TonboGfx:
@@ -95,7 +95,7 @@ YagoGfx:
 	incbin	"src/gfx/r4/yago.nem"
 	even
 
-FloatElevatorGfx:
+FloatElevatorGfxC:
 	incbin	"src/gfx/r4/float_elevator_c.nem"
 	even
 
@@ -107,7 +107,7 @@ WoodBlockGfx:
 	incbin	"src/gfx/r4/wood_block.nem"
 	even
 
-AnimalGfx:
+AnimalsGfx:
 	incbin	"src/gfx/r4/animals.nem"
 	even
 
@@ -245,12 +245,12 @@ InvincibleGfx:
 	incbin	"src/gfx/invincible.unc"
 	even
 
-WarpStarGfx:
+WarpGfx:
 	incbin	"src/gfx/warp.unc"
 	even
 
-DSpringGfx:
-	incbin	"src/gfx/spring_diagonal.nem"
+Spring45Gfx:
+	incbin	"src/gfx/spring_45.nem"
 	even
 
 SpringGfx:
@@ -269,8 +269,8 @@ RingGfx:
 	incbin	"src/gfx/ring.nem"
 	even
 
-LifeIconGfx:
-	incbin	"src/gfx/life_icon.unc"
+LivesIconsGfx:
+	incbin	"src/gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:

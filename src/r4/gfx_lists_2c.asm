@@ -34,9 +34,9 @@ MainGfxList:
 	gfxEntry WaterSurfaceGfx, $5000
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
-	gfxEntry DoorGoodFutureGfx, $8800
-	gfxEntry AnimalGfx, $8A00
-	gfxEntry BlockGoodFutureGfx, $8D40
+	gfxEntry DoorGfxC, $8800
+	gfxEntry AnimalsGfx, $8A00
+	gfxEntry BlockGfxC, $8D40
 	gfxEntry BubbleNumbersGfx, $9140
 	gfxEntry SwitchGfx, $A140
 	gfxEntry SpringGfx, $A400
@@ -50,13 +50,13 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry BreakPoleGfx, $5F00
-	gfxEntry FloatElevatorGfx, $6200
-	gfxEntry UnusedThinPlatformGfx, $6600
-	gfxEntry SwingGfx, $6800
-	gfxEntry CollapseFloorGfx, $6C80
+	gfxEntry BreakPoleGfxC, $5F00
+	gfxEntry FloatElevatorGfxC, $6200
+	gfxEntry UnusedPlatformGfxC, $6600
+	gfxEntry SwingGfxC, $6800
+	gfxEntry CollapseFloorGfxC, $6C80
 	gfxEntry SpikeBallGfx, $6E00
-	gfxEntry TurbineGfx, $7000
+	gfxEntry TurbineGfxC, $7000
 	gfxEntry SpikesGfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
