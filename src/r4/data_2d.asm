@@ -47,8 +47,8 @@ GeyserGfx:
 	incbin	"src/gfx/r4/geyser.nem"
 	even
 
-UnusedPlatformGfxB:
-	incbin	"src/gfx/r4/unused_platform_b.nem"
+UnusedPlatformGfxBCD:
+	incbin	"src/gfx/r4/unused_platform_bcd.nem"
 	even
 
 SlopeElevatorGfxD:
