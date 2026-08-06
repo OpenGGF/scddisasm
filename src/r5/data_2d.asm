@@ -332,7 +332,7 @@ HologramAnimalsGfx:
 	even
 
 HologramGfx:
-	incbin	"src/gfx/r5/hologram.nem"
+	incbin	"src/gfx/hologram.nem"
 	even
 
 BreakWallGfxD:
@@ -347,8 +347,8 @@ CollapseFloorGfxD:
 	incbin	"src/gfx/r5/collapse_floor_d.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r5/spikes.nem"
+SpikesHV4Gfx:
+	incbin	"src/gfx/spikes_hv4.nem"
 	even
 
 StalactiteGfxD:

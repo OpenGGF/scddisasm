@@ -35,7 +35,7 @@ MainGfxList:
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry Spring45Gfx, $9E40
-	gfxEntry SpikesGfx, $9F80
+	gfxEntry SpikesV4Gfx, $9F80
 	gfxEntry BlockGfxC, $A180
 	gfxEntry LampGfxC, $A380
 	gfxEntry HudGfx, $AD00

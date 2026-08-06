@@ -227,8 +227,8 @@ MetalPlatformGfx:
 	incbin	"src/gfx/r3/metal_platform.nem"
 	even
 
-SpikesGfx1:
-	incbin	"src/gfx/r3/spikes_1.nem"
+SpikesHV4Gfx:
+	incbin	"src/gfx/spikes_hv4.nem"
 	even
 
 BlockGfx:
@@ -255,8 +255,8 @@ KamaKamaGfx:
 	incbin	"src/gfx/r3/kama_kama.nem"
 	even
 
-SpikesGfx3:
-	incbin	"src/gfx/r3/spikes_3.nem"
+SpikesV2Gfx:
+	incbin	"src/gfx/spikes_v2.nem"
 	even
 
 KamaKamaSprites1:
@@ -304,7 +304,7 @@ SpikeChainGfx:
 	even
 
 RobotTransporterGfxB:
-	incbin	"src/gfx/r3/robot_transporter_b.nem"
+	incbin	"src/gfx/robot_transporter_b.nem"
 	even
 
 AnimalsGfx:
@@ -316,7 +316,7 @@ HologramAnimalsGfx:
 	even
 
 HologramGfx:
-	incbin	"src/gfx/r3/hologram.nem"
+	incbin	"src/gfx/hologram.nem"
 	even
 
 StageBlocks:

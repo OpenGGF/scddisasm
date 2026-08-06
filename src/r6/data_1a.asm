@@ -364,7 +364,7 @@ BouncePlatformGfx:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r6/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 DoorGfx:
@@ -448,7 +448,7 @@ HologramAnimalsGfx:
 	even
 
 RobotTransporterGfxA:
-	incbin	"src/gfx/r6/robot_transporter_a.nem"
+	incbin	"src/gfx/robot_transporter_a.nem"
 
 Padding3:
 	incbin	"padding/r61a_e_3.bin"

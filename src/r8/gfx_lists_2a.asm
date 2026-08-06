@@ -36,7 +36,7 @@ MainGfxList:
 	gfxEntry TitleCardGfx, $6C00
 	gfxEntry TitleCardTextGfx, $7A00
 	gfxEntry DoorGfx, $8FC0
-	gfxEntry SpikesGfx, $9100
+	gfxEntry SpikesV4Gfx, $9100
 	gfxEntry CrusherGfx, $9300
 	gfxEntry CollapseFloorGfx, $9B00
 	gfxEntry Spring45Gfx, $9E40

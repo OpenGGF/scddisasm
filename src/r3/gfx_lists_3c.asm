@@ -42,7 +42,7 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry EggmanGfx, $63C0
-	gfxEntry SpikesGfx1, $7F80
+	gfxEntry SpikesHV4Gfx, $7F80
 	gfxEntry TeleporterGfx, $8380
 	gfxEntry GlassBreakGfxC, $8540
 	gfxEntry BossDrainBlockGfxC, $87C0

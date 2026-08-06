@@ -60,7 +60,7 @@ AnimalsGfx:
 	even
 
 RobotTransporterGfxA:
-	incbin	"src/gfx/r4/robot_transporter_a.nem"
+	incbin	"src/gfx/robot_transporter_a.nem"
 
 Padding2:
 	incbin	"padding/r42a_e_2.bin"
@@ -363,8 +363,8 @@ BreakPoleGfxAB:
 	incbin	"src/gfx/r4/break_pole_ab.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r4/spikes.nem"
+SpikesV4Gfx:
+	incbin	"src/gfx/spikes_v4.nem"
 	even
 
 BlockGfxA:
@@ -372,7 +372,7 @@ BlockGfxA:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r4/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 SlopeElevatorGfxA:

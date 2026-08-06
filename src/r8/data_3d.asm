@@ -475,8 +475,8 @@ DoorGfx:
 	incbin	"src/gfx/r8/door.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r8/spikes.nem"
+SpikesV4Gfx:
+	incbin	"src/gfx/spikes_v4.nem"
 	even
 
 CrusherGfx:
@@ -488,7 +488,7 @@ CollapseFloorGfx:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r8/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 SpikePoleGfx:

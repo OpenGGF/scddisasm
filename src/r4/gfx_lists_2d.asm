@@ -57,7 +57,7 @@ SectionGfxInitList0:
 	gfxEntry CollapseFloorGfxD, $6C80
 	gfxEntry SpikeBallGfx, $6E00
 	gfxEntry TurbineGfxD, $7000
-	gfxEntry SpikesGfx, $7400
+	gfxEntry SpikesV4Gfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00

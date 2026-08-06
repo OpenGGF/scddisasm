@@ -340,7 +340,7 @@ AnimalsGfx:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r4/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 BossChaseGfx:

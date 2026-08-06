@@ -15,8 +15,8 @@ MetalPlatformGfx:
 	incbin	"src/gfx/r3/metal_platform.nem"
 	even
 
-SpikesGfx1:
-	incbin	"src/gfx/r3/spikes_1.nem"
+SpikesHV4Gfx:
+	incbin	"src/gfx/spikes_hv4.nem"
 	even
 
 BlockGfx:
@@ -43,8 +43,8 @@ KamaKamaGfx:
 	incbin	"src/gfx/r3/kama_kama.nem"
 	even
 
-SpikesGfx2:
-	incbin	"src/gfx/r3/spikes_2.nem"
+SpikesHV2Gfx:
+	incbin	"src/gfx/spikes_hv2.nem"
 	even
 
 KamaKamaSprites1:

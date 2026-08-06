@@ -348,7 +348,7 @@ BouncePlatformGfx:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r6/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 DoorGfx:

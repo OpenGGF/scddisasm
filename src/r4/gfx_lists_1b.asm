@@ -58,7 +58,7 @@ SectionGfxInitList0:
 	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry RotateBlockGfx, $6000
 	gfxEntry TurbineGfxB, $7000
-	gfxEntry SpikesGfx, $7400
+	gfxEntry SpikesV4Gfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00
@@ -71,7 +71,7 @@ SectionGfxInitList1:
 	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry RotateBlockGfx, $6000
 	gfxEntry TurbineGfxB, $7000
-	gfxEntry SpikesGfx, $7400
+	gfxEntry SpikesV4Gfx, $7400
 	gfxEntry HologramGfx, $7600
 	gfxEntry YagoGfx, $7E00
 	gfxEntry AnimalsGfx, $8A00
@@ -83,7 +83,7 @@ SectionGfxInitList3:
 	gfxEntry BreakPoleGfxAB, $5F00
 	gfxEntry RotateBlockGfx, $6000
 	gfxEntry TurbineGfxB, $7000
-	gfxEntry SpikesGfx, $7400
+	gfxEntry SpikesV4Gfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00

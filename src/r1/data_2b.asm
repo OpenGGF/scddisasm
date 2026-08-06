@@ -273,8 +273,8 @@ SwitchGfx:
 	incbin	"src/gfx/r1/switch.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r1/spikes.nem"
+SpikesV2Gfx:
+	incbin	"src/gfx/spikes_v2.nem"
 	even
 
 SwingGfx:
@@ -290,7 +290,7 @@ DiscDrillGfx:
 	even
 
 RobotTransporterGfxA:
-	incbin	"src/gfx/r1/robot_transporter_a.nem"
+	incbin	"src/gfx/robot_transporter_a.nem"
 	even
 
 StageCollisionAngles:
@@ -392,7 +392,7 @@ StageGfx:
 	even
 
 RobotTransporterGfxB:
-	incbin	"src/gfx/r1/robot_transporter_b.nem"
+	incbin	"src/gfx/robot_transporter_b.nem"
 	even
 
 HologramAnimalsGfx:
@@ -400,7 +400,7 @@ HologramAnimalsGfx:
 	even
 
 HologramGfx:
-	incbin	"src/gfx/r1/hologram.nem"
+	incbin	"src/gfx/hologram.nem"
 
 Padding3:
 	incbin	"padding/r12b_e_3.bin"

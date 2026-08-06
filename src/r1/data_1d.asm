@@ -273,8 +273,8 @@ SwitchGfx:
 	incbin	"src/gfx/r1/switch.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r1/spikes.nem"
+SpikesV2Gfx:
+	incbin	"src/gfx/spikes_v2.nem"
 	even
 
 SwingGfx:
@@ -290,7 +290,7 @@ DiscDrillGfx:
 	even
 
 RobotTransporterGfxA:
-	incbin	"src/gfx/r1/robot_transporter_a.nem"
+	incbin	"src/gfx/robot_transporter_a.nem"
 	even
 
 StageCollisionAngles:

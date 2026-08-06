@@ -15,8 +15,8 @@ BreakPoleGfxC:
 	incbin	"src/gfx/r4/break_pole_c.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r4/spikes.nem"
+SpikesV4Gfx:
+	incbin	"src/gfx/spikes_v4.nem"
 	even
 
 UnusedPlatformGfxC:
@@ -28,7 +28,7 @@ BlockGfxC:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r4/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 SwingGfxC:

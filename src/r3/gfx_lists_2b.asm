@@ -51,7 +51,7 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry GoalGfx, $6000
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
@@ -68,7 +68,7 @@ SectionGfxInitList0:
 SectionGfxInitList1:
 	gfxStart
 	gfxEntry GoalGfx, $6000
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry HologramGfx, $67C0
 	gfxEntry GlassBreakGfxB, $7160
 	gfxEntry RetractBlockGfx, $73E0
@@ -82,7 +82,7 @@ SectionGfxInitList1:
 SectionGfxInitList2:
 	gfxStart
 	gfxEntry GoalGfx, $6000
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0

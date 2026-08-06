@@ -15,8 +15,8 @@ BreakPoleGfxAB:
 	incbin	"src/gfx/r4/break_pole_ab.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r4/spikes.nem"
+SpikesV4Gfx:
+	incbin	"src/gfx/spikes_v4.nem"
 	even
 
 BlockGfxB:
@@ -24,7 +24,7 @@ BlockGfxB:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r4/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 SwingGfxAB:
@@ -100,11 +100,11 @@ AnimalsGfx:
 	even
 
 RobotTransporterGfxB:
-	incbin	"src/gfx/r4/robot_transporter_b.nem"
+	incbin	"src/gfx/robot_transporter_b.nem"
 	even
 
 HologramGfx:
-	incbin	"src/gfx/r4/hologram.nem"
+	incbin	"src/gfx/hologram.nem"
 
 Padding2:
 	incbin	"padding/r41b_e_2.bin"

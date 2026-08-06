@@ -372,15 +372,15 @@ HologramAnimalsGfx:
 	even
 
 HologramGfx:
-	incbin	"src/gfx/r7/hologram.nem"
+	incbin	"src/gfx/hologram.nem"
 	even
 
 RobotTransporterGfxB:
-	incbin	"src/gfx/r7/robot_transporter_b.nem"
+	incbin	"src/gfx/robot_transporter_b.nem"
 	even
 
 RobotTransporterGfxA:
-	incbin	"src/gfx/r7/robot_transporter_a.nem"
+	incbin	"src/gfx/robot_transporter_a.nem"
 	even
 
 KanabunGfx:
@@ -431,8 +431,8 @@ MetalSonicGfx:
 	incbin	"src/gfx/r7/metal_sonic.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r7/spikes.nem"
+SpikesV4Gfx:
+	incbin	"src/gfx/spikes_v4.nem"
 
 Padding3:
 	incbin	"padding/r73d_e_3.bin"

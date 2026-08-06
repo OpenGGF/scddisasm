@@ -51,14 +51,14 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry SpikesGfx2, $63C0
+	gfxEntry SpikesHV2Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEnd
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
@@ -74,7 +74,7 @@ SectionGfxInitList1:
 
 SectionGfxInitList2:
 	gfxStart
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry RobotTransporterGfxA, $67C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
 	gfxEntry OneWayBarrierGfx, $6E20
@@ -89,7 +89,7 @@ SectionGfxInitList2:
 
 SectionGfxInitList3:
 	gfxStart
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
@@ -105,12 +105,12 @@ SectionGfxInitList3:
 
 SectionGfxUpdateList0:
 	gfxStart
-	gfxEntry SpikesGfx2, $63C0
+	gfxEntry SpikesHV2Gfx, $63C0
 	gfxEnd
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0

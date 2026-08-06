@@ -50,7 +50,7 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry SpikesGfx, $6400
+	gfxEntry SpikesV2Gfx, $6400
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00
@@ -65,7 +65,7 @@ SectionGfxInitList0:
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry SpikesGfx, $6400
+	gfxEntry SpikesV2Gfx, $6400
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00
@@ -80,7 +80,7 @@ SectionGfxInitList1:
 
 SectionGfxInitList2:
 	gfxStart
-	gfxEntry SpikesGfx, $6400
+	gfxEntry SpikesV2Gfx, $6400
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00
@@ -93,7 +93,7 @@ SectionGfxInitList2:
 
 SectionGfxInitList3:
 	gfxStart
-	gfxEntry SpikesGfx, $6400
+	gfxEntry SpikesV2Gfx, $6400
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00
@@ -107,7 +107,7 @@ SectionGfxInitList3:
 
 SectionGfxInitList4:
 	gfxStart
-	gfxEntry SpikesGfx, $6400
+	gfxEntry SpikesV2Gfx, $6400
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00
@@ -121,7 +121,7 @@ SectionGfxInitList4:
 
 SectionGfxInitList5:
 	gfxStart
-	gfxEntry SpikesGfx, $6400
+	gfxEntry SpikesV2Gfx, $6400
 	gfxEntry SpringWheelGfx, $6500
 	gfxEntry BoulderGfx, $6B80
 	gfxEntry SpinDiscGfx, $6E00

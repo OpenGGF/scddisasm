@@ -51,7 +51,7 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
@@ -68,7 +68,7 @@ SectionGfxInitList0:
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry SpikesGfx1, $63C0
+	gfxEntry SpikesHV4Gfx, $63C0
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0

@@ -49,7 +49,7 @@ MainGfxList:
 
 SectionGfxInitList0:
 	gfxStart
-	gfxEntry SpikesGfx, $6600
+	gfxEntry SpikesV2Gfx, $6600
 	gfxEntry BoulderGfx, $6BC0
 	gfxEntry SpinDiscGfx, $6E40
 	gfxEntry GoalGfx, $7020
@@ -65,7 +65,7 @@ SectionGfxInitList0:
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry SpikesGfx, $6600
+	gfxEntry SpikesV2Gfx, $6600
 	gfxEntry BoulderGfx, $6BC0
 	gfxEntry SpinDiscGfx, $6E40
 	gfxEntry GoalGfx, $7020
@@ -80,7 +80,7 @@ SectionGfxInitList1:
 
 SectionGfxInitList2:
 	gfxStart
-	gfxEntry SpikesGfx, $6600
+	gfxEntry SpikesV2Gfx, $6600
 	gfxEntry BoulderGfx, $6BC0
 	gfxEntry SpinDiscGfx, $6E40
 	gfxEntry GoalGfx, $7020
@@ -95,7 +95,7 @@ SectionGfxInitList2:
 
 SectionGfxInitList3:
 	gfxStart
-	gfxEntry SpikesGfx, $6600
+	gfxEntry SpikesV2Gfx, $6600
 	gfxEntry BoulderGfx, $6BC0
 	gfxEntry SpinDiscGfx, $6E40
 	gfxEntry GoalGfx, $7020
@@ -111,7 +111,7 @@ SectionGfxInitList3:
 
 SectionGfxInitList4:
 	gfxStart
-	gfxEntry SpikesGfx, $6600
+	gfxEntry SpikesV2Gfx, $6600
 	gfxEntry BoulderGfx, $6BC0
 	gfxEntry SpinDiscGfx, $6E40
 	gfxEntry GoalGfx, $7020

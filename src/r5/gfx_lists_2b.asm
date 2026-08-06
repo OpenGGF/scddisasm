@@ -59,7 +59,7 @@ SectionGfxInitList0:
 	gfxEntry HologramGfx, $76C0
 	gfxEntry KemusiGfx, $7FC0
 	gfxEntry KumoKumoGfx, $8280
-	gfxEntry SpikesGfx, $8960
+	gfxEntry SpikesHV4Gfx, $8960
 	gfxEntry BreakWallGfxB, $8D60
 	gfxEntry SinePlatformGfxB, $90E0
 	gfxEntry CrackFloorGfxB, $94E0
@@ -76,7 +76,7 @@ AnimalsGfxList:
 	gfxEntry SasoriGfx, $76C0
 	gfxEntry KemusiGfx, $7FC0
 	gfxEntry KumoKumoGfx, $8280
-	gfxEntry SpikesGfx, $8960
+	gfxEntry SpikesHV4Gfx, $8960
 	gfxEntry BreakWallGfxB, $8D60
 	gfxEntry SinePlatformGfxB, $90E0
 	gfxEntry CrackFloorGfxB, $94E0

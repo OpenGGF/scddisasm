@@ -32,7 +32,7 @@ StageGfxList:
 
 MainGfxList:
 	gfxStart
-	gfxEntry SpikesGfx, $6600
+	gfxEntry SpikesV2Gfx, $6600
 	gfxEntry SpringWheelGfx, $6700
 	gfxEntry DoorGfx, $69C0
 	gfxEntry TitleCardGfx, $6C00

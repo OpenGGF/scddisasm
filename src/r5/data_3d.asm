@@ -336,7 +336,7 @@ HologramAnimalsGfx:
 	even
 
 HologramGfx:
-	incbin	"src/gfx/r5/hologram.nem"
+	incbin	"src/gfx/hologram.nem"
 	even
 
 BreakWallGfxD:

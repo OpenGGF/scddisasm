@@ -64,7 +64,7 @@ SectionGfxInitList0:
 	gfxEntry ChainGfx, $6D00
 	gfxEntry SpikeBallGfx, $6E00
 	gfxEntry TurbineGfxA, $7000
-	gfxEntry SpikesGfx, $7400
+	gfxEntry SpikesV4Gfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00
@@ -82,7 +82,7 @@ SectionGfxInitList1:
 	gfxEntry ChainGfx, $6D00
 	gfxEntry SpikeBallGfx, $6E00
 	gfxEntry TurbineGfxA, $7000
-	gfxEntry SpikesGfx, $7400
+	gfxEntry SpikesV4Gfx, $7400
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00

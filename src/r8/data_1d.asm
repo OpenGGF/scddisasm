@@ -379,8 +379,8 @@ DoorGfx:
 	incbin	"src/gfx/r8/door.nem"
 	even
 
-SpikesGfx:
-	incbin	"src/gfx/r8/spikes.nem"
+SpikesV4Gfx:
+	incbin	"src/gfx/spikes_v4.nem"
 	even
 
 CrusherGfx:
@@ -428,7 +428,7 @@ RotatePlatformGfx:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r8/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 SpringWheelGfx:
@@ -452,11 +452,11 @@ AnimalsGfx:
 	even
 
 RobotTransporterGfxA:
-	incbin	"src/gfx/r8/robot_transporter_a.nem"
+	incbin	"src/gfx/robot_transporter_a.nem"
 	even
 
 RobotTransporterGfxB:
-	incbin	"src/gfx/r8/robot_transporter_b.nem"
+	incbin	"src/gfx/robot_transporter_b.nem"
 	even
 
 unk_23E876:

@@ -364,7 +364,7 @@ BouncePlatformGfx:
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/r6/switch.nem"
+	incbin	"src/gfx/switch.nem"
 	even
 
 DoorGfx:
@@ -448,15 +448,15 @@ HologramAnimalsGfx:
 	even
 
 RobotTransporterGfxA:
-	incbin	"src/gfx/r6/robot_transporter_a.nem"
+	incbin	"src/gfx/robot_transporter_a.nem"
 	even
 
 RobotTransporterGfxB:
-	incbin	"src/gfx/r6/robot_transporter_b.nem"
+	incbin	"src/gfx/robot_transporter_b.nem"
 	even
 
 HologramGfx:
-	incbin	"src/gfx/r6/hologram.nem"
+	incbin	"src/gfx/hologram.nem"
 	even
 
 BossMachineGfx:
