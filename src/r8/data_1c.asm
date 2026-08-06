@@ -110,7 +110,7 @@ CheckpointGfx:
 	even
 
 Ani_21DA00:
-	include	"src/data/r81c/Ani_21DA00.asm"
+	include	"src/anims/r8/Ani_21DA00.asm"
 	even
 
 FlowerAnims:
@@ -126,7 +126,7 @@ FlowerGfx:
 	even
 
 LaserGfx:
-	incbin	"src/data/r81c/LaserGfx.bin"
+	incbin	"src/gfx/r8/laser.nem"
 	even
 
 TitleCardTextGfx:
@@ -134,47 +134,47 @@ TitleCardTextGfx:
 	even
 
 byte_2345CA:
-	incbin	"src/data/r81c/byte_2345CA.bin"
+	incbin	"src/data/r8/byte_2345CA_c.bin"
 	even
 
 byte_2346CA:
-	incbin	"src/data/r81c/byte_2346CA.bin"
+	incbin	"src/data/r8/byte_2346CA_c.bin"
 	even
 
 byte_2347CA:
-	incbin	"src/data/r81c/byte_2347CA.bin"
+	incbin	"src/data/r8/byte_2347CA_c.bin"
 	even
 
 byte_2348CA:
-	incbin	"src/data/r81c/byte_2348CA.bin"
+	incbin	"src/data/r8/byte_2348CA_c.bin"
 	even
 
 byte_2349CA:
-	incbin	"src/data/r81c/byte_2349CA.bin"
+	incbin	"src/data/r8/byte_2349CA_c.bin"
 	even
 
 byte_234ACA:
-	incbin	"src/data/r81c/byte_234ACA.bin"
+	incbin	"src/data/r8/byte_234ACA_c.bin"
 	even
 
 byte_234BCA:
-	incbin	"src/data/r81c/byte_234BCA.bin"
+	incbin	"src/data/r8/byte_234BCA_c.bin"
 	even
 
 byte_234CCA:
-	incbin	"src/data/r81c/byte_234CCA.bin"
+	incbin	"src/data/r8/byte_234CCA_c.bin"
 	even
 
 byte_234ECA:
-	incbin	"src/data/r81c/byte_234ECA.bin"
+	incbin	"src/data/r8/byte_234ECA_c.bin"
 	even
 
 byte_2350CA:
-	incbin	"src/data/r81c/byte_2350CA.bin"
+	incbin	"src/data/r8/byte_2350CA_c.bin"
 	even
 
 byte_2352CA:
-	incbin	"src/data/r81c/byte_2352CA.bin"
+	incbin	"src/data/r8/byte_2352CA_1c.bin"
 	even
 
 StageCollisionAngles:
@@ -240,27 +240,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r81c/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r81c/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r81c/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r81c/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r81c/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r81c/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:
@@ -356,47 +356,47 @@ SpikesGfx:
 	even
 
 CrusherGfx:
-	incbin	"src/data/r81c/CrusherGfx.bin"
+	incbin	"src/gfx/r8/crusher.nem"
 	even
 
 CollapseFloorGfx:
-	incbin	"src/data/r81c/CollapseFloorGfx.bin"
+	incbin	"src/gfx/r8/collapse_floor.nem"
 	even
 
 VanishPlatformGfx:
-	incbin	"src/data/r81c/VanishPlatformGfx.bin"
+	incbin	"src/gfx/r8/vanish_platform.nem"
 	even
 
 PropellerGfx:
-	incbin	"src/data/r81c/PropellerGfx.bin"
+	incbin	"src/gfx/r8/propeller.nem"
 	even
 
 BuzzsawGfx:
-	incbin	"src/data/r81c/BuzzsawGfx.bin"
+	incbin	"src/gfx/r8/buzzsaw.nem"
 	even
 
 BuzzsawGfxC:
-	incbin	"src/data/r81c/BuzzsawGfxC.bin"
+	incbin	"src/gfx/r8/buzzsaw_c.nem"
 	even
 
 TrapDoorGfx:
-	incbin	"src/data/r81c/TrapDoorGfx.bin"
+	incbin	"src/gfx/r8/trap_door.nem"
 	even
 
 HVPlatformGfx:
-	incbin	"src/data/r81c/HVPlatformGfx.bin"
+	incbin	"src/gfx/r8/hv_platform.nem"
 	even
 
 SeesawGfx:
-	incbin	"src/data/r81c/SeesawGfx.bin"
+	incbin	"src/gfx/r8/seesaw.nem"
 	even
 
 SeesawGfxC:
-	incbin	"src/data/r81c/SeesawGfxC.bin"
+	incbin	"src/gfx/r8/seesaw_c.nem"
 	even
 
 RotatePlatformGfx:
-	incbin	"src/data/r81c/RotatePlatformGfx.bin"
+	incbin	"src/gfx/r8/rotate_platform.nem"
 	even
 
 SwitchGfx:
@@ -408,15 +408,15 @@ SpringWheelGfx:
 	even
 
 MechaBuGfx:
-	incbin	"src/data/r81c/MechaBuGfx.bin"
+	incbin	"src/gfx/r8/mecha_bu.nem"
 	even
 
 PohBeeGfx:
-	incbin	"src/data/r81c/PohBeeGfx.bin"
+	incbin	"src/gfx/r8/poh_bee.nem"
 	even
 
 ScarabGfx:
-	incbin	"src/data/r81c/ScarabGfx.bin"
+	incbin	"src/gfx/r8/scarab.nem"
 	even
 
 AnimalGfx:
@@ -432,15 +432,15 @@ RobotGeneratorGfx:
 	even
 
 unk_23E876:
-	incbin	"src/data/r81c/unk_23E876.bin"
+	incbin	"src/data/r8/unk_23E876.bin"
 	even
 
 Spr_23EBF2:
-	include	"src/data/r81c/Spr_23EBF2.asm"
+	include	"src/sprites/r8/Spr_23EBF2_2.asm"
 	even
 
 RobotGeneratorSprites:
-	include	"src/data/r81c/RobotGeneratorSprites.asm"
+	include	"src/sprites/r8/robot_generator_2.asm"
 
 Padding3:
 	incbin	"padding/r81c_e_3.bin"

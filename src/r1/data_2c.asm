@@ -280,27 +280,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r12c/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r12c/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r12c/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r12c/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r12c/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r12c/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 SceneryGfxCD:

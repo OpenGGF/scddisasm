@@ -21,7 +21,7 @@ off_20A564:
 
 BubbleSpawnerObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_21E9B4,obj.sprite_data(a0)
+	move.l	#BubbleSprites,obj.sprite_data(a0)
 	move.w	#$848A,obj.sprite_tile(a0)
 	move.b	#$84,obj.sprite_flags(a0)
 	move.b	#$10,obj.width_2(a0)

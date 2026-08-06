@@ -12,7 +12,7 @@ StageChunks:
 	even
 
 BreakPoleGfx:
-	incbin	"src/data/r42c/BreakPoleGfx.bin"
+	incbin	"src/gfx/r4/break_pole_c.nem"
 	even
 
 SpikesGfx:
@@ -20,11 +20,11 @@ SpikesGfx:
 	even
 
 UnusedThinPlatformGfx:
-	incbin	"src/data/r42c/UnusedThinPlatformGfx.bin"
+	incbin	"src/gfx/r4/unused_thin_platform_c.nem"
 	even
 
 BlockGoodFutureGfx:
-	incbin	"src/data/r42c/BlockGoodFutureGfx.bin"
+	incbin	"src/gfx/r4/block_c.nem"
 	even
 
 SwitchGfx:
@@ -32,59 +32,59 @@ SwitchGfx:
 	even
 
 SwingGfx:
-	incbin	"src/data/r42c/SwingGfx.bin"
+	incbin	"src/gfx/r4/swing_c_d.nem"
 	even
 
 PrizePointsGfx:
-	incbin	"src/data/r42c/PrizePointsGfx.bin"
+	incbin	"src/gfx/r4/prize_points.nem"
 	even
 
 DoorGoodFutureGfx:
-	incbin	"src/data/r42c/DoorGoodFutureGfx.bin"
+	incbin	"src/gfx/r4/door_c.nem"
 	even
 
 RotateBlockGfx:
-	incbin	"src/data/r42c/RotateBlockGfx.bin"
+	incbin	"src/gfx/r4/rotate_block.nem"
 	even
 
 GeyserGfx:
-	incbin	"src/data/r42c/GeyserGfx.bin"
+	incbin	"src/gfx/r4/geyser.nem"
 	even
 
 UnusedPlatformGfx:
-	incbin	"src/data/r42c/UnusedPlatformGfx.bin"
+	incbin	"src/gfx/r4/unused_platform.nem"
 	even
 
 SlopeElevatorGfx:
-	incbin	"src/data/r42c/SlopeElevatorGfx.bin"
+	incbin	"src/gfx/r4/slope_elevator_c.nem"
 	even
 
 SpikeBallGfx:
-	incbin	"src/data/r42c/SpikeBallGfx.bin"
+	incbin	"src/gfx/r4/spike_ball.nem"
 	even
 
 ChainGfx:
-	incbin	"src/data/r42c/ChainGfx.bin"
+	incbin	"src/gfx/chain.nem"
 	even
 
 TurbineGfx:
-	incbin	"src/data/r42c/TurbineGfx.bin"
+	incbin	"src/gfx/r4/turbine_c.nem"
 	even
 
 CollapseFloorGfx:
-	incbin	"src/data/r42c/CollapseFloorGfx.bin"
+	incbin	"src/gfx/r4/collapse_floor_c.nem"
 	even
 
 ElectricBeamGfx:
-	incbin	"src/data/r42c/ElectricBeamGfx.bin"
+	incbin	"src/gfx/r4/electric_beam_c.nem"
 	even
 
 ShooterGfx:
-	incbin	"src/data/r42c/ShooterGfx.bin"
+	incbin	"src/gfx/r4/shooter.nem"
 	even
 
 TonboGfx:
-	incbin	"src/data/r42c/TonboGfx.bin"
+	incbin	"src/gfx/r4/tonbo.nem"
 	even
 
 TagaTagaGfx:
@@ -92,19 +92,19 @@ TagaTagaGfx:
 	even
 
 YagoGfx:
-	incbin	"src/data/r42c/YagoGfx.bin"
+	incbin	"src/gfx/r4/yago.nem"
 	even
 
 FloatElevatorGfx:
-	incbin	"src/data/r42c/FloatElevatorGfx.bin"
+	incbin	"src/gfx/r4/float_elevator_c.nem"
 	even
 
 AmenboGfx:
-	incbin	"src/data/r42c/AmenboGfx.bin"
+	incbin	"src/gfx/r4/amenbo.nem"
 	even
 
 WoodBlockGfx:
-	incbin	"src/data/r42c/WoodBlockGfx.bin"
+	incbin	"src/gfx/r4/wood_block.nem"
 	even
 
 AnimalGfx:
@@ -286,7 +286,7 @@ CheckpointGfx:
 	even
 
 WaterSurfaceGfx:
-	incbin	"src/data/r42c/WaterSurfaceGfx.bin"
+	incbin	"src/gfx/r4/water_surface.nem"
 	even
 
 FlowerAnims:
@@ -306,11 +306,11 @@ TitleCardTextGfx:
 	even
 
 BubbleNumbersGfx:
-	incbin	"src/data/r42c/BubbleNumbersGfx.bin"
+	incbin	"src/gfx/r4/bubble_numbers.nem"
 	even
 
-Spr_21E9B4:
-	include	"src/data/r42c/Spr_21E9B4.asm"
+BubbleSprites:
+	include	"src/sprites/r4/bubbles.asm"
 	even
 
 StageCollisionAngles:
@@ -376,27 +376,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r42c/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r42c/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r42c/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r42c/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r42c/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r42c/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:

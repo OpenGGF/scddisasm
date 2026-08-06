@@ -170,23 +170,23 @@ TitleCardTextGfx:
 	even
 
 byte_233A9A:
-	incbin	"src/data/r32c/byte_233A9A.bin"
+	incbin	"src/data/r3/byte_233A9A_2c.bin"
 	even
 
 byte_233F1A:
-	incbin	"src/data/r32c/byte_233F1A.bin"
+	incbin	"src/data/r3/byte_233F1A_2c.bin"
 	even
 
 byte_23405A:
-	incbin	"src/data/r32c/byte_23405A.bin"
+	incbin	"src/data/r3/byte_23405A_2c.bin"
 	even
 
 byte_23415A:
-	incbin	"src/data/r32c/byte_23415A.bin"
+	incbin	"src/data/r3/byte_23415A_2c.bin"
 	even
 
 byte_23429A:
-	incbin	"src/data/r32c/byte_23429A.bin"
+	incbin	"src/data/r3/byte_23429A_2c.bin"
 	even
 
 FlipperGfx:
@@ -320,27 +320,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r32c/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r32c/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r32c/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r32c/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r32c/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r32c/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:

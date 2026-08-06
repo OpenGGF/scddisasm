@@ -7,7 +7,7 @@ DebugObjects:
 	debugObject $2B, 1, TonboSprites1, $2416, 0, 0, 0, 0
 	debugObject $2B, 1, TonboSprites2, $2416, 1, 0, 0, 0
 	debugObject $34, 1, Spr_20EDD0, $446A, 0, 0, 0, 0
-	debugObject $20, 4, Spr_21E9B4, $848A, $82, 0, 0, 0
+	debugObject $20, 4, BubbleSprites, $848A, $82, 0, 0, 0
 	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
 	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
 	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0

@@ -16,7 +16,7 @@ AmyRoseGfx:
 	even
 
 Spr_21F5B0:
-	include	"src/data/r73d/Spr_21F5B0.asm"
+	include	"src/sprites/r7/Spr_21F5B0.asm"
 	even
 
 AmyRoseAnims:
@@ -24,11 +24,11 @@ AmyRoseAnims:
 	even
 
 BlockGfxD:
-	incbin	"src/data/r73d/BlockGfxD.bin"
+	incbin	"src/gfx/r7/block_d.nem"
 	even
 
 LampGfx:
-	incbin	"src/data/r73d/LampGfx.bin"
+	incbin	"src/gfx/r7/lamp_d.nem"
 	even
 
 PowerupAnims:
@@ -222,35 +222,35 @@ TitleCardTextGfx:
 	even
 
 LauncherGfx:
-	incbin	"src/data/r73d/LauncherGfx.bin"
+	incbin	"src/gfx/r7/launcher.nem"
 	even
 
 LauncherSparksGfx:
-	incbin	"src/data/r73d/LauncherSparksGfx.bin"
+	incbin	"src/gfx/r7/launcher_sparks.nem"
 	even
 
 LightEdgesGfx:
-	incbin	"src/data/r73d/LightEdgesGfx.bin"
+	incbin	"src/gfx/r7/light_edges.nem"
 	even
 
 PathSwapPanelGfx:
-	incbin	"src/data/r73d/PathSwapPanelGfx.bin"
+	incbin	"src/gfx/r7/path_swap_panel.nem"
 	even
 
 MeshGfxA:
-	incbin	"src/data/r73d/MeshGfxA.bin"
+	incbin	"src/gfx/r7/mesh_a.nem"
 	even
 
 MeshGfxB:
-	incbin	"src/data/r73d/MeshGfxB.bin"
+	incbin	"src/gfx/r7/mesh_b.nem"
 	even
 
 MeshGfxC:
-	incbin	"src/data/r73d/MeshGfxC.bin"
+	incbin	"src/gfx/r7/mesh_c.nem"
 	even
 
 MeshGfxD:
-	incbin	"src/data/r73d/MeshGfxD.bin"
+	incbin	"src/gfx/r7/mesh_d.nem"
 	even
 
 StageCollisionAngles:
@@ -316,27 +316,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r73d/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r73d/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r73d/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r73d/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r73d/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r73d/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:
@@ -348,19 +348,19 @@ StageGfx:
 	even
 
 SwingGfx:
-	incbin	"src/data/r73d/SwingGfx.bin"
+	incbin	"src/gfx/r7/swing.nem"
 	even
 
 LightsGfxA:
-	incbin	"src/data/r73d/LightsGfxA.bin"
+	incbin	"src/gfx/r7/lights_a.nem"
 	even
 
 LightsGfxC:
-	incbin	"src/data/r73d/LightsGfxC.bin"
+	incbin	"src/gfx/r7/lights_c_d.nem"
 	even
 
 LightsGfxD:
-	incbin	"src/data/r73d/LightsGfxD.bin"
+	incbin	"src/gfx/r7/lights_c_d.nem"
 	even
 
 AnimalGfx:
@@ -384,51 +384,51 @@ RobotGeneratorDecayGfx:
 	even
 
 KanabunGfx:
-	incbin	"src/data/r73d/KanabunGfx.bin"
+	incbin	"src/gfx/r7/kanabun.nem"
 	even
 
 SpikeLauncherGfx:
-	incbin	"src/data/r73d/SpikeLauncherGfx.bin"
+	incbin	"src/gfx/r7/spike_launcher.nem"
 	even
 
 BlockGfxA:
-	incbin	"src/data/r73d/BlockGfxA.bin"
+	incbin	"src/gfx/r7/block_a.nem"
 	even
 
 BlockGfxB:
-	incbin	"src/data/r73d/BlockGfxB.bin"
+	incbin	"src/gfx/r7/block_b.nem"
 	even
 
 BlockGfxC:
-	incbin	"src/data/r73d/BlockGfxC.bin"
+	incbin	"src/gfx/r7/block_c.nem"
 	even
 
 BlockGfxD2:
-	incbin	"src/data/r73d/BlockGfxD2.bin"
+	incbin	"src/gfx/r7/block_d.nem"
 	even
 
 SpikeBallGfx:
-	incbin	"src/data/r73d/SpikeBallGfx.bin"
+	incbin	"src/gfx/r7/spike_ball.nem"
 	even
 
 HotaruGfx:
-	incbin	"src/data/r73d/HotaruGfx.bin"
+	incbin	"src/gfx/r7/hotaru.nem"
 	even
 
 KabasiraGfx:
-	incbin	"src/data/r73d/KabasiraGfx.bin"
+	incbin	"src/gfx/r7/kabasira.nem"
 	even
 
 DangoGfx:
-	incbin	"src/data/r73d/DangoGfx.bin"
+	incbin	"src/gfx/r7/dango.nem"
 	even
 
 EggmanGfx:
-	incbin	"src/data/r73d/EggmanGfx.bin"
+	incbin	"src/gfx/r7/eggman.nem"
 	even
 
 MetalSonicGfx:
-	incbin	"src/data/r73d/MetalSonicGfx.bin"
+	incbin	"src/gfx/r7/metal_sonic.nem"
 	even
 
 SpikesGfx:

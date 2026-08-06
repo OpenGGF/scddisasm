@@ -74,27 +74,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r43c/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r43c/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r43c/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r43c/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r43c/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r43c/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 
 Padding2:
 	incbin	"padding/r43c_e_2.bin"
@@ -196,7 +196,7 @@ CheckpointGfx:
 	even
 
 WaterSurfaceGfx:
-	incbin	"src/data/r43c/WaterSurfaceGfx.bin"
+	incbin	"src/gfx/r4/water_surface.nem"
 	even
 
 FlowerAnims:
@@ -216,11 +216,11 @@ TitleCardTextGfx:
 	even
 
 BubbleNumbersGfx:
-	incbin	"src/data/r43c/BubbleNumbersGfx.bin"
+	incbin	"src/gfx/r4/bubble_numbers.nem"
 	even
 
-Spr_21E9B4:
-	include	"src/data/r43c/Spr_21E9B4.asm"
+BubbleSprites:
+	include	"src/sprites/r4/bubbles.asm"
 	even
 
 StageBlocks:
@@ -308,31 +308,31 @@ CapsuleSprites:
 	even
 
 TonboGfx:
-	incbin	"src/data/r43c/TonboGfx.bin"
+	incbin	"src/gfx/r4/tonbo.nem"
 	even
 
 DoorGoodFutureGfx:
-	incbin	"src/data/r43c/DoorGoodFutureGfx.bin"
+	incbin	"src/gfx/r4/door_c.nem"
 	even
 
 Art_DoorBadFuture:
-	incbin	"src/data/r43c/Art_DoorBadFuture.bin"
+	incbin	"src/gfx/r4/door_d.nem"
 	even
 
 SwingGfx:
-	incbin	"src/data/r43c/SwingGfx.bin"
+	incbin	"src/gfx/r4/swing_c_d.nem"
 	even
 
 SwingGfx2:
-	incbin	"src/data/r43c/SwingGfx2.bin"
+	incbin	"src/gfx/r4/swing_c_d.nem"
 	even
 
 BlockGoodFutureGfx:
-	incbin	"src/data/r43c/BlockGoodFutureGfx.bin"
+	incbin	"src/gfx/r4/block_c.nem"
 	even
 
 BlockGfxsBadFuture:
-	incbin	"src/data/r43c/BlockGfxsBadFuture.bin"
+	incbin	"src/gfx/r4/block_d.nem"
 	even
 
 AnimalGfx:
@@ -344,11 +344,11 @@ SwitchGfx:
 	even
 
 Art_BossChase:
-	incbin	"src/data/r43c/Art_BossChase.bin"
+	incbin	"src/gfx/r4/boss_chase.nem"
 	even
 
 Art_BossBubble:
-	incbin	"src/data/r43c/Art_BossBubble.bin"
+	incbin	"src/gfx/r4/boss_bubble.nem"
 
 Padding3:
 	incbin	"padding/r43c_e_3.bin"

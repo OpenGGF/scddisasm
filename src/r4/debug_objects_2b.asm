@@ -43,7 +43,7 @@ DebugObjects:
 	debugObject $35, 1, off_20EEFE, $4380, $81, 3, 0, 0
 	debugObject $35, 1, off_20EF2C, $4380, $82, 0, 0, 0
 	debugObject $35, 1, off_20EF2C, $4380, $83, 3, 0, 0
-	debugObject $20, 4, Spr_21E9B4, $848A, $82, 0, 0, 0
+	debugObject $20, 4, BubbleSprites, $848A, $82, 0, 0, 0
 	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
 	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
 	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0

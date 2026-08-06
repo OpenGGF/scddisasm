@@ -126,15 +126,15 @@ TitleCardTextGfx:
 	even
 
 BossGfx1:
-	incbin	"src/data/r53d/BossGfx1.bin"
+	incbin	"src/gfx/r5/boss_1.nem"
 	even
 
 BossGfx2:
-	incbin	"src/data/r53d/BossGfx2.bin"
+	incbin	"src/gfx/r5/boss_2.nem"
 	even
 
 BossSpikesGfx:
-	incbin	"src/data/r53d/BossSpikesGfx.bin"
+	incbin	"src/gfx/r5/boss_spikes_d.nem"
 	even
 
 StageCollisionAngles:
@@ -200,27 +200,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r53d/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r53d/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r53d/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r53d/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r53d/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r53d/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:
@@ -308,23 +308,23 @@ CapsuleSprites:
 	even
 
 InsideBgGfx:
-	incbin	"src/data/r53d/InsideBgGfx.bin"
+	incbin	"src/gfx/r5/background_inside_d.nem"
 	even
 
 OutsideBgGfx:
-	incbin	"src/data/r53d/OutsideBgGfx.bin"
+	incbin	"src/gfx/r5/background_outside_d.nem"
 	even
 
 BridgeGfx:
-	incbin	"src/data/r53d/BridgeGfx.bin"
+	incbin	"src/gfx/r5/bridge_d.nem"
 	even
 
 ConveyorControlGfx:
-	incbin	"src/data/r53d/ConveyorControlGfx.bin"
+	incbin	"src/gfx/r5/conveyor_control_d.nem"
 	even
 
 PlatformGfx:
-	incbin	"src/data/r53d/PlatformGfx.bin"
+	incbin	"src/gfx/r5/platform_d.nem"
 	even
 
 AnimalGfx:
@@ -340,15 +340,15 @@ ProjectorGfx:
 	even
 
 BreakWallGfx:
-	incbin	"src/data/r53d/BreakWallGfx.bin"
+	incbin	"src/gfx/r5/break_wall_d.nem"
 	even
 
 ChainGfx:
-	incbin	"src/data/r53d/ChainGfx.bin"
+	incbin	"src/gfx/chain.nem"
 	even
 
 CollapseFloorGfx:
-	incbin	"src/data/r53d/CollapseFloorGfx.bin"
+	incbin	"src/gfx/r5/collapse_floor_d.nem"
 
 Padding3:
 	incbin	"padding/r53d_e_3.bin"

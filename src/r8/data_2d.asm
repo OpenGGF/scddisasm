@@ -12,7 +12,7 @@ StageChunks:
 	even
 
 Ani_21DA00:
-	include	"src/data/r82d/Ani_21DA00.asm"
+	include	"src/anims/r8/Ani_21DA00.asm"
 	even
 
 FlowerAnims:
@@ -28,7 +28,7 @@ FlowerGfx:
 	even
 
 LaserGfx:
-	incbin	"src/data/r82d/LaserGfx.bin"
+	incbin	"src/gfx/r8/laser.nem"
 	even
 
 TitleCardTextGfx:
@@ -36,99 +36,99 @@ TitleCardTextGfx:
 	even
 
 byte_21DF96:
-	incbin	"src/data/r82d/byte_21DF96.bin"
+	incbin	"src/data/r8/byte_2345CA.bin"
 	even
 
 byte_21E096:
-	incbin	"src/data/r82d/byte_21E096.bin"
+	incbin	"src/data/r8/byte_2346CA.bin"
 	even
 
 byte_21E196:
-	incbin	"src/data/r82d/byte_21E196.bin"
+	incbin	"src/data/r8/byte_2347CA.bin"
 	even
 
 byte_21E296:
-	incbin	"src/data/r82d/byte_21E296.bin"
+	incbin	"src/data/r8/byte_2348CA.bin"
 	even
 
 byte_21E396:
-	incbin	"src/data/r82d/byte_21E396.bin"
+	incbin	"src/data/r8/byte_2349CA.bin"
 	even
 
 byte_21E496:
-	incbin	"src/data/r82d/byte_21E496.bin"
+	incbin	"src/data/r8/byte_234ACA.bin"
 	even
 
 byte_21E596:
-	incbin	"src/data/r82d/byte_21E596.bin"
+	incbin	"src/data/r8/byte_234BCA.bin"
 	even
 
 byte_21E696:
-	incbin	"src/data/r82d/byte_21E696.bin"
+	incbin	"src/data/r8/byte_234CCA.bin"
 	even
 
 byte_21E896:
-	incbin	"src/data/r82d/byte_21E896.bin"
+	incbin	"src/data/r8/byte_234ECA.bin"
 	even
 
 byte_21EA96:
-	incbin	"src/data/r82d/byte_21EA96.bin"
+	incbin	"src/data/r8/byte_2350CA.bin"
 	even
 
 byte_21EC96:
-	incbin	"src/data/r82d/byte_21EC96.bin"
+	incbin	"src/data/r8/byte_21F096_d.bin"
 	even
 
 byte_21F696:
-	incbin	"src/data/r82d/byte_21F696.bin"
+	incbin	"src/data/r8/byte_235CCA.bin"
 	even
 
 byte_21F716:
-	incbin	"src/data/r82d/byte_21F716.bin"
+	incbin	"src/data/r8/byte_235D4A.bin"
 	even
 
 byte_21F796:
-	incbin	"src/data/r82d/byte_21F796.bin"
+	incbin	"src/data/r8/byte_235DCA.bin"
 	even
 
 byte_21F816:
-	incbin	"src/data/r82d/byte_21F816.bin"
+	incbin	"src/data/r8/byte_235E4A.bin"
 	even
 
 byte_21F896:
-	incbin	"src/data/r82d/byte_21F896.bin"
+	incbin	"src/data/r8/byte_235ECA.bin"
 	even
 
 byte_21F916:
-	incbin	"src/data/r82d/byte_21F916.bin"
+	incbin	"src/data/r8/byte_235F4A.bin"
 	even
 
 byte_21F996:
-	incbin	"src/data/r82d/byte_21F996.bin"
+	incbin	"src/data/r8/byte_21FD96.bin"
 	even
 
 byte_21FA16:
-	incbin	"src/data/r82d/byte_21FA16.bin"
+	incbin	"src/data/r8/byte_21FA16.bin"
 	even
 
 byte_21FA96:
-	incbin	"src/data/r82d/byte_21FA96.bin"
+	incbin	"src/data/r8/byte_21FA96.bin"
 	even
 
 byte_21FB16:
-	incbin	"src/data/r82d/byte_21FB16.bin"
+	incbin	"src/data/r8/byte_21FB16.bin"
 	even
 
 byte_21FB96:
-	incbin	"src/data/r82d/byte_21FB96.bin"
+	incbin	"src/data/r8/byte_21FB96.bin"
 	even
 
 byte_21FC16:
-	incbin	"src/data/r82d/byte_21FC16.bin"
+	incbin	"src/data/r8/byte_21FC16.bin"
 	even
 
 byte_21FC96:
-	incbin	"src/data/r82d/byte_21FC96.bin"
+	incbin	"src/data/r8/byte_21FC96.bin"
 
 Padding2:
 	incbin	"padding/r82d_e_2.bin"
@@ -226,27 +226,27 @@ CheckpointGfx:
 	even
 
 RevolveDoorGfx:
-	incbin	"src/data/r82d/RevolveDoorGfx.bin"
+	incbin	"src/gfx/r8/revolve_door.nem"
 	even
 
 BossDoorGfx:
-	incbin	"src/data/r82d/BossDoorGfx.bin"
+	incbin	"src/gfx/r8/boss_door.nem"
 	even
 
 BossPanelsGfx1:
-	incbin	"src/data/r82d/BossPanelsGfx1.bin"
+	incbin	"src/gfx/r8/boss_panels_1.nem"
 	even
 
 BossPanelsGfx2:
-	incbin	"src/data/r82d/BossPanelsGfx2.bin"
+	incbin	"src/gfx/r8/boss_panels_2.nem"
 	even
 
 BossPanelsGfx3:
-	incbin	"src/data/r82d/BossPanelsGfx3.bin"
+	incbin	"src/gfx/r8/boss_panels_3.nem"
 	even
 
 BossMachineGfx:
-	incbin	"src/data/r82d/BossMachineGfx.bin"
+	incbin	"src/gfx/r8/boss_machine_old.nem"
 	even
 
 AmyRoseGfx:
@@ -316,27 +316,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r82d/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r82d/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r82d/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r82d/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r82d/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r82d/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:
@@ -406,35 +406,35 @@ SpikesGfx:
 	even
 
 CrusherGfx:
-	incbin	"src/data/r82d/CrusherGfx.bin"
+	incbin	"src/gfx/r8/crusher.nem"
 	even
 
 CollapseFloorGfx:
-	incbin	"src/data/r82d/CollapseFloorGfx.bin"
+	incbin	"src/gfx/r8/collapse_floor.nem"
 	even
 
 BigbomGfx:
-	incbin	"src/data/r82d/BigbomGfx.bin"
+	incbin	"src/gfx/r8/bigbom.nem"
 	even
 
 TrapDoorGfx:
-	incbin	"src/data/r82d/TrapDoorGfx.bin"
+	incbin	"src/gfx/r8/trap_door.nem"
 	even
 
 SeesawGfx:
-	incbin	"src/data/r82d/SeesawGfx.bin"
+	incbin	"src/gfx/r8/seesaw.nem"
 	even
 
 SeesawGfxC:
-	incbin	"src/data/r82d/SeesawGfxC.bin"
+	incbin	"src/gfx/r8/seesaw_c.nem"
 	even
 
 SpikeCrusherGfx:
-	incbin	"src/data/r82d/SpikeCrusherGfx.bin"
+	incbin	"src/gfx/r8/spike_crusher.nem"
 	even
 
 TwinWalkerGfx:
-	incbin	"src/data/r82d/TwinWalkerGfx.bin"
+	incbin	"src/gfx/r8/twin_walker.nem"
 	even
 
 SwitchGfx:
@@ -446,11 +446,11 @@ SpringWheelGfx:
 	even
 
 MechaBuGfx:
-	incbin	"src/data/r82d/MechaBuGfx.bin"
+	incbin	"src/gfx/r8/mecha_bu.nem"
 	even
 
 TubeCoverGfx:
-	incbin	"src/data/r82d/TubeCoverGfx.bin"
+	incbin	"src/gfx/r8/tube_cover.nem"
 	even
 
 AnimalGfx:
@@ -458,7 +458,7 @@ AnimalGfx:
 	even
 
 DangoGfx:
-	incbin	"src/data/r82d/DangoGfx.bin"
+	incbin	"src/gfx/r8/dango.nem"
 	even
 
 RobotGeneratorDecayGfx:
@@ -470,11 +470,11 @@ RobotGeneratorGfx:
 	even
 
 unk_23E876:
-	incbin	"src/data/r82d/unk_23E876.bin"
+	incbin	"src/data/r8/unk_23E876.bin"
 	even
 
 RobotGeneratorSprites:
-	include	"src/data/r82d/RobotGeneratorSprites.asm"
+	include	"src/sprites/r8/robot_generator_2.asm"
 	even
 
 Spr_23C15C:

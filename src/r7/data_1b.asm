@@ -126,35 +126,35 @@ TitleCardTextGfx:
 	even
 
 LauncherGfx:
-	incbin	"src/data/r71b/LauncherGfx.bin"
+	incbin	"src/gfx/r7/launcher.nem"
 	even
 
 LauncherSparksGfx:
-	incbin	"src/data/r71b/LauncherSparksGfx.bin"
+	incbin	"src/gfx/r7/launcher_sparks.nem"
 	even
 
 LightEdgesGfx:
-	incbin	"src/data/r71b/LightEdgesGfx.bin"
+	incbin	"src/gfx/r7/light_edges.nem"
 	even
 
 PathSwapPanelGfx:
-	incbin	"src/data/r71b/PathSwapPanelGfx.bin"
+	incbin	"src/gfx/r7/path_swap_panel.nem"
 	even
 
 MeshGfxA:
-	incbin	"src/data/r71b/MeshGfxA.bin"
+	incbin	"src/gfx/r7/mesh_a.nem"
 	even
 
 MeshGfxB:
-	incbin	"src/data/r71b/MeshGfxB.bin"
+	incbin	"src/gfx/r7/mesh_b.nem"
 	even
 
 MeshGfxC:
-	incbin	"src/data/r71b/MeshGfxC.bin"
+	incbin	"src/gfx/r7/mesh_c.nem"
 	even
 
 MeshGfxD:
-	incbin	"src/data/r71b/MeshGfxD.bin"
+	incbin	"src/gfx/r7/mesh_d.nem"
 	even
 
 StageCollisionAngles:
@@ -220,27 +220,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r71b/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r71b/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r71b/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r71b/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r71b/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r71b/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:
@@ -328,19 +328,19 @@ CapsuleSprites:
 	even
 
 SwingGfx:
-	incbin	"src/data/r71b/SwingGfx.bin"
+	incbin	"src/gfx/r7/swing.nem"
 	even
 
 LightsGfxA:
-	incbin	"src/data/r71b/LightsGfxA.bin"
+	incbin	"src/gfx/r7/lights_a.nem"
 	even
 
 LightsGfxC:
-	incbin	"src/data/r71b/LightsGfxC.bin"
+	incbin	"src/gfx/r7/lights_c_d.nem"
 	even
 
 LightsGfxD:
-	incbin	"src/data/r71b/LightsGfxD.bin"
+	incbin	"src/gfx/r7/lights_c_d.nem"
 	even
 
 AnimalGfx:
@@ -364,43 +364,43 @@ RobotGeneratorDecayGfx:
 	even
 
 KanabunGfx:
-	incbin	"src/data/r71b/KanabunGfx.bin"
+	incbin	"src/gfx/r7/kanabun.nem"
 	even
 
 SpikeLauncherGfx:
-	incbin	"src/data/r71b/SpikeLauncherGfx.bin"
+	incbin	"src/gfx/r7/spike_launcher.nem"
 	even
 
 BlockGfxA:
-	incbin	"src/data/r71b/BlockGfxA.bin"
+	incbin	"src/gfx/r7/block_a.nem"
 	even
 
 BlockGfxB:
-	incbin	"src/data/r71b/BlockGfxB.bin"
+	incbin	"src/gfx/r7/block_b.nem"
 	even
 
 BlockGfxC:
-	incbin	"src/data/r71b/BlockGfxC.bin"
+	incbin	"src/gfx/r7/block_c.nem"
 	even
 
 BlockGfxD:
-	incbin	"src/data/r71b/BlockGfxD.bin"
+	incbin	"src/gfx/r7/block_d.nem"
 	even
 
 SpikeBallGfx:
-	incbin	"src/data/r71b/SpikeBallGfx.bin"
+	incbin	"src/gfx/r7/spike_ball.nem"
 	even
 
 HotaruGfx:
-	incbin	"src/data/r71b/HotaruGfx.bin"
+	incbin	"src/gfx/r7/hotaru.nem"
 	even
 
 KabasiraGfx:
-	incbin	"src/data/r71b/KabasiraGfx.bin"
+	incbin	"src/gfx/r7/kabasira.nem"
 	even
 
 DangoGfx:
-	incbin	"src/data/r71b/DangoGfx.bin"
+	incbin	"src/gfx/r7/dango.nem"
 
 Padding3:
 	incbin	"padding/r71b_e_3.bin"

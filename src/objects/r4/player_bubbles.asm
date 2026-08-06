@@ -23,7 +23,7 @@ off_2060A8:
 
 PlayerBubblesObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_21E9B4,obj.sprite_data(a0)
+	move.l	#BubbleSprites,obj.sprite_data(a0)
 	ori.w	#$848A,obj.sprite_tile(a0)
 	move.b	#$84,obj.sprite_flags(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -31,7 +31,7 @@ PlayerBubblesObject_0_Routine0:
 	move.b	obj.subtype(a0),d0
 	bpl.s	loc_206102
 	addq.b	#8,obj.routine(a0)
-	move.l	#Spr_21E9B4,obj.sprite_data(a0)
+	move.l	#BubbleSprites,obj.sprite_data(a0)
 	ori.w	#$48A,obj.sprite_tile(a0)
 	andi.w	#$7F,d0
 	move.b	d0,obj.var_33(a0)

@@ -126,35 +126,35 @@ TitleCardTextGfx:
 	even
 
 byte_233B0C:
-	incbin	"src/data/r63c/byte_233B0C.bin"
+	incbin	"src/data/r6/byte_233B0C.bin"
 	even
 
 byte_233B8C:
-	incbin	"src/data/r63c/byte_233B8C.bin"
+	incbin	"src/data/r6/byte_233B8C.bin"
 	even
 
 byte_233C0C:
-	incbin	"src/data/r63c/byte_233C0C.bin"
+	incbin	"src/data/r6/byte_233C0C.bin"
 	even
 
 byte_233D0C:
-	incbin	"src/data/r63c/byte_233D0C.bin"
+	incbin	"src/data/r6/byte_233D0C.bin"
 	even
 
 byte_233E0C:
-	incbin	"src/data/r63c/byte_233E0C.bin"
+	incbin	"src/data/r6/byte_233E0C_c.bin"
 	even
 
 LauncherGfx:
-	incbin	"src/data/r63c/LauncherGfx.bin"
+	incbin	"src/gfx/r6/launcher.nem"
 	even
 
 FreezerGfx:
-	incbin	"src/data/r63c/FreezerGfx.bin"
+	incbin	"src/gfx/r6/freezer.nem"
 	even
 
 IceBlockGfx:
-	incbin	"src/data/r63c/IceBlockGfx.bin"
+	incbin	"src/gfx/r6/ice_block.nem"
 	even
 
 StageCollisionAngles:
@@ -220,27 +220,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r63c/StageMapNull.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r63c/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r63c/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r63c/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r63c/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r63c/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:
@@ -328,23 +328,23 @@ CapsuleSprites:
 	even
 
 PistonGfx:
-	incbin	"src/data/r63c/PistonGfx.bin"
+	incbin	"src/gfx/r6/piston.nem"
 	even
 
 PlatformGfxA:
-	incbin	"src/data/r63c/PlatformGfxA.bin"
+	incbin	"src/gfx/r6/platform_a.nem"
 	even
 
 PlatformGfxB:
-	incbin	"src/data/r63c/PlatformGfxB.bin"
+	incbin	"src/gfx/r6/platform_b.nem"
 	even
 
 PlatformGfxCD:
-	incbin	"src/data/r63c/PlatformGfxCD.bin"
+	incbin	"src/gfx/r6/platform_c_d.nem"
 	even
 
 BouncePlatformGfx:
-	incbin	"src/data/r63c/BouncePlatformGfx.bin"
+	incbin	"src/gfx/r6/bounce_platform.nem"
 	even
 
 SwitchGfx:
@@ -356,47 +356,47 @@ DoorGfx:
 	even
 
 BossDoorGfx:
-	incbin	"src/data/r63c/BossDoorGfx.bin"
+	incbin	"src/gfx/r6/boss_door.nem"
 	even
 
 CrusherGfx:
-	incbin	"src/data/r63c/CrusherGfx.bin"
+	incbin	"src/gfx/r6/crusher.nem"
 	even
 
 CrusherGfxC:
-	incbin	"src/data/r63c/CrusherGfxC.bin"
+	incbin	"src/gfx/r6/crusher_c.nem"
 	even
 
 TubeDoorGfx:
-	incbin	"src/data/r63c/TubeDoorGfx.bin"
+	incbin	"src/gfx/r6/tube_door.nem"
 	even
 
 ElectricOrbGfxA:
-	incbin	"src/data/r63c/ElectricOrbGfxA.bin"
+	incbin	"src/gfx/r6/electric_orb_a.nem"
 	even
 
 ElectricOrbGfxB:
-	incbin	"src/data/r63c/ElectricOrbGfxB.bin"
+	incbin	"src/gfx/r6/electric_orb_b.nem"
 	even
 
 ElectricOrbGfxC:
-	incbin	"src/data/r63c/ElectricOrbGfxC.bin"
+	incbin	"src/gfx/r6/electric_orb_c.nem"
 	even
 
 ElectricOrbGfxD:
-	incbin	"src/data/r63c/ElectricOrbGfxD.bin"
+	incbin	"src/gfx/r6/electric_orb_d.nem"
 	even
 
 BataPyonGfx:
-	incbin	"src/data/r63c/BataPyonGfx.bin"
+	incbin	"src/gfx/r6/bata_pyon.nem"
 	even
 
 PohBeeGfx:
-	incbin	"src/data/r63c/PohBeeGfx.bin"
+	incbin	"src/gfx/r6/poh_bee.nem"
 	even
 
 MinomusiGfx:
-	incbin	"src/data/r63c/MinomusiGfx.bin"
+	incbin	"src/gfx/r6/minomusi.nem"
 	even
 
 SemiBombGfx:
@@ -404,19 +404,19 @@ SemiBombGfx:
 	even
 
 SnakeBlocksGfx:
-	incbin	"src/data/r63c/SnakeBlocksGfx.bin"
+	incbin	"src/gfx/r6/snake_blocks.nem"
 	even
 
 SemiGfx:
-	incbin	"src/data/r63c/SemiGfx.bin"
+	incbin	"src/gfx/r6/semi.nem"
 	even
 
 SeesawGfx:
-	incbin	"src/data/r63c/SeesawGfx.bin"
+	incbin	"src/gfx/r6/seesaw.nem"
 	even
 
 EggmanStatueGfx:
-	incbin	"src/data/r63c/EggmanStatueGfx.bin"
+	incbin	"src/gfx/r6/eggman_statue.nem"
 	even
 
 SpikeBallGfx:
@@ -444,27 +444,27 @@ ProjectorGfx:
 	even
 
 BossMachineGfx:
-	incbin	"src/data/r63c/BossMachineGfx.bin"
+	incbin	"src/gfx/r6/boss_machine.nem"
 	even
 
 EggmanGfx:
-	incbin	"src/data/r63c/EggmanGfx.bin"
+	incbin	"src/gfx/r6/eggman.nem"
 	even
 
 EggmanEscapeGfx:
-	incbin	"src/data/r63c/EggmanEscapeGfx.bin"
+	incbin	"src/gfx/r6/eggman_escape.nem"
 	even
 
 BossDestroyedGfx:
-	incbin	"src/data/r63c/BossDestroyedGfx.bin"
+	incbin	"src/gfx/r6/boss_destroyed.nem"
 	even
 
 BossBrokenFloorGfx:
-	incbin	"src/data/r63c/BossBrokenFloorGfx.bin"
+	incbin	"src/gfx/r6/boss_broken_floor_c.nem"
 	even
 
 BossArenaPiecesGfx:
-	incbin	"src/data/r63c/BossArenaPiecesGfx.bin"
+	incbin	"src/gfx/r6/boss_arena_pieces_c.nem"
 
 Padding3:
 	incbin	"padding/r63c_e_3.bin"

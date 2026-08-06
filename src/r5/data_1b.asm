@@ -126,11 +126,11 @@ TitleCardTextGfx:
 	even
 
 BossGfx1:
-	incbin	"src/data/r51b/BossGfx1.bin"
+	incbin	"src/gfx/r5/boss_1_old.nem"
 	even
 
 BossGfx2:
-	incbin	"src/data/r51b/BossGfx2.bin"
+	incbin	"src/gfx/r5/boss_2_old.nem"
 	even
 
 StageCollisionAngles:
@@ -196,27 +196,27 @@ StageMapBg:
 	even
 
 StageMapNull:
-	incbin	"src/data/r51b/StageMapNull.bin"
+	incbin	"src/maps/r5_background.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/data/r51b/StageMapUnk1.bin"
+	incbin	"src/maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/data/r51b/StageMapUnk3.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/data/r51b/StageMapUnk4.bin"
+	incbin	"src/maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/data/r51b/StageMapUnk2.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/data/r51b/StageMapUnk5.bin"
+	incbin	"src/maps/empty.bin"
 	even
 
 StageBlocks:
@@ -304,23 +304,23 @@ CapsuleSprites:
 	even
 
 InsideBgGfx:
-	incbin	"src/data/r51b/InsideBgGfx.bin"
+	incbin	"src/gfx/r5/background_inside_b.nem"
 	even
 
 OutsideBgGfx:
-	incbin	"src/data/r51b/OutsideBgGfx.bin"
+	incbin	"src/gfx/r5/background_outside_b.nem"
 	even
 
 BridgeGfx:
-	incbin	"src/data/r51b/BridgeGfx.bin"
+	incbin	"src/gfx/r5/bridge_b.nem"
 	even
 
 ConveyorControlGfx:
-	incbin	"src/data/r51b/ConveyorControlGfx.bin"
+	incbin	"src/gfx/r5/conveyor_control_b.nem"
 	even
 
 PlatformGfx:
-	incbin	"src/data/r51b/PlatformGfx.bin"
+	incbin	"src/gfx/r5/platform_b.nem"
 	even
 
 AnimalGfx:
@@ -336,15 +336,15 @@ ProjectorGfx:
 	even
 
 BreakWallGfx:
-	incbin	"src/data/r51b/BreakWallGfx.bin"
+	incbin	"src/gfx/r5/break_wall_b.nem"
 	even
 
 ChainGfx:
-	incbin	"src/data/r51b/ChainGfx.bin"
+	incbin	"src/gfx/chain.nem"
 	even
 
 CollapseFloorGfx:
-	incbin	"src/data/r51b/CollapseFloorGfx.bin"
+	incbin	"src/gfx/r5/collapse_floor_b.nem"
 	even
 
 SpikesGfx:
@@ -352,27 +352,27 @@ SpikesGfx:
 	even
 
 StalactiteGfx:
-	incbin	"src/data/r51b/StalactiteGfx.bin"
+	incbin	"src/gfx/r5/stalactite_b.nem"
 	even
 
 RockGfx:
-	incbin	"src/data/r51b/RockGfx.bin"
+	incbin	"src/gfx/r5/rock_b.nem"
 	even
 
 KumoKumoGfx:
-	incbin	"src/data/r51b/KumoKumoGfx.bin"
+	incbin	"src/gfx/r5/kumo_kumo.nem"
 	even
 
 KemusiGfx:
-	incbin	"src/data/r51b/KemusiGfx.bin"
+	incbin	"src/gfx/r5/kemusi.nem"
 	even
 
 SasoriGfx:
-	incbin	"src/data/r51b/SasoriGfx.bin"
+	incbin	"src/gfx/r5/sasori.nem"
 	even
 
 NoroNoroGfx:
-	incbin	"src/data/r51b/NoroNoroGfx.bin"
+	incbin	"src/gfx/r5/noro_noro.nem"
 	even
 
 RobotGeneratorGfx:
@@ -380,11 +380,11 @@ RobotGeneratorGfx:
 	even
 
 UnusedSinePlatformGfx:
-	incbin	"src/data/r51b/UnusedSinePlatformGfx.bin"
+	incbin	"src/gfx/r5/sine_platform_b.nem"
 	even
 
 CrackedCollapseFloorGfx:
-	incbin	"src/data/r51b/CrackedCollapseFloorGfx.bin"
+	incbin	"src/gfx/r5/cracked_collapse_floor_b.nem"
 
 Padding3:
 	incbin	"padding/r51b_e_3.bin"
