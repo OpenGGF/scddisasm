@@ -669,12 +669,11 @@ loc_20A39E:
 
 word_20A3A6:
 	dc.w	$A22, 0, $644, $A66, $C88, $EAA, $EEE, $AE8, $8A6, $664, $442, $220, $EE, $AA, $44, $E
+
 BigRingFlashAnims:
-	dc.w	@BigRingFlashAnims_0-*
-@BigRingFlashAnims_0:
-	dc.b	2
-	dc.b	0, 1, 2, 3, 4, 5, 6, 7
-	dc.b	$FC
+	include	"src/anims/big_ring_flash.asm"
+	even
+
 BigRingFlashSprites:
 	dc.w	@BigRingFlashSprites_0-*
 	dc.w	@BigRingFlashSprites_1-BigRingFlashSprites

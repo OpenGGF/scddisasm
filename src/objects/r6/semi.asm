@@ -111,7 +111,7 @@ loc_20E158:
 	add.l	d0,obj.x(a0)
 	move.l	obj.var_2e(a0),d0
 	add.l	d0,obj.y(a0)
-	lea	Ani_20E1FE(pc),a1
+	lea	SemiAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -157,18 +157,14 @@ loc_20E1E8:
 loc_20E1EC:
 	move.l	obj.var_2a(a0),d0
 	add.l	d0,obj.x(a0)
-	lea	Ani_20E1FE(pc),a1
+	lea	SemiAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E1FE:
-	dc.w	@Ani_20E1FE_0-*
-
-@Ani_20E1FE_0:
-	dc.b	3
-	dc.b	1, 2, 3, 2
-	dc.b	$FF
+SemiAnims:
+	include	"src/anims/r6/semi.asm"
+	even
 
 Unk20E206Sprites:
 	dc.w	Unk20E206Sprite_0-*
@@ -352,7 +348,7 @@ SemiObject_0_Routine6:
 	addq.b	#2,obj.routine(a0)
 
 loc_20E454:
-	lea	Ani_20E482(pc),a1
+	lea	SemiBombAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -371,13 +367,9 @@ locret_20E480:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E482:
-	dc.w	@Ani_20E482_0-*
-
-@Ani_20E482_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
+SemiBombAnims:
+	include	"src/anims/r6/semi_bomb.asm"
+	even
 
 Spr_20E488:
 	dc.w	@Spr_20E488_0-*

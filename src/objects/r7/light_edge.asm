@@ -59,7 +59,7 @@ loc_206662:
 	move.w	word_206682(pc,d0.w),d0
 	move.w	(scroll_fg_x).w,obj.x(a0)
 	add.w	d0,obj.x(a0)
-	lea	(Ani_206686).l,a1
+	lea	(LightEdgeAnims).l,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -68,13 +68,9 @@ word_206682:
 	dc.w	$50
 	dc.w	$F0
 
-Ani_206686:
-	dc.w	@Ani_206686_0-*
-
-@Ani_206686_0:
-	dc.b	4
-	dc.b	0, 1
-	dc.b	$FF
+LightEdgeAnims:
+	include	"src/anims/r7/light_edge.asm"
+	even
 
 Spr_20668C:
 	dc.w	@Spr_20668C_0-*

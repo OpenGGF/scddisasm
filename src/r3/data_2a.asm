@@ -150,7 +150,7 @@ FlipperGfx:
 	even
 
 BumperGfx:
-	incbin	"src/gfx/bumper.nem"
+	incbin	"src/gfx/r3/bumper.nem"
 	even
 
 MetalPlatformGfx:
@@ -233,8 +233,8 @@ SpikeChainGfx:
 	incbin	"src/gfx/spike_chain.nem"
 	even
 
-RobotTransporterGfxA:
-	incbin	"src/gfx/robot_transporter_a.nem"
+RobotTransportGfxA:
+	incbin	"src/gfx/robot_transport_a.nem"
 	even
 
 AnimalsGfx:

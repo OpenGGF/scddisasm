@@ -538,7 +538,7 @@ BigbomObject_3_Routine2:
 	addq.b	#2,obj.routine(a0)
 
 loc_20DA32:
-	lea	Ani_20DA70(pc),a1
+	lea	BigbomFuseAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -550,7 +550,7 @@ BigbomObject_3_Routine4:
 	addq.b	#2,obj.routine(a0)
 
 loc_20DA50:
-	lea	Ani_20DA70(pc),a1
+	lea	BigbomFuseAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -566,13 +566,9 @@ loc_20DA6A:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20DA70:
-	dc.w	@Ani_20DA70_0-*
-
-@Ani_20DA70_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
+BigbomFuseAnims:
+	include	"src/anims/r8/bigbom_fuse.asm"
+	even
 
 Spr_20DA76:
 	dc.w	@Spr_20DA76_0-*
@@ -619,19 +615,14 @@ BigbomObject_4_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20DAD0:
-	lea	Ani_20DADA(pc),a1
+	lea	BigbomExplodeAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20DADA:
-	dc.w	@Ani_20DADA_0-*
-
-@Ani_20DADA_0:
-	dc.b	3
-	dc.b	0, 1, 2, 3, 4
-	dc.b	$FF
-	dc.b	0
+BigbomExplodeAnims:
+	include	"src/anims/r8/bigbom_explode.asm"
+	even
 
 Spr_20DAE4:
 	dc.w	@Spr_20DAE4_0-*
@@ -730,18 +721,14 @@ loc_20DBB0:
 ; ------------------------------------------------------------------------------
 
 loc_20DBE8:
-	lea	Ani_20DBF2(pc),a1
+	lea	BigbomDebrisAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20DBF2:
-	dc.w	@Ani_20DBF2_0-*
-
-@Ani_20DBF2_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
+BigbomDebrisAnims:
+	include	"src/anims/r8/bigbom_debris.asm"
+	even
 
 Spr_20DBF8:
 	dc.w	@Spr_20DBF8_0-*

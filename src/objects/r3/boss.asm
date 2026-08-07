@@ -59,7 +59,7 @@ EntryBarrierObject_0_Routine4:
 	cmpi.b	#$10,obj.var_2a(a0)
 	blt.s	loc_20DC2A
 	move.b	#0,obj.anim_id(a0)
-	lea	(Ani_20E820).l,a1
+	lea	(EntryBarrierAnims).l,a1
 	jsr	AnimateObject
 
 loc_20DC2A:
@@ -684,7 +684,7 @@ EggmanObject:
 	jsr	off_20E214(pc,d0.w)
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_20E20E
-	lea	(Ani_20E6C0).l,a1
+	lea	(EggmanAnims).l,a1
 	jsr	AnimateObject
 
 loc_20E20E:
@@ -795,7 +795,7 @@ loc_20E32A:
 	move.w	obj.y(a1),obj.y(a0)
 	btst	#2,obj.var_2c(a1)
 	beq.s	loc_20E350
-	lea	(Ani_20E94C).l,a1
+	lea	(GearAnims).l,a1
 	jsr	AnimateObject
 
 loc_20E350:
@@ -1138,37 +1138,9 @@ loc_20E6A6:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E6C0:
-	dc.w	@Ani_20E6C0_0-*
-	dc.w	@Ani_20E6C0_1-Ani_20E6C0
-	dc.w	@Ani_20E6C0_2-Ani_20E6C0
-	dc.w	@Ani_20E6C0_3-Ani_20E6C0
-	dc.w	@Ani_20E6C0_4-Ani_20E6C0
-
-@Ani_20E6C0_0:
-	dc.b	9
-	dc.b	0, 1, 0, 3, 2, 3
-	dc.b	$FF
-
-@Ani_20E6C0_1:
-	dc.b	7
-	dc.b	4, 5
-	dc.b	$FF
-
-@Ani_20E6C0_2:
-	dc.b	$7F
-	dc.b	6
-	dc.b	$FF
-
-@Ani_20E6C0_3:
-	dc.b	$7F
-	dc.b	7
-	dc.b	$FF
-
-@Ani_20E6C0_4:
-	dc.b	7
-	dc.b	8, 9
-	dc.b	$FF
+EggmanAnims:
+	include	"src/anims/r3/eggman.asm"
+	even
 
 Spr_20E6E0:
 	dc.w	@Spr_20E6E0_0-*
@@ -1270,20 +1242,9 @@ Spr_20E6E0:
 	dc.b	$E8, $E, 0, $59, $20
 	dc.b	$E8, 2, 0, $65, $40
 
-Ani_20E820:
-	dc.w	@Ani_20E820_0-*
-	dc.w	@Ani_20E820_1-Ani_20E820
-
-@Ani_20E820_0:
-	dc.b	$7F
-	dc.b	0
-	dc.b	$FF
-
-@Ani_20E820_1:
-	dc.b	0
-	dc.b	0, 1
-	dc.b	$FF
-	dc.b	0
+EntryBarrierAnims:
+	include	"src/anims/r3/entry_barrier.asm"
+	even
 
 Spr_20E82C:
 	dc.w	@Spr_20E82C_0-*
@@ -1378,19 +1339,9 @@ Spr_20E850:
 	dc.b	$F0, $F, 0, $96, $20
 	dc.b	0
 
-Ani_20E94C:
-	dc.w	@Ani_20E94C_0-*
-	dc.w	@Ani_20E94C_1-Ani_20E94C
-
-@Ani_20E94C_0:
-	dc.b	2
-	dc.b	0, 2, 1
-	dc.b	$FF
-
-@Ani_20E94C_1:
-	dc.b	2
-	dc.b	0, 1, 2
-	dc.b	$FF
+GearAnims:
+	include	"src/anims/r3/gear.asm"
+	even
 
 Spr_20E95A:
 	dc.w	@Spr_20E95A_0-*
@@ -1508,7 +1459,7 @@ loc_20EA2C:
 	move.b	#$10,obj.height(a0)
 
 ExitBarrierObject_0_Routine2:
-	lea	Ani_20EA86(pc),a1
+	lea	ExitBarrierAnims(pc),a1
 	jsr	AnimateObject
 	move.b	obj.sprite_frame(a0),d0
 	cmp.b	obj.var_2a(a0),d0
@@ -1531,13 +1482,9 @@ loc_20EA80:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20EA86:
-	dc.w	@Ani_20EA86_0-*
-
-@Ani_20EA86_0:
-	dc.b	0
-	dc.b	0, 1, 2, 3, 4, 5, 6, 7
-	dc.b	7
+ExitBarrierAnims:
+	include	"src/anims/r3/exit_barrier.asm"
+	even
 
 Spr_20EA92:
 	dc.w	@Spr_20EA92_0-*

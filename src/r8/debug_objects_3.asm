@@ -44,7 +44,7 @@ DebugObjects:
 	debugObject $A, 1, DSpringSprites, $4F2, 8, 2, 0, 0
 	debugObject $A, 1, DSpringSprites, $4F2, 8, 1, 0, 0
 	debugObject $A, 1, DSpringSprites, $4F2, 8, 3, 0, 0
-	debugObject $F, 4, MobileSpringSprites, $372, 0, 0, 0, 0
+	debugObject $F, 4, MoveSpringSprites, $372, 0, 0, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 0, 0, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 9, 0, 0, $C
 	debugEnd

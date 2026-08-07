@@ -14,7 +14,7 @@ loc_20B944:
 	move.b	obj.routine(a0),d0
 	move.w	off_20B96E(pc,d0.w),d0
 	jsr	off_20B96E(pc,d0.w)
-	lea	Ani_20BB56(pc),a1
+	lea	TentouAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -206,14 +206,9 @@ locret_20BB54:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20BB56:
-	dc.w	@Ani_20BB56_0-*
-
-@Ani_20BB56_0:
-	dc.b	3
-	dc.b	0, 1, 2
-	dc.b	$FF
-	dc.b	0
+TentouAnims:
+	include	"src/anims/r3/tentou.asm"
+	even
 
 off_20BB5E:
 	dc.w	byte_20BB64-*
@@ -353,7 +348,7 @@ TentouObject_1_Routine6:
 	addq.b	#2,obj.routine(a0)
 
 loc_20BCEA:
-	lea	Ani_20BD18(pc),a1
+	lea	TentouBombAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -372,13 +367,9 @@ locret_20BD16:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20BD18:
-	dc.w	@Ani_20BD18_0-*
-
-@Ani_20BD18_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
+TentouBombAnims:
+	include	"src/anims/r3/tentou_bomb.asm"
+	even
 
 Spr_20BD1E:
 	dc.w	@Spr_20BD1E_0-*

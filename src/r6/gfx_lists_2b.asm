@@ -51,7 +51,7 @@ MainGfxList:
 SectionGfxInitList0:
 	gfxStart
 	gfxEntry GoalGfx, $4F00
-	gfxEntry RobotTransporterGfxB, $5D00
+	gfxEntry RobotTransportGfxB, $5D00
 	gfxEntry HologramGfx, $6000
 	gfxEntry PistonGfx, $6800
 	gfxEntry ElectricOrbB, $6B00

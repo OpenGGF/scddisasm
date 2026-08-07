@@ -97,7 +97,7 @@ SectionGfxInitList3:
 	gfxEntry SpringboardGfx, $7020
 	gfxEntry MosquiGfx, $72C0
 	gfxEntry TamabbohGfx, $8060
-	gfxEntry RobotTransporterGfxB, $87E0
+	gfxEntry RobotTransportGfxB, $87E0
 	gfxEntry GoalGfx, $6B40
 	gfxEnd
 
@@ -127,7 +127,7 @@ SectionGfxUpdateList2:
 
 SectionGfxUpdateList3:
 	gfxStart
-	gfxEntry RobotTransporterGfxB, $87E0
+	gfxEntry RobotTransportGfxB, $87E0
 	gfxEnd
 
 AnimalsGfxList:

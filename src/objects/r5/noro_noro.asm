@@ -110,7 +110,7 @@ loc_20D0D4:
 	move.w	#0,obj.var_3e(a0)
 
 loc_20D0F0:
-	lea	Ani_20D164(pc),a1
+	lea	NoroNoroAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -158,19 +158,9 @@ loc_20D15E:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D164:
-	dc.w	@Ani_20D164_0-*
-	dc.w	@Ani_20D164_1-Ani_20D164
-
-@Ani_20D164_0:
-	dc.b	$1D
-	dc.b	0, 1
-	dc.b	$FF
-
-@Ani_20D164_1:
-	dc.b	$1D
-	dc.b	2, 3
-	dc.b	$FF
+NoroNoroAnims:
+	include	"src/anims/r5/noro_noro.asm"
+	even
 
 Unk20D170Sprites:
 	dc.w	Unk20D170Sprite_0-*

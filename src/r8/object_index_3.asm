@@ -15,7 +15,7 @@ ObjectIndex:
 	dc.l	HDoorSplashSetObject
 	dc.l	HDoorObject
 	dc.l	TunnelSplashObject
-	dc.l	MobileSpringObjectR8
+	dc.l	MoveSpringObjectR8
 	dc.l	RingObject
 	dc.l	LostRingObject
 	dc.l	NullObject

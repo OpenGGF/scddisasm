@@ -56,7 +56,7 @@ SectionGfxInitList0:
 	gfxEntry SpikeBallGfx, $70C0
 	gfxEntry SpikeLaunchGfx, $71C0
 	gfxEntry AnimalsGfx, $72C0
-	gfxEntry RobotTransporterGfxA, $75C0
+	gfxEntry RobotTransportGfxA, $75C0
 	gfxEntry KabasiraGfx, $78C0
 	gfxEntry KanabunGfx, $7D20
 	gfxEntry HotaruGfx, $8BA0
@@ -80,7 +80,7 @@ SectionGfxInitList1:
 
 SectionGfxUpdateList0:
 	gfxStart
-	gfxEntry RobotTransporterGfxA, $75C0
+	gfxEntry RobotTransportGfxA, $75C0
 	gfxEnd
 
 SectionGfxUpdateList1:

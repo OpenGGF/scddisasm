@@ -75,7 +75,7 @@ SectionGfxInitList1:
 SectionGfxInitList2:
 	gfxStart
 	gfxEntry SpikesHV4Gfx, $63C0
-	gfxEntry RobotTransporterGfxA, $67C0
+	gfxEntry RobotTransportGfxA, $67C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
 	gfxEntry OneWayBarrierGfx, $6E20
 	gfxEntry FireShootGfx, $6F20
@@ -126,7 +126,7 @@ SectionGfxUpdateList1:
 
 SectionGfxUpdateList2:
 	gfxStart
-	gfxEntry RobotTransporterGfxA, $67C0
+	gfxEntry RobotTransportGfxA, $67C0
 	gfxEnd
 
 SectionGfxUpdateList3:

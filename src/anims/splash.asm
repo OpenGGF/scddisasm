@@ -11,13 +11,13 @@
 	dc.b	3
 	dc.b	0, 4, 3, 1, 2
 	dc.b	$FC
-	dc.b	0
+	even
 
 .Anim1:
 	dc.b	3
 	dc.b	0, 1, 2
 	dc.b	$FC
-	dc.b	0
+	even
 
 .Anim2:
 	dc.b	3

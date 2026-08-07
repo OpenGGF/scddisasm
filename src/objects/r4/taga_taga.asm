@@ -152,7 +152,7 @@ loc_20DC8C:
 	add.w	d3,obj.x(a3)
 
 loc_20DC98:
-	lea	Ani_20DDD8(pc),a1
+	lea	TagaTagaAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -261,13 +261,9 @@ loc_20DDCE:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20DDD8:
-	dc.w	@Ani_20DDD8_0-*
-
-@Ani_20DDD8_0:
-	dc.b	$1E
-	dc.b	0, 1
-	dc.b	$FF
+TagaTagaAnims:
+	include	"src/anims/r4/taga_taga.asm"
+	even
 
 Spr_20DDDE:
 	dc.w	@Spr_20DDDE_0-*

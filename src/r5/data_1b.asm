@@ -375,8 +375,8 @@ NoroNoroGfx:
 	incbin	"src/gfx/r5/noro_noro.nem"
 	even
 
-RobotTransporterGfxB:
-	incbin	"src/gfx/robot_transporter_b.nem"
+RobotTransportGfxB:
+	incbin	"src/gfx/robot_transport_b.nem"
 	even
 
 SinePlatformGfxB:

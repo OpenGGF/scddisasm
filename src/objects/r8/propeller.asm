@@ -12,7 +12,7 @@ loc_20CC6C:
 	move.b	obj.routine(a0),d0
 	move.w	off_20CC94(pc,d0.w),d0
 	jsr	off_20CC94(pc,d0.w)
-	lea	Ani_20CDAA(pc),a1
+	lea	PropellerBaseAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_30(a0),d0
@@ -111,12 +111,10 @@ locret_20CDA8:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20CDAA:
-	dc.w	@Ani_20CDAA_0-*
-@Ani_20CDAA_0:
-	dc.b	$A
-	dc.b	0, 1
-	dc.b	$FF
+PropellerBaseAnims:
+	include	"src/anims/r8/propeller_base.asm"
+	even
+
 Spr_20CDB0:
 	dc.w	@Spr_20CDB0_0-*
 	dc.w	@Spr_20CDB0_1-Spr_20CDB0
@@ -264,17 +262,15 @@ PropellerObject_1_Routine10:
 ; ------------------------------------------------------------------------------
 
 loc_20CF06:
-	lea	Ani_20CF10(pc),a1
+	lea	PropellerBladeAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20CF10:
-	dc.w	@Ani_20CF10_0-*
-@Ani_20CF10_0:
-	dc.b	2
-	dc.b	0, 1, 2, 3, 4, 5
-	dc.b	$FF
+PropellerBladeAnims:
+	include	"src/anims/r8/propeller_blade.asm"
+	even
+
 off_20CF1A:
 	dc.w	byte_20CF2A-*
 	dc.w	byte_20CF35-off_20CF1A

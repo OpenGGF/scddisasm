@@ -147,16 +147,16 @@ loc_20DE36:
 ; ------------------------------------------------------------------------------
 
 off_20DE42:
-	dc.w	Booster3dObject_0_Routine0-*
-	dc.w	Booster3dObject_0_Routine2-off_20DE42
+	dc.w	Boost3dObject_0_Routine0-*
+	dc.w	Boost3dObject_0_Routine2-off_20DE42
 
 ; ------------------------------------------------------------------------------
 
-Booster3dObject_0_Routine0:
+Boost3dObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 
-Booster3dObject_0_Routine2:
+Boost3dObject_0_Routine2:
 	cmpi.b	#$2B,obj.anim_id(a6)
 	beq.w	locret_20DEC6
 	move.w	obj.y(a0),d0
@@ -191,7 +191,7 @@ locret_20DEC6:
 
 ; ------------------------------------------------------------------------------
 
-Booster3dObject:
+Boost3dObject:
 	lea	(player_object).w,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
@@ -206,26 +206,26 @@ Booster3dObject:
 ; ------------------------------------------------------------------------------
 
 off_20DEF0:
-	dc.w	Booster3dObject_1_Routine0-*
-	dc.w	Booster3dObject_1_Routine2-off_20DEF0
+	dc.w	Boost3dObject_1_Routine0-*
+	dc.w	Boost3dObject_1_Routine2-off_20DEF0
 
 ; ------------------------------------------------------------------------------
 
-Booster3dObject_1_Routine0:
+Boost3dObject_1_Routine0:
 	addq.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
-	move.l	#Booster3dSprites,obj.sprite_data(a0)
+	move.l	#Boost3dSprites,obj.sprite_data(a0)
 	move.w	#$441,obj.sprite_tile(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
 	tst.b	obj.subtype(a0)
-	beq.s	Booster3dObject_1_Routine2
+	beq.s	Boost3dObject_1_Routine2
 	bset	#0,obj.sprite_flags(a0)
 	bset	#0,obj.flags(a0)
 
-Booster3dObject_1_Routine2:
+Boost3dObject_1_Routine2:
 	tst.b	obj.var_2e(a0)
 	beq.s	loc_20DF5C
 	move.b	#1,obj.anim_id(a0)
@@ -234,7 +234,7 @@ Booster3dObject_1_Routine2:
 	addq.b	#1,obj.anim_id(a0)
 
 loc_20DF4E:
-	lea	(Booster3dAnims).l,a1
+	lea	(Boost3dAnims).l,a1
 	jsr	(AnimateObject).l
 	bra.s	loc_20DF6C
 
@@ -358,25 +358,8 @@ Plant3dSprites:
 	dc.b	$FC, 9, 0, $16, $F4
 	dc.b	0
 
-Booster3dAnims:
-	dc.w	@Booster3dAnims_0-*
-	dc.w	@Booster3dAnims_1-Booster3dAnims
-	dc.w	@Booster3dAnims_2-Booster3dAnims
-
-@Booster3dAnims_0:
-	dc.b	0
-	dc.b	4, 4, 3, 3, 3, 5, 5, 2
-	dc.b	2, 2
-	dc.b	$FF
-
-@Booster3dAnims_1:
-	dc.b	2
-	dc.b	4, 7, 5, 6
-	dc.b	$FF
-
-@Booster3dAnims_2:
-	dc.b	2
-	dc.b	8, 0, 9, 0
-	dc.b	$FF
+Boost3dAnims:
+	include	"src/anims/r1/3d_boost.asm"
+	even
 
 ; ------------------------------------------------------------------------------

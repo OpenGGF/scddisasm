@@ -15,7 +15,7 @@ ObjectIndex:
 	dc.l	SplashObject
 	dc.l	SplashObject
 	dc.l	SplashObject
-	dc.l	MobileSpringObject
+	dc.l	MoveSpringObject
 	dc.l	RingObject
 	dc.l	LostRingObject
 	dc.l	NullObject

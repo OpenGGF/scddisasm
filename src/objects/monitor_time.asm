@@ -531,72 +531,9 @@ MonitorItemDelete:
 ; ------------------------------------------------------------------------------
 
 MonitorTimeAnims:
-	dc.w	@MonitorTimeAnims_0-*
-	dc.w	@MonitorTimeAnims_1-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_2-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_3-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_4-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_5-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_6-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_7-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_8-MonitorTimeAnims
-	dc.w	@MonitorTimeAnims_9-MonitorTimeAnims
-@MonitorTimeAnims_0:
-	dc.b	1
-	dc.b	$10, 0, 0, 8, 0, 0, 9, 0
-	dc.b	0
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_1:
-	dc.b	1
-	dc.b	$10, 1, 1, 8, 1, 1, 9, 1
-	dc.b	1
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_2:
-	dc.b	1
-	dc.b	$10, 2, 2, 8, 2, 2, 9, 2
-	dc.b	2
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_3:
-	dc.b	1
-	dc.b	$10, 3, 3, 8, 3, 3, 9, 3
-	dc.b	3
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_4:
-	dc.b	1
-	dc.b	$10, 4, 4, 8, 4, 4, 9, 4
-	dc.b	4
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_5:
-	dc.b	1
-	dc.b	$10, 5, 5, 8, 5, 5, 9, 5
-	dc.b	5
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_6:
-	dc.b	1
-	dc.b	$10, 6, 6, 8, 6, 6, 9, 6
-	dc.b	6
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_7:
-	dc.b	1
-	dc.b	$10, 7, 7, 8, 7, 7, 9, 7
-	dc.b	7
-	dc.b	$FF
-	dc.b	0
-@MonitorTimeAnims_8:
-	dc.b	1
-	dc.b	$A, $E, $F, $E, $B, $E, $F, $E
-	dc.b	$FF
-@MonitorTimeAnims_9:
-	dc.b	1
-	dc.b	$C, $E, $F, $E, $D, $E, $F, $E
-	dc.b	$FF
+	include	"src/anims/monitor_time.asm"
+	even
+
 MonitorTimeSprites:
 	dc.w	@MonitorTimeSprites_0-*
 	dc.w	@MonitorTimeSprites_1-MonitorTimeSprites

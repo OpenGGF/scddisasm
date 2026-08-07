@@ -45,7 +45,7 @@ loc_20D07C:
 	move.w	#$140,obj.x_speed(a0)
 
 AmyRoseObject_1_Routine4:
-	lea	(Ani_20D226).l,a1
+	lea	(AmyRoseAnims).l,a1
 	jsr	AnimateObject
 	bsr.w	sub_20D14E
 	cmpi.w	#$EA0,obj.x(a0)
@@ -106,7 +106,7 @@ AmyRoseObject_1_RoutineE:
 	bsr.w	sub_20D1D6
 
 loc_20D130:
-	lea	(Ani_20D226).l,a1
+	lea	(AmyRoseAnims).l,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -238,13 +238,9 @@ loc_20D21C:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D226:
-	dc.w	@Ani_20D226_0-*
-
-@Ani_20D226_0:
-	dc.b	3
-	dc.b	0, 1, 2, 3, 4, 5
-	dc.b	$FF
+AmyRoseAnims:
+	include	"src/anims/r8/amy_rose.asm"
+	even
 
 Spr_20D230:
 	dc.w	@Spr_20D230_0-*

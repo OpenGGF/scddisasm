@@ -64,7 +64,7 @@ SectionGfxInitList0:
 	gfxEntry SinePlatformGfxA, $90E0
 	gfxEntry CrackFloorGfxA, $94E0
 	gfxEntry AnimalsGfx, $9740
-	gfxEntry RobotTransporterGfxA, $9A40
+	gfxEntry RobotTransportGfxA, $9A40
 	gfxEnd
 
 ResultsGfxList:

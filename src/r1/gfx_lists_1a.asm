@@ -55,7 +55,7 @@ SectionGfxInitList0:
 	gfxEntry MosquiGfx, $7400
 	gfxEntry AntonGfx, $8120
 	gfxEntry Plant3d, $8480
-	gfxEntry Booster3dGfx, $8820
+	gfxEntry Boost3dGfx, $8820
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
 
@@ -89,16 +89,16 @@ SectionGfxInitList3:
 	gfxEntry MosquiGfx, $7400
 	gfxEntry SpinDiscGfx, $8120
 	gfxEntry Plant3d, $8480
-	gfxEntry Booster3dGfx, $8820
+	gfxEntry Boost3dGfx, $8820
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
 
 SectionGfxInitList4:
 	gfxStart
 	gfxEntry AmyRoseGfx, $6E00
-	gfxEntry RobotTransporterGfxA, $8120
+	gfxEntry RobotTransportGfxA, $8120
 	gfxEntry Plant3d, $8480
-	gfxEntry Booster3dGfx, $8820
+	gfxEntry Boost3dGfx, $8820
 	gfxEntry GoalGfx, $9EE0
 	gfxEnd
 
@@ -109,7 +109,7 @@ SectionGfxUpdateList0:
 	gfxEntry MosquiGfx, $7400
 	gfxEntry AntonGfx, $8120
 	gfxEntry Plant3d, $8480
-	gfxEntry Booster3dGfx, $8820
+	gfxEntry Boost3dGfx, $8820
 	gfxEnd
 
 SectionGfxUpdateList1:
@@ -137,13 +137,13 @@ SectionGfxUpdateList3:
 	gfxEntry MosquiGfx, $7400
 	gfxEntry SpinDiscGfx, $8120
 	gfxEntry Plant3d, $8480
-	gfxEntry Booster3dGfx, $8820
+	gfxEntry Boost3dGfx, $8820
 	gfxEnd
 
 SectionGfxUpdateList4:
 	gfxStart
 	gfxEntry AmyRoseGfx, $6E00
-	gfxEntry RobotTransporterGfxA, $8120
+	gfxEntry RobotTransportGfxA, $8120
 	gfxEnd
 
 ResultsGfxList:

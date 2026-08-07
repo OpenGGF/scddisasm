@@ -447,8 +447,8 @@ HologramAnimalsGfx:
 	incbin	"src/gfx/r6/hologram_animals.nem"
 	even
 
-RobotTransporterGfxA:
-	incbin	"src/gfx/robot_transporter_a.nem"
+RobotTransportGfxA:
+	incbin	"src/gfx/robot_transport_a.nem"
 
 Padding3:
 	incbin	"padding/r62a_e_3.bin"

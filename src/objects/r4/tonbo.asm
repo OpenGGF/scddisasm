@@ -68,24 +68,14 @@ TonboObject_0_Routine2:
 	bchg	#0,obj.flags(a0)
 
 loc_20D5C4:
-	lea	Ani_20D5CE(pc),a1
+	lea	TonboAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D5CE:
-	dc.w	@Ani_20D5CE_0-*
-	dc.w	@Ani_20D5CE_1-Ani_20D5CE
-
-@Ani_20D5CE_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
-
-@Ani_20D5CE_1:
-	dc.b	4
-	dc.b	0, 2
-	dc.b	$FF
+TonboAnims:
+	include	"src/anims/r4/tonbo.asm"
+	even
 
 TonboSprites1:
 	dc.w	@TonboSprites1_0-*

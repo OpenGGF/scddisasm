@@ -15,8 +15,8 @@ PlayerSprites:
 	include	"src/sprites/r1/player.asm"
 	even
 
-Booster3dSprites:
-	include	"src/sprites/r1/3d_booster.asm"
+Boost3dSprites:
+	include	"src/sprites/r1/3d_boost.asm"
 
 Padding2:
 	incbin	"padding/r11a_e_2.bin"
@@ -217,8 +217,8 @@ DiscDrillGfx:
 	incbin	"src/gfx/r1/disc_drill.nem"
 	even
 
-RobotTransporterGfxA:
-	incbin	"src/gfx/robot_transporter_a.nem"
+RobotTransportGfxA:
+	incbin	"src/gfx/robot_transport_a.nem"
 	even
 
 StageCollisionAngles:
@@ -293,8 +293,8 @@ Plant3d:
 	incbin	"src/gfx/r1/3d_plant.nem"
 	even
 
-Booster3dGfx:
-	incbin	"src/gfx/r1/3d_booster.nem"
+Boost3dGfx:
+	incbin	"src/gfx/r1/3d_boost.nem"
 	even
 
 StageBlocks:

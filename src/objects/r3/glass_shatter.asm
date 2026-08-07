@@ -37,7 +37,7 @@ loc_20B2EA:
 	bsr.w	SpawnPoints
 
 GlassShatterObject_0_Routine2:
-	lea	Ani_20B312(pc),a1
+	lea	GlassBreakAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -47,14 +47,9 @@ GlassShatterObject_0_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20B312:
-	dc.w	@Ani_20B312_0-*
-
-@Ani_20B312_0:
-	dc.b	2
-	dc.b	0, 0, 0, 1, 1
-	dc.b	$FC
-	dc.b	0
+GlassBreakAnims:
+	include	"src/anims/r3/glass_break.asm"
+	even
 
 Spr_20B31C:
 	dc.w	@Spr_20B31C_0-*

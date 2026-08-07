@@ -69,7 +69,7 @@ SectionGfxInitList1:
 	gfxStart
 	gfxEntry GoalGfx, $6000
 	gfxEntry SpikesHV4Gfx, $63C0
-	gfxEntry RobotTransporterGfxB, $67C0
+	gfxEntry RobotTransportGfxB, $67C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
 	gfxEntry OneWayBarrierGfx, $6E20
 	gfxEntry FireShootGfx, $6F20
@@ -121,7 +121,7 @@ SectionGfxUpdateList0:
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry RobotTransporterGfxB, $67C0
+	gfxEntry RobotTransportGfxB, $67C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
 	gfxEnd
 

@@ -9,7 +9,7 @@ DebugObjects:
 	debugObject 9, 1, SpinDiscSprites, $370, 0, 0, 0, 0
 	debugObject $1B, 1, BoulderSprites, $35C, 0, 0, 0, 0
 	debugObject $21, 1, PlatformSprites, $44BE, 1, 0, 0, 0
-	debugObject $F, 4, MobileSpringSprites, $328, 0, 0, 0, 0
+	debugObject $F, 4, MoveSpringSprites, $328, 0, 0, 0, 0
 	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
 	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
 	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0

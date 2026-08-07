@@ -89,7 +89,7 @@ loc_20F26E:
 	movea.w	obj.var_2a(a0),a1
 	tst.b	obj.var_3f(a1)
 	bne.s	loc_20F2B8
-	lea	Ani_20F3C6(pc),a1
+	lea	SeesawAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -213,43 +213,9 @@ loc_20F3C0:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20F3C6:
-	dc.w	@Ani_20F3C6_0-*
-	dc.w	@Ani_20F3C6_1-Ani_20F3C6
-	dc.w	@Ani_20F3C6_2-Ani_20F3C6
-	dc.w	@Ani_20F3C6_3-Ani_20F3C6
-	dc.w	@Ani_20F3C6_4-Ani_20F3C6
-	dc.w	@Ani_20F3C6_5-Ani_20F3C6
-
-@Ani_20F3C6_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
-
-@Ani_20F3C6_1:
-	dc.b	2
-	dc.b	0, 1, 2, 3
-	dc.b	$FF
-
-@Ani_20F3C6_2:
-	dc.b	2
-	dc.b	2, 3
-	dc.b	$FF
-
-@Ani_20F3C6_3:
-	dc.b	2
-	dc.b	4, 5
-	dc.b	$FF
-
-@Ani_20F3C6_4:
-	dc.b	2
-	dc.b	4, 5, 6, 7
-	dc.b	$FF
-
-@Ani_20F3C6_5:
-	dc.b	2
-	dc.b	6, 7
-	dc.b	$FF
+SeesawAnims:
+	include	"src/anims/r6/seesaw.asm"
+	even
 
 Spr_20F3EE:
 	dc.w	@Spr_20F3EE_0-*

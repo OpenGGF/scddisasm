@@ -47,7 +47,7 @@ YagoObject_0_Routine2:
 	bmi.s	loc_20DF2E
 
 loc_20DF12:
-	lea	(Ani_20E0DC).l,a1
+	lea	(YagoAnims1).l,a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_3e(a0),d0
@@ -225,13 +225,9 @@ loc_20E0C6:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E0DC:
-	dc.w	@Ani_20E0DC_0-*
-
-@Ani_20E0DC_0:
-	dc.b	9
-	dc.b	0, 1
-	dc.b	$FF
+YagoAnims1:
+	include	"src/anims/r4/yago_1.asm"
+	even
 
 Spr_20E0E2:
 	dc.w	@Spr_20E0E2_0-*
@@ -293,7 +289,7 @@ YagoObject_1_Routine2:
 	bmi.s	loc_20E198
 
 loc_20E17C:
-	lea	(Ani_20E356).l,a1
+	lea	(YagoAnims2).l,a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_3e(a0),d0
@@ -479,13 +475,9 @@ loc_20E340:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E356:
-	dc.w	@Ani_20E356_0-*
-
-@Ani_20E356_0:
-	dc.b	9
-	dc.b	0, 1
-	dc.b	$FF
+YagoAnims2:
+	include	"src/anims/r4/yago_2.asm"
+	even
 
 Spr_20E35C:
 	dc.w	@Spr_20E35C_0-*

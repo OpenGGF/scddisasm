@@ -108,7 +108,7 @@ locret_20D658:
 ; ------------------------------------------------------------------------------
 
 VanishPlatformObject_0_Routine4:
-	lea	off_20D726(pc),a1
+	lea	VanishPlatformAnims(pc),a1
 	jsr	AnimateObject
 	tst.b	obj.sprite_frame(a0)
 	bne.s	locret_20D674
@@ -140,7 +140,7 @@ locret_20D6A2:
 ; ------------------------------------------------------------------------------
 
 VanishPlatformObject_0_Routine8:
-	lea	off_20D726(pc),a1
+	lea	VanishPlatformAnims(pc),a1
 	jsr	AnimateObject
 	tst.b	obj.sprite_frame(a0)
 	bne.s	locret_20D6C0
@@ -195,37 +195,11 @@ Unk20D6C8Sprite_5:
 Unk20D6C8Sprite_6:
 	dc.b	0
 	dc.b	0
-off_20D726:
-	dc.w	byte_20D72A-*
-	dc.w	byte_20D759-off_20D726
-byte_20D72A:
-	dc.b	0, 5, 5, 5, 5, 5, 4, 4
-	dc.b	4, 5, 5, 5, 5, 5, 4, 4
-	dc.b	4, 3, 3, 3, 3, 3, 2, 2
-	dc.b	2, 3, 3, 3, 3, 3, 2, 2
-	dc.b	2, 1, 1, 1, 1, 1, 7, 7
-	dc.b	7, 1, 1, 1, 1, 1, 0
-byte_20D759:
-	dc.b	0, 1, 1, 1, 1, 1, 7, 7
-	dc.b	7, 1, 1, 1, 1, 1, 2, 2
-	dc.b	2, 3, 3, 3, 3, 3, 2, 2
-	dc.b	2, 3, 3, 3, 3, 3, 4, 4
-	dc.b	4, 5, 5, 5, 5, 5, 4, 4
-	dc.b	4, 5, 5, 5, 5, 5, 6, 6
-	dc.b	6, 6, 6, 6, 6, 6, 6, 6
-	dc.b	6, 6, 6, 6, 6, 6, 6, 6
-	dc.b	6, 6, 6, 6, 6, 6, 6, 6
-	dc.b	6, 6, 6, 6, 6, 6, 6, 6
-	dc.b	6, 6, 6, 6, 6, 6, 6, 6
-	dc.b	6, 6, 6, 6, 6, 6, 6, 6
-	dc.b	6, 6, 6, 6, 6, 6, 6, 6
-	dc.b	6, 6, 5, 5, 5, 5, 5, 4
-	dc.b	4, 4, 5, 5, 5, 5, 5, 4
-	dc.b	4, 4, 3, 3, 3, 3, 3, 2
-	dc.b	2, 2, 3, 3, 3, 3, 3, 2
-	dc.b	2, 2, 1, 1, 1, 1, 1, 7
-	dc.b	7, 7, 1, 1, 1, 1, 1, 0
-	dc.b	0
+
+VanishPlatformAnims:
+	include	"src/anims/r8/vanish_platform.asm"
+	even
+
 off_20D7F2:
 	dc.w	word_20D7F8-*
 	dc.w	word_20D7FC-off_20D7F2

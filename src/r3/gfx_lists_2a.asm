@@ -55,7 +55,7 @@ SectionGfxInitList0:
 	gfxEntry BlockGfx, $67C0
 	gfxEntry MetalPlatformGfx, $69C0
 	gfxEntry BouncePlatformGfxAB, $6BC0
-	gfxEntry RobotTransporterGfxA, $6D40
+	gfxEntry RobotTransportGfxA, $6D40
 	gfxEntry GlassBreakGfxA, $7160
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
@@ -85,7 +85,7 @@ SectionGfxInitList1:
 
 SectionGfxUpdateList0:
 	gfxStart
-	gfxEntry RobotTransporterGfxA, $6D40
+	gfxEntry RobotTransportGfxA, $6D40
 	gfxEnd
 
 SectionGfxUpdateList1:

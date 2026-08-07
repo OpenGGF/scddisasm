@@ -48,7 +48,7 @@ AnimalObject_1_Routine2:
 
 loc_20E6BA:
 	move.b	d0,obj.var_2e(a0)
-	lea	Ani_20E7B4(pc),a1
+	lea	AnimalAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
@@ -141,12 +141,10 @@ sub_20E796:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E7B4:
-	dc.w	@Ani_20E7B4_0-*
-@Ani_20E7B4_0:
-	dc.b	3
-	dc.b	0, 1
-	dc.b	$FF
+AnimalAnims:
+	include	"src/anims/r8/animal.asm"
+	even
+
 Spr_20E7BA:
 	dc.w	@Spr_20E7BA_0-*
 	dc.w	@Spr_20E7BA_1-Spr_20E7BA

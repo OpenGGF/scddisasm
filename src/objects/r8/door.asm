@@ -98,7 +98,7 @@ loc_20D062:
 	addq.b	#2,obj.routine(a0)
 
 loc_20D066:
-	lea	Ani_20D15C(pc),a1
+	lea	DoorAnims(pc),a1
 	jsr	AnimateObject
 	movea.w	obj.var_2c(a0),a1
 	move.b	obj.sprite_frame(a0),obj.sprite_frame(a1)
@@ -205,12 +205,9 @@ loc_20D156:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D15C:
-	dc.w	@Ani_20D15C_0-*
-@Ani_20D15C_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
+DoorAnims:
+	include	"src/anims/r8/door.asm"
+	even
 
 Unk20D162Sprites:
 	dc.w	Unk20D162Sprite_0-*

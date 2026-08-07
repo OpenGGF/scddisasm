@@ -15,7 +15,7 @@ ObjectIndex:
 	dc.l	HDoorSplashSetObject
 	dc.l	HDoorObject
 	dc.l	TunnelSplashObject
-	dc.l	MobileSpringObject
+	dc.l	MoveSpringObject
 	dc.l	RingObject
 	dc.l	LostRingObject
 	dc.l	FloatBlockObject
@@ -42,7 +42,7 @@ ObjectIndex:
 	dc.l	NullObject
 	dc.l	SpringboardObject
 	dc.l	NullObject
-	dc.l	Booster3dObject
+	dc.l	Boost3dObject
 	dc.l	NullObject
 	dc.l	Plant3dObject
 	dc.l	RobotGeneratorObject

@@ -34,12 +34,12 @@ KumoKumoObject_0_Routine0:
 	move.b	#$18,obj.height(a0)
 	move.b	#$35,obj.collide_type(a0)
 	lea	Unk20DAD2Sprites(pc),a1
-	lea	off_20DAC6(pc),a2
+	lea	KumoKumoAnims1(pc),a2
 	move.l	#-$80000,d0
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D8C4
 	lea	Unk20DB72Sprites(pc),a1
-	lea	off_20DACC(pc),a2
+	lea	KumoKumoAnims2(pc),a2
 	move.l	#-$50000,d0
 
 loc_20D8C4:
@@ -227,28 +227,20 @@ loc_20DA98:
 	clr.w	obj.ground_speed(a1)
 
 loc_20DAB0:
-	lea	Ani_20DC02(pc),a1
+	lea	KumoKumoWebAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20DAC6:
-	dc.w	byte_20DAC8-*
+KumoKumoAnims1:
+	include	"src/anims/r5/kumo_kumo_1.asm"
+	even
 
-byte_20DAC8:
-	dc.b	7
-	dc.b	1, 2
-	dc.b	$FF
-
-off_20DACC:
-	dc.w	unk_20DACE-*
-
-unk_20DACE:
-	dc.b	$F
-	dc.b	1, 2
-	dc.b	$FF
+KumoKumoAnims2:
+	include	"src/anims/r5/kumo_kumo_2.asm"
+	even
 
 Unk20DAD2Sprites:
 	dc.w	Unk20DAD2Sprite_0-*
@@ -336,13 +328,9 @@ Unk20DB72Sprite_2:
 	dc.b	$F8, 6, 8, $15, $E8
 	dc.b	$F7, 6, 8, $15, $EB
 
-Ani_20DC02:
-	dc.w	@Ani_20DC02_0-*
-
-@Ani_20DC02_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
+KumoKumoWebAnims:
+	include	"src/anims/r5/kumo_kumo_web.asm"
+	even
 
 Spr_20DC08:
 	dc.w	@Spr_20DC08_0-*

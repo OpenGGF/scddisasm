@@ -34,13 +34,13 @@ AmenboObject_0_Routine0:
 	move.w	#$78,obj.var_3c(a0)
 	move.w	obj.x(a0),obj.var_3e(a0)
 	lea	off_20DA28(pc),a1
-	lea	off_20D9DA(pc),a2
+	lea	AmenboAnims1(pc),a2
 	move.l	#-$600,d0
 	move.l	#$100,d1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D7E0
 	lea	off_20D9E6(pc),a1
-	lea	off_20D9D4(pc),a2
+	lea	AmenboAnims2(pc),a2
 	move.l	#-$200,d0
 	move.l	#$C0,d1
 
@@ -236,27 +236,13 @@ loc_20D9B6:
 
 ; ------------------------------------------------------------------------------
 
-off_20D9D4:
-	dc.w	byte_20D9D6-*
+AmenboAnims2:
+	include	"src/anims/r4/amenbo_2.asm"
+	even
 
-byte_20D9D6:
-	dc.b	$14
-	dc.b	0, 1
-	dc.b	$FF
-
-off_20D9DA:
-	dc.w	byte_20D9DE-*
-	dc.w	byte_20D9E2-off_20D9DA
-
-byte_20D9DE:
-	dc.b	$A
-	dc.b	0, 1
-	dc.b	$FF
-
-byte_20D9E2:
-	dc.b	5
-	dc.b	2, 3
-	dc.b	$FF
+AmenboAnims1:
+	include	"src/anims/r4/amenbo_1.asm"
+	even
 
 off_20D9E6:
 	dc.w	byte_20D9EA-*

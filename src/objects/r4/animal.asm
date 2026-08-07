@@ -103,7 +103,7 @@ loc_20E4D4:
 	move.b	#3,obj.sprite_layer(a0)
 
 loc_20E4DA:
-	lea	Ani_20E54E(pc),a1
+	lea	AnimalAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -133,29 +133,16 @@ loc_20E524:
 	bchg	#0,obj.flags(a0)
 
 loc_20E538:
-	lea	Ani_20E54E(pc),a1
+	lea	AnimalAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E54E:
-	dc.w	@Ani_20E54E_0-*
-	dc.w	@Ani_20E54E_1-Ani_20E54E
-
-@Ani_20E54E_0:
-	dc.b	0
-	dc.b	0, 0, 2, 0, 0, 2, 1, 1
-	dc.b	2, 1, 1, 2, 0, 0, 2, 2
-	dc.b	0, 0, 2, 2, 1, 1, 2, 2
-	dc.b	1, 1, 2, 2
-	dc.b	$FF
-
-@Ani_20E54E_1:
-	dc.b	$13
-	dc.b	0, 1
-	dc.b	$FF
+AnimalAnims:
+	include	"src/anims/r4/animal.asm"
+	even
 
 off_20E574:
 	dc.w	byte_20E57A-*

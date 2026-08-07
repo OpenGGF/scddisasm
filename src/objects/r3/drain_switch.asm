@@ -48,7 +48,7 @@ DrainSwitchObject_0_Routine2:
 	tst.w	obj.var_2a(a0)
 	beq.s	locret_20AAF0
 	addi.w	#-1,obj.var_2a(a0)
-	lea	Ani_20ABCA(pc),a1
+	lea	DrainSwitchAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -141,19 +141,9 @@ loc_20AB9A:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20ABCA:
-	dc.w	@Ani_20ABCA_0-*
-	dc.w	@Ani_20ABCA_1-Ani_20ABCA
-
-@Ani_20ABCA_0:
-	dc.b	3
-	dc.b	1, 2, 3, 0
-	dc.b	$FF
-
-@Ani_20ABCA_1:
-	dc.b	3
-	dc.b	3, 2, 1, 0
-	dc.b	$FF
+DrainSwitchAnims:
+	include	"src/anims/r3/drain_switch.asm"
+	even
 
 Spr_20ABDA:
 	dc.w	@Spr_20ABDA_0-*

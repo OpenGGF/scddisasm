@@ -66,7 +66,7 @@ GaObject_0_Routine4:
 	move.w	#$33,obj.var_2a(a0)
 
 loc_20B3E0:
-	lea	(Ani_20B4AA).l,a1
+	lea	(GaAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -128,24 +128,9 @@ loc_20B4A6:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20B4AA:
-	dc.w	@Ani_20B4AA_0-*
-	dc.w	@Ani_20B4AA_1-Ani_20B4AA
-	dc.w	@Ani_20B4AA_2-Ani_20B4AA
-
-@Ani_20B4AA_0:
-	dc.b	$1D
-	dc.b	0, 1, 1
-
-@Ani_20B4AA_1:
-	dc.b	$31
-	dc.b	2, 2
-
-@Ani_20B4AA_2:
-	dc.b	4
-	dc.b	3, 4, 5, 4
-	dc.b	$FF
-	dc.b	0
+GaAnims:
+	include	"src/anims/r3/ga.asm"
+	even
 
 off_20B4BE:
 	dc.w	byte_20B541-*
@@ -250,7 +235,7 @@ GaObject_1_Routine2:
 	addi.w	#-1,obj.var_2a(a0)
 	beq.s	GaObject_1_Routine4
 	addi.l	#$10000,obj.y(a0)
-	lea	Ani_20B5CE(pc),a1
+	lea	GaDustAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -260,12 +245,8 @@ GaObject_1_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20B5CE:
-	dc.w	@Ani_20B5CE_0-*
-
-@Ani_20B5CE_0:
-	dc.b	5
-	dc.b	4, 5, 6, 7
-	dc.b	$FF
+GaDustAnims:
+	include	"src/anims/r3/ga_dust.asm"
+	even
 
 ; ------------------------------------------------------------------------------

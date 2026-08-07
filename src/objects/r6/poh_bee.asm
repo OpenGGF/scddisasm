@@ -8,7 +8,7 @@ PohBeeObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20DBA4(pc,d0.w),d0
 	jsr	off_20DBA4(pc,d0.w)
-	lea	Ani_20DE10(pc),a1
+	lea	PohBeeAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -236,19 +236,9 @@ locret_20DE0E:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20DE10:
-	dc.w	@Ani_20DE10_0-*
-	dc.w	@Ani_20DE10_1-Ani_20DE10
-
-@Ani_20DE10_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
-
-@Ani_20DE10_1:
-	dc.b	1
-	dc.b	2, 3
-	dc.b	$FF
+PohBeeAnims:
+	include	"src/anims/r6/poh_bee.asm"
+	even
 
 Unk20DE1CSprites:
 	dc.w	Unk20DE1CSprite_0-*
@@ -408,18 +398,14 @@ loc_20DFEE:
 	add.l	d0,obj.x(a0)
 	move.l	obj.var_30(a0),d0
 	add.l	d0,obj.y(a0)
-	lea	Ani_20E008(pc),a1
+	lea	PohBeeMissileAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E008:
-	dc.w	@Ani_20E008_0-*
-
-@Ani_20E008_0:
-	dc.b	1
-	dc.b	2, 3
-	dc.b	$FF
+PohBeeMissileAnims:
+	include	"src/anims/r6/poh_bee_missile.asm"
+	even
 
 Spr_20E00E:
 	dc.w	@Spr_20E00E_0-*

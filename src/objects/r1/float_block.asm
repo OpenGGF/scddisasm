@@ -92,7 +92,7 @@ FloatBlockObject_0_Routine6:
 ; ------------------------------------------------------------------------------
 
 loc_209E64:
-	lea	(FloatBlockAnims).l,a1
+	lea	(BlockAnims).l,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -110,7 +110,7 @@ FloatBlockObject_0_Routine8:
 ; ------------------------------------------------------------------------------
 
 loc_209E92:
-	lea	(FloatBlockAnims).l,a1
+	lea	(BlockAnims).l,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -118,7 +118,7 @@ loc_209E92:
 
 FloatBlockObject_0_RoutineA:
 	bsr.w	sub_209EBE
-	lea	(FloatBlockAnims).l,a1
+	lea	(BlockAnims).l,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -148,26 +148,9 @@ sub_209EBE:
 
 ; ------------------------------------------------------------------------------
 
-FloatBlockAnims:
-	dc.w	@FloatBlockAnims_0-*
-	dc.w	@FloatBlockAnims_1-FloatBlockAnims
-	dc.w	@FloatBlockAnims_2-FloatBlockAnims
-
-@FloatBlockAnims_0:
-	dc.b	2
-	dc.b	5
-	dc.b	$FF
-	dc.b	0
-
-@FloatBlockAnims_1:
-	dc.b	2
-	dc.b	1, 5, 2, 5, 3, 5, 4, 5
-	dc.b	$FC
-
-@FloatBlockAnims_2:
-	dc.b	2
-	dc.b	1, 0, 2, 0, 3, 0, 4, 0
-	dc.b	$FC
+BlockAnims:
+	include	"src/anims/r1/block.asm"
+	even
 
 FloatBlockSprites:
 	dc.w	@FloatBlockSprites_0-*

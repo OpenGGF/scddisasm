@@ -7,7 +7,7 @@ BuzzsawObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20CA0E(pc,d0.w),d0
 	jsr	off_20CA0E(pc,d0.w)
-	lea	Ani_20CC18(pc),a1
+	lea	BuzzsawAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
@@ -181,53 +181,10 @@ loc_20CC12:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20CC18:
-	dc.w	@Ani_20CC18_0-*
-	dc.w	@Ani_20CC18_1-Ani_20CC18
-	dc.w	@Ani_20CC18_2-Ani_20CC18
-	dc.w	@Ani_20CC18_3-Ani_20CC18
-	dc.w	@Ani_20CC18_4-Ani_20CC18
-	dc.w	@Ani_20CC18_5-Ani_20CC18
-	dc.w	@Ani_20CC18_6-Ani_20CC18
-	dc.w	@Ani_20CC18_7-Ani_20CC18
-	dc.w	@Ani_20CC18_8-Ani_20CC18
-	dc.w	@Ani_20CC18_8-Ani_20CC18
-@Ani_20CC18_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
-@Ani_20CC18_1:
-	dc.b	1
-	dc.b	2, 3
-	dc.b	$FF
-@Ani_20CC18_2:
-	dc.b	1
-	dc.b	4, 5
-	dc.b	$FF
-@Ani_20CC18_3:
-	dc.b	1
-	dc.b	6, 7
-	dc.b	$FF
-@Ani_20CC18_4:
-	dc.b	1
-	dc.b	8, 9
-	dc.b	$FF
-@Ani_20CC18_5:
-	dc.b	1
-	dc.b	$A, $B
-	dc.b	$FF
-@Ani_20CC18_6:
-	dc.b	1
-	dc.b	$C, $D
-	dc.b	$FF
-@Ani_20CC18_7:
-	dc.b	1
-	dc.b	$E, $F
-	dc.b	$FF
-@Ani_20CC18_8:
-	dc.b	1
-	dc.b	$10, $11
-	dc.b	$FF
+BuzzsawAnims:
+	include	"src/anims/r8/buzzsaw.asm"
+	even
+
 Spr_20CC50:
 	dc.w	@Spr_20CC50_0-*
 @Spr_20CC50_0:

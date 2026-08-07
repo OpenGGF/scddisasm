@@ -90,18 +90,8 @@ loc_20B39A:
 ; ------------------------------------------------------------------------------
 
 AntonAnims:
-	dc.w	@AntonSprite_0-*
-	dc.w	@AntonSprite_1-AntonAnims
-
-@AntonSprite_0:
-	dc.b	3
-	dc.b	0, 1
-	dc.b	$FF
-
-@AntonSprite_1:
-	dc.b	7
-	dc.b	2, 3
-	dc.b	$FF
+	include	"src/anims/r1/anton.asm"
+	even
 
 AntonSprites:
 	dc.w	@AntonAnim_0-*

@@ -60,7 +60,7 @@ SectionGfxInitList0:
 	gfxEntry VanishPlatformGfx, $7300
 	gfxEntry SeesawGfxABD, $7400
 	gfxEntry HVPlatformGfx, $8360
-	gfxEntry RobotTransporterGfxA, $8460
+	gfxEntry RobotTransportGfxA, $8460
 	gfxEntry MechaBuGfx, $89C0
 	gfxEntry SwitchGfx, $9C80
 	gfxEntry SpringWheelGfx, $9D40
@@ -75,7 +75,7 @@ SectionGfxInitList1:
 	gfxEntry VanishPlatformGfx, $7300
 	gfxEntry SeesawGfxABD, $7400
 	gfxEntry HVPlatformGfx, $8360
-	gfxEntry RobotTransporterGfxA, $8460
+	gfxEntry RobotTransportGfxA, $8460
 	gfxEntry ScarabGfx, $87E0
 	gfxEntry SwitchGfx, $9C80
 	gfxEntry SpringWheelGfx, $9D40
@@ -90,7 +90,7 @@ SectionGfxInitList2:
 	gfxEntry VanishPlatformGfx, $7300
 	gfxEntry SeesawGfxABD, $7400
 	gfxEntry HVPlatformGfx, $8360
-	gfxEntry RobotTransporterGfxA, $8460
+	gfxEntry RobotTransportGfxA, $8460
 	gfxEntry ScarabGfx, $87E0
 	gfxEntry SwitchGfx, $9C80
 	gfxEntry SpringWheelGfx, $9D40
@@ -105,7 +105,7 @@ SectionGfxInitList3:
 	gfxEntry VanishPlatformGfx, $7300
 	gfxEntry SeesawGfxABD, $7400
 	gfxEntry HVPlatformGfx, $8360
-	gfxEntry RobotTransporterGfxA, $8460
+	gfxEntry RobotTransportGfxA, $8460
 	gfxEntry PohBeeGfx, $8AA0
 	gfxEntry SwitchGfx, $9C80
 	gfxEntry SpringWheelGfx, $9D40
@@ -120,7 +120,7 @@ SectionGfxInitList4:
 	gfxEntry VanishPlatformGfx, $7300
 	gfxEntry SeesawGfxABD, $7400
 	gfxEntry HVPlatformGfx, $8360
-	gfxEntry RobotTransporterGfxA, $8460
+	gfxEntry RobotTransportGfxA, $8460
 	gfxEntry MechaBuGfx, $89C0
 	gfxEntry SwitchGfx, $9C80
 	gfxEntry SpringWheelGfx, $9D40
@@ -135,7 +135,7 @@ SectionGfxInitList5:
 	gfxEntry VanishPlatformGfx, $7300
 	gfxEntry SeesawGfxABD, $7400
 	gfxEntry HVPlatformGfx, $8360
-	gfxEntry RobotTransporterGfxA, $8460
+	gfxEntry RobotTransportGfxA, $8460
 	gfxEntry PohBeeGfx, $8AA0
 	gfxEntry SwitchGfx, $9C80
 	gfxEntry SpringWheelGfx, $9D40

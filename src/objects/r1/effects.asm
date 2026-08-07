@@ -73,12 +73,8 @@ EarthquakeObject:
 ; ------------------------------------------------------------------------------
 
 WaterfallAnims:
-	dc.w	@WaterfallAnim_0-*
-
-@WaterfallAnim_0:
-	dc.b	4
-	dc.b	0, 1
-	dc.b	$FF
+	include	"src/anims/r1/waterfall.asm"
+	even
 
 WaterfallSprites:
 	dc.w	@WaterfallSprite_0-*

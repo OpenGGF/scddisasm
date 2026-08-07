@@ -145,7 +145,7 @@ loc_20CA36:
 	bne.s	loc_20CA60
 
 loc_20CA56:
-	lea	Ani_20CC74(pc),a1
+	lea	FireShootAnims(pc),a1
 	jsr	AnimateObject
 
 loc_20CA60:
@@ -332,7 +332,7 @@ loc_20CC04:
 	move.w	d1,obj.var_3e(a0)
 	move.b	d2,obj.anim_id(a0)
 	addq.b	#2,obj.routine(a0)
-	lea	Ani_20CC74(pc),a1
+	lea	FireShootAnims(pc),a1
 	jsr	AnimateObject
 
 FireShooterObject_1_Routine2:
@@ -342,7 +342,7 @@ FireShooterObject_1_Routine2:
 	ext.l	d0
 	asl.l	#8,d0
 	add.l	d0,obj.x(a0)
-	lea	Ani_20CC74(pc),a1
+	lea	FireShootAnims(pc),a1
 	jsr	AnimateObject
 	move.w	obj.x(a0),d0
 	sub.w	obj.var_36(a0),d0
@@ -378,37 +378,9 @@ loc_20CC6E:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20CC74:
-	dc.w	@Ani_20CC74_0-*
-	dc.w	@Ani_20CC74_1-Ani_20CC74
-	dc.w	@Ani_20CC74_2-Ani_20CC74
-	dc.w	@Ani_20CC74_3-Ani_20CC74
-	dc.w	@Ani_20CC74_4-Ani_20CC74
-
-@Ani_20CC74_0:
-	dc.b	2
-	dc.b	1, 2
-	dc.b	$FF
-
-@Ani_20CC74_1:
-	dc.b	2
-	dc.b	3, 5
-	dc.b	$FF
-
-@Ani_20CC74_2:
-	dc.b	2
-	dc.b	4, 5
-	dc.b	$FF
-
-@Ani_20CC74_3:
-	dc.b	0
-	dc.b	3, 6, 5, 6
-	dc.b	$FF
-
-@Ani_20CC74_4:
-	dc.b	0
-	dc.b	4, 6, 5, 6
-	dc.b	$FF
+FireShootAnims:
+	include	"src/anims/r3/fire_shoot.asm"
+	even
 
 Spr_20CC96:
 	dc.w	@Spr_20CC96_0-*

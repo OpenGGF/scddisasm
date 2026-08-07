@@ -14,7 +14,7 @@
 	dc.b	0, 0, 0, 0, 0, 0, 1, 0
 	dc.b	0, 1, 0, 0, 1
 	dc.b	$FF
-	dc.b	0
+	even
 
 .Anim1:
 	dc.b	2

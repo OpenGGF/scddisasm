@@ -375,41 +375,8 @@ loc_20C09A:
 ; ------------------------------------------------------------------------------
 
 SpringboardAnims:
-	dc.w	@SpringboardAnims_0-*
-	dc.w	@SpringboardAnims_1-SpringboardAnims
-	dc.w	@SpringboardAnims_2-SpringboardAnims
-	dc.w	@SpringboardAnims_3-SpringboardAnims
-	dc.w	@SpringboardAnims_4-SpringboardAnims
-
-@SpringboardAnims_0:
-	dc.b	2
-	dc.b	0, 1, 0, 2, 0, 1, 0, 3
-	dc.b	4, 3, 5, 3, 4, 3
-	dc.b	$FF
-
-@SpringboardAnims_1:
-	dc.b	2
-	dc.b	0, 1, 0, 2, 0, 1, 0
-	dc.b	$FF
-	dc.b	0
-
-@SpringboardAnims_2:
-	dc.b	2
-	dc.b	3, 4, 3, 5, 3, 4, 3
-	dc.b	$FF
-	dc.b	0
-
-@SpringboardAnims_3:
-	dc.b	0
-	dc.b	0
-	dc.b	$FF
-	dc.b	0
-
-@SpringboardAnims_4:
-	dc.b	0
-	dc.b	3
-	dc.b	$FF
-	dc.b	0
+	include	"src/anims/r1/springboard.asm"
+	even
 
 SpringboardSprites:
 	dc.w	@SpringboardSprites_0-*

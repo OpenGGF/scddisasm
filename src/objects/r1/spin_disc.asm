@@ -234,13 +234,8 @@ loc_2095C4:
 ; ------------------------------------------------------------------------------
 
 SpinDiscAnims:
-	dc.w	@SpinDiscAnims_0-*
-
-@SpinDiscAnims_0:
-	dc.b	1
-	dc.b	0, 1, 2
-	dc.b	$FF
-	dc.b	0
+	include	"src/anims/r1/spin_disc.asm"
+	even
 
 SpinDiscSprites:
 	dc.w	@SpinDiscSprites_0-*

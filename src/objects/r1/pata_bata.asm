@@ -78,18 +78,8 @@ loc_20B4EE:
 ; ------------------------------------------------------------------------------
 
 PataBataAnims:
-	dc.w	@PataBataAnims_0-*
-	dc.w	@PataBataAnims_1-PataBataAnims
-
-@PataBataAnims_0:
-	dc.b	7
-	dc.b	0, 0, 1, 2, 1
-	dc.b	$FF
-
-@PataBataAnims_1:
-	dc.b	3
-	dc.b	0, 0, 1, 2, 1
-	dc.b	$FF
+	include	"src/anims/r1/pata_bata.asm"
+	even
 
 PataBataSprites:
 	dc.w	@PataBataSprites_0-*

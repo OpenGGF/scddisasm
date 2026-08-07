@@ -23,7 +23,7 @@ loc_20C3FC:
 	move.b	obj.routine(a0),d0
 	move.w	off_20C41E(pc,d0.w),d0
 	jsr	off_20C41E(pc,d0.w)
-	lea	(Ani_20D064).l,a1
+	lea	(EggmanAnims).l,a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	rts
@@ -708,7 +708,7 @@ loc_20CAB6:
 	clr.b	obj.anim_index(a0)
 
 loc_20CAD4:
-	lea	(Ani_20D12C).l,a1
+	lea	(BossBubbleAnims).l,a1
 	jsr	AnimateObject
 	rts
 
@@ -808,7 +808,7 @@ loc_20CBCA:
 	move.b	#2,obj.collide_status(a0)
 
 loc_20CBEA:
-	lea	(Ani_20D12C).l,a1
+	lea	(BossBubbleAnims).l,a1
 	jsr	AnimateObject
 	rts
 
@@ -1046,7 +1046,7 @@ loc_20CE0C:
 ; ------------------------------------------------------------------------------
 
 BossBubbleObject_0_RoutineC:
-	lea	(Ani_20D12C).l,a1
+	lea	(BossBubbleAnims).l,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -1202,7 +1202,7 @@ BossMissileObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20CFA2(pc,d0.w),d0
 	jsr	off_20CFA2(pc,d0.w)
-	lea	(off_20D116).l,a1
+	lea	(BossMissileAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1284,31 +1284,9 @@ loc_20D060:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D064:
-	dc.w	@Ani_20D064_0-*
-	dc.w	@Ani_20D064_1-Ani_20D064
-	dc.w	@Ani_20D064_2-Ani_20D064
-	dc.w	@Ani_20D064_3-Ani_20D064
-
-@Ani_20D064_0:
-	dc.b	$FF
-	dc.b	0
-	dc.b	$FF
-
-@Ani_20D064_1:
-	dc.b	7
-	dc.b	1, 2
-	dc.b	$FF
-
-@Ani_20D064_2:
-	dc.b	$FF
-	dc.b	3
-	dc.b	$FF
-
-@Ani_20D064_3:
-	dc.b	3
-	dc.b	5, 4, 6, 4
-	dc.b	$FF
+EggmanAnims:
+	include	"src/anims/r4/eggman.asm"
+	even
 
 Spr_20D07C:
 	dc.w	@Spr_20D07C_0-*
@@ -1381,13 +1359,9 @@ Spr_20D0E6:
 	dc.b	4, $E, 0, $A0, 0
 	dc.b	0
 
-off_20D116:
-	dc.w	byte_20D118-*
-
-byte_20D118:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
+BossMissileAnims:
+	include	"src/anims/r4/boss_missile.asm"
+	even
 
 off_20D11C:
 	dc.w	byte_20D120-*
@@ -1401,37 +1375,9 @@ byte_20D126:
 	dc.b	1
 	dc.b	$FC, 0, 0, $AD, $FC
 
-Ani_20D12C:
-	dc.w	@Ani_20D12C_0-*
-	dc.w	@Ani_20D12C_1-Ani_20D12C
-	dc.w	@Ani_20D12C_2-Ani_20D12C
-	dc.w	@Ani_20D12C_3-Ani_20D12C
-	dc.w	@Ani_20D12C_4-Ani_20D12C
-
-@Ani_20D12C_0:
-	dc.b	9
-	dc.b	0, 1, 2, 3, 4
-	dc.b	$FF
-
-@Ani_20D12C_1:
-	dc.b	$FF
-	dc.b	4
-	dc.b	$FF
-
-@Ani_20D12C_2:
-	dc.b	$13
-	dc.b	4, 5, 6
-	dc.b	$FF
-
-@Ani_20D12C_3:
-	dc.b	$FF
-	dc.b	6
-	dc.b	$FF
-
-@Ani_20D12C_4:
-	dc.b	$13
-	dc.b	7, 8
-	dc.b	$FC
+BossBubbleAnims:
+	include	"src/anims/r4/boss_bubble.asm"
+	even
 
 Spr_20D14C:
 	dc.w	@Spr_20D14C_0-*

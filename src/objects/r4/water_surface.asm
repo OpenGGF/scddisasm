@@ -39,7 +39,7 @@ loc_206938:
 	move.w	d0,obj.x(a0)
 	move.w	(water_y).w,obj.y(a0)
 	addq.w	#2,obj.y(a0)
-	lea	(Ani_206960).l,a1
+	lea	(WaterSurfaceAnims).l,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -48,18 +48,9 @@ byte_20695E:
 	dc.b	$A0
 	dc.b	$60
 
-Ani_206960:
-	dc.w	@Ani_206960_0-*
-
-@Ani_206960_0:
-	dc.b	1
-	dc.b	0, 1, 0, 1, 0, 1, 0, 1
-	dc.b	0, 1, 0, 1, 2, 3, 2, 3
-	dc.b	2, 3, 2, 3, 2, 3, 2, 3
-	dc.b	4, 5, 4, 5, 4, 5, 4, 5
-	dc.b	4, 5, 4, 5, 6, 7, 6, 7
-	dc.b	6, 7, 6, 7, 6, 7, 6, 7
-	dc.b	$FF
+WaterSurfaceAnims:
+	include	"src/anims/r4/water_surface.asm"
+	even
 
 Spr_206994:
 	dc.w	@Spr_206994_0-*

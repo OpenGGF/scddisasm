@@ -70,7 +70,7 @@ SectionGfxInitList0:
 
 SectionGfxInitList1:
 	gfxStart
-	gfxEntry RobotTransporterGfxA, $5FC0
+	gfxEntry RobotTransportGfxA, $5FC0
 	gfxEntry TwinWalkerGfx, $6300
 	gfxEntry TrapDoorGfx, $6580
 	gfxEntry TubeCoverGfx, $6780
@@ -118,7 +118,7 @@ SectionGfxUpdateList0:
 
 SectionGfxUpdateList1:
 	gfxStart
-	gfxEntry RobotTransporterGfxA, $5FC0
+	gfxEntry RobotTransportGfxA, $5FC0
 	gfxEntry LaserGfx, $7C00
 	gfxEntry SpikeCrusherGfx, $8000
 	gfxEntry DangoGfx, $85E0

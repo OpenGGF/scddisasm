@@ -49,7 +49,7 @@ KamaKamaObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 
 loc_20D094:
-	lea	Ani_20D268(pc),a1
+	lea	KamaKamaAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -238,38 +238,9 @@ locret_20D266:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D268:
-	dc.w	@Ani_20D268_0-*
-	dc.w	@Ani_20D268_1-Ani_20D268
-	dc.w	@Ani_20D268_2-Ani_20D268
-	dc.w	@Ani_20D268_3-Ani_20D268
-	dc.w	@Ani_20D268_4-Ani_20D268
-
-@Ani_20D268_0:
-	dc.b	7
-	dc.b	0, 1, 2, 3
-	dc.b	$FF
-
-@Ani_20D268_1:
-	dc.b	7
-	dc.b	5, 6
-	dc.b	$FF
-
-@Ani_20D268_2:
-	dc.b	7
-	dc.b	0, 4
-	dc.b	$FF
-
-@Ani_20D268_3:
-	dc.b	7
-	dc.b	7, 4
-	dc.b	$FF
-
-@Ani_20D268_4:
-	dc.b	7
-	dc.b	0
-	dc.b	$FF
-	dc.b	0
+KamaKamaAnims:
+	include	"src/anims/r3/kama_kama.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -330,7 +301,7 @@ loc_20D312:
 ; ------------------------------------------------------------------------------
 
 loc_20D326:
-	lea	Ani_20D3D8(pc),a1
+	lea	KamaSickleAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -359,7 +330,7 @@ loc_20D360:
 	clr.b	obj.collide_type(a0)
 
 loc_20D36E:
-	lea	Ani_20D3D8(pc),a1
+	lea	KamaSickleAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -409,19 +380,9 @@ sub_20D3B8:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D3D8:
-	dc.w	@Ani_20D3D8_0-*
-	dc.w	@Ani_20D3D8_1-Ani_20D3D8
-
-@Ani_20D3D8_0:
-	dc.b	3
-	dc.b	0, 1, 2, 3, 4, 5
-	dc.b	$FF
-
-@Ani_20D3D8_1:
-	dc.b	0
-	dc.b	0, 1, 2, 3, 4, 5
-	dc.b	$FF
+KamaSickleAnims:
+	include	"src/anims/r3/kama_kama_sickle.asm"
+	even
 
 Spr_20D3EC:
 	dc.w	@Spr_20D3EC_0-*

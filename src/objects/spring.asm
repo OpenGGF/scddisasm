@@ -1,6 +1,6 @@
 ; ------------------------------------------------------------------------------
 
-MobileSpringObject:
+MoveSpringObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20824E(pc,d0.w),d0
@@ -28,7 +28,7 @@ sub_208254:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
-	move.l	#MobileSpringSprites,obj.sprite_data(a0)
+	move.l	#MoveSpringSprites,obj.sprite_data(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#7,obj.height(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -82,7 +82,7 @@ sub_2082E2:
 
 loc_208306:
 	jsr	MoveObject
-	lea	(MobileSpringAnims).l,a1
+	lea	(MoveSpringAnims).l,a1
 	jsr	AnimateObject
 
 loc_208318:
@@ -455,18 +455,9 @@ SpringDiagonalReset:
 ; ------------------------------------------------------------------------------
 
 S1SpringAnims:
-	dc.w	@S1SpringAnims_0-*
-	dc.w	@S1SpringAnims_1-S1SpringAnims
-@S1SpringAnims_0:
-	dc.b	0
-	dc.b	0, 0, 0, 2, 2, 2, 2, 2
-	dc.b	2, 0
-	dc.b	$FC
-@S1SpringAnims_1:
-	dc.b	0
-	dc.b	4, 3, 3, 5, 5, 5, 5, 5
-	dc.b	5, 3
-	dc.b	$FC
+	include	"src/anims/s1_spring.asm"
+	even
+
 S1SpringSprites:
 	dc.w	@S1SpringSprites_0-*
 	dc.w	@S1SpringSprites_1-S1SpringSprites
@@ -498,13 +489,11 @@ S1SpringSprites:
 	dc.b	$F8, 9, 0, 8, $F8
 	dc.b	$F0, 0, 0, 0, $F8
 	dc.b	8, 0, 0, 3, $F8
+
 SpringAnims:
-	dc.w	@SpringAnims_0-*
-@SpringAnims_0:
-	dc.b	0
-	dc.b	0, 1, 1, 2, 2, 2, 2, 2
-	dc.b	2, 1
-	dc.b	$FC
+	include	"src/anims/spring.asm"
+	even
+
 VSpringSprites:
 	dc.w	@VSpringSprites_0-*
 	dc.w	@VSpringSprites_1-VSpringSprites
@@ -572,19 +561,18 @@ DSpringSprites:
 	dc.b	$F0, 2, 0, $29, $F8
 	dc.b	0, 1, 0, $2C, 0
 	dc.b	0
-MobileSpringAnims:
-	dc.w	@MobileSpringAnims_0-*
-@MobileSpringAnims_0:
-	dc.b	8
-	dc.b	0, 1
-	dc.b	$FF
-MobileSpringSprites:
-	dc.w	@MobileSpringSprites_0-*
-	dc.w	@MobileSpringSprites_1-MobileSpringSprites
-@MobileSpringSprites_0:
+
+MoveSpringAnims:
+	include	"src/anims/move_spring.asm"
+	even
+
+MoveSpringSprites:
+	dc.w	@MoveSpringSprites_0-*
+	dc.w	@MoveSpringSprites_1-MoveSpringSprites
+@MoveSpringSprites_0:
 	dc.b	1
 	dc.b	$F8, 5, 0, 0, $F8
-@MobileSpringSprites_1:
+@MoveSpringSprites_1:
 	dc.b	1
 	dc.b	$F8, 5, 0, 4, $F8
 

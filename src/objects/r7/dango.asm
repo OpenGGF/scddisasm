@@ -46,11 +46,11 @@ DangoObject_0_Routine0:
 loc_20F26E:
 	move.w	d0,obj.sprite_tile(a0)
 	lea	off_20F4E4(pc),a1
-	lea	off_20F48A(pc),a2
+	lea	DangoAnims1(pc),a2
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20F288
 	lea	off_20F552(pc),a1
-	lea	off_20F4B4(pc),a2
+	lea	DangoAnims2(pc),a2
 
 loc_20F288:
 	move.l	a1,obj.sprite_data(a0)
@@ -264,81 +264,13 @@ loc_20F47E:
 
 ; ------------------------------------------------------------------------------
 
-off_20F48A:
-	dc.w	byte_20F496-*
-	dc.w	byte_20F49A-off_20F48A
-	dc.w	byte_20F49D-off_20F48A
-	dc.w	byte_20F4A2-off_20F48A
-	dc.w	byte_20F4AA-off_20F48A
-	dc.w	byte_20F4AE-off_20F48A
+DangoAnims1:
+	include	"src/anims/r7/dango_1.asm"
+	even
 
-byte_20F496:
-	dc.b	9
-	dc.b	0, 1
-	dc.b	$FF
-
-byte_20F49A:
-	dc.b	0
-	dc.b	0
-	dc.b	$FC
-
-byte_20F49D:
-	dc.b	3
-	dc.b	4, 4, 5
-	dc.b	$FC
-
-byte_20F4A2:
-	dc.b	4
-	dc.b	2, 3, 2, 3, 2, 3
-	dc.b	$FC
-
-byte_20F4AA:
-	dc.b	4
-	dc.b	2, 3
-	dc.b	$FF
-
-byte_20F4AE:
-	dc.b	4
-	dc.b	5, 4, 4, $FC
-	dc.b	0
-
-off_20F4B4:
-	dc.w	byte_20F4C0-*
-	dc.w	byte_20F4C4-off_20F4B4
-	dc.w	byte_20F4C7-off_20F4B4
-	dc.w	byte_20F4CC-off_20F4B4
-	dc.w	byte_20F4DA-off_20F4B4
-	dc.w	byte_20F4DE-off_20F4B4
-
-byte_20F4C0:
-	dc.b	$1D
-	dc.b	0, 1
-	dc.b	$FF
-
-byte_20F4C4:
-	dc.b	$3B
-	dc.b	0
-	dc.b	$FC
-
-byte_20F4C7:
-	dc.b	9
-	dc.b	4, 4, 5
-	dc.b	$FC
-
-byte_20F4CC:
-	dc.b	9
-	dc.b	2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3
-	dc.b	$FC
-
-byte_20F4DA:
-	dc.b	9
-	dc.b	2, 3
-	dc.b	$FF
-
-byte_20F4DE:
-	dc.b	9
-	dc.b	5, 4, 4, $FC
-	dc.b	0
+DangoAnims2:
+	include	"src/anims/r7/dango_2.asm"
+	even
 
 off_20F4E4:
 	dc.w	byte_20F4F0-*

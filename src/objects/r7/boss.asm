@@ -9,7 +9,7 @@ MetalSonicObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20BE48(pc,d0.w),d0
 	jsr	off_20BE48(pc,d0.w)
-	lea	(Ani_20D19C).l,a1
+	lea	(MetalSonicAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -747,7 +747,7 @@ EggmanObject:
 	jsr	off_20C4B0(pc,d0.w)
 	bsr.w	sub_20C97C
 	bsr.w	sub_20C940
-	lea	(Ani_20D0D8).l,a1
+	lea	(EggmanAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1528,7 +1528,7 @@ loc_20CBE6:
 	move.b	#9,obj.var_2b(a0)
 
 loc_20CBF6:
-	lea	(Ani_20D13A).l,a1
+	lea	(BossLaserAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1603,20 +1603,15 @@ BossLaserObject_0_Routine6:
 ; ------------------------------------------------------------------------------
 
 loc_20CCA4:
-	lea	(Ani_20CCB6).l,a1
+	lea	(BossLaserImpactAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20CCB6:
-	dc.w	@Ani_20CCB6_0-*
-
-@Ani_20CCB6_0:
-	dc.b	5
-	dc.b	0, 1, 2, 3, 4
-	dc.b	$FF
-	dc.b	0
+BossLaserImpactAnims:
+	include	"src/anims/r7/boss_laser_impact.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -1718,7 +1713,7 @@ loc_20CDE0:
 	add.w	d0,obj.x(a0)
 	move.w	obj.var_38(a0),d0
 	add.w	d0,obj.y(a0)
-	lea	(Ani_20D150).l,a1
+	lea	(BossExhaustAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -2037,13 +2032,9 @@ locret_20D0D6:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D0D8:
-	dc.w	@Ani_20D0D8_0-*
-
-@Ani_20D0D8_0:
-	dc.b	5
-	dc.b	0, 1
-	dc.b	$FF
+EggmanAnims:
+	include	"src/anims/r7/eggman.asm"
+	even
 
 Spr_20D0DE:
 	dc.w	@Spr_20D0DE_0-*
@@ -2073,13 +2064,9 @@ Spr_20D0DE:
 	dc.b	$1C, 0, 0, $47, $18
 	dc.b	0
 
-Ani_20D13A:
-	dc.w	@Ani_20D13A_0-*
-
-@Ani_20D13A_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
+BossLaserAnims:
+	include	"src/anims/r7/boss_laser.asm"
+	even
 
 Spr_20D140:
 	dc.w	@Spr_20D140_0-*
@@ -2093,19 +2080,9 @@ Spr_20D140:
 	dc.b	1
 	dc.b	$F0, 7, 0, $50, $F8
 
-Ani_20D150:
-	dc.w	@Ani_20D150_0-*
-	dc.w	@Ani_20D150_1-Ani_20D150
-
-@Ani_20D150_0:
-	dc.b	1
-	dc.b	0, 1, 3, 4
-	dc.b	$FF
-
-@Ani_20D150_1:
-	dc.b	1
-	dc.b	0, 2, 3, 5
-	dc.b	$FF
+BossExhaustAnims:
+	include	"src/anims/r7/boss_exhaust.asm"
+	even
 
 Spr_20D160:
 	dc.w	@Spr_20D160_0-*
@@ -2143,91 +2120,9 @@ Spr_20D160:
 	dc.b	$F8, $D, $10, $6E, $F4
 	dc.b	0
 
-Ani_20D19C:
-	dc.w	@Ani_20D19C_0-*
-	dc.w	@Ani_20D19C_1-Ani_20D19C
-	dc.w	@Ani_20D19C_2-Ani_20D19C
-	dc.w	@Ani_20D19C_3-Ani_20D19C
-	dc.w	@Ani_20D19C_4-Ani_20D19C
-	dc.w	@Ani_20D19C_5-Ani_20D19C
-	dc.w	@Ani_20D19C_6-Ani_20D19C
-	dc.w	@Ani_20D19C_7-Ani_20D19C
-	dc.w	@Ani_20D19C_8-Ani_20D19C
-	dc.w	@Ani_20D19C_9-Ani_20D19C
-	dc.w	@Ani_20D19C_A-Ani_20D19C
-	dc.w	@Ani_20D19C_B-Ani_20D19C
-	dc.w	@Ani_20D19C_C-Ani_20D19C
-	dc.w	@Ani_20D19C_D-Ani_20D19C
-
-@Ani_20D19C_0:
-	dc.b	$13
-	dc.b	0
-	dc.b	$FF
-
-@Ani_20D19C_1:
-	dc.b	$13
-	dc.b	2, 1, 2, 1, 2, 1, 2, 0
-	dc.b	$FF
-
-@Ani_20D19C_2:
-	dc.b	9
-	dc.b	4, 5, 6
-	dc.b	$FF
-
-@Ani_20D19C_3:
-	dc.b	9
-	dc.b	6
-	dc.b	$FF
-
-@Ani_20D19C_4:
-	dc.b	1
-	dc.b	7, 6, 8, 6
-	dc.b	$FF
-
-@Ani_20D19C_5:
-	dc.b	1
-	dc.b	$A, 9, $B, 9
-	dc.b	$FF
-
-@Ani_20D19C_6:
-	dc.b	1
-	dc.b	$D, $C, $E, $C
-	dc.b	$FF
-
-@Ani_20D19C_7:
-	dc.b	1
-	dc.b	$10, $F, $11, $F
-	dc.b	$FF
-
-@Ani_20D19C_8:
-	dc.b	$13
-	dc.b	$12
-	dc.b	$FF
-
-@Ani_20D19C_9:
-	dc.b	1
-	dc.b	$13, $14
-	dc.b	$FF
-
-@Ani_20D19C_A:
-	dc.b	1
-	dc.b	$15, $C
-	dc.b	$FF
-
-@Ani_20D19C_B:
-	dc.b	$FE
-	dc.b	$16
-	dc.b	$FF
-
-@Ani_20D19C_C:
-	dc.b	$13
-	dc.b	2, 1
-	dc.b	$FF
-
-@Ani_20D19C_D:
-	dc.b	$FE
-	dc.b	$17
-	dc.b	$FF
+MetalSonicAnims:
+	include	"src/anims/r7/metal_sonic.asm"
+	even
 
 Spr_20D1FA:
 	dc.w	@Spr_20D1FA_0-*

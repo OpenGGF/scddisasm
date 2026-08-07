@@ -23,7 +23,7 @@ SparksObject_0_Routine0:
 	move.l	#Spr_20C4BC,obj.sprite_data(a0)
 
 SparksObject_0_Routine2:
-	lea	(Ani_20C4B4).l,a1
+	lea	(SparksAnims).l,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -33,13 +33,9 @@ SparksObject_0_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20C4B4:
-	dc.w	@Ani_20C4B4_0-*
-
-@Ani_20C4B4_0:
-	dc.b	3
-	dc.b	0, 1, 0, 1
-	dc.b	$FC
+SparksAnims:
+	include	"src/anims/r7/sparks.asm"
+	even
 
 Spr_20C4BC:
 	dc.w	@Spr_20C4BC_0-*

@@ -45,7 +45,7 @@ loc_206102:
 	move.w	#-$88,obj.y_speed(a0)
 
 PlayerBubblesObject_0_Routine2:
-	lea	(Ani_206468).l,a1
+	lea	(PlayerBubblesAnims).l,a1
 	jsr	AnimateObject
 
 PlayerBubblesObject_0_Routine4:
@@ -89,7 +89,7 @@ loc_20617A:
 
 PlayerBubblesObject_0_Routine6:
 	bsr.s	sub_2061D4
-	lea	(Ani_206468).l,a1
+	lea	(PlayerBubblesAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -112,7 +112,7 @@ PlayerBubblesObject_0_RoutineC:
 ; ------------------------------------------------------------------------------
 
 loc_2061B6:
-	lea	(Ani_206468).l,a1
+	lea	(PlayerBubblesAnims).l,a1
 	jsr	AnimateObject
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_2061CE
@@ -334,103 +334,8 @@ locret_206466:
 
 ; ------------------------------------------------------------------------------
 
-Ani_206468:
-	dc.w	@Ani_206468_0-*
-	dc.w	@Ani_206468_1-Ani_206468
-	dc.w	@Ani_206468_2-Ani_206468
-	dc.w	@Ani_206468_3-Ani_206468
-	dc.w	@Ani_206468_4-Ani_206468
-	dc.w	@Ani_206468_5-Ani_206468
-	dc.w	@Ani_206468_6-Ani_206468
-	dc.w	@Ani_206468_7-Ani_206468
-	dc.w	@Ani_206468_8-Ani_206468
-	dc.w	@Ani_206468_9-Ani_206468
-	dc.w	@Ani_206468_A-Ani_206468
-	dc.w	@Ani_206468_B-Ani_206468
-	dc.w	@Ani_206468_C-Ani_206468
-	dc.w	@Ani_206468_D-Ani_206468
-	dc.w	@Ani_206468_E-Ani_206468
-	dc.w	@Ani_206468_D-Ani_206468
-
-@Ani_206468_0:
-	dc.b	5
-	dc.b	0, 1, 2, 3, 4, 9, $D
-	dc.b	$FC
-	dc.b	0
-
-@Ani_206468_1:
-	dc.b	5
-	dc.b	0, 1, 2, 3, 4, $C, $12
-	dc.b	$FC
-	dc.b	0
-
-@Ani_206468_2:
-	dc.b	5
-	dc.b	0, 1, 2, 3, 4, $C, $11
-	dc.b	$FC
-	dc.b	0
-
-@Ani_206468_3:
-	dc.b	5
-	dc.b	0, 1, 2, 3, 4, $B, $10
-	dc.b	$FC
-	dc.b	0
-
-@Ani_206468_4:
-	dc.b	5
-	dc.b	0, 1, 2, 3, 4, 9, $F
-	dc.b	$FC
-	dc.b	0
-
-@Ani_206468_5:
-	dc.b	5
-	dc.b	0, 1, 2, 3, 4, $A, $E
-	dc.b	$FC
-	dc.b	0
-
-@Ani_206468_6:
-	dc.b	$E
-	dc.b	0, 1, 2
-	dc.b	$FC
-	dc.b	0
-
-@Ani_206468_7:
-	dc.b	7
-	dc.b	$16, $D, $16, $D, $16, $D
-	dc.b	$FC
-
-@Ani_206468_8:
-	dc.b	7
-	dc.b	$16, $12, $16, $12, $16, $12
-	dc.b	$FC
-
-@Ani_206468_9:
-	dc.b	7
-	dc.b	$16, $11, $16, $11, $16, $11
-	dc.b	$FC
-
-@Ani_206468_A:
-	dc.b	7
-	dc.b	$16, $10, $16, $10, $16, $10
-	dc.b	$FC
-
-@Ani_206468_B:
-	dc.b	7
-	dc.b	$16, $F, $16, $F, $16, $F
-	dc.b	$FC
-
-@Ani_206468_C:
-	dc.b	7
-	dc.b	$16, $E, $16, $E, $16, $E
-	dc.b	$FC
-
-@Ani_206468_D:
-	dc.b	$E
-	dc.b	$FC
-
-@Ani_206468_E:
-	dc.b	$E
-	dc.b	1, 2, 3, 4
-	dc.b	$FC
+PlayerBubblesAnims:
+	include	"src/anims/r4/player_bubbles.asm"
+	even
 
 ; ------------------------------------------------------------------------------

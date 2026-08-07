@@ -127,7 +127,7 @@ locret_20D2F2:
 ; ------------------------------------------------------------------------------
 
 SpinPlatformObject_2_Routine6:
-	lea	Ani_20D4C2(pc),a1
+	lea	SpinPlatformAnims(pc),a1
 	jsr	AnimateObject
 	tst.b	obj.sprite_frame(a0)
 	bne.s	locret_20D30A
@@ -307,13 +307,10 @@ loc_20D4BC:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D4C2:
-	dc.w	@Ani_20D4C2_0-*
-@Ani_20D4C2_0:
-	dc.b	1
-	dc.b	1, 2, 3, 4, 5, 6, 1, 2
-	dc.b	3, 4, 5, 0
-	dc.b	$FF
+SpinPlatformAnims:
+	include	"src/anims/r8/spin_platform.asm"
+	even
+	
 Unk20D4D2Sprites:
 	dc.w	Unk20D4D2Sprite_0-*
 	dc.w	Unk20D4D2Sprite_1-Unk20D4D2Sprites

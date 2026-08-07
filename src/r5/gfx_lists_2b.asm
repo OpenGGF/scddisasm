@@ -63,7 +63,7 @@ SectionGfxInitList0:
 	gfxEntry BreakWallGfxB, $8D60
 	gfxEntry SinePlatformGfxB, $90E0
 	gfxEntry CrackFloorGfxB, $94E0
-	gfxEntry RobotTransporterGfxB, $9A40
+	gfxEntry RobotTransportGfxB, $9A40
 	gfxEnd
 
 AnimalsGfxList:
@@ -80,7 +80,7 @@ AnimalsGfxList:
 	gfxEntry BreakWallGfxB, $8D60
 	gfxEntry SinePlatformGfxB, $90E0
 	gfxEntry CrackFloorGfxB, $94E0
-	gfxEntry RobotTransporterGfxB, $9A40
+	gfxEntry RobotTransportGfxB, $9A40
 	gfxEnd
 
 ProjectorGfxList:

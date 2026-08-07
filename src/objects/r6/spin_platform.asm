@@ -37,7 +37,7 @@ SpinPlatformObject_0_Routine0:
 
 SpinPlatformObject_0_Routine2:
 	bsr.w	sub_20D7E6
-	lea	Ani_20D876(pc),a1
+	lea	SpinPlatformAnims(pc),a1
 	jsr	AnimateObject
 	lea	(player_object).w,a1
 	bsr.w	sub_20D5B8
@@ -322,13 +322,9 @@ sub_20D85A:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D876:
-	dc.w	@Ani_20D876_0-*
-
-@Ani_20D876_0:
-	dc.b	9
-	dc.b	0, 1, 2, 3, 4, 5
-	dc.b	$FF
+SpinPlatformAnims:
+	include	"src/anims/r6/spin_platform.asm"
+	even
 
 Spr_20D880:
 	dc.w	@Spr_20D880_0-*

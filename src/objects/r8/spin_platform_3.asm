@@ -125,7 +125,7 @@ locret_20EF4E:
 ; ------------------------------------------------------------------------------
 
 SpinPlatformObject_0_Routine6:
-	lea	Ani_20EF6E(pc),a1
+	lea	SpinPlatformAnims(pc),a1
 	jsr	AnimateObject
 	tst.b	obj.sprite_frame(a0)
 	bne.s	locret_20EF66
@@ -141,14 +141,9 @@ loc_20EF68:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20EF6E:
-	dc.w	@Ani_20EF6E_0-*
-
-@Ani_20EF6E_0:
-	dc.b	1
-	dc.b	1, 2, 3, 4, 5, 6, 1, 2
-	dc.b	3, 4, 5, 0
-	dc.b	$FF
+SpinPlatformAnims:
+	include	"src/anims/r8/spin_platform.asm"
+	even
 
 Unk20EF7ESprites:
 	dc.w	Unk20EF7ESprite_0-*

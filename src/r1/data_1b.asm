@@ -289,8 +289,8 @@ DiscDrillGfx:
 	incbin	"src/gfx/r1/disc_drill.nem"
 	even
 
-RobotTransporterGfxA:
-	incbin	"src/gfx/robot_transporter_a.nem"
+RobotTransportGfxA:
+	incbin	"src/gfx/robot_transport_a.nem"
 	even
 
 StageCollisionAngles:
@@ -395,8 +395,8 @@ StageGfx:
 	incbin	"src/maps/r11b/gfx.nem"
 	even
 
-RobotTransporterGfxB:
-	incbin	"src/gfx/robot_transporter_b.nem"
+RobotTransportGfxB:
+	incbin	"src/gfx/robot_transport_b.nem"
 	even
 
 HologramAnimalsGfx:

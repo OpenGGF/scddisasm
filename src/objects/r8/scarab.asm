@@ -258,11 +258,11 @@ ScarabObject_1_Routine0:
 	bset	#0,obj.flags(a1)
 
 loc_20DF6A:
-	lea	off_20E31E(pc),a1
+	lea	ScarabAnims1(pc),a1
 	move.l	#$6000,d0
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20DF84
-	lea	off_20E324(pc),a1
+	lea	ScarabAnims2(pc),a1
 	move.l	#$3000,d0
 
 loc_20DF84:
@@ -624,18 +624,14 @@ loc_20E318:
 
 ; ------------------------------------------------------------------------------
 
-off_20E31E:
-	dc.w	byte_20E320-*
-byte_20E320:
-	dc.b	9
-	dc.b	0, 1
-	dc.b	$FF
-off_20E324:
-	dc.w	byte_20E326-*
-byte_20E326:
-	dc.b	$13
-	dc.b	0, 1
-	dc.b	$FF
+ScarabAnims1:
+	include	"src/anims/r8/scarab_1.asm"
+	even
+
+ScarabAnims2:
+	include	"src/anims/r8/scarab_2.asm"
+	even
+
 Spr_20E32A:
 	dc.w	@Spr_20E32A_0-*
 	dc.w	@Spr_20E32A_1-Spr_20E32A

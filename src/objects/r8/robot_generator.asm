@@ -91,7 +91,7 @@ locret_20E524:
 loc_20E526:
 	lea	(player_object).w,a1
 	jsr	SolidObject
-	lea	RobotGeneratorAnims(pc),a1
+	lea	RobotTransportAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -170,12 +170,10 @@ locret_20E5DA:
 
 ; ------------------------------------------------------------------------------
 
-RobotGeneratorAnims:
-	dc.w	@RobotGeneratorAnims_0-*
-@RobotGeneratorAnims_0:
-	dc.b	3
-	dc.b	3, 4, 5, 6
-	dc.b	$FF
+RobotTransportAnims:
+	include	"src/anims/robot_transport.asm"
+	even
+
 byte_20E5E4:
 	dc.b	1, 0, 0
 	dc.b	2, $D8, $EC

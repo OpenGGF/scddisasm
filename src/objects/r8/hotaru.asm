@@ -48,7 +48,7 @@ HotaruObject_2_Routine0:
 
 HotaruObject_2_Routine2:
 	move.b	#4,obj.anim_id(a0)
-	lea	Ani_20F8F4(pc),a1
+	lea	HotaruAnims(pc),a1
 	jsr	AnimateObject
 	subq.b	#1,obj.var_3a(a0)
 	bne.s	locret_20F3CA
@@ -129,7 +129,7 @@ HotaruObject_2_Routine6:
 	addq.b	#2,obj.routine(a0)
 
 loc_20F484:
-	lea	Ani_20F8F4(pc),a1
+	lea	HotaruAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ locret_20F4BC:
 
 HotaruObject_2_Routine8:
 	clr.b	obj.anim_id(a0)
-	lea	Ani_20F8F4(pc),a1
+	lea	HotaruAnims(pc),a1
 	jsr	AnimateObject
 	moveq	#0,d0
 	move.b	obj.var_3c(a0),d0
@@ -256,7 +256,7 @@ loc_20F528:
 	bsr.s	sub_20F548
 
 loc_20F532:
-	lea	Ani_20F8F4(pc),a1
+	lea	HotaruAnims(pc),a1
 	jsr	AnimateObject
 	subq.b	#1,obj.var_3c(a0)
 	bne.s	locret_20F546
@@ -287,7 +287,7 @@ HotaruObject_2_RoutineC:
 	clr.b	obj.anim_id(a0)
 
 loc_20F57A:
-	lea	Ani_20F8F4(pc),a1
+	lea	HotaruAnims(pc),a1
 	jsr	AnimateObject
 	subq.b	#1,obj.var_3c(a0)
 	bne.s	locret_20F59C
@@ -331,7 +331,7 @@ HotaruObject_1_Routine0:
 HotaruObject_1_Routine2:
 	move.b	#8,obj.anim_id(a0)
 	addq.w	#8,obj.y(a0)
-	lea	Ani_20F8F4(pc),a1
+	lea	HotaruAnims(pc),a1
 	jsr	AnimateObject
 	jsr	CheckBlockDown
 	tst.w	d1
@@ -357,7 +357,7 @@ HotaruObject_1_Routine4:
 ; ------------------------------------------------------------------------------
 
 loc_20F61E:
-	lea	Ani_20F8F4(pc),a1
+	lea	HotaruAnims(pc),a1
 	jsr	AnimateObject
 	subq.b	#1,obj.var_3a(a0)
 	beq.s	loc_20F630
@@ -388,7 +388,7 @@ loc_20F644:
 	addq.b	#2,obj.routine(a0)
 
 loc_20F660:
-	lea	(Ani_20F8F4).l,a1
+	lea	(HotaruAnims).l,a1
 	jsr	AnimateObject
 	subq.b	#1,obj.var_3a(a0)
 	beq.s	loc_20F678
@@ -679,57 +679,8 @@ locret_20F872:
 		dc.w	$24, $44, $286, $8C4, 2, 0, $620, $420, $202, $424, $846, $C86
 	endif
 
-Ani_20F8F4:
-	dc.w	@Ani_20F8F4_0-*
-	dc.w	@Ani_20F8F4_1-Ani_20F8F4
-	dc.w	@Ani_20F8F4_2-Ani_20F8F4
-	dc.w	@Ani_20F8F4_3-Ani_20F8F4
-	dc.w	@Ani_20F8F4_4-Ani_20F8F4
-	dc.w	@Ani_20F8F4_5-Ani_20F8F4
-	dc.w	@Ani_20F8F4_6-Ani_20F8F4
-	dc.w	@Ani_20F8F4_6-Ani_20F8F4
-	dc.w	@Ani_20F8F4_6-Ani_20F8F4
-	dc.w	@Ani_20F8F4_9-Ani_20F8F4
-
-@Ani_20F8F4_0:
-	dc.b	1
-	dc.b	5, 0, 5, 0
-	dc.b	$FF
-
-@Ani_20F8F4_1:
-	dc.b	$FF
-	dc.b	4, $A, $A
-	dc.b	$FF
-	dc.b	0
-
-@Ani_20F8F4_2:
-	dc.b	7
-	dc.b	$B, $C
-	dc.b	$FF
-
-@Ani_20F8F4_3:
-	dc.b	3
-	dc.b	6, $F
-	dc.b	$FF
-
-@Ani_20F8F4_4:
-	dc.b	$FF
-	dc.b	4, $A
-	dc.b	$FF
-
-@Ani_20F8F4_5:
-	dc.b	7
-	dc.b	4, $A
-	dc.b	$FF
-
-@Ani_20F8F4_6:
-	dc.b	$FF
-	dc.b	6, $A
-	dc.b	$FF
-
-@Ani_20F8F4_9:
-	dc.b	$FF
-	dc.b	9, $A, $10, $A
-	dc.b	$FF
+HotaruAnims:
+	include	"src/anims/r8/hotaru.asm"
+	even
 
 ; ------------------------------------------------------------------------------

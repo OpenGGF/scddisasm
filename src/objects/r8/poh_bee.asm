@@ -101,7 +101,7 @@ loc_20DA5C:
 	move.w	obj.var_36(a0),d1
 	asr.l	d1,d0
 	add.l	d0,obj.y(a0)
-	lea	Ani_20DC30(pc),a1
+	lea	PohBeeAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_38(a0),d0
@@ -240,12 +240,10 @@ loc_20DC2A:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20DC30:
-	dc.w	@Ani_20DC30_0-*
-@Ani_20DC30_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
+PohBeeAnims:
+	include	"src/anims/r8/poh_bee.asm"
+	even
+
 Unk20DC36Sprites:
 	dc.w	Unk20DC4ASprite_0-*
 	dc.w	Unk20DC4ASprite_1-Unk20DC36Sprites

@@ -446,7 +446,7 @@ RingPrizeObject_0_Routine4:
 	jsr	sub_208ACA
 
 RingPrizeObject_0_Routine6:
-	lea	(Ani_20F22E).l,a1
+	lea	(RingPrizeAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -457,13 +457,9 @@ RingPrizeObject_0_Routine8:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20F22E:
-	dc.w	@Ani_20F22E_0-*
-
-@Ani_20F22E_0:
-	dc.b	5
-	dc.b	4, 5, 6, 7
-	dc.b	$FC
+RingPrizeAnims:
+	include	"src/anims/r4/ring_prize.asm"
+	even
 
 Spr_20F236:
 	dc.w	@Spr_20F236_0-*

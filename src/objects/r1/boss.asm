@@ -1,6 +1,6 @@
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject:
+EggmanObject:
 	bsr.w	sub_20B9A6
 	bsr.w	sub_20B9CA
 	bsr.w	sub_20BAC0
@@ -9,21 +9,21 @@ BossEggmanObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20B996(pc,d0.w),d0
 	jsr	off_20B996(pc,d0.w)
-	lea	(Ani_20D7BC).l,a1
+	lea	(EggmanAnims).l,a1
 	jsr	(AnimateObject).l
 	jmp	(DrawObject).l
 
 ; ------------------------------------------------------------------------------
 
 off_20B996:
-	dc.w	BossEggmanObject_0_Routine0-*
-	dc.w	BossEggmanObject_0_Routine2-off_20B996
-	dc.w	BossEggmanObject_0_Routine4-off_20B996
-	dc.w	BossEggmanObject_0_Routine6-off_20B996
-	dc.w	BossEggmanObject_0_Routine8-off_20B996
-	dc.w	BossEggmanObject_0_RoutineA-off_20B996
-	dc.w	BossEggmanObject_0_RoutineC-off_20B996
-	dc.w	BossEggmanObject_0_RoutineE-off_20B996
+	dc.w	EggmanObject_0_Routine0-*
+	dc.w	EggmanObject_0_Routine2-off_20B996
+	dc.w	EggmanObject_0_Routine4-off_20B996
+	dc.w	EggmanObject_0_Routine6-off_20B996
+	dc.w	EggmanObject_0_Routine8-off_20B996
+	dc.w	EggmanObject_0_RoutineA-off_20B996
+	dc.w	EggmanObject_0_RoutineC-off_20B996
+	dc.w	EggmanObject_0_RoutineE-off_20B996
 
 ; ------------------------------------------------------------------------------
 
@@ -304,7 +304,7 @@ sub_20BC92:
 
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject_0_Routine0:
+EggmanObject_0_Routine0:
 	moveq	#4,d0
 	jsr	(AddGfxQueue).l
 	move.b	#1,(boss_started).w
@@ -471,7 +471,7 @@ locret_20BF42:
 
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject_0_Routine2:
+EggmanObject_0_Routine2:
 	move.w	#$AC0,d0
 	move.w	d0,(right_bound).w
 	move.w	d0,(target_right_bound).w
@@ -499,7 +499,7 @@ locret_20BF90:
 
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject_0_RoutineC:
+EggmanObject_0_RoutineC:
 	addq.w	#6,(scroll_focus_y).w
 	cmpi.w	#$C8,(scroll_focus_y).w
 	bge.s	loc_20BFA0
@@ -516,7 +516,7 @@ loc_20BFA0:
 
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject_0_RoutineE:
+EggmanObject_0_RoutineE:
 	addq.b	#1,obj.var_2b(a0)
 	cmpi.b	#$3C,obj.var_2b(a0)
 	bne.s	locret_20BFDE
@@ -531,7 +531,7 @@ locret_20BFDE:
 
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject_0_Routine4:
+EggmanObject_0_Routine4:
 	movea.w	obj.var_30(a0),a1
 	bclr	#0,$2C(a1)
 	beq.s	locret_20C04C
@@ -586,7 +586,7 @@ byte_20C04E:
 
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject_0_Routine6:
+EggmanObject_0_Routine6:
 	addq.b	#1,obj.var_2b(a0)
 	bsr.w	sub_20D72A
 	cmpi.b	#$5E,obj.var_2b(a0)
@@ -616,7 +616,7 @@ locret_20C0C4:
 
 ; ------------------------------------------------------------------------------
 
-BossEggmanObject_0_Routine8:
+EggmanObject_0_Routine8:
 	tst.b	obj.routine_2(a0)
 	beq.w	loc_20C100
 	move.w	obj.var_38(a0),d0
@@ -677,7 +677,7 @@ loc_20C180:
 	clr.b	(boss_started).w
 	move.b	#$A,obj.routine(a0)
 
-BossEggmanObject_0_RoutineA:
+EggmanObject_0_RoutineA:
 	lea	(unk_2027F8+2).l,a1
 	move.w	(a1)+,d0
 	move.w	(a1)+,d1
@@ -2747,38 +2747,9 @@ locret_20D7BA:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D7BC:
-	dc.w	@Ani_20D7BC_0-*
-	dc.w	@Ani_20D7BC_1-Ani_20D7BC
-	dc.w	@Ani_20D7BC_2-Ani_20D7BC
-	dc.w	@Ani_20D7BC_3-Ani_20D7BC
-	dc.w	@Ani_20D7BC_4-Ani_20D7BC
-
-@Ani_20D7BC_0:
-	dc.b	$3B
-	dc.b	0
-	dc.b	$FF
-
-@Ani_20D7BC_1:
-	dc.b	7
-	dc.b	2, 3
-	dc.b	$FF
-
-@Ani_20D7BC_2:
-	dc.b	3
-	dc.b	1, 5, 4, 6
-	dc.b	$FF
-
-@Ani_20D7BC_3:
-	dc.b	3
-	dc.b	7, 8
-	dc.b	$FF
-
-@Ani_20D7BC_4:
-	dc.b	3
-	dc.b	9, $A
-	dc.b	$FF
-	dc.b	0
+EggmanAnims:
+	include	"src/anims/r1/eggman.asm"
+	even
 
 Spr_20D7DC:
 	dc.w	@Spr_20D7DC_0-*

@@ -29,7 +29,7 @@ loc_20B226:
 	move.b	obj.routine(a0),d0
 	move.w	off_20B266(pc,d0.w),d0
 	jsr	off_20B266(pc,d0.w)
-	lea	(Ani_20CFF2).l,a1
+	lea	(EggmanAnims).l,a1
 	jsr	AnimateObject
 	movea.l	a0,a3
 	adda.w	#obj.var_3d,a3
@@ -3185,43 +3185,8 @@ locret_20CFF0:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20CFF2:
-	dc.w	@Ani_20CFF2_0-*
-	dc.w	@Ani_20CFF2_1-Ani_20CFF2
-	dc.w	@Ani_20CFF2_2-Ani_20CFF2
-	dc.w	@Ani_20CFF2_3-Ani_20CFF2
-	dc.w	@Ani_20CFF2_4-Ani_20CFF2
-	dc.w	@Ani_20CFF2_5-Ani_20CFF2
-
-@Ani_20CFF2_0:
-	dc.b	$FF
-	dc.b	2
-	dc.b	$FF
-
-@Ani_20CFF2_1:
-	dc.b	3
-	dc.b	5, 6, 5, 7
-	dc.b	$FF
-
-@Ani_20CFF2_2:
-	dc.b	$F
-	dc.b	8, 0, 1, 2
-	dc.b	$FF
-
-@Ani_20CFF2_3:
-	dc.b	$FF
-	dc.b	4
-	dc.b	$FF
-
-@Ani_20CFF2_4:
-	dc.b	7
-	dc.b	2, 3
-	dc.b	$FF
-
-@Ani_20CFF2_5:
-	dc.b	$FF
-	dc.b	8
-	dc.b	$FF
-	dc.b	0
+EggmanAnims:
+	include	"src/anims/r8/eggman.asm"
+	even
 
 ; ------------------------------------------------------------------------------

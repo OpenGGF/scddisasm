@@ -45,7 +45,7 @@ loc_20A5B4:
 	move.b	d0,obj.angle(a0)
 
 BubbleSpawnerObject_0_Routine2:
-	lea	(Ani_20A858).l,a1
+	lea	(BubbleSpawnAnims).l,a1
 	jsr	AnimateObject
 	cmpi.b	#6,obj.sprite_frame(a0)
 	bne.s	BubbleSpawnerObject_0_Routine4
@@ -111,7 +111,7 @@ loc_20A698:
 ; ------------------------------------------------------------------------------
 
 BubbleSpawnerObject_0_Routine6:
-	lea	(Ani_20A858).l,a1
+	lea	(BubbleSpawnAnims).l,a1
 	jsr	AnimateObject
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_20A6B6
@@ -211,7 +211,7 @@ loc_20A7AC:
 	clr.w	obj.var_36(a0)
 
 loc_20A7C8:
-	lea	(Ani_20A858).l,a1
+	lea	(BubbleSpawnAnims).l,a1
 	jsr	AnimateObject
 
 loc_20A7D4:
@@ -286,46 +286,8 @@ loc_20A854:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20A858:
-	dc.w	@Ani_20A858_0-*
-	dc.w	@Ani_20A858_1-Ani_20A858
-	dc.w	@Ani_20A858_2-Ani_20A858
-	dc.w	@Ani_20A858_3-Ani_20A858
-	dc.w	@Ani_20A858_3-Ani_20A858
-	dc.w	@Ani_20A858_5-Ani_20A858
-	dc.w	@Ani_20A858_6-Ani_20A858
-
-@Ani_20A858_0:
-	dc.b	$E
-	dc.b	0, 1, 2
-	dc.b	$FC
-	dc.b	0
-
-@Ani_20A858_1:
-	dc.b	$E
-	dc.b	1, 2, 3, 4
-	dc.b	$FC
-
-@Ani_20A858_2:
-	dc.b	$E
-	dc.b	2, 3, 4, 5, 6
-	dc.b	$FC
-	dc.b	0
-
-@Ani_20A858_3:
-	dc.b	4
-	dc.b	$FC
-
-@Ani_20A858_5:
-	dc.b	4
-	dc.b	6, 7, 8
-	dc.b	$FC
-	dc.b	0
-
-@Ani_20A858_6:
-	dc.b	$F
-	dc.b	$13, $14, $15
-	dc.b	$FF
-	dc.b	0
+BubbleSpawnAnims:
+	include	"src/anims/r4/bubble_spawn.asm"
+	even
 
 ; ------------------------------------------------------------------------------

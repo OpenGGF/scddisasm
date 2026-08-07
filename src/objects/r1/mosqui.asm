@@ -35,7 +35,7 @@ MosquiObject_0_Routine0:
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B600
 	lea	MosquiSprites(pc),a1
-	lea	MosquiAnims(pc),a2
+	lea	MosquiAnims1(pc),a2
 	move.l	#-$10000,d0
 	bra.s	loc_20B60E
 
@@ -43,7 +43,7 @@ MosquiObject_0_Routine0:
 
 loc_20B600:
 	lea	MosquiDecaySprites(pc),a1
-	lea	MosquiDecayAnims(pc),a2
+	lea	MosquiAnims2(pc),a2
 	move.l	#-$8000,d0
 
 loc_20B60E:
@@ -142,35 +142,13 @@ locret_20B6D6:
 
 ; ------------------------------------------------------------------------------
 
-MosquiAnims:
-	dc.w	@MosquiAnims_0-*
-	dc.w	@MosquiAnims_1-MosquiAnims
+MosquiAnims1:
+	include	"src/anims/r1/mosqui_1.asm"
+	even
 
-@MosquiAnims_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
-
-@MosquiAnims_1:
-	dc.b	6
-	dc.b	2, 3, 4
-	dc.b	$FC
-	dc.b	0
-
-MosquiDecayAnims:
-	dc.w	@MosquiDecayAnims_0-*
-	dc.w	@MosquiDecayAnims_1-MosquiDecayAnims
-
-@MosquiDecayAnims_0:
-	dc.b	4
-	dc.b	0, 1
-	dc.b	$FF
-
-@MosquiDecayAnims_1:
-	dc.b	$E
-	dc.b	2, 3, 4
-	dc.b	$FC
-	dc.b	0
+MosquiAnims2:
+	include	"src/anims/r1/mosqui_2.asm"
+	even
 
 MosquiSprites:
 	dc.w	@MosquiSprites_0-*

@@ -110,7 +110,7 @@ BumperObject_0_Routine2:
 	addq.b	#1,2(a2,d0.w)
 
 .Animate:
-	lea	(Ani_20B456).l,a1
+	lea	(BumperAnims).l,a1
 	bsr.w	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_32(a0),d0
@@ -148,7 +148,7 @@ FlipperObject_0_Routine2:
 	bsr.w	FlipperCheckPlayer
 
 .Animate:
-	lea	(Ani_20B498).l,a1
+	lea	(FlipperAnims).l,a1
 	bsr.w	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -241,19 +241,9 @@ FlipperBottomSlope:
 	dc.b	$10, $10, $10, $F, $F, $F, $F, $F, $E, $E, $E, $E, $E, $E, $D, $D
 	dc.b	$D, $D, $D, $D, $C, $C, $C, $C, $B, $B, $A, $A, 9, 8, 6, 4
 
-Ani_20B456:
-	dc.w	@Ani_20B456_0-*
-	dc.w	@Ani_20B456_1-Ani_20B456
-@Ani_20B456_0:
-	dc.b	$F
-	dc.b	0
-	dc.b	$FF
-	dc.b	0
-@Ani_20B456_1:
-	dc.b	4
-	dc.b	1, 2, 1, 2
-	dc.b	$FD, 0
-	dc.b	0
+BumperAnims:
+	include	"src/anims/r3/bumper.asm"
+	even
 
 Spr_20B466:
 	dc.w	@Spr_20B466_0-*
@@ -275,18 +265,9 @@ Spr_20B466:
 	dc.b	$C, 4, $18, $19, 0
 	dc.b	0
 
-Ani_20B498:
-	dc.w	@Ani_20B498_0-*
-	dc.w	@Ani_20B498_1-Ani_20B498
-@Ani_20B498_0:
-	dc.b	$F
-	dc.b	0
-	dc.b	$FF
-	dc.b	0
-@Ani_20B498_1:
-	dc.b	1
-	dc.b	1, 2, 1
-	dc.b	$FD, 0
+FlipperAnims:
+	include	"src/anims/r3/flipper.asm"
+	even
 
 Spr_20B4A6:
 	dc.w	@Spr_20B4A6_0-*

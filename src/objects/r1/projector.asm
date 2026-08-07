@@ -201,22 +201,22 @@ loc_20E750:
 	move.b	d2,obj.anim_id(a0)
 
 loc_20E760:
-	lea	ProjectorAnims(pc),a1
+	lea	HologramAnims(pc),a1
 	jsr	(AnimateObject).l
 	jmp	(DrawObject).l
 
 ; ------------------------------------------------------------------------------
 
-ProjectorAnims:
-	dc.w	@ProjectorAnims_0-*
-	dc.w	@ProjectorAnims_1-ProjectorAnims
+HologramAnims:
+	dc.w	@HologramAnims_0-*
+	dc.w	@HologramAnims_1-HologramAnims
 
-@ProjectorAnims_0:
+@HologramAnims_0:
 	dc.b	0
 	dc.b	2, 1, 3, 1
 	dc.b	$FF
 
-@ProjectorAnims_1:
+@HologramAnims_1:
 	dc.b	0
 	dc.b	4, 4, 1, 4, 4, 1, 4, 4
 	dc.b	1, 4, 4, 1, 4, 4, 1, 1

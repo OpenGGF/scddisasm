@@ -194,7 +194,7 @@ FlipperGfx:
 	even
 
 BumperGfx:
-	incbin	"src/gfx/bumper.nem"
+	incbin	"src/gfx/r3/bumper.nem"
 	even
 
 GaGfx:

@@ -68,24 +68,14 @@ DrainBlockObject_0_Routine6:
 	addq.b	#2,obj.routine(a0)
 
 DrainBlockObject_0_Routine8:
-	lea	Ani_20ACD6(pc),a1
+	lea	DrainBlockAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20ACD6:
-	dc.w	@Ani_20ACD6_0-*
-	dc.w	@Ani_20ACD6_1-Ani_20ACD6
-
-@Ani_20ACD6_0:
-	dc.b	9
-	dc.b	0, 1, 2
-	dc.b	$FC
-
-@Ani_20ACD6_1:
-	dc.b	9
-	dc.b	2, 1, 0
-	dc.b	$FC
+DrainBlockAnims:
+	include	"src/anims/r3/drain_block.asm"
+	even
 
 Spr_20ACE4:
 	dc.w	@Spr_20ACE4_0-*

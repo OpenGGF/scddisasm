@@ -446,11 +446,9 @@ LostRingDelete:
 ; ------------------------------------------------------------------------------
 
 RingAnims:
-	dc.w	@RingAnims_0-*
-@RingAnims_0:
-	dc.b	5
-	dc.b	4, 5, 6, 7
-	dc.b	$FC
+	include	"src/anims/ring.asm"
+	even
+
 RingSprites:
 	dc.w	@RingSprites_0-*
 	dc.w	@RingSprites_1-RingSprites

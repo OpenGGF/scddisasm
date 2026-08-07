@@ -823,7 +823,7 @@ loc_20E66A:
 	move.w	d0,obj.x(a0)
 	move.w	obj.y(a1),d0
 	move.w	d0,obj.y(a0)
-	lea	Ani_20E686(pc),a1
+	lea	MetalSonicExhaustAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -833,12 +833,8 @@ loc_20E680:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E686:
-	dc.w	@Ani_20E686_0-*
-
-@Ani_20E686_0:
-	dc.b	1
-	dc.b	$C, $E, $D, $E
-	dc.b	$FF
+MetalSonicExhaustAnims:
+	include	"src/anims/r3/metal_sonic_exhaust.asm"
+	even
 
 ; ------------------------------------------------------------------------------

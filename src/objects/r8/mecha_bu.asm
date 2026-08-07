@@ -166,22 +166,14 @@ loc_20C5F2:
 	add.w	obj.var_2e(a0),d1
 	move.w	d0,obj.x(a0)
 	move.w	d1,obj.y(a0)
-	lea	Ani_20C614(pc),a1
+	lea	MechuBuAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-Ani_20C614:
-	dc.w	@Ani_20C614_0-*
-	dc.w	@Ani_20C614_1-Ani_20C614
-@Ani_20C614_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
-@Ani_20C614_1:
-	dc.b	2
-	dc.b	2, 3
-	dc.b	$FF
+MechuBuAnims:
+	include	"src/anims/r8/mecha_bu.asm"
+	even
 	
 Spr_20C620:
 	dc.w	@Spr_20C620_0-*

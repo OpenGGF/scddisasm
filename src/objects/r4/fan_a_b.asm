@@ -51,7 +51,7 @@ loc_20EED0:
 ; ------------------------------------------------------------------------------
 
 loc_20EEDE:
-	lea	Ani_20EEF4(pc),a1
+	lea	FanAnimsAB(pc),a1
 	jsr	AnimateObject
 
 loc_20EEE8:
@@ -60,14 +60,9 @@ loc_20EEE8:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20EEF4:
-	dc.w	@Ani_20EEF4_0-*
-
-@Ani_20EEF4_0:
-	dc.b	1
-	dc.b	0, 1, 2, 3, 4
-	dc.b	$FF
-	dc.b	0
+FanAnimsAB:
+	include	"src/anims/r4/fan_ab.asm"
+	even
 
 off_20EEFE:
 	dc.w	byte_20EF08-*

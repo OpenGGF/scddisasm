@@ -109,8 +109,8 @@ CheckpointGfx:
 	incbin	"src/gfx/checkpoint.nem"
 	even
 
-Ani_21DA00:
-	include	"src/anims/r8/Ani_21DA00.asm"
+LaserAnims:
+	include	"src/anims/r8/laser.asm"
 	even
 
 FlowerAnims:
@@ -422,12 +422,12 @@ AnimalsGfx:
 	incbin	"src/gfx/r8/animals.nem"
 	even
 
-RobotTransporterGfxA:
-	incbin	"src/gfx/robot_transporter_a.nem"
+RobotTransportGfxA:
+	incbin	"src/gfx/robot_transport_a.nem"
 	even
 
-RobotTransporterGfxB:
-	incbin	"src/gfx/robot_transporter_b.nem"
+RobotTransportGfxB:
+	incbin	"src/gfx/robot_transport_b.nem"
 	even
 
 unk_23E876:

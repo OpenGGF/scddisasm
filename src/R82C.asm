@@ -113,7 +113,7 @@ STAGE_GOOD_FUTURE	equ 1					; Good future
 	include "src/objects/r8/switch.asm"
 	include "src/common/time_check.asm"
 	include "src/objects/r8/robot_generator.asm"
-	include "src/objects/r8/mobile_spring.asm"
+	include "src/objects/r8/move_spring.asm"
 	include "src/r8/stage_gfx_animate_2c.asm"
 	include "src/r8/gfx_lists_2c.asm"
 	include "src/r8/data_2c.asm"

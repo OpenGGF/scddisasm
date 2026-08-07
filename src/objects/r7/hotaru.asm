@@ -186,7 +186,7 @@ HotaruObject_0_Routine0:
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20DE60
 	lea	Unk20E282Sprites(pc),a1
-	lea	off_20E21E(pc),a2
+	lea	HotaruAnims1(pc),a2
 	move.l	#-$10000,d0
 	bra.s	loc_20DE6E
 
@@ -194,7 +194,7 @@ HotaruObject_0_Routine0:
 
 loc_20DE60:
 	lea	Unk20E2CESprites(pc),a1
-	lea	off_20E250(pc),a2
+	lea	HotaruAnims2(pc),a2
 	move.l	#-$8000,d0
 
 loc_20DE6E:
@@ -541,7 +541,7 @@ HotaruObject_1_Routine0:
 	move.l	#Spr_20E322,obj.sprite_data(a0)
 
 HotaruObject_1_Routine2:
-	lea	Ani_20E31A(pc),a1
+	lea	HotaruSparkAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -573,57 +573,13 @@ locret_20E21C:
 
 ; ------------------------------------------------------------------------------
 
-off_20E21E:
-	dc.w	byte_20E226-*
-	dc.w	byte_20E232-off_20E21E
-	dc.w	byte_20E240-off_20E21E
-	dc.w	byte_20E24C-off_20E21E
+HotaruAnims1:
+	include	"src/anims/r7/hotaru_1.asm"
+	even
 
-byte_20E226:
-	dc.b	9
-	dc.b	1, 2, 1, 2, 1, 2, 1, 2, 1, 2
-	dc.b	$FC
-
-byte_20E232:
-	dc.b	3
-	dc.b	4, 2, 2, 2, 4, 4, 2, 2, 4, 4, 4, 2
-	dc.b	$FC
-
-byte_20E240:
-	dc.b	9
-	dc.b	3, 4, 3, 4, 3, 4, 3, 4, 3, 4
-	dc.b	$FC
-
-byte_20E24C:
-	dc.b	9
-	dc.b	3, 4
-	dc.b	$FF
-
-off_20E250:
-	dc.w	byte_20E258-*
-	dc.w	byte_20E264-off_20E250
-	dc.w	byte_20E272-off_20E250
-	dc.w	byte_20E27E-off_20E250
-
-byte_20E258:
-	dc.b	$13
-	dc.b	1, 2, 1, 2, 1, 2, 1, 2, 1, 2
-	dc.b	$FC
-
-byte_20E264:
-	dc.b	9
-	dc.b	4, 2, 2, 2, 4, 4, 2, 2, 4, 4, 4, 2
-	dc.b	$FC
-
-byte_20E272:
-	dc.b	$13
-	dc.b	3, 4, 3, 4, 3, 4, 3, 4, 3, 4
-	dc.b	$FC
-
-byte_20E27E:
-	dc.b	$13
-	dc.b	3, 4
-	dc.b	$FF
+HotaruAnims2:
+	include	"src/anims/r7/hotaru_2.asm"
+	even
 
 Unk20E282Sprites:
 	dc.w	Unk20E282Sprite_0-*
@@ -695,14 +651,9 @@ Unk20E2CESprite_4:
 	dc.b	$F9, $A, $20, $15, $F5
 	dc.b	0
 
-Ani_20E31A:
-	dc.w	@Ani_20E31A_0-*
-
-@Ani_20E31A_0:
-	dc.b	1
-	dc.b	0, 1, 2
-	dc.b	$FF
-	dc.b	0
+HotaruSparkAnims:
+	include	"src/anims/r7/hotaru_spark.asm"
+	even
 
 Spr_20E322:
 	dc.w	@Spr_20E322_0-*

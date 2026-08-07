@@ -312,7 +312,7 @@ PointsPocketObject_1_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20B90A:
-	lea	Ani_20B920(pc),a1
+	lea	PointsPocketAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -323,13 +323,9 @@ PointsPocketObject_1_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20B920:
-	dc.w	@Ani_20B920_0-*
-
-@Ani_20B920_0:
-	dc.b	3
-	dc.b	0, 1
-	dc.b	$FF
+PointsPocketAnims:
+	include	"src/anims/r3/points_pocket.asm"
+	even
 
 Spr_20B926:
 	dc.w	@Spr_20B926_0-*

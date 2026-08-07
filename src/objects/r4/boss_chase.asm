@@ -5,7 +5,7 @@ EggMobileChaseObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20BA94(pc,d0.w),d0
 	jsr	off_20BA94(pc,d0.w)
-	lea	(off_20C208).l,a1
+	lea	(EggMobileChaseAnims).l,a1
 	tst.b	obj.var_2d(a0)
 	beq.s	loc_20BA88
 	subq.b	#1,obj.var_2d(a0)
@@ -735,7 +735,7 @@ loc_20C19C:
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	move.b	obj.flags(a1),obj.flags(a0)
-	lea	(Ani_20C394).l,a1
+	lea	(EggmanChaseAnims).l,a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	rts
@@ -774,43 +774,9 @@ locret_20C206:
 
 ; ------------------------------------------------------------------------------
 
-off_20C208:
-	dc.w	byte_20C214-*
-	dc.w	byte_20C218-off_20C208
-	dc.w	byte_20C21C-off_20C208
-	dc.w	byte_20C220-off_20C208
-	dc.w	byte_20C224-off_20C208
-	dc.w	byte_20C228-off_20C208
-
-byte_20C214:
-	dc.b	3
-	dc.b	0, 1
-	dc.b	$FF
-
-byte_20C218:
-	dc.b	3
-	dc.b	2, 3
-	dc.b	$FF
-
-byte_20C21C:
-	dc.b	3
-	dc.b	4, 5
-	dc.b	$FF
-
-byte_20C220:
-	dc.b	0
-	dc.b	6, 1
-	dc.b	$FF
-
-byte_20C224:
-	dc.b	0
-	dc.b	7, 3
-	dc.b	$FF
-
-byte_20C228:
-	dc.b	0
-	dc.b	8, 5
-	dc.b	$FF
+EggMobileChaseAnims:
+	include	"src/anims/r4/eggmobile_chase.asm"
+	even
 
 Spr_20C22C:
 	dc.w	@Spr_20C22C_0-*
@@ -919,20 +885,9 @@ Spr_20C22C:
 	dc.b	$14, 5, 0, $57, $EC
 	dc.b	0
 
-Ani_20C394:
-	dc.w	@Ani_20C394_0-*
-	dc.w	@Ani_20C394_1-Ani_20C394
-
-@Ani_20C394_0:
-	dc.b	$FF
-	dc.b	0
-	dc.b	$FF
-
-@Ani_20C394_1:
-	dc.b	3
-	dc.b	2, 1, 3, 1
-	dc.b	$FF
-	dc.b	0
+EggmanChaseAnims:
+	include	"src/anims/r4/eggman_chase.asm"
+	even
 
 Spr_20C3A2:
 	dc.w	@Spr_20C3A2_0-*

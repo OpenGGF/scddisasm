@@ -191,7 +191,7 @@ TubeDoorObject_0_Routine6:
 	addq.b	#2,obj.routine(a0)
 
 loc_20F2F0:
-	lea	Ani_20F392(pc),a1
+	lea	TubeDoorAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ TubeDoorObject_0_RoutineC:
 ; ------------------------------------------------------------------------------
 
 loc_20F360:
-	lea	Ani_20F392(pc),a1
+	lea	TubeDoorAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -275,19 +275,9 @@ loc_20F38C:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20F392:
-	dc.w	@Ani_20F392_0-*
-	dc.w	@Ani_20F392_1-Ani_20F392
-
-@Ani_20F392_0:
-	dc.b	0
-	dc.b	1, 2, 3, 4, 5, 5
-	dc.b	$FF
-
-@Ani_20F392_1:
-	dc.b	0
-	dc.b	4, 4, 3, 3, 2, 2, 1, 1
-	dc.b	$FF
+TubeDoorAnims:
+	include	"src/anims/r8/tube_door.asm"
+	even
 
 Spr_20F3A8:
 	dc.w	@Spr_20F3A8_0-*

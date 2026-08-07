@@ -87,7 +87,7 @@ SectionGfxInitList2:
 	gfxEntry AntonGfx, $7320
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry MosquiGfx, $7D40
-	gfxEntry RobotTransporterGfxB, $8A80
+	gfxEntry RobotTransportGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEntry CheckpointGfx, $9000
 	gfxEntry Spring45Gfx, $9200
@@ -103,7 +103,7 @@ SectionGfxInitList3:
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry PataBataGfx, $7D40
 	gfxEntry TagaTageGfx, $83C0
-	gfxEntry RobotTransporterGfxB, $8A80
+	gfxEntry RobotTransportGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEntry CheckpointGfx, $9000
 	gfxEntry Spring45Gfx, $9200
@@ -139,7 +139,7 @@ SectionGfxUpdateList1:
 SectionGfxUpdateList2:
 	gfxStart
 	gfxEntry MosquiGfx, $7D40
-	gfxEntry RobotTransporterGfxB, $8A80
+	gfxEntry RobotTransportGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEnd
 
@@ -148,7 +148,7 @@ SectionGfxUpdateList3:
 	gfxEntry TamabbohGfx, $75E0
 	gfxEntry PataBataGfx, $7D40
 	gfxEntry TagaTageGfx, $83C0
-	gfxEntry RobotTransporterGfxB, $8A80
+	gfxEntry RobotTransportGfxB, $8A80
 	gfxEntry SwingGfx, $8D80
 	gfxEnd
 

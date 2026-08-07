@@ -59,8 +59,8 @@ AnimalsGfx:
 	incbin	"src/gfx/r4/animals.nem"
 	even
 
-RobotTransporterGfxA:
-	incbin	"src/gfx/robot_transporter_a.nem"
+RobotTransportGfxA:
+	incbin	"src/gfx/robot_transport_a.nem"
 
 Padding2:
 	incbin	"padding/r42a_e_2.bin"

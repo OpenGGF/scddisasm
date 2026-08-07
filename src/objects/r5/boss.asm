@@ -7,7 +7,7 @@ EggmanObject:
 	jsr	off_20B32A(pc,d0.w)
 	tst.b	obj.anim_id(a0)
 	beq.s	loc_20B324
-	lea	(Ani_20C556).l,a1
+	lea	(EggmanAnims).l,a1
 	jsr	AnimateObject
 
 loc_20B324:
@@ -591,7 +591,7 @@ BombDropperObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20B8F8(pc,d0.w),d0
 	jsr	off_20B8F8(pc,d0.w)
-	lea	(Ani_20C7C4).l,a1
+	lea	(BombDropAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -986,7 +986,7 @@ BossSparksObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20BD18(pc,d0.w),d0
 	jsr	off_20BD18(pc,d0.w)
-	lea	(Ani_20C804).l,a1
+	lea	(BossSparksAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1495,7 +1495,7 @@ BossExplosionObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20C14E(pc,d0.w),d0
 	jsr	off_20C14E(pc,d0.w)
-	lea	(Ani_20C188).l,a1
+	lea	(BossExplodeAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1523,13 +1523,9 @@ BossExplosionObject_0_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20C188:
-	dc.w	@Ani_20C188_0-*
-
-@Ani_20C188_0:
-	dc.b	3
-	dc.b	0, 5, 6, 3, 4, 0, 1, 2, 3, 4
-	dc.b	$FC
+BossExplodeAnims:
+	include	"src/anims/r5/boss_explode.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -1911,31 +1907,9 @@ Spr_20C54E:
 	dc.b	1
 	dc.b	$F8, $F, 0, $44, $F0
 
-Ani_20C556:
-	dc.w	@Ani_20C556_0-*
-	dc.w	@Ani_20C556_1-Ani_20C556
-	dc.w	@Ani_20C556_2-Ani_20C556
-	dc.w	@Ani_20C556_3-Ani_20C556
-
-@Ani_20C556_0:
-	dc.b	$13
-	dc.b	0, 1
-	dc.b	$FF
-
-@Ani_20C556_1:
-	dc.b	3
-	dc.b	2, 4, 3, 5
-	dc.b	$FF
-
-@Ani_20C556_2:
-	dc.b	3
-	dc.b	6, 8, 7, 9
-	dc.b	$FF
-
-@Ani_20C556_3:
-	dc.b	2
-	dc.b	$A, $D, $C, $F, $B, $E, $C, $F
-	dc.b	$FF
+EggmanAnims:
+	include	"src/anims/r5/eggman.asm"
+	even
 
 Spr_20C578:
 	dc.w	@Spr_20C578_0-*
@@ -2137,20 +2111,9 @@ Spr_20C728:
 	dc.b	$48, 3, 0, $5B, $14
 	dc.b	0
 
-Ani_20C7C4:
-	dc.w	@Ani_20C7C4_0-*
-	dc.w	@Ani_20C7C4_1-Ani_20C7C4
-
-@Ani_20C7C4_0:
-	dc.b	$FF
-	dc.b	0
-	dc.b	$FF
-
-@Ani_20C7C4_1:
-	dc.b	5
-	dc.b	1, 2
-	dc.b	$FF
-	dc.b	0
+BombDropAnims:
+	include	"src/anims/r5/boss_bomb_drop.asm"
+	even
 
 Spr_20C7D0:
 	dc.w	@Spr_20C7D0_0-*
@@ -2185,14 +2148,9 @@ Spr_20C7F4:
 	dc.b	1
 	dc.b	$F8, 5, 1, $BD, $F8
 
-Ani_20C804:
-	dc.w	@Ani_20C804_0-*
-
-@Ani_20C804_0:
-	dc.b	3
-	dc.b	0, 1, 2, 3, 4
-	dc.b	$FF
-	dc.b	0
+BossSparksAnims:
+	include	"src/anims/r5/boss_sparks.asm"
+	even
 
 Spr_20C80E:
 	dc.w	@Spr_20C80E_0-*

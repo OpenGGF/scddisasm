@@ -8,7 +8,7 @@ EggmanObject:
 	move.w	off_20E6E2(pc,d0.w),d0
 	jsr	off_20E6E2(pc,d0.w)
 	bsr.w	sub_20E770
-	lea	(Ani_20F9D4).l,a1
+	lea	(EggmanAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -832,7 +832,7 @@ BossExhaustObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20EEEC(pc,d0.w),d0
 	jsr	off_20EEEC(pc,d0.w)
-	lea	(Ani_20FC18).l,a1
+	lea	(BossExhaustAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -919,7 +919,7 @@ BossSmokeObject_0_Routine2:
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	subi.w	#$40,obj.y(a0)
-	lea	(Ani_20FC4E).l,a1
+	lea	(BossSmokeAnims).l,a1
 	jsr	AnimateObject
 	cmpi.b	#7,obj.sprite_frame(a0)
 	bge.s	locret_20EFE8
@@ -943,7 +943,7 @@ BossSmokeObject_0_Routine4:
 	cmpi.w	#$18,obj.var_2a(a0)
 	beq.s	loc_20F012
 	bsr.w	loc_20F632
-	lea	(Ani_20FC4E).l,a1
+	lea	(BossSmokeAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1054,7 +1054,7 @@ FloorDebrisObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 FloorDebrisObject_0_Routine2:
-	lea	(Ani_20FCD8).l,a1
+	lea	(FloorDebrisAnims).l,a1
 	jsr	AnimateObject
 	bsr.w	sub_20F622
 	jsr	CheckBlockDown
@@ -2024,40 +2024,9 @@ loc_20F9CC:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20F9D4:
-	dc.w	@Ani_20F9D4_0-*
-	dc.w	@Ani_20F9D4_1-Ani_20F9D4
-	dc.w	@Ani_20F9D4_2-Ani_20F9D4
-	dc.w	@Ani_20F9D4_3-Ani_20F9D4
-	dc.w	@Ani_20F9D4_4-Ani_20F9D4
-
-@Ani_20F9D4_0:
-	dc.b	4
-	dc.b	0, 0, 1, 1, 0, 2, 3, 3
-	dc.b	2, 2, 1, 1, 0, 0, 1, 3
-	dc.b	2, 2, 3, 3
-	dc.b	$FF
-
-@Ani_20F9D4_1:
-	dc.b	4
-	dc.b	6, 4, 7, 5
-	dc.b	$FF
-
-@Ani_20F9D4_2:
-	dc.b	$FF
-	dc.b	8
-	dc.b	$FF
-
-@Ani_20F9D4_3:
-	dc.b	$14
-	dc.b	9, $A
-	dc.b	$FF
-
-@Ani_20F9D4_4:
-	dc.b	2
-	dc.b	$B, $E, $D, $10, $C, $F, $D, $10
-	dc.b	$FF
-	dc.b	0
+EggmanAnims:
+	include	"src/anims/r6/eggman.asm"
+	even
 
 Spr_20FA0C:
 	dc.w	@Spr_20FA0C_0-*
@@ -2266,19 +2235,9 @@ Spr_20FBF8:
 	dc.b	1
 	dc.b	$F0, $F, 8, $20, $F0
 
-Ani_20FC18:
-	dc.w	@Ani_20FC18_0-*
-	dc.w	@Ani_20FC18_1-Ani_20FC18
-
-@Ani_20FC18_0:
-	dc.b	2
-	dc.b	0, 2, 1, 3
-	dc.b	$FF
-
-@Ani_20FC18_1:
-	dc.b	1
-	dc.b	2, 3
-	dc.b	$FF
+BossExhaustAnims:
+	include	"src/anims/r6/boss_exhaust.asm"
+	even
 
 Spr_20FC26:
 	dc.w	@Spr_20FC26_0-*
@@ -2309,21 +2268,9 @@ Spr_20FC46:
 	dc.b	1
 	dc.b	$F4, 2, 0, $30, $FC
 
-Ani_20FC4E:
-	dc.w	@Ani_20FC4E_0-*
-	dc.w	@Ani_20FC4E_1-Ani_20FC4E
-
-@Ani_20FC4E_0:
-	dc.b	8
-	dc.b	0, 1, 2
-	dc.b	$FF
-
-@Ani_20FC4E_1:
-	dc.b	2
-	dc.b	3, 4, 5, 6, 7, 7, 7, 7
-	dc.b	7, 7
-	dc.b	$FF
-	dc.b	0
+BossSmokeAnims:
+	include	"src/anims/r6/boss_smoke.asm"
+	even
 
 Spr_20FC64:
 	dc.w	@Spr_20FC64_0-*
@@ -2393,13 +2340,9 @@ byte_20FCC2:
 	dc.b	$F0, 7, 8, $10, $F8
 	dc.b	0
 
-Ani_20FCD8:
-	dc.w	@Ani_20FCD8_0-*
-
-@Ani_20FCD8_0:
-	dc.b	8
-	dc.b	0, 1
-	dc.b	$FF
+FloorDebrisAnims:
+	include	"src/anims/r6/floor_debris.asm"
+	even
 
 Spr_20FCDE:
 	dc.w	@Spr_20FCDE_0-*

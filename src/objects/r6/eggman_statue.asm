@@ -230,7 +230,7 @@ EggmanStatueObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 
 loc_20F12E:
-	lea	Ani_20F154(pc),a1
+	lea	EggmanStatueAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -244,13 +244,9 @@ EggmanStatueObject_0_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20F154:
-	dc.w	@Ani_20F154_0-*
-
-@Ani_20F154_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
+EggmanStatueAnims:
+	include	"src/anims/r6/eggman_statue.asm"
+	even
 
 Spr_20F15A:
 	dc.w	@Spr_20F15A_0-*

@@ -199,28 +199,15 @@ loc_20FB76:
 	move.b	d2,obj.anim_id(a0)
 
 loc_20FB86:
-	lea	off_20FB96(pc),a1
+	lea	HologramAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20FB96:
-	dc.w	byte_20FB9A-*
-	dc.w	byte_20FBA0-off_20FB96
-
-byte_20FB9A:
-	dc.b	0
-	dc.b	2, 1, 3, 1
-	dc.b	$FF
-
-byte_20FBA0:
-	dc.b	0
-	dc.b	4, 4, 1, 4, 4, 1, 4, 4, 1, 4, 4, 1, 4, 4, 1, 1
-	dc.b	4, 4, 1, 1, 4, 4, 1, 1, 4, 4, 1, 1, 5, 5, 1, 5
-	dc.b	5, 1, 5, 5, 1, 5, 5, 1, 5, 5, 1, 1, 5, 5, 1, 1
-	dc.b	5, 5, 1, 1, 5, 5, 1, 1
-	dc.b	$FF
+HologramAnims:
+	include	"src/anims/hologram.asm"
+	even
 
 off_20FBDA:
 	dc.w	byte_20FBE6-*

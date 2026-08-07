@@ -38,7 +38,7 @@ TamabbohObject_1_Routine0:
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B7F8
 	lea	TamabbohSprites(pc),a1
-	lea	TamabbohAnims(pc),a2
+	lea	TamabbohAnims1(pc),a2
 	move.l	#-$A000,d0
 	bra.s	loc_20B806
 
@@ -46,7 +46,7 @@ TamabbohObject_1_Routine0:
 
 loc_20B7F8:
 	lea	TamabbohDecaySprites(pc),a1
-	lea	TamabbohDecayAnims(pc),a2
+	lea	TamabbohAnims2(pc),a2
 	move.l	#-$5000,d0
 
 loc_20B806:
@@ -186,36 +186,13 @@ sub_20B920:
 
 ; ------------------------------------------------------------------------------
 
-TamabbohAnims:
-	dc.w	@TamabbohAnims_0-*
-	dc.w	@TamabbohAnims_1-TamabbohAnims
+TamabbohAnims1:
+	include	"src/anims/r1/tamabboh_1.asm"
+	even
 
-@TamabbohAnims_0:
-	dc.b	$1D
-	dc.b	0, 1
-	dc.b	$FF
-
-@TamabbohAnims_1:
-	dc.b	$3B
-	dc.b	2
-	dc.b	$FC
-	dc.b	0
-
-TamabbohDecayAnims:
-	dc.w	@TamabbohDecayAnims_0-*
-	dc.w	@TamabbohDecayAnims_1-TamabbohDecayAnims
-
-@TamabbohDecayAnims_0:
-	dc.b	5
-	dc.b	0, 1, 0, 1, 0, 1, 0, 1
-	dc.b	0, 1, 0, 1, 0, 1, 0, 1
-	dc.b	$FC
-
-@TamabbohDecayAnims_1:
-	dc.b	$B
-	dc.b	2
-	dc.b	$FC
-	dc.b	0
+TamabbohAnims2:
+	include	"src/anims/r1/tamabboh_2.asm"
+	even
 
 TamabbohSprites:
 	dc.w	@TamabbohSprites_0-*
@@ -325,12 +302,8 @@ loc_20BA4C:
 ; ------------------------------------------------------------------------------
 
 TamabbohMissileAnims:
-	dc.w	@TamabbohMissileAnims_0-*
-
-@TamabbohMissileAnims_0:
-	dc.b	2
-	dc.b	0, 1, 2, 3
-	dc.b	$FF
+	include	"src/anims/r1/tamabboh_missile.asm"
+	even
 
 TamabbohMissileSprites:
 	dc.w	@TamabbohMissileSprites_0-*

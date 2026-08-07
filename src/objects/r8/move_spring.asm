@@ -1,6 +1,6 @@
 ; ------------------------------------------------------------------------------
 
-MobileSpringObjectR8:
+MoveSpringObjectR8:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20E808(pc,d0.w),d0
@@ -11,13 +11,13 @@ MobileSpringObjectR8:
 ; ------------------------------------------------------------------------------
 
 off_20E808:
-	dc.w	MobileSpringInit-*
-	dc.w	MobileSpringFall-off_20E808
-	dc.w	MobileSpringMain-off_20E808
+	dc.w	MoveSpringInit-*
+	dc.w	MoveSpringFall-off_20E808
+	dc.w	MoveSpringMain-off_20E808
 
 ; ------------------------------------------------------------------------------
 
-MobileSpringInit:
+MoveSpringInit:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
@@ -46,10 +46,10 @@ loc_20E854:
 	move.b	d0,obj.subtype(a1)
 	move.w	#$50,obj.var_3a(a0)
 	tst.b	obj.subtype(a0)
-	bpl.s	MobileSpringFall
+	bpl.s	MoveSpringFall
 	move.w	#$40,obj.var_3a(a0)
 
-MobileSpringFall:
+MoveSpringFall:
 	jsr	CheckBlockDown
 	tst.w	d1
 	bpl.s	loc_20E8AE
@@ -66,7 +66,7 @@ loc_20E8AE:
 
 ; ------------------------------------------------------------------------------
 
-MobileSpringMain:
+MoveSpringMain:
 	move.w	#$20,d3
 	lea	(CheckBlockRight).l,a1
 	tst.w	obj.x_speed(a0)
@@ -101,18 +101,16 @@ loc_20E900:
 
 loc_20E904:
 	jsr	MoveObject
-	lea	off_20E91A(pc),a1
+	lea	MoveSpringAnimsR8(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20E91A:
-	dc.w	byte_20E91C-*
-byte_20E91C:
-	dc.b	8
-	dc.b	0, 1
-	dc.b	$FF
+MoveSpringAnimsR8:
+	include	"src/anims/r8/move_spring.asm"
+	even
+
 Unk20E920Sprites:
 	dc.w	Unk20E920Sprite_0-*
 	dc.w	Unk20E920Sprite_1-Unk20E920Sprites

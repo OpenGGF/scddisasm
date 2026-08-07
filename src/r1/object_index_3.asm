@@ -15,7 +15,7 @@ ObjectIndex:
 	dc.l	HDoorSplashSetObject
 	dc.l	HDoorObject
 	dc.l	TunnelSplashObject
-	dc.l	MobileSpringObject
+	dc.l	MoveSpringObject
 	dc.l	RingObject
 	dc.l	LostRingObject
 	dc.l	NullObject
@@ -42,7 +42,7 @@ ObjectIndex:
 	dc.l	NullObject
 	dc.l	SpringboardObject
 	dc.l	NullObject
-	dc.l	BossEggmanObject
+	dc.l	EggmanObject
 	dc.l	BossBodyObject
 	dc.l	BossThighObject
 	dc.l	BossCalfObject

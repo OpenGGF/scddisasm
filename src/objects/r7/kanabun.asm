@@ -15,13 +15,13 @@ KanabunObject:
 	move.w	obj.y(a0),obj.var_2e(a0)
 	move.w	#$8000,obj.var_30(a0)
 	lea	Unk20D23ESprites(pc),a1
-	lea	off_20D1B6(pc),a2
+	lea	KanabunAnims1(pc),a2
 	move.w	#-$200,d0
 	move.l	#-$4000,d1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D11E
 	lea	Unk20D332Sprites(pc),a1
-	lea	off_20D1FA(pc),a2
+	lea	KanabunAnims2(pc),a2
 	move.w	#-$100,d0
 	move.l	#-$4000,d1
 
@@ -74,27 +74,13 @@ loc_20D166:
 
 ; ------------------------------------------------------------------------------
 
-off_20D1B6:
-	dc.w	byte_20D1B8-*
+KanabunAnims1:
+	include	"src/anims/r7/kanabun_1.asm"
+	even
 
-byte_20D1B8:
-	dc.b	1
-	dc.b	6, 7, 6, 7, 6, 7, 6, 7, 4, 5, 4, 5, 4, 5, 4, 5
-	dc.b	2, 3, 2, 3, 2, 3, 2, 3, 0, 1, 0, 1, 0, 1, 0, 1
-	dc.b	0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 2, 3, 2, 3, 2, 3
-	dc.b	4, 5, 4, 5, 4, 5, 4, 5, 6, 7, 6, 7, 6, 7, 6, 7
-	dc.b	$FF
-
-off_20D1FA:
-	dc.w	byte_20D1FC-*
-
-byte_20D1FC:
-	dc.b	3
-	dc.b	6, 7, 6, 7, 6, 7, 6, 7, 4, 5, 4, 5, 4, 5, 4, 5
-	dc.b	2, 3, 2, 3, 2, 3, 2, 3, 0, 1, 0, 1, 0, 1, 0, 1
-	dc.b	0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 2, 3, 2, 3, 2, 3
-	dc.b	4, 5, 4, 5, 4, 5, 4, 5, 6, 7, 6, 7, 6, 7, 6, 7
-	dc.b	$FF
+KanabunAnims2:
+	include	"src/anims/r7/kanabun_2.asm"
+	even
 
 Unk20D23ESprites:
 	dc.w	Unk20D23ESprite_0-*

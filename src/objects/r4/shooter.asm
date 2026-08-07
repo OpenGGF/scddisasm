@@ -75,7 +75,7 @@ loc_20F32E:
 loc_20F340:
 	move.l	obj.var_2c(a0),d0
 	add.l	d0,obj.x(a0)
-	lea	Ani_20F382(pc),a1
+	lea	ShootAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -98,13 +98,9 @@ locret_20F380:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20F382:
-	dc.w	@Ani_20F382_0-*
-
-@Ani_20F382_0:
-	dc.b	9
-	dc.b	0, 1, 2, 3
-	dc.b	$FF
+ShootAnims:
+	include	"src/anims/r4/shoot.asm"
+	even
 
 Spr_20F38A:
 	dc.w	@Spr_20F38A_0-*

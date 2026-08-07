@@ -42,7 +42,7 @@ loc_20E766:
 	bchg	#0,obj.flags(a0)
 
 loc_20E786:
-	lea	Ani_20E7A0(pc),a1
+	lea	SpikeWallAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_30(a0),d0
@@ -50,13 +50,9 @@ loc_20E786:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E7A0:
-	dc.w	@Ani_20E7A0_0-*
-
-@Ani_20E7A0_0:
-	dc.b	1
-	dc.b	0, 1
-	dc.b	$FF
+SpikeWallAnims:
+	include	"src/anims/r8/spike_wall.asm"
+	even
 
 Spr_20E7A6:
 	dc.w	@Spr_20E7A6_0-*

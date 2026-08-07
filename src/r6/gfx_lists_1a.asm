@@ -64,7 +64,7 @@ SectionGfxInitList0:
 	gfxEntry BouncePlatformGfx, $7D00
 	gfxEntry LaunchGfx, $8000
 	gfxEntry TubeDoorGfx, $8200
-	gfxEntry RobotTransporterGfxA, $9D00
+	gfxEntry RobotTransportGfxA, $9D00
 	gfxEnd
 
 ResultsGfxList:

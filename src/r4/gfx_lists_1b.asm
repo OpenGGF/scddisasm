@@ -87,7 +87,7 @@ SectionGfxInitList3:
 	gfxEntry AmenboGfx, $7600
 	gfxEntry TagaTagaGfx, $7A00
 	gfxEntry YagoGfx, $7E00
-	gfxEntry RobotTransporterGfxB, $8A00
+	gfxEntry RobotTransportGfxB, $8A00
 	gfxEntry GoalGfx, $9E40
 	gfxEnd
 
@@ -106,7 +106,7 @@ SectionGfxUpdateList1:
 
 SectionGfxUpdateList3:
 	gfxStart
-	gfxEntry RobotTransporterGfxB, $8A00
+	gfxEntry RobotTransportGfxB, $8A00
 	gfxEnd
 
 SignpostGfxList:

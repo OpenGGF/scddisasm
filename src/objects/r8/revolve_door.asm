@@ -113,7 +113,7 @@ RevolveDoorObject_0_Routine2:
 	beq.s	loc_20B942
 	cmpi.b	#$33,obj.anim_id(a6)
 	bcs.s	locret_20B99A
-	lea	(Ani_20BA7E).l,a1
+	lea	(RevolveDoorAnims).l,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ locret_20B99A:
 ; ------------------------------------------------------------------------------
 
 RevolveDoorObject_0_Routine4:
-	lea	(Ani_20BA7E).l,a1
+	lea	(RevolveDoorAnims).l,a1
 	jsr	AnimateObject
 	cmpi.b	#5,obj.anim_id(a6)
 	bne.w	sub_20B9F0
@@ -242,13 +242,9 @@ locret_20BA7C:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20BA7E:
-	dc.w	@Ani_20BA7E_0-*
-
-@Ani_20BA7E_0:
-	dc.b	2
-	dc.b	0, 1
-	dc.b	$FF
+RevolveDoorAnims:
+	include	"src/anims/r8/revolve_door.asm"
+	even
 
 Spr_20BA84:
 	dc.w	@Spr_20BA84_0-*

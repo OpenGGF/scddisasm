@@ -42,7 +42,7 @@ GeyserObject_0_Routine0:
 
 GeyserObject_0_Routine2:
 	bsr.s	sub_20D1FA
-	lea	(Ani_20D306).l,a1
+	lea	(GeyserAnims).l,a1
 	jsr	AnimateObject
 	move.w	(water_y).w,d0
 	subi.w	#$30,d0
@@ -117,7 +117,7 @@ GeyserObject_0_Routine4:
 	asl.l	#8,d0
 	add.l	d0,obj.y(a0)
 	addq.w	#8,obj.y_speed(a0)
-	lea	Ani_20D306(pc),a1
+	lea	GeyserAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -129,20 +129,9 @@ loc_20D300:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D306:
-	dc.w	@Ani_20D306_0-*
-	dc.w	@Ani_20D306_1-Ani_20D306
-
-@Ani_20D306_0:
-	dc.b	0
-	dc.b	0, 1, 2, 3, 4
-	dc.b	$FF
-	dc.b	0
-
-@Ani_20D306_1:
-	dc.b	0
-	dc.b	5, 6, 7, 8
-	dc.b	$FF
+GeyserAnims:
+	include	"src/anims/r4/geyser.asm"
+	even
 
 Spr_20D318:
 	dc.w	@Spr_20D318_0-*

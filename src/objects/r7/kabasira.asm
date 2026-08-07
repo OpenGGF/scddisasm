@@ -27,7 +27,7 @@ loc_20D446:
 	move.b	obj.routine(a0),d0
 	move.w	off_20D46A(pc,d0.w),d0
 	jsr	off_20D46A(pc,d0.w)
-	lea	Ani_20D6DE(pc),a1
+	lea	KabasiraAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -229,208 +229,16 @@ loc_20D6B0:
 loc_20D6C0:
 	cmpi.w	#$E0,d0
 	bgt.w	loc_20D43A
-	lea	Ani_20D6DE(pc),a1
+	lea	KabasiraAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-Ani_20D6DE:
-	dc.w	@Ani_20D6DE_0-*
-	dc.w	@Ani_20D6DE_1-Ani_20D6DE
-	dc.w	@Ani_20D6DE_2-Ani_20D6DE
-	dc.w	@Ani_20D6DE_3-Ani_20D6DE
-	dc.w	@Ani_20D6DE_4-Ani_20D6DE
-	dc.w	@Ani_20D6DE_5-Ani_20D6DE
-	dc.w	@Ani_20D6DE_6-Ani_20D6DE
-	dc.w	@Ani_20D6DE_7-Ani_20D6DE
-	dc.w	@Ani_20D6DE_8-Ani_20D6DE
-
-@Ani_20D6DE_0:
-	dc.b	$F
-	dc.b	4, 5, 6, 7, 8, 9, $A, $B
-	dc.b	$A, $B, 0, 1, 2, 3, 4, 5
-	dc.b	$FF
-
-@Ani_20D6DE_1:
-	dc.b	0
-	dc.b	4, $C, 4, $C, 4, $C, 4, $C
-	dc.b	4, $C, 4, $C, 4, $C, 4, $C
-	dc.b	5, $C, 5, $C, 5, $C, 5, $C
-	dc.b	5, $C, 5, $C, 5, $C, 5, $C
-	dc.b	4, $C, 4, $C, 4, $C, 4, $C
-	dc.b	4, $C, 4, $C, 4, $C, 4, $C
-	dc.b	5, $C, 5, $C, 5, $C, 5, $C
-	dc.b	5, $C, 5, $C, 5, $C, 5, $C
-	dc.b	6, $C, 6, $C, 6, $C, 6, $C
-	dc.b	6, $C, 6, $C, 6, $C, 6, $C
-	dc.b	7, $C, 7, $C, 7, $C, 7, $C
-	dc.b	7, $C, 7, $C, 7, $C, 7, $C
-	dc.b	8, $C, 8, $C, 8, $C, 8, $C
-	dc.b	8, $C, 8, $C, 8, $C, 8, $C
-	dc.b	9, $C, 9, $C, 9, $C, 9, $C
-	dc.b	9, $C, 9, $C, 9, $C, 9, $C
-	dc.b	$A, $C, $A, $C, $A, $C, $A, $C
-	dc.b	$A, $C, $A, $C, $A, $C, $A, $C
-	dc.b	$B, $C, $B, $C, $B, $C, $B, $C
-	dc.b	$B, $C, $B, $C, $B, $C, $B, $C
-	dc.b	$A, $C, $A, $C, $A, $C, $A, $C
-	dc.b	$A, $C, $A, $C, $A, $C, $A, $C
-	dc.b	$B, $C, $B, $C, $B, $C, $B, $C
-	dc.b	$B, $C, $B, $C, $B, $C, $B, $C
-	dc.b	0, $C, 0, $C, 0, $C, 0, $C
-	dc.b	0, $C, 0, $C, 0, $C, 0, $C
-	dc.b	1, $C, 1, $C, 1, $C, 1, $C
-	dc.b	1, $C, 1, $C, 1, $C, 1, $C
-	dc.b	2, $C, 2, $C, 2, $C, 2, $C
-	dc.b	2, $C, 2, $C, 2, $C, 2, $C
-	dc.b	3, $C, 3, $C, 3, $C, 3, $C
-	dc.b	3, $C, 3, $C, 3, $C, 3, $C
-	dc.b	$FF
-
-@Ani_20D6DE_2:
-	dc.b	0
-	dc.b	2, $C, $C, $C, 2, $C, $C, $C
-	dc.b	2, $C, $C, $C, 2, $C, $C, $C
-	dc.b	3, $C, $C, $C, 3, $C, $C, $C
-	dc.b	3, $C, $C, $C, 3, $C, $C, $C
-	dc.b	4, $C, $C, $C, 4, $C, $C, $C
-	dc.b	4, $C, $C, $C, 4, $C, $C, $C
-	dc.b	5, $C, $C, $C, 5, $C, $C, $C
-	dc.b	5, $C, $C, $C, 5, $C, $C, $C
-	dc.b	4, $C, $C, $C, 4, $C, $C, $C
-	dc.b	4, $C, $C, $C, 4, $C, $C, $C
-	dc.b	5, $C, $C, $C, 5, $C, $C, $C
-	dc.b	5, $C, $C, $C, 5, $C, $C, $C
-	dc.b	6, $C, $C, $C, 6, $C, $C, $C
-	dc.b	6, $C, $C, $C, 6, $C, $C, $C
-	dc.b	7, $C, $C, $C, 7, $C, $C, $C
-	dc.b	7, $C, $C, $C, 7, $C, $C, $C
-	dc.b	8, $C, $C, $C, 8, $C, $C, $C
-	dc.b	8, $C, $C, $C, 8, $C, $C, $C
-	dc.b	9, $C, $C, $C, 9, $C, $C, $C
-	dc.b	9, $C, $C, $C, 9, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $A, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $A, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $B, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $B, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $A, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $A, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $B, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $B, $C, $C, $C
-	dc.b	0, $C, $C, $C, 0, $C, $C, $C
-	dc.b	0, $C, $C, $C, 0, $C, $C, $C
-	dc.b	1, $C, $C, $C, 1, $C, $C, $C
-	dc.b	1, $C, $C, $C, 1, $C, $C, $C
-	dc.b	$FF
-
-@Ani_20D6DE_3:
-	dc.b	0
-	dc.b	0, $C, $C, $C, $C, $C, $C, $C
-	dc.b	0, $C, $C, $C, $C, $C, $C, $C
-	dc.b	1, $C, $C, $C, $C, $C, $C, $C
-	dc.b	1, $C, $C, $C, $C, $C, $C, $C
-	dc.b	2, $C, $C, $C, $C, $C, $C, $C
-	dc.b	2, $C, $C, $C, $C, $C, $C, $C
-	dc.b	3, $C, $C, $C, $C, $C, $C, $C
-	dc.b	3, $C, $C, $C, $C, $C, $C, $C
-	dc.b	4, $C, $C, $C, $C, $C, $C, $C
-	dc.b	4, $C, $C, $C, $C, $C, $C, $C
-	dc.b	5, $C, $C, $C, $C, $C, $C, $C
-	dc.b	5, $C, $C, $C, $C, $C, $C, $C
-	dc.b	4, $C, $C, $C, $C, $C, $C, $C
-	dc.b	4, $C, $C, $C, $C, $C, $C, $C
-	dc.b	5, $C, $C, $C, $C, $C, $C, $C
-	dc.b	5, $C, $C, $C, $C, $C, $C, $C
-	dc.b	6, $C, $C, $C, $C, $C, $C, $C
-	dc.b	6, $C, $C, $C, $C, $C, $C, $C
-	dc.b	7, $C, $C, $C, $C, $C, $C, $C
-	dc.b	7, $C, $C, $C, $C, $C, $C, $C
-	dc.b	8, $C, $C, $C, $C, $C, $C, $C
-	dc.b	8, $C, $C, $C, $C, $C, $C, $C
-	dc.b	9, $C, $C, $C, $C, $C, $C, $C
-	dc.b	9, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$FF
-
-@Ani_20D6DE_4:
-	dc.b	7
-	dc.b	4, 5, 6, 7, 8, 9, $A, $B
-	dc.b	$A, $B, 0, 1, 2, 3, 4, 5
-	dc.b	$FF
-
-@Ani_20D6DE_5:
-	dc.b	0
-	dc.b	5, $C, 5, $C, 5, $C, 5, $C
-	dc.b	4, $C, 4, $C, 4, $C, 4, $C
-	dc.b	5, $C, 5, $C, 5, $C, 5, $C
-	dc.b	6, $C, 6, $C, 6, $C, 6, $C
-	dc.b	7, $C, 7, $C, 7, $C, 7, $C
-	dc.b	8, $C, 8, $C, 8, $C, 8, $C
-	dc.b	9, $C, 9, $C, 9, $C, 9, $C
-	dc.b	$A, $C, $A, $C, $A, $C, $A, $C
-	dc.b	$B, $C, $B, $C, $B, $C, $B, $C
-	dc.b	$A, $C, $A, $C, $A, $C, $A, $C
-	dc.b	$B, $C, $B, $C, $B, $C, $B, $C
-	dc.b	0, $C, 0, $C, 0, $C, 0, $C
-	dc.b	1, $C, 1, $C, 1, $C, 1, $C
-	dc.b	2, $C, 2, $C, 2, $C, 2, $C
-	dc.b	3, $C, 3, $C, 3, $C, 3, $C
-	dc.b	4, $C, 4, $C, 4, $C, 4, $C
-	dc.b	$FF
-
-@Ani_20D6DE_6:
-	dc.b	0
-	dc.b	4, $C, $C, $C, 4, $C, $C, $C
-	dc.b	5, $C, $C, $C, 5, $C, $C, $C
-	dc.b	4, $C, $C, $C, 4, $C, $C, $C
-	dc.b	5, $C, $C, $C, 5, $C, $C, $C
-	dc.b	6, $C, $C, $C, 6, $C, $C, $C
-	dc.b	7, $C, $C, $C, 7, $C, $C, $C
-	dc.b	8, $C, $C, $C, 8, $C, $C, $C
-	dc.b	9, $C, $C, $C, 9, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $A, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $B, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $A, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $B, $C, $C, $C
-	dc.b	0, $C, $C, $C, 0, $C, $C, $C
-	dc.b	1, $C, $C, $C, 1, $C, $C, $C
-	dc.b	2, $C, $C, $C, 2, $C, $C, $C
-	dc.b	3, $C, $C, $C, 3, $C, $C, $C
-	dc.b	$FF
-
-@Ani_20D6DE_7:
-	dc.b	0
-	dc.b	3, $C, $C, $C, $C, $C, $C, $C
-	dc.b	4, $C, $C, $C, $C, $C, $C, $C
-	dc.b	5, $C, $C, $C, $C, $C, $C, $C
-	dc.b	4, $C, $C, $C, $C, $C, $C, $C
-	dc.b	5, $C, $C, $C, $C, $C, $C, $C
-	dc.b	6, $C, $C, $C, $C, $C, $C, $C
-	dc.b	7, $C, $C, $C, $C, $C, $C, $C
-	dc.b	8, $C, $C, $C, $C, $C, $C, $C
-	dc.b	9, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$A, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$B, $C, $C, $C, $C, $C, $C, $C
-	dc.b	0, $C, $C, $C, $C, $C, $C, $C
-	dc.b	1, $C, $C, $C, $C, $C, $C, $C
-	dc.b	2, $C, $C, $C, $C, $C, $C, $C
-	dc.b	$FF
-
-@Ani_20D6DE_8:
-	dc.b	0
-	dc.b	$D, $C
-	dc.b	$FF
+KabasiraAnims:
+	include	"src/anims/r7/kabasira.asm"
+	even
 
 Spr_20DBA4:
 	dc.w	@Spr_20DBA4_0-*

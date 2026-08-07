@@ -99,8 +99,8 @@ AnimalsGfx:
 	incbin	"src/gfx/r4/animals.nem"
 	even
 
-RobotTransporterGfxB:
-	incbin	"src/gfx/robot_transporter_b.nem"
+RobotTransportGfxB:
+	incbin	"src/gfx/robot_transport_b.nem"
 	even
 
 HologramGfx:

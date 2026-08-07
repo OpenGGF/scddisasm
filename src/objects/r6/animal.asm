@@ -61,7 +61,7 @@ AnimalObject_1_Routine2:
 
 loc_20E9AE:
 	move.b	d0,obj.var_2e(a0)
-	lea	Ani_20EB2C(pc),a1
+	lea	AnimalAnims1(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
@@ -82,7 +82,7 @@ AnimalObject_1_Routine4:
 	move.b	obj.var_2e(a0),d0
 	andi.b	#$7F,d0
 	beq.w	sub_20EB00
-	lea	Ani_20EB2C(pc),a1
+	lea	AnimalAnims1(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -174,7 +174,7 @@ AnimalObject_0_Routine8:
 	bne.w	loc_20EAFA
 	tst.b	obj.var_3f(a1)
 	bne.w	loc_20EAFA
-	lea	Ani_20EB6E(pc),a1
+	lea	AnimalAnims2(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -204,39 +204,13 @@ sub_20EB0E:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20EB2C:
-	dc.w	@Ani_20EB2C_0-*
-	dc.w	@Ani_20EB2C_1-Ani_20EB2C
+AnimalAnims1:
+	include	"src/anims/r6/animal_1.asm"
+	even
 
-@Ani_20EB2C_0:
-	dc.b	$13
-	dc.b	0, 1
-	dc.b	$FF
-
-@Ani_20EB2C_1:
-	dc.b	0
-	dc.b	0, 0, 2, 0, 0, 2, 0, 0
-	dc.b	2, 0, 0, 2, 1, 1, 2, 2
-	dc.b	1, 1, 2, 2, 1, 1, 2, 2
-	dc.b	1, 1, 2, 2, 0, 0, 2, 0
-	dc.b	0, 2, 0, 0, 2, 0, 0, 2
-	dc.b	1, 1, 2, 2, 1, 1, 2, 2
-	dc.b	1, 1, 2, 2, 1, 1, 2, 2
-	dc.b	$FF
-
-Ani_20EB6E:
-	dc.w	@Ani_20EB6E_0-*
-
-@Ani_20EB6E_0:
-	dc.b	0
-	dc.b	3, 3, 2, 3, 3, 2, 3, 3
-	dc.b	2, 3, 3, 2, 3, 3, 2, 2
-	dc.b	3, 3, 2, 2, 3, 3, 2, 2
-	dc.b	3, 3, 2, 2, 4, 4, 2, 4
-	dc.b	4, 2, 4, 4, 2, 4, 4, 2
-	dc.b	4, 4, 2, 2, 4, 4, 2, 2
-	dc.b	4, 4, 2, 2, 4, 4, 2, 2
-	dc.b	$FF
+AnimalAnims2:
+	include	"src/anims/r6/animal_2.asm"
+	even
 
 Spr_20EBAA:
 	dc.w	@Spr_20EBAA_0-*

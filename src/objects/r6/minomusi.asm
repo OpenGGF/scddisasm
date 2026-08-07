@@ -173,7 +173,7 @@ MinomusiObject_0_Routine10:
 	move.b	#$A,obj.routine(a0)
 
 loc_20E66C:
-	lea	Ani_20E750(pc),a1
+	lea	MinomusiAnims(pc),a1
 	jsr	AnimateObject
 	tst.b	obj.subtype(a0)
 	bne.w	locret_20E6F2
@@ -246,27 +246,9 @@ loc_20E738:
 
 ; ------------------------------------------------------------------------------
 
-Ani_20E750:
-	dc.w	@Ani_20E750_0-*
-	dc.w	@Ani_20E750_1-Ani_20E750
-
-@Ani_20E750_0:
-	dc.b	0
-	dc.b	9, 9, 9, 9, 9, 9, 9, 9
-	dc.b	9, 9, 9, 9, 9, 9, 9, 9
-	dc.b	9, 9, 9, 9, 9, 9, 9, 9
-	dc.b	9, 9, 9, 9, 9, 9, $A, $B
-	dc.b	$B, $B, $A, 9, $A, $B, $B, $B
-	dc.b	$B, $B, $B, $B, $B, $B, $B, $B
-	dc.b	$B, $B, $B, $B, $B, $B, $B, $B
-	dc.b	$B, $B, $B, $B, $B, $B, $B, $B
-	dc.b	$B, $B, $B, $A
-	dc.b	$FF
-
-@Ani_20E750_1:
-	dc.b	9
-	dc.b	9, $A
-	dc.b	$FF
+MinomusiAnims:
+	include	"src/anims/r6/minomusi.asm"
+	even
 
 Unk20E79ESprites:
 	dc.w	Unk20E7F6Sprite_0-*

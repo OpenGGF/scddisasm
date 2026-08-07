@@ -80,7 +80,7 @@ LaserObject_0_Routine4:
 	move.b	#7,obj.anim_id(a0)
 
 loc_20B556:
-	lea	(Ani_21DA00).l,a1
+	lea	(LaserAnims).l,a1
 	jsr	AnimateObject
 	jsr	CheckBlockDown
 	tst.w	d1
@@ -117,7 +117,7 @@ LaserObject_0_Routine6:
 
 loc_20B5CE:
 	move.w	d0,obj.y(a0)
-	lea	(Ani_21DA00).l,a1
+	lea	(LaserAnims).l,a1
 	jsr	AnimateObject
 	bra.w	loc_20B60A
 
@@ -138,7 +138,7 @@ LaserObject_0_Routine8:
 ; ------------------------------------------------------------------------------
 
 loc_20B5FE:
-	lea	(Ani_21DA00).l,a1
+	lea	(LaserAnims).l,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------

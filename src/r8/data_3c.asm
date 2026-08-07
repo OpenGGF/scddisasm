@@ -11,8 +11,8 @@ StageChunks:
 	incbin	"src/maps/r83c/chunks.bin"
 	even
 
-Ani_21DA00:
-	include	"src/anims/r8/Ani_21DA00.asm"
+LaserAnims:
+	include	"src/anims/r8/laser.asm"
 	even
 
 FlowerAnims:
@@ -468,7 +468,7 @@ SpikePoleGfx:
 	even
 
 BumperGfx:
-	incbin	"src/gfx/bumper.nem"
+	incbin	"src/gfx/r3/bumper.nem"
 	even
 
 BlockGfx:

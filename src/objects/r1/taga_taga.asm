@@ -35,7 +35,7 @@ TagaTagaObject_0_Routine0:
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20BB28
 	lea	TagaTagaSprites(pc),a1
-	lea	TagaTagaAnims(pc),a2
+	lea	TagaTagaAnims1(pc),a2
 	move.l	#-$3C000,d0
 	move.l	#$1000,d1
 	bra.s	loc_20BB3C
@@ -44,7 +44,7 @@ TagaTagaObject_0_Routine0:
 
 loc_20BB28:
 	lea	TagaTagaDecaySprites(pc),a1
-	lea	TagaTagaDecayAnims(pc),a2
+	lea	TagaTagaAnims2(pc),a2
 	move.l	#-$30000,d0
 	move.l	#$1000,d1
 
@@ -97,38 +97,13 @@ loc_20BBC8:
 
 ; ------------------------------------------------------------------------------
 
-TagaTagaAnims:
-	dc.w	@TagaTagaAnims_0-*
-	dc.w	@TagaTagaAnims_1-TagaTagaAnims
+TagaTagaAnims1:
+	include	"src/anims/r1/taga_taga_1.asm"
+	even
 
-@TagaTagaAnims_0:
-	dc.b	$59
-	dc.b	6
-	dc.b	$FC
-
-@TagaTagaAnims_1:
-	dc.b	7
-	dc.b	0, 0, 0, 1, 0, 1, 2, 3
-	dc.b	5, 5, 5, 5, 4, 5, 4, 5
-	dc.b	4, 5
-	dc.b	$FF
-	dc.b	0
-
-TagaTagaDecayAnims:
-	dc.w	@TagaTagaDecayAnims_0-*
-	dc.w	@TagaTagaDecayAnims_1-TagaTagaDecayAnims
-
-@TagaTagaDecayAnims_0:
-	dc.b	$59
-	dc.b	6
-	dc.b	$FC
-
-@TagaTagaDecayAnims_1:
-	dc.b	4
-	dc.b	0, 0, 0, 0, 0, 0, 0, 0
-	dc.b	2, 2, 3, 3, 4, 4, 4, 4
-	dc.b	4, 4, 4, 4, 4, 4, 4
-	dc.b	$FF
+TagaTagaAnims2:
+	include	"src/anims/r1/taga_taga_2.asm"
+	even
 
 TagaTagaSprites:
 	dc.w	@TagaTagaDecaySprites_0-*
