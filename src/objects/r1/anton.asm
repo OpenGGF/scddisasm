@@ -94,41 +94,7 @@ AntonAnims:
 	even
 
 AntonSprites:
-	dc.w	@AntonAnim_0-*
-	dc.w	@AntonAnim_1-AntonSprites
-	dc.w	@AntonAnim_2-AntonSprites
-	dc.w	@AntonAnim_3-AntonSprites
-
-@AntonAnim_0:
-	dc.b	5
-	dc.b	$ED, 5, 0, 0, $F4
-	dc.b	$FD, 8, 0, 4, $F4
-	dc.b	5, 4, 0, 7, $FC
-	dc.b	4, 5, 0, 9, $F8
-	dc.b	$FC, 0, 0, $11, $E
-
-@AntonAnim_1:
-	dc.b	5
-	dc.b	$EC, 5, 0, 0, $F4
-	dc.b	$FC, 8, 0, 4, $F4
-	dc.b	4, 4, 0, 7, $FC
-	dc.b	4, 5, 0, $D, $F8
-	dc.b	$FB, 0, 0, $11, $12
-
-@AntonAnim_2:
-	dc.b	5
-	dc.b	$ED, 5, 0, $12, $F4
-	dc.b	$FD, 8, 0, 4, $F4
-	dc.b	5, 4, 0, 7, $FC
-	dc.b	4, 5, 0, 9, $F8
-	dc.b	$FC, 0, 0, $11, $E
-
-@AntonAnim_3:
-	dc.b	5
-	dc.b	$EC, 5, 0, $12, $F4
-	dc.b	$FC, 8, 0, 4, $F4
-	dc.b	4, 4, 0, 7, $FC
-	dc.b	4, 5, 0, $D, $F8
-	dc.b	$FB, 0, 0, $11, $12
+	include	"src/sprites/r1/anton.asm"
+	even
 
 ; ------------------------------------------------------------------------------

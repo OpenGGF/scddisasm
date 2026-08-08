@@ -43,12 +43,7 @@ locret_208210:
 ; ------------------------------------------------------------------------------
 
 BoulderSprites:
-	dc.w	@BoulderSprites_0-BoulderSprites
-
-@BoulderSprites_0:
-	dc.b	2
-	dc.b	$F8, 2, 0, 0, $EC
-	dc.b	$F0, $F, 0, 3, $F4
-	dc.b	0
+	include	"src/sprites/r1/boulder.asm"
+	even
 
 ; ------------------------------------------------------------------------------

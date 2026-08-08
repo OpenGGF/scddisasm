@@ -77,28 +77,11 @@ locret_20CE98:
 ; ------------------------------------------------------------------------------
 
 VDoorAnims:
-	dc.w	@VDoorAnims_0-*
-
-@VDoorAnims_0:
-	dc.b	0
-	dc.b	0, 0, 1, 1, 1, 1, 1, 1
-	dc.b	1, 1
-	dc.b	$FC
+	include	"src/anims/r1/v_door.asm"
+	even
 
 VDoorSprites:
-	dc.w	@VDoorSprites_0-*
-	dc.w	@VDoorSprites_1-VDoorSprites
-
-@VDoorSprites_0:
-	dc.b	2
-	dc.b	$E8, 1, $18, 4, $FC
-	dc.b	$F8, 3, $18, 0, $FC
-	dc.b	0
-
-@VDoorSprites_1:
-	dc.b	2
-	dc.b	$E8, $C, 0, 6, $FC
-	dc.b	$E8, 4, 0, $A, $1C
-	dc.b	0
+	include	"src/sprites/r1/v_door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

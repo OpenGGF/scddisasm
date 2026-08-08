@@ -450,137 +450,15 @@ RingAnims:
 	even
 
 RingSprites:
-	dc.w	@RingSprites_0-*
-	dc.w	@RingSprites_1-RingSprites
-	dc.w	@RingSprites_2-RingSprites
-	dc.w	@RingSprites_3-RingSprites
-	dc.w	@RingSprites_4-RingSprites
-	dc.w	@RingSprites_5-RingSprites
-	dc.w	@RingSprites_6-RingSprites
-	dc.w	@RingSprites_7-RingSprites
-	dc.w	@RingSprites_8-RingSprites
-@RingSprites_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-@RingSprites_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
-@RingSprites_2:
-	dc.b	1
-	dc.b	$F8, 1, 0, 8, $FC
-@RingSprites_3:
-	dc.b	1
-	dc.b	$F8, 5, 8, 4, $F8
-@RingSprites_4:
-	dc.b	1
-	dc.b	$F8, 5, 0, $A, $F8
-@RingSprites_5:
-	dc.b	1
-	dc.b	$F8, 5, $18, $A, $F8
-@RingSprites_6:
-	dc.b	1
-	dc.b	$F8, 5, $10, $A, $F8
-@RingSprites_7:
-	dc.b	1
-	dc.b	$F8, 5, 8, $A, $F8
-@RingSprites_8:
-	dc.b	0
-	dc.b	0
+	include	"src/sprites/ring.asm"
+	even
+	
 S1BigRingSprites:
-	dc.w	@S1BigRingSprites_0-*
-	dc.w	@S1BigRingSprites_1-S1BigRingSprites
-	dc.w	@S1BigRingSprites_2-S1BigRingSprites
-	dc.w	@S1BigRingSprites_3-S1BigRingSprites
-@S1BigRingSprites_0:
-	dc.b	$A
-	dc.b	$E0, 8, 0, 0, $E8
-	dc.b	$E0, 8, 0, 3, 0
-	dc.b	$E8, $C, 0, 6, $E0
-	dc.b	$E8, $C, 0, $A, 0
-	dc.b	$F0, 7, 0, $E, $E0
-	dc.b	$F0, 7, 0, $16, $10
-	dc.b	$10, $C, 0, $1E, $E0
-	dc.b	$10, $C, 0, $22, 0
-	dc.b	$18, 8, 0, $26, $E8
-	dc.b	$18, 8, 0, $29, 0
-@S1BigRingSprites_1:
-	dc.b	8
-	dc.b	$E0, $C, 0, $2C, $F0
-	dc.b	$E8, 8, 0, $30, $E8
-	dc.b	$E8, 9, 0, $33, 0
-	dc.b	$F0, 7, 0, $39, $E8
-	dc.b	$F8, 5, 0, $41, 8
-	dc.b	8, 9, 0, $45, 0
-	dc.b	$10, 8, 0, $4B, $E8
-	dc.b	$18, $C, 0, $4E, $F0
-@S1BigRingSprites_2:
-	dc.b	4
-	dc.b	$E0, 7, 0, $52, $F4
-	dc.b	$E0, 3, 8, $52, 4
-	dc.b	0, 7, 0, $5A, $F4
-	dc.b	0, 3, 8, $5A, 4
-@S1BigRingSprites_3:
-	dc.b	8
-	dc.b	$E0, $C, 8, $2C, $F0
-	dc.b	$E8, 8, 8, $30, 0
-	dc.b	$E8, 9, 8, $33, $E8
-	dc.b	$F0, 7, 8, $39, 8
-	dc.b	$F8, 5, 8, $41, $E8
-	dc.b	8, 9, 8, $45, $E8
-	dc.b	$10, 8, 8, $4B, 0
-	dc.b	$18, $C, 8, $4E, $F0
+	include	"src/sprites/s1_big_ring.asm"
+	even
+
 S1BigRingFlashSprites:
-	dc.w	@S1BigRingFlashSprites_0-*
-	dc.w	@S1BigRingFlashSprites_1-S1BigRingFlashSprites
-	dc.w	@S1BigRingFlashSprites_2-S1BigRingFlashSprites
-	dc.w	@S1BigRingFlashSprites_3-S1BigRingFlashSprites
-	dc.w	@S1BigRingFlashSprites_4-S1BigRingFlashSprites
-	dc.w	@S1BigRingFlashSprites_5-S1BigRingFlashSprites
-	dc.w	@S1BigRingFlashSprites_6-S1BigRingFlashSprites
-	dc.w	@S1BigRingFlashSprites_7-S1BigRingFlashSprites
-@S1BigRingFlashSprites_0:
-	dc.b	2
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	0, $F, $10, 0, 0
-@S1BigRingFlashSprites_1:
-	dc.b	4
-	dc.b	$E0, $F, 0, $10, $F0
-	dc.b	$E0, 7, 0, $20, $10
-	dc.b	0, $F, $10, $10, $F0
-	dc.b	0, 7, $10, $20, $10
-@S1BigRingFlashSprites_2:
-	dc.b	4
-	dc.b	$E0, $F, 0, $28, $E8
-	dc.b	$E0, $B, 0, $38, 8
-	dc.b	0, $F, $10, $28, $E8
-	dc.b	0, $B, $10, $38, 8
-@S1BigRingFlashSprites_3:
-	dc.b	4
-	dc.b	$E0, $F, 8, $34, $E0
-	dc.b	$E0, $F, 0, $34, 0
-	dc.b	0, $F, $18, $34, $E0
-	dc.b	0, $F, $10, $34, 0
-@S1BigRingFlashSprites_4:
-	dc.b	4
-	dc.b	$E0, $B, 8, $38, $E0
-	dc.b	$E0, $F, 8, $28, $F8
-	dc.b	0, $B, $18, $38, $E0
-	dc.b	0, $F, $18, $28, $F8
-@S1BigRingFlashSprites_5:
-	dc.b	4
-	dc.b	$E0, 7, 8, $20, $E0
-	dc.b	$E0, $F, 8, $10, $F0
-	dc.b	0, 7, $18, $20, $E0
-	dc.b	0, $F, $18, $10, $F0
-@S1BigRingFlashSprites_6:
-	dc.b	2
-	dc.b	$E0, $F, 8, 0, $E0
-	dc.b	0, $F, $18, 0, $E0
-@S1BigRingFlashSprites_7:
-	dc.b	4
-	dc.b	$E0, $F, 0, $44, $E0
-	dc.b	$E0, $F, 8, $44, 0
-	dc.b	0, $F, $10, $44, $E0
-	dc.b	0, $F, $18, $44, 0
+	include	"src/sprites/s1_big_ring_flash.asm"
+	even
 
 ; ------------------------------------------------------------------------------

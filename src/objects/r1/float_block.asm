@@ -31,7 +31,7 @@ off_209DAA:
 FloatBlockObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#FloatBlockSprites,obj.sprite_data(a0)
+	move.l	#BlockSprites,obj.sprite_data(a0)
 	moveq	#5,d0
 	jsr	SetObjectSpriteTile
 	move.b	#1,obj.sprite_layer(a0)
@@ -152,44 +152,8 @@ BlockAnims:
 	include	"src/anims/r1/block.asm"
 	even
 
-FloatBlockSprites:
-	dc.w	@FloatBlockSprites_0-*
-	dc.w	@FloatBlockSprites_1-FloatBlockSprites
-	dc.w	@FloatBlockSprites_2-FloatBlockSprites
-	dc.w	@FloatBlockSprites_3-FloatBlockSprites
-	dc.w	@FloatBlockSprites_4-FloatBlockSprites
-	dc.w	@FloatBlockSprites_5-FloatBlockSprites
-
-@FloatBlockSprites_0:
-	dc.b	0
-	dc.b	0
-
-@FloatBlockSprites_1:
-	dc.b	3
-	dc.b	$F4, 9, 0, 0, $F4
-	dc.b	4, 0, 0, 0, $FC
-	dc.b	4, 0, 0, 0, 4
-
-@FloatBlockSprites_2:
-	dc.b	3
-	dc.b	$F4, 9, 8, 0, $F4
-	dc.b	4, 0, 8, 0, $F4
-	dc.b	4, 0, 8, 0, $FC
-
-@FloatBlockSprites_3:
-	dc.b	2
-	dc.b	$F4, 9, $18, 0, $F4
-	dc.b	4, 0, $18, 0, $FC
-	dc.b	0
-
-@FloatBlockSprites_4:
-	dc.b	2
-	dc.b	$F4, 9, $10, 0, $F4
-	dc.b	4, 0, $10, 0, $FC
-	dc.b	0
-
-@FloatBlockSprites_5:
-	dc.b	1
-	dc.b	$F4, $A, 0, 6, $F4
+BlockSprites:
+	include	"src/sprites/r1/block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

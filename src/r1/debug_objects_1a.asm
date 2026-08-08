@@ -4,34 +4,34 @@ DebugObjects:
 	debugStart
 	debugObject $35, 1, VDoorSprites, $328, 0, 0, 0, 0
 	debugObject $2F, 1, AmyRoseSprites, $2370, 0, 0, 0, $F
-	debugObject $2D, 1, RobotGeneratorSprites, $409, 0, 0, 0, 0
+	debugObject $2D, 1, RobotTransportSprites, $409, 0, 0, 0, 0
 	debugObject $1B, 1, BoulderSprites, $374, 0, 0, 0, 0
 	debugObject $26, 1, SpikesSprites, $320, 0, 0, 0, 0
 	debugObject $D, 1, HDoorSprites, $328, 0, 0, 0, 0
 	debugObject 9, 1, SpinDiscSprites, $334, 0, 0, 0, 0
 	debugObject $21, 1, PlatformSprites, $44BE, 1, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 1, 0, 0
-	debugObject $A, 1, DSpringSprites, $490, 8, 0, 0, 0
-	debugObject $A, 1, DSpringSprites, $490, 8, 2, 0, 0
-	debugObject $A, 1, DSpringSprites, $490, 8, 1, 0, 0
-	debugObject $A, 1, DSpringSprites, $490, 8, 3, 0, 0
-	debugObject $A, 1, VSpringSprites, $2520, 2, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $2520, 2, 2, 0, 0
-	debugObject $A, 1, HSpringSprites, $2520, 6, 0, 0, 0
-	debugObject $A, 1, HSpringSprites, $2520, 6, 1, 0, 0
-	debugObject $A, 1, DSpringSprites, $2490, $A, 0, 0, 0
-	debugObject $A, 1, DSpringSprites, $2490, $A, 2, 0, 0
-	debugObject $A, 1, DSpringSprites, $2490, $A, 1, 0, 0
-	debugObject $A, 1, DSpringSprites, $2490, $A, 3, 0, 0
-	debugObject $24, 3, FlyAnimalSprites, $388, 0, 0, 0, 0
-	debugObject $24, 3, GroundAnimalSprites, $388, 1, 0, 0, 3
-	debugObject $3D, 4, MosquiSprites, $23A0, 0, 0, 0, 0
-	debugObject $3E, 4, PataBataSprites, $23B0, 0, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 1, 0, 0
+	debugObject $A, 1, Spring45Sprites, $490, 8, 0, 0, 0
+	debugObject $A, 1, Spring45Sprites, $490, 8, 2, 0, 0
+	debugObject $A, 1, Spring45Sprites, $490, 8, 1, 0, 0
+	debugObject $A, 1, Spring45Sprites, $490, 8, 3, 0, 0
+	debugObject $A, 1, SpringVSprites, $2520, 2, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $2520, 2, 2, 0, 0
+	debugObject $A, 1, SpringHSprites, $2520, 6, 0, 0, 0
+	debugObject $A, 1, SpringHSprites, $2520, 6, 1, 0, 0
+	debugObject $A, 1, Spring45Sprites, $2490, $A, 0, 0, 0
+	debugObject $A, 1, Spring45Sprites, $2490, $A, 2, 0, 0
+	debugObject $A, 1, Spring45Sprites, $2490, $A, 1, 0, 0
+	debugObject $A, 1, Spring45Sprites, $2490, $A, 3, 0, 0
+	debugObject $24, 3, AnimalSprites1, $388, 0, 0, 0, 0
+	debugObject $24, 3, AnimalSprites2, $388, 1, 0, 0, 3
+	debugObject $3D, 4, MosquiSprites1, $23A0, 0, 0, 0, 0
+	debugObject $3E, 4, PataBataSprites1, $23B0, 0, 0, 0, 0
 	debugObject $3F, 4, AntonSprites, $2409, 0, 0, 0, 0
-	debugObject $22, 4, TamabbohSprites, $2428, 0, 0, 0, 0
+	debugObject $22, 4, TamabbohSprites1, $2428, 0, 0, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 0, 0, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 1, 0, 0, 1
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 2, 0, 0, 2

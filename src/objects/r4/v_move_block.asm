@@ -61,7 +61,7 @@ VMoveBlockObject_1_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C3DE,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites1,obj.sprite_data(a0)
 	move.w	obj.y(a0),d0
 	addi.w	#$40,d0
 	move.w	d0,obj.var_32(a0)
@@ -146,16 +146,9 @@ locret_20C3DC:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C3DE:
-	dc.w	@Spr_20C3DE_0-*
-
-@Spr_20C3DE_0:
-	dc.b	4
-	dc.b	$C0, $F, 0, 0, $F0
-	dc.b	$E0, $F, 0, $10, $F0
-	dc.b	0, $F, 0, 0, $F0
-	dc.b	$20, $F, 0, $10, $F0
-	dc.b	0
+VMoveBlockSprites1:
+	include	"src/sprites/r4/v_move_block_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -181,7 +174,7 @@ VMoveBlockObject_3_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C462,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites2,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),d0
 	subi.w	#$50,d0
@@ -197,24 +190,9 @@ VMoveBlockObject_3_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C462:
-	dc.w	@Spr_20C462_0-*
-
-@Spr_20C462_0:
-	dc.b	$C
-	dc.b	$A0, $F, 0, 0, $E0
-	dc.b	$A0, $F, 0, $10, 0
-	dc.b	$C0, $F, 0, $10, $E0
-	dc.b	$C0, $F, 0, 0, 0
-	dc.b	$E0, $F, 0, $10, $E0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	0, $F, 0, 0, $E0
-	dc.b	0, $F, 0, $10, 0
-	dc.b	$20, $F, 0, $10, $E0
-	dc.b	$20, $F, 0, 0, 0
-	dc.b	$40, $F, 0, 0, $E0
-	dc.b	$40, $F, 0, $10, 0
-	dc.b	0
+VMoveBlockSprites2:
+	include	"src/sprites/r4/v_move_block_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -252,7 +230,7 @@ VMoveBlockObject_4_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C5CA,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites3,obj.sprite_data(a0)
 	move.w	obj.y(a0),d0
 	addi.w	#$30,d0
 	move.w	d0,obj.var_32(a0)
@@ -316,14 +294,9 @@ loc_20C5C6:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C5CA:
-	dc.w	@Spr_20C5CA_0-*
-
-@Spr_20C5CA_0:
-	dc.b	3
-	dc.b	$D0, $F, 0, 0, $F0
-	dc.b	$F0, $F, 0, 0, $F0
-	dc.b	$10, $F, 0, $10, $F0
+VMoveBlockSprites3:
+	include	"src/sprites/r4/v_move_block_3.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -363,7 +336,7 @@ VMoveBlockObject_5_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C6CA,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites4,obj.sprite_data(a0)
 	move.w	obj.y(a0),d0
 	addi.w	#$40,d0
 	move.w	d0,obj.var_32(a0)
@@ -407,16 +380,9 @@ VMoveBlockObject_5_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C6CA:
-	dc.w	@Spr_20C6CA_0-*
-
-@Spr_20C6CA_0:
-	dc.b	4
-	dc.b	$C0, $F, 0, 0, $F0
-	dc.b	$E0, $F, 0, 0, $F0
-	dc.b	0, $F, 0, 0, $F0
-	dc.b	$20, $F, 0, 0, $F0
-	dc.b	0
+VMoveBlockSprites4:
+	include	"src/sprites/r4/v_move_block_4.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -502,7 +468,7 @@ VMoveBlockObject_6_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C6CA,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites4,obj.sprite_data(a0)
 	move.w	obj.y(a0),d0
 	addi.w	#$40,d0
 	move.w	d0,obj.var_32(a0)
@@ -581,7 +547,7 @@ VMoveBlockObject_7_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C974,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites5,obj.sprite_data(a0)
 	move.w	obj.y(a0),d0
 	subi.w	#$20,d0
 	move.w	d0,obj.var_32(a0)
@@ -651,18 +617,9 @@ VMoveBlockObject_7_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C974:
-	dc.w	@Spr_20C974_0-*
-
-@Spr_20C974_0:
-	dc.b	6
-	dc.b	$D0, $F, 0, 0, $E0
-	dc.b	$D0, $F, 0, $10, 0
-	dc.b	$F0, $F, 0, $10, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	$10, $F, 0, 0, $E0
-	dc.b	$10, $F, 0, $10, 0
-	dc.b	0
+VMoveBlockSprites5:
+	include	"src/sprites/r4/v_move_block_5.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -703,7 +660,7 @@ VMoveBlockObject_8_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20CA56,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites6,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -740,25 +697,9 @@ VMoveBlockObject_8_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CA56:
-	dc.w	@Spr_20CA56_0-*
-	dc.w	@Spr_20CA56_1-Spr_20CA56
-
-@Spr_20CA56_0:
-	dc.b	2
-	dc.b	$E0, $F, 0, $10, $F0
-	dc.b	0, $F, 0, $10, $F0
-	dc.b	0
-
-@Spr_20CA56_1:
-	dc.b	6
-	dc.b	$A0, $F, 0, $10, $F0
-	dc.b	$C0, $F, 0, $10, $F0
-	dc.b	$E0, $F, 0, 0, $F0
-	dc.b	0, $F, 0, 0, $F0
-	dc.b	$20, $F, 0, $10, $F0
-	dc.b	$40, $F, 0, $10, $F0
-	dc.b	0
+VMoveBlockSprites6:
+	include	"src/sprites/r4/v_move_block_6.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -799,7 +740,7 @@ VMoveBlockObject_9_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20CB5C,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites7,obj.sprite_data(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
@@ -854,12 +795,9 @@ VMoveBlockObject_9_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CB5C:
-	dc.w	@Spr_20CB5C_0-*
-
-@Spr_20CB5C_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, $10, $F0
+VMoveBlockSprites7:
+	include	"src/sprites/r4/v_move_block_7.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -900,7 +838,7 @@ VMoveBlockObject_A_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20CA56,obj.sprite_data(a0)
+	move.l	#VMoveBlockSprites6,obj.sprite_data(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	clr.b	obj.sprite_frame(a0)

@@ -39,7 +39,7 @@ RobotGeneratorInit:
 	add.b	(time_zone).l,d0
 	add.w	d0,d0
 	move.w	(a1,d0.w),obj.sprite_tile(a0)
-	move.l	#RobotGeneratorSprites,obj.sprite_data(a0)
+	move.l	#RobotTransportSprites,obj.sprite_data(a0)
 	move.l	#byte_20E5E4,obj.var_2c(a0)
 	move.w	obj.y(a0),obj.var_30(a0)
 	move.w	#4,obj.var_2a(a0)

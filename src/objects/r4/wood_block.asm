@@ -28,7 +28,7 @@ WoodBlockObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$350,obj.sprite_tile(a0)
-	move.l	#Spr_20EF5E,obj.sprite_data(a0)
+	move.l	#WoodBlockSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	cmpi.w	#$780,(target_water_y).w
 	beq.s	WoodBlockObject_0_Routine2
@@ -147,11 +147,8 @@ locret_20EF5C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20EF5E:
-	dc.w	@Spr_20EF5E_0-*
-
-@Spr_20EF5E_0:
-	dc.b	1
-	dc.b	$F8, $D, 0, 0, $F0
+WoodBlockSprites:
+	include	"src/sprites/r4/wood_block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

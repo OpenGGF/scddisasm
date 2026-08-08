@@ -11,7 +11,7 @@ DebugObjects:
 	debugObject $25, 3, Spr_20C84E, $44D8, 7, 0, 0, 6
 	debugObject $25, 3, Spr_20C84E, $44D8, 8, 0, 0, 7
 	debugObject $F, 4, Unk20E920Sprites, $4EA, 0, 0, 0, 0
-	debugObject $43, 1, RobotGeneratorSprites, $300, 0, 0, 0, 0
+	debugObject $43, 1, RobotTransportSprites, $300, 0, 0, 0, 0
 	debugObject $2A, 3, Unk20D4D2Sprites, $34C, 1, 0, 0, 0
 	debugObject $2A, 3, Unk20D4D2Sprites, $34C, 0, 0, 0, 1
 	debugObject $2A, 3, Unk20D4D2Sprites, $34C, 0, 0, 1, 2

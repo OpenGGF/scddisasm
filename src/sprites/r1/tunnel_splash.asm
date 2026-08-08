@@ -10,10 +10,12 @@
 .Sprite0:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite1:
 	dc.b	1
 	dc.b	$F4, $A, 0, $10, $F4
+	even
 
 .Sprite2:
 	dc.b	1

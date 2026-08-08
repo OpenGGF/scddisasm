@@ -315,7 +315,7 @@ EggmanObject_0_Routine0:
 	move.b	#$14,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$3FD,obj.sprite_tile(a0)
-	move.l	#Spr_20D7DC,obj.sprite_data(a0)
+	move.l	#EggmanSprites,obj.sprite_data(a0)
 	move.b	#1,obj.anim_id(a0)
 	clr.b	obj.sprite_frame(a0)
 	clr.b	obj.anim_index(a0)
@@ -423,7 +423,7 @@ sub_20BD36:
 	move.w	a3,obj.var_2e(a1)
 	move.w	a1,obj.var_30(a3)
 	move.b	#4,obj.sprite_layer(a1)
-	move.l	#Spr_20D918,obj.sprite_data(a1)
+	move.l	#BossForearmSprites1,obj.sprite_data(a1)
 	move.b	#$31,obj.id(a1)
 	movea.l	a1,a3
 	bsr.w	sub_20BD1C
@@ -450,7 +450,7 @@ sub_20BD36:
 	move.w	a3,obj.var_2e(a1)
 	move.w	a1,obj.var_30(a3)
 	move.b	#7,obj.sprite_layer(a1)
-	move.l	#Spr_20D942,obj.sprite_data(a1)
+	move.l	#BossForearmSprites2,obj.sprite_data(a1)
 	move.b	#$31,obj.id(a1)
 	bset	#2,obj.var_2c(a1)
 	movea.l	a1,a3
@@ -727,7 +727,7 @@ BossBodyObject_0_Routine0:
 	move.b	#$24,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	move.w	#$359,obj.sprite_tile(a0)
-	move.l	#Spr_20D8AE,obj.sprite_data(a0)
+	move.l	#BossBodySprites,obj.sprite_data(a0)
 	bsr.w	sub_20C5AE
 	rts
 
@@ -1337,7 +1337,7 @@ locret_20C988:
 
 ; ------------------------------------------------------------------------------
 
-BossElbowObject:
+BossShoulderObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20C99E(pc,d0.w),d0
@@ -1347,22 +1347,22 @@ BossElbowObject:
 ; ------------------------------------------------------------------------------
 
 off_20C99E:
-	dc.w	BossElbowObject_0_Routine0-*
-	dc.w	BossElbowObject_0_Routine2-off_20C99E
-	dc.w	BossElbowObject_0_Routine4-off_20C99E
+	dc.w	BossShoulderObject_0_Routine0-*
+	dc.w	BossShoulderObject_0_Routine2-off_20C99E
+	dc.w	BossShoulderObject_0_Routine4-off_20C99E
 
 ; ------------------------------------------------------------------------------
 
-BossElbowObject_0_Routine0:
+BossShoulderObject_0_Routine0:
 	clr.b	obj.flags(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.w	#$2359,obj.sprite_tile(a0)
-	move.l	#Spr_20D902,obj.sprite_data(a0)
+	move.l	#BossShoulderSprites,obj.sprite_data(a0)
 	move.b	#2,obj.routine(a0)
 
-BossElbowObject_0_Routine2:
+BossShoulderObject_0_Routine2:
 	movea.w	obj.var_2e(a0),a1
 	move.w	obj.x(a1),obj.x(a0)
 	addi.w	#$18,obj.x(a0)
@@ -1395,7 +1395,7 @@ loc2_20CA12:
 
 ; ------------------------------------------------------------------------------
 
-BossElbowObject_0_Routine4:
+BossShoulderObject_0_Routine4:
 	bset	#1,obj.var_2c(a0)
 	bne.s	loc_20CA44
 	move.l	#-$10000,obj.var_3c(a0)
@@ -1425,7 +1425,7 @@ loc_20CA74:
 
 ; ------------------------------------------------------------------------------
 
-BossUpperArmObject:
+BossArmObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20CA96(pc,d0.w),d0
@@ -1442,25 +1442,25 @@ locret_20CA94:
 ; ------------------------------------------------------------------------------
 
 off_20CA96:
-	dc.w	BossUpperArmObject_0_Routine0-*
-	dc.w	BossUpperArmObject_0_Routine2-off_20CA96
-	dc.w	BossUpperArmObject_0_Routine4-off_20CA96
-	dc.w	BossUpperArmObject_0_Routine6-off_20CA96
-	dc.w	BossUpperArmObject_0_Routine4-off_20CA96
-	dc.w	BossUpperArmObject_0_RoutineA-off_20CA96
+	dc.w	BossArmObject_0_Routine0-*
+	dc.w	BossArmObject_0_Routine2-off_20CA96
+	dc.w	BossArmObject_0_Routine4-off_20CA96
+	dc.w	BossArmObject_0_Routine6-off_20CA96
+	dc.w	BossArmObject_0_Routine4-off_20CA96
+	dc.w	BossArmObject_0_RoutineA-off_20CA96
 
 ; ------------------------------------------------------------------------------
 
-BossUpperArmObject_0_Routine0:
+BossArmObject_0_Routine0:
 	clr.b	obj.flags(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$2359,obj.sprite_tile(a0)
-	move.l	#Spr_20D910,obj.sprite_data(a0)
+	move.l	#BossArmSprites,obj.sprite_data(a0)
 	move.b	#6,obj.routine(a0)
 
-BossUpperArmObject_0_Routine2:
+BossArmObject_0_Routine2:
 	subq.b	#2,obj.var_2a(a0)
 	bhi.w	loc_20CB6E
 	move.b	#4,obj.routine(a0)
@@ -1470,7 +1470,7 @@ BossUpperArmObject_0_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-BossUpperArmObject_0_Routine6:
+BossArmObject_0_Routine6:
 	addq.b	#2,obj.var_2a(a0)
 	cmpi.b	#$30,obj.var_2a(a0)
 	bcs.w	loc_20CB6E
@@ -1481,12 +1481,12 @@ BossUpperArmObject_0_Routine6:
 
 ; ------------------------------------------------------------------------------
 
-BossUpperArmObject_0_Routine4:
+BossArmObject_0_Routine4:
 	bra.w	loc_20CB6E
 
 ; ------------------------------------------------------------------------------
 
-BossUpperArmObject_0_RoutineA:
+BossArmObject_0_RoutineA:
 	bset	#1,obj.var_2c(a0)
 	bne.s	loc_20CB3A
 	move.b	#0,obj.var_2b(a0)
@@ -1716,7 +1716,7 @@ BossBumperObject_0_Routine0:
 	move.b	#$C,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$2359,obj.sprite_tile(a0)
-	move.l	#Spr_20D95A,obj.sprite_data(a0)
+	move.l	#BossBumperSprites,obj.sprite_data(a0)
 	move.b	#2,obj.routine(a0)
 
 BossBumperObject_0_Routine2:
@@ -1811,7 +1811,7 @@ BossThighObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$2359,obj.sprite_tile(a0)
-	move.l	#Spr_20D8DA,obj.sprite_data(a0)
+	move.l	#BossThighSprites,obj.sprite_data(a0)
 	move.b	#$C,obj.routine(a0)
 	move.b	#$58,obj.var_2a(a0)
 	move.b	#2,obj.var_3c(a0)
@@ -2219,7 +2219,7 @@ BossCalfObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#$14,obj.height(a0)
 	move.w	#$2359,obj.sprite_tile(a0)
-	move.l	#Spr_20D8E2,obj.sprite_data(a0)
+	move.l	#BossCalfSprites,obj.sprite_data(a0)
 	move.l	#$8000,obj.var_3c(a0)
 	move.l	#$4000,obj.x_speed(a0)
 	rts
@@ -2470,7 +2470,7 @@ BossFootObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$14,obj.height(a0)
 	move.w	#$2359,obj.sprite_tile(a0)
-	move.l	#Spr_20D8F0,obj.sprite_data(a0)
+	move.l	#BossFootSprites,obj.sprite_data(a0)
 	move.l	#$4000,obj.var_3c(a0)
 	move.l	#$8000,obj.x_speed(a0)
 	move.b	#4,obj.routine(a0)
@@ -2751,194 +2751,44 @@ EggmanAnims:
 	include	"src/anims/r1/eggman.asm"
 	even
 
-Spr_20D7DC:
-	dc.w	@Spr_20D7DC_0-*
-	dc.w	@Spr_20D7DC_1-Spr_20D7DC
-	dc.w	@Spr_20D7DC_2-Spr_20D7DC
-	dc.w	@Spr_20D7DC_3-Spr_20D7DC
-	dc.w	@Spr_20D7DC_4-Spr_20D7DC
-	dc.w	@Spr_20D7DC_5-Spr_20D7DC
-	dc.w	@Spr_20D7DC_6-Spr_20D7DC
-	dc.w	@Spr_20D7DC_7-Spr_20D7DC
-	dc.w	@Spr_20D7DC_8-Spr_20D7DC
-	dc.w	@Spr_20D7DC_9-Spr_20D7DC
-	dc.w	@Spr_20D7DC_A-Spr_20D7DC
+EggmanSprites:
+	include	"src/sprites/r1/eggman.asm"
+	even
 
-@Spr_20D7DC_0:
-	dc.b	2
-	dc.b	$E8, $D, 0, 0, $E4
-	dc.b	$E8, 1, 0, 8, 4
-	dc.b	0
+BossBodySprites:
+	include	"src/sprites/r1/boss_body.asm"
+	even
 
-@Spr_20D7DC_1:
-	dc.b	3
-	dc.b	$D8, 5, 8, $32, $E4
-	dc.b	$E8, $D, 0, $A, $E4
-	dc.b	$E8, 1, 0, $12, 4
+BossThighSprites:
+	include	"src/sprites/r1/boss_thigh.asm"
+	even
 
-@Spr_20D7DC_2:
-	dc.b	2
-	dc.b	$E8, $D, 0, $14, $E4
-	dc.b	$E8, 1, 0, $1C, 4
-	dc.b	0
+BossCalfSprites:
+	include	"src/sprites/r1/boss_calf.asm"
+	even
 
-@Spr_20D7DC_3:
-	dc.b	2
-	dc.b	$E8, $D, 0, $1E, $E4
-	dc.b	$E8, 1, 0, $26, 4
-	dc.b	0
+BossFootSprites:
+	include	"src/sprites/r1/boss_foot.asm"
+	even
 
-@Spr_20D7DC_4:
-	dc.b	3
-	dc.b	$D8, 5, 8, $36, $E4
-	dc.b	$E8, $D, 0, $28, $E4
-	dc.b	$E8, 1, 0, $30, 4
+BossShoulderSprites:
+	include	"src/sprites/r1/boss_shoulder.asm"
+	even
 
-@Spr_20D7DC_5:
-	dc.b	2
-	dc.b	$E8, $D, 0, $A, $E4
-	dc.b	$E8, 1, 0, $12, 4
-	dc.b	0
+BossArmSprites:
+	include	"src/sprites/r1/boss_arm.asm"
+	even
 
-@Spr_20D7DC_6:
-	dc.b	2
-	dc.b	$E8, $D, 0, $28, $E4
-	dc.b	$E8, 1, 0, $30, 4
-	dc.b	0
+BossForearmSprites1:
+	include	"src/sprites/r1/boss_forearm_1.asm"
+	even
 
-@Spr_20D7DC_7:
-	dc.b	4
-	dc.b	$E8, $F, 0, $3A, $E8
-	dc.b	$E8, 7, 0, $4A, 8
-	dc.b	8, $E, 0, $52, $F0
-	dc.b	8, 1, 0, $6D, $E4
-	dc.b	0
+BossForearmSprites2:
+	include	"src/sprites/r1/boss_forearm_2.asm"
+	even
 
-@Spr_20D7DC_8:
-	dc.b	4
-	dc.b	$E8, $F, 0, $3A, $E8
-	dc.b	$E8, 7, 0, $4A, 8
-	dc.b	8, $E, 0, $52, $F0
-	dc.b	8, 0, 0, $6F, $E4
-	dc.b	0
-
-@Spr_20D7DC_9:
-	dc.b	5
-	dc.b	$E8, $F, 0, $3A, $E8
-	dc.b	$E8, 7, 0, $4A, 8
-	dc.b	8, $E, 0, $5E, $E8
-	dc.b	8, 2, 0, $6A, 8
-	dc.b	8, 1, 0, $6D, $E4
-
-@Spr_20D7DC_A:
-	dc.b	5
-	dc.b	$E8, $F, 0, $3A, $E8
-	dc.b	$E8, 7, 0, $4A, 8
-	dc.b	8, $E, 0, $5E, $E8
-	dc.b	8, 2, 0, $6A, 8
-	dc.b	8, 0, 0, $6F, $E4
-
-Spr_20D8AE:
-	dc.w	@Spr_20D8AE_0-*
-
-@Spr_20D8AE_0:
-	dc.b	8
-	dc.b	8, $A, $20, $69, 0
-	dc.b	$E0, 8, 0, 0, $F4
-	dc.b	$E0, $A, 0, 3, $C
-	dc.b	$F8, $F, 0, $C, $DC
-	dc.b	$F8, $E, 0, $1C, $FC
-	dc.b	$F8, 1, 0, $28, $1C
-	dc.b	$18, 8, 0, $2A, $E4
-	dc.b	$10, 9, 0, $2D, $FC
-	dc.b	0
-
-Spr_20D8DA:
-	dc.w	@Spr_20D8DA_0-*
-
-@Spr_20D8DA_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, $72, $F8
-
-Spr_20D8E2:
-	dc.w	@Spr_20D8E2_0-*
-
-@Spr_20D8E2_0:
-	dc.b	2
-	dc.b	$EC, $B, 0, $76, $F4
-	dc.b	$C, 4, 0, $82, $F4
-	dc.b	0
-
-Spr_20D8F0:
-	dc.w	@Spr_20D8F0_0-*
-
-@Spr_20D8F0_0:
-	dc.b	3
-	dc.b	$F4, $F, 0, $84, $E0
-	dc.b	$EC, $B, 0, $94, 0
-	dc.b	$C, $C, 0, $A0, 0
-
-Spr_20D902:
-	dc.w	@Spr_20D902_0-*
-
-@Spr_20D902_0:
-	dc.b	2
-	dc.b	$F4, $E, 0, $33, $E8
-	dc.b	$F4, 1, 0, $3F, 8
-	dc.b	0
-
-Spr_20D910:
-	dc.w	@Spr_20D910_0-*
-
-@Spr_20D910_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, $41, $F8
-
-Spr_20D918:
-	dc.w	@Spr_20D918_0-*
-	dc.w	@Spr_20D918_1-Spr_20D918
-	dc.w	@Spr_20D918_2-Spr_20D918
-
-@Spr_20D918_0:
-	dc.b	2
-	dc.b	$F8, $D, 0, $45, $F2
-	dc.b	$F8, 9, 0, $57, $A
-	dc.b	0
-
-@Spr_20D918_1:
-	dc.b	2
-	dc.b	$F8, 9, 0, $4D, $FA
-	dc.b	$F8, 9, 0, $57, $A
-	dc.b	0
-
-@Spr_20D918_2:
-	dc.b	2
-	dc.b	$F8, 5, 0, $53, 2
-	dc.b	$F8, 9, 0, $57, $A
-	dc.b	0
-
-Spr_20D942:
-	dc.w	@Spr_20D942_0-*
-	dc.w	@Spr_20D942_1-Spr_20D942
-	dc.w	@Spr_20D942_2-Spr_20D942
-
-@Spr_20D942_0:
-	dc.b	1
-	dc.b	$F8, $D, 0, $45, $F2
-
-@Spr_20D942_1:
-	dc.b	1
-	dc.b	$F8, 9, 0, $4D, $FA
-
-@Spr_20D942_2:
-	dc.b	1
-	dc.b	$F8, 5, 0, $53, 2
-
-Spr_20D95A:
-	dc.w	@Spr_20D95A_0-*
-
-@Spr_20D95A_0:
-	dc.b	1
-	dc.b	$F0, $B, 0, $5D, $EC
+BossBumperSprites:
+	include	"src/sprites/r1/boss_bumper.asm"
+	even
 
 ; ------------------------------------------------------------------------------

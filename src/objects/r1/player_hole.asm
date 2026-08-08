@@ -89,12 +89,7 @@ sub_208ABE:
 ; ------------------------------------------------------------------------------
 
 PlayerHoleSprites:
-	dc.w	@PlayerHoleSprite_0-*
-
-@PlayerHoleSprite_0:
-	dc.b	3
-	dc.b	$F0, $D, 0, 0, $F0
-	dc.b	0, 4, 0, 8, $F8
-	dc.b	8, $C, 0, $A, $F0
+	include	"src/sprites/r1/player_hole.asm"
+	even
 
 ; ------------------------------------------------------------------------------

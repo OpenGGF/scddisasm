@@ -38,7 +38,7 @@ YagoObject_0_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.w	#$23F0,obj.sprite_tile(a0)
-	move.l	#Spr_20E0E2,obj.sprite_data(a0)
+	move.l	#YagoSprites1,obj.sprite_data(a0)
 
 YagoObject_0_Routine2:
 	addi.l	#$10000,obj.y(a0)
@@ -229,23 +229,9 @@ YagoAnims1:
 	include	"src/anims/r4/yago_1.asm"
 	even
 
-Spr_20E0E2:
-	dc.w	@Spr_20E0E2_0-*
-	dc.w	@Spr_20E0E2_1-Spr_20E0E2
-
-@Spr_20E0E2_0:
-	dc.b	3
-	dc.b	$F4, 5, 0, 0, $E8
-	dc.b	4, 0, 0, 4, $F0
-	dc.b	$F4, $E, 0, 5, $F8
-
-@Spr_20E0E2_1:
-	dc.b	4
-	dc.b	$FC, 4, 0, $11, $E8
-	dc.b	$F4, 5, 0, 0, $E8
-	dc.b	4, 0, 0, 4, $F0
-	dc.b	$F4, $E, 0, 5, $F8
-	dc.b	0
+YagoSprites1:
+	include	"src/sprites/r4/yago_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -280,7 +266,7 @@ YagoObject_1_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.w	#$23F0,obj.sprite_tile(a0)
-	move.l	#Spr_20E35C,obj.sprite_data(a0)
+	move.l	#YagoSprites2,obj.sprite_data(a0)
 
 YagoObject_1_Routine2:
 	addi.l	#$10000,obj.y(a0)
@@ -479,22 +465,8 @@ YagoAnims2:
 	include	"src/anims/r4/yago_2.asm"
 	even
 
-Spr_20E35C:
-	dc.w	@Spr_20E35C_0-*
-	dc.w	@Spr_20E35C_1-Spr_20E35C
-
-@Spr_20E35C_0:
-	dc.b	3
-	dc.b	$F4, $D, 0, $13, $E8
-	dc.b	$F4, 5, 0, $1B, 8
-	dc.b	4, 8, 0, $1F, $F0
-
-@Spr_20E35C_1:
-	dc.b	4
-	dc.b	$FC, 4, 0, $22, $E8
-	dc.b	$F4, $D, 0, $13, $E8
-	dc.b	$F4, 5, 0, $1B, 8
-	dc.b	4, 8, 0, $1F, $F0
-	dc.b	0
+YagoSprites2:
+	include	"src/sprites/r4/yago_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------

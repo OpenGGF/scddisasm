@@ -381,7 +381,7 @@ sub_20D3B8:
 ; ------------------------------------------------------------------------------
 
 KamaSickleAnims:
-	include	"src/anims/r3/kama_kama_sickle.asm"
+	include	"src/anims/r3/kama_sickle.asm"
 	even
 
 Spr_20D3EC:

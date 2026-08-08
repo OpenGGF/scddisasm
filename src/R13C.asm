@@ -102,7 +102,6 @@ STAGE_GOOD_FUTURE	equ 1					; Good future
 	include "src/objects/title_card.asm"
 	include "src/objects/results.asm"
 	include "src/r1/title_card_data.asm"
-	include "src/sprites/r1/title_card.asm"
 	include "src/common/time_check.asm"
 	include "src/r1/stage_gfx_animate_3c.asm"
 	include "src/r1/gfx_lists_3c.asm"

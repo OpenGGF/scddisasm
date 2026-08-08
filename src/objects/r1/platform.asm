@@ -536,85 +536,11 @@ loc_20CCD0:
 ; ------------------------------------------------------------------------------
 
 PlatformSprites:
-	dc.w	@PlatformSprites_0-*
-	dc.w	@PlatformSprites_1-PlatformSprites
-	dc.w	@PlatformSprites_2-PlatformSprites
-
-@PlatformSprites_0:
-	dc.b	4
-	dc.b	$F0, 5, 0, 1, $F0
-	dc.b	$F0, 5, 8, 1, 0
-	dc.b	0, 5, 0, 5, $F0
-	dc.b	0, 5, 8, 5, 0
-	dc.b	0
-
-@PlatformSprites_1:
-	dc.b	8
-	dc.b	$F0, 5, 0, 1, $E0
-	dc.b	$F0, 5, 0, 1, $F0
-	dc.b	$F0, 5, 0, 1, 0
-	dc.b	$F0, 5, 0, 1, $10
-	dc.b	0, 5, 0, 5, $E0
-	dc.b	0, 5, 0, 9, $F0
-	dc.b	0, 5, 0, 9, 0
-	dc.b	0, 5, 8, 5, $10
-	dc.b	0
-
-@PlatformSprites_2:
-	dc.b	$C
-	dc.b	$F0, 5, 0, 1, $D0
-	dc.b	$F0, 5, 0, 1, $E0
-	dc.b	$F0, 5, 0, 1, $F0
-	dc.b	$F0, 5, 0, 1, 0
-	dc.b	$F0, 5, 0, 1, $10
-	dc.b	$F0, 5, 0, 1, $20
-	dc.b	0, 5, 0, 5, $D0
-	dc.b	0, 5, 0, 9, $E0
-	dc.b	0, 5, 0, 9, $F0
-	dc.b	0, 5, 0, 9, 0
-	dc.b	0, 5, 0, 9, $10
-	dc.b	0, 5, 8, 5, $20
-	dc.b	0
+	include	"src/sprites/r1/platform.asm"
+	even
 
 UnusedPlatformSprites:
-	dc.w	@UnusedPlatformSprites_0-*
-	dc.w	@UnusedPlatformSprites_1-UnusedPlatformSprites
-	dc.w	@UnusedPlatformSprites_2-UnusedPlatformSprites
-
-@UnusedPlatformSprites_0:
-	dc.b	4
-	dc.b	$F0, 5, 0, $31, $F0
-	dc.b	$F0, 5, 8, $31, 0
-	dc.b	0, 5, 0, $35, $F0
-	dc.b	0, 5, 8, $35, 0
-	dc.b	0
-
-@UnusedPlatformSprites_1:
-	dc.b	8
-	dc.b	$F0, 5, 0, $31, $E0
-	dc.b	$F0, 5, 8, $31, $F0
-	dc.b	0, 5, 0, $35, $E0
-	dc.b	0, 5, 8, $35, $F0
-	dc.b	$F0, 5, 0, $31, 0
-	dc.b	$F0, 5, 8, $31, $10
-	dc.b	0, 5, 0, $35, 0
-	dc.b	0, 5, 8, $35, $10
-	dc.b	0
-
-@UnusedPlatformSprites_2:
-	dc.b	$C
-	dc.b	$F0, 5, 0, $31, $D0
-	dc.b	$F0, 5, 8, $31, $E0
-	dc.b	0, 5, 0, $35, $D0
-	dc.b	0, 5, 8, $35, $E0
-	dc.b	$F0, 5, 0, $31, $F0
-	dc.b	$F0, 5, 8, $31, 0
-	dc.b	0, 5, 0, $35, $F0
-	dc.b	0, 5, 8, $35, 0
-	dc.b	$F0, 5, 0, $31, $10
-	dc.b	$F0, 5, 8, $31, $20
-	dc.b	0, 5, 0, $35, $10
-	dc.b	0, 5, 8, $35, $20
-	dc.b	0
+	include	"src/sprites/r1/unused_platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------

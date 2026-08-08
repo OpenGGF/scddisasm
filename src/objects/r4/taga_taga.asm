@@ -3,7 +3,7 @@
 TagaTagaObject:
 	tst.b	obj.subtype(a0)
 	bpl.s	loc_20DA84
-	bra.w	loc_20DE12
+	bra.w	TagaMissileObject
 
 ; ------------------------------------------------------------------------------
 
@@ -37,12 +37,12 @@ TagaTagaObject_0_Routine0:
 	move.b	#8,obj.height(a0)
 	move.b	#$2D,obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_20DDDE,obj.sprite_data(a0)
+	move.l	#TagaTagaSprites1,obj.sprite_data(a0)
 	move.l	#-$10000,obj.var_2c(a0)
 	move.w	#$C8,obj.var_36(a0)
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20DB16
-	move.l	#Spr_20DDF8,obj.sprite_data(a0)
+	move.l	#TagaTagaSprites2,obj.sprite_data(a0)
 	move.l	#-$8000,obj.var_2c(a0)
 	move.w	#$190,obj.var_36(a0)
 	rts
@@ -265,37 +265,17 @@ TagaTagaAnims:
 	include	"src/anims/r4/taga_taga.asm"
 	even
 
-Spr_20DDDE:
-	dc.w	@Spr_20DDDE_0-*
-	dc.w	@Spr_20DDDE_1-Spr_20DDDE
+TagaTagaSprites1:
+	include	"src/sprites/r4/taga_taga_1.asm"
+	even
 
-@Spr_20DDDE_0:
-	dc.b	2
-	dc.b	$F4, $E, 0, 0, $EC
-	dc.b	$F4, 1, 0, $C, $C
-
-@Spr_20DDDE_1:
-	dc.b	2
-	dc.b	$F4, $A, 0, $E, $EC
-	dc.b	$F4, 5, 0, $17, 4
-
-Spr_20DDF8:
-	dc.w	@Spr_20DDF8_0-*
-	dc.w	@Spr_20DDF8_1-Spr_20DDF8
-
-@Spr_20DDF8_0:
-	dc.b	2
-	dc.b	$F4, $E, 0, 0, $EC
-	dc.b	$F4, 1, 0, $C, $C
-
-@Spr_20DDF8_1:
-	dc.b	2
-	dc.b	$F4, $A, 0, $E, $EC
-	dc.b	$F4, 5, 0, $17, 4
+TagaTagaSprites2:
+	include	"src/sprites/r4/taga_taga_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
-loc_20DE12:
+TagaMissileObject:
 	movea.w	obj.var_3e(a0),a1
 	cmpi.b	#$2D,obj.id(a1)
 	bne.w	loc_20DE8A
@@ -310,22 +290,22 @@ loc_20DE12:
 ; ------------------------------------------------------------------------------
 
 off_20DE3A:
-	dc.w	TagaTagaObject_1_Routine0-*
-	dc.w	TagaTagaObject_1_Routine2-off_20DE3A
-	dc.w	TagaTagaObject_1_Routine4-off_20DE3A
+	dc.w	TagaMissileObject_0_Routine0-*
+	dc.w	TagaMissileObject_0_Routine2-off_20DE3A
+	dc.w	TagaMissileObject_0_Routine4-off_20DE3A
 
 ; ------------------------------------------------------------------------------
 
-TagaTagaObject_1_Routine0:
+TagaMissileObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_20DE90,obj.sprite_data(a0)
+	move.l	#TagaMissileSprites,obj.sprite_data(a0)
 
-TagaTagaObject_1_Routine2:
+TagaMissileObject_0_Routine2:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-TagaTagaObject_1_Routine4:
+TagaMissileObject_0_Routine4:
 	move.l	obj.var_2a(a0),d0
 	add.l	d0,obj.x(a0)
 	move.l	obj.var_2e(a0),d0
@@ -348,11 +328,8 @@ loc_20DE8A:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20DE90:
-	dc.w	@Spr_20DE90_0-*
-
-@Spr_20DE90_0:
-	dc.b	1
-	dc.b	0, 0, 0, $1B, 0
+TagaMissileSprites:
+	include	"src/sprites/r4/taga_missile.asm"
+	even
 
 ; ------------------------------------------------------------------------------

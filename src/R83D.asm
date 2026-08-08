@@ -94,7 +94,6 @@ STAGE_GOOD_FUTURE	equ 0					; Good future
 	include "src/objects/title_card.asm"
 	include "src/objects/results.asm"
 	include "src/r8/title_card_data.asm"
-	include "src/sprites/title_card_r8.asm"
 	include "src/objects/r8/boss.asm"
 	include "src/objects/r8/amy_rose.asm"
 	include "src/objects/r8/crusher.asm"

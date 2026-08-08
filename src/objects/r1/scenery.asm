@@ -58,30 +58,7 @@ word_208924:
 	dc.w	$38F
 
 ScenerySprites:
-	dc.w	@ScenerySprite_0-*
-	dc.w	@ScenerySprite_1-ScenerySprites
-	dc.w	@ScenerySprite_2-ScenerySprites
-
-@ScenerySprite_0:
-	dc.b	2
-	dc.b	$F4, 4, 0, 0, $F0
-	dc.b	$FC, $D, 0, 2, $F0
-	dc.b	0
-
-@ScenerySprite_1:
-	dc.b	4
-	dc.b	$EC, 4, 8, 0, 0
-	dc.b	$F4, 9, 0, $A, $F0
-	dc.b	$F4, 0, 0, $10, 8
-	dc.b	4, $D, 0, 2, $F0
-	dc.b	0
-
-@ScenerySprite_2:
-	dc.b	4
-	dc.b	$F0, 0, 0, 0, 4
-	dc.b	$F8, 0, 8, 0, $F4
-	dc.b	0, 0, 0, 0, 4
-	dc.b	$F0, 2, 0, 1, $FC
-	dc.b	0
+	include	"src/sprites/r1/scenery.asm"
+	even
 
 ; ------------------------------------------------------------------------------

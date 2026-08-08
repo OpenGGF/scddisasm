@@ -92,7 +92,6 @@ STAGE_GOOD_FUTURE	equ 0					; Good future
 	include "src/objects/title_card.asm"
 	include "src/objects/results.asm"
 	include "src/r6/title_card_data.asm"
-	include "src/sprites/title_card_r6.asm"
 	include "src/r6/section_gfx_1a.asm"
 	include "src/objects/r6/piston.asm"
 	include "src/objects/r6/electric_beams.asm"

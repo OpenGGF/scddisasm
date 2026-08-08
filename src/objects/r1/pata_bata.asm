@@ -22,7 +22,7 @@ PataBataObject:
 	move.w	#-$200,d1
 	moveq	#3,d2
 	moveq	#0,d3
-	lea	PataBataSprites(pc),a1
+	lea	PataBataSprites1(pc),a1
 	bra.s	loc_20B4A4
 
 ; ------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ loc_20B492:
 	move.w	#-$100,d1
 	moveq	#4,d2
 	moveq	#1,d3
-	lea	PataBataDecaySprites(pc),a1
+	lea	PataBataSprites2(pc),a1
 
 loc_20B4A4:
 	move.l	d0,obj.var_30(a0)
@@ -81,44 +81,12 @@ PataBataAnims:
 	include	"src/anims/r1/pata_bata.asm"
 	even
 
-PataBataSprites:
-	dc.w	@PataBataSprites_0-*
-	dc.w	@PataBataSprites_1-PataBataSprites
-	dc.w	@PataBataSprites_2-PataBataSprites
+PataBataSprites1:
+	include	"src/sprites/r1/pata_bata_1.asm"
+	even
 
-@PataBataSprites_0:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 0, 8, 0
-
-@PataBataSprites_1:
-	dc.b	2
-	dc.b	$F8, $D, 0, $10, $F0
-	dc.b	8, 0, 0, $18, 0
-
-@PataBataSprites_2:
-	dc.b	1
-	dc.b	$F0, $F, 0, $19, $F0
-
-PataBataDecaySprites:
-	dc.w	@PataBataDecaySprites_0-*
-	dc.w	@PataBataDecaySprites_1-PataBataDecaySprites
-	dc.w	@PataBataDecaySprites_2-PataBataDecaySprites
-
-@PataBataDecaySprites_0:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 0, $29, 0
-
-@PataBataDecaySprites_1:
-	dc.b	2
-	dc.b	$F8, $D, 0, $10, $F0
-	dc.b	8, 0, 0, $18, 0
-
-@PataBataDecaySprites_2:
-	dc.b	2
-	dc.b	0, 0, 0, $31, 0
-	dc.b	$F0, $F, 0, $19, $F0
-	dc.b	0
+PataBataSprites2:
+	include	"src/sprites/r1/pata_bata_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------

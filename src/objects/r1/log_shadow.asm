@@ -20,7 +20,7 @@ LogShadowObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#6,obj.sprite_layer(a0)
-	move.l	#LogShadowSprites,obj.sprite_data(a0)
+	move.l	#LogInsideSprites,obj.sprite_data(a0)
 	move.b	obj.subtype(a0),obj.sprite_frame(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
@@ -59,16 +59,8 @@ word_2089EC:
 	dc.w	$428
 	dc.w	$37F
 
-LogShadowSprites:
-	dc.w	@LogShadowSprite_0-*
-	dc.w	@LogShadowSprite_1-LogShadowSprites
-
-@LogShadowSprite_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@LogShadowSprite_1:
-	dc.b	1
-	dc.b	$F8, $D, 0, 0, $F0
+LogInsideSprites:
+	include	"src/sprites/r1/log_inside.asm"
+	even
 
 ; ------------------------------------------------------------------------------

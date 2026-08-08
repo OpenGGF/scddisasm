@@ -1062,12 +1062,11 @@
 .GfxScript25:
 	dc.w	1
 	dc.w	$F80E
-	dc.b	0
-	dc.b	2
-	dc.b	$B8
-	dc.b	$1E
-	dc.b	$58
-	dc.b	$2A
+
+	; Unused
+	dc.w	2
+	dc.w	$B81E
+	dc.w	$582A
 
 .GfxScript1a:
 	dc.w	3

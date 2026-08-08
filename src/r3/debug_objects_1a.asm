@@ -2,17 +2,17 @@
 
 DebugObjects:
 	debugStart
-	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 1, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 1, 0, 0
 	debugObject $35, 3, PowerupSprites, $544, 0, 0, 0, 1
 	debugObject $35, 3, PowerupSprites, $544, 1, 0, 0, 2
 	debugObject $31, 1, MetalSonicSprites, $3FE, 0, 0, 0, 6
 	debugEnd
 
 	debugObject $31, 1, MetalSonicSprites, $3FE, 0, 0, 0, 7
-	debugObject $37, 1, RobotGeneratorSprites, $33E, 0, 0, 0, 0
+	debugObject $37, 1, RobotTransportSprites, $33E, 0, 0, 0, 0
 	debugObject $39, 3, Spr_20E932, $3DA, 0, 0, 0, 0
 	debugObject $39, 3, Spr_20E946, $3DA, 1, 0, 0, 3
 	debugObject $2D, 1, off_20B500, $2421, 0, 0, 0, 0
@@ -35,7 +35,7 @@ DebugObjects:
 	debugObject $1D, 1, Spr_20B466, $4CE, 0, 0, 0, 0
 	debugObject $1E, 1, Spr_20B4A6, $49D, 0, 0, 0, 0
 	debugObject $1E, 1, Spr_20B4A6, $49D, 0, 1, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 0, 0, 0, 0
 
 ; ------------------------------------------------------------------------------

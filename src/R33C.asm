@@ -111,7 +111,6 @@ STAGE_GOOD_FUTURE	equ 1					; Good future
 	include "src/objects/title_card.asm"
 	include "src/objects/results.asm"
 	include "src/r3/title_card_data.asm"
-	include "src/sprites/title_card_r3.asm"
 	include "src/objects/r3/boss.asm"
 	include "src/objects/r3/animal.asm"
 	include "src/objects/r3/robot_generator.asm"

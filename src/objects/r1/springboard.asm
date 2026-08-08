@@ -379,47 +379,7 @@ SpringboardAnims:
 	even
 
 SpringboardSprites:
-	dc.w	@SpringboardSprites_0-*
-	dc.w	@SpringboardSprites_1-SpringboardSprites
-	dc.w	@SpringboardSprites_2-SpringboardSprites
-	dc.w	@SpringboardSprites_3-SpringboardSprites
-	dc.w	@SpringboardSprites_4-SpringboardSprites
-	dc.w	@SpringboardSprites_5-SpringboardSprites
-
-@SpringboardSprites_0:
-	dc.b	2
-	dc.b	$FC, 1, 0, 0, $F8
-	dc.b	$FC, 8, 0, 2, 0
-	dc.b	0
-
-@SpringboardSprites_1:
-	dc.b	2
-	dc.b	$FC, 5, 0, 5, $F8
-	dc.b	0, 5, 0, 9, 8
-	dc.b	0
-
-@SpringboardSprites_2:
-	dc.b	2
-	dc.b	$FC, 5, 0, $D, $F8
-	dc.b	$F0, 5, 0, $11, 8
-	dc.b	0
-
-@SpringboardSprites_3:
-	dc.b	2
-	dc.b	$FC, 1, 8, 0, 0
-	dc.b	$FC, 8, 8, 2, $E8
-	dc.b	0
-
-@SpringboardSprites_4:
-	dc.b	2
-	dc.b	$FC, 5, 8, 5, $F8
-	dc.b	0, 5, 8, 9, $E8
-	dc.b	0
-
-@SpringboardSprites_5:
-	dc.b	2
-	dc.b	$FC, 5, 8, $D, $F8
-	dc.b	$F0, 5, 8, $11, $E8
-	dc.b	0
+	include	"src/sprites/r1/springboard.asm"
+	even
 
 ; ------------------------------------------------------------------------------

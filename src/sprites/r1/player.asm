@@ -204,7 +204,7 @@
 
 .Sprite0:
 	dc.b	0
-	dc.b	0
+	even
 
 .Sprite1:
 	dc.b	4
@@ -212,49 +212,55 @@
 	dc.b	$F4, $D, 0, 3, $F0
 	dc.b	4, 8, 0, $B, $F0
 	dc.b	$C, 8, 0, $E, $F8
-	dc.b	0
+	even
 
 .Sprite2:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F0
 	dc.b	$FC, 9, 0, 6, $F0
 	dc.b	$C, 8, 0, $C, $F8
+	even
 
 .Sprite3:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F0
 	dc.b	$FC, 9, 0, 6, $F0
 	dc.b	$C, 8, 0, $C, $F8
+	even
 
 .Sprite4:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F0
 	dc.b	$FC, 9, 0, 6, $F0
 	dc.b	$C, 8, 0, $C, $F8
+	even
 
 .Sprite5:
 	dc.b	3
 	dc.b	$EC, $A, 0, 0, $F0
 	dc.b	4, 8, 0, 9, $F0
 	dc.b	$C, 8, 0, $C, $F8
+	even
 
 .Sprite6:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F0
 	dc.b	$FC, $D, 0, 6, $F0
 	dc.b	$C, 8, 0, $E, $F8
+	even
 
 .Sprite8:
 	dc.b	2
 	dc.b	$EC, $F, 0, 0, $F0
 	dc.b	$C, 4, 0, $10, 0
-	dc.b	0
+	even
 
 .Sprite9:
 	dc.b	3
 	dc.b	$EC, $F, 0, 0, $EC
 	dc.b	$FC, 1, 0, $10, $C
 	dc.b	$C, 4, 0, $12, $FC
+	even
 
 .Spritea:
 	dc.b	4
@@ -262,7 +268,7 @@
 	dc.b	$F4, $D, 0, 3, $F0
 	dc.b	4, 8, 0, $B, $F0
 	dc.b	$C, 8, 0, $E, $F8
-	dc.b	0
+	even
 
 .Sprite33:
 	dc.b	5
@@ -271,18 +277,20 @@
 	dc.b	$FC, 6, 0, 7, $EC
 	dc.b	$FC, 9, 0, $D, $FC
 	dc.b	$C, 4, 0, $13, 4
+	even
 
 .Sprite34:
 	dc.b	3
 	dc.b	$EC, 8, 0, 0, $F4
 	dc.b	$F4, $C, 0, 3, $EC
 	dc.b	$FC, $E, 0, 7, $F4
+	even
 
 .Sprite35:
 	dc.b	2
 	dc.b	$EC, 8, 0, 0, $F4
 	dc.b	$F4, $B, 0, 3, $F4
-	dc.b	0
+	even
 
 .Sprite36:
 	dc.b	5
@@ -291,12 +299,14 @@
 	dc.b	$FC, 6, 0, 6, $EC
 	dc.b	$FC, 9, 0, $C, $FC
 	dc.b	$C, 4, 0, $12, 4
+	even
 
 .Sprite37:
 	dc.b	3
 	dc.b	$EC, 8, 0, 0, $F4
 	dc.b	$F4, $B, 0, 3, $F4
 	dc.b	$FC, 2, 0, $F, $EC
+	even
 
 .Sprite38:
 	dc.b	4
@@ -304,19 +314,20 @@
 	dc.b	$F4, $C, 0, 3, $EC
 	dc.b	$FC, $C, 0, 7, $F4
 	dc.b	4, 9, 0, $B, $F4
-	dc.b	0
+	even
 
 .Sprite32:
 	dc.b	3
 	dc.b	$E8, 5, 0, 0, $F8
 	dc.b	$F8, $D, 0, 4, $F0
 	dc.b	8, 5, 0, $C, $F8
+	even
 
 .Sprite90:
 	dc.b	2
 	dc.b	$E8, $B, 0, 0, $F0
 	dc.b	8, 5, 0, $C, $F8
-	dc.b	0
+	even
 
 .Sprite91:
 	dc.b	4
@@ -324,7 +335,7 @@
 	dc.b	$F0, 9, 0, 2, $F0
 	dc.b	0, $D, 0, 8, $F0
 	dc.b	$10, 8, 0, $10, $F0
-	dc.b	0
+	even
 
 .Sprite92:
 	dc.b	4
@@ -332,13 +343,13 @@
 	dc.b	$F0, 9, 8, 2, $F8
 	dc.b	0, $D, 8, 8, $F0
 	dc.b	$10, 8, 8, $10, $F8
-	dc.b	0
+	even
 
 .Sprite93:
 	dc.b	2
 	dc.b	$E8, $B, 8, 0, $F8
 	dc.b	8, 5, 8, $C, $F8
-	dc.b	0
+	even
 
 .Sprite39:
 	dc.b	5
@@ -347,6 +358,7 @@
 	dc.b	$F8, 9, 0, 8, $F8
 	dc.b	8, 9, 0, $E, $F0
 	dc.b	$18, 0, 0, $14, $F8
+	even
 
 .Sprite3a:
 	dc.b	6
@@ -356,7 +368,7 @@
 	dc.b	$F8, 0, 0, $C, $10
 	dc.b	0, 5, 0, $D, 8
 	dc.b	8, 9, 0, $11, $F0
-	dc.b	0
+	even
 
 .Sprite3b:
 	dc.b	6
@@ -366,7 +378,7 @@
 	dc.b	0, 0, 0, $E, $F0
 	dc.b	8, 0, 0, $F, $F0
 	dc.b	0, 2, 0, $10, 8
-	dc.b	0
+	even
 
 .Sprite3c:
 	dc.b	6
@@ -376,7 +388,7 @@
 	dc.b	0, 0, 0, $F, $F0
 	dc.b	8, 1, 0, $10, $F0
 	dc.b	$10, 5, 0, $12, $F8
-	dc.b	0
+	even
 
 .Sprite3d:
 	dc.b	6
@@ -386,7 +398,7 @@
 	dc.b	0, 0, 0, $E, $F0
 	dc.b	8, 0, 0, $F, $F0
 	dc.b	0, 2, 0, $10, 8
-	dc.b	0
+	even
 
 .Sprite3e:
 	dc.b	5
@@ -395,6 +407,7 @@
 	dc.b	$F8, 7, 0, 8, $F8
 	dc.b	8, 0, 0, $10, $F0
 	dc.b	0, 2, 0, $11, 8
+	even
 
 .Sprite3f:
 	dc.b	5
@@ -403,18 +416,20 @@
 	dc.b	$F4, 2, 0, 8, $EC
 	dc.b	$F4, 3, 0, $B, $F4
 	dc.b	4, 9, 0, $F, $FC
+	even
 
 .Sprite40:
 	dc.b	3
 	dc.b	$EC, $B, 0, 0, $FC
 	dc.b	$F4, 2, 0, $C, $EC
 	dc.b	$F4, 3, 0, $F, $F4
+	even
 
 .Sprite41:
 	dc.b	2
 	dc.b	$F4, 2, 0, 0, $EC
 	dc.b	$F4, $E, 0, 3, $F4
-	dc.b	0
+	even
 
 .Sprite42:
 	dc.b	5
@@ -423,12 +438,14 @@
 	dc.b	$F4, 2, 0, 8, $EC
 	dc.b	$F4, 2, 0, $B, $F4
 	dc.b	4, 9, 0, $E, $FC
+	even
 
 .Sprite43:
 	dc.b	3
 	dc.b	$F4, 2, 0, 0, $EC
 	dc.b	$F4, $E, 0, 3, $F4
 	dc.b	$C, 8, 0, $F, $FC
+	even
 
 .Sprite44:
 	dc.b	4
@@ -436,7 +453,7 @@
 	dc.b	$F4, 3, 0, 3, $F4
 	dc.b	$EC, 3, 0, 7, $FC
 	dc.b	$F4, 6, 0, $B, 4
-	dc.b	0
+	even
 
 .Sprite45:
 	dc.b	5
@@ -445,6 +462,7 @@
 	dc.b	0, 5, 0, $A, $F0
 	dc.b	$F0, 6, 0, $E, 0
 	dc.b	$F8, 0, 0, $14, $10
+	even
 
 .Sprite46:
 	dc.b	6
@@ -454,7 +472,7 @@
 	dc.b	$F0, 5, 0, 9, $F0
 	dc.b	0, 5, 0, $D, $F0
 	dc.b	$F0, 6, 0, $11, 0
-	dc.b	0
+	even
 
 .Sprite47:
 	dc.b	6
@@ -464,7 +482,7 @@
 	dc.b	0, 1, 0, $F, $F0
 	dc.b	0, 0, 0, $11, $F8
 	dc.b	0, 0, 0, $12, 0
-	dc.b	0
+	even
 
 .Sprite48:
 	dc.b	6
@@ -474,7 +492,7 @@
 	dc.b	0, 1, 0, $11, $F0
 	dc.b	0, 0, 0, $13, $F8
 	dc.b	0, 4, 0, $14, 0
-	dc.b	0
+	even
 
 .Sprite49:
 	dc.b	6
@@ -484,7 +502,7 @@
 	dc.b	0, 1, 0, $F, $F0
 	dc.b	0, 0, 0, $11, $F8
 	dc.b	0, 0, 0, $12, 0
-	dc.b	0
+	even
 
 .Sprite4a:
 	dc.b	5
@@ -493,30 +511,31 @@
 	dc.b	$F0, $D, 0, 7, $F0
 	dc.b	0, 5, 0, $F, $F0
 	dc.b	0, 0, 0, $13, 0
+	even
 
 .Sprite4b:
 	dc.b	2
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, $E, 0, 6, $EC
-	dc.b	0
+	even
 
 .Sprite4c:
 	dc.b	2
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, $E, 0, 6, $EC
-	dc.b	0
+	even
 
 .Sprite4d:
 	dc.b	2
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, $E, 0, 6, $EC
-	dc.b	0
+	even
 
 .Sprite4e:
 	dc.b	2
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, $E, 0, 6, $EC
-	dc.b	0
+	even
 
 .Sprite4f:
 	dc.b	5
@@ -525,6 +544,7 @@
 	dc.b	$F4, 0, 0, 6, 4
 	dc.b	$FC, 0, 0, 7, $EC
 	dc.b	$FC, $E, 0, 8, $F4
+	even
 
 .Sprite50:
 	dc.b	4
@@ -532,7 +552,7 @@
 	dc.b	$F4, 8, 0, 4, $EC
 	dc.b	$F4, 0, 0, 7, 4
 	dc.b	$FC, $E, 0, 8, $F4
-	dc.b	0
+	even
 
 .Sprite51:
 	dc.b	6
@@ -542,7 +562,7 @@
 	dc.b	$FC, 0, 0, 7, $EC
 	dc.b	$FC, $D, 0, 8, $F4
 	dc.b	$C, 8, 0, $10, $FC
-	dc.b	0
+	even
 
 .Sprite52:
 	dc.b	4
@@ -550,31 +570,31 @@
 	dc.b	$F4, 8, 0, 4, $EC
 	dc.b	$F4, 0, 0, 7, 4
 	dc.b	$FC, $E, 0, 8, $F4
-	dc.b	0
+	even
 
 .Sprite53:
 	dc.b	2
 	dc.b	$F4, 6, 0, 0, $EC
 	dc.b	$F4, $B, 0, 6, $FC
-	dc.b	0
+	even
 
 .Sprite54:
 	dc.b	2
 	dc.b	$F4, 6, 0, 0, $EC
 	dc.b	$F4, $B, 0, 6, $FC
-	dc.b	0
+	even
 
 .Sprite55:
 	dc.b	2
 	dc.b	$F4, 6, 0, 0, $EC
 	dc.b	$F4, $B, 0, 6, $FC
-	dc.b	0
+	even
 
 .Sprite56:
 	dc.b	2
 	dc.b	$F4, 6, 0, 0, $EC
 	dc.b	$F4, $B, 0, 6, $FC
-	dc.b	0
+	even
 
 .Sprite57:
 	dc.b	5
@@ -583,6 +603,7 @@
 	dc.b	$FC, 2, 0, 4, $F4
 	dc.b	$EC, $B, 0, 7, $FC
 	dc.b	$C, 0, 0, $13, $FC
+	even
 
 .Sprite58:
 	dc.b	4
@@ -590,7 +611,7 @@
 	dc.b	$F4, 0, 0, 4, $F4
 	dc.b	$FC, 2, 0, 5, $F4
 	dc.b	$EC, $B, 0, 8, $FC
-	dc.b	0
+	even
 
 .Sprite59:
 	dc.b	6
@@ -600,7 +621,7 @@
 	dc.b	$EC, 7, 0, 7, $FC
 	dc.b	$C, 0, 0, $F, $FC
 	dc.b	$EC, 2, 0, $10, $C
-	dc.b	0
+	even
 
 .Sprite5a:
 	dc.b	4
@@ -608,39 +629,46 @@
 	dc.b	$F4, 0, 0, 4, $F4
 	dc.b	$FC, 2, 0, 5, $F4
 	dc.b	$EC, $B, 0, 8, $FC
-	dc.b	0
+	even
 
 .Sprite2d:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite2e:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite2f:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite30:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite31:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite5b:
 	dc.b	3
 	dc.b	$EC, 9, 8, 0, $F4
 	dc.b	$FC, 6, 8, 6, 4
 	dc.b	$FC, 6, 8, $C, $F4
+	even
 
 .Sprite5c:
 	dc.b	3
 	dc.b	$EC, 9, 8, 0, $F4
 	dc.b	$FC, $A, 8, 6, $F4
 	dc.b	4, 1, 8, $F, $C
+	even
 
 .Sprite7f:
 	dc.b	4
@@ -648,7 +676,7 @@
 	dc.b	$FC, $D, 8, 6, $F4
 	dc.b	$C, 4, 8, $E, 4
 	dc.b	4, 0, 8, $10, $F4
-	dc.b	0
+	even
 
 .Sprite80:
 	dc.b	4
@@ -656,13 +684,14 @@
 	dc.b	$F4, $E, 0, 3, $EC
 	dc.b	$FC, 1, 0, $F, $C
 	dc.b	$C, 8, 0, $11, $EC
-	dc.b	0
+	even
 
 .Sprite5d:
 	dc.b	3
 	dc.b	$F0, 2, 0, 0, $EC
 	dc.b	$F0, $B, 0, 3, $F4
 	dc.b	$F8, 2, 0, $F, $C
+	even
 
 .Sprite60:
 	dc.b	4
@@ -670,31 +699,35 @@
 	dc.b	4, 0, 0, 2, $EC
 	dc.b	$FC, $A, 0, 3, $F4
 	dc.b	$FC, 1, 0, $C, $C
-	dc.b	0
+	even
 
 .Sprite64:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, $A, 0, 6, $F4
 	dc.b	4, 1, 0, $F, $EC
+	even
 
 .Sprite65:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, 9, 0, 6, $F4
 	dc.b	$C, 4, 0, $C, $F4
+	even
 
 .Sprite66:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, $A, 0, 6, $F4
 	dc.b	4, 1, 0, $F, $EC
+	even
 
 .Sprite67:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F4
 	dc.b	$FC, 9, 0, 6, $F4
 	dc.b	$C, 4, 0, $C, $F4
+	even
 
 .Sprite6a:
 	dc.b	6
@@ -704,7 +737,7 @@
 	dc.b	0, 9, 0, $D, $F4
 	dc.b	8, 0, 0, $13, $C
 	dc.b	$10, 0, 0, $14, $F4
-	dc.b	0
+	even
 
 .Sprite6d:
 	dc.b	4
@@ -712,31 +745,34 @@
 	dc.b	$F4, $E, 8, 3, $EC
 	dc.b	$FC, 0, 8, $F, $E4
 	dc.b	$C, $C, 8, $10, $E4
-	dc.b	0
+	even
 
 .Sprite6e:
 	dc.b	3
 	dc.b	$EC, 8, 8, 0, $EC
 	dc.b	$F4, 2, 8, 3, 4
 	dc.b	$F4, $F, 8, 6, $E4
+	even
 
 .Sprite83:
 	dc.b	3
 	dc.b	$EC, $E, 8, 0, $EC
 	dc.b	4, $C, 8, $C, $E4
 	dc.b	$C, $C, 8, $10, $EC
+	even
 
 .Sprite84:
 	dc.b	2
 	dc.b	$EC, $E, 8, 0, $EC
 	dc.b	4, $D, 8, $C, $E4
-	dc.b	0
+	even
 
 .Sprite85:
 	dc.b	3
 	dc.b	$EC, $E, 8, 0, $EC
 	dc.b	$F4, 2, 8, $C, $C
 	dc.b	4, 9, 8, $F, $F4
+	even
 
 .Sprite86:
 	dc.b	4
@@ -744,7 +780,7 @@
 	dc.b	$FC, 1, 8, $C, $C
 	dc.b	4, 5, 8, $E, $FC
 	dc.b	4, 0, 8, $12, $F4
-	dc.b	0
+	even
 
 .Sprite87:
 	dc.b	4
@@ -752,7 +788,7 @@
 	dc.b	$FC, 1, 8, $C, $C
 	dc.b	4, 5, 8, $E, $FC
 	dc.b	4, 0, 8, $12, $F4
-	dc.b	0
+	even
 
 .Sprite88:
 	dc.b	4
@@ -760,25 +796,27 @@
 	dc.b	$F4, 2, 8, $C, $C
 	dc.b	4, 8, 8, $F, $EC
 	dc.b	$C, 4, 8, $12, $FC
-	dc.b	0
+	even
 
 .Sprite11:
 	dc.b	2
 	dc.b	$EC, $B, 0, 0, $F4
 	dc.b	$C, $C, 0, $C, $F4
-	dc.b	0
+	even
 
 .Sprite12:
 	dc.b	3
 	dc.b	$EC, $A, 0, 0, $F4
 	dc.b	4, 4, 0, 9, $FC
 	dc.b	$C, $C, 0, $B, $F4
+	even
 
 .Sprite13:
 	dc.b	3
 	dc.b	$EC, $A, 0, 0, $F4
 	dc.b	4, 4, 0, 9, $FC
 	dc.b	$C, $C, 0, $B, $F4
+	even
 
 .Sprite14:
 	dc.b	4
@@ -786,31 +824,34 @@
 	dc.b	$EC, $D, 0, 1, $F4
 	dc.b	$FC, $A, 0, 9, $F4
 	dc.b	$C, 0, 0, $12, $C
-	dc.b	0
+	even
 
 .Sprite15:
 	dc.b	2
 	dc.b	$EC, 4, 0, 0, $FC
 	dc.b	$F4, $F, 0, 2, $F4
-	dc.b	0
+	even
 
 .Sprite16:
 	dc.b	3
 	dc.b	$EC, 4, 0, 0, $FC
 	dc.b	$FC, 1, 0, 2, $EC
 	dc.b	$F4, $F, 0, 4, $F4
+	even
 
 .Sprite17:
 	dc.b	3
 	dc.b	$E8, $A, 0, 0, $FC
 	dc.b	$F0, 5, 0, 9, $EC
 	dc.b	0, 6, 0, $D, $F4
+	even
 
 .Spritea4:
 	dc.b	3
 	dc.b	$E8, $E, 0, 0, $F4
 	dc.b	$F0, 0, 0, $C, $EC
 	dc.b	0, 6, 0, $D, $F4
+	even
 
 .Spritea5:
 	dc.b	4
@@ -818,31 +859,31 @@
 	dc.b	$F0, 0, 0, 9, $EC
 	dc.b	$F0, 1, 0, $A, $F4
 	dc.b	0, 6, 0, $C, $F4
-	dc.b	0
+	even
 
 .Sprite94:
 	dc.b	2
 	dc.b	$F8, 2, 0, 0, $EC
 	dc.b	$F0, $F, 0, 3, $F4
-	dc.b	0
+	even
 
 .Sprite95:
 	dc.b	2
 	dc.b	$F8, 2, 0, 0, $EC
 	dc.b	$F0, $F, 0, 3, $F4
-	dc.b	0
+	even
 
 .Sprite96:
 	dc.b	2
 	dc.b	$F8, 2, 0, 0, $EC
 	dc.b	$F0, $F, 0, 3, $F4
-	dc.b	0
+	even
 
 .Sprite97:
 	dc.b	2
 	dc.b	$F8, 1, 0, 0, $EC
 	dc.b	$F0, $F, 0, 2, $F4
-	dc.b	0
+	even
 
 .Sprite98:
 	dc.b	5
@@ -851,12 +892,14 @@
 	dc.b	$F0, 2, 0, $F, $C
 	dc.b	8, 5, 0, $12, $EC
 	dc.b	8, 0, 0, $16, $FC
+	even
 
 .Sprite99:
 	dc.b	3
 	dc.b	$EC, 8, 0, 0, $F4
 	dc.b	$F4, $F, 0, 3, $EC
 	dc.b	$FC, 1, 0, $13, $C
+	even
 
 .Sprite9a:
 	dc.b	5
@@ -865,36 +908,38 @@
 	dc.b	$F8, 2, 0, $F, $EC
 	dc.b	8, 5, 0, $12, $F4
 	dc.b	8, 0, 0, $16, 4
+	even
 
 .Sprite9b:
 	dc.b	3
 	dc.b	$EC, 8, 0, 0, $F4
 	dc.b	$F4, $F, 0, 3, $EC
 	dc.b	$FC, 1, 0, $13, $C
+	even
 
 .Sprite9c:
 	dc.b	2
 	dc.b	$EC, $F, 0, 0, $F0
 	dc.b	$C, 8, 0, $10, $F8
-	dc.b	0
+	even
 
 .Sprite9d:
 	dc.b	2
 	dc.b	$EC, $F, 0, 0, $F0
 	dc.b	$C, 8, 0, $10, $F8
-	dc.b	0
+	even
 
 .Sprite9e:
 	dc.b	2
 	dc.b	$EC, $F, 0, 0, $F0
 	dc.b	$C, 8, 0, $10, $F8
-	dc.b	0
+	even
 
 .Sprite9f:
 	dc.b	2
 	dc.b	$EC, $F, 0, 0, $F0
 	dc.b	$C, 4, 0, $10, $F8
-	dc.b	0
+	even
 
 .Spritea0:
 	dc.b	4
@@ -902,13 +947,14 @@
 	dc.b	$F4, 2, 0, 6, $E8
 	dc.b	$FC, $E, 0, 9, $F0
 	dc.b	4, 1, 0, $15, $10
-	dc.b	0
+	even
 
 .Spritea1:
 	dc.b	3
 	dc.b	$EC, 4, 0, 0, $FC
 	dc.b	$F4, 2, 0, 2, $EC
 	dc.b	$F4, $F, 0, 5, $F4
+	even
 
 .Spritea2:
 	dc.b	5
@@ -917,12 +963,14 @@
 	dc.b	$F4, $E, 0, 6, $F0
 	dc.b	$FC, 1, 0, $12, $10
 	dc.b	$C, 8, 0, $14, $F8
+	even
 
 .Spritea3:
 	dc.b	3
 	dc.b	$EC, 4, 0, 0, $FC
 	dc.b	$F4, 2, 0, 2, $EC
 	dc.b	$F4, $F, 0, 5, $F4
+	even
 
 .Spritea6:
 	dc.b	5
@@ -931,6 +979,7 @@
 	dc.b	$F4, 0, 0, 7, $C
 	dc.b	$FC, 2, 0, 8, $EC
 	dc.b	$FC, $E, 0, $B, $F4
+	even
 
 .Spritea7:
 	dc.b	4
@@ -938,7 +987,7 @@
 	dc.b	$F4, 0, 0, 6, $C
 	dc.b	$FC, 2, 0, 7, $EC
 	dc.b	$FC, $E, 0, $A, $F4
-	dc.b	0
+	even
 
 .Spritea8:
 	dc.b	5
@@ -947,6 +996,7 @@
 	dc.b	$F4, 0, 0, 7, $C
 	dc.b	$FC, $E, 0, 8, $EC
 	dc.b	$FC, 1, 0, $14, $C
+	even
 
 .Spritea9:
 	dc.b	4
@@ -954,13 +1004,14 @@
 	dc.b	$F4, 0, 0, 6, $C
 	dc.b	$FC, $E, 0, 7, $EC
 	dc.b	$FC, 1, 0, $13, $C
-	dc.b	0
+	even
 
 .Spriteaa:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F8
 	dc.b	$F4, 0, 0, 6, $F0
 	dc.b	$FC, $A, 0, 7, $F8
+	even
 
 .Spriteab:
 	dc.b	4
@@ -968,13 +1019,14 @@
 	dc.b	$F4, 0, 0, 6, $F0
 	dc.b	$FC, 9, 0, 7, $F8
 	dc.b	$C, 4, 0, $D, $F8
-	dc.b	0
+	even
 
 .Spriteac:
 	dc.b	3
 	dc.b	$EC, 9, 0, 0, $F8
 	dc.b	$F4, 0, 0, 6, $F0
 	dc.b	$FC, $E, 0, 7, $F0
+	even
 
 .Spritead:
 	dc.b	4
@@ -982,7 +1034,7 @@
 	dc.b	$F4, 0, 0, 6, $F0
 	dc.b	$FC, 0, 0, 7, $F0
 	dc.b	$FC, $A, 0, 8, $F8
-	dc.b	0
+	even
 
 .Spriteae:
 	dc.b	5
@@ -991,6 +1043,7 @@
 	dc.b	$F4, 0, 0, 6, 8
 	dc.b	$FC, $D, 0, 7, $F0
 	dc.b	$C, 4, 0, $F, $F8
+	even
 
 .Spriteaf:
 	dc.b	5
@@ -999,6 +1052,7 @@
 	dc.b	$F4, 0, 0, 6, 8
 	dc.b	$FC, $D, 0, 7, $F0
 	dc.b	$C, 8, 0, $F, $F0
+	even
 
 .Spriteb0:
 	dc.b	5
@@ -1007,6 +1061,7 @@
 	dc.b	$F4, 0, 0, 6, 8
 	dc.b	$FC, $D, 0, 7, $F0
 	dc.b	$C, 4, 0, $F, $F0
+	even
 
 .Spriteb1:
 	dc.b	5
@@ -1015,6 +1070,7 @@
 	dc.b	$F4, 0, 0, 6, 8
 	dc.b	$FC, $D, 0, 7, $F0
 	dc.b	$C, 4, 0, $F, 0
+	even
 
 .Spriteb6:
 	dc.b	5
@@ -1023,6 +1079,7 @@
 	dc.b	$EC, 1, 0, 7, 8
 	dc.b	$FC, 9, 0, 9, $F8
 	dc.b	$C, 4, 0, $F, 0
+	even
 
 .Spriteb7:
 	dc.b	5
@@ -1031,6 +1088,7 @@
 	dc.b	$EC, 1, 0, 6, 8
 	dc.b	$FC, $D, 0, 8, $F0
 	dc.b	$C, 0, 0, $10, $F8
+	even
 
 .Spriteb8:
 	dc.b	5
@@ -1039,6 +1097,7 @@
 	dc.b	$EC, 2, 0, 6, 8
 	dc.b	$FC, 9, 0, 9, $F0
 	dc.b	$C, 0, 0, $F, $F8
+	even
 
 .Spriteb9:
 	dc.b	5
@@ -1047,12 +1106,13 @@
 	dc.b	$EC, 1, 0, 6, 8
 	dc.b	$FC, $D, 0, 8, $F0
 	dc.b	$C, 0, 0, $10, 0
+	even
 
 .Spriteba:
 	dc.b	2
 	dc.b	4, $D, $10, 0, $F0
 	dc.b	$EC, $E, $10, 8, $F0
-	dc.b	0
+	even
 
 .Spritebb:
 	dc.b	5
@@ -1061,6 +1121,7 @@
 	dc.b	4, 0, $10, 7, $F0
 	dc.b	$F4, $D, $10, 8, $F0
 	dc.b	$EC, 8, $10, $10, $F0
+	even
 
 .Spritebc:
 	dc.b	4
@@ -1068,7 +1129,7 @@
 	dc.b	$FC, 0, $10, 8, $F0
 	dc.b	$F4, 9, $10, 9, $F8
 	dc.b	$EC, 4, $10, $F, $F8
-	dc.b	0
+	even
 
 .Spritebd:
 	dc.b	4
@@ -1076,19 +1137,19 @@
 	dc.b	4, 8, $10, 4, $F8
 	dc.b	$F4, 2, $10, 7, $F0
 	dc.b	$EC, $A, $10, $A, $F8
-	dc.b	0
+	even
 
 .Spritec2:
 	dc.b	2
 	dc.b	4, 9, $10, 0, $F4
 	dc.b	$EC, $E, $10, 6, $F4
-	dc.b	0
+	even
 
 .Spritec3:
 	dc.b	2
 	dc.b	4, 9, $10, 0, $F4
 	dc.b	$EC, $E, $10, 6, $F4
-	dc.b	0
+	even
 
 .Spritec4:
 	dc.b	4
@@ -1096,7 +1157,7 @@
 	dc.b	$F4, 9, $10, 6, $F4
 	dc.b	$FC, 0, $10, $C, $C
 	dc.b	$EC, 4, $10, $D, $FC
-	dc.b	0
+	even
 
 .Spritec5:
 	dc.b	4
@@ -1104,49 +1165,50 @@
 	dc.b	$F4, 9, $10, 6, $F4
 	dc.b	$FC, 0, $10, $C, $C
 	dc.b	$EC, 8, $10, $D, $FC
-	dc.b	0
+	even
 
 .Sprite20:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite21:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite22:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite23:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite24:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
 
 .Sprite25:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
+	even
+
+	; Unused
 	dc.b	2
-	dc.b	$EC
-	dc.b	$E
-	dc.b	0
-	dc.b	0
-	dc.b	$F0
-	dc.b	4
-	dc.b	9
-	dc.b	0
-	dc.b	$C
-	dc.b	$F8
-	dc.b	0
+	dc.b	$EC, $E, 0, 0, $F0
+	dc.b	4, 9, 0, $C, $F8
+	even
 
 .Sprite1a:
 	dc.b	3
 	dc.b	$EC, $E, 0, 0, $F8
 	dc.b	4, 9, 0, $C, $F8
 	dc.b	$C, 0, 0, $12, $10
+	even
 
 .Sprite1b:
 	dc.b	4
@@ -1154,13 +1216,14 @@
 	dc.b	$FC, 1, 0, 6, $EC
 	dc.b	$FC, $A, 0, 8, $F4
 	dc.b	$FC, 1, 0, $11, $C
-	dc.b	0
+	even
 
 .Sprite1c:
 	dc.b	3
 	dc.b	$EC, $E, 8, 0, $E8
 	dc.b	4, 9, 8, $C, $F0
 	dc.b	$C, 0, 8, $12, $E8
+	even
 
 .Sprite1d:
 	dc.b	4
@@ -1168,18 +1231,17 @@
 	dc.b	$FC, 1, 0, 6, $EC
 	dc.b	$FC, $A, 0, 8, $F4
 	dc.b	$FC, 1, 8, $11, $C
-	dc.b	0
+	even
 
 .Sprite1e:
 	dc.b	2
 	dc.b	$EC, $F, 0, 0, $F8
 	dc.b	$C, $C, 0, $10, $F8
-	dc.b	0
+	even
 
 .Sprite1f:
 	dc.b	2
 	dc.b	$EC, $F, 8, 0, $E8
 	dc.b	$C, $C, 8, $10, $E8
-	dc.b	0
 
 ; ------------------------------------------------------------------------------

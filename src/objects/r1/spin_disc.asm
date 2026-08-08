@@ -238,24 +238,7 @@ SpinDiscAnims:
 	even
 
 SpinDiscSprites:
-	dc.w	@SpinDiscSprites_0-*
-	dc.w	@SpinDiscSprites_1-SpinDiscSprites
-	dc.w	@SpinDiscSprites_2-SpinDiscSprites
-
-@SpinDiscSprites_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-	dc.b	0
-
-@SpinDiscSprites_1:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-	dc.b	0
-
-@SpinDiscSprites_2:
-	dc.b	1
-	dc.b	$F8, $D, 0, 4, $F0
+	include	"src/sprites/r1/spin_disc.asm"
+	even
 
 ; ------------------------------------------------------------------------------

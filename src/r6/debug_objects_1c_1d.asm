@@ -32,14 +32,14 @@ DebugObjects:
 	debugObject $30, 1, Unk20DB4ESprites, $2438, 1, 0, 0, 0
 	debugObject $29, 3, Spr_20EBAA, $4D0, 0, 0, 0, 0
 	debugObject $29, 3, Spr_20EBBE, $4D0, 1, 0, 0, 3
-	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 1, 0, 0
-	debugObject $A, 1, VSpringSprites, $2520, 2, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $2520, 2, 2, 0, 0
-	debugObject $A, 1, HSpringSprites, $2520, 6, 0, 0, 0
-	debugObject $A, 1, HSpringSprites, $2520, 6, 1, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 1, 0, 0
+	debugObject $A, 1, SpringVSprites, $2520, 2, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $2520, 2, 2, 0, 0
+	debugObject $A, 1, SpringHSprites, $2520, 6, 0, 0, 0
+	debugObject $A, 1, SpringHSprites, $2520, 6, 1, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 0, 0, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 1, 0, 0, 1
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 2, 0, 0, 2

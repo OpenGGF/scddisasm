@@ -37,7 +37,7 @@ TamabbohObject_1_Routine0:
 	jsr	(SetObjectSpriteTile).l
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B7F8
-	lea	TamabbohSprites(pc),a1
+	lea	TamabbohSprites1(pc),a1
 	lea	TamabbohAnims1(pc),a2
 	move.l	#-$A000,d0
 	bra.s	loc_20B806
@@ -45,7 +45,7 @@ TamabbohObject_1_Routine0:
 ; ------------------------------------------------------------------------------
 
 loc_20B7F8:
-	lea	TamabbohDecaySprites(pc),a1
+	lea	TamabbohSprites2(pc),a1
 	lea	TamabbohAnims2(pc),a2
 	move.l	#-$5000,d0
 
@@ -195,36 +195,10 @@ TamabbohAnims2:
 	even
 
 TamabbohSprites:
-	dc.w	@TamabbohSprites_0-*
-	dc.w	@TamabbohDecaySprites_1-TamabbohSprites
-	dc.w	@TamabbohDecaySprites_2-TamabbohSprites
-
-@TamabbohSprites_0:
-	dc.b	3
-	dc.b	$F1, $D, 0, 0, $F0
-	dc.b	1, $C, 0, 8, $F0
-	dc.b	9, 8, 0, $C, $F8
-
-TamabbohDecaySprites:
-	dc.w	@TamabbohDecaySprites_0-*
-	dc.w	@TamabbohDecaySprites_1-TamabbohDecaySprites
-	dc.w	@TamabbohDecaySprites_2-TamabbohDecaySprites
-
-@TamabbohDecaySprites_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, $2B, $F0
-
-@TamabbohDecaySprites_1:
-	dc.b	3
-	dc.b	$F2, $D, 0, 0, $F0
-	dc.b	2, $C, 0, $F, $F0
-	dc.b	$A, 8, 0, $13, $F8
-
-@TamabbohDecaySprites_2:
-	dc.b	2
-	dc.b	$F0, 8, 0, $16, $F7
-	dc.b	$F8, $E, 0, $19, $EF
-	dc.b	0
+	include	"src/sprites/r1/tamabboh.asm"
+	even
+TamabbohSprites1	equ .Sprites1
+TamabbohSprites2	equ .Sprites2
 
 ; ------------------------------------------------------------------------------
 
@@ -250,7 +224,7 @@ TamabbohObject_0_Routine0:
 	move.b	#8,obj.width(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
-	move.l	#TamabbohMissileSprites,obj.sprite_data(a0)
+	move.l	#TamaMissileSprites,obj.sprite_data(a0)
 	move.l	#0,obj.var_32(a0)
 	move.l	#$2000,obj.var_36(a0)
 	tst.b	obj.var_3f(a0)
@@ -296,37 +270,17 @@ loc_20BA4C:
 	add.l	d0,obj.var_2a(a0)
 	move.l	obj.var_36(a0),d0
 	add.l	d0,obj.var_2e(a0)
-	lea	TamabbohMissileAnims(pc),a1
+	lea	TamaMissileAnims(pc),a1
 	jmp	(AnimateObject).l
 
 ; ------------------------------------------------------------------------------
 
-TamabbohMissileAnims:
-	include	"src/anims/r1/tamabboh_missile.asm"
+TamaMissileAnims:
+	include	"src/anims/r1/tama_missile.asm"
 	even
 
-TamabbohMissileSprites:
-	dc.w	@TamabbohMissileSprites_0-*
-	dc.w	@TamabbohMissileSprites_1-TamabbohMissileSprites
-	dc.w	@TamabbohMissileSprites_2-TamabbohMissileSprites
-	dc.w	@TamabbohMissileSprites_3-TamabbohMissileSprites
-
-@TamabbohMissileSprites_0:
-	dc.b	1
-	dc.b	$FC, 0, 0, $25, $FC
-
-@TamabbohMissileSprites_1:
-	dc.b	1
-	dc.b	$FC, 0, 0, $26, $FC
-
-@TamabbohMissileSprites_2:
-	dc.b	2
-	dc.b	$F8, 4, 0, $27, $F8
-	dc.b	0, 4, $10, $27, $F8
-
-@TamabbohMissileSprites_3:
-	dc.b	2
-	dc.b	$F8, 4, 0, $29, $F8
-	dc.b	0, 4, $10, $29, $F8
+TamaMissileSprites:
+	include	"src/sprites/r1/tama_missile.asm"
+	even
 
 ; ------------------------------------------------------------------------------

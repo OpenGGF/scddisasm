@@ -39,7 +39,7 @@ RobotGeneratorInit:
 	add.b	(time_zone).l,d0
 	add.w	d0,d0
 	move.w	(a1,d0.w),obj.sprite_tile(a0)
-	move.l	#RobotGeneratorSprites,obj.sprite_data(a0)
+	move.l	#RobotTransportSprites,obj.sprite_data(a0)
 	move.l	#byte_20E484,obj.var_2c(a0)
 	move.w	obj.y(a0),obj.var_30(a0)
 	move.w	#4,obj.var_2a(a0)
@@ -174,149 +174,9 @@ RobotTransportAnims:
 	include	"src/anims/robot_transport.asm"
 	even
 
-RobotGeneratorSprites:
-	dc.w	@RobotGeneratorSprites_0-*
-	dc.w	@RobotGeneratorSprites_1-RobotGeneratorSprites
-	dc.w	@RobotGeneratorSprites_2-RobotGeneratorSprites
-	dc.w	@RobotGeneratorSprites_3-RobotGeneratorSprites
-	dc.w	@RobotGeneratorSprites_4-RobotGeneratorSprites
-	dc.w	@RobotGeneratorSprites_5-RobotGeneratorSprites
-	dc.w	@RobotGeneratorSprites_6-RobotGeneratorSprites
-	dc.w	@RobotGeneratorSprites_7-RobotGeneratorSprites
-
-@RobotGeneratorSprites_7:
-	dc.b	0
-
-@RobotGeneratorSprites_0:
-	dc.b	4
-	dc.b	$10, 9, 0, 9, $E8
-	dc.b	$10, 9, 8, 9, 0
-	dc.b	$10, 9, 0, 9, $D8
-	dc.b	$10, 9, 8, 9, $10
-
-@RobotGeneratorSprites_1:
-	dc.b	4
-	dc.b	$10, 9, 0, $11, $E8
-	dc.b	$10, 9, 8, $11, 0
-	dc.b	$10, 9, 0, $11, $D8
-	dc.b	$10, 9, 8, $11, $10
-
-@RobotGeneratorSprites_2:
-	dc.b	$C
-	dc.b	$E0, $A, 0, 0, $E8
-	dc.b	$E0, $A, 8, 0, 0
-	dc.b	8, $A, $10, 0, $E8
-	dc.b	8, $A, $18, 0, 0
-	dc.b	$E0, $A, 0, 0, $D8
-	dc.b	$E0, $A, 8, 0, $F0
-	dc.b	8, $A, $10, 0, $D8
-	dc.b	8, $A, $18, 0, $F0
-	dc.b	$E0, $A, 0, 0, $F8
-	dc.b	$E0, $A, 8, 0, $10
-	dc.b	8, $A, $10, 0, $F8
-	dc.b	8, $A, $18, 0, $10
-
-@RobotGeneratorSprites_3:
-	dc.b	$12
-	dc.b	$E0, $A, 0, 0, $E8
-	dc.b	$E0, $A, 8, 0, 0
-	dc.b	$F8, 1, 0, $D, $FA
-	dc.b	$F8, 1, $18, $F, $FE
-	dc.b	8, $A, $10, 0, $E8
-	dc.b	8, $A, $18, 0, 0
-	dc.b	$E0, $A, 0, 0, $D8
-	dc.b	$E0, $A, 8, 0, $F0
-	dc.b	$F8, 1, 0, $D, $EA
-	dc.b	$F8, 1, $18, $F, $EE
-	dc.b	8, $A, $10, 0, $D8
-	dc.b	8, $A, $18, 0, $F0
-	dc.b	$E0, $A, 0, 0, $F8
-	dc.b	$E0, $A, 8, 0, $10
-	dc.b	$F8, 1, 0, $D, $A
-	dc.b	$F8, 1, $18, $F, $E
-	dc.b	8, $A, $10, 0, $F8
-	dc.b	8, $A, $18, 0, $10
-
-@RobotGeneratorSprites_4:
-	dc.b	$18
-	dc.b	$E0, 4, 0, 9, $F8
-	dc.b	$E0, $A, 0, 0, $E8
-	dc.b	$E0, $A, 8, 0, 0
-	dc.b	$F8, 1, 0, $F, $FA
-	dc.b	$F8, 1, $18, $D, $FE
-	dc.b	$18, 4, $10, 9, $F8
-	dc.b	8, $A, $10, 0, $E8
-	dc.b	8, $A, $18, 0, 0
-	dc.b	$E0, 4, 0, 9, $E8
-	dc.b	$E0, $A, 0, 0, $D8
-	dc.b	$E0, $A, 8, 0, $F0
-	dc.b	$F8, 1, 0, $F, $EA
-	dc.b	$F8, 1, $18, $D, $EE
-	dc.b	$18, 4, $10, 9, $E8
-	dc.b	8, $A, $10, 0, $D8
-	dc.b	8, $A, $18, 0, $F0
-	dc.b	$E0, 4, 0, 9, 8
-	dc.b	$E0, $A, 0, 0, $F8
-	dc.b	$E0, $A, 8, 0, $10
-	dc.b	$F8, 1, 0, $F, $A
-	dc.b	$F8, 1, $18, $D, $E
-	dc.b	$18, 4, $10, 9, 8
-	dc.b	8, $A, $10, 0, $F8
-	dc.b	8, $A, $18, 0, $10
-
-@RobotGeneratorSprites_5:
-	dc.b	$18
-	dc.b	$E0, 4, 0, $B, $F8
-	dc.b	$E0, $A, 0, 0, $E8
-	dc.b	$E0, $A, 8, 0, 0
-	dc.b	$F8, 1, $18, $F, $FA
-	dc.b	$F8, 1, 0, $D, $FE
-	dc.b	$18, 4, $10, $B, $F8
-	dc.b	8, $A, $10, 0, $E8
-	dc.b	8, $A, $18, 0, 0
-	dc.b	$E0, 4, 0, $B, $E8
-	dc.b	$E0, $A, 0, 0, $D8
-	dc.b	$E0, $A, 8, 0, $F0
-	dc.b	$F8, 1, $18, $F, $EA
-	dc.b	$F8, 1, 0, $D, $EE
-	dc.b	$18, 4, $10, $B, $E8
-	dc.b	8, $A, $10, 0, $D8
-	dc.b	8, $A, $18, 0, $F0
-	dc.b	$E0, 4, 0, $B, 8
-	dc.b	$E0, $A, 0, 0, $F8
-	dc.b	$E0, $A, 8, 0, $10
-	dc.b	$F8, 1, $18, $F, $A
-	dc.b	$F8, 1, 0, $D, $E
-	dc.b	$18, 4, $10, $B, 8
-	dc.b	8, $A, $10, 0, $F8
-	dc.b	8, $A, $18, 0, $10
-
-@RobotGeneratorSprites_6:
-	dc.b	$18
-	dc.b	$E0, 4, 0, 9, $F8
-	dc.b	$E0, $A, 0, 0, $E8
-	dc.b	$E0, $A, 8, 0, 0
-	dc.b	$F8, 1, $18, $D, $FA
-	dc.b	$F8, 1, 0, $F, $FE
-	dc.b	$18, 4, $10, 9, $F8
-	dc.b	8, $A, $10, 0, $E8
-	dc.b	8, $A, $18, 0, 0
-	dc.b	$E0, 4, 0, 9, $E8
-	dc.b	$E0, $A, 0, 0, $D8
-	dc.b	$E0, $A, 8, 0, $F0
-	dc.b	$F8, 1, $18, $D, $EA
-	dc.b	$F8, 1, 0, $F, $EE
-	dc.b	$18, 4, $10, 9, $E8
-	dc.b	8, $A, $10, 0, $D8
-	dc.b	8, $A, $18, 0, $F0
-	dc.b	$E0, 4, 0, 9, 8
-	dc.b	$E0, $A, 0, 0, $F8
-	dc.b	$E0, $A, 8, 0, $10
-	dc.b	$F8, 1, $18, $D, $A
-	dc.b	$F8, 1, 0, $F, $E
-	dc.b	$18, 4, $10, 9, 8
-	dc.b	8, $A, $10, 0, $F8
-	dc.b	8, $A, $18, 0, $10
+RobotTransportSprites:
+	include	"src/sprites/robot_transport.asm"
+	even
 
 byte_20E484:
 	dc.b	1, 0, 0

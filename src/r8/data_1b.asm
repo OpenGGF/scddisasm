@@ -438,8 +438,8 @@ Spr_23EBF2:
 	include	"src/sprites/r8/Spr_23EBF2.asm"
 	even
 
-RobotGeneratorSprites:
-	include	"src/sprites/r8/robot_generator.asm"
+RobotTransportSprites:
+	include	"src/sprites/robot_transport.asm"
 
 Padding3:
 	incbin	"padding/r81b_e_3.bin"

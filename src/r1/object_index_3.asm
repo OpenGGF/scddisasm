@@ -47,8 +47,8 @@ ObjectIndex:
 	dc.l	BossThighObject
 	dc.l	BossCalfObject
 	dc.l	BossFootObject
-	dc.l	BossElbowObject
-	dc.l	BossUpperArmObject
+	dc.l	BossShoulderObject
+	dc.l	BossArmObject
 	dc.l	BossForearmObject
 	dc.l	BossBumperObject
 	dc.l	NullObject

@@ -49,7 +49,7 @@ ProjectorObject_0_Routine0:
 	move.b	#$C,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.b	#$FB,obj.collide_type(a0)
-	move.l	#off_20FBDA,obj.sprite_data(a0)
+	move.l	#HologramSprites,obj.sprite_data(a0)
 	move.l	#byte_20FC1E,obj.var_2c(a0)
 	move.w	#$4E8,obj.sprite_tile(a0)
 	tst.b	(act).l
@@ -176,7 +176,7 @@ loc_20FB1C:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
-	move.l	#off_20FBDA,obj.sprite_data(a0)
+	move.l	#HologramSprites,obj.sprite_data(a0)
 	move.w	#$4E8,obj.sprite_tile(a0)
 	tst.b	(act).l
 	beq.s	loc_20FB64
@@ -209,41 +209,9 @@ HologramAnims:
 	include	"src/anims/hologram.asm"
 	even
 
-off_20FBDA:
-	dc.w	byte_20FBE6-*
-	dc.w	byte_20FBEC-off_20FBDA
-	dc.w	byte_20FBED-off_20FBDA
-	dc.w	byte_20FBF3-off_20FBDA
-	dc.w	byte_20FBF9-off_20FBDA
-	dc.w	byte_20FC09-off_20FBDA
-
-byte_20FBE6:
-	dc.b	1
-	dc.b	$F4, $A, 0, $28, $F4
-
-byte_20FBEC:
-	dc.b	0
-
-byte_20FBED:
-	dc.b	1
-	dc.b	$FC, 4, 0, $31, $F8
-
-byte_20FBF3:
-	dc.b	1
-	dc.b	$FC, 4, $10, $31, $F8
-
-byte_20FBF9:
-	dc.b	3
-	dc.b	$E8, $A, 8, 0, $FC
-	dc.b	$F8, 5, 8, 9, $EC
-	dc.b	0, 5, 8, $D, $FC
-
-byte_20FC09:
-	dc.b	4
-	dc.b	$E8, $F, 8, $11, $F4
-	dc.b	$E8, 0, 8, $21, $EC
-	dc.b	0, 1, 8, $22, $EC
-	dc.b	8, $C, 8, $24, $F4
+HologramSprites:
+	include	"src/sprites/hologram.asm"
+	even
 
 byte_20FC1E:
 	dc.b	1, 0, 0

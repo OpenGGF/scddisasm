@@ -658,7 +658,7 @@ ResultsActive:
 LoadCapsulePalette:
 	move.w	#7,d6
 	lea	(word_20A3A6).l,a1
-	lea	((palette+$20)).w,a2
+	lea	(palette+$20).w,a2
 
 loc_20A39E:
 	move.l	(a1)+,(a2)+
@@ -675,160 +675,11 @@ BigRingFlashAnims:
 	even
 
 BigRingFlashSprites:
-	dc.w	@BigRingFlashSprites_0-*
-	dc.w	@BigRingFlashSprites_1-BigRingFlashSprites
-	dc.w	@BigRingFlashSprites_2-BigRingFlashSprites
-	dc.w	@BigRingFlashSprites_3-BigRingFlashSprites
-	dc.w	@BigRingFlashSprites_4-BigRingFlashSprites
-	dc.w	@BigRingFlashSprites_5-BigRingFlashSprites
-	dc.w	@BigRingFlashSprites_6-BigRingFlashSprites
-	dc.w	@BigRingFlashSprites_7-BigRingFlashSprites
-@BigRingFlashSprites_0:
-	dc.b	6
-	dc.b	$E0, 8, 0, 0, 0
-	dc.b	$E8, 1, 0, 3, 0
-	dc.b	$E8, $A, 0, 5, 8
-	dc.b	0, $A, $10, 5, 8
-	dc.b	8, 1, $10, 3, 0
-	dc.b	$18, 8, $10, 0, 0
-	dc.b	0
-@BigRingFlashSprites_1:
-	dc.b	6
-	dc.b	$E0, 2, 0, $E, $F0
-	dc.b	$E0, $F, 0, $11, $F8
-	dc.b	$E8, 2, 0, $21, $18
-	dc.b	0, 2, $10, $21, $18
-	dc.b	0, $F, $10, $11, $F8
-	dc.b	8, 2, $10, $E, $F0
-	dc.b	0
-@BigRingFlashSprites_2:
-	dc.b	$A
-	dc.b	$E0, 7, 0, $24, $E8
-	dc.b	$E0, $D, 0, $2C, $F8
-	dc.b	$F0, 5, 0, $34, $F8
-	dc.b	$F0, 5, 0, $34, 8
-	dc.b	$E8, 2, 0, $B, $18
-	dc.b	0, 2, $10, $B, $18
-	dc.b	0, 5, 0, $34, 8
-	dc.b	0, 5, 0, $34, $F8
-	dc.b	$10, $D, $10, $2C, $F8
-	dc.b	0, 7, $10, $24, $E8
-	dc.b	0
-@BigRingFlashSprites_3:
-	dc.b	$10
-	dc.b	$E0, 0, 8, 2, $E8
-	dc.b	$E0, 0, 0, 2, $10
-	dc.b	$E8, 6, 0, $38, $E0
-	dc.b	$E0, 5, 8, $2E, $F0
-	dc.b	$E0, 5, 0, $2E, 0
-	dc.b	$F0, 5, 0, $34, $F0
-	dc.b	$F0, 5, 0, $34, 0
-	dc.b	$E8, 6, 8, $38, $10
-	dc.b	0, 6, $10, $38, $E0
-	dc.b	$18, 0, $18, 2, $E8
-	dc.b	0, 5, 0, $34, $F0
-	dc.b	$10, 5, $18, $2E, $F0
-	dc.b	0, 5, 0, $34, 0
-	dc.b	$10, 5, $10, $2E, 0
-	dc.b	$18, 0, $10, 2, $10
-	dc.b	0, 6, $18, $38, $10
-	dc.b	0
-@BigRingFlashSprites_4:
-	dc.b	$A
-	dc.b	$E8, 2, 8, $B, $E0
-	dc.b	$E0, $D, 8, $2C, $E8
-	dc.b	$F0, 5, 0, $34, $E8
-	dc.b	$F0, 5, 0, $34, $F8
-	dc.b	$E0, 7, 8, $24, 8
-	dc.b	0, 2, $18, $B, $E0
-	dc.b	0, 5, 0, $34, $E8
-	dc.b	0, 5, 0, $34, $F8
-	dc.b	$10, $D, $18, $2C, $E8
-	dc.b	0, 7, $18, $24, 8
-	dc.b	0
-@BigRingFlashSprites_5:
-	dc.b	6
-	dc.b	$E8, 2, 8, $21, $E0
-	dc.b	$E0, $F, 8, $11, $E8
-	dc.b	$E0, 2, 8, $E, 8
-	dc.b	0, 2, $18, $21, $E0
-	dc.b	0, $F, $18, $11, $E8
-	dc.b	8, 2, $18, $E, 8
-	dc.b	0
-@BigRingFlashSprites_6:
-	dc.b	6
-	dc.b	$E0, 8, 8, 0, $E8
-	dc.b	$E8, 1, 8, 3, $F8
-	dc.b	$E8, $A, 8, 5, $E0
-	dc.b	0, $A, $18, 5, $E0
-	dc.b	8, 1, $18, 3, $F8
-	dc.b	$18, 8, $18, 0, $E8
-	dc.b	0
-@BigRingFlashSprites_7:
-	dc.b	$11
-	dc.b	$E0, 4, 0, $3E, 0
-	dc.b	$E8, 9, 0, $40, 0
-	dc.b	$E8, 0, 0, $46, $18
-	dc.b	$F8, 4, 0, $47, $10
-	dc.b	0, 4, $10, $47, $10
-	dc.b	8, 9, $10, $40, 0
-	dc.b	$10, 0, $10, $46, $18
-	dc.b	$18, 4, $10, $3E, 0
-	dc.b	$E0, 4, 8, $3E, $F0
-	dc.b	$E8, 0, 8, $46, $E0
-	dc.b	$E8, 9, 8, $40, $E8
-	dc.b	$F8, 4, 8, $47, $E0
-	dc.b	0, 4, $18, $47, $E0
-	dc.b	$10, 0, $18, $46, $E0
-	dc.b	8, 9, $18, $40, $E8
-	dc.b	$18, 4, $18, $3E, $F0
-	dc.b	$F8, 5, 0, $49, $F8
+	include	"src/sprites/big_ring_flash.asm"
+	even
+
 BigRingFlashGfx:
-	dc.b	$80, $4D, $80, 5, $1C, $16, $3B, $28, $F8, $36, $3A, $46
-	dc.b	$3C, $55, $1B, $64, $B, $71, 0, $86, 3, 4, $16, $3D, $8B
-	dc.b	4, $C, $8C, 5, $1A, $8D, 4, $A, $18, $F9, $FF, $FE, $B5, $72
-	dc.b	$67, $59, $39, $5E, $E5, $D4, $CB, $A8, $1E, $D5, $E7, $AF
-	dc.b	$79, $9B, $95, $97, $53, $2E, $B2, $EB, $F4, $C2, $25, $5E
-	dc.b	$44, $F8, $FE, $B5, $C0, 3, $93, $72, $E2, $37, $EE, $E2
-	dc.b	$7C, $55, $E7, $95, $39, $2B, $E2, $A7, $25, $79, $97, $43
-	dc.b	$A9, $70, $1D, $CB, $81, $D7, $F5, $91, $EB, $2E, $91, $97
-	dc.b	$49, $D4, $B9, $F1, $97, $46, $5D, $C, $BA, $7C, $4B, $81
-	dc.b	$D4, $45, $5E, $21, 8, $55, $E0, $AB, $C0, $7F, $DB, $7F
-	dc.b	$3B, $F9, 1, $DD, $5D, 0, $1C, $AB, $A7, $9F, $FD, $DD, $3E
-	dc.b	$5F, $2A, $7C, $8E, $F5, $7A, 0, $E5, $5F, $E0, $7C, $AD
-	dc.b	$73, $55, $F1, $5A, $E6, $AB, $CF, $C0, $DD, $1F, $1A, $BD
-	dc.b	$B, $FE, $EB, $E4, $14, $A5, $29, $4A, $29, $5F, $15, $74
-	dc.b	3
-	dcb.b	2,$BA
-	dc.b	$EB, $5B, $D7, $35, $E6, $B9, $AD, $E8, $75, $F2, $FD, $6B
-	dc.b	$E5, $40, 1, $45
-	dcb.b	2,$A
-	dc.b	3, $F7, $A2, $94, $F9, $52, $94, $A0
-	dcb.b	2,0
-	dc.b	$7F, $F4, $A5, $14, $A2, $8A
-	dcb.b	2,$14
-	dc.b	$F, $FE, $8B, $9E, $54, $F2, $66, $E2, $7C, $4E, $A7
-	dcb.b	2,$27
-	dc.b	$5E, $F2, $6E, $1F, $1A, $BD, 7, $C4, $B8, 1, $DE, $AF, $42
-	dc.b	$BD, $EE, $BD, $CE, $EA, $67, $98, 5, $C6, $5D, $23, $2E
-	dc.b	$91, $E6, $BB, $CE, $B5, $DD, $19, $75, $F1, $57, $9E, $54
-	dc.b	$E4, $AE, $F2, $A7, $25, $77, $5D, $E5, $D1, $BA, $FF, $36
-	dcb.b	2,0
-	dc.b	$EB, $26, $F2, 0, 1, $FF, $6F, $6A, $F3, $D7, $A8, 0, $3F
-	dc.b	$EC, $22, $55, $E4
-	dcb.b	2,$44
-	dcb.b	4,0
-	dc.b	7, $FD, $8B
-	dcb.b	2,$9B
-	dc.b	$AB, $CD, $C6, $E3, $71, $BA, $BC, $37, $57, $80, $BF
-	dcb.b	2,$6E
-	dcb.b	2,0
-	dc.b	2, $FF, $EC, $79, $2E, 0, $12, $E0
-	dcb.b	2,$37
-	dc.b	$39, $3C, $9C, $9B, $81, $D4, $B8, $E, $AA, $E8, $F8, $97
-	dc.b	0, $D5, $E9, $D5, $5F, $E0, $77, $AE, $6A, $BA, $D7, $35
-	dc.b	$5E, $7E, 6, $E8, $1D, $CB, $80, 7, $52, $E1, $37, $39, $3C
-	dc.b	$9C, $9B, $81, $72, $E0, $B, $D5, $E8, 5, $EA, $F4, 7, $7A
-	dc.b	$BD, 0, $BD, $5E, $8E, $C0
+	incbin	"src/gfx/big_ring_flash.nem"
+	even
 
 ; ------------------------------------------------------------------------------

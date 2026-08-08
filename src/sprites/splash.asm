@@ -15,17 +15,18 @@
 	dc.b	2
 	dc.b	$F0, 5, 0, 0, $FC
 	dc.b	$F8, 0, 0, 4, $F4
-	dc.b	0
+	even
 
 .Sprite1:
 	dc.b	2
 	dc.b	$E0, 0, 0, 5, $F8
 	dc.b	$E8, $E, 0, 6, $F0
-	dc.b	0
+	even
 
 .Sprite2:
 	dc.b	1
 	dc.b	$E0, $F, 0, $12, $F0
+	even
 
 .Sprite3:
 	dc.b	4
@@ -33,7 +34,7 @@
 	dc.b	$D8, 0, 0, $28, $F0
 	dc.b	$E0, 0, 0, $29, 8
 	dc.b	$E8, $E, 0, $2A, $F0
-	dc.b	0
+	even
 
 .Sprite4:
 	dc.b	4
@@ -41,11 +42,12 @@
 	dc.b	$C8, 6, 0, $37, $F8
 	dc.b	$D8, 0, 0, $3D, $F0
 	dc.b	$E0, $F, 0, $3E, $F0
-	dc.b	0
+	even
 
 .Sprite5:
 	dc.b	1
 	dc.b	$F0, 9, 0, $4E, $F4
+	even
 
 .Sprite6:
 	dc.b	1

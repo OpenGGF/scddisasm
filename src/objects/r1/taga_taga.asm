@@ -34,7 +34,7 @@ TagaTagaObject_0_Routine0:
 	jsr	(SetObjectSpriteTile).l
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20BB28
-	lea	TagaTagaSprites(pc),a1
+	lea	TagaTagaSprites1(pc),a1
 	lea	TagaTagaAnims1(pc),a2
 	move.l	#-$3C000,d0
 	move.l	#$1000,d1
@@ -43,7 +43,7 @@ TagaTagaObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 loc_20BB28:
-	lea	TagaTagaDecaySprites(pc),a1
+	lea	TagaTagaSprites2(pc),a1
 	lea	TagaTagaAnims2(pc),a2
 	move.l	#-$30000,d0
 	move.l	#$1000,d1
@@ -106,103 +106,9 @@ TagaTagaAnims2:
 	even
 
 TagaTagaSprites:
-	dc.w	@TagaTagaDecaySprites_0-*
-	dc.w	@TagaTagaDecaySprites_1-TagaTagaSprites
-	dc.w	@TagaTagaDecaySprites_2-TagaTagaSprites
-	dc.w	@TagaTagaSprites_3-TagaTagaSprites
-	dc.w	@TagaTagaSprites_4-TagaTagaSprites
-	dc.w	@TagaTagaSprites_5-TagaTagaSprites
-	dc.w	@TagaTagaDecaySprites_6-TagaTagaSprites
-
-@TagaTagaSprites_3:
-	dc.b	4
-	dc.b	$F0, 5, 0, $D, $F0
-	dc.b	$F0, 5, 8, $D, 0
-	dc.b	0, 5, 0, $11, $F0
-	dc.b	0, 5, 8, $11, 0
-
-@TagaTagaSprites_4:
-	dc.b	6
-	dc.b	$FA, 0, $10, 0, $F0
-	dc.b	$EA, 3, 0, $15, $F8
-	dc.b	$EA, 3, 8, $15, 0
-	dc.b	$FA, 0, $18, 0, 8
-	dc.b	$FE, 6, $10, $19, $F0
-	dc.b	$FE, 6, $18, $19, 0
-
-@TagaTagaSprites_5:
-	dc.b	6
-	dc.b	$FA, 0, $10, 0, $F0
-	dc.b	$EA, 3, 0, $15, $F8
-	dc.b	$EA, 3, 8, $15, 0
-	dc.b	$FA, 0, $18, 0, 8
-	dc.b	$FE, 6, $10, $1F, $F0
-	dc.b	$FE, 6, $18, $1F, 0
-	dc.b	0
-
-TagaTagaDecaySprites:
-	dc.w	@TagaTagaDecaySprites_0-*
-	dc.w	@TagaTagaDecaySprites_1-TagaTagaDecaySprites
-	dc.w	@TagaTagaDecaySprites_2-TagaTagaDecaySprites
-	dc.w	@TagaTagaDecaySprites_3-TagaTagaDecaySprites
-	dc.w	@TagaTagaDecaySprites_4-TagaTagaDecaySprites
-	dc.w	@TagaTagaDecaySprites_5-TagaTagaDecaySprites
-	dc.w	@TagaTagaDecaySprites_6-TagaTagaDecaySprites
-
-@TagaTagaDecaySprites_3:
-	dc.b	4
-	dc.b	$F0, 5, 0, $25, $F0
-	dc.b	$F0, 5, 8, $25, 0
-	dc.b	0, 5, 0, $11, $F0
-	dc.b	0, 5, 8, $11, 0
-
-@TagaTagaDecaySprites_4:
-	dc.b	6
-	dc.b	$FA, 0, $10, 0, $F0
-	dc.b	$EA, 3, 0, $29, $F8
-	dc.b	$EA, 3, 8, $29, 0
-	dc.b	$FA, 0, $18, 0, 8
-	dc.b	$FE, 6, $10, $19, $F0
-	dc.b	$FE, 6, $18, $19, 0
-
-@TagaTagaDecaySprites_5:
-	dc.b	6
-	dc.b	$FA, 0, $10, 0, $F0
-	dc.b	$EA, 3, 0, $29, $F8
-	dc.b	$EA, 3, 8, $29, 0
-	dc.b	$FA, 0, $18, 0, 8
-	dc.b	$FE, 6, $10, $1F, $F0
-	dc.b	$FE, 6, $18, $1F, 0
-	dc.b	0
-
-@TagaTagaDecaySprites_0:
-	dc.b	6
-	dc.b	$FE, 0, 0, 0, $F0
-	dc.b	$F6, 3, 0, 1, $F8
-	dc.b	$F6, 3, 8, 1, 0
-	dc.b	$FE, 0, 8, 0, 8
-	dc.b	$EA, 6, 0, $19, $F0
-	dc.b	$EA, 6, 8, $19, 0
-	dc.b	0
-
-@TagaTagaDecaySprites_1:
-	dc.b	6
-	dc.b	$FE, 0, 0, 0, $F0
-	dc.b	$F6, 3, 0, 1, $F8
-	dc.b	$F6, 3, 8, 1, 0
-	dc.b	$FE, 0, 8, 0, 8
-	dc.b	$EA, 6, 0, $1F, $F0
-	dc.b	$EA, 6, 8, $1F, 0
-	dc.b	0
-
-@TagaTagaDecaySprites_2:
-	dc.b	2
-	dc.b	$F0, 7, 0, 5, $F0
-	dc.b	$F0, 7, 8, 5, 0
-	dc.b	0
-
-@TagaTagaDecaySprites_6:
-	dc.b	0
-	dc.b	0
+	include	"src/sprites/r1/taga_taga.asm"
+	even
+TagaTagaSprites1	equ .Sprites1
+TagaTagaSprites2	equ .Sprites2
 
 ; ------------------------------------------------------------------------------

@@ -183,22 +183,7 @@ loc_20ED3E:
 ; ------------------------------------------------------------------------------
 
 SwingSprites:
-	dc.w	@SwingSprites_0-*
-	dc.w	@SwingSprites_1-SwingSprites
-	dc.w	@SwingSprites_2-SwingSprites
-
-@SwingSprites_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-
-@SwingSprites_1:
-	dc.b	2
-	dc.b	$F8, 9, 0, 8, $E8
-	dc.b	$F8, 9, 8, 8, 0
-	dc.b	0
-
-@SwingSprites_2:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
+	include	"src/sprites/r1/swing.asm"
+	even
 
 ; ------------------------------------------------------------------------------

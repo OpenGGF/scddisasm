@@ -27,7 +27,7 @@
 	dc.b	$18, $C, 8, $20, 0
 	dc.b	$20, 7, 0, $54, $F0
 	dc.b	$20, 7, 8, $54, 0
-	dc.b	0
+	even
 
 .Sprite1:
 	dc.b	$C
@@ -43,7 +43,7 @@
 	dc.b	$18, $C, 8, $20, 0
 	dc.b	$20, 7, 0, $54, $F0
 	dc.b	$20, 7, 8, $54, 0
-	dc.b	0
+	even
 
 .Sprite2:
 	dc.b	6
@@ -53,27 +53,32 @@
 	dc.b	$18, $C, 8, $20, 0
 	dc.b	$20, 7, 0, $54, $F0
 	dc.b	$20, 7, 8, $54, 0
-	dc.b	0
+	even
 
 .Sprite3:
 	dc.b	1
 	dc.b	$F8, 5, 0, $5C, $F8
+	even
 
 .Sprite4:
 	dc.b	1
 	dc.b	$F8, 5, 0, $60, $F8
+	even
 
 .Sprite5:
 	dc.b	1
 	dc.b	$F8, 5, 0, $64, $F8
+	even
 
 .Sprite6:
 	dc.b	1
 	dc.b	$F8, 5, 8, $64, $F8
+	even
 
 .Sprite7:
 	dc.b	1
 	dc.b	$F8, 5, 8, $60, $F8
+	even
 
 .Sprite8:
 	dc.b	1

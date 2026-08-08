@@ -90,7 +90,6 @@ STAGE_GOOD_FUTURE	equ 1					; Good future
 	include "src/objects/title_card.asm"
 	include "src/objects/results.asm"
 	include "src/r4/title_card_data.asm"
-	include "src/sprites/title_card_r4.asm"
 	include "src/r4/water_currents_3.asm"
 	include "src/r4/section_gfx_3c.asm"
 	include "src/objects/r4/tonbo.asm"

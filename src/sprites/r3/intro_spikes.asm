@@ -25,39 +25,47 @@
 	dc.b	0, 5, 0, 4, $F0
 	dc.b	$F0, 5, 0, 0, 0
 	dc.b	0, 5, 0, 4, 0
-	dc.b	0
+	even
 
 .Sprite1:
 	dc.b	1
 	dc.b	$F0, 5, 0, 0, $F0
+	even
 
 .Sprite2:
 	dc.b	1
 	dc.b	0, 5, 0, 4, $F0
+	even
 
 .Sprite3:
 	dc.b	1
 	dc.b	$F0, 5, 0, 0, 0
+	even
 
 .Sprite4:
 	dc.b	1
 	dc.b	0, 5, 0, 4, 0
+	even
 
 .Sprite5:
 	dc.b	1
 	dc.b	$F0, 5, 8, $C, $F0
+	even
 
 .Sprite6:
 	dc.b	1
 	dc.b	0, 5, 8, $C, $F0
+	even
 
 .Sprite7:
 	dc.b	1
 	dc.b	$F0, 5, 8, 8, 0
+	even
 
 .Sprite8:
 	dc.b	1
 	dc.b	0, 5, 8, 8, 0
+	even
 
 .Sprite9:
 	dc.b	4
@@ -65,23 +73,27 @@
 	dc.b	0, 5, 8, $C, $F0
 	dc.b	$F0, 5, 8, 8, 0
 	dc.b	0, 5, 8, 8, 0
-	dc.b	0
+	even
 
 .Spritea:
 	dc.b	1
 	dc.b	$F0, 5, 0, 8, $F0
+	even
 
 .Spriteb:
 	dc.b	1
 	dc.b	0, 5, 0, 8, $F0
+	even
 
 .Spritec:
 	dc.b	1
 	dc.b	$F0, 5, 0, $C, 0
+	even
 
 .Sprited:
 	dc.b	1
 	dc.b	0, 5, 0, $C, 0
+	even
 
 .Spritee:
 	dc.b	4
@@ -89,6 +101,6 @@
 	dc.b	0, 5, 0, 8, $F0
 	dc.b	$F0, 5, 0, $C, 0
 	dc.b	0, 5, 0, $C, 0
-	dc.b	0
+	even
 
 ; ------------------------------------------------------------------------------

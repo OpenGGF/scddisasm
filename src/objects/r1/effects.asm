@@ -77,27 +77,7 @@ WaterfallAnims:
 	even
 
 WaterfallSprites:
-	dc.w	@WaterfallSprite_0-*
-	dc.w	@WaterfallSprite_1-WaterfallSprites
-
-@WaterfallSprite_0:
-	dc.b	6
-	dc.b	$F0, $F, 0, 0, $A0
-	dc.b	$F0, $F, 0, 0, $C0
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	$F0, $F, 0, 0, $20
-	dc.b	$F0, $F, 0, 0, $40
-	dc.b	0
-
-@WaterfallSprite_1:
-	dc.b	6
-	dc.b	$F0, $F, 0, $10, $A0
-	dc.b	$F0, $F, 0, $10, $C0
-	dc.b	$F0, $F, 0, $10, $E0
-	dc.b	$F0, $F, 0, $10, 0
-	dc.b	$F0, $F, 0, $10, $20
-	dc.b	$F0, $F, 0, $10, $40
-	dc.b	0
+	include	"src/sprites/r1/waterfall.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -34,7 +34,7 @@ MosquiObject_0_Routine0:
 	jsr	(SetObjectSpriteTile).l
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B600
-	lea	MosquiSprites(pc),a1
+	lea	MosquiSprites1(pc),a1
 	lea	MosquiAnims1(pc),a2
 	move.l	#-$10000,d0
 	bra.s	loc_20B60E
@@ -42,7 +42,7 @@ MosquiObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 loc_20B600:
-	lea	MosquiDecaySprites(pc),a1
+	lea	MosquiSprites2(pc),a1
 	lea	MosquiAnims2(pc),a2
 	move.l	#-$8000,d0
 
@@ -150,68 +150,12 @@ MosquiAnims2:
 	include	"src/anims/r1/mosqui_2.asm"
 	even
 
-MosquiSprites:
-	dc.w	@MosquiSprites_0-*
-	dc.w	@MosquiSprites_1-MosquiSprites
-	dc.w	@MosquiSprites_2-MosquiSprites
-	dc.w	@MosquiSprites_3-MosquiSprites
-	dc.w	@MosquiSprites_4-MosquiSprites
+MosquiSprites1:
+	include	"src/sprites/r1/mosqui_1.asm"
+	even
 
-@MosquiSprites_0:
-	dc.b	3
-	dc.b	$F4, 8, 0, 0, $F8
-	dc.b	$FC, 5, 0, 3, $F0
-	dc.b	$FC, 5, 0, 7, 0
-
-@MosquiSprites_1:
-	dc.b	2
-	dc.b	$FC, 5, 0, 3, $F0
-	dc.b	$FC, 5, 0, $B, 0
-
-@MosquiSprites_2:
-	dc.b	2
-	dc.b	$F0, $A, 0, $F, $F8
-	dc.b	8, 4, 0, $18, $F0
-
-@MosquiSprites_3:
-	dc.b	1
-	dc.b	$F0, $B, 0, $1A, $F8
-
-@MosquiSprites_4:
-	dc.b	1
-	dc.b	$F0, $B, 0, $26, $F4
-
-MosquiDecaySprites:
-	dc.w	@MosquiDecaySprites_0-*
-	dc.w	@MosquiDecaySprites_1-MosquiDecaySprites
-	dc.w	@MosquiDecaySprites_2-MosquiDecaySprites
-	dc.w	@MosquiDecaySprites_3-MosquiDecaySprites
-	dc.w	@MosquiDecaySprites_4-MosquiDecaySprites
-
-@MosquiDecaySprites_0:
-	dc.b	3
-	dc.b	$F4, 8, 0, 0, $F8
-	dc.b	$FC, 5, 0, $32, $F0
-	dc.b	$FC, 5, 0, 7, 0
-
-@MosquiDecaySprites_1:
-	dc.b	2
-	dc.b	$FC, 5, 0, $32, $F0
-	dc.b	$FC, 5, 0, $B, 0
-
-@MosquiDecaySprites_2:
-	dc.b	2
-	dc.b	$F0, $A, 0, $F, $F8
-	dc.b	8, 4, 0, $36, $F0
-
-@MosquiDecaySprites_3:
-	dc.b	1
-	dc.b	$F0, $B, 0, $38, $F8
-
-@MosquiDecaySprites_4:
-	dc.b	2
-	dc.b	0, 1, 0, $44, $FC
-	dc.b	$F0, $B, 0, $26, $F4
-	dc.b	0
+MosquiSprites2:
+	include	"src/sprites/r1/mosqui_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------

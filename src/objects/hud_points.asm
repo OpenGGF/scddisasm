@@ -38,40 +38,8 @@ loc_20965A:
 ; ------------------------------------------------------------------------------
 
 PointsSprites:
-	dc.w	@PointsSprite_0-*
-	dc.w	@PointsSprite_1-PointsSprites
-	dc.w	@PointsSprite_2-PointsSprites
-	dc.w	@PointsSprite_3-PointsSprites
-	dc.w	@PointsSprite_4-PointsSprites
-	dc.w	@PointsSprite_5-PointsSprites
-@PointsSprite_0:
-	dc.b	2
-	dc.b	0, 0, 0, 0, $F8
-	dc.b	0, 0, 0, 3, 0
-	dc.b	0
-@PointsSprite_1:
-	dc.b	2
-	dc.b	0, 0, 0, 1, $F8
-	dc.b	0, 0, 0, 3, 0
-	dc.b	0
-@PointsSprite_2:
-	dc.b	2
-	dc.b	0, 0, 0, 2, $F8
-	dc.b	0, 0, 0, 3, 0
-	dc.b	0
-@PointsSprite_3:
-	dc.b	2
-	dc.b	0, 0, 0, 4, $F8
-	dc.b	0, 0, 0, 3, 0
-	dc.b	0
-@PointsSprite_4:
-	dc.b	1
-	dc.b	0, 0, 0, 4, $FC
-@PointsSprite_5:
-	dc.b	3
-	dc.b	0, 0, 0, 0, $F4
-	dc.b	0, 0, 0, 3, $FC
-	dc.b	0, 0, 0, 3, 4
+	include	"src/sprites/points.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -151,50 +119,8 @@ loc_20975C:
 ; ------------------------------------------------------------------------------
 
 HudSprites:
-	dc.w	@HudSprite_0-*
-	dc.w	@HudSprite_1-HudSprites
-	dc.w	@HudSprite_2-HudSprites
-	dc.w	@HudSprite_3-HudSprites
-@HudSprite_0:
-	dc.b	$E
-	dc.b	0, 1, 0, 0, 0
-	dc.b	0, 5, 0, 2, 8
-	dc.b	0, 1, 0, 6, $18
-	dc.b	0, 1, 0, 8, $20
-	dc.b	0, 9, 0, $1B, $28
-	dc.b	0, $D, 0, $21, $40
-	dc.b	$10, 9, 0, $A, 0
-	dc.b	$10, 1, 0, 8, $18
-	dc.b	$10, 1, 0, $29, $28
-	dc.b	$10, 0, 0, $18, $30
-	dc.b	$10, 5, 0, $2B, $38
-	dc.b	$10, 0, 0, $19, $48
-	dc.b	$10, 5, 0, $2F, $50
-	dc.b	$20, 9, 0, $33, $30
-	dc.b	0
-@HudSprite_1:
-	dc.b	3
-	dc.b	0, 5, 0, $39, 0
-	dc.b	8, 0, 0, $1A, $10
-	dc.b	4, 1, 0, $3D, $18
-@HudSprite_2:
-	dc.b	$B
-	dc.b	0, 1, 0, 0, 0
-	dc.b	0, 5, 0, 2, 8
-	dc.b	0, 1, 0, 6, $18
-	dc.b	0, 1, 0, 8, $20
-	dc.b	0, 9, 0, $1B, $28
-	dc.b	0, 9, 0, $21, $40
-	dc.b	$10, 9, 0, $A, 0
-	dc.b	$10, 1, 0, 8, $18
-	dc.b	$10, 5, 0, $2B, $38
-	dc.b	$10, 5, 0, $2F, $48
-	dc.b	$20, 9, 0, $33, $30
-@HudSprite_3:
-	dc.b	3
-	dc.b	$20, 1, 0, $10, 0
-	dc.b	$20, 9, 0, $12, 8
-	dc.b	$20, 1, 0, 0, $20
+	include	"src/sprites/hud.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -424,9 +350,10 @@ loc_209A8C:
 
 HudScoreResetTiles:
 	dc.b	$FF, $FF, $FF, $FF, $FF, $FF, 0, 0
+	
 HudRingResetTiles:
 	dc.b	$FF, $FF, 0
-	dc.b	0
+	even
 
 ; ------------------------------------------------------------------------------
 

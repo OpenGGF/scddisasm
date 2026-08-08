@@ -3,7 +3,7 @@
 DebugObjects:
 	debugStart
 	debugObject $31, 1, Spr_20CF60, $4797, 0, 0, 0, 0
-	debugObject $2C, 3, Spr_20F22A, $3B6, 0, 0, 0, 0
+	debugObject $2C, 3, HologramSprites, $3B6, 0, 0, 0, 0
 	debugObject $32, 1, Unk20F878Sprites, $44A7, 0, 0, 0, 0
 	debugObject $32, 1, Unk20F878Sprites, $44A7, 1, 0, 0, 1
 	debugObject $32, 1, Unk20F878Sprites, $44A7, 2, 1, 0, 0
@@ -33,8 +33,8 @@ DebugObjects:
 	debugObject $30, 1, PlatformSprites, $4304, $17, 0, 0, 4
 	debugObject $30, 1, PlatformSprites, $4304, $18, 0, 0, 4
 	debugObject $2F, 1, BridgeSprites, $4300, 0, 0, 0, 2
-	debugObject $2E, 1, RobotGeneratorSprites, $4D2, 0, 0, 0, 0
-	debugObject $2C, 3, Spr_20F22A, $3B6, 0, 0, 0, 0
+	debugObject $2E, 1, RobotTransportSprites, $4D2, 0, 0, 0, 0
+	debugObject $2C, 3, HologramSprites, $3B6, 0, 0, 0, 0
 	debugObject $2D, 3, Spr_20EF1E, $4BA, 0, 0, 0, 0
 	debugObject $2D, 3, Spr_20EF32, $4BA, 1, 0, 0, 3
 	debugObject $2B, 1, Spr_20EB34, $446B, 0, 0, 0, 0
@@ -75,14 +75,14 @@ DebugObjects:
 	debugObject $22, 1, Spr_20D81E, $A3FE, 1, 0, 0, 3
 	debugObject $20, 1, Unk20D170Sprites, $A390, 0, 0, 0, 0
 	debugObject $20, 1, Unk20D1E0Sprites, $A390, 1, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 1, 0, 0
-	debugObject $A, 1, DSpringSprites, $4F2, 8, 0, 0, 0
-	debugObject $A, 1, DSpringSprites, $4F2, 8, 2, 0, 0
-	debugObject $A, 1, DSpringSprites, $4F2, 8, 1, 0, 0
-	debugObject $A, 1, DSpringSprites, $4F2, 8, 3, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 1, 0, 0
+	debugObject $A, 1, Spring45Sprites, $4F2, 8, 0, 0, 0
+	debugObject $A, 1, Spring45Sprites, $4F2, 8, 2, 0, 0
+	debugObject $A, 1, Spring45Sprites, $4F2, 8, 1, 0, 0
+	debugObject $A, 1, Spring45Sprites, $4F2, 8, 3, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 0, 0, 0, 0
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 1, 0, 0, 1
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 2, 0, 0, 2

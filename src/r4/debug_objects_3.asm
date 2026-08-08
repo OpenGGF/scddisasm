@@ -8,10 +8,10 @@ DebugObjects:
 	debugObject $2B, 1, TonboSprites2, $2416, 1, 0, 0, 0
 	debugObject $34, 1, Spr_20EDD0, $446A, 0, 0, 0, 0
 	debugObject $20, 4, BubbleSprites, $848A, $82, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 0, 0, 0
-	debugObject $A, 1, VSpringSprites, $520, 0, 2, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 0, 0, 0
-	debugObject $A, 1, HSpringSprites, $520, 4, 1, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
+	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0
+	debugObject $A, 1, SpringHSprites, $520, 4, 1, 0, 0
 	debugEnd
 
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 0, 0, 0, 0

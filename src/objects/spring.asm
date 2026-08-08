@@ -18,7 +18,7 @@ MoveSpringObject:
 ; ------------------------------------------------------------------------------
 
 off_20824E:
-	dc.w	sub_208254-*
+	dc.w	sub_208254-off_20824E
 	dc.w	sub_2082C2-off_20824E
 	dc.w	sub_2082E2-off_20824E
 
@@ -105,7 +105,7 @@ off_20832C:
 ; ------------------------------------------------------------------------------
 
 SpringSpriteInit:
-	move.l	#VSpringSprites,obj.sprite_data(a0)
+	move.l	#SpringVSprites,obj.sprite_data(a0)
 	move.w	#$8520,obj.sprite_tile(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -162,7 +162,7 @@ loc_2083BC:
 ; ------------------------------------------------------------------------------
 
 off_2083DC:
-	dc.w	SpringInit-*
+	dc.w	SpringInit-off_2083DC
 	dc.w	SpringUpMain-off_2083DC
 	dc.w	SpringUpAnim-off_2083DC
 	dc.w	SpringUpReset-off_2083DC
@@ -180,7 +180,7 @@ off_2083DC:
 
 SpringInit:
 	addq.b	#2,obj.routine(a0)
-	move.l	#VSpringSprites,obj.sprite_data(a0)
+	move.l	#SpringVSprites,obj.sprite_data(a0)
 	move.w	#$520,obj.sprite_tile(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -193,7 +193,7 @@ SpringInit:
 	move.b	#8,obj.routine(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
-	move.l	#HSpringSprites,obj.sprite_data(a0)
+	move.l	#SpringHSprites,obj.sprite_data(a0)
 	bra.s	loc_20848E
 
 ; ------------------------------------------------------------------------------
@@ -204,7 +204,7 @@ loc_20844C:
 	move.b	#$14,obj.routine(a0)
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
-	move.l	#DSpringSprites,obj.sprite_data(a0)
+	move.l	#Spring45Sprites,obj.sprite_data(a0)
 	move.l	d0,-(sp)
 	moveq	#$F,d0
 	jsr	SetObjectSpriteTile
@@ -459,121 +459,29 @@ S1SpringAnims:
 	even
 
 S1SpringSprites:
-	dc.w	@S1SpringSprites_0-*
-	dc.w	@S1SpringSprites_1-S1SpringSprites
-	dc.w	@S1SpringSprites_2-S1SpringSprites
-	dc.w	@S1SpringSprites_3-S1SpringSprites
-	dc.w	@S1SpringSprites_4-S1SpringSprites
-	dc.w	@S1SpringSprites_5-S1SpringSprites
-@S1SpringSprites_0:
-	dc.b	2
-	dc.b	$F8, $C, 0, 0, $F0
-	dc.b	0, $C, 0, 4, $F0
-@S1SpringSprites_1:
-	dc.b	1
-	dc.b	0, $C, 0, 0, $F0
-@S1SpringSprites_2:
-	dc.b	3
-	dc.b	$E8, $C, 0, 0, $F0
-	dc.b	$F0, 5, 0, 8, $F8
-	dc.b	0, $C, 0, $C, $F0
-@S1SpringSprites_3:
-	dc.b	1
-	dc.b	$F0, 7, 0, 0, $F8
-@S1SpringSprites_4:
-	dc.b	1
-	dc.b	$F0, 3, 0, 4, $F8
-@S1SpringSprites_5:
-	dc.b	4
-	dc.b	$F0, 3, 0, 4, $10
-	dc.b	$F8, 9, 0, 8, $F8
-	dc.b	$F0, 0, 0, 0, $F8
-	dc.b	8, 0, 0, 3, $F8
+	include	"src/sprites/s1_spring.asm"
+	even
 
 SpringAnims:
 	include	"src/anims/spring.asm"
 	even
 
-VSpringSprites:
-	dc.w	@VSpringSprites_0-*
-	dc.w	@VSpringSprites_1-VSpringSprites
-	dc.w	@VSpringSprites_2-VSpringSprites
-HSpringSprites:
-	dc.w	@HSpringSprites_0-*
-	dc.w	@HSpringSprites_1-HSpringSprites
-	dc.w	@HSpringSprites_2-HSpringSprites
-@VSpringSprites_0:
-	dc.b	2
-	dc.b	$F8, $C, 0, 0, $F0
-	dc.b	0, $C, 0, 4, $F0
-	dc.b	0
-@VSpringSprites_1:
-	dc.b	1
-	dc.b	0, $C, 0, 0, $F0
-@VSpringSprites_2:
-	dc.b	3
-	dc.b	$E0, $C, 0, 0, $F0
-	dc.b	$E8, 6, 0, 8, $F8
-	dc.b	0, $C, 0, $E, $F0
-@HSpringSprites_0:
-	dc.b	2
-	dc.b	$F0, 3, 0, $12, 0
-	dc.b	$F0, 3, 0, $16, $F8
-	dc.b	0
-@HSpringSprites_1:
-	dc.b	1
-	dc.b	$F0, 3, 0, $12, $F8
-@HSpringSprites_2:
-	dc.b	3
-	dc.b	$F0, 3, 0, $12, $18
-	dc.b	$F8, 9, 0, $1A, 0
-	dc.b	$F0, 3, 0, $20, $F8
-DSpringSprites:
-	dc.w	@DSpringSprites_0-*
-	dc.w	@DSpringSprites_1-DSpringSprites
-	dc.w	@DSpringSprites_2-DSpringSprites
-@DSpringSprites_0:
-	dc.b	7
-	dc.b	8, 0, 0, 0, $F0
-	dc.b	0, 0, 0, 1, $F0
-	dc.b	8, 0, 0, 2, $F8
-	dc.b	$F0, 8, 0, 3, $F0
-	dc.b	$F8, 0, 0, 6, $F0
-	dc.b	$F8, 9, 0, 7, $F8
-	dc.b	8, 4, 0, $D, 0
-@DSpringSprites_1:
-	dc.b	7
-	dc.b	8, 0, 0, 0, $F0
-	dc.b	0, 0, 0, $F, $F0
-	dc.b	8, 0, 0, $10, $F8
-	dc.b	$F0, 5, 0, $11, $F0
-	dc.b	$F8, 0, 0, 5, 0
-	dc.b	0, 0, 0, $15, $F8
-	dc.b	0, 5, 0, $16, 0
-@DSpringSprites_2:
-	dc.b	8
-	dc.b	8, 0, 0, 0, $F0
-	dc.b	0, 0, 0, $1A, $F0
-	dc.b	8, 0, 0, $1B, $F8
-	dc.b	$E0, 8, 0, 3, 0
-	dc.b	$E8, $E, 0, $1C, 0
-	dc.b	$F8, 0, 0, $28, $F0
-	dc.b	$F0, 2, 0, $29, $F8
-	dc.b	0, 1, 0, $2C, 0
-	dc.b	0
+SpringSprites:
+	include	"src/sprites/spring.asm"
+	even
+SpringVSprites		equ .VSprites
+SpringHSprites		equ .HSprites
+
+Spring45Sprites:
+	include	"src/sprites/spring_45.asm"
+	even
 
 MoveSpringAnims:
 	include	"src/anims/move_spring.asm"
 	even
 
 MoveSpringSprites:
-	dc.w	@MoveSpringSprites_0-*
-	dc.w	@MoveSpringSprites_1-MoveSpringSprites
-@MoveSpringSprites_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-@MoveSpringSprites_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
+	include	"src/sprites/move_spring.asm"
+	even
 
 ; ------------------------------------------------------------------------------

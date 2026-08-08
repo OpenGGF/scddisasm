@@ -114,7 +114,7 @@ loc_20BAFE:
 	cmpi.b	#2,d6
 	bne.s	loc_20BB42
 	move.w	#$520,2(a1)
-	move.l	#HSpringSprites,4(a1)
+	move.l	#SpringHSprites,4(a1)
 	move.b	#5,$18(a1)
 	move.l	a1,obj.var_2a(a0)
 	bra.s	loc_20BB6C
@@ -236,9 +236,9 @@ byte_20BC4E:
 	dc.b	0
 
 off_20BC58:
-	dc.l	HSpringSprites
-	dc.l	VSpringSprites
-	dc.l	DSpringSprites
+	dc.l	SpringHSprites
+	dc.l	SpringVSprites
+	dc.l	Spring45Sprites
 
 unk_20BC64:
 	dc.b	0

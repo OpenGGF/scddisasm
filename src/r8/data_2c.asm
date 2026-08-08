@@ -490,8 +490,8 @@ unk_23E876:
 	incbin	"src/data/r8/unk_23E876.bin"
 	even
 
-RobotGeneratorSprites:
-	include	"src/sprites/r8/robot_generator_2.asm"
+RobotTransportSprites:
+	include	"src/sprites/robot_transport.asm"
 	even
 
 Spr_23C15C:

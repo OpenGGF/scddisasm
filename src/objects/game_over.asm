@@ -80,31 +80,10 @@ loc_20A90A:
 
 ; ------------------------------------------------------------------------------
 
-GameOverSprites:
-	dc.w	@GameOverSprites_0-*
-	dc.w	@GameOverSprites_1-GameOverSprites
-TimeOverSprites:
-	dc.w	@TimeOverSprites_0-*
-	dc.w	@TimeOverSprites_1-TimeOverSprites
-@GameOverSprites_0:
-	dc.b	2
-	dc.b	$F8, $D, 0, 0, $B8
-	dc.b	$F8, $D, 0, 8, $D8
-	dc.b	0
-@GameOverSprites_1:
-	dc.b	2
-	dc.b	$F8, $D, 0, $10, 8
-	dc.b	$F8, $D, 0, $18, $28
-	dc.b	0
-@TimeOverSprites_0:
-	dc.b	2
-	dc.b	$F8, $D, 0, 0, $BC
-	dc.b	$F8, 9, 0, 8, $DC
-	dc.b	0
-@TimeOverSprites_1:
-	dc.b	2
-	dc.b	$F8, $D, 0, $E, 4
-	dc.b	$F8, $D, 0, $16, $24
-	dc.b	0
+OverSprites:
+	include	"src/sprites/over.asm"
+	even
+GameOverSprites		equ .GameOverSprites
+TimeOverSprites		equ .TimeOverSprites
 
 ; ------------------------------------------------------------------------------

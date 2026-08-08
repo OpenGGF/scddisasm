@@ -341,22 +341,8 @@ locret_20E02C:
 ; ------------------------------------------------------------------------------
 
 Plant3dSprites:
-	dc.w	@Plant3dSprites_0-*
-	dc.w	@Plant3dSprites_1-Plant3dSprites
-
-@Plant3dSprites_0:
-	dc.b	4
-	dc.b	$EC, 4, 0, 0, $F8
-	dc.b	$F4, $E, 0, 2, $F8
-	dc.b	$FC, 5, 0, $E, $E8
-	dc.b	$C, 8, 0, $12, $F0
-	dc.b	0
-
-@Plant3dSprites_1:
-	dc.b	2
-	dc.b	$F4, 0, 0, $15, $FC
-	dc.b	$FC, 9, 0, $16, $F4
-	dc.b	0
+	include	"src/sprites/r1/3d_plant.asm"
+	even
 
 Boost3dAnims:
 	include	"src/anims/r1/3d_boost.asm"

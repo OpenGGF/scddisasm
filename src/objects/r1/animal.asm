@@ -23,7 +23,7 @@ AnimalObject_1_Routine0:
 	addq.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.l	#$8080408,obj.height(a0)
-	move.l	#FlyAnimalSprites,obj.sprite_data(a0)
+	move.l	#AnimalSprites1,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
 	move.w	obj.y(a0),obj.var_2c(a0)
 	bsr.w	loc_20D190
@@ -120,7 +120,7 @@ AnimalObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.l	#$8080408,obj.height(a0)
-	move.l	#GroundAnimalSprites,obj.sprite_data(a0)
+	move.l	#AnimalSprites2,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
 	bsr.w	sub_20D19E
 	tst.b	obj.subtype(a0)
@@ -204,49 +204,13 @@ AnimalAnims2:
 	include	"src/anims/r1/animal_2.asm"
 	even
 
-FlyAnimalSprites:
-	dc.w	@FlyAnimalSprites_0-*
-	dc.w	@FlyAnimalSprites_1-FlyAnimalSprites
-	dc.w	@FlyAnimalSprites_2-FlyAnimalSprites
+AnimalSprites1:
+	include	"src/sprites/r1/animal_1.asm"
+	even
 
-@FlyAnimalSprites_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-
-@FlyAnimalSprites_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
-
-@FlyAnimalSprites_2:
-	dc.b	0
-	dc.b	0
-
-GroundAnimalSprites:
-	dc.w	@GroundAnimalSprites_0-*
-	dc.w	@GroundAnimalSprites_1-GroundAnimalSprites
-	dc.w	@GroundAnimalSprites_2-GroundAnimalSprites
-	dc.w	@GroundAnimalSprites_3-GroundAnimalSprites
-	dc.w	@GroundAnimalSprites_4-GroundAnimalSprites
-
-@GroundAnimalSprites_0:
-	dc.b	1
-	dc.b	$F8, 9, 0, $E, $F4
-
-@GroundAnimalSprites_1:
-	dc.b	1
-	dc.b	$F8, 9, 0, 8, $F4
-
-@GroundAnimalSprites_2:
-	dc.b	0
-
-@GroundAnimalSprites_3:
-	dc.b	1
-	dc.b	$F8, 9, 0, 8, $F4
-
-@GroundAnimalSprites_4:
-	dc.b	1
-	dc.b	$F9, 9, 0, $E, $F4
-	dc.b	0
+AnimalSprites2:
+	include	"src/sprites/r1/animal_2.asm"
+	even
 
 word_20D272:
 	dc.w	$4F7, $388, $463, 0
