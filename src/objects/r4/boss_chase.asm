@@ -42,7 +42,7 @@ EggMobileChaseObject_0_Routine0:
 	move.b	#$24,obj.width_2(a0)
 	move.b	#$38,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20C22C,obj.sprite_data(a0)
+	move.l	#EggMobileChaseSprites,obj.sprite_data(a0)
 	move.l	#$1C000,obj.var_3c(a0)
 	move.l	#$13C68,obj.x_speed(a0)
 	move.w	#5,d0
@@ -710,7 +710,7 @@ EggmanChaseObject_0_Routine0:
 	move.b	#$24,obj.width_2(a0)
 	move.b	#$38,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20C3A2,obj.sprite_data(a0)
+	move.l	#EggmanChaseSprites,obj.sprite_data(a0)
 	bsr.w	sub_20C014
 
 EggmanChaseObject_0_Routine2:
@@ -778,141 +778,16 @@ EggMobileChaseAnims:
 	include	"src/anims/r4/eggmobile_chase.asm"
 	even
 
-Spr_20C22C:
-	dc.w	@Spr_20C22C_0-*
-	dc.w	@Spr_20C22C_1-Spr_20C22C
-	dc.w	@Spr_20C22C_2-Spr_20C22C
-	dc.w	@Spr_20C22C_3-Spr_20C22C
-	dc.w	@Spr_20C22C_4-Spr_20C22C
-	dc.w	@Spr_20C22C_5-Spr_20C22C
-	dc.w	@Spr_20C22C_6-Spr_20C22C
-	dc.w	@Spr_20C22C_7-Spr_20C22C
-	dc.w	@Spr_20C22C_8-Spr_20C22C
-
-@Spr_20C22C_0:
-	dc.b	7
-	dc.b	$E4, $F, 0, 0, $DC
-	dc.b	$E4, $F, 0, $10, $FC
-	dc.b	$E4, 3, 0, $20, $1C
-	dc.b	4, $E, 0, $24, $DC
-	dc.b	4, $E, 0, $30, $FC
-	dc.b	4, 2, 0, $3C, $1C
-	dc.b	$1C, 5, 0, $4F, 4
-
-@Spr_20C22C_1:
-	dc.b	7
-	dc.b	$E4, $F, 0, 0, $DC
-	dc.b	$E4, $F, 0, $10, $FC
-	dc.b	$E4, 3, 0, $20, $1C
-	dc.b	4, $E, 0, $24, $DC
-	dc.b	4, $E, 0, $30, $FC
-	dc.b	4, 2, 0, $3C, $1C
-	dc.b	$1C, 5, 0, $53, 4
-
-@Spr_20C22C_2:
-	dc.b	7
-	dc.b	$E4, $F, 0, 0, $DC
-	dc.b	$E4, $F, 0, $10, $FC
-	dc.b	$E4, 3, 0, $20, $1C
-	dc.b	4, $E, 0, $24, $DC
-	dc.b	4, $E, 0, $30, $FC
-	dc.b	4, 2, 0, $3C, $1C
-	dc.b	$14, 5, 0, $57, $EC
-
-@Spr_20C22C_3:
-	dc.b	7
-	dc.b	$E4, $F, 0, 0, $DC
-	dc.b	$E4, $F, 0, $10, $FC
-	dc.b	$E4, 3, 0, $20, $1C
-	dc.b	4, $E, 0, $24, $DC
-	dc.b	4, $E, 0, $30, $FC
-	dc.b	4, 2, 0, $3C, $1C
-	dc.b	$14, 5, 0, $5B, $EC
-
-@Spr_20C22C_4:
-	dc.b	8
-	dc.b	$E4, $F, 0, 0, $DC
-	dc.b	$E4, $F, 0, $10, $FC
-	dc.b	$E4, 3, 0, $20, $1C
-	dc.b	4, $E, 0, $24, $DC
-	dc.b	4, $E, 0, $30, $FC
-	dc.b	4, 2, 0, $3C, $1C
-	dc.b	$1C, 5, 0, $4F, 4
-	dc.b	$14, 5, 0, $57, $EC
-	dc.b	0
-
-@Spr_20C22C_5:
-	dc.b	8
-	dc.b	$E4, $F, 0, 0, $DC
-	dc.b	$E4, $F, 0, $10, $FC
-	dc.b	$E4, 3, 0, $20, $1C
-	dc.b	4, $E, 0, $24, $DC
-	dc.b	4, $E, 0, $30, $FC
-	dc.b	4, 2, 0, $3C, $1C
-	dc.b	$1C, 5, 0, $53, 4
-	dc.b	$14, 5, 0, $5B, $EC
-	dc.b	0
-
-@Spr_20C22C_6:
-	dc.b	7
-	dc.b	$E4, $F, 0, $67, $DC
-	dc.b	$E4, $F, 0, $77, $FC
-	dc.b	$E4, 3, 0, $87, $1C
-	dc.b	4, $E, 0, $8B, $DC
-	dc.b	4, $E, 0, $97, $FC
-	dc.b	4, 2, 0, $A3, $1C
-	dc.b	$1C, 5, 0, $4F, 4
-
-@Spr_20C22C_7:
-	dc.b	7
-	dc.b	$E4, $F, 0, $67, $DC
-	dc.b	$E4, $F, 0, $77, $FC
-	dc.b	$E4, 3, 0, $87, $1C
-	dc.b	4, $E, 0, $8B, $DC
-	dc.b	4, $E, 0, $97, $FC
-	dc.b	4, 2, 0, $A3, $1C
-	dc.b	$14, 5, 0, $57, $EC
-
-@Spr_20C22C_8:
-	dc.b	8
-	dc.b	$E4, $F, 0, $67, $DC
-	dc.b	$E4, $F, 0, $77, $FC
-	dc.b	$E4, 3, 0, $87, $1C
-	dc.b	4, $E, 0, $8B, $DC
-	dc.b	4, $E, 0, $97, $FC
-	dc.b	4, 2, 0, $A3, $1C
-	dc.b	$1C, 5, 0, $4F, 4
-	dc.b	$14, 5, 0, $57, $EC
-	dc.b	0
+EggMobileChaseSprites:
+	include	"src/sprites/r4/eggmobile_chase.asm"
+	even
 
 EggmanChaseAnims:
 	include	"src/anims/r4/eggman_chase.asm"
 	even
 
-Spr_20C3A2:
-	dc.w	@Spr_20C3A2_0-*
-	dc.w	@Spr_20C3A2_1-Spr_20C3A2
-	dc.w	@Spr_20C3A2_2-Spr_20C3A2
-	dc.w	@Spr_20C3A2_3-Spr_20C3A2
-
-@Spr_20C3A2_0:
-	dc.b	1
-	dc.b	$E4, $D, 0, $3F, $F4
-
-@Spr_20C3A2_1:
-	dc.b	1
-	dc.b	$E4, $D, 0, $47, $F4
-
-@Spr_20C3A2_2:
-	dc.b	2
-	dc.b	$E4, $D, 0, $47, $F4
-	dc.b	$D4, 5, 0, $5F, $F4
-	dc.b	0
-
-@Spr_20C3A2_3:
-	dc.b	2
-	dc.b	$E4, $D, 0, $47, $F4
-	dc.b	$D4, 5, 0, $63, $F4
-	dc.b	0
+EggmanChaseSprites:
+	include	"src/sprites/r4/eggman_chase.asm"
+	even
 
 ; ------------------------------------------------------------------------------

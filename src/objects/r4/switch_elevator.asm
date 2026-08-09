@@ -44,7 +44,7 @@ SwitchObject2_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$50A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20E6DA,obj.sprite_data(a0)
+	move.l	#SwitchSprites2,obj.sprite_data(a0)
 	tst.w	obj.var_36(a0)
 	bne.s	loc_20E662
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -111,21 +111,9 @@ loc_20E6D6:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20E6DA:
-	dc.w	@Spr_20E6DA_0-*
-	dc.w	@Spr_20E6DA_1-Spr_20E6DA
-
-@Spr_20E6DA_0:
-	dc.b	2
-	dc.b	$F4, 5, 0, 0, $F0
-	dc.b	$F4, 5, 8, 0, 0
-	dc.b	0
-
-@Spr_20E6DA_1:
-	dc.b	2
-	dc.b	$FC, 4, 0, 4, $F0
-	dc.b	$FC, 4, 8, 4, 0
-	dc.b	0
+SwitchSprites2:
+	include	"src/sprites/r4/switch_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -187,7 +175,7 @@ SwitchElevatorObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20E8E6,obj.sprite_data(a0)
+	move.l	#SwitchElevatorSprites,obj.sprite_data(a0)
 	tst.b	obj.var_3c(a0)
 	bne.w	SwitchElevatorObject_0_Routine2
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -305,33 +293,8 @@ locret_20E8E4:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20E8E6:
-	dc.w	@Spr_20E8E6_0-*
-	dc.w	@Spr_20E8E6_1-Spr_20E8E6
-	dc.w	@Spr_20E8E6_2-Spr_20E8E6
-
-@Spr_20E8E6_0:
-	dc.b	6
-	dc.b	$C0, $F, 0, 0, 0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	0, $F, 0, 0, $E0
-	dc.b	0, $F, 0, 0, 0
-	dc.b	$20, $F, 0, 0, $E0
-	dc.b	$20, $F, 0, 0, 0
-	dc.b	0
-
-@Spr_20E8E6_1:
-	dc.b	4
-	dc.b	$C0, $F, 0, 0, $F0
-	dc.b	$E0, $F, 0, 0, $F0
-	dc.b	0, $F, 0, 0, $F0
-	dc.b	$20, $F, 0, 0, $F0
-	dc.b	0
-
-@Spr_20E8E6_2:
-	dc.b	2
-	dc.b	$E0, $F, 0, 0, $F0
-	dc.b	0, $F, 0, 0, $F0
-	dc.b	0
+SwitchElevatorSprites:
+	include	"src/sprites/r4/switch_elevator.asm"
+	even
 
 ; ------------------------------------------------------------------------------

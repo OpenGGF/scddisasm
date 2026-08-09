@@ -43,7 +43,7 @@ TwinMoveBlockObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20D8F6,obj.sprite_data(a0)
+	move.l	#TwinMoveBlockSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	tst.b	obj.var_3c(a0)
@@ -125,13 +125,8 @@ byte_20D8E6:
 	dc.b	$80, 4
 	dc.b	0, 0
 
-Spr_20D8F6:
-	dc.w	@Spr_20D8F6_0-*
-
-@Spr_20D8F6_0:
-	dc.b	2
-	dc.b	$E0, $F, 0, 0, $F0
-	dc.b	0, $F, 0, 0, $F0
-	dc.b	0
+TwinMoveBlockSprites:
+	include	"src/sprites/r4/twin_move_block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

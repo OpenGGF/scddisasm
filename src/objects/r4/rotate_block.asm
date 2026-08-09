@@ -34,7 +34,7 @@ RotateBlockObject_1_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20EF14,obj.sprite_data(a0)
+	move.l	#RotateBlockSprites,obj.sprite_data(a0)
 	move.w	#$4300,obj.sprite_tile(a0)
 	move.b	#$40,obj.height(a0)
 	move.b	#$40,obj.width_2(a0)
@@ -266,7 +266,7 @@ RotateBlockObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20EF14,obj.sprite_data(a0)
+	move.l	#RotateBlockSprites,obj.sprite_data(a0)
 	move.w	#$4300,obj.sprite_tile(a0)
 	move.b	#8,obj.sprite_frame(a0)
 	move.b	#$20,d0
@@ -349,99 +349,8 @@ byte_20EF0C:
 	dc.b	0, $20
 	dc.b	0, -$20
 
-Spr_20EF14:
-	dc.w	@Spr_20EF14_0-*
-	dc.w	@Spr_20EF14_1-Spr_20EF14
-	dc.w	@Spr_20EF14_2-Spr_20EF14
-	dc.w	@Spr_20EF14_3-Spr_20EF14
-	dc.w	@Spr_20EF14_4-Spr_20EF14
-	dc.w	@Spr_20EF14_5-Spr_20EF14
-	dc.w	@Spr_20EF14_6-Spr_20EF14
-	dc.w	@Spr_20EF14_7-Spr_20EF14
-	dc.w	@Spr_20EF14_8-Spr_20EF14
-
-@Spr_20EF14_0:
-	dc.b	4
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$F0, $F, $10, 4, $F0
-	dc.b	$D0, $F, 0, 4, $F0
-	dc.b	$F0, $F, $18, 4, $D0
-	dc.b	0
-
-@Spr_20EF14_1:
-	dc.b	4
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$F0, $F, 0, 4, $F0
-	dc.b	$F0, $F, 8, 4, $D0
-	dc.b	$10, $F, $10, 4, $F0
-	dc.b	0
-
-@Spr_20EF14_2:
-	dc.b	4
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$F0, $F, 8, 4, $F0
-	dc.b	$10, $F, $18, 4, $F0
-	dc.b	$F0, $F, 0, 4, $10
-	dc.b	0
-
-@Spr_20EF14_3:
-	dc.b	4
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$F0, $F, $18, 4, $F0
-	dc.b	$F0, $F, $10, 4, $10
-	dc.b	$D0, $F, 8, 4, $F0
-	dc.b	0
-
-@Spr_20EF14_4:
-	dc.b	8
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$F0, 7, 0, $1C, 8
-	dc.b	$E0, $F, 0, $24, $E8
-	dc.b	0, $F, $10, $24, $E8
-	dc.b	$D0, $D, 0, $14, $D8
-	dc.b	$E0, $B, 0, $34, $D0
-	dc.b	0, $B, $10, $34, $D0
-	dc.b	$20, $D, $10, $14, $D8
-	dc.b	0
-
-@Spr_20EF14_5:
-	dc.b	8
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$E8, $D, 0, $14, $F0
-	dc.b	$F8, $F, 8, $24, $E0
-	dc.b	$F8, $F, 0, $24, 0
-	dc.b	8, 7, 8, $1C, $D0
-	dc.b	8, 7, 0, $1C, $20
-	dc.b	$18, $E, 0, $40, $E0
-	dc.b	$18, $E, 8, $40, 0
-	dc.b	0
-
-@Spr_20EF14_6:
-	dc.b	8
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$F0, 7, 8, $1C, $E8
-	dc.b	$E0, $F, 8, $24, $F8
-	dc.b	0, $F, $18, $24, $F8
-	dc.b	$D0, $D, 8, $14, 8
-	dc.b	$E0, $B, 8, $34, $18
-	dc.b	0, $B, $18, $34, $18
-	dc.b	$20, $D, $18, $14, 8
-	dc.b	0
-
-@Spr_20EF14_7:
-	dc.b	8
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	8, $D, $10, $14, $F0
-	dc.b	$E8, $F, $18, $24, $E0
-	dc.b	$E8, $F, $10, $24, 0
-	dc.b	$D8, 7, $18, $1C, $D0
-	dc.b	$D8, 7, $10, $1C, $20
-	dc.b	$D0, $E, $10, $40, $E0
-	dc.b	$D0, $E, $18, $40, 0
-	dc.b	0
-
-@Spr_20EF14_8:
-	dc.b	0
-	dc.b	0
+RotateBlockSprites:
+	include	"src/sprites/r4/rotate_block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -45,7 +45,7 @@ loc_20F2A6:
 	move.b	#$20,obj.width_2(a1)
 	move.b	#6,obj.height(a1)
 	move.w	#$318,obj.sprite_tile(a1)
-	move.l	#Spr_20F38A,obj.sprite_data(a1)
+	move.l	#ShootSprites,obj.sprite_data(a1)
 	move.b	obj.sprite_flags(a0),obj.sprite_flags(a1)
 	move.b	obj.flags(a0),obj.flags(a1)
 
@@ -102,30 +102,8 @@ ShootAnims:
 	include	"src/anims/r4/shoot.asm"
 	even
 
-Spr_20F38A:
-	dc.w	@Spr_20F38A_0-*
-	dc.w	@Spr_20F38A_1-Spr_20F38A
-	dc.w	@Spr_20F38A_2-Spr_20F38A
-	dc.w	@Spr_20F38A_3-Spr_20F38A
-
-@Spr_20F38A_0:
-	dc.b	2
-	dc.b	$F8, 9, 0, 8, $F0
-	dc.b	$F8, 1, 0, $E, 8
-
-@Spr_20F38A_1:
-	dc.b	2
-	dc.b	$F8, 9, $10, 8, $F0
-	dc.b	$F8, 1, $10, $10, 8
-
-@Spr_20F38A_2:
-	dc.b	2
-	dc.b	$F8, 9, 0, 8, $F0
-	dc.b	$F8, 1, 0, $E, 8
-
-@Spr_20F38A_3:
-	dc.b	2
-	dc.b	$F8, 9, $10, 8, $F0
-	dc.b	$F8, 1, $10, $10, 8
+ShootSprites:
+	include	"src/sprites/r4/shoot.asm"
+	even
 
 ; ------------------------------------------------------------------------------

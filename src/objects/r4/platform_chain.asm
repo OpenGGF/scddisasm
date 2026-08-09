@@ -59,7 +59,7 @@ PlatformChainObject_0_Routine0:
 	move.w	#$4400,obj.sprite_tile(a0)
 
 loc_20ECA2:
-	move.l	#Spr_20EDEC,obj.sprite_data(a0)
+	move.l	#PlatformChainSprites,obj.sprite_data(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	tst.b	obj.var_3c(a0)
@@ -187,20 +187,8 @@ locret_20EDEA:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20EDEC:
-	dc.w	@Spr_20EDEC_0-*
-	dc.w	@Spr_20EDEC_1-Spr_20EDEC
-
-@Spr_20EDEC_0:
-	dc.b	2
-	dc.b	$F8, $D, 0, 0, $E0
-	dc.b	$F8, $D, 8, 0, 0
-	dc.b	0
-
-@Spr_20EDEC_1:
-	dc.b	2
-	dc.b	$F8, 1, 0, $A, $F8
-	dc.b	$F8, 1, 8, $A, 0
-	dc.b	0
+PlatformChainSprites:
+	include	"src/sprites/r4/platform_chain.asm"
+	even
 
 ; ------------------------------------------------------------------------------

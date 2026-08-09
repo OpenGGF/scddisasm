@@ -29,7 +29,7 @@ DoorObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$4440,obj.sprite_tile(a0)
 	move.b	#2,obj.sprite_layer(a0)
-	move.l	#Spr_20CF4C,obj.sprite_data(a0)
+	move.l	#DoorSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	obj.subtype(a0),d0
@@ -271,31 +271,8 @@ locret_20CF4A:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CF4C:
-	dc.w	@Spr_20CF4C_0-*
-	dc.w	@Spr_20CF4C_1-Spr_20CF4C
-	dc.w	@Spr_20CF4C_2-Spr_20CF4C
-
-@Spr_20CF4C_0:
-	dc.b	4
-	dc.b	$C0, 7, 0, 0, $F8
-	dc.b	$E0, 7, 0, 0, $F8
-	dc.b	0, 7, 0, 0, $F8
-	dc.b	$20, 7, 0, 0, $F8
-	dc.b	0
-
-@Spr_20CF4C_1:
-	dc.b	2
-	dc.b	$E0, 7, 0, 0, $F8
-	dc.b	0, 7, 0, 0, $F8
-	dc.b	0
-
-@Spr_20CF4C_2:
-	dc.b	4
-	dc.b	$F8, $D, 0, 8, $C0
-	dc.b	$F8, $D, 0, 8, $E0
-	dc.b	$F8, $D, 0, 8, 0
-	dc.b	$F8, $D, 0, 8, $20
-	dc.b	0
+DoorSprites:
+	include	"src/sprites/r4/door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

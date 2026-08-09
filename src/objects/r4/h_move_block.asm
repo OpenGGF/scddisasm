@@ -82,7 +82,7 @@ HMoveBlockObject_1_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C37C,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites1,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_32(a0)
 	move.b	#$30,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
@@ -146,23 +146,9 @@ HMoveBlockObject_1_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C37C:
-	dc.w	@Spr_20C37C_0-*
-	dc.w	@Spr_20C37C_1-Spr_20C37C
-
-@Spr_20C37C_0:
-	dc.b	4
-	dc.b	$F0, $F, 0, 0, $C0
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	$F0, $F, 0, 0, $20
-	dc.b	0
-
-@Spr_20C37C_1:
-	dc.b	3
-	dc.b	$F0, $F, 0, 0, $D0
-	dc.b	$F0, $F, 0, 0, $F0
-	dc.b	$F0, $F, 0, 0, $10
+HMoveBlockSprites1:
+	include	"src/sprites/r4/h_move_block_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -187,7 +173,7 @@ HMoveBlockObject_3_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C478,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites2,obj.sprite_data(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	tst.b	obj.var_3c(a0)
@@ -230,14 +216,9 @@ HMoveBlockObject_3_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C478:
-	dc.w	@Spr_20C478_0-*
-
-@Spr_20C478_0:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	0
+HMoveBlockSprites2:
+	include	"src/sprites/r4/h_move_block_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -262,7 +243,7 @@ HMoveBlockObject_4_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C5D6,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites3,obj.sprite_data(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	tst.b	obj.var_3c(a0)
@@ -370,16 +351,9 @@ locret_20C5D4:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C5D6:
-	dc.w	@Spr_20C5D6_0-*
-
-@Spr_20C5D6_0:
-	dc.b	4
-	dc.b	$E0, $F, 0, 0, $E0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	0, $F, 0, 0, $E0
-	dc.b	0, $F, 0, 0, 0
-	dc.b	0
+HMoveBlockSprites3:
+	include	"src/sprites/r4/h_move_block_3.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -404,12 +378,12 @@ HMoveBlockObject_5_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C6D2,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites4,obj.sprite_data(a0)
 	move.b	#$40,obj.width_2(a0)
 	move.b	#$40,obj.height(a0)
 	tst.b	obj.var_3d(a0)
 	beq.s	loc_20C648
-	move.l	#Spr_20C37C,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites1,obj.sprite_data(a0)
 	move.b	#$10,obj.height(a0)
 
 loc_20C648:
@@ -463,12 +437,9 @@ sub_20C6C4:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C6D2:
-	dc.w	@Spr_20C6D2_0-*
-
-@Spr_20C6D2_0:
-	dc.b	0
-	dc.b	0
+HMoveBlockSprites4:
+	include	"src/sprites/r4/h_move_block_4.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -494,7 +465,7 @@ HMoveBlockObject_6_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C7F2,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites5,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
@@ -596,16 +567,9 @@ byte_20C7DA:
 	dc.b	$80, 0
 	dc.w	-$80
 
-Spr_20C7F2:
-	dc.w	@Spr_20C7F2_0-*
-
-@Spr_20C7F2_0:
-	dc.b	4
-	dc.b	$E0, $F, 0, 0, $E0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	0, $F, 0, 0, $E0
-	dc.b	0, $F, 0, 0, 0
-	dc.b	0
+HMoveBlockSprites5:
+	include	"src/sprites/r4/h_move_block_5.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -630,7 +594,7 @@ HMoveBlockObject_7_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C914,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites6,obj.sprite_data(a0)
 	move.b	#$10,obj.height(a0)
 	tst.b	obj.var_3c(a0)
 	bne.s	loc_20C8A0
@@ -710,35 +674,9 @@ loc_20C8F6:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C914:
-	dc.w	@Spr_20C914_0-*
-	dc.w	@Spr_20C914_1-Spr_20C914
-	dc.w	@Spr_20C914_2-Spr_20C914
-	dc.w	@Spr_20C914_3-Spr_20C914
-
-@Spr_20C914_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@Spr_20C914_1:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	0
-
-@Spr_20C914_2:
-	dc.b	3
-	dc.b	$F0, $F, 0, 0, $D0
-	dc.b	$F0, $F, 0, 0, $F0
-	dc.b	$F0, $F, 0, 0, $10
-
-@Spr_20C914_3:
-	dc.b	4
-	dc.b	$F0, $F, 0, 0, $C0
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	$F0, $F, 0, 0, $20
-	dc.b	0
+HMoveBlockSprites6:
+	include	"src/sprites/r4/h_move_block_6.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -763,7 +701,7 @@ HMoveBlockObject_9_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C37C,obj.sprite_data(a0)
+	move.l	#HMoveBlockSprites1,obj.sprite_data(a0)
 	move.b	#$40,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	tst.b	obj.var_3c(a0)

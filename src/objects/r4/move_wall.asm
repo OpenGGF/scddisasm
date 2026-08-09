@@ -25,7 +25,7 @@ MoveWallObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$40,obj.height(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
-	move.l	#Spr_20F06A,obj.sprite_data(a0)
+	move.l	#MoveWallSprites,obj.sprite_data(a0)
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	lea	(object_states).l,a1
@@ -108,19 +108,8 @@ locret_20F068:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F06A:
-	dc.w	@Spr_20F06A_0-*
-
-@Spr_20F06A_0:
-	dc.b	8
-	dc.b	$C0, $F, 0, 0, $E0
-	dc.b	$C0, $F, 0, 0, 0
-	dc.b	$E0, $F, 0, 0, $E0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	0, $F, 0, 0, $E0
-	dc.b	0, $F, 0, 0, 0
-	dc.b	$20, $F, 0, 0, $E0
-	dc.b	$20, $F, 0, 0, 0
-	dc.b	0
+MoveWallSprites:
+	include	"src/sprites/r4/move_wall.asm"
+	even
 
 ; ------------------------------------------------------------------------------

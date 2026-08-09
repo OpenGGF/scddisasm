@@ -14,12 +14,12 @@ FanObject:
 	addq.b	#1,obj.sprite_frame(a0)
 
 loc_20E9D2:
-	lea	Unk20EA56Sprites(pc),a1
+	lea	FanSpritesCD1(pc),a1
 	move.b	#$10,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	btst	#1,d6
 	beq.s	loc_20E9F8
-	lea	Unk20EA70Sprites(pc),a1
+	lea	FanSpritesCD2(pc),a1
 	move.b	#8,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 
@@ -58,32 +58,12 @@ loc_20EA50:
 
 ; ------------------------------------------------------------------------------
 
-Unk20EA56Sprites:
-	dc.w	Unk20EA56Sprite_0-*
-	dc.w	Unk20EA56Sprite_1-Unk20EA56Sprites
+FanSpritesCD1:
+	include	"src/sprites/r4/fan_1_cd.asm"
+	even
 
-Unk20EA56Sprite_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-
-Unk20EA56Sprite_1:
-	dc.b	2
-	dc.b	$F8, 5, 0, 4, $F0
-	dc.b	$F8, 5, 8, 4, 0
-
-Unk20EA70Sprites:
-	dc.w	Unk20EA70Sprite_0-*
-	dc.w	Unk20EA70Sprite_1-Unk20EA70Sprites
-
-Unk20EA70Sprite_0:
-	dc.b	2
-	dc.b	$F0, 5, 8, 8, $F8
-	dc.b	0, 5, $18, 8, $F8
-
-Unk20EA70Sprite_1:
-	dc.b	2
-	dc.b	$F0, 5, 8, $C, $F8
-	dc.b	0, 5, $18, $C, $F8
+FanSpritesCD2:
+	include	"src/sprites/r4/fan_2_cd.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ off_206A3E:
 BreakPoleObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$42F8,obj.sprite_tile(a0)
-	move.l	#Spr_206B50,obj.sprite_data(a0)
+	move.l	#BreakPoleSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 
 BreakPoleObject_0_Routine2:
@@ -126,28 +126,8 @@ loc_206B4C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_206B50:
-	dc.w	@Spr_206B50_0-*
-	dc.w	@Spr_206B50_1-Spr_206B50
-
-@Spr_206B50_0:
-	dc.b	6
-	dc.b	$D2, 1, $10, 0, $FC
-	dc.b	$E0, 1, 0, 2, $FC
-	dc.b	$F0, 1, 0, 2, $FC
-	dc.b	0, 1, 0, 2, $FC
-	dc.b	$10, 1, 0, 2, $FC
-	dc.b	$1E, 1, 0, 0, $FC
-	dc.b	0
-
-@Spr_206B50_1:
-	dc.b	6
-	dc.b	$D2, 1, $10, 0, $FC
-	dc.b	$E0, 1, 0, 2, $FC
-	dc.b	$F0, 5, $10, 4, $FC
-	dc.b	0, 5, 0, 4, $FC
-	dc.b	$10, 1, 0, 2, $FC
-	dc.b	$1E, 1, 0, 0, $FC
-	dc.b	0
+BreakPoleSprites:
+	include	"src/sprites/r4/break_pole.asm"
+	even
 
 ; ------------------------------------------------------------------------------

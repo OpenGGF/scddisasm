@@ -3,7 +3,7 @@
 DebugObjects:
 	debugStart
 	debugObject $51, 1, RobotTransportSprites, $450, 0, 0, 0, 0
-	debugObject 5, 1, Spr_206B50, $2F8, 0, 0, 0, 0
+	debugObject 5, 1, BreakPoleSprites, $2F8, 0, 0, 0, 0
 	debugEnd
 
 ; ------------------------------------------------------------------------------

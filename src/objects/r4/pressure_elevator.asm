@@ -25,7 +25,7 @@ PressureElevatorObject_0_Routine0:
 	move.b	#$20,obj.width(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.w	#$4310,obj.sprite_tile(a0)
-	move.l	#Spr_20F958,obj.sprite_data(a0)
+	move.l	#PressureElevatorSprites,obj.sprite_data(a0)
 	move.w	obj.y(a0),obj.var_2a(a0)
 	move.b	#$21,obj.height(a0)
 	rts
@@ -126,30 +126,8 @@ loc_20F944:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F958:
-	dc.w	@Spr_20F958_0-*
-	dc.w	@Spr_20F958_1-Spr_20F958
-
-@Spr_20F958_0:
-	dc.b	8
-	dc.b	$E0, $D, 0, 0, $E0
-	dc.b	$E0, $D, 8, 0, 0
-	dc.b	$F0, $F, 0, 8, $E0
-	dc.b	$F0, $F, 8, 8, 0
-	dc.b	$10, 5, $10, $70, $E0
-	dc.b	$10, 5, $18, $70, $F0
-	dc.b	$10, 5, $10, $70, 0
-	dc.b	$10, 5, $18, $70, $10
-
-@Spr_20F958_1:
-	dc.b	8
-	dc.b	$DE, $D, 0, $18, $E0
-	dc.b	$DE, $D, 8, $18, 0
-	dc.b	$EE, $F, 0, 8, $E0
-	dc.b	$EE, $F, 8, 8, 0
-	dc.b	$E, 5, $10, $74, $E0
-	dc.b	$E, 5, $18, $74, $F0
-	dc.b	$E, 5, $10, $74, 0
-	dc.b	$E, 5, $18, $74, $10
+PressureElevatorSprites:
+	include	"src/sprites/r4/pressure_elevator.asm"
+	even
 
 ; ------------------------------------------------------------------------------

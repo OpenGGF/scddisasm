@@ -59,7 +59,7 @@ ElevatorObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$435C,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20CB60,obj.sprite_data(a0)
+	move.l	#ElevatorSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	rts
@@ -115,20 +115,8 @@ locret_20CB5E:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CB60:
-	dc.w	@Spr_20CB60_0-*
-	dc.w	@Spr_20CB60_1-Spr_20CB60
-
-@Spr_20CB60_0:
-	dc.b	3
-	dc.b	$F0, 5, 0, 0, $F0
-	dc.b	$F0, 5, 0, 4, 0
-	dc.b	0, 5, 0, 4, $F0
-
-@Spr_20CB60_1:
-	dc.b	3
-	dc.b	$F0, 5, 8, 4, $F0
-	dc.b	$F0, 5, 8, 0, 0
-	dc.b	0, 5, 8, 4, 0
+ElevatorSprites:
+	include	"src/sprites/r4/elevator.asm"
+	even
 
 ; ------------------------------------------------------------------------------

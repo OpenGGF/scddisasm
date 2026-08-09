@@ -26,7 +26,7 @@ BigDoorObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
-	move.l	#Spr_20CFE8,obj.sprite_data(a0)
+	move.l	#BigDoorSprites,obj.sprite_data(a0)
 	move.l	#$40400340,obj.height(a0)
 
 BigDoorObject_0_Routine2:
@@ -104,43 +104,8 @@ loc_20CFE2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CFE8:
-	dc.w	@Spr_20CFE8_0-*
-	dc.w	@Spr_20CFE8_1-Spr_20CFE8
-	dc.w	@Spr_20CFE8_2-Spr_20CFE8
-
-@Spr_20CFE8_0:
-	dc.b	$10
-	dc.b	$C0, $F, 0, 0, $C0
-	dc.b	$C0, $F, 0, $10, $E0
-	dc.b	$C0, $F, 0, 0, 0
-	dc.b	$C0, $F, 0, $10, $20
-	dc.b	$E0, $F, 0, 0, $C0
-	dc.b	$E0, $F, 0, $10, $E0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	$E0, $F, 0, $10, $20
-	dc.b	0, $F, 0, 0, $C0
-	dc.b	0, $F, 0, $10, $E0
-	dc.b	0, $F, 0, 0, 0
-	dc.b	0, $F, 0, $10, $20
-	dc.b	$20, $F, 0, 0, $C0
-	dc.b	$20, $F, 0, $10, $E0
-	dc.b	$20, $F, 0, 0, 0
-	dc.b	$20, $F, 0, $10, $20
-
-@Spr_20CFE8_1:
-	dc.b	4
-	dc.b	$C0, $F, 0, 0, $F0
-	dc.b	$E0, $F, 0, 0, $F0
-	dc.b	0, $F, 0, 0, $F0
-	dc.b	$20, $F, 0, 0, $F0
-
-@Spr_20CFE8_2:
-	dc.b	4
-	dc.b	$C0, $F, 0, $10, $F0
-	dc.b	$E0, $F, 0, $10, $F0
-	dc.b	0, $F, 0, $10, $F0
-	dc.b	$20, $F, 0, $10, $F0
-	dc.b	0
+BigDoorSprites:
+	include	"src/sprites/r4/big_door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

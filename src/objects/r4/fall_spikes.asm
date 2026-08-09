@@ -45,7 +45,7 @@ FallSpikesObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$40,obj.height(a0)
 	move.w	#$3A0,obj.sprite_tile(a0)
-	move.l	#Spr_20EB0E,obj.sprite_data(a0)
+	move.l	#FallSpikesSprites,obj.sprite_data(a0)
 	move.l	#$3000,d0
 	move.w	obj.y(a0),d1
 	cmp.w	(static_water_y).w,d1
@@ -70,7 +70,7 @@ loc_20E9B8:
 	move.b	#$10,obj.width_2(a1)
 	move.b	#$10,obj.height(a1)
 	move.w	#$3A0,obj.sprite_tile(a1)
-	move.l	#Spr_20EB0E,obj.sprite_data(a1)
+	move.l	#FallSpikesSprites,obj.sprite_data(a1)
 	move.b	#1,obj.sprite_frame(a1)
 
 locret_20EA22:
@@ -191,18 +191,8 @@ loc_20EB08:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20EB0E:
-	dc.w	@Spr_20EB0E_0-*
-	dc.w	@Spr_20EB0E_1-Spr_20EB0E
-
-@Spr_20EB0E_0:
-	dc.b	4
-	dc.b	$C0, $F, $40, $CA, $F0
-	dc.b	$E0, $F, $40, $CA, $F0
-	dc.b	0, $F, $40, $CA, $F0
-	dc.b	$20, $F, $10, 0, $F0
-
-@Spr_20EB0E_1:
-	dc.b	0
+FallSpikesSprites:
+	include	"src/sprites/r4/fall_spikes.asm"
+	even
 
 ; ------------------------------------------------------------------------------

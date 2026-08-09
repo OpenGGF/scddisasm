@@ -23,7 +23,7 @@ PrizeSwitchObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$50A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20F236,obj.sprite_data(a0)
+	move.l	#PrizeSwitchSprites,obj.sprite_data(a0)
 	move.b	#$E,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	tst.b	obj.var_34(a0)
@@ -461,26 +461,9 @@ RingPrizeAnims:
 	include	"src/anims/r4/ring_prize.asm"
 	even
 
-Spr_20F236:
-	dc.w	@Spr_20F236_0-*
-	dc.w	@Spr_20F236_1-Spr_20F236
-	dc.w	@Spr_20F236_2-Spr_20F236
-
-@Spr_20F236_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-	dc.b	0
-
-@Spr_20F236_1:
-	dc.b	2
-	dc.b	$FC, 4, 0, 4, $F0
-	dc.b	$FC, 4, 8, 4, 0
-	dc.b	0
-
-@Spr_20F236_2:
-	dc.b	0
-	dc.b	0
+PrizeSwitchSprites:
+	include	"src/sprites/r4/prize_switch.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -501,7 +484,7 @@ off_20F26A:
 
 PointsPrizeObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_20F2B2,obj.sprite_data(a0)
+	move.l	#PointsPrizeSprites,obj.sprite_data(a0)
 	move.w	#$36E,obj.sprite_tile(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
@@ -522,11 +505,8 @@ loc_20F2AC:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F2B2:
-	dc.w	@Spr_20F2B2_0-*
-
-@Spr_20F2B2_0:
-	dc.b	1
-	dc.b	$FC, 4, 0, 0, $F8
+PointsPrizeSprites:
+	include	"src/sprites/r4/points_prize.asm"
+	even
 
 ; ------------------------------------------------------------------------------

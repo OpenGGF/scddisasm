@@ -55,7 +55,7 @@ EggmanObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$2C,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20D07C,obj.sprite_data(a0)
+	move.l	#EggmanSprites,obj.sprite_data(a0)
 	move.b	#2,obj.collide_status(a0)
 	bsr.w	sub_20CED2
 
@@ -538,7 +538,7 @@ EggMobileObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$1C,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20D0E6,obj.sprite_data(a0)
+	move.l	#EggMobileSprites,obj.sprite_data(a0)
 
 EggMobileObject_0_Routine2:
 	movea.w	obj.var_2e(a0),a1
@@ -624,7 +624,7 @@ BossBubbleObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20D14C,obj.sprite_data(a0)
+	move.l	#BossBubbleSprites,obj.sprite_data(a0)
 	jsr	Random
 	andi.l	#$FFFF,d0
 	ext.l	d0
@@ -1222,7 +1222,7 @@ BossMissileObject_0_Routine0:
 	move.b	#4,obj.width_2(a0)
 	move.b	#4,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#off_20D11C,obj.sprite_data(a0)
+	move.l	#BossMissileSprites,obj.sprite_data(a0)
 
 BossMissileObject_0_Routine2:
 	movea.w	obj.var_2e(a0),a1
@@ -1288,142 +1288,28 @@ EggmanAnims:
 	include	"src/anims/r4/eggman.asm"
 	even
 
-Spr_20D07C:
-	dc.w	@Spr_20D07C_0-*
-	dc.w	@Spr_20D07C_1-Spr_20D07C
-	dc.w	@Spr_20D07C_2-Spr_20D07C
-	dc.w	@Spr_20D07C_3-Spr_20D07C
-	dc.w	@Spr_20D07C_4-Spr_20D07C
-	dc.w	@Spr_20D07C_5-Spr_20D07C
-	dc.w	@Spr_20D07C_6-Spr_20D07C
+EggmanSprites:
+	include	"src/sprites/r4/eggman.asm"
+	even
 
-@Spr_20D07C_0:
-	dc.b	2
-	dc.b	$E4, $D, 0, $38, $E0
-	dc.b	$E4, 5, 0, $40, 0
-	dc.b	0
-
-@Spr_20D07C_1:
-	dc.b	2
-	dc.b	$E4, $D, 0, $44, $E0
-	dc.b	$E4, 5, 0, $4C, 0
-	dc.b	0
-
-@Spr_20D07C_2:
-	dc.b	2
-	dc.b	$E4, $D, 0, $50, $E0
-	dc.b	$E4, 5, 0, $58, 0
-	dc.b	0
-
-@Spr_20D07C_3:
-	dc.b	2
-	dc.b	$E4, $D, 0, $5C, $E0
-	dc.b	$E4, 5, 0, $64, 0
-	dc.b	0
-
-@Spr_20D07C_4:
-	dc.b	2
-	dc.b	$E4, $D, 0, $68, $E0
-	dc.b	$E4, 5, 0, $70, 0
-	dc.b	0
-
-@Spr_20D07C_5:
-	dc.b	3
-	dc.b	$E4, $D, 0, $68, $E0
-	dc.b	$E4, 5, 0, $70, 0
-	dc.b	$D4, 5, 8, $F2, 4
-
-@Spr_20D07C_6:
-	dc.b	3
-	dc.b	$E4, $D, 0, $68, $E0
-	dc.b	$E4, 5, 0, $70, 0
-	dc.b	$D4, 5, 8, $F6, 4
-
-Spr_20D0E6:
-	dc.w	@Spr_20D0E6_0-*
-	dc.w	@Spr_20D0E6_1-Spr_20D0E6
-
-@Spr_20D0E6_0:
-	dc.b	4
-	dc.b	$E4, $F, 0, 0, $E0
-	dc.b	$E4, $F, 0, $10, 0
-	dc.b	4, $E, 0, $20, $E0
-	dc.b	4, $E, 0, $2C, 0
-	dc.b	0
-
-@Spr_20D0E6_1:
-	dc.b	4
-	dc.b	$E4, $F, 0, $74, $E0
-	dc.b	$E4, $F, 0, $84, 0
-	dc.b	4, $E, 0, $94, $E0
-	dc.b	4, $E, 0, $A0, 0
-	dc.b	0
+EggMobileSprites:
+	include	"src/sprites/r4/eggmobile.asm"
+	even
 
 BossMissileAnims:
 	include	"src/anims/r4/boss_missile.asm"
 	even
 
-off_20D11C:
-	dc.w	byte_20D120-*
-	dc.w	byte_20D126-off_20D11C
-
-byte_20D120:
-	dc.b	1
-	dc.b	$FC, 0, 0, $AC, $FC
-
-byte_20D126:
-	dc.b	1
-	dc.b	$FC, 0, 0, $AD, $FC
+BossMissileSprites:
+	include	"src/sprites/r4/boss_missile.asm"
+	even
 
 BossBubbleAnims:
 	include	"src/anims/r4/boss_bubble.asm"
 	even
 
-Spr_20D14C:
-	dc.w	@Spr_20D14C_0-*
-	dc.w	@Spr_20D14C_1-Spr_20D14C
-	dc.w	@Spr_20D14C_2-Spr_20D14C
-	dc.w	@Spr_20D14C_3-Spr_20D14C
-	dc.w	@Spr_20D14C_4-Spr_20D14C
-	dc.w	@Spr_20D14C_5-Spr_20D14C
-	dc.w	@Spr_20D14C_6-Spr_20D14C
-	dc.w	@Spr_20D14C_7-Spr_20D14C
-	dc.w	@Spr_20D14C_8-Spr_20D14C
-
-@Spr_20D14C_0:
-	dc.b	1
-	dc.b	$FC, 0, 0, $AE, $FC
-
-@Spr_20D14C_1:
-	dc.b	1
-	dc.b	$FC, 0, 0, $AF, $FC
-
-@Spr_20D14C_2:
-	dc.b	1
-	dc.b	$FC, 0, 0, $B0, $FC
-
-@Spr_20D14C_3:
-	dc.b	1
-	dc.b	$F8, 5, 0, $B1, $F8
-
-@Spr_20D14C_4:
-	dc.b	1
-	dc.b	$F8, 5, 0, $B5, $F8
-
-@Spr_20D14C_5:
-	dc.b	1
-	dc.b	$F4, $A, 0, $B9, $F4
-
-@Spr_20D14C_6:
-	dc.b	1
-	dc.b	$F0, $F, 0, $C2, $F0
-
-@Spr_20D14C_7:
-	dc.b	1
-	dc.b	$F0, $F, 0, $D2, $F0
-
-@Spr_20D14C_8:
-	dc.b	1
-	dc.b	$F0, $F, 0, $E2, $F0
+BossBubbleSprites:
+	include	"src/sprites/r4/boss_bubble.asm"
+	even
 
 ; ------------------------------------------------------------------------------

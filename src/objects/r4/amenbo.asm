@@ -33,13 +33,13 @@ AmenboObject_0_Routine0:
 	move.b	#$31,obj.collide_type(a0)
 	move.w	#$78,obj.var_3c(a0)
 	move.w	obj.x(a0),obj.var_3e(a0)
-	lea	off_20DA28(pc),a1
+	lea	AmenboSprites1(pc),a1
 	lea	AmenboAnims1(pc),a2
 	move.l	#-$600,d0
 	move.l	#$100,d1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D7E0
-	lea	off_20D9E6(pc),a1
+	lea	AmenboSprites2(pc),a1
 	lea	AmenboAnims2(pc),a2
 	move.l	#-$200,d0
 	move.l	#$C0,d1
@@ -244,58 +244,12 @@ AmenboAnims1:
 	include	"src/anims/r4/amenbo_1.asm"
 	even
 
-off_20D9E6:
-	dc.w	byte_20D9EA-*
-	dc.w	byte_20DA09-off_20D9E6
+AmenboSprites2:
+	include	"src/sprites/r4/amenbo_2.asm"
+	even
 
-byte_20D9EA:
-	dc.b	6
-	dc.b	$FC, 0, 0, 0, $EC
-	dc.b	$F4, 1, 0, $17, $F4
-	dc.b	$F4, 1, 0, 3, $FC
-	dc.b	$F4, 1, 0, $19, 4
-	dc.b	4, 4, 0, 7, $EC
-	dc.b	4, 0, 0, 9, 4
-
-byte_20DA09:
-	dc.b	6
-	dc.b	$F4, 0, 0, $1B, $F4
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $1C, 4
-	dc.b	$FC, 0, 0, $D, $EC
-	dc.b	$FC, 8, 0, $1D, $F4
-	dc.b	4, $C, 0, $11, $EC
-
-off_20DA28:
-	dc.w	byte_20DA30-*
-	dc.w	byte_20DA4F-off_20DA28
-	dc.w	byte_20DA6E-off_20DA28
-	dc.w	byte_20DA74-off_20DA28
-
-byte_20DA30:
-	dc.b	6
-	dc.b	$FC, 0, 0, 0, $EC
-	dc.b	$F4, 1, 0, 1, $F4
-	dc.b	$F4, 1, 0, 3, $FC
-	dc.b	$F4, 1, 0, 5, 4
-	dc.b	4, 4, 0, 7, $EC
-	dc.b	4, 0, 0, 9, 4
-
-byte_20DA4F:
-	dc.b	6
-	dc.b	$F4, 0, 0, $A, $F4
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $C, 4
-	dc.b	$FC, 0, 0, $D, $EC
-	dc.b	$FC, 8, 0, $E, $F4
-	dc.b	4, $C, 0, $11, $EC
-
-byte_20DA6E:
-	dc.b	1
-	dc.b	$FC, 0, 0, $15, $FC
-
-byte_20DA74:
-	dc.b	1
-	dc.b	$FC, 0, 0, $16, $FC
+AmenboSprites1:
+	include	"src/sprites/r4/amenbo_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -54,7 +54,7 @@ SwingObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
-	move.l	#Spr_20D13C,obj.sprite_data(a0)
+	move.l	#SwingSprites,obj.sprite_data(a0)
 	move.w	#$340,obj.sprite_tile(a0)
 	cmpi.b	#1,obj.sprite_frame(a0)
 	bne.s	loc_20D022
@@ -161,27 +161,8 @@ loc_20D126:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D13C:
-	dc.w	@Spr_20D13C_0-*
-	dc.w	@Spr_20D13C_1-Spr_20D13C
-	dc.w	@Spr_20D13C_2-Spr_20D13C
-
-@Spr_20D13C_0:
-	dc.b	2
-	dc.b	$F8, 1, 0, 8, $F8
-	dc.b	$F8, 1, 8, 8, 0
-	dc.b	0
-
-@Spr_20D13C_1:
-	dc.b	2
-	dc.b	$F8, $D, 0, 0, $E0
-	dc.b	$F8, $D, 8, 0, 0
-	dc.b	0
-
-@Spr_20D13C_2:
-	dc.b	2
-	dc.b	$F8, 1, 0, $A, $F8
-	dc.b	$F8, 1, 8, $A, 0
-	dc.b	0
+SwingSprites:
+	include	"src/sprites/r4/swing.asm"
+	even
 
 ; ------------------------------------------------------------------------------

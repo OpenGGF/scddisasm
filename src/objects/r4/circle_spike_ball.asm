@@ -104,7 +104,7 @@ sub_20EB82:
 	move.b	#$10,obj.width_2(a6)
 	move.b	#$10,obj.height(a6)
 	move.w	#$370,obj.sprite_tile(a6)
-	move.l	#Unk20EC0ESprites,obj.sprite_data(a6)
+	move.l	#CircleSpikeBallSprites,obj.sprite_data(a6)
 	move.b	#2,obj.routine(a6)
 	move.w	obj.x(a0),obj.var_2a(a6)
 	move.w	obj.y(a0),obj.var_2c(a6)
@@ -139,11 +139,8 @@ locret_20EC0C:
 
 ; ------------------------------------------------------------------------------
 
-Unk20EC0ESprites:
-	dc.w	Unk20EC0ESprite_0-*
-
-Unk20EC0ESprite_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
+CircleSpikeBallSprites:
+	include	"src/sprites/r4/circle_spike_ball.asm"
+	even
 
 ; ------------------------------------------------------------------------------

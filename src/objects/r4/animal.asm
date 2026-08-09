@@ -22,10 +22,10 @@ AnimalObject:
 	addi.w	#$2000,obj.sprite_tile(a0)
 
 loc_20E3E0:
-	lea	off_20E574(pc),a1
+	lea	AnimalSprites1(pc),a1
 	btst	#0,obj.subtype(a0)
 	beq.s	loc_20E3F0
-	lea	off_20E59C(pc),a1
+	lea	AnimalSprites2(pc),a1
 
 loc_20E3F0:
 	move.l	a1,obj.sprite_data(a0)
@@ -144,47 +144,13 @@ AnimalAnims:
 	include	"src/anims/r4/animal.asm"
 	even
 
-off_20E574:
-	dc.w	byte_20E57A-*
-	dc.w	byte_20E58A-off_20E574
-	dc.w	byte_20E59A-off_20E574
+AnimalSprites1:
+	include	"src/sprites/r4/animal_1.asm"
+	even
 
-byte_20E57A:
-	dc.b	3
-	dc.b	$F4, 4, 0, 0, $F8
-	dc.b	$FC, 4, 0, 2, $F8
-	dc.b	4, 4, $10, 0, $F8
-
-byte_20E58A:
-	dc.b	3
-	dc.b	$F4, 4, 0, 4, $F8
-	dc.b	$FC, 4, 0, 6, $F8
-	dc.b	4, 4, $10, 4, $F8
-
-byte_20E59A:
-	dc.b	0
-	dc.b	0
-
-off_20E59C:
-	dc.w	byte_20E5A2-*
-	dc.w	byte_20E5B2-off_20E59C
-	dc.w	byte_20E5C2-off_20E59C
-
-byte_20E5A2:
-	dc.b	3
-	dc.b	$F4, 4, 0, 8, $F8
-	dc.b	$FC, 4, 0, $A, $F8
-	dc.b	4, 4, $10, 8, $F8
-
-byte_20E5B2:
-	dc.b	3
-	dc.b	$F4, 4, 0, $C, $F8
-	dc.b	$FC, 4, 0, $E, $F8
-	dc.b	4, 4, $10, $C, $F8
-
-byte_20E5C2:
-	dc.b	0
-	dc.b	0
+AnimalSprites2:
+	include	"src/sprites/r4/animal_2.asm"
+	even
 
 word_20E5C4:
 	dc.w	$450, $450, $450, 0

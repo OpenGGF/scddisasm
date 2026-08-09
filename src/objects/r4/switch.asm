@@ -9,7 +9,7 @@ SwitchObject:
 	move.b	#$10,obj.width(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.w	#$50A,obj.sprite_tile(a0)
-	move.l	#Spr_20CCEA,obj.sprite_data(a0)
+	move.l	#SwitchSprites,obj.sprite_data(a0)
 	move.b	#$A,obj.height(a0)
 	lea	(switch_flags).w,a1
 	moveq	#0,d0
@@ -141,18 +141,8 @@ sub_20CCCE:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CCEA:
-	dc.w	@Spr_20CCEA_0-*
-	dc.w	@Spr_20CCEA_1-Spr_20CCEA
-
-@Spr_20CCEA_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-
-@Spr_20CCEA_1:
-	dc.b	2
-	dc.b	$FC, 4, 0, 4, $F0
-	dc.b	$FC, 4, 8, 4, 0
+SwitchSprites:
+	include	"src/sprites/r4/switch.asm"
+	even
 
 ; ------------------------------------------------------------------------------

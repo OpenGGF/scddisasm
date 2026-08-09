@@ -18,7 +18,7 @@ off_206904:
 WaterSurfaceObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$8280,obj.sprite_tile(a0)
-	move.l	#Spr_206994,obj.sprite_data(a0)
+	move.l	#WaterSurfaceSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 
 WaterSurfaceObject_0_Routine2:
@@ -52,54 +52,8 @@ WaterSurfaceAnims:
 	include	"src/anims/r4/water_surface.asm"
 	even
 
-Spr_206994:
-	dc.w	@Spr_206994_0-*
-	dc.w	@Spr_206994_0-Spr_206994
-	dc.w	@Spr_206994_2-Spr_206994
-	dc.w	@Spr_206994_2-Spr_206994
-	dc.w	@Spr_206994_4-Spr_206994
-	dc.w	@Spr_206994_4-Spr_206994
-	dc.w	@Spr_206994_6-Spr_206994
-	dc.w	@Spr_206994_6-Spr_206994
-
-@Spr_206994_0:
-	dc.b	6
-	dc.b	$F8, $D, 0, 0, $A0
-	dc.b	$F8, $D, 0, 0, $E0
-	dc.b	$F8, $D, 0, 0, $20
-	dc.b	$F8, $D, 0, 8, $C0
-	dc.b	$F8, $D, 0, 8, 0
-	dc.b	$F8, $D, 0, 8, $40
-	dc.b	0
-
-@Spr_206994_2:
-	dc.b	6
-	dc.b	$F8, $D, 0, 8, $A0
-	dc.b	$F8, $D, 0, 8, $E0
-	dc.b	$F8, $D, 0, 8, $20
-	dc.b	$F8, $D, 0, $10, $C0
-	dc.b	$F8, $D, 0, $10, 0
-	dc.b	$F8, $D, 0, $10, $40
-	dc.b	0
-
-@Spr_206994_4:
-	dc.b	6
-	dc.b	$F8, $D, 0, $10, $A0
-	dc.b	$F8, $D, 0, $10, $E0
-	dc.b	$F8, $D, 0, $10, $20
-	dc.b	$F8, $D, 0, 8, $C0
-	dc.b	$F8, $D, 0, 8, 0
-	dc.b	$F8, $D, 0, 8, $40
-	dc.b	0
-
-@Spr_206994_6:
-	dc.b	6
-	dc.b	$F8, $D, 0, 8, $A0
-	dc.b	$F8, $D, 0, 8, $E0
-	dc.b	$F8, $D, 0, 8, $20
-	dc.b	$F8, $D, 0, 0, $C0
-	dc.b	$F8, $D, 0, 0, 0
-	dc.b	$F8, $D, 0, 0, $40
-	dc.b	0
+WaterSurfaceSprites:
+	include	"src/sprites/r4/water_surface.asm"
+	even
 
 ; ------------------------------------------------------------------------------

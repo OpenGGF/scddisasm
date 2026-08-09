@@ -29,7 +29,7 @@ MaceObject_0_Routine0:
 	move.b	#3,obj.sprite_layer(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
-	move.l	#Spr_20F1AA,obj.sprite_data(a0)
+	move.l	#MaceSprites,obj.sprite_data(a0)
 	move.w	#$368,obj.sprite_tile(a0)
 	move.w	#$100,obj.var_2c(a0)
 	move.b	obj.subtype(a0),d0
@@ -176,12 +176,9 @@ MaceObject_0_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F1AA:
-	dc.w	@Spr_20F1AA_0-*
-
-@Spr_20F1AA_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
+MaceSprites:
+	include	"src/sprites/r4/mace.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -214,7 +211,7 @@ MaceObject_1_Routine0:
 	cmpi.b	#$FF,obj.subtype(a0)
 	bne.w	loc_20F206
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20F22E,obj.sprite_data(a0)
+	move.l	#MaceChainSprites2,obj.sprite_data(a0)
 	move.w	#$368,obj.sprite_tile(a0)
 	bra.s	MaceObject_1_Routine2
 
@@ -222,7 +219,7 @@ MaceObject_1_Routine0:
 
 loc_20F206:
 	move.b	#2,obj.sprite_layer(a0)
-	move.l	#Spr_20F236,obj.sprite_data(a0)
+	move.l	#MaceChainSprites1,obj.sprite_data(a0)
 	move.w	#$370,obj.sprite_tile(a0)
 	move.b	#$A9,obj.collide_type(a0)
 
@@ -233,18 +230,12 @@ MaceObject_1_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F22E:
-	dc.w	@Spr_20F22E_0-*
+MaceChainSprites2:
+	include	"src/sprites/r4/mace_chain_2.asm"
+	even
 
-@Spr_20F22E_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
-
-Spr_20F236:
-	dc.w	@Spr_20F236_0-*
-
-@Spr_20F236_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
+MaceChainSprites1:
+	include	"src/sprites/r4/mace_chain_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------

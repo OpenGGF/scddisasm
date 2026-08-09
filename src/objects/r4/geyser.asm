@@ -36,7 +36,7 @@ GeyserObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$6300,obj.sprite_tile(a0)
 	move.b	#1,obj.sprite_layer(a0)
-	move.l	#Spr_20D318,obj.sprite_data(a0)
+	move.l	#GeyserSprites,obj.sprite_data(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$3C,obj.height(a0)
 
@@ -98,7 +98,7 @@ loc_20D290:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$6300,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20D318,obj.sprite_data(a0)
+	move.l	#GeyserSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.b	#1,obj.anim_id(a0)
@@ -133,131 +133,8 @@ GeyserAnims:
 	include	"src/anims/r4/geyser.asm"
 	even
 
-Spr_20D318:
-	dc.w	@Spr_20D318_0-*
-	dc.w	@Spr_20D318_1-Spr_20D318
-	dc.w	@Spr_20D318_2-Spr_20D318
-	dc.w	@Spr_20D318_3-Spr_20D318
-	dc.w	@Spr_20D318_4-Spr_20D318
-	dc.w	@Spr_20D318_5-Spr_20D318
-	dc.w	@Spr_20D318_6-Spr_20D318
-	dc.w	@Spr_20D318_7-Spr_20D318
-	dc.w	@Spr_20D318_8-Spr_20D318
-
-@Spr_20D318_0:
-	dc.b	$10
-	dc.b	$B0, $B, $80, 0, $C8
-	dc.b	$B0, $F, $80, $C, $E0
-	dc.b	$B0, $F, $80, $C, 0
-	dc.b	$B0, $B, $88, 0, $20
-	dc.b	$30, $B, 0, 0, $C8
-	dc.b	$30, $F, 0, $C, $E0
-	dc.b	$30, $F, 0, $C, 0
-	dc.b	$30, $B, 8, 0, $20
-	dc.b	$C0, $F, 0, $1C, $E0
-	dc.b	$C0, $F, 0, $1C, 0
-	dc.b	$E0, $F, 0, $1C, $E0
-	dc.b	$E0, $F, 0, $1C, 0
-	dc.b	0, $F, 0, $1C, $E0
-	dc.b	0, $F, 0, $1C, 0
-	dc.b	$20, $F, 0, $1C, $E0
-	dc.b	$20, $F, 0, $1C, 0
-	dc.b	0
-
-@Spr_20D318_1:
-	dc.b	$10
-	dc.b	$B0, $B, $80, 0, $C8
-	dc.b	$B0, $F, $80, $C, $E0
-	dc.b	$B0, $F, $98, $C, 0
-	dc.b	$B0, $B, $88, 0, $20
-	dc.b	$30, $B, 0, 0, $C8
-	dc.b	$30, $F, 0, $C, $E0
-	dc.b	$30, $F, $18, $C, 0
-	dc.b	$30, $B, 8, 0, $20
-	dc.b	$C0, $F, 0, $1C, $E0
-	dc.b	$C0, $F, 0, $1C, 0
-	dc.b	$E0, $F, 0, $1C, $E0
-	dc.b	$E0, $F, 0, $1C, 0
-	dc.b	0, $F, 0, $1C, $E0
-	dc.b	0, $F, 0, $1C, 0
-	dc.b	$20, $F, 0, $1C, $E0
-	dc.b	$20, $F, 0, $1C, 0
-	dc.b	0
-
-@Spr_20D318_2:
-	dc.b	$10
-	dc.b	$B0, $B, $90, 0, $C8
-	dc.b	$B0, $F, $88, $C, $E0
-	dc.b	$B0, $F, $98, $C, 0
-	dc.b	$B0, $B, $98, 0, $20
-	dc.b	$30, $B, $10, 0, $C8
-	dc.b	$30, $F, 8, $C, $E0
-	dc.b	$30, $F, $18, $C, 0
-	dc.b	$30, $B, $18, 0, $20
-	dc.b	$C0, $F, 0, $1C, $E0
-	dc.b	$C0, $F, 0, $1C, 0
-	dc.b	$E0, $F, 0, $1C, $E0
-	dc.b	$E0, $F, 0, $1C, 0
-	dc.b	0, $F, 0, $1C, $E0
-	dc.b	0, $F, 0, $1C, 0
-	dc.b	$20, $F, 0, $1C, $E0
-	dc.b	$20, $F, 0, $1C, 0
-	dc.b	0
-
-@Spr_20D318_3:
-	dc.b	$10
-	dc.b	$B0, $B, $90, 0, $C8
-	dc.b	$B0, $F, $90, $C, $E0
-	dc.b	$B0, $F, $80, $C, 0
-	dc.b	$B0, $B, $98, 0, $20
-	dc.b	$30, $B, $10, 0, $C8
-	dc.b	$30, $F, $10, $C, $E0
-	dc.b	$30, $F, 0, $C, 0
-	dc.b	$30, $B, $18, 0, $20
-	dc.b	$C0, $F, 0, $1C, $E0
-	dc.b	$C0, $F, 0, $1C, 0
-	dc.b	$E0, $F, 0, $1C, $E0
-	dc.b	$E0, $F, 0, $1C, 0
-	dc.b	0, $F, 0, $1C, $E0
-	dc.b	0, $F, 0, $1C, 0
-	dc.b	$20, $F, 0, $1C, $E0
-	dc.b	$20, $F, 0, $1C, 0
-	dc.b	0
-
-@Spr_20D318_4:
-	dc.b	$10
-	dc.b	$B0, $B, $80, 0, $C8
-	dc.b	$B0, $F, $98, $C, $E0
-	dc.b	$B0, $F, $88, $C, 0
-	dc.b	$B0, $B, $88, 0, $20
-	dc.b	$30, $B, 0, 0, $C8
-	dc.b	$30, $F, $18, $C, $E0
-	dc.b	$30, $F, 8, $C, 0
-	dc.b	$30, $B, 8, 0, $20
-	dc.b	$C0, $F, 0, $1C, $E0
-	dc.b	$C0, $F, 0, $1C, 0
-	dc.b	$E0, $F, 0, $1C, $E0
-	dc.b	$E0, $F, 0, $1C, 0
-	dc.b	0, $F, 0, $1C, $E0
-	dc.b	0, $F, 0, $1C, 0
-	dc.b	$20, $F, 0, $1C, $E0
-	dc.b	$20, $F, 0, $1C, 0
-	dc.b	0
-
-@Spr_20D318_5:
-	dc.b	1
-	dc.b	$F0, $F, 0, $2C, $F0
-
-@Spr_20D318_6:
-	dc.b	1
-	dc.b	$F0, $F, $10, $2C, $F0
-
-@Spr_20D318_7:
-	dc.b	1
-	dc.b	$F0, $F, 8, $2C, $F0
-
-@Spr_20D318_8:
-	dc.b	1
-	dc.b	$F0, $F, $18, $2C, $F0
+GeyserSprites:
+	include	"src/sprites/r4/geyser.asm"
+	even
 
 ; ------------------------------------------------------------------------------

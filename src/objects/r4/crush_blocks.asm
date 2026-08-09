@@ -26,7 +26,7 @@ sub_20EB3E:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
-	move.l	#Spr_20ECBE,obj.sprite_data(a0)
+	move.l	#CrushBlocksSprites,obj.sprite_data(a0)
 	move.b	#4,obj.sprite_frame(a0)
 	move.w	a0,obj.var_32(a0)
 	move.w	#$C0,obj.var_2a(a0)
@@ -151,38 +151,9 @@ loc_20ECB0:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20ECBE:
-	dc.w	@Spr_20ECBE_0-*
-	dc.w	@Spr_20ECBE_1-Spr_20ECBE
-	dc.w	@Spr_20ECBE_2-Spr_20ECBE
-	dc.w	@Spr_20ECBE_3-Spr_20ECBE
-	dc.w	@Spr_20ECBE_4-Spr_20ECBE
-
-@Spr_20ECBE_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@Spr_20ECBE_1:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-
-@Spr_20ECBE_2:
-	dc.b	3
-	dc.b	$F0, $F, 0, 0, $D0
-	dc.b	$F0, $F, 0, 0, $F0
-	dc.b	$F0, $F, 0, 0, $10
-
-@Spr_20ECBE_3:
-	dc.b	4
-	dc.b	$F0, $F, 0, 0, $C0
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	$F0, $F, 0, 0, $20
-
-@Spr_20ECBE_4:
-	dc.b	0
-	dc.b	0
+CrushBlocksSprites:
+	include	"src/sprites/r4/crush_blocks.asm"
+	even
 
 byte_20ED00:
 	dc.b	2, 1, 1, 2, 2, 1, 1, 2

@@ -27,7 +27,7 @@ BossDoorObject_0_Routine0:
 	move.b	#$40,obj.width_2(a0)
 	move.b	#$40,obj.height(a0)
 	move.w	#$446A,obj.sprite_tile(a0)
-	move.l	#Spr_20F1E6,obj.sprite_data(a0)
+	move.l	#BossDoorSprites,obj.sprite_data(a0)
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	lea	(object_states).l,a1
@@ -142,27 +142,8 @@ locret_20F1E4:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F1E6:
-	dc.w	@Spr_20F1E6_0-*
-
-@Spr_20F1E6_0:
-	dc.b	$10
-	dc.b	$C0, $F, 0, 0, $C0
-	dc.b	$C0, $F, 0, 0, $E0
-	dc.b	$C0, $F, 0, 0, 0
-	dc.b	$C0, $F, 0, 0, $20
-	dc.b	$E0, $F, 0, 0, $C0
-	dc.b	$E0, $F, 0, 0, $E0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	$E0, $F, 0, 0, $20
-	dc.b	0, $F, 0, 0, $C0
-	dc.b	0, $F, 0, 0, $E0
-	dc.b	0, $F, 0, 0, 0
-	dc.b	0, $F, 0, 0, $20
-	dc.b	$20, $F, 0, 0, $C0
-	dc.b	$20, $F, 0, 0, $E0
-	dc.b	$20, $F, 0, 0, 0
-	dc.b	$20, $F, 0, 0, $20
-	dc.b	0
+BossDoorSprites:
+	include	"src/sprites/r4/boss_door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

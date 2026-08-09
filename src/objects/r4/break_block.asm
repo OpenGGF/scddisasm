@@ -24,7 +24,7 @@ BreakBlockObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 	move.b	#$F3,obj.collide_type(a0)
 	move.w	#$4364,obj.sprite_tile(a0)
-	move.l	#Spr_20F6F6,obj.sprite_data(a0)
+	move.l	#BreakBlockSprites,obj.sprite_data(a0)
 
 BreakBlockObject_0_Routine2:
 	tst.b	obj.collide_status(a0)
@@ -130,21 +130,9 @@ loc_20F6F0:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F6F6:
-	dc.w	@Spr_20F6F6_0-*
-	dc.w	@Spr_20F6F6_1-Spr_20F6F6
-
-@Spr_20F6F6_0:
-	dc.b	4
-	dc.b	$F0, 5, $80, 0, $F0
-	dc.b	$F0, 5, $80, 0, 0
-	dc.b	0, 5, $80, 0, $F0
-	dc.b	0, 5, $80, 0, 0
-
-@Spr_20F6F6_1:
-	dc.b	1
-	dc.b	$F8, 5, $80, 0, $F8
-	dc.b	0
+BreakBlockSprites:
+	include	"src/sprites/r4/break_block.asm"
+	even
 
 word_20F716:
 	dc.w	-8, -8
