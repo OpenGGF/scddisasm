@@ -44,7 +44,7 @@ loc_20EF34:
 	move.b	#$14,obj.width_2(a0)
 	move.b	#$1C,obj.height(a0)
 	move.w	#$44E8,obj.sprite_tile(a0)
-	move.l	#Spr_20F066,obj.sprite_data(a0)
+	move.l	#EggmanStatueSprites,obj.sprite_data(a0)
 	move.b	#$F8,obj.collide_type(a0)
 	move.l	#byte_20F086,obj.var_2c(a0)
 
@@ -149,21 +149,9 @@ loc_20F060:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F066:
-	dc.w	@Spr_20F066_0-*
-	dc.w	@Spr_20F066_1-Spr_20F066
-
-@Spr_20F066_0:
-	dc.b	5
-	dc.b	$E4, 4, 0, 0, $F4
-	dc.b	$E4, 0, 0, 2, $C
-	dc.b	$EC, $F, 0, 3, $EC
-	dc.b	$EC, 3, 0, $13, $C
-	dc.b	$C, 9, 0, $17, $F4
-
-@Spr_20F066_1:
-	dc.b	0
-	dc.b	0
+EggmanStatueSprites:
+	include	"src/sprites/r6/eggman_statue.asm"
+	even
 
 byte_20F086:
 	dc.b	1, 0, 0
@@ -216,7 +204,7 @@ EggmanStatueObject_0_Routine0:
 	move.b	#6,obj.width(a0)
 	move.b	#6,obj.width_2(a0)
 	move.w	#$4C8,obj.sprite_tile(a0)
-	move.l	#Spr_20F15A,obj.sprite_data(a0)
+	move.l	#StatueBombSprites,obj.sprite_data(a0)
 	move.b	#$B7,obj.collide_type(a0)
 	move.l	#0,obj.var_2a(a0)
 
@@ -230,7 +218,7 @@ EggmanStatueObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 
 loc_20F12E:
-	lea	EggmanStatueAnims(pc),a1
+	lea	StatueBombAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -244,20 +232,12 @@ EggmanStatueObject_0_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-EggmanStatueAnims:
-	include	"src/anims/r6/eggman_statue.asm"
+StatueBombAnims:
+	include	"src/anims/r6/statue_bomb.asm"
 	even
 
-Spr_20F15A:
-	dc.w	@Spr_20F15A_0-*
-	dc.w	@Spr_20F15A_1-Spr_20F15A
-
-@Spr_20F15A_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-
-@Spr_20F15A_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
+StatueBombSprites:
+	include	"src/sprites/r6/statue_bomb.asm"
+	even
 	
 ; ------------------------------------------------------------------------------

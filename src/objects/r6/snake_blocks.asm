@@ -28,7 +28,7 @@ SnakeBlocksObject_1_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$3A8,obj.sprite_tile(a0)
-	move.l	#Spr_20EE7E,obj.sprite_data(a0)
+	move.l	#SnakeBlocksSprites,obj.sprite_data(a0)
 	move.w	a0,obj.var_2a(a0)
 	st	obj.var_34(a0)
 	move.w	#0,obj.var_32(a0)
@@ -267,12 +267,9 @@ locret_20EE7C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20EE7E:
-	dc.w	@Spr_20EE7E_0-*
-
-@Spr_20EE7E_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
+SnakeBlocksSprites:
+	include	"src/sprites/r6/snake_blocks.asm"
+	even
 
 off_20EE86:
 	dc.w	off_20EE90-*

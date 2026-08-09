@@ -22,7 +22,7 @@ off_208E6C:
 LauncherObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$400,obj.sprite_tile(a0)
-	move.l	#Spr_209000,obj.sprite_data(a0)
+	move.l	#LaunchSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_2e(a0)
 	move.b	#$1C,obj.width(a0)
 	move.b	#$1C,obj.width_2(a0)
@@ -32,7 +32,7 @@ LauncherObject_0_Routine0:
 	move.b	#4,obj.id(a1)
 	ori.b	#4,obj.sprite_flags(a1)
 	move.w	#$400,obj.sprite_tile(a1)
-	move.l	#Spr_209000,obj.sprite_data(a1)
+	move.l	#LaunchSprites,obj.sprite_data(a1)
 	move.b	#4,obj.width(a1)
 	move.b	#$C,obj.height(a1)
 	move.b	#1,obj.sprite_frame(a1)
@@ -130,20 +130,8 @@ locret_208FFE:
 
 ; ------------------------------------------------------------------------------
 
-Spr_209000:
-	dc.w	@Spr_209000_0-*
-	dc.w	@Spr_209000_1-Spr_209000
-
-@Spr_209000_0:
-	dc.b	5
-	dc.b	$E4, 0, 0, 0, $E4
-	dc.b	$EC, 6, 0, 1, $E4
-	dc.b	$F4, 0, 0, 7, $F4
-	dc.b	$FC, $C, 0, 8, $F4
-	dc.b	$FC, 0, 0, $C, $14
-
-@Spr_209000_1:
-	dc.b	$FF
-	dc.b	0
+LaunchSprites:
+	include	"src/sprites/r6/launch.asm"
+	even
 
 ; ------------------------------------------------------------------------------

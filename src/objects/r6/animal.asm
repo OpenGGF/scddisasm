@@ -23,7 +23,7 @@ AnimalObject_1_Routine0:
 	addq.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.l	#$8080108,obj.height(a0)
-	move.l	#Spr_20EBAA,obj.sprite_data(a0)
+	move.l	#AnimalSprites1,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
 	move.w	obj.y(a0),obj.var_2c(a0)
 	bsr.w	sub_20EB00
@@ -122,7 +122,7 @@ AnimalObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.l	#$8080408,obj.height(a0)
-	move.l	#Spr_20EBBE,obj.sprite_data(a0)
+	move.l	#AnimalSprites2,obj.sprite_data(a0)
 	bsr.w	sub_20EB0E
 	tst.b	obj.subtype(a0)
 	bmi.s	loc_20EA78
@@ -212,49 +212,13 @@ AnimalAnims2:
 	include	"src/anims/r6/animal_2.asm"
 	even
 
-Spr_20EBAA:
-	dc.w	@Spr_20EBAA_0-*
-	dc.w	@Spr_20EBAA_1-Spr_20EBAA
-	dc.w	@Spr_20EBAA_2-Spr_20EBAA
+AnimalSprites1:
+	include	"src/sprites/r6/animal_1.asm"
+	even
 
-@Spr_20EBAA_0:
-	dc.b	1
-	dc.b	$F8, 9, 0, 0, $F4
-
-@Spr_20EBAA_1:
-	dc.b	1
-	dc.b	$F8, 9, 0, 6, $F4
-
-@Spr_20EBAA_2:
-	dc.b	0
-	dc.b	0
-
-Spr_20EBBE:
-	dc.w	@Spr_20EBBE_0-*
-	dc.w	@Spr_20EBBE_1-Spr_20EBBE
-	dc.w	@Spr_20EBBE_2-Spr_20EBBE
-	dc.w	@Spr_20EBBE_3-Spr_20EBBE
-	dc.w	@Spr_20EBBE_4-Spr_20EBBE
-
-@Spr_20EBBE_0:
-	dc.b	1
-	dc.b	$F4, 6, 0, $12, $F8
-
-@Spr_20EBBE_1:
-	dc.b	1
-	dc.b	$F4, 6, 0, $C, $F8
-
-@Spr_20EBBE_2:
-	dc.b	0
-
-@Spr_20EBBE_3:
-	dc.b	1
-	dc.b	$F8, 9, 0, $C, $F4
-
-@Spr_20EBBE_4:
-	dc.b	1
-	dc.b	$F8, 9, 0, $12, $F4
-	dc.b	0
+AnimalSprites2:
+	include	"src/sprites/r6/animal_2.asm"
+	even
 
 word_20EBE2:
 	dc.w	$4D0, $4D0, $4D0, 0

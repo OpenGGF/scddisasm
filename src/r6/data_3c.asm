@@ -403,8 +403,8 @@ SpikeBombGfx:
 	incbin	"src/gfx/spike_bomb.nem"
 	even
 
-SnakeBlockGfx:
-	incbin	"src/gfx/r6/snake_block.nem"
+SnakeBlocksGfx:
+	incbin	"src/gfx/r6/snake_blocks.nem"
 	even
 
 SemiGfx:
@@ -460,11 +460,11 @@ BossDestroyGfx:
 	even
 
 BossFloorGfxC:
-	incbin	"src/gfx/r6/boss_broken_floor_c.nem"
+	incbin	"src/gfx/r6/boss_floor_c.nem"
 	even
 
 BossPiecesGfxC:
-	incbin	"src/gfx/r6/boss_arena_pieces_c.nem"
+	incbin	"src/gfx/r6/boss_pieces_c.nem"
 
 Padding3:
 	incbin	"padding/r63c_e_3.bin"

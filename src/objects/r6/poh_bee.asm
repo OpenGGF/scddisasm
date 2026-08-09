@@ -39,11 +39,11 @@ PohBeeObject_1_Routine0:
 	move.w	#$A457,obj.sprite_tile(a0)
 	move.b	#$31,obj.collide_type(a0)
 	move.w	#$FFF8,obj.var_30(a0)
-	lea	Unk20DE1CSprites(pc),a1
+	lea	PohBeeSprites1(pc),a1
 	move.l	#-$10000,d0
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20DC06
-	lea	Unk20DF04Sprites(pc),a1
+	lea	PohBeeSprites2(pc),a1
 	move.l	#-$8000,d0
 
 loc_20DC06:
@@ -187,7 +187,7 @@ PohBeeObject_1_Routine10:
 	move.b	#$FF,obj.subtype(a1)
 	move.b	obj.sprite_flags(a0),obj.sprite_flags(a1)
 	move.w	obj.sprite_tile(a0),obj.sprite_tile(a1)
-	move.l	#Spr_20E00E,obj.sprite_data(a1)
+	move.l	#PohMissileSprite,obj.sprite_data(a1)
 	move.b	#1,obj.sprite_layer(a1)
 	move.b	#$10,obj.height(a1)
 	move.b	#$10,obj.width(a1)
@@ -240,101 +240,13 @@ PohBeeAnims:
 	include	"src/anims/r6/poh_bee.asm"
 	even
 
-Unk20DE1CSprites:
-	dc.w	Unk20DE1CSprite_0-*
-	dc.w	Unk20DE1CSprite_1-Unk20DE1CSprites
-	dc.w	Unk20DE1CSprite_2-Unk20DE1CSprites
-	dc.w	Unk20DE1CSprite_3-Unk20DE1CSprites
+PohBeeSprites1:
+	include	"src/sprites/r6/poh_bee_1.asm"
+	even
 
-Unk20DE1CSprite_0:
-	dc.b	$D
-	dc.b	$EE, $C, 0, $10, $E9
-	dc.b	$EE, 0, 0, $14, 9
-	dc.b	$F4, 5, 0, 0, $E8
-	dc.b	$F4, 1, 0, 4, $F8
-	dc.b	$F4, 0, 0, 6, 0
-	dc.b	$F4, 0, 0, 7, 8
-	dc.b	$F4, 0, 0, 8, $10
-	dc.b	$FC, 8, 0, 9, 0
-	dc.b	4, 4, 0, $C, $E8
-	dc.b	4, 0, 0, $E, $F8
-	dc.b	4, 0, 0, $F, 0
-	dc.b	4, 0, $10, 7, 8
-	dc.b	4, 0, $10, 8, $10
-
-Unk20DE1CSprite_1:
-	dc.b	$D
-	dc.b	$F1, $C, 0, $15, $E9
-	dc.b	$F1, 0, 0, $19, 9
-	dc.b	$F4, 5, 0, 0, $E8
-	dc.b	$F4, 1, 0, 4, $F8
-	dc.b	$F4, 0, 0, 6, 0
-	dc.b	$F4, 0, 0, 7, 8
-	dc.b	$F4, 0, 0, 8, $10
-	dc.b	$FC, 8, 0, 9, 0
-	dc.b	4, 4, 0, $C, $E8
-	dc.b	4, 0, 0, $E, $F8
-	dc.b	4, 0, 0, $F, 0
-	dc.b	4, 0, $10, 7, 8
-	dc.b	4, 0, $10, 8, $10
-
-Unk20DE1CSprite_2:
-	dc.b	9
-	dc.b	$EA, $C, 0, $10, $F1
-	dc.b	$EA, 0, 0, $14, $11
-	dc.b	$F0, 5, 0, 0, $F0
-	dc.b	$F0, 1, 0, 4, 0
-	dc.b	$F0, 0, 0, 6, 8
-	dc.b	$F8, 0, 0, $1A, 8
-	dc.b	0, 4, 0, $C, $F0
-	dc.b	0, 4, 0, $1B, 0
-	dc.b	8, 8, 0, $1D, $F8
-
-Unk20DE1CSprite_3:
-	dc.b	9
-	dc.b	$ED, $C, 0, $15, $F1
-	dc.b	$ED, 0, 0, $19, $11
-	dc.b	$F0, 5, 0, 0, $F0
-	dc.b	$F0, 1, 0, 4, 0
-	dc.b	$F0, 0, 0, 6, 8
-	dc.b	$F8, 0, 0, $1A, 8
-	dc.b	0, 4, 0, $C, $F0
-	dc.b	0, 4, 0, $1B, 0
-	dc.b	8, 8, 0, $1D, $F8
-
-Unk20DF04Sprites:
-	dc.w	Unk20DF04Sprite_0-*
-	dc.w	Unk20DF04Sprite_1-Unk20DF04Sprites
-
-Unk20DF04Sprite_0:
-	dc.b	$C
-	dc.b	$EE, $C, 0, $10, $E9
-	dc.b	$EE, 0, 0, $14, 9
-	dc.b	$F4, 5, 0, 0, $E8
-	dc.b	$F4, 0, 0, $28, $F8
-	dc.b	$F4, 0, 0, 6, 0
-	dc.b	$F4, 0, 0, 7, 8
-	dc.b	$F4, 0, 0, $29, $10
-	dc.b	$FC, $C, 0, $2A, $F8
-	dc.b	4, 8, 0, $2E, $E8
-	dc.b	4, 0, 0, $F, 0
-	dc.b	4, 0, $10, 7, 8
-	dc.b	4, 0, $10, $29, $10
-
-Unk20DF04Sprite_1:
-	dc.b	$C
-	dc.b	$F1, $C, 0, $15, $E9
-	dc.b	$F1, 0, 0, $19, 9
-	dc.b	$F4, 5, 0, 0, $E8
-	dc.b	$F4, 0, 0, $28, $F8
-	dc.b	$F4, 0, 0, 6, 0
-	dc.b	$F4, 0, 0, 7, 8
-	dc.b	$F4, 0, 0, $29, $10
-	dc.b	$FC, $C, 0, $2A, $F8
-	dc.b	4, 8, 0, $2E, $E8
-	dc.b	4, 0, 0, $F, 0
-	dc.b	4, 0, $10, 7, 8
-	dc.b	4, 0, $10, $29, $10
+PohBeeSprites2:
+	include	"src/sprites/r6/poh_bee_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -398,43 +310,17 @@ loc_20DFEE:
 	add.l	d0,obj.x(a0)
 	move.l	obj.var_30(a0),d0
 	add.l	d0,obj.y(a0)
-	lea	PohBeeMissileAnims(pc),a1
+	lea	PohMissileAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-PohBeeMissileAnims:
-	include	"src/anims/r6/poh_bee_missile.asm"
+PohMissileAnims:
+	include	"src/anims/r6/poh_missile.asm"
 	even
 
-Spr_20E00E:
-	dc.w	@Spr_20E00E_0-*
-	dc.w	@Spr_20E00E_1-Spr_20E00E
-	dc.w	@Spr_20E00E_2-Spr_20E00E
-	dc.w	@Spr_20E00E_3-Spr_20E00E
-
-@Spr_20E00E_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, $20, $F8
-
-@Spr_20E00E_1:
-	dc.b	2
-	dc.b	$F8, 4, 0, $24, $F8
-	dc.b	0, 4, $18, $24, $F8
-
-@Spr_20E00E_2:
-	dc.b	4
-	dc.b	$F8, 0, 0, $26, $F8
-	dc.b	$F8, 0, 8, $26, 0
-	dc.b	0, 0, $10, $26, $F8
-	dc.b	0, 0, $18, $26, 0
-
-@Spr_20E00E_3:
-	dc.b	4
-	dc.b	$F8, 0, 0, $27, $F8
-	dc.b	$F8, 0, 8, $27, 0
-	dc.b	0, 0, $10, $27, $F8
-	dc.b	0, 0, $18, $27, 0
-	dc.b	0
+PohMissileSprite:
+	include	"src/sprites/r6/poh_missile.asm"
+	even
 
 ; ------------------------------------------------------------------------------

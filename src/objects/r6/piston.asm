@@ -28,7 +28,7 @@ PistonObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$340,obj.sprite_tile(a0)
-	move.l	#Spr_20CB8C,obj.sprite_data(a0)
+	move.l	#PistonSprites,obj.sprite_data(a0)
 	move.b	#$28,obj.height(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -108,7 +108,7 @@ sub_20CB2A:
 	move.w	d0,obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	ori.b	#4,obj.sprite_flags(a1)
-	move.l	#Spr_20CB8C,obj.sprite_data(a1)
+	move.l	#PistonSprites,obj.sprite_data(a1)
 	move.b	#$28,obj.height(a1)
 	move.b	#1,obj.sprite_frame(a1)
 	rts
@@ -131,22 +131,8 @@ loc_20CB86:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CB8C:
-	dc.w	@Spr_20CB8C_0-*
-	dc.w	@Spr_20CB8C_1-Spr_20CB8C
-
-@Spr_20CB8C_0:
-	dc.b	6
-	dc.b	$D8, $D, 0, 0, $E0
-	dc.b	$D8, $D, 8, 0, 0
-	dc.b	$E8, $F, 0, 8, $E0
-	dc.b	$E8, $F, 8, 8, 0
-	dc.b	8, $F, 0, 8, $E0
-	dc.b	8, $F, 8, 8, 0
-	dc.b	0
-
-@Spr_20CB8C_1:
-	dc.b	0
-	dc.b	0
+PistonSprites:
+	include	"src/sprites/r6/piston.asm"
+	even
 
 ; ------------------------------------------------------------------------------

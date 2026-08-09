@@ -22,7 +22,7 @@ ElectricBeamsObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
 	move.w	#$6358,obj.sprite_tile(a0)
-	move.l	#Spr_20CE82,obj.sprite_data(a0)
+	move.l	#ElectricBeamsSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.height(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	obj.subtype(a0),obj.sprite_frame(a0)
@@ -311,20 +311,8 @@ byte_20CE7E:
 	dc.b	4
 	dc.b	0
 
-Spr_20CE82:
-	dc.w	@Spr_20CE82_0-*
-	dc.w	@Spr_20CE82_1-Spr_20CE82
-
-@Spr_20CE82_0:
-	dc.b	4
-	dc.b	$E8, $A, 0, 0, $E8
-	dc.b	0, $A, 0, 9, $E8
-	dc.b	$E8, $A, 8, 0, 0
-	dc.b	0, $A, 8, 9, 0
-	dc.b	0
-
-@Spr_20CE82_1:
-	dc.b	0
-	dc.b	0
+ElectricBeamsSprites:
+	include	"src/sprites/r6/electric_beams.asm"
+	even
 
 ; ------------------------------------------------------------------------------

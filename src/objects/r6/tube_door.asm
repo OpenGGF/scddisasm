@@ -39,7 +39,7 @@ TubeDoorObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$4410,obj.sprite_tile(a0)
-	move.l	#Spr_20D56A,obj.sprite_data(a0)
+	move.l	#TubeDoorSprites,obj.sprite_data(a0)
 	move.b	#4,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	tst.b	obj.subtype(a0)
@@ -162,28 +162,8 @@ locret_20D568:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D56A:
-	dc.w	@Spr_20D56A_0-*
-	dc.w	@Spr_20D56A_1-Spr_20D56A
-	dc.w	@Spr_20D56A_2-Spr_20D56A
-	dc.w	@Spr_20D56A_2-Spr_20D56A
-
-@Spr_20D56A_0:
-	dc.b	2
-	dc.b	$E0, 3, 0, 0, $FC
-	dc.b	0, 3, 0, 4, $FC
-	dc.b	0
-
-@Spr_20D56A_1:
-	dc.b	2
-	dc.b	$E0, $B, 0, 8, $FC
-	dc.b	$F0, $B, 0, $14, $14
-	dc.b	0
-
-@Spr_20D56A_2:
-	dc.b	2
-	dc.b	$E0, $C, 0, $20, $FC
-	dc.b	$E0, $C, 0, $24, $1C
-	dc.b	0
+TubeDoorSprites:
+	include	"src/sprites/r6/tube_door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -28,7 +28,7 @@ SpinPlatformObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	move.w	#$436A,obj.sprite_tile(a0)
-	move.l	#Spr_20D880,obj.sprite_data(a0)
+	move.l	#SpinPlatformSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$C,obj.height(a0)
@@ -326,48 +326,8 @@ SpinPlatformAnims:
 	include	"src/anims/r6/spin_platform.asm"
 	even
 
-Spr_20D880:
-	dc.w	@Spr_20D880_0-*
-	dc.w	@Spr_20D880_1-Spr_20D880
-	dc.w	@Spr_20D880_2-Spr_20D880
-	dc.w	@Spr_20D880_3-Spr_20D880
-	dc.w	@Spr_20D880_4-Spr_20D880
-	dc.w	@Spr_20D880_5-Spr_20D880
-
-@Spr_20D880_0:
-	dc.b	3
-	dc.b	$F0, $B, 0, 0, $E8
-	dc.b	$F0, $B, 0, $C, 0
-	dc.b	$10, 5, 0, $2C, $F8
-
-@Spr_20D880_1:
-	dc.b	3
-	dc.b	$F0, $B, 0, $18, $E8
-	dc.b	$F0, $B, 8, $18, 0
-	dc.b	$10, 5, 8, $28, $F8
-
-@Spr_20D880_2:
-	dc.b	3
-	dc.b	$F0, $B, 0, 0, $E8
-	dc.b	$F0, $B, 0, $C, 0
-	dc.b	$10, 5, 0, $24, $F8
-
-@Spr_20D880_3:
-	dc.b	3
-	dc.b	$F0, $B, 0, $18, $E8
-	dc.b	$F0, $B, 8, $18, 0
-	dc.b	$10, 5, 0, $24, $F8
-
-@Spr_20D880_4:
-	dc.b	3
-	dc.b	$F0, $B, 0, 0, $E8
-	dc.b	$F0, $B, 0, $C, 0
-	dc.b	$10, 5, 0, $24, $F8
-
-@Spr_20D880_5:
-	dc.b	3
-	dc.b	$F0, $B, 0, $18, $E8
-	dc.b	$F0, $B, 8, $18, 0
-	dc.b	$10, 5, 0, $28, $F8
+SpinPlatformSprites:
+	include	"src/sprites/r6/spin_platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -29,7 +29,7 @@ PlatformObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	move.w	#$436A,obj.sprite_tile(a0)
-	move.l	#Spr_20CFA0,obj.sprite_data(a0)
+	move.l	#PlatformSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$C,obj.height(a0)
@@ -109,13 +109,8 @@ sub_20CF84:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CFA0:
-	dc.w	@Spr_20CFA0_0-*
-
-@Spr_20CFA0_0:
-	dc.b	3
-	dc.b	$F0, $B, 0, $18, $E8
-	dc.b	$F0, $B, 8, $18, 0
-	dc.b	$10, 5, 0, $24, $F8
+PlatformSprites:
+	include	"src/sprites/r6/platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------

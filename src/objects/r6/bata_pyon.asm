@@ -31,12 +31,12 @@ BataPyonObject_0_Routine0:
 	move.w	#$FFF0,obj.var_34(a0)
 	move.b	#1,obj.sprite_frame(a0)
 	bsr.w	sub_20DB08
-	movea.l	#Unk20DB2ASprites,a1
+	movea.l	#BataPyonSprites1,a1
 	move.l	#-$A000,d0
 	move.b	#7,d1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D97C
-	movea.l	#Unk20DB4ESprites,a1
+	movea.l	#BataPyonSprites2,a1
 	move.l	#-$8000,d0
 	move.b	#3,d1
 
@@ -220,36 +220,12 @@ loc_20DB1C:
 
 ; ------------------------------------------------------------------------------
 
-Unk20DB2ASprites:
-	dc.w	Unk20DB2ASprite_0-*
-	dc.w	Unk20DB2ASprite_1-Unk20DB2ASprites
+BataPyonSprites1:
+	include	"src/sprites/r6/bata_pyon_1.asm"
+	even
 
-Unk20DB2ASprite_0:
-	dc.b	3
-	dc.b	$EE, 0, 0, 0, $F0
-	dc.b	$F6, $D, 0, 1, $F0
-	dc.b	6, 5, 0, 9, $F8
-
-Unk20DB2ASprite_1:
-	dc.b	3
-	dc.b	$E3, 0, 0, 0, $F0
-	dc.b	$EB, $D, 0, 1, $F0
-	dc.b	$FB, 7, 0, $D, $F8
-
-Unk20DB4ESprites:
-	dc.w	Unk20DB4ESprite_0-*
-	dc.w	Unk20DB4ESprite_1-Unk20DB4ESprites
-
-Unk20DB4ESprite_0:
-	dc.b	3
-	dc.b	$EE, 4, 0, $15, $F0
-	dc.b	$F6, $D, 0, $17, $F0
-	dc.b	6, 5, 0, 9, $F8
-
-Unk20DB4ESprite_1:
-	dc.b	3
-	dc.b	$E3, 4, 0, $15, $F0
-	dc.b	$EB, $D, 0, $17, $F0
-	dc.b	$FB, 7, 0, $D, $F8
+BataPyonSprites2:
+	include	"src/sprites/r6/bata_pyon_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------

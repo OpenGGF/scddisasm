@@ -419,8 +419,8 @@ SpikeBombGfx:
 	incbin	"src/gfx/spike_bomb.nem"
 	even
 
-SnakeBlockGfx:
-	incbin	"src/gfx/r6/snake_block.nem"
+SnakeBlocksGfx:
+	incbin	"src/gfx/r6/snake_blocks.nem"
 	even
 
 SemiGfx:

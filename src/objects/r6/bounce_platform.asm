@@ -28,7 +28,7 @@ BouncePlatformObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$43E8,obj.sprite_tile(a0)
-	move.l	#Spr_20D0E2,obj.sprite_data(a0)
+	move.l	#BouncePlatformSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.height(a0)
 	move.b	#$20,obj.width_2(a0)
 
@@ -134,14 +134,9 @@ loc_20D0DE:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D0E2:
-	dc.w	@Spr_20D0E2_0-*
-
-@Spr_20D0E2_0:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 8, 0, 0
-	dc.b	0
+BouncePlatformSprites:
+	include	"src/sprites/r6/bounce_platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 

@@ -34,10 +34,10 @@ SemiObject_1_Routine0:
 	move.w	#$A4A8,obj.sprite_tile(a0)
 	move.b	#$36,obj.collide_type(a0)
 	move.b	obj.subtype_2(a0),obj.var_33(a0)
-	lea	Unk20E206Sprites(pc),a1
+	lea	SemiSprites1(pc),a1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20E0CA
-	lea	Unk20E2EESprites(pc),a1
+	lea	SemiSprites2(pc),a1
 
 loc_20E0CA:
 	move.l	a1,obj.sprite_data(a0)
@@ -166,123 +166,13 @@ SemiAnims:
 	include	"src/anims/r6/semi.asm"
 	even
 
-Unk20E206Sprites:
-	dc.w	Unk20E206Sprite_0-*
-	dc.w	Unk20E206Sprite_1-Unk20E206Sprites
-	dc.w	Unk20E206Sprite_2-Unk20E206Sprites
-	dc.w	Unk20E206Sprite_3-Unk20E206Sprites
+SemiSprites1:
+	include	"src/sprites/r6/semi_1.asm"
+	even
 
-Unk20E206Sprite_0:
-	dc.b	$A
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 1, $F8
-	dc.b	$F0, 0, 8, 1, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, 2, $F0
-	dc.b	$F8, 4, 8, 2, 0
-	dc.b	0, 1, 0, 4, $F0
-	dc.b	0, 1, 0, 6, $F8
-	dc.b	0, 1, 8, 6, 0
-	dc.b	0, 1, 8, 4, 8
-
-Unk20E206Sprite_1:
-	dc.b	$B
-	dc.b	$FB, 9, 0, 9, $F4
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 8, $F8
-	dc.b	$F0, 0, 8, 8, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, $11, $F0
-	dc.b	$F8, 4, 8, $11, 0
-	dc.b	0, 0, 0, $13, $F0
-	dc.b	0, 1, 0, $14, $F8
-	dc.b	0, 1, 8, $14, 0
-	dc.b	0, 0, 8, $13, 8
-
-Unk20E206Sprite_2:
-	dc.b	$C
-	dc.b	$FD, 1, 0, $F, $EC
-	dc.b	$FD, 1, 8, $F, $C
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 8, $F8
-	dc.b	$F0, 0, 8, 8, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, $11, $F0
-	dc.b	$F8, 4, 8, $11, 0
-	dc.b	0, 0, 0, $13, $F0
-	dc.b	0, 1, 0, $16, $F8
-	dc.b	0, 1, 8, $16, 0
-	dc.b	0, 0, 8, $13, 8
-
-Unk20E206Sprite_3:
-	dc.b	$B
-	dc.b	$FB, 9, 8, 9, $F4
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 8, $F8
-	dc.b	$F0, 0, 8, 8, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, $11, $F0
-	dc.b	$F8, 4, 8, $11, 0
-	dc.b	0, 0, 0, $13, $F0
-	dc.b	0, 1, 0, $14, $F8
-	dc.b	0, 1, 8, $14, 0
-	dc.b	0, 0, 8, $13, 8
-
-Unk20E2EESprites:
-	dc.w	Unk20E2EESprite_0-*
-	dc.w	Unk20E2EESprite_1-Unk20E2EESprites
-	dc.w	Unk20E2EESprite_2-Unk20E2EESprites
-	dc.w	Unk20E2EESprite_3-Unk20E2EESprites
-
-Unk20E2EESprite_0:
-	dc.b	$A
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 1, $F8
-	dc.b	$F0, 0, 8, 1, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, $18, $F0
-	dc.b	$F8, 4, 8, $18, 0
-	dc.b	0, 1, 0, 4, $F0
-	dc.b	0, 1, 0, $1A, $F8
-	dc.b	0, 1, 8, $1A, 0
-	dc.b	0, 1, 8, 4, 8
-
-Unk20E2EESprite_1:
-	dc.b	9
-	dc.b	$FB, 9, 0, 9, $F4
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 8, $F8
-	dc.b	$F0, 0, 8, 8, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, $1C, $F0
-	dc.b	$F8, 4, 8, $1C, 0
-	dc.b	0, 1, 0, $1E, $F8
-	dc.b	0, 1, 8, $1E, 0
-
-Unk20E2EESprite_2:
-	dc.b	$A
-	dc.b	$FD, 1, 0, $F, $EC
-	dc.b	$FD, 1, 8, $F, $C
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 8, $F8
-	dc.b	$F0, 0, 8, 8, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, $1C, $F0
-	dc.b	$F8, 4, 8, $1C, 0
-	dc.b	0, 1, 0, $1E, $F8
-	dc.b	0, 1, 8, $1E, 0
-
-Unk20E2EESprite_3:
-	dc.b	9
-	dc.b	$FB, 9, 8, 9, $F4
-	dc.b	$F0, 0, 0, 0, $F0
-	dc.b	$F0, 0, 0, 8, $F8
-	dc.b	$F0, 0, 8, 8, 0
-	dc.b	$F0, 0, 8, 0, 8
-	dc.b	$F8, 4, 0, $1C, $F0
-	dc.b	$F8, 4, 8, $1C, 0
-	dc.b	0, 1, 0, $1E, $F8
-	dc.b	0, 1, 8, $1E, 0
+SemiSprites2:
+	include	"src/sprites/r6/semi_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -312,7 +202,7 @@ SemiObject_0_Routine0:
 	move.b	#6,obj.width(a0)
 	move.b	#6,obj.width_2(a0)
 	move.w	#$84C8,obj.sprite_tile(a0)
-	move.l	#Spr_20E488,obj.sprite_data(a0)
+	move.l	#SemiBombSprites,obj.sprite_data(a0)
 	move.l	#$8000,obj.var_2e(a0)
 
 SemiObject_0_Routine2:
@@ -371,16 +261,8 @@ SemiBombAnims:
 	include	"src/anims/r6/semi_bomb.asm"
 	even
 
-Spr_20E488:
-	dc.w	@Spr_20E488_0-*
-	dc.w	@Spr_20E488_1-Spr_20E488
-
-@Spr_20E488_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-
-@Spr_20E488_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
+SemiBombSprites:
+	include	"src/sprites/r6/semi_bomb.asm"
+	even
 
 ; ------------------------------------------------------------------------------

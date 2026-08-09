@@ -57,7 +57,7 @@ SectionGfxInitList0:
 	gfxEntry ElectricOrbD, $6B00
 	gfxEntry PlatformGfxA, $6D40
 	gfxEntry SwitchGfx, $7340
-	gfxEntry SnakeBlockGfx, $7500
+	gfxEntry SnakeBlocksGfx, $7500
 	gfxEntry SeesawGfx, $7700
 	gfxEntry BouncePlatformGfx, $7D00
 	gfxEntry SpikeChainGfx, $7F00

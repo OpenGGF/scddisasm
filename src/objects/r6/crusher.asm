@@ -32,7 +32,7 @@ CrusherObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$44E8,obj.sprite_tile(a0)
-	move.l	#Spr_20D1E0,obj.sprite_data(a0)
+	move.l	#CrusherSprites,obj.sprite_data(a0)
 	move.b	#$50,obj.height(a0)
 	move.b	#$30,obj.width_2(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
@@ -162,25 +162,8 @@ byte_20D1D8:
 	dc.b	8
 	dc.w	-$200
 
-Spr_20D1E0:
-	dc.w	@Spr_20D1E0_0-*
-
-@Spr_20D1E0_0:
-	dc.b	$F
-	dc.b	$B0, $F, 0, 0, $D0
-	dc.b	$B0, $F, 0, 0, $F0
-	dc.b	$B0, $F, 0, 0, $10
-	dc.b	$D0, $F, 0, $10, $D0
-	dc.b	$D0, $F, 0, $10, $F0
-	dc.b	$D0, $F, 0, $10, $10
-	dc.b	$F0, $F, 0, $10, $D0
-	dc.b	$F0, $F, 0, $10, $F0
-	dc.b	$F0, $F, 0, $10, $10
-	dc.b	$10, $F, 0, $10, $D0
-	dc.b	$10, $F, 0, $10, $F0
-	dc.b	$10, $F, 0, $10, $10
-	dc.b	$30, $F, 0, $10, $D0
-	dc.b	$30, $F, 0, $10, $F0
-	dc.b	$30, $F, 0, $10, $10
+CrusherSprites:
+	include	"src/sprites/r6/crusher.asm"
+	even
 
 ; ------------------------------------------------------------------------------

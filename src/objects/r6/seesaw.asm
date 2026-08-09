@@ -27,7 +27,7 @@ SeesawObject_0_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	move.w	#$3B8,obj.sprite_tile(a0)
-	move.l	#Spr_20F3EE,obj.sprite_data(a0)
+	move.l	#SeesawSprites,obj.sprite_data(a0)
 	jsr	SpawnObject
 	bne.w	loc_20F3C0
 	bsr.w	sub_20F20C
@@ -217,74 +217,8 @@ SeesawAnims:
 	include	"src/anims/r6/seesaw.asm"
 	even
 
-Spr_20F3EE:
-	dc.w	@Spr_20F3EE_0-*
-	dc.w	@Spr_20F3EE_1-Spr_20F3EE
-	dc.w	@Spr_20F3EE_2-Spr_20F3EE
-	dc.w	@Spr_20F3EE_3-Spr_20F3EE
-	dc.w	@Spr_20F3EE_4-Spr_20F3EE
-	dc.w	@Spr_20F3EE_5-Spr_20F3EE
-	dc.w	@Spr_20F3EE_6-Spr_20F3EE
-	dc.w	@Spr_20F3EE_7-Spr_20F3EE
-	dc.w	@Spr_20F3EE_8-Spr_20F3EE
-	dc.w	@Spr_20F3EE_9-Spr_20F3EE
-
-@Spr_20F3EE_0:
-	dc.b	3
-	dc.b	$E8, $B, 0, 8, $E8
-	dc.b	$F8, $B, 8, $1A, 0
-	dc.b	8, 5, 0, $2A, $F8
-
-@Spr_20F3EE_1:
-	dc.b	3
-	dc.b	$E8, $B, 0, 8, $E8
-	dc.b	$F8, $B, 8, $1A, 0
-	dc.b	8, 5, 8, $2A, $F8
-
-@Spr_20F3EE_2:
-	dc.b	3
-	dc.b	$E8, $B, 0, 8, $E8
-	dc.b	$F8, $B, 8, $1A, 0
-	dc.b	8, 5, 0, $26, $F8
-
-@Spr_20F3EE_3:
-	dc.b	3
-	dc.b	$E8, $B, 0, 8, $E8
-	dc.b	$F8, $B, 8, $1A, 0
-	dc.b	8, 5, 8, $26, $F8
-
-@Spr_20F3EE_4:
-	dc.b	3
-	dc.b	$F8, $B, 0, $1A, $E8
-	dc.b	$E8, $B, 8, 8, 0
-	dc.b	8, 5, 0, $2A, $F8
-
-@Spr_20F3EE_5:
-	dc.b	3
-	dc.b	$F8, $B, 0, $1A, $E8
-	dc.b	$E8, $B, 8, 8, 0
-	dc.b	8, 5, 8, $2A, $F8
-
-@Spr_20F3EE_6:
-	dc.b	3
-	dc.b	$F8, $B, 0, $1A, $E8
-	dc.b	$E8, $B, 8, 8, 0
-	dc.b	8, 5, 0, $26, $F8
-
-@Spr_20F3EE_7:
-	dc.b	3
-	dc.b	$F8, $B, 0, $1A, $E8
-	dc.b	$E8, $B, 8, 8, 0
-	dc.b	8, 5, 8, $26, $F8
-
-@Spr_20F3EE_8:
-	dc.b	3
-	dc.b	$F8, 9, 0, $14, $E8
-	dc.b	$F8, 9, 8, $14, 0
-	dc.b	8, 5, 0, $2A, $F8
-
-@Spr_20F3EE_9:
-	dc.b	1
-	dc.b	$F9, $D, 0, 0, $F0
+SeesawSprites:
+	include	"src/sprites/r6/seesaw.asm"
+	even
 
 ; ------------------------------------------------------------------------------

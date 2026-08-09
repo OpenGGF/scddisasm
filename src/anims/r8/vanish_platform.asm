@@ -14,7 +14,7 @@
 	dc.b	3, 3, 3, 3, 3, 2, 2, 2
 	dc.b	1, 1, 1, 1, 1, 7, 7, 7
 	dc.b	1, 1, 1, 1, 1, 0
-	; Instead of using a flag to denote the end of an animation, 
+	; Instead of using a flag to denote the end of the animation, 
 	; the object manually checks for it.
 
 .Anim1:

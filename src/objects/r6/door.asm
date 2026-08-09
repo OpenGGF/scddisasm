@@ -30,7 +30,7 @@ DoorObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20D3D6,obj.sprite_data(a0)
+	move.l	#DoorSprites,obj.sprite_data(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.w	#$3A0,obj.sprite_tile(a0)
 	move.b	#$20,obj.height(a0)
@@ -151,22 +151,8 @@ locret_20D3D4:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D3D6:
-	dc.w	@Spr_20D3D6_0-*
-	dc.w	@Spr_20D3D6_1-Spr_20D3D6
-
-@Spr_20D3D6_0:
-	dc.b	2
-	dc.b	$E0, 7, 0, 0, $F8
-	dc.b	0, 7, 0, 0, $F8
-	dc.b	0
-
-@Spr_20D3D6_1:
-	dc.b	4
-	dc.b	$E0, $F, 0, 0, $E0
-	dc.b	$E0, $F, 0, 0, 0
-	dc.b	0, $F, 0, 0, $E0
-	dc.b	0, $F, 0, 0, 0
-	dc.b	0
+DoorSprites:
+	include	"src/sprites/r6/door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

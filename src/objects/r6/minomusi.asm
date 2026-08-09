@@ -45,10 +45,10 @@ MinomusiObject_0_Routine0:
 	move.w	obj.y(a0),obj.var_34(a0)
 	move.w	obj.y(a0),obj.var_36(a0)
 	addi.w	#$5F,obj.var_36(a0)
-	lea	Unk20E79ESprites(pc),a1
+	lea	MinomusiSprites1(pc),a1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20E52A
-	lea	Unk20E7F6Sprites(pc),a1
+	lea	MinomusiSprites2(pc),a1
 
 loc_20E52A:
 	move.l	a1,obj.sprite_data(a0)
@@ -250,135 +250,10 @@ MinomusiAnims:
 	include	"src/anims/r6/minomusi.asm"
 	even
 
-Unk20E79ESprites:
-	dc.w	Unk20E7F6Sprite_0-*
-	dc.w	Unk20E7F6Sprite_1-Unk20E79ESprites
-	dc.w	Unk20E7F6Sprite_2-Unk20E79ESprites
-	dc.w	Unk20E7F6Sprite_3-Unk20E79ESprites
-	dc.w	Unk20E7F6Sprite_4-Unk20E79ESprites
-	dc.w	Unk20E7F6Sprite_5-Unk20E79ESprites
-	dc.w	Unk20E7F6Sprite_6-Unk20E79ESprites
-	dc.w	Unk20E7F6Sprite_7-Unk20E79ESprites
-	dc.w	Unk20E7F6Sprite_8-Unk20E79ESprites
-	dc.w	Unk20E79ESprite_9-Unk20E79ESprites
-	dc.w	Unk20E79ESprite_A-Unk20E79ESprites
-	dc.w	Unk20E79ESprite_B-Unk20E79ESprites
-
-Unk20E79ESprite_9:
-	dc.b	4
-	dc.b	$F0, 0, 0, 0, $F8
-	dc.b	$F0, 0, 8, 0, 0
-	dc.b	$F8, 2, 0, 1, $F8
-	dc.b	$F8, 2, 8, 1, 0
-
-Unk20E79ESprite_A:
-	dc.b	3
-	dc.b	$F0, 3, 0, 4, $F4
-	dc.b	$F0, 3, 0, 8, $FC
-	dc.b	$F0, 3, 8, 4, 4
-
-Unk20E79ESprite_B:
-	dc.b	5
-	dc.b	$F0, 0, 0, 0, $F8
-	dc.b	$F0, 0, 8, 0, 0
-	dc.b	$F8, 2, 0, $C, $F0
-	dc.b	$F8, 6, 0, $F, $F8
-	dc.b	$F8, 2, 8, $C, 8
-	dc.b	0
-
-Unk20E7F6Sprites:
-	dc.w	Unk20E7F6Sprite_0-*
-	dc.w	Unk20E7F6Sprite_1-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_2-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_3-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_4-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_5-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_6-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_7-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_8-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_9-Unk20E7F6Sprites
-	dc.w	Unk20E7F6Sprite_A-Unk20E7F6Sprites
-
-Unk20E7F6Sprite_9:
-	dc.b	2
-	dc.b	$F0, 4, 0, $16, $F8
-	dc.b	$F8, 6, 0, $18, $F8
-
-Unk20E7F6Sprite_A:
-	dc.b	2
-	dc.b	$F0, 4, 8, $16, $F8
-	dc.b	$F8, 6, 0, $18, $F8
-
-Unk20E7F6Sprite_0:
-	dc.b	0
-
-Unk20E7F6Sprite_1:
-	dc.b	2
-	dc.b	$F4, 0, 0, $15, $FC
-	dc.b	$FC, 0, 0, $15, $FC
-
-Unk20E7F6Sprite_2:
-	dc.b	3
-	dc.b	$F0, 0, 0, $15, $FC
-	dc.b	$F8, 0, 0, $15, $FC
-	dc.b	0, 0, 0, $15, $FC
-
-Unk20E7F6Sprite_3:
-	dc.b	4
-	dc.b	$EC, 0, 0, $15, $FC
-	dc.b	$F4, 0, 0, $15, $FC
-	dc.b	$FC, 0, 0, $15, $FC
-	dc.b	4, 0, 0, $15, $FC
-
-Unk20E7F6Sprite_4:
-	dc.b	5
-	dc.b	$E8, 0, 0, $15, $FC
-	dc.b	$F0, 0, 0, $15, $FC
-	dc.b	$F8, 0, 0, $15, $FC
-	dc.b	0, 0, 0, $15, $FC
-	dc.b	8, 0, 0, $15, $FC
-
-Unk20E7F6Sprite_5:
-	dc.b	6
-	dc.b	$E4, 0, 0, $15, $FC
-	dc.b	$EC, 0, 0, $15, $FC
-	dc.b	$F4, 0, 0, $15, $FC
-	dc.b	$FC, 0, 0, $15, $FC
-	dc.b	4, 0, 0, $15, $FC
-	dc.b	$C, 0, 0, $15, $FC
-
-Unk20E7F6Sprite_6:
-	dc.b	7
-	dc.b	$E0, 0, 0, $15, $FC
-	dc.b	$E8, 0, 0, $15, $FC
-	dc.b	$F0, 0, 0, $15, $FC
-	dc.b	$F8, 0, 0, $15, $FC
-	dc.b	0, 0, 0, $15, $FC
-	dc.b	8, 0, 0, $15, $FC
-	dc.b	$10, 0, 0, $15, $FC
-
-Unk20E7F6Sprite_7:
-	dc.b	8
-	dc.b	$DC, 0, 0, $15, $FC
-	dc.b	$E4, 0, 0, $15, $FC
-	dc.b	$EC, 0, 0, $15, $FC
-	dc.b	$F4, 0, 0, $15, $FC
-	dc.b	$FC, 0, 0, $15, $FC
-	dc.b	4, 0, 0, $15, $FC
-	dc.b	$C, 0, 0, $15, $FC
-	dc.b	$14, 0, 0, $15, $FC
-
-Unk20E7F6Sprite_8:
-	dc.b	9
-	dc.b	$D8, 0, 0, $15, $FC
-	dc.b	$E0, 0, 0, $15, $FC
-	dc.b	$E8, 0, 0, $15, $FC
-	dc.b	$F0, 0, 0, $15, $FC
-	dc.b	$F8, 0, 0, $15, $FC
-	dc.b	0, 0, 0, $15, $FC
-	dc.b	8, 0, 0, $15, $FC
-	dc.b	$10, 0, 0, $15, $FC
-	dc.b	$18, 0, 0, $15, $FC
-	dc.b	0
+MinomusiSprites:
+	include	"src/sprites/r6/minomusi.asm"
+	even
+MinomusiSprites1	equ .Sprites1
+MinomusiSprites2	equ .Sprites2
 
 ; ------------------------------------------------------------------------------

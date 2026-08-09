@@ -24,7 +24,7 @@ off_208974:
 FreezerObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$310,obj.sprite_tile(a0)
-	move.l	#Spr_208D94,obj.sprite_data(a0)
+	move.l	#FreezerSprites,obj.sprite_data(a0)
 	move.b	#$78,obj.var_2a(a0)
 	addq.b	#2,obj.routine(a0)
 
@@ -201,7 +201,7 @@ loc_208B92:
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	move.w	#$2E1,obj.sprite_tile(a1)
-	move.l	#Spr_208D94,obj.sprite_data(a1)
+	move.l	#FreezerSprites,obj.sprite_data(a1)
 	move.b	(a3,d1.w),d2
 	ext.w	d2
 	add.w	d2,obj.x(a1)
@@ -249,7 +249,7 @@ loc_208C40:
 	move.w	obj.x(a2),obj.x(a1)
 	move.w	obj.y(a2),obj.y(a1)
 	move.w	#$2E1,obj.sprite_tile(a1)
-	move.l	#Spr_208D94,obj.sprite_data(a1)
+	move.l	#FreezerSprites,obj.sprite_data(a1)
 	move.b	#$18,obj.width(a1)
 	move.b	#$18,obj.width_2(a1)
 	move.b	#$18,obj.height(a1)
@@ -319,92 +319,8 @@ FreezerAnims:
 	include	"src/anims/r6/freezer.asm"
 	even
 
-Spr_208D94:
-	dc.w	@Spr_208D94_0-*
-	dc.w	@Spr_208D94_1-Spr_208D94
-	dc.w	@Spr_208D94_2-Spr_208D94
-	dc.w	@Spr_208D94_3-Spr_208D94
-	dc.w	@Spr_208D94_4-Spr_208D94
-	dc.w	@Spr_208D94_5-Spr_208D94
-	dc.w	@Spr_208D94_6-Spr_208D94
-	dc.w	@Spr_208D94_7-Spr_208D94
-	dc.w	@Spr_208D94_8-Spr_208D94
-	dc.w	@Spr_208D94_9-Spr_208D94
-	dc.w	@Spr_208D94_A-Spr_208D94
-	dc.w	@Spr_208D94_B-Spr_208D94
-
-@Spr_208D94_0:
-	dc.b	2
-	dc.b	$F8, $D, 0, 0, $E0
-	dc.b	$F8, $D, 8, 0, 0
-	dc.b	0
-
-@Spr_208D94_1:
-	dc.b	4
-	dc.b	$E0, $D, 0, 8, $F0
-	dc.b	$F0, $D, 0, 8, $F0
-	dc.b	0, $E, 0, $10, $F0
-	dc.b	$18, 4, 0, $1C, $F8
-	dc.b	0
-
-@Spr_208D94_2:
-	dc.b	4
-	dc.b	$D8, $D, 0, 8, $F0
-	dc.b	$E8, $D, 0, 8, $F0
-	dc.b	$F8, $E, 0, $10, $F0
-	dc.b	$10, 4, 0, $1C, $F8
-	dc.b	0
-
-@Spr_208D94_3:
-	dc.b	2
-	dc.b	$E0, $E, 0, $10, $F0
-	dc.b	$F8, 4, 0, $1C, $F8
-	dc.b	0
-
-@Spr_208D94_4:
-	dc.b	4
-	dc.b	$E0, $D, 8, 8, $F0
-	dc.b	$F0, $D, 8, 8, $F0
-	dc.b	0, $E, 8, $10, $F0
-	dc.b	$18, 4, 8, $1C, $F8
-	dc.b	0
-
-@Spr_208D94_5:
-	dc.b	4
-	dc.b	$D8, $D, 8, 8, $F0
-	dc.b	$E8, $D, 8, 8, $F0
-	dc.b	$F8, $E, 8, $10, $F0
-	dc.b	$10, 4, 8, $1C, $F8
-	dc.b	0
-
-@Spr_208D94_6:
-	dc.b	2
-	dc.b	$E0, $E, 8, $10, $F0
-	dc.b	$F8, 4, 8, $1C, $F8
-	dc.b	0
-
-@Spr_208D94_7:
-	dc.b	$FF
-	dc.b	0
-
-@Spr_208D94_8:
-	dc.b	4
-	dc.b	$E8, $F, 0, 0, $E8
-	dc.b	$E8, 7, 0, $10, 8
-	dc.b	8, $D, 0, $18, $E8
-	dc.b	8, 5, 0, $20, 8
-	dc.b	0
-
-@Spr_208D94_9:
-	dc.b	1
-	dc.b	$F4, 6, 0, $24, $F8
-
-@Spr_208D94_A:
-	dc.b	1
-	dc.b	$F8, 5, 0, $2A, $F8
-
-@Spr_208D94_B:
-	dc.b	1
-	dc.b	$FC, 0, 0, $2E, $FC
+FreezerSprites:
+	include	"src/sprites/r6/freezer.asm"
+	even
 
 ; ------------------------------------------------------------------------------
