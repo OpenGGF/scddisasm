@@ -22,7 +22,7 @@ DebugObjects:
 	debugObject $34, 1, Spr_20BC8A, $498, 2, 0, 0, 0
 	debugObject $25, 3, Spr_20C84E, $437A, 0, 0, 0, 0
 	debugObject $25, 3, Spr_20C84E, $437A, $11, 0, 0, 0
-	debugObject $1D, 1, Spr_20B466, $4CE, 1, 0, 0, 0
+	debugObject $1D, 1, BumperSprites, $4CE, 1, 0, 0, 0
 	debugObject $33, 1, Spr_23E35A, $400, 0, 0, 0, 0
 	debugObject $27, 3, Spr_23EBF2, $4316, 0, 0, 0, 0
 	debugObject $27, 3, Spr_23EBF2, $4316, $80, 0, 0, 0

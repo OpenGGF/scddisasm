@@ -83,7 +83,7 @@ loc_20DF1E:
 	addq.b	#2,obj.routine(a0)
 
 loc_20DF48:
-	lea	off_20E062(pc),a1
+	lea	MetalSonicAnims(pc),a1
 	bra.w	sub_20E262
 
 ; ------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ MetalSonicObject_0_Routine6:
 	move.b	#$50,obj.var_30(a0)
 
 loc_20DF7E:
-	lea	off_20E062(pc),a1
+	lea	MetalSonicAnims(pc),a1
 	bra.w	sub_20E262
 
 ; ------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ loc_20DFEA:
 	addq.b	#2,obj.routine(a0)
 
 loc_20E004:
-	lea	off_20E062(pc),a1
+	lea	MetalSonicAnims(pc),a1
 	bra.w	sub_20E262
 
 ; ------------------------------------------------------------------------------
@@ -180,7 +180,7 @@ loc_20E036:
 	move.w	d0,obj.x_speed(a0)
 	cmpi.w	#$528,obj.x(a0)
 	bcc.s	loc_20E04A
-	lea	off_20E062(pc),a1
+	lea	MetalSonicAnims(pc),a1
 	bra.w	sub_20E262
 
 ; ------------------------------------------------------------------------------
@@ -193,28 +193,9 @@ loc_20E04A:
 
 ; ------------------------------------------------------------------------------
 
-off_20E062:
-	dc.w	byte_20E068-*
-	dc.w	byte_20E06E-off_20E062
-	dc.w	byte_20E078-off_20E062
-
-byte_20E068:
-	dc.b	0
-	dc.b	0, 1, 0
-	dc.b	$FF
-	dc.b	0
-
-byte_20E06E:
-	dc.b	6
-	dc.b	1, 7, 1, 8, 1, 9, 1
-	dc.b	$FF
-	dc.b	0
-
-byte_20E078:
-	dc.b	$F
-	dc.b	1
-	dc.b	$FF
-	dc.b	0
+MetalSonicAnims:
+	include	"src/anims/r3/metal_sonic.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 

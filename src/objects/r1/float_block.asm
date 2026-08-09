@@ -31,7 +31,7 @@ off_209DAA:
 FloatBlockObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#BlockSprites,obj.sprite_data(a0)
+	move.l	#BlockSpritesR1,obj.sprite_data(a0)
 	moveq	#5,d0
 	jsr	SetObjectSpriteTile
 	move.b	#1,obj.sprite_layer(a0)
@@ -92,7 +92,7 @@ FloatBlockObject_0_Routine6:
 ; ------------------------------------------------------------------------------
 
 loc_209E64:
-	lea	(BlockAnims).l,a1
+	lea	(BlockAnimsR1).l,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -110,7 +110,7 @@ FloatBlockObject_0_Routine8:
 ; ------------------------------------------------------------------------------
 
 loc_209E92:
-	lea	(BlockAnims).l,a1
+	lea	(BlockAnimsR1).l,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -118,7 +118,7 @@ loc_209E92:
 
 FloatBlockObject_0_RoutineA:
 	bsr.w	sub_209EBE
-	lea	(BlockAnims).l,a1
+	lea	(BlockAnimsR1).l,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -148,11 +148,11 @@ sub_209EBE:
 
 ; ------------------------------------------------------------------------------
 
-BlockAnims:
+BlockAnimsR1:
 	include	"src/anims/r1/block.asm"
 	even
 
-BlockSprites:
+BlockSpritesR1:
 	include	"src/sprites/r1/block.asm"
 	even
 

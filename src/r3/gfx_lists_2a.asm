@@ -59,7 +59,7 @@ SectionGfxInitList0:
 	gfxEntry GlassBreakGfxA, $7160
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxA, $75E0
+	gfxEntry PocketGfxA, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry AnimalsGfx, $7B40
 	gfxEntry KamaKamaGfx, $7E40
@@ -76,7 +76,7 @@ SectionGfxInitList1:
 	gfxEntry GlassBreakGfxA, $7160
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxA, $75E0
+	gfxEntry PocketGfxA, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry AnimalsGfx, $7B40
 	gfxEntry KamaKamaGfx, $7E40

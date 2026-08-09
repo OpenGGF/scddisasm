@@ -29,7 +29,7 @@ SpikeChainObject_0_Routine0:
 	move.b	#1,obj.sprite_layer(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
-	move.l	#Spr_20F4C0,obj.sprite_data(a0)
+	move.l	#SpikeChainSprites1,obj.sprite_data(a0)
 	move.w	#$3F8,obj.sprite_tile(a0)
 	move.w	#$100,obj.var_2c(a0)
 	move.b	obj.subtype(a0),d0
@@ -162,12 +162,9 @@ SpikeChainObject_0_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F4C0:
-	dc.w	@Spr_20F4C0_0-*
-
-@Spr_20F4C0_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
+SpikeChainSprites1:
+	include	"src/sprites/spike_chain_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -198,7 +195,7 @@ SpikeChainObject_1_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
-	move.l	#Spr_20F524,obj.sprite_data(a0)
+	move.l	#SpikeChainSprites2,obj.sprite_data(a0)
 	move.w	#$3F8,obj.sprite_tile(a0)
 	move.b	#$B9,obj.collide_type(a0)
 
@@ -209,11 +206,8 @@ SpikeChainObject_1_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F524:
-	dc.w	@Spr_20F524_0-*
-
-@Spr_20F524_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
+SpikeChainSprites2:
+	include	"src/sprites/spike_chain_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------

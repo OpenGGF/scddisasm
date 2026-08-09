@@ -32,7 +32,7 @@ DrainBlockObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$43E,obj.sprite_tile(a0)
-	move.l	#Spr_20ACE4,obj.sprite_data(a0)
+	move.l	#DrainBlockSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 
@@ -77,25 +77,8 @@ DrainBlockAnims:
 	include	"src/anims/r3/drain_block.asm"
 	even
 
-Spr_20ACE4:
-	dc.w	@Spr_20ACE4_0-*
-	dc.w	@Spr_20ACE4_1-Spr_20ACE4
-	dc.w	@Spr_20ACE4_2-Spr_20ACE4
-
-@Spr_20ACE4_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, $1C, $F0
-	dc.b	$F8, 5, 8, $1C, 0
-
-@Spr_20ACE4_1:
-	dc.b	2
-	dc.b	$F8, 5, 0, $20, $F0
-	dc.b	$F8, 5, 8, $20, 0
-
-@Spr_20ACE4_2:
-	dc.b	2
-	dc.b	$F8, 5, 0, $24, $F0
-	dc.b	$F8, 5, 8, $24, 0
-	dc.b	0
+DrainBlockSprites:
+	include	"src/sprites/r3/drain_block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

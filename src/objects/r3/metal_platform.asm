@@ -19,7 +19,7 @@ MetalPlatformObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$34E,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C7B0,obj.sprite_data(a0)
+	move.l	#MetalPlatformSprites,obj.sprite_data(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	obj.x(a0),obj.var_32(a0)
@@ -435,13 +435,8 @@ byte_20C7A4:
 	dc.b	$40
 	dc.w	-$400
 
-Spr_20C7B0:
-	dc.w	@Spr_20C7B0_0-*
-
-@Spr_20C7B0_0:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 8, 0, 0
-	dc.b	0
+MetalPlatformSprites:
+	include	"src/sprites/r3/metal_platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------

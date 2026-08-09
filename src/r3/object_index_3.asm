@@ -47,7 +47,7 @@ ObjectIndex:
 	dc.l	SpikeChainObject
 	dc.l	GaObject
 	dc.l	TentouObject
-	dc.l	PointsPocketObject
+	dc.l	PocketObject
 	dc.l	EntryBarrierObject
 	dc.l	BossMachineObject
 	dc.l	GearObject

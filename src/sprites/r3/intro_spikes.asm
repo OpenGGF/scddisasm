@@ -13,11 +13,11 @@
 	dc.w	.Sprite7-.Sprites
 	dc.w	.Sprite8-.Sprites
 	dc.w	.Sprite9-.Sprites
-	dc.w	.Spritea-.Sprites
-	dc.w	.Spriteb-.Sprites
-	dc.w	.Spritec-.Sprites
-	dc.w	.Sprited-.Sprites
-	dc.w	.Spritee-.Sprites
+	dc.w	.SpriteA-.Sprites
+	dc.w	.SpriteB-.Sprites
+	dc.w	.SpriteC-.Sprites
+	dc.w	.SpriteD-.Sprites
+	dc.w	.SpriteE-.Sprites
 
 .Sprite0:
 	dc.b	4
@@ -75,27 +75,27 @@
 	dc.b	0, 5, 8, 8, 0
 	even
 
-.Spritea:
+.SpriteA:
 	dc.b	1
 	dc.b	$F0, 5, 0, 8, $F0
 	even
 
-.Spriteb:
+.SpriteB:
 	dc.b	1
 	dc.b	0, 5, 0, 8, $F0
 	even
 
-.Spritec:
+.SpriteC:
 	dc.b	1
 	dc.b	$F0, 5, 0, $C, 0
 	even
 
-.Sprited:
+.SpriteD:
 	dc.b	1
 	dc.b	0, 5, 0, $C, 0
 	even
 
-.Spritee:
+.SpriteE:
 	dc.b	4
 	dc.b	$F0, 5, 0, 8, $F0
 	dc.b	0, 5, 0, 8, $F0

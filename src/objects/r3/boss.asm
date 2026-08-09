@@ -23,7 +23,7 @@ EntryBarrierObject_0_Routine0:
 	move.b	#$30,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20E82C,obj.sprite_data(a0)
+	move.l	#EntryBarrierSprites,obj.sprite_data(a0)
 	move.l	#-$28000,obj.var_30(a0)
 	move.w	obj.y(a0),obj.var_2e(a0)
 	addi.w	#-$30,obj.var_2e(a0)
@@ -204,7 +204,7 @@ BossMachineObject_0_Routine0:
 	move.b	#$50,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20E850,obj.sprite_data(a0)
+	move.l	#BossMachineSprites,obj.sprite_data(a0)
 	bsr.w	SpawnObjectAfter
 	bne.w	locret_20DDFE
 	move.w	a1,obj.var_36(a0)
@@ -708,7 +708,7 @@ EggmanObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20E6E0,obj.sprite_data(a0)
+	move.l	#EggmanSprites,obj.sprite_data(a0)
 	move.w	obj.y(a0),obj.var_2e(a0)
 
 EggmanObject_0_Routine2:
@@ -786,7 +786,7 @@ GearObject:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
-	move.l	#Spr_20E95A,obj.sprite_data(a0)
+	move.l	#GearSprites,obj.sprite_data(a0)
 
 loc_20E32A:
 	btst	#0,obj.var_2c(a0)
@@ -841,7 +841,7 @@ BombLauncherObject_0_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$47C,obj.sprite_tile(a0)
-	move.l	#Spr_20E972,obj.sprite_data(a0)
+	move.l	#BombLaunchSprites,obj.sprite_data(a0)
 	movea.w	obj.var_34(a0),a2
 
 BombLauncherObject_0_Routine2:
@@ -957,7 +957,7 @@ BombObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$47C,obj.sprite_tile(a0)
-	move.l	#Spr_20E9EA,obj.sprite_data(a0)
+	move.l	#BombSprites,obj.sprite_data(a0)
 	move.b	#$D7,obj.collide_type(a0)
 	move.w	#0,obj.var_38(a0)
 	move.w	#$20,obj.var_3a(a0)
@@ -1142,282 +1142,37 @@ EggmanAnims:
 	include	"src/anims/r3/eggman.asm"
 	even
 
-Spr_20E6E0:
-	dc.w	@Spr_20E6E0_0-*
-	dc.w	@Spr_20E6E0_1-Spr_20E6E0
-	dc.w	@Spr_20E6E0_2-Spr_20E6E0
-	dc.w	@Spr_20E6E0_3-Spr_20E6E0
-	dc.w	@Spr_20E6E0_4-Spr_20E6E0
-	dc.w	@Spr_20E6E0_5-Spr_20E6E0
-	dc.w	@Spr_20E6E0_6-Spr_20E6E0
-	dc.w	@Spr_20E6E0_7-Spr_20E6E0
-	dc.w	@Spr_20E6E0_8-Spr_20E6E0
-	dc.w	@Spr_20E6E0_9-Spr_20E6E0
-
-@Spr_20E6E0_0:
-	dc.b	4
-	dc.b	$C8, 9, 0, 0, $E8
-	dc.b	$C8, 9, 8, 0, 0
-	dc.b	$D8, 8, 0, $C, $E8
-	dc.b	$D8, 8, 0, $F, 0
-
-@Spr_20E6E0_1:
-	dc.b	4
-	dc.b	$C8, 9, 0, 6, $E8
-	dc.b	$C8, 9, 8, 6, 0
-	dc.b	$D8, 8, 0, $C, $E8
-	dc.b	$D8, 8, 0, $F, 0
-
-@Spr_20E6E0_2:
-	dc.b	4
-	dc.b	$C8, 9, 0, 0, $E8
-	dc.b	$C8, 9, 8, 0, 0
-	dc.b	$D8, 8, 0, $12, $E8
-	dc.b	$D8, 8, 0, $15, 0
-
-@Spr_20E6E0_3:
-	dc.b	4
-	dc.b	$C8, 9, 0, 6, $E8
-	dc.b	$C8, 9, 8, 6, 0
-	dc.b	$D8, 8, 0, $12, $E8
-	dc.b	$D8, 8, 0, $15, 0
-
-@Spr_20E6E0_4:
-	dc.b	4
-	dc.b	$C0, $F, 0, $18, $E0
-	dc.b	$C0, $B, 0, $28, 0
-	dc.b	$E0, $B, 0, $4C, $E8
-	dc.b	$E0, $B, 0, $58, 0
-
-@Spr_20E6E0_5:
-	dc.b	4
-	dc.b	$C0, $F, 8, $18, 0
-	dc.b	$C0, $B, 8, $28, $E8
-	dc.b	$E0, $B, 0, $34, $E8
-	dc.b	$E0, $B, 0, $40, 0
-
-@Spr_20E6E0_6:
-	dc.b	8
-	dc.b	$C8, 9, 0, 8, $E8
-	dc.b	$C8, 9, 8, 8, 0
-	dc.b	$D8, 8, 0, $E, $E8
-	dc.b	$D8, 8, 0, $11, 0
-	dc.b	$E0, 8, 0, $1A, $E8
-	dc.b	$E0, 8, 0, $1D, 0
-	dc.b	$E8, $A, 0, $20, $E8
-	dc.b	$E8, $A, 8, $20, 0
-
-@Spr_20E6E0_7:
-	dc.b	8
-	dc.b	$C8, 9, 0, $14, $E8
-	dc.b	$C8, 9, 8, $14, 0
-	dc.b	$D8, 8, 0, $E, $E8
-	dc.b	$D8, 8, 0, $11, 0
-	dc.b	$E0, 8, 0, $1A, $E8
-	dc.b	$E0, 8, 0, $1D, 0
-	dc.b	$E8, $A, 0, $20, $E8
-	dc.b	$E8, $A, 8, $20, 0
-
-@Spr_20E6E0_8:
-	dc.b	9
-	dc.b	$C8, 5, 0, 0, $18
-	dc.b	$F0, 5, 0, $68, 5
-	dc.b	$F8, 5, 0, $70, $20
-	dc.b	$C8, $F, 0, $29, 0
-	dc.b	$C8, $F, 0, $39, $20
-	dc.b	$C8, 3, 0, $49, $40
-	dc.b	$E8, $E, 0, $4D, 0
-	dc.b	$E8, $E, 0, $59, $20
-	dc.b	$E8, 2, 0, $65, $40
-
-@Spr_20E6E0_9:
-	dc.b	9
-	dc.b	$C8, 5, 0, 4, $18
-	dc.b	$F0, 5, 0, $6C, 5
-	dc.b	$F8, 5, 0, $74, $20
-	dc.b	$C8, $F, 0, $29, 0
-	dc.b	$C8, $F, 0, $39, $20
-	dc.b	$C8, 3, 0, $49, $40
-	dc.b	$E8, $E, 0, $4D, 0
-	dc.b	$E8, $E, 0, $59, $20
-	dc.b	$E8, 2, 0, $65, $40
+EggmanSprites:
+	include	"src/sprites/r3/eggman.asm"
+	even
 
 EntryBarrierAnims:
 	include	"src/anims/r3/entry_barrier.asm"
 	even
 
-Spr_20E82C:
-	dc.w	@Spr_20E82C_0-*
-	dc.w	@Spr_20E82C_1-Spr_20E82C
+EntryBarrierSprites:
+	include	"src/sprites/r3/entry_barrier.asm"
+	even
 
-@Spr_20E82C_0:
-	dc.b	3
-	dc.b	$F0, $F, 0, $86, $D0
-	dc.b	$F0, $F, 0, $96, $F0
-	dc.b	$F0, $F, 0, $96, $10
-
-@Spr_20E82C_1:
-	dc.b	3
-	dc.b	$F0, $F, 0, $C6, $D0
-	dc.b	$F0, $F, 0, $C6, $F0
-	dc.b	$F0, $F, 0, $C6, $10
-
-Spr_20E850:
-	dc.w	@Spr_20E850_0-*
-	dc.w	@Spr_20E850_1-Spr_20E850
-	dc.w	@Spr_20E850_2-Spr_20E850
-	dc.w	@Spr_20E850_3-Spr_20E850
-	dc.w	@Spr_20E850_4-Spr_20E850
-	dc.w	@Spr_20E850_5-Spr_20E850
-	dc.w	@Spr_20E850_6-Spr_20E850
-
-@Spr_20E850_0:
-	dc.b	9
-	dc.b	$E0, 9, $20, $80, $E8
-	dc.b	$E0, 9, $28, $80, 0
-	dc.b	$D0, $D, 0, $D6, $F0
-	dc.b	$F0, $F, 0, $86, $C0
-	dc.b	$F0, $F, 0, $96, $E0
-	dc.b	$F0, $F, 0, $96, 0
-	dc.b	$F0, $F, 0, $96, $20
-	dc.b	$E0, $F, $20, $64, $D0
-	dc.b	$E0, $F, $28, $64, $10
-
-@Spr_20E850_1:
-	dc.b	9
-	dc.b	$E0, 9, $20, $80, $E8
-	dc.b	$E0, 9, $28, $80, 0
-	dc.b	$D0, $D, 0, $D6, $F0
-	dc.b	$F0, $F, 0, $C6, $C0
-	dc.b	$F0, $F, 0, $C6, $E0
-	dc.b	$F0, $F, 0, $C6, 0
-	dc.b	$F0, $F, 0, $C6, $20
-	dc.b	$E0, $F, $20, $64, $D0
-	dc.b	$E0, $F, $28, $64, $10
-
-@Spr_20E850_2:
-	dc.b	6
-	dc.b	$F0, $F, 0, $86, $C0
-	dc.b	$F0, $F, 0, $96, $E0
-	dc.b	$F0, $F, 0, $96, 0
-	dc.b	$F0, $F, 0, $96, $20
-	dc.b	$E0, $F, $20, $64, $D0
-	dc.b	$E0, $F, $28, $64, $10
-
-@Spr_20E850_3:
-	dc.b	6
-	dc.b	$F0, $F, 0, $C6, $C0
-	dc.b	$F0, $F, 0, $C6, $E0
-	dc.b	$F0, $F, 0, $C6, 0
-	dc.b	$F0, $F, 0, $C6, $20
-	dc.b	$E0, $F, $20, $64, $D0
-	dc.b	$E0, $F, $28, $64, $10
-
-@Spr_20E850_4:
-	dc.b	6
-	dc.b	$F0, $F, 0, $86, $C0
-	dc.b	$F0, $F, 0, $96, $E0
-	dc.b	$F0, $F, 0, $96, 0
-	dc.b	$F0, $F, 0, $96, $20
-	dc.b	$E0, $E, $20, $74, $D0
-	dc.b	$E0, $E, $28, $74, $10
-
-@Spr_20E850_5:
-	dc.b	6
-	dc.b	$F0, $F, 0, $C6, $C0
-	dc.b	$F0, $F, 0, $C6, $E0
-	dc.b	$F0, $F, 0, $C6, 0
-	dc.b	$F0, $F, 0, $C6, $20
-	dc.b	$E0, $E, $20, $74, $D0
-	dc.b	$E0, $E, $28, $74, $10
-
-@Spr_20E850_6:
-	dc.b	4
-	dc.b	$F0, $F, 0, $86, $C0
-	dc.b	$F0, $F, 0, $96, $E0
-	dc.b	$F0, $F, 0, $96, 0
-	dc.b	$F0, $F, 0, $96, $20
-	dc.b	0
+BossMachineSprites:
+	include	"src/sprites/r3/boss_machine.asm"
+	even
 
 GearAnims:
 	include	"src/anims/r3/gear.asm"
 	even
 
-Spr_20E95A:
-	dc.w	@Spr_20E95A_0-*
-	dc.w	@Spr_20E95A_1-Spr_20E95A
-	dc.w	@Spr_20E95A_2-Spr_20E95A
+GearSprites:
+	include	"src/sprites/r3/gear.asm"
+	even
 
-@Spr_20E95A_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, $A6, $F0
+BombLaunchSprites:
+	include	"src/sprites/r3/bomb_launch.asm"
+	even
 
-@Spr_20E95A_1:
-	dc.b	1
-	dc.b	$F0, $F, 0, $B6, $F0
-
-@Spr_20E95A_2:
-	dc.b	1
-	dc.b	$F0, $F, 8, $B6, $F0
-
-Spr_20E972:
-	dc.w	@Spr_20E972_0-*
-	dc.w	@Spr_20E972_1-Spr_20E972
-	dc.w	@Spr_20E972_2-Spr_20E972
-	dc.w	@Spr_20E972_3-Spr_20E972
-	dc.w	@Spr_20E972_4-Spr_20E972
-
-@Spr_20E972_0:
-	dc.b	4
-	dc.b	$F0, 8, 0, 9, $E8
-	dc.b	$F0, 8, 8, 9, 0
-	dc.b	$F0, $A, 0, 0, $E8
-	dc.b	$F0, $A, 8, 0, 0
-	dc.b	0
-
-@Spr_20E972_1:
-	dc.b	4
-	dc.b	$F0, 8, 0, 9, $E8
-	dc.b	$F0, 8, 8, 9, 0
-	dc.b	$F8, $A, 0, 0, $E8
-	dc.b	$F0, $A, 8, 0, 0
-	dc.b	0
-
-@Spr_20E972_2:
-	dc.b	4
-	dc.b	$F0, 8, 0, 9, $E8
-	dc.b	$F0, 8, 8, 9, 0
-	dc.b	$E8, $A, 0, 0, $E8
-	dc.b	$F0, $A, 8, 0, 0
-	dc.b	0
-
-@Spr_20E972_3:
-	dc.b	4
-	dc.b	$F0, 8, 0, 9, $E8
-	dc.b	$F0, 8, 8, 9, 0
-	dc.b	$F0, $A, 0, 0, $E8
-	dc.b	$F8, $A, 8, 0, 0
-	dc.b	0
-
-@Spr_20E972_4:
-	dc.b	4
-	dc.b	$F0, 8, 0, 9, $E8
-	dc.b	$F0, 8, 8, 9, 0
-	dc.b	$F0, $A, 0, 0, $E8
-	dc.b	$E8, $A, 8, 0, 0
-	dc.b	0
-
-Spr_20E9EA:
-	dc.w	@Spr_20E9EA_0-*
-	dc.w	@Spr_20E9EA_1-Spr_20E9EA
-
-@Spr_20E9EA_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, $C, $F8
-
-@Spr_20E9EA_1:
-	dc.b	1
-	dc.b	$F4, $A, 0, $10, $F4
+BombSprites:
+	include	"src/sprites/r3/bomb.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -1454,7 +1209,7 @@ loc_20EA2C:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$474,obj.sprite_tile(a0)
-	move.l	#Spr_20EA92,obj.sprite_data(a0)
+	move.l	#ExitBarrierSprites,obj.sprite_data(a0)
 	move.b	#$48,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 
@@ -1486,75 +1241,9 @@ ExitBarrierAnims:
 	include	"src/anims/r3/exit_barrier.asm"
 	even
 
-Spr_20EA92:
-	dc.w	@Spr_20EA92_0-*
-	dc.w	@Spr_20EA92_1-Spr_20EA92
-	dc.w	@Spr_20EA92_2-Spr_20EA92
-	dc.w	@Spr_20EA92_3-Spr_20EA92
-	dc.w	@Spr_20EA92_4-Spr_20EA92
-	dc.w	@Spr_20EA92_5-Spr_20EA92
-	dc.w	@Spr_20EA92_6-Spr_20EA92
-	dc.w	@Spr_20EA92_7-Spr_20EA92
-
-@Spr_20EA92_0:
-	dc.b	1
-	dc.b	$F0, 7, 0, 0, $30
-
-@Spr_20EA92_1:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $20
-	dc.b	$F0, 7, 0, 0, $30
-
-@Spr_20EA92_2:
-	dc.b	3
-	dc.b	$F0, 7, 0, 0, $10
-	dc.b	$F0, 7, 0, 0, $20
-	dc.b	$F0, 7, 0, 0, $30
-
-@Spr_20EA92_3:
-	dc.b	4
-	dc.b	$F0, 7, 0, 0, 0
-	dc.b	$F0, 7, 0, 0, $10
-	dc.b	$F0, 7, 0, 0, $20
-	dc.b	$F0, 7, 0, 0, $30
-
-@Spr_20EA92_4:
-	dc.b	5
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 0, 0, 0
-	dc.b	$F0, 7, 0, 0, $10
-	dc.b	$F0, 7, 0, 0, $20
-	dc.b	$F0, 7, 0, 0, $30
-
-@Spr_20EA92_5:
-	dc.b	6
-	dc.b	$F0, 7, 0, 0, $E0
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 0, 0, 0
-	dc.b	$F0, 7, 0, 0, $10
-	dc.b	$F0, 7, 0, 0, $20
-	dc.b	$F0, 7, 0, 0, $30
-
-@Spr_20EA92_6:
-	dc.b	7
-	dc.b	$F0, 7, 0, 0, $D0
-	dc.b	$F0, 7, 0, 0, $E0
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 0, 0, 0
-	dc.b	$F0, 7, 0, 0, $10
-	dc.b	$F0, 7, 0, 0, $20
-	dc.b	$F0, 7, 0, 0, $30
-
-@Spr_20EA92_7:
-	dc.b	8
-	dc.b	$F0, 7, 0, 0, $C0
-	dc.b	$F0, 7, 0, 0, $D0
-	dc.b	$F0, 7, 0, 0, $E0
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 0, 0, 0
-	dc.b	$F0, 7, 0, 0, $10
-	dc.b	$F0, 7, 0, 0, $20
-	dc.b	$F0, 7, 0, 0, $30
+ExitBarrierSprites:
+	include	"src/sprites/r3/exit_barrier.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 

@@ -30,7 +30,7 @@ GlassShatterObject_0_Routine0:
 
 loc_20B2EA:
 	move.w	d0,obj.sprite_tile(a0)
-	move.l	#Spr_20B31C,obj.sprite_data(a0)
+	move.l	#GlassBreakSprites,obj.sprite_data(a0)
 	moveq	#10,d0
 	bsr.w	AddPoints
 	moveq	#0,d1
@@ -51,18 +51,8 @@ GlassBreakAnims:
 	include	"src/anims/r3/glass_break.asm"
 	even
 
-Spr_20B31C:
-	dc.w	@Spr_20B31C_0-*
-	dc.w	@Spr_20B31C_1-Spr_20B31C
-
-@Spr_20B31C_0:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 8, 0, 0
-
-@Spr_20B31C_1:
-	dc.b	2
-	dc.b	$F0, 7, 0, 8, $F0
-	dc.b	$F0, 7, 8, 8, 0
+GlassBreakSprites:
+	include	"src/sprites/r3/glass_break.asm"
+	even
 
 ; ------------------------------------------------------------------------------

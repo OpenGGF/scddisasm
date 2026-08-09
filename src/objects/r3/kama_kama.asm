@@ -268,7 +268,7 @@ KamaSickleObject_0_Routine0:
 	move.b	#4,obj.width(a0)
 	move.b	#4,obj.height(a0)
 	move.w	#$23F2,obj.sprite_tile(a0)
-	move.l	#Spr_20D3EC,obj.sprite_data(a0)
+	move.l	#KamaSickleSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_32(a0)
 	move.w	#$300,d1
 	btst	#0,obj.var_2e(a0)
@@ -384,36 +384,8 @@ KamaSickleAnims:
 	include	"src/anims/r3/kama_sickle.asm"
 	even
 
-Spr_20D3EC:
-	dc.w	@Spr_20D3EC_0-*
-	dc.w	@Spr_20D3EC_1-Spr_20D3EC
-	dc.w	@Spr_20D3EC_2-Spr_20D3EC
-	dc.w	@Spr_20D3EC_3-Spr_20D3EC
-	dc.w	@Spr_20D3EC_4-Spr_20D3EC
-	dc.w	@Spr_20D3EC_5-Spr_20D3EC
-
-@Spr_20D3EC_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, $19, $F8
-
-@Spr_20D3EC_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, $1D, $F8
-
-@Spr_20D3EC_2:
-	dc.b	1
-	dc.b	$F8, 5, $10, $19, $F8
-
-@Spr_20D3EC_3:
-	dc.b	1
-	dc.b	$F8, 5, $18, $19, $F8
-
-@Spr_20D3EC_4:
-	dc.b	1
-	dc.b	$F8, 5, $18, $1D, $F8
-
-@Spr_20D3EC_5:
-	dc.b	1
-	dc.b	$F8, 5, 8, $19, $F8
+KamaSickleSprites:
+	include	"src/sprites/r3/kama_sickle.asm"
+	even
 
 ; ------------------------------------------------------------------------------

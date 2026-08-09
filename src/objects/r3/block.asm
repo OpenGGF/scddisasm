@@ -34,7 +34,7 @@ BlockObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$433E,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C2DA,obj.sprite_data(a0)
+	move.l	#BlockSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	obj.x(a0),obj.var_32(a0)
@@ -127,11 +127,8 @@ byte_20C2CA:
 	dc.b	8
 	dc.w	0
 
-Spr_20C2DA:
-	dc.w	@Spr_20C2DA_0-*
-
-@Spr_20C2DA_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
+BlockSprites:
+	include	"src/sprites/r3/block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

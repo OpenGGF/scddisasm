@@ -60,7 +60,7 @@ SpikesObject_0_Routine0:
 loc_20C002:
 	move.w	d0,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C184,obj.sprite_data(a0)
+	move.l	#SpikesSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	moveq	#0,d0
@@ -219,26 +219,8 @@ locret_20C182:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C184:
-	dc.w	@Spr_20C184_0-*
-	dc.w	@Spr_20C184_1-Spr_20C184
-	dc.w	@Spr_20C184_2-Spr_20C184
-	dc.w	@Spr_20C184_3-Spr_20C184
-
-@Spr_20C184_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@Spr_20C184_1:
-	dc.b	1
-	dc.b	$F0, $F, $10, 0, $F0
-
-@Spr_20C184_2:
-	dc.b	1
-	dc.b	$F0, $F, 0, $10, $F0
-
-@Spr_20C184_3:
-	dc.b	1
-	dc.b	$F0, $F, 8, $10, $F0
+SpikesSprites:
+	include	"src/sprites/r3/spikes.asm"
+	even
 
 ; ------------------------------------------------------------------------------

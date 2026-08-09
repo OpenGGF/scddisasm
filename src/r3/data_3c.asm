@@ -197,8 +197,8 @@ TeleporterGfx:
 	incbin	"src/gfx/r3/teleporter.nem"
 	even
 
-PointsPocketGfxBC:
-	incbin	"src/gfx/r3/points_pocket_bc.nem"
+PocketGfxBC:
+	incbin	"src/gfx/r3/pocket_bc.nem"
 	even
 
 BossBarrierGfx2:

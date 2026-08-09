@@ -39,10 +39,10 @@ TentouObject_0_Routine0:
 	move.b	#$E,obj.width_2(a0)
 	move.b	#$E,obj.height(a0)
 	move.w	#$A46A,obj.sprite_tile(a0)
-	lea	off_20BB5E(pc),a1
+	lea	TentouSprites2(pc),a1
 	tst.b	obj.subtype(a0)
 	bmi.s	loc_20B9B4
-	lea	off_20BBD0(pc),a1
+	lea	TentouSprites1(pc),a1
 	st	obj.var_3f(a0)
 
 loc_20B9B4:
@@ -210,75 +210,13 @@ TentouAnims:
 	include	"src/anims/r3/tentou.asm"
 	even
 
-off_20BB5E:
-	dc.w	byte_20BB64-*
-	dc.w	byte_20BB88-off_20BB5E
-	dc.w	byte_20BBAC-off_20BB5E
+TentouSprites2:
+	include	"src/sprites/r3/tentou_2.asm"
+	even
 
-byte_20BB64:
-	dc.b	7
-	dc.b	$F0, 8, 0, 0, $F8
-	dc.b	$F8, $C, 0, 3, $F0
-	dc.b	0, 4, 0, $24, $F0
-	dc.b	0, 0, 0, $26, 0
-	dc.b	0, 1, 0, $A, 8
-	dc.b	8, 0, 0, $C, $F0
-	dc.b	8, 4, 0, $27, $F8
-
-byte_20BB88:
-	dc.b	7
-	dc.b	$F0, $D, 0, $F, $F0
-	dc.b	0, 4, 0, $24, $F0
-	dc.b	0, 0, 0, $29, 0
-	dc.b	0, 0, 0, $18, 8
-	dc.b	8, 0, 0, $C, $F0
-	dc.b	8, 4, 0, $27, $F8
-	dc.b	8, 0, 0, $19, 8
-
-byte_20BBAC:
-	dc.b	7
-	dc.b	$F0, $D, 0, $1A, $F0
-	dc.b	0, 4, 0, $24, $F0
-	dc.b	0, 0, 0, $2A, 0
-	dc.b	0, 0, 0, $23, 8
-	dc.b	8, 0, 0, $C, $F0
-	dc.b	8, 4, 0, $27, $F8
-	dc.b	8, 0, 0, $19, 8
-
-off_20BBD0:
-	dc.w	byte_20BBD6-*
-	dc.w	byte_20BBFA-off_20BBD0
-	dc.w	byte_20BC1E-off_20BBD0
-
-byte_20BBD6:
-	dc.b	7
-	dc.b	$F0, 8, 0, 0, $F8
-	dc.b	$F8, $C, 0, 3, $F0
-	dc.b	0, 4, 0, 7, $F0
-	dc.b	0, 0, 0, 9, 0
-	dc.b	0, 1, 0, $A, 8
-	dc.b	8, 0, 0, $C, $F0
-	dc.b	8, 4, 0, $D, $F8
-
-byte_20BBFA:
-	dc.b	7
-	dc.b	$F0, $D, 0, $F, $F0
-	dc.b	0, 4, 0, 7, $F0
-	dc.b	0, 0, 0, $17, 0
-	dc.b	0, 0, 0, $18, 8
-	dc.b	8, 0, 0, $C, $F0
-	dc.b	8, 4, 0, $D, $F8
-	dc.b	8, 0, 0, $19, 8
-
-byte_20BC1E:
-	dc.b	7
-	dc.b	$F0, $D, 0, $1A, $F0
-	dc.b	0, 4, 0, 7, $F0
-	dc.b	0, 0, 0, $22, 0
-	dc.b	0, 0, 0, $23, 8
-	dc.b	8, 0, 0, $C, $F0
-	dc.b	8, 4, 0, $D, $F8
-	dc.b	8, 0, 0, $19, 8
+TentouSprites1:
+	include	"src/sprites/r3/tentou_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -309,7 +247,7 @@ TentouObject_1_Routine0:
 	move.b	#6,obj.width_2(a0)
 	move.b	#6,obj.height(a0)
 	move.w	#$495,obj.sprite_tile(a0)
-	move.l	#Spr_20BD1E,obj.sprite_data(a0)
+	move.l	#TentouBombSprites,obj.sprite_data(a0)
 
 TentouObject_1_Routine2:
 	tst.b	obj.collide_status(a0)
@@ -371,16 +309,8 @@ TentouBombAnims:
 	include	"src/anims/r3/tentou_bomb.asm"
 	even
 
-Spr_20BD1E:
-	dc.w	@Spr_20BD1E_0-*
-	dc.w	@Spr_20BD1E_1-Spr_20BD1E
-
-@Spr_20BD1E_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-
-@Spr_20BD1E_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
+TentouBombSprites:
+	include	"src/sprites/r3/tentou_bomb.asm"
+	even
 	
 ; ------------------------------------------------------------------------------

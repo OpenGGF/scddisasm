@@ -16,8 +16,8 @@ DebugObjects:
 	debugObject $23, 1, Spr_20D0E2, $43E8, 0, 0, 0, 0
 	debugObject $2E, 1, RobotTransportSprites, $300, 0, 0, 0, 0
 	debugObject $2C, 1, Spr_20F3EE, $83B8, 0, 0, 0, 0
-	debugObject $2D, 1, Spr_20F524, $3F8, 0, 0, 0, 0
-	debugObject $2D, 1, Spr_20F524, $3F8, 1, 0, 0, 0
+	debugObject $2D, 1, SpikeChainSprites2, $3F8, 0, 0, 0, 0
+	debugObject $2D, 1, SpikeChainSprites2, $3F8, 1, 0, 0, 0
 	debugObject $2A, 1, Spr_20EE7E, $83A8, 0, 0, 0, 0
 	debugObject $2A, 1, Spr_20EE7E, $83A8, 1, 0, 0, 0
 	debugObject $21, 1, Spr_20CE82, $6358, 0, 0, 0, 0

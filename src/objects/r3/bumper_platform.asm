@@ -20,7 +20,7 @@ off_20B154:
 BumperPlatformObject_0_Routine0:
 	move.w	obj.x(a0),obj.var_3e(a0)
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_20B27A,obj.sprite_data(a0)
+	move.l	#BumperPlatform,obj.sprite_data(a0)
 	move.w	#$435E,obj.sprite_tile(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#$20,obj.width_2(a0)
@@ -115,17 +115,8 @@ locret_20B278:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20B27A:
-	dc.w	@Spr_20B27A_0-*
-
-@Spr_20B27A_0:
-	dc.b	6
-	dc.b	$F0, $C, 0, 0, $E0
-	dc.b	$F8, $D, 0, 4, $E0
-	dc.b	8, $C, $10, 0, $E0
-	dc.b	$F0, $C, 8, 0, 0
-	dc.b	$F8, $D, 8, 4, 0
-	dc.b	8, $C, $18, 0, 0
-	dc.b	0
+BumperPlatform:
+	include	"src/sprites/r3/bumper_platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------

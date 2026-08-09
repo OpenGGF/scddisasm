@@ -37,10 +37,10 @@ GaObject_0_Routine0:
 	move.b	#8,obj.height(a0)
 	move.w	#$A421,obj.sprite_tile(a0)
 	move.w	#$3D,obj.var_2a(a0)
-	lea	off_20B4BE(pc),a1
+	lea	GaSprites2(pc),a1
 	tst.b	obj.subtype(a0)
 	bmi.s	loc_20B3AC
-	lea	off_20B500(pc),a1
+	lea	GaSprites1(pc),a1
 	st	obj.var_3f(a0)
 
 loc_20B3AC:
@@ -132,75 +132,11 @@ GaAnims:
 	include	"src/anims/r3/ga.asm"
 	even
 
-off_20B4BE:
-	dc.w	byte_20B541-*
-	dc.w	byte_20B547-off_20B4BE
-	dc.w	byte_20B54D-off_20B4BE
-	dc.w	byte_20B4CA-off_20B4BE
-	dc.w	byte_20B4DF-off_20B4BE
-	dc.w	byte_20B4EF-off_20B4BE
-
-byte_20B4CA:
-	dc.b	4
-	dc.b	$F6, $C, 0, $2F, $F0
-	dc.b	$FE, 0, 0, 4, $F0
-	dc.b	$FE, 4, 0, $33, $F8
-	dc.b	6, 8, 0, $35, $F0
-
-byte_20B4DF:
-	dc.b	3
-	dc.b	$F8, 0, 0, $A, $F0
-	dc.b	$F8, 8, 0, $38, $F8
-	dc.b	0, 8, 0, $3B, $F0
-
-byte_20B4EF:
-	dc.b	3
-	dc.b	$F6, 0, 0, $11, $F0
-	dc.b	$F6, 4, 0, $3E, $F8
-	dc.b	$FE, $C, 0, $40, $F0
-	dc.b	0
-
-off_20B500:
-	dc.w	byte_20B541-*
-	dc.w	byte_20B547-off_20B500
-	dc.w	byte_20B54D-off_20B500
-	dc.w	byte_20B50C-off_20B500
-	dc.w	byte_20B521-off_20B500
-	dc.w	byte_20B531-off_20B500
-
-byte_20B50C:
-	dc.b	4
-	dc.b	$F4, $C, 0, 0, $F0
-	dc.b	$FC, 0, 0, 4, $F0
-	dc.b	$FC, 4, 0, 5, $F8
-	dc.b	4, 8, 0, 7, $F0
-
-byte_20B521:
-	dc.b	3
-	dc.b	$F8, 0, 0, $A, $F0
-	dc.b	$F8, 8, 0, $B, $F8
-	dc.b	0, 8, 0, $E, $F0
-
-byte_20B531:
-	dc.b	3
-	dc.b	$F8, 0, 0, $11, $F0
-	dc.b	$F8, 4, 0, $12, $F8
-	dc.b	0, $C, 0, $14, $F0
-
-byte_20B541:
-	dc.b	1
-	dc.b	$F4, 9, 0, $18, $F4
-
-byte_20B547:
-	dc.b	1
-	dc.b	$F4, $A, 0, $1E, $F4
-
-byte_20B54D:
-	dc.b	3
-	dc.b	$F0, 3, 0, $27, $F4
-	dc.b	$F0, 3, 0, $2B, $FC
-	dc.b	$F0, 3, 8, $27, 4
-	dc.b	0
+GaSprites:
+	include	"src/sprites/r3/ga.asm"
+	even
+GaSprites1		equ .Sprites1
+GaSprites2		equ .Sprites2
 
 ; ------------------------------------------------------------------------------
 

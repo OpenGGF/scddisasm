@@ -59,7 +59,7 @@ SectionGfxInitList0:
 	gfxEntry FireShootGfx, $6F20
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxBC, $75E0
+	gfxEntry PocketGfxBC, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry KamaKamaGfx, $7E40
 	gfxEntry GaGfx, $8420
@@ -75,7 +75,7 @@ SectionGfxInitList1:
 	gfxEntry FireShootGfx, $6F20
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxBC, $75E0
+	gfxEntry PocketGfxBC, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry KamaKamaGfx, $7E40
 	gfxEntry GaGfx, $8420
@@ -90,7 +90,7 @@ SectionGfxInitList2:
 	gfxEntry FireShootGfx, $6F20
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxBC, $75E0
+	gfxEntry PocketGfxBC, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry KamaKamaGfx, $7E40
 	gfxEntry GaGfx, $8420
@@ -107,7 +107,7 @@ SectionGfxInitList3:
 	gfxEntry FireShootGfx, $6F20
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxBC, $75E0
+	gfxEntry PocketGfxBC, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry KamaKamaGfx, $7E40
 	gfxEntry GaGfx, $8420

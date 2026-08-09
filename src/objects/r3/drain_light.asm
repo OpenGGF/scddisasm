@@ -31,7 +31,7 @@ DrainLightObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$643E,obj.sprite_tile(a0)
-	move.l	#Spr_20A6D4,obj.sprite_data(a0)
+	move.l	#DrainLightSprites,obj.sprite_data(a0)
 
 DrainLightObject_0_Routine2:
 	rts
@@ -43,13 +43,8 @@ DrainLightObject_0_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20A6D4:
-	dc.w	@Spr_20A6D4_0-*
-
-@Spr_20A6D4_0:
-	dc.b	2
-	dc.b	$F8, 1, 0, $1A, $F8
-	dc.b	$F8, 1, 8, $1A, 0
-	dc.b	0
+DrainLightSprites:
+	include	"src/sprites/r3/drain_light.asm"
+	even
 
 ; ------------------------------------------------------------------------------

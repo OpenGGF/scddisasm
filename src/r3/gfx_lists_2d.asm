@@ -58,7 +58,7 @@ SectionGfxInitList0:
 	gfxEntry GlassBreakGfxD, $7160
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxD, $75E0
+	gfxEntry PocketGfxD, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry AnimalsGfx, $7B40
 	gfxEntry KamaKamaGfx, $7E40

@@ -16,7 +16,7 @@ BumperObject:
 
 BumperObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_20B466,obj.sprite_data(a0)
+	move.l	#BumperSprites,obj.sprite_data(a0)
 	move.w	#$4CE,obj.sprite_tile(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#$10,obj.width(a0)
@@ -134,7 +134,7 @@ FlipperObject:
 
 FlipperObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
-	move.l	#Spr_20B4A6,obj.sprite_data(a0)
+	move.l	#FlipperSprites,obj.sprite_data(a0)
 	move.w	#$49D,obj.sprite_tile(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
@@ -245,52 +245,16 @@ BumperAnims:
 	include	"src/anims/r3/bumper.asm"
 	even
 
-Spr_20B466:
-	dc.w	@Spr_20B466_0-*
-	dc.w	@Spr_20B466_1-Spr_20B466
-	dc.w	@Spr_20B466_2-Spr_20B466
-@Spr_20B466_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-@Spr_20B466_1:
-	dc.b	1
-	dc.b	$F4, $A, 0, $10, $F4
-@Spr_20B466_2:
-	dc.b	6
-	dc.b	$EC, 4, 0, $19, $F0
-	dc.b	$F4, $A, 0, $1B, $E8
-	dc.b	$C, 4, $10, $19, $F0
-	dc.b	$EC, 4, 8, $19, 0
-	dc.b	$F4, $A, 8, $1B, 0
-	dc.b	$C, 4, $18, $19, 0
-	dc.b	0
+BumperSprites:
+	include	"src/sprites/r3/bumper.asm"
+	even
 
 FlipperAnims:
 	include	"src/anims/r3/flipper.asm"
 	even
 
-Spr_20B4A6:
-	dc.w	@Spr_20B4A6_0-*
-	dc.w	@Spr_20B4A6_1-Spr_20B4A6
-	dc.w	@Spr_20B4A6_2-Spr_20B4A6
-@Spr_20B4A6_0:
-	dc.b	4
-	dc.b	4, $D, 0, 0, $E0
-	dc.b	$FC, 4, 0, 8, $F0
-	dc.b	$F4, $E, 0, $A, 0
-	dc.b	$C, 8, 0, $16, 0
-	dc.b	0
-@Spr_20B4A6_1:
-	dc.b	2
-	dc.b	$F4, $E, 0, $19, $E0
-	dc.b	$F4, $E, 0, $25, 0
-	dc.b	0
-@Spr_20B4A6_2:
-	dc.b	4
-	dc.b	$EC, $D, $10, 0, $E0
-	dc.b	$FC, 4, $10, 8, $F0
-	dc.b	$F4, $E, $10, $A, 0
-	dc.b	$EC, 8, $10, $16, 0
-	dc.b	0
+FlipperSprites:
+	include	"src/sprites/r3/flipper.asm"
+	even
 
 ; ------------------------------------------------------------------------------

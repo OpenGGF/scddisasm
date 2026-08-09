@@ -58,7 +58,7 @@ SectionGfxInitList0:
 	gfxEntry FireShootGfx, $6F20
 	gfxEntry RetractBlockGfx, $73E0
 	gfxEntry TeleporterGfx, $75E0
-	gfxEntry PointsPocketGfxBC, $75E0
+	gfxEntry PocketGfxBC, $75E0
 	gfxEntry SpikeChainGfx, $77A0
 	gfxEntry AnimalsGfx, $7B40
 	gfxEntry KamaKamaGfx, $7E40

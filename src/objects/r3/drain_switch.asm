@@ -23,7 +23,7 @@ DrainSwitchObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$443E,obj.sprite_tile(a0)
-	move.l	#Spr_20ABDA,obj.sprite_data(a0)
+	move.l	#DrainSwitchSprites,obj.sprite_data(a0)
 	move.w	#$FFFE,obj.var_2e(a0)
 	cmpi.b	#$FF,obj.subtype(a0)
 	bne.s	loc_20AAA6
@@ -145,32 +145,8 @@ DrainSwitchAnims:
 	include	"src/anims/r3/drain_switch.asm"
 	even
 
-Spr_20ABDA:
-	dc.w	@Spr_20ABDA_0-*
-	dc.w	@Spr_20ABDA_1-Spr_20ABDA
-	dc.w	@Spr_20ABDA_2-Spr_20ABDA
-	dc.w	@Spr_20ABDA_3-Spr_20ABDA
-
-@Spr_20ABDA_0:
-	dc.b	3
-	dc.b	$F8, 1, 0, $14, $F0
-	dc.b	$F8, 5, 0, $16, $F8
-	dc.b	$F8, 1, 8, $14, 8
-
-@Spr_20ABDA_1:
-	dc.b	2
-	dc.b	$F0, 7, 0, $C, $F0
-	dc.b	$F0, 7, 8, $C, 0
-
-@Spr_20ABDA_2:
-	dc.b	3
-	dc.b	$F0, 3, 0, 0, $F0
-	dc.b	$F0, 7, 0, 4, $F8
-	dc.b	$F0, 3, 8, 0, 8
-
-@Spr_20ABDA_3:
-	dc.b	2
-	dc.b	$F0, 7, $10, $C, $F0
-	dc.b	$F0, 7, $18, $C, 0
+DrainSwitchSprites:
+	include	"src/sprites/r3/drain_switch.asm"
+	even
 
 ; ------------------------------------------------------------------------------

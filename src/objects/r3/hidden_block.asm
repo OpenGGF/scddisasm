@@ -33,7 +33,7 @@ HiddenBlockObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$39F,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C442,obj.sprite_data(a0)
+	move.l	#HiddenBlockSprites,obj.sprite_data(a0)
 	move.b	obj.subtype(a0),d0
 	lsr.b	#2,d0
 	move.b	d0,obj.sprite_frame(a0)
@@ -135,16 +135,8 @@ locret_20C440:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C442:
-	dc.w	@Spr_20C442_0-*
-	dc.w	@Spr_20C442_1-Spr_20C442
-
-@Spr_20C442_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@Spr_20C442_1:
-	dc.b	1
-	dc.b	$F0, $F, $10, 0, $F0
+HiddenBlockSprites:
+	include	"src/sprites/r3/hidden_block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

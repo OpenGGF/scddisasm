@@ -1,6 +1,6 @@
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject:
+PocketObject:
 	tst.b	obj.subtype(a0)
 	bmi.w	loc_20B5EA
 	bra.w	loc_20B8B8
@@ -18,21 +18,21 @@ loc_20B5EA:
 ; ------------------------------------------------------------------------------
 
 off_20B604:
-	dc.w	PointsPocketObject_0_Routine0-*
-	dc.w	PointsPocketObject_0_Routine2-off_20B604
-	dc.w	PointsPocketObject_0_Routine4-off_20B604
-	dc.w	PointsPocketObject_0_Routine6-off_20B604
-	dc.w	PointsPocketObject_0_Routine8-off_20B604
-	dc.w	PointsPocketObject_0_RoutineA-off_20B604
-	dc.w	PointsPocketObject_0_RoutineC-off_20B604
-	dc.w	PointsPocketObject_0_RoutineE-off_20B604
-	dc.w	PointsPocketObject_0_Routine10-off_20B604
-	dc.w	PointsPocketObject_0_Routine12-off_20B604
-	dc.w	PointsPocketObject_0_Routine14-off_20B604
+	dc.w	PocketObject_0_Routine0-*
+	dc.w	PocketObject_0_Routine2-off_20B604
+	dc.w	PocketObject_0_Routine4-off_20B604
+	dc.w	PocketObject_0_Routine6-off_20B604
+	dc.w	PocketObject_0_Routine8-off_20B604
+	dc.w	PocketObject_0_RoutineA-off_20B604
+	dc.w	PocketObject_0_RoutineC-off_20B604
+	dc.w	PocketObject_0_RoutineE-off_20B604
+	dc.w	PocketObject_0_Routine10-off_20B604
+	dc.w	PocketObject_0_Routine12-off_20B604
+	dc.w	PocketObject_0_Routine14-off_20B604
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_Routine0:
+PocketObject_0_Routine0:
 	cmpi.b	#2,(time_zone).l
 	bne.w	loc_20B636
 	tst.b	(good_future).l
@@ -46,10 +46,10 @@ loc_20B636:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#0,obj.sprite_layer(a0)
 	move.w	#$3AF,obj.sprite_tile(a0)
-	move.l	#Spr_20B88E,obj.sprite_data(a0)
+	move.l	#PocketSprites1,obj.sprite_data(a0)
 	move.w	#7,obj.var_30(a0)
 
-PointsPocketObject_0_Routine2:
+PocketObject_0_Routine2:
 	tst.w	(debug_mode).l
 	bne.w	locret_20B678
 	lea	(player_object).w,a6
@@ -107,7 +107,7 @@ loc_20B6FE:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_Routine4:
+PocketObject_0_Routine4:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B760
 	addq.b	#2,obj.routine(a0)
@@ -133,7 +133,7 @@ loc_20B762:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_Routine6:
+PocketObject_0_Routine6:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B782
 	addq.b	#2,obj.routine(a0)
@@ -145,7 +145,7 @@ locret_20B782:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_Routine8:
+PocketObject_0_Routine8:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B79E
 	addq.b	#2,obj.routine(a0)
@@ -157,7 +157,7 @@ locret_20B79E:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_RoutineA:
+PocketObject_0_RoutineA:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B7CA
 	addq.b	#2,obj.routine(a0)
@@ -177,7 +177,7 @@ locret_20B7CA:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_RoutineC:
+PocketObject_0_RoutineC:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B7F6
 	addq.b	#2,obj.routine(a0)
@@ -197,7 +197,7 @@ locret_20B7F6:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_RoutineE:
+PocketObject_0_RoutineE:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B812
 	addq.b	#2,obj.routine(a0)
@@ -209,7 +209,7 @@ locret_20B812:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_Routine10:
+PocketObject_0_Routine10:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B82E
 	addq.b	#2,obj.routine(a0)
@@ -221,7 +221,7 @@ locret_20B82E:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_Routine12:
+PocketObject_0_Routine12:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B876
 	move.w	#$9F,d0
@@ -242,7 +242,7 @@ locret_20B876:
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_0_Routine14:
+PocketObject_0_Routine14:
 	addi.w	#-1,obj.var_2a(a0)
 	bpl.w	locret_20B88C
 	move.b	#2,obj.routine(a0)
@@ -253,29 +253,9 @@ locret_20B88C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20B88E:
-	dc.w	@Spr_20B88E_0-*
-	dc.w	@Spr_20B88E_1-Spr_20B88E
-	dc.w	@Spr_20B88E_2-Spr_20B88E
-	dc.w	@Spr_20B88E_3-Spr_20B88E
-
-@Spr_20B88E_0:
-	dc.b	0
-
-@Spr_20B88E_1:
-	dc.b	2
-	dc.b	$F8, 9, $C0, 0, $E8
-	dc.b	$F8, 9, $C8, 0, 0
-
-@Spr_20B88E_2:
-	dc.b	2
-	dc.b	$E8, 5, 0, 6, $F0
-	dc.b	$E8, 5, 8, 6, 0
-
-@Spr_20B88E_3:
-	dc.b	2
-	dc.b	$F0, 0, 0, $A, $F8
-	dc.b	$F0, 0, 8, $A, 0
+PocketSprites1:
+	include	"src/sprites/r3/pocket_1.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -288,22 +268,22 @@ loc_20B8B8:
 ; ------------------------------------------------------------------------------
 
 off_20B8C6:
-	dc.w	PointsPocketObject_1_Routine0-*
-	dc.w	PointsPocketObject_1_Routine2-off_20B8C6
-	dc.w	PointsPocketObject_1_Routine4-off_20B8C6
+	dc.w	PocketObject_1_Routine0-*
+	dc.w	PocketObject_1_Routine2-off_20B8C6
+	dc.w	PocketObject_1_Routine4-off_20B8C6
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_1_Routine0:
+PocketObject_1_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#0,obj.sprite_layer(a0)
 	move.b	#$18,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$43AF,obj.sprite_tile(a0)
-	move.l	#Spr_20B926,obj.sprite_data(a0)
+	move.l	#PocketSprites2,obj.sprite_data(a0)
 
-PointsPocketObject_1_Routine2:
+PocketObject_1_Routine2:
 	movea.w	obj.var_2e(a0),a1
 	cmpi.b	#$2F,0(a1)
 	beq.w	loc_20B90A
@@ -312,31 +292,23 @@ PointsPocketObject_1_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20B90A:
-	lea	PointsPocketAnims(pc),a1
+	lea	PocketAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketObject_1_Routine4:
+PocketObject_1_Routine4:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-PointsPocketAnims:
-	include	"src/anims/r3/points_pocket.asm"
+PocketAnims:
+	include	"src/anims/r3/pocket.asm"
 	even
 
-Spr_20B926:
-	dc.w	@Spr_20B926_0-*
-	dc.w	@Spr_20B926_1-Spr_20B926
-
-@Spr_20B926_0:
-	dc.b	2
-	dc.b	$F8, 9, 0, 0, $E8
-	dc.b	$F8, 9, 8, 0, 0
-
-@Spr_20B926_1:
-	dc.b	0
+PocketSprites2:
+	include	"src/sprites/r3/pocket_2.asm"
+	even
 
 ; ------------------------------------------------------------------------------

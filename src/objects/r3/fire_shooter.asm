@@ -38,7 +38,7 @@ FireShooterObject_2_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$379,obj.sprite_tile(a0)
 	move.b	#2,obj.sprite_layer(a0)
-	move.l	#Spr_20CC96,obj.sprite_data(a0)
+	move.l	#FireShootSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -104,7 +104,7 @@ FireShooterObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$379,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20CC96,obj.sprite_data(a0)
+	move.l	#FireShootSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$14,obj.height(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -316,7 +316,7 @@ FireShooterObject_1_Routine0:
 	move.w	#$379,obj.sprite_tile(a0)
 	move.b	#4,obj.sprite_layer(a0)
 	move.b	#$98,obj.collide_type(a0)
-	move.l	#Spr_20CC96,obj.sprite_data(a0)
+	move.l	#FireShootSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	#$100,d0
 	move.w	#$10,d1
@@ -382,53 +382,8 @@ FireShootAnims:
 	include	"src/anims/r3/fire_shoot.asm"
 	even
 
-Spr_20CC96:
-	dc.w	@Spr_20CC96_0-*
-	dc.w	@Spr_20CC96_1-Spr_20CC96
-	dc.w	@Spr_20CC96_2-Spr_20CC96
-	dc.w	@Spr_20CC96_3-Spr_20CC96
-	dc.w	@Spr_20CC96_4-Spr_20CC96
-	dc.w	@Spr_20CC96_5-Spr_20CC96
-	dc.w	@Spr_20CC96_5-Spr_20CC96
-
-@Spr_20CC96_0:
-	dc.b	1
-	dc.b	$FC, $C, 0, $E, $F0
-
-@Spr_20CC96_1:
-	dc.b	7
-	dc.b	$EC, $C, 0, 0, $F0
-	dc.b	$F4, 4, 0, 4, $F0
-	dc.b	$F4, 4, 0, 6, 0
-	dc.b	$FC, 5, 0, 8, $F0
-	dc.b	$FC, 5, 8, 8, 0
-	dc.b	$C, 4, 0, $C, $F0
-	dc.b	$C, 4, 8, $C, 0
-
-@Spr_20CC96_2:
-	dc.b	7
-	dc.b	$EC, $C, 0, $12, $F0
-	dc.b	$F4, 4, 0, 4, $F0
-	dc.b	$F4, 4, 0, 6, 0
-	dc.b	$FC, 5, 0, 8, $F0
-	dc.b	$FC, 5, 8, 8, 0
-	dc.b	$C, 4, 0, $C, $F0
-	dc.b	$C, 4, 8, $C, 0
-
-@Spr_20CC96_3:
-	dc.b	2
-	dc.b	$F8, 4, 0, $16, $F8
-	dc.b	0, 4, $10, $16, $F8
-	dc.b	0
-
-@Spr_20CC96_4:
-	dc.b	2
-	dc.b	$F8, 4, 8, $16, $F8
-	dc.b	0, 4, $18, $16, $F8
-	dc.b	0
-
-@Spr_20CC96_5:
-	dc.b	0
-	dc.b	0, 0, 0, 0, 0
+FireShootSprites:
+	include	"src/sprites/r3/fire_shoot.asm"
+	even
 
 ; ------------------------------------------------------------------------------

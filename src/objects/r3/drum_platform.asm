@@ -69,7 +69,7 @@ DrumPlatformObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$36A,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20CF3C,obj.sprite_data(a0)
+	move.l	#DrumPlatformSprites,obj.sprite_data(a0)
 	move.b	#$18,obj.width_2(a0)
 	move.w	obj.x(a0),obj.var_32(a0)
 	move.w	obj.y(a0),obj.var_30(a0)
@@ -260,92 +260,8 @@ sub_20CF36:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CF3C:
-	dc.w	@Spr_20CF3C_0-*
-	dc.w	@Spr_20CF3C_1-Spr_20CF3C
-	dc.w	@Spr_20CF3C_2-Spr_20CF3C
-	dc.w	@Spr_20CF3C_3-Spr_20CF3C
-	dc.w	@Spr_20CF3C_4-Spr_20CF3C
-	dc.w	@Spr_20CF3C_5-Spr_20CF3C
-	dc.w	@Spr_20CF3C_6-Spr_20CF3C
-	dc.w	@Spr_20CF3C_7-Spr_20CF3C
-	dc.w	@Spr_20CF3C_8-Spr_20CF3C
-	dc.w	@Spr_20CF3C_9-Spr_20CF3C
-	dc.w	@Spr_20CF3C_A-Spr_20CF3C
-	dc.w	@Spr_20CF3C_B-Spr_20CF3C
-
-@Spr_20CF3C_0:
-	dc.b	2
-	dc.b	$F0, 9, 0, 3, $E8
-	dc.b	$F0, 9, 8, 3, 0
-	dc.b	0
-
-@Spr_20CF3C_1:
-	dc.b	2
-	dc.b	$F4, 9, 0, 9, $E8
-	dc.b	$F4, 9, 8, 9, 0
-	dc.b	0
-
-@Spr_20CF3C_2:
-	dc.b	2
-	dc.b	$F8, 9, 0, $F, $E8
-	dc.b	$F8, 9, 8, $F, 0
-	dc.b	0
-
-@Spr_20CF3C_3:
-	dc.b	2
-	dc.b	$FC, 9, 0, $15, $E8
-	dc.b	$FC, 9, 8, $15, 0
-	dc.b	0
-
-@Spr_20CF3C_4:
-	dc.b	2
-	dc.b	$FC, 9, 0, $1B, $E8
-	dc.b	$FC, 9, 8, $1B, 0
-	dc.b	0
-
-@Spr_20CF3C_5:
-	dc.b	2
-	dc.b	$FC, 9, $10, $15, $E8
-	dc.b	$FC, 9, $18, $15, 0
-	dc.b	0
-
-@Spr_20CF3C_6:
-	dc.b	2
-	dc.b	$FC, 9, $10, $F, $E8
-	dc.b	$FC, 9, $18, $F, 0
-	dc.b	0
-
-@Spr_20CF3C_7:
-	dc.b	2
-	dc.b	$FC, 9, $10, 9, $E8
-	dc.b	$FC, 9, $18, 9, 0
-	dc.b	0
-
-@Spr_20CF3C_8:
-	dc.b	2
-	dc.b	0, 9, $10, 3, $E8
-	dc.b	0, 9, $18, 3, 0
-	dc.b	0
-
-@Spr_20CF3C_9:
-	dc.b	2
-	dc.b	0, 8, $10, 0, $E8
-	dc.b	0, 8, $18, 0, 0
-	dc.b	0
-
-@Spr_20CF3C_A:
-	dc.b	0
-	dc.b	$FC
-	dc.b	0
-	dc.b	$10
-	dc.b	0
-	dc.b	$E8
-
-@Spr_20CF3C_B:
-	dc.b	2
-	dc.b	$F8, 8, 0, 0, $E8
-	dc.b	$F8, 8, 8, 0, 0
-	dc.b	0
+DrumPlatformSprites:
+	include	"src/sprites/r3/drum_platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------

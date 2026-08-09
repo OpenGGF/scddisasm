@@ -39,7 +39,7 @@ DoorObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$371,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20C8D4,obj.sprite_data(a0)
+	move.l	#DoorSprites,obj.sprite_data(a0)
 	move.b	#$1C,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -109,13 +109,8 @@ locret_20C8D2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C8D4:
-	dc.w	@Spr_20C8D4_0-*
-
-@Spr_20C8D4_0:
-	dc.b	2
-	dc.b	$F8, $D, 0, 0, $E0
-	dc.b	$F8, $D, 8, 0, 0
-	dc.b	0
+DoorSprites:
+	include	"src/sprites/r3/door.asm"
+	even
 
 ; ------------------------------------------------------------------------------
