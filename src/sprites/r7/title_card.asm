@@ -2,16 +2,16 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-TitleCardSprites:
-	dc.w	.Sprite0-*
-	dc.w	.Sprite1-TitleCardSprites
-	dc.w	.Sprite2-TitleCardSprites
-	dc.w	.Sprite3-TitleCardSprites
-	dc.w	.Sprite4-TitleCardSprites
-	dc.w	.Sprite5-TitleCardSprites
-	dc.w	.Sprite6-TitleCardSprites
-	dc.w	.Sprite7-TitleCardSprites
-	dc.w	.Sprite8-TitleCardSprites
+.Sprites:
+	dc.w	.Sprite0-.Sprites
+	dc.w	.Sprite1-.Sprites
+	dc.w	.Sprite2-.Sprites
+	dc.w	.Sprite3-.Sprites
+	dc.w	.Sprite4-.Sprites
+	dc.w	.Sprite5-.Sprites
+	dc.w	.Sprite6-.Sprites
+	dc.w	.Sprite7-.Sprites
+	dc.w	.Sprite8-.Sprites
 
 .Sprite0:
 	dc.b	6

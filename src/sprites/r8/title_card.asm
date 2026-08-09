@@ -2,16 +2,16 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-TitleCardSprites:
-	dc.w	.Sprite0-*
-	dc.w	.Sprite1-TitleCardSprites
-	dc.w	.Sprite2-TitleCardSprites
-	dc.w	.Sprite3-TitleCardSprites
-	dc.w	.Sprite4-TitleCardSprites
-	dc.w	.Sprite5-TitleCardSprites
-	dc.w	.Sprite6-TitleCardSprites
-	dc.w	.Sprite7-TitleCardSprites
-	dc.w	.Sprite8-TitleCardSprites
+.Sprites:
+	dc.w	.Sprite0-.Sprites
+	dc.w	.Sprite1-.Sprites
+	dc.w	.Sprite2-.Sprites
+	dc.w	.Sprite3-.Sprites
+	dc.w	.Sprite4-.Sprites
+	dc.w	.Sprite5-.Sprites
+	dc.w	.Sprite6-.Sprites
+	dc.w	.Sprite7-.Sprites
+	dc.w	.Sprite8-.Sprites
 
 .Sprite0:
 	dc.b	6
@@ -78,19 +78,19 @@ TitleCardSprites:
 	even
 
 .Sprite7:
-	dc.b	4
+	dc.b	6
 	dc.b	$E8, $E, 0, $85, $14
-	dc.b	$E8, $A, 0, $91, $34
+	dc.b	$E8, $E, 0, $91, $34
+	dc.b	$E8, 0, 0, $9D, $54
+	dc.b	$F8, 0, 0, $9E, $54
 	dc.b	$C8, $B, 0, $70, 0
 	dc.b	$E8, $A, 0, $7C, 0
 	even
 
 .Sprite8:
-	dc.b	6
-	dc.b	0, $E, 0, $9A, $14
-	dc.b	0, $E, 0, $A6, $34
-	dc.b	0, 6, 0, $B2, $54
-	dc.b	0, 0, 0, $B8, $64
+	dc.b	4
+	dc.b	0, $E, 0, $9F, $14
+	dc.b	0, $E, 0, $AB, $34
 	dc.b	0, $B, 0, $70, 0
 	dc.b	$20, $A, 0, $7C, 0
 

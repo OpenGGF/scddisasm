@@ -31,6 +31,7 @@
 	dc.b	$10, 8, 8, $C8, 0
 	dc.b	$18, $C, 0, $CB, $F0
 	dc.b	$20, 4, 0, $CF, $F8
+	even
 
 .Sprite1:
 	dc.b	6
@@ -40,7 +41,7 @@
 	dc.b	$FE, $F, 0, $ED, $E2
 	dc.b	$FE, $B, 0, $FD, 2
 	dc.b	$1E, 8, 1, 9, $EA
-	dc.b	0
+	even
 
 .Sprite2:
 	dc.b	5
@@ -49,6 +50,7 @@
 	dc.b	$E0, $F, 1, $1C, 0
 	dc.b	0, $F, 1, $2C, $E0
 	dc.b	0, $F, 1, $3C, 0
+	even
 
 .Sprite3:
 	dc.b	6
@@ -58,7 +60,7 @@
 	dc.b	$FC, $F, 1, $64, $D8
 	dc.b	$FC, $F, 1, $74, $F8
 	dc.b	$FC, 2, 1, $84, $18
-	dc.b	0
+	even
 
 .Sprite4:
 	dc.b	9

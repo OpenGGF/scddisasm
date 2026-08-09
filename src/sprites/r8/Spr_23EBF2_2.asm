@@ -13,12 +13,12 @@
 	dc.w	.Sprite7-.Sprites
 	dc.w	.Sprite8-.Sprites
 	dc.w	.Sprite9-.Sprites
-	dc.w	.Spritea-.Sprites
-	dc.w	.Spriteb-.Sprites
-	dc.w	.Spritec-.Sprites
-	dc.w	.Sprited-.Sprites
-	dc.w	.Spritee-.Sprites
-	dc.w	.Spritef-.Sprites
+	dc.w	.SpriteA-.Sprites
+	dc.w	.SpriteB-.Sprites
+	dc.w	.SpriteC-.Sprites
+	dc.w	.SpriteD-.Sprites
+	dc.w	.SpriteE-.Sprites
+	dc.w	.SpriteF-.Sprites
 	dc.w	.Sprite10-.Sprites
 	dc.w	.Sprite11-.Sprites
 
@@ -182,7 +182,7 @@
 	dc.b	$18, 8, $18, 0, 0
 	dc.b	0, $E, $18, 3, 0
 
-.Spritea:
+.SpriteA:
 	dc.b	$10
 	dc.b	$AD, 5, 8, $22, $AD
 	dc.b	$B7, 5, 8, $22, $B7
@@ -201,7 +201,7 @@
 	dc.b	$18, 8, $18, $F, 0
 	dc.b	0, $E, $18, $12, 0
 
-.Spriteb:
+.SpriteB:
 	dc.b	$10
 	dc.b	$AD, 5, 8, $22, $AD
 	dc.b	$B7, 5, 8, $22, $B7
@@ -220,7 +220,7 @@
 	dc.b	$18, 8, $18, 0, 0
 	dc.b	0, $E, $18, 3, 0
 
-.Spritec:
+.SpriteC:
 	dc.b	$11
 	dc.b	$A3, 5, 8, $22, $A3
 	dc.b	$AD, 5, 8, $22, $AD
@@ -240,7 +240,7 @@
 	dc.b	$18, 8, $18, $F, 0
 	dc.b	0, $E, $18, $12, 0
 
-.Sprited:
+.SpriteD:
 	dc.b	$11
 	dc.b	$A3, 5, 8, $22, $A3
 	dc.b	$AD, 5, 8, $22, $AD
@@ -260,7 +260,7 @@
 	dc.b	$18, 8, $18, 0, 0
 	dc.b	0, $E, $18, 3, 0
 
-.Spritee:
+.SpriteE:
 	dc.b	$12
 	dc.b	$99, 5, 8, $22, $99
 	dc.b	$A3, 5, 8, $22, $A3
@@ -281,7 +281,7 @@
 	dc.b	$18, 8, $18, $F, 0
 	dc.b	0, $E, $18, $12, 0
 
-.Spritef:
+.SpriteF:
 	dc.b	$12
 	dc.b	$99, 5, 8, $22, $99
 	dc.b	$A3, 5, 8, $22, $A3

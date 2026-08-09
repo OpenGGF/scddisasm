@@ -9,6 +9,7 @@
 .Sprite0:
 	dc.b	1
 	dc.b	$FC, 4, 1, $10, $F8
+	even
 
 .Sprite1:
 	dc.b	1

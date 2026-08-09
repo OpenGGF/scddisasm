@@ -10,7 +10,8 @@ word_20B014:
 	dc.w	$100, $1D0, $110, $75A
 	dc.w	$100, $1D0, $110, $85A
 	
-	include "src/sprites/title_card_r7.asm"
+TitleCardSprites:
+	include "src/sprites/r7/title_card.asm"
 	even
 
 ; ------------------------------------------------------------------------------
