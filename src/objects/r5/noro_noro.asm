@@ -32,10 +32,10 @@ NoroNoroObject_0_Routine0:
 	move.b	#$2F,obj.collide_type(a0)
 	move.l	#-$4000,obj.var_2c(a0)
 	addq.b	#2,obj.routine(a0)
-	lea	Unk20D170Sprites(pc),a1
+	lea	NoroNoroSprites1(pc),a1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D006
-	lea	Unk20D1E0Sprites(pc),a1
+	lea	NoroNoroSprites2(pc),a1
 
 loc_20D006:
 	move.l	a1,obj.sprite_data(a0)
@@ -87,7 +87,7 @@ loc_20D03A:
 	move.w	obj.y(a0),obj.y(a1)
 	addi.w	#-$14,obj.y(a1)
 	move.w	obj.sprite_tile(a0),obj.sprite_tile(a1)
-	move.l	#Spr_20D200,obj.sprite_data(a1)
+	move.l	#NoroSpikesSprites,obj.sprite_data(a1)
 	move.b	#$B0,obj.collide_type(a1)
 	move.w	a0,obj.var_3e(a1)
 	move.w	a1,obj.var_3e(a0)
@@ -162,65 +162,16 @@ NoroNoroAnims:
 	include	"src/anims/r5/noro_noro.asm"
 	even
 
-Unk20D170Sprites:
-	dc.w	Unk20D170Sprite_0-*
-	dc.w	Unk20D170Sprite_1-Unk20D170Sprites
-	dc.w	Unk20D170Sprite_2-Unk20D170Sprites
-	dc.w	Unk20D170Sprite_3-Unk20D170Sprites
+NoroNoroSprites1:
+	include	"src/sprites/r5/noro_noro_1.asm"
+	even
 
-Unk20D170Sprite_0:
-	dc.b	4
-	dc.b	$E8, 0, 0, 7, 0
-	dc.b	$F0, $C, 0, 8, $F0
-	dc.b	$F8, $D, 0, $C, $F0
-	dc.b	8, $C, 0, $14, $F0
+NoroNoroSprites2:
+	include	"src/sprites/r5/noro_noro_2.asm"
+	even
 
-Unk20D170Sprite_1:
-	dc.b	5
-	dc.b	$F8, 4, 0, $18, $F0
-	dc.b	$E8, 0, 0, 7, 0
-	dc.b	$F0, $C, 0, 8, $F0
-	dc.b	$F8, $D, 0, $C, $F0
-	dc.b	8, $C, 0, $14, $F0
-
-Unk20D170Sprite_2:
-	dc.b	5
-	dc.b	$E8, 1, 0, 0, $F0
-	dc.b	$F0, 0, 0, 2, $F8
-	dc.b	$E8, 5, 0, 3, 0
-	dc.b	$F8, $D, 0, $C, $F0
-	dc.b	8, $C, 0, $14, $F0
-
-Unk20D170Sprite_3:
-	dc.b	6
-	dc.b	$E8, 1, 0, 0, $F0
-	dc.b	$F0, 0, 0, 2, $F8
-	dc.b	$E8, 5, 0, 3, 0
-	dc.b	$F8, 4, 0, $18, $F0
-	dc.b	$F8, $D, 0, $C, $F0
-	dc.b	8, $C, 0, $14, $F0
-
-Unk20D1E0Sprites:
-	dc.w	Unk20D1E0Sprite_0-*
-	dc.w	Unk20D1E0Sprite_1-Unk20D1E0Sprites
-
-Unk20D1E0Sprite_0:
-	dc.b	2
-	dc.b	$F0, $E, 0, $1A, $F0
-	dc.b	8, $C, 0, $14, $F0
-
-Unk20D1E0Sprite_1:
-	dc.b	3
-	dc.b	$F8, 4, 0, $18, $F0
-	dc.b	$F0, $E, 0, $1A, $F0
-	dc.b	8, $C, 0, $14, $F0
-	dc.b	0
-
-Spr_20D200:
-	dc.w	@Spr_20D200_0-*
-
-@Spr_20D200_0:
-	dc.b	0
-	dc.b	0
+NoroSpikesSprites:
+	include	"src/sprites/r5/noro_spikes.asm"
+	even
 
 ; ------------------------------------------------------------------------------

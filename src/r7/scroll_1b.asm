@@ -219,7 +219,7 @@ loc_202980:
 	andi.w	#$3F8,d0
 	lsr.w	#2,d0
 	moveq	#$1D,d1
-	lea	(byte_21D7A6).l,a4
+	lea	(WobbleTable).l,a4
 	addi.w	#$80,(bg_water_deform).w
 	lea	(a2,d0.w),a2
 	bra.w	loc_202A62

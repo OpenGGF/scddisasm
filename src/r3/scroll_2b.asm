@@ -433,7 +433,7 @@ loc_202A96:
 	sub.w	d1,d5
 	lea	(a2,d0.w),a2
 	lea	(word_202ACA).l,a3
-	lea	(byte_21D7A6).l,a4
+	lea	(WobbleTable).l,a4
 	addi.w	#$40,(bg_water_deform).w
 	bsr.w	sub_202B20
 

@@ -24,7 +24,7 @@ BreakWallObject_0_Routine0:
 	move.b	#$18,obj.height(a0)
 	move.b	#$FC,obj.collide_type(a0)
 	move.w	#$44A7,obj.sprite_tile(a0)
-	move.l	#Unk20F878Sprites,obj.sprite_data(a0)
+	move.l	#BreakWallSprites,obj.sprite_data(a0)
 	move.b	obj.subtype(a0),d0
 	andi.b	#1,d0
 	move.b	d0,obj.sprite_frame(a0)
@@ -126,41 +126,9 @@ loc_20F872:
 
 ; ------------------------------------------------------------------------------
 
-Unk20F878Sprites:
-	dc.w	Unk20F878Sprite_0-*
-	dc.w	Unk20F878Sprite_1-Unk20F878Sprites
-	dc.w	Unk20F878Sprite_2-Unk20F878Sprites
-	dc.w	Unk20F878Sprite_3-Unk20F878Sprites
-	dc.w	Unk20F878Sprite_4-Unk20F878Sprites
-	dc.w	Unk20F878Sprite_5-Unk20F878Sprites
-
-Unk20F878Sprite_0:
-	dc.b	3
-	dc.b	$E8, 5, 0, 0, $F8
-	dc.b	$F8, 5, 0, 4, $F8
-	dc.b	8, 5, 0, 8, $F8
-
-Unk20F878Sprite_1:
-	dc.b	3
-	dc.b	$E8, 5, 0, $C, $F8
-	dc.b	$F8, 5, 0, $C, $F8
-	dc.b	8, 5, 0, $C, $F8
-
-Unk20F878Sprite_2:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-
-Unk20F878Sprite_3:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
-
-Unk20F878Sprite_4:
-	dc.b	1
-	dc.b	$F8, 5, 0, 8, $F8
-
-Unk20F878Sprite_5:
-	dc.b	1
-	dc.b	$F8, 5, 0, $C, $F8
+BreakWallSprites:
+	include	"src/sprites/r5/break_wall.asm"
+	even
 
 byte_20F8BC:
 	dc.b	$FF

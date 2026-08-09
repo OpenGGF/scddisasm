@@ -27,12 +27,12 @@ DebugObjects:
 	debugObject $30, 1, PlatformSprites, $4378, $16, 0, 0, 4
 	debugObject $30, 1, PlatformSprites, $4378, $17, 0, 0, 4
 	debugObject $30, 1, PlatformSprites, $4378, $18, 0, 0, 4
-	debugObject $28, 3, Spr_20E49E, $43A0, 0, 0, 0, 0
-	debugObject $28, 3, Spr_20E49E, $43A0, 1, 0, 0, 1
-	debugObject $28, 3, Spr_20E49E, $43A0, 2, 0, 0, 2
-	debugObject $28, 3, Spr_20E49E, $43A0, 3, 0, 0, 3
-	debugObject $28, 3, Spr_20E49E, $43A0, 4, 0, 0, 4
-	debugObject $28, 3, Spr_20E49E, $43A0, 5, 0, 0, 5
+	debugObject $28, 3, CollapseFloorSprites, $43A0, 0, 0, 0, 0
+	debugObject $28, 3, CollapseFloorSprites, $43A0, 1, 0, 0, 1
+	debugObject $28, 3, CollapseFloorSprites, $43A0, 2, 0, 0, 2
+	debugObject $28, 3, CollapseFloorSprites, $43A0, 3, 0, 0, 3
+	debugObject $28, 3, CollapseFloorSprites, $43A0, 4, 0, 0, 4
+	debugObject $28, 3, CollapseFloorSprites, $43A0, 5, 0, 0, 5
 	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
 	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
 	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0

@@ -29,7 +29,7 @@ EggmanObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$2BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C578,obj.sprite_data(a0)
+	move.l	#EggmanSprites,obj.sprite_data(a0)
 	bsr.w	sub_20C304
 
 EggmanObject_0_Routine2:
@@ -122,7 +122,7 @@ BossTopObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	move.w	#$22BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C466,obj.sprite_data(a0)
+	move.l	#BossTopSprites,obj.sprite_data(a0)
 	bsr.w	sub_20C2AE
 
 BossTopObject_0_Routine2:
@@ -275,7 +275,7 @@ BossBoothObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$70,obj.height(a0)
 	move.w	#$22BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C47E,obj.sprite_data(a0)
+	move.l	#BossBoothSprites,obj.sprite_data(a0)
 	bsr.w	sub_20C2DC
 	bsr.w	sub_20C35C
 	bsr.w	sub_20C338
@@ -535,7 +535,7 @@ BossBoothBackObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$22BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C54E,obj.sprite_data(a0)
+	move.l	#BossBackSprites,obj.sprite_data(a0)
 
 BossBoothBackObject_0_Routine2:
 	move.w	obj.x(a2),obj.x(a0)
@@ -574,7 +574,7 @@ BossPipesObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#$30,obj.height(a0)
 	move.w	#$22BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C728,obj.sprite_data(a0)
+	move.l	#BossPipesSprites,obj.sprite_data(a0)
 
 BossPipesObject_0_Routine2:
 	moveq	#0,d0
@@ -615,7 +615,7 @@ BombDropperObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.w	#$2BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C7D0,obj.sprite_data(a0)
+	move.l	#BombDropSprites,obj.sprite_data(a0)
 
 BombDropperObject_0_Routine2:
 	movea.w	obj.var_2e(a0),a1
@@ -781,7 +781,7 @@ LargeBombObject_0_Routine0:
 	move.b	#$C,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.w	#$22BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C7F4,obj.sprite_data(a0)
+	move.l	#BombSprites,obj.sprite_data(a0)
 	move.b	#$FD,obj.collide_type(a0)
 	move.b	#2,obj.collide_status(a0)
 	move.w	#$FFFD,obj.var_38(a0)
@@ -881,7 +881,7 @@ SmallBombObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$22BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C7F4,obj.sprite_data(a0)
+	move.l	#BombSprites,obj.sprite_data(a0)
 	move.b	#$FD,obj.collide_type(a0)
 	move.b	#2,obj.collide_status(a0)
 	move.b	#1,obj.sprite_frame(a0)
@@ -986,7 +986,7 @@ BossSparksObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20BD18(pc,d0.w),d0
 	jsr	off_20BD18(pc,d0.w)
-	lea	(BossSparksAnims).l,a1
+	lea	(SparksAnims).l,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1006,7 +1006,7 @@ BossSparksObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#4,obj.height(a0)
 	move.w	#$22BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C80E,obj.sprite_data(a0)
+	move.l	#SparksSprites,obj.sprite_data(a0)
 	move.l	#-$20000,obj.var_3a(a0)
 	move.l	#-$20000,obj.x_speed(a0)
 	tst.b	obj.var_2d(a0)
@@ -1075,7 +1075,7 @@ SpikeWallObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	move.w	#$42BC,obj.sprite_tile(a0)
-	move.l	#Spr_20C836,obj.sprite_data(a0)
+	move.l	#SpikeWallSprites,obj.sprite_data(a0)
 	move.b	#$BF,obj.collide_type(a0)
 	move.b	#2,obj.collide_status(a0)
 
@@ -1821,373 +1821,52 @@ loc_20C462:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C466:
-	dc.w	@Spr_20C466_0-*
+BossTopSprites:
+	include	"src/sprites/r5/boss_top.asm"
+	even
 
-@Spr_20C466_0:
-	dc.b	4
-	dc.b	$E8, $F, 0, 0, $E0
-	dc.b	8, $D, 0, $10, $E0
-	dc.b	$E8, $F, 8, 0, 0
-	dc.b	8, $D, 8, $10, 0
-	dc.b	0
+BossBoothSprites:
+	include	"src/sprites/r5/boss_booth.asm"
+	even
 
-Spr_20C47E:
-	dc.w	@Spr_20C47E_0-*
-	dc.w	@Spr_20C47E_1-Spr_20C47E
-	dc.w	@Spr_20C47E_2-Spr_20C47E
-	dc.w	@Spr_20C47E_3-Spr_20C47E
-	dc.w	@Spr_20C47E_4-Spr_20C47E
-	dc.w	@Spr_20C47E_5-Spr_20C47E
-
-@Spr_20C47E_0:
-	dc.b	6
-	dc.b	$E8, 7, 0, $18, $E0
-	dc.b	8, 5, 0, $20, $E0
-	dc.b	$E8, 7, 8, $18, $10
-	dc.b	8, 5, 8, $20, $10
-	dc.b	$18, $F, 0, $24, $E0
-	dc.b	$18, $F, 0, $34, 0
-	dc.b	0
-
-@Spr_20C47E_1:
-	dc.b	6
-	dc.b	$E8, 7, 0, $18, $E0
-	dc.b	8, 5, 0, $20, $E0
-	dc.b	$E8, 7, 8, $18, $10
-	dc.b	8, 5, 8, $20, $10
-	dc.b	$18, $F, 0, $B7, $E0
-	dc.b	$18, $F, 0, $C7, 0
-	dc.b	0
-
-@Spr_20C47E_2:
-	dc.b	6
-	dc.b	$E8, 7, 0, $18, $E0
-	dc.b	8, 5, 0, $20, $E0
-	dc.b	$E8, 7, 8, $18, $10
-	dc.b	8, 5, 8, $20, $10
-	dc.b	$18, $E, 0, $D7, $E0
-	dc.b	$18, $E, 0, $E3, 0
-	dc.b	0
-
-@Spr_20C47E_3:
-	dc.b	6
-	dc.b	$E8, 7, 0, $18, $E0
-	dc.b	8, 5, 0, $20, $E0
-	dc.b	$E8, 7, 8, $18, $10
-	dc.b	8, 5, 8, $20, $10
-	dc.b	$18, $D, 0, $EF, $E0
-	dc.b	$18, $D, 0, $F7, 0
-	dc.b	0
-
-@Spr_20C47E_4:
-	dc.b	6
-	dc.b	$E8, 7, 0, $18, $E0
-	dc.b	8, 5, 0, $20, $E0
-	dc.b	$E8, 7, 8, $18, $10
-	dc.b	8, 5, 8, $20, $10
-	dc.b	$18, $C, 0, $FF, $E0
-	dc.b	$18, $C, 1, 3, 0
-	dc.b	0
-
-@Spr_20C47E_5:
-	dc.b	7
-	dc.b	$E8, 7, 0, $18, $E0
-	dc.b	8, 5, 0, $20, $E0
-	dc.b	$E8, 7, 8, $18, $10
-	dc.b	8, 5, 8, $20, $10
-	dc.b	$18, $C, 0, $FF, $E0
-	dc.b	$18, $C, 1, 3, 0
-	dc.b	$F4, 9, 0, $54, $E8
-
-Spr_20C54E:
-	dc.w	@Spr_20C54E_0-*
-
-@Spr_20C54E_0:
-	dc.b	1
-	dc.b	$F8, $F, 0, $44, $F0
+BossBackSprites:
+	include	"src/sprites/r5/boss_back.asm"
+	even
 
 EggmanAnims:
 	include	"src/anims/r5/eggman.asm"
 	even
 
-Spr_20C578:
-	dc.w	@Spr_20C578_0-*
-	dc.w	@Spr_20C578_1-Spr_20C578
-	dc.w	@Spr_20C578_2-Spr_20C578
-	dc.w	@Spr_20C578_3-Spr_20C578
-	dc.w	@Spr_20C578_4-Spr_20C578
-	dc.w	@Spr_20C578_5-Spr_20C578
-	dc.w	@Spr_20C578_6-Spr_20C578
-	dc.w	@Spr_20C578_7-Spr_20C578
-	dc.w	@Spr_20C578_8-Spr_20C578
-	dc.w	@Spr_20C578_9-Spr_20C578
-	dc.w	@Spr_20C578_A-Spr_20C578
-	dc.w	@Spr_20C578_B-Spr_20C578
-	dc.w	@Spr_20C578_C-Spr_20C578
-	dc.w	@Spr_20C578_D-Spr_20C578
-	dc.w	@Spr_20C578_E-Spr_20C578
-	dc.w	@Spr_20C578_F-Spr_20C578
+EggmanSprites:
+	include	"src/sprites/r5/eggman.asm"
+	even
 
-@Spr_20C578_0:
-	dc.b	4
-	dc.b	$E4, $D, 0, $77, $F0
-	dc.b	$F4, $D, 0, $7F, $E8
-	dc.b	$F4, 1, 0, $87, 8
-	dc.b	4, $E, 0, $89, $F0
-	dc.b	0
-
-@Spr_20C578_1:
-	dc.b	4
-	dc.b	$E4, $D, 0, $77, $F0
-	dc.b	$F4, $D, 0, $95, $E8
-	dc.b	$F4, 1, 0, $9D, 8
-	dc.b	4, $E, 0, $89, $F0
-	dc.b	0
-
-@Spr_20C578_2:
-	dc.b	6
-	dc.b	$F4, 9, 0, $54, $E8
-	dc.b	$D0, 5, 1, $9C, 8
-	dc.b	$E0, 9, 1, $1B, $E8
-	dc.b	$E0, 9, 9, $1B, 0
-	dc.b	$F0, $F, 1, $29, $E8
-	dc.b	$F0, 7, 1, $39, 8
-	dc.b	0
-
-@Spr_20C578_3:
-	dc.b	5
-	dc.b	$F4, 9, 0, $54, $E8
-	dc.b	$D0, 5, 1, $A0, 8
-	dc.b	$E0, $D, 1, $21, $F0
-	dc.b	$F0, $F, 1, $29, $E8
-	dc.b	$F0, 7, 1, $39, 8
-
-@Spr_20C578_4:
-	dc.b	5
-	dc.b	$F4, 9, 0, $54, $E8
-	dc.b	$E0, 9, 1, $1B, $E8
-	dc.b	$E0, 9, 9, $1B, 0
-	dc.b	$F0, $F, 1, $29, $E8
-	dc.b	$F0, 7, 1, $39, 8
-
-@Spr_20C578_5:
-	dc.b	4
-	dc.b	$F4, 9, 0, $54, $E8
-	dc.b	$E0, $D, 1, $21, $F0
-	dc.b	$F0, $F, 1, $29, $E8
-	dc.b	$F0, 7, 1, $39, 8
-	dc.b	0
-
-@Spr_20C578_6:
-	dc.b	6
-	dc.b	$D4, 5, 1, $9C, 8
-	dc.b	$E4, $D, 1, $41, $F0
-	dc.b	$F4, $D, 0, $7F, $E8
-	dc.b	$F4, 1, 0, $87, 8
-	dc.b	4, $E, 1, $49, $E8
-	dc.b	4, 6, 1, $55, 8
-	dc.b	0
-
-@Spr_20C578_7:
-	dc.b	6
-	dc.b	$D4, 5, 1, $A0, 8
-	dc.b	$E4, $D, 1, $41, $F0
-	dc.b	$F4, $D, 0, $7F, $E8
-	dc.b	$F4, 1, 0, $87, 8
-	dc.b	4, $E, 9, $49, $F8
-	dc.b	4, 6, 9, $55, $E8
-	dc.b	0
-
-@Spr_20C578_8:
-	dc.b	5
-	dc.b	$E4, $D, 1, $41, $F0
-	dc.b	$F4, $D, 0, $7F, $E8
-	dc.b	$F4, 1, 0, $87, 8
-	dc.b	4, $E, 1, $49, $E8
-	dc.b	4, 6, 1, $55, 8
-
-@Spr_20C578_9:
-	dc.b	5
-	dc.b	$E4, $D, 1, $41, $F0
-	dc.b	$F4, $D, 0, $7F, $E8
-	dc.b	$F4, 1, 0, $87, 8
-	dc.b	4, $E, 9, $49, $F8
-	dc.b	4, 6, 9, $55, $E8
-
-@Spr_20C578_A:
-	dc.b	5
-	dc.b	$CC, 5, 9, $9C, $E8
-	dc.b	$DC, $F, 1, $5B, $E0
-	dc.b	$DC, 7, 1, $6B, 0
-	dc.b	$FC, $D, 1, $73, $E8
-	dc.b	$FC, 9, 1, $7B, 8
-
-@Spr_20C578_B:
-	dc.b	4
-	dc.b	$D0, 5, 9, $9C, $E8
-	dc.b	$E0, $F, 1, $5B, $E0
-	dc.b	$E0, 7, 1, $6B, 0
-	dc.b	0, $E, 1, $81, $F0
-	dc.b	0
-
-@Spr_20C578_C:
-	dc.b	5
-	dc.b	$CE, 5, 9, $A0, $E8
-	dc.b	$DE, $F, 1, $5B, $E0
-	dc.b	$DE, 7, 1, $6B, 0
-	dc.b	$FE, $E, 1, $8D, $F0
-	dc.b	$FE, 2, 1, $99, $10
-
-@Spr_20C578_D:
-	dc.b	4
-	dc.b	$DC, $F, 1, $5B, $E0
-	dc.b	$DC, 7, 1, $6B, 0
-	dc.b	$FC, $D, 1, $73, $E8
-	dc.b	$FC, 9, 1, $7B, 8
-	dc.b	0
-
-@Spr_20C578_E:
-	dc.b	3
-	dc.b	$E0, $F, 1, $5B, $E0
-	dc.b	$E0, 7, 1, $6B, 0
-	dc.b	0, $E, 1, $81, $F0
-
-@Spr_20C578_F:
-	dc.b	4
-	dc.b	$DE, $F, 1, $5B, $E0
-	dc.b	$DE, 7, 1, $6B, 0
-	dc.b	$FE, $E, 1, $8D, $F0
-	dc.b	$FE, 2, 1, $99, $10
-	dc.b	0
-
-Spr_20C728:
-	dc.w	@Spr_20C728_0-*
-	dc.w	@Spr_20C728_1-Spr_20C728
-	dc.w	@Spr_20C728_2-Spr_20C728
-	dc.w	@Spr_20C728_3-Spr_20C728
-
-@Spr_20C728_0:
-	dc.b	4
-	dc.b	$E0, 0, 0, $5A, $E4
-	dc.b	$E8, 3, 0, $5B, $E4
-	dc.b	$E0, 0, 0, $5A, $14
-	dc.b	$E8, 3, 0, $5B, $14
-	dc.b	0
-
-@Spr_20C728_1:
-	dc.b	6
-	dc.b	$E0, 0, 0, $5A, $E4
-	dc.b	$E8, 3, 0, $5B, $E4
-	dc.b	8, 3, 0, $5B, $E4
-	dc.b	$E0, 0, 0, $5A, $14
-	dc.b	$E8, 3, 0, $5B, $14
-	dc.b	8, 3, 0, $5B, $14
-	dc.b	0
-
-@Spr_20C728_2:
-	dc.b	8
-	dc.b	$E0, 0, 0, $5A, $E4
-	dc.b	$E8, 3, 0, $5B, $E4
-	dc.b	8, 3, 0, $5B, $E4
-	dc.b	$28, 3, 0, $5B, $E4
-	dc.b	$E0, 0, 0, $5A, $14
-	dc.b	$E8, 3, 0, $5B, $14
-	dc.b	8, 3, 0, $5B, $14
-	dc.b	$28, 3, 0, $5B, $14
-	dc.b	0
-
-@Spr_20C728_3:
-	dc.b	$A
-	dc.b	$E0, 0, 0, $5A, $E4
-	dc.b	$E8, 3, 0, $5B, $E4
-	dc.b	8, 3, 0, $5B, $E4
-	dc.b	$28, 3, 0, $5B, $E4
-	dc.b	$48, 3, 0, $5B, $E4
-	dc.b	$E0, 0, 0, $5A, $14
-	dc.b	$E8, 3, 0, $5B, $14
-	dc.b	8, 3, 0, $5B, $14
-	dc.b	$28, 3, 0, $5B, $14
-	dc.b	$48, 3, 0, $5B, $14
-	dc.b	0
+BossPipesSprites:
+	include	"src/sprites/r5/boss_pipes.asm"
+	even
 
 BombDropAnims:
-	include	"src/anims/r5/boss_bomb_drop.asm"
+	include	"src/anims/r5/bomb_drop.asm"
 	even
 
-Spr_20C7D0:
-	dc.w	@Spr_20C7D0_0-*
-	dc.w	@Spr_20C7D0_1-Spr_20C7D0
-	dc.w	@Spr_20C7D0_2-Spr_20C7D0
-
-@Spr_20C7D0_0:
-	dc.b	1
-	dc.b	$F4, $E, $20, $6B, $F0
-
-@Spr_20C7D0_1:
-	dc.b	2
-	dc.b	$F4, $E, $20, $5F, $F0
-	dc.b	$C, $D, 1, $A4, $F0
-	dc.b	0
-
-@Spr_20C7D0_2:
-	dc.b	2
-	dc.b	$F4, $E, $20, $5F, $F0
-	dc.b	$C, $D, 1, $AC, $F0
-	dc.b	0
-
-Spr_20C7F4:
-	dc.w	@Spr_20C7F4_0-*
-	dc.w	@Spr_20C7F4_1-Spr_20C7F4
-
-@Spr_20C7F4_0:
-	dc.b	1
-	dc.b	$F4, $A, 1, $B4, $F4
-
-@Spr_20C7F4_1:
-	dc.b	1
-	dc.b	$F8, 5, 1, $BD, $F8
-
-BossSparksAnims:
-	include	"src/anims/r5/boss_sparks.asm"
+BombDropSprites:
+	include	"src/sprites/r5/bomb_drop.asm"
 	even
 
-Spr_20C80E:
-	dc.w	@Spr_20C80E_0-*
-	dc.w	@Spr_20C80E_1-Spr_20C80E
-	dc.w	@Spr_20C80E_2-Spr_20C80E
-	dc.w	@Spr_20C80E_3-Spr_20C80E
-	dc.w	@Spr_20C80E_4-Spr_20C80E
+BombSprites:
+	include	"src/sprites/r5/bomb.asm"
+	even
 
-@Spr_20C80E_0:
-	dc.b	1
-	dc.b	0, 4, 1, 7, 0
+SparksAnims:
+	include	"src/anims/r5/sparks.asm"
+	even
 
-@Spr_20C80E_1:
-	dc.b	1
-	dc.b	0, 4, 1, 9, 0
+SparksSprites:
+	include	"src/sprites/r5/sparks.asm"
+	even
 
-@Spr_20C80E_2:
-	dc.b	1
-	dc.b	0, 4, 1, $B, 0
-
-@Spr_20C80E_3:
-	dc.b	1
-	dc.b	0, 4, 1, $D, 0
-
-@Spr_20C80E_4:
-	dc.b	1
-	dc.b	0, 4, 1, $F, 0
-
-Spr_20C836:
-	dc.w	@Spr_20C836_0-*
-
-@Spr_20C836_0:
-	dc.b	4
-	dc.b	$E0, $F, 0, $9F, $F0
-	dc.b	$E0, 7, 0, $AF, $10
-	dc.b	0, $F, $10, $9F, $F0
-	dc.b	0, 7, $10, $AF, $10
-	dc.b	0
+SpikeWallSprites:
+	include	"src/sprites/r5/spike_wall.asm"
+	even
 
 ; ------------------------------------------------------------------------------

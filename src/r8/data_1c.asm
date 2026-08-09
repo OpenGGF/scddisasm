@@ -311,7 +311,7 @@ ExplosionSprites:
 	include	"src/sprites/explosion.asm"
 	even
 
-byte_21D7A6:
+WobbleTable:
 	incbin	"src/data/wobble.bin"
 	even
 

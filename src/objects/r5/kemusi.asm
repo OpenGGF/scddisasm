@@ -126,7 +126,7 @@ sub_20D710:
 	move.b	#8,obj.width(a1)
 	move.b	#8,obj.width_2(a1)
 	move.w	#$23FE,obj.sprite_tile(a1)
-	move.l	#Spr_20D81E,obj.sprite_data(a1)
+	move.l	#KemusiSprites,obj.sprite_data(a1)
 	move.w	obj.x(a0),obj.var_34(a1)
 	rts
 
@@ -235,26 +235,8 @@ locret_20D81C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D81E:
-	dc.w	@Spr_20D81E_0-*
-	dc.w	@Spr_20D81E_1-Spr_20D81E
-	dc.w	@Spr_20D81E_2-Spr_20D81E
-	dc.w	@Spr_20D81E_3-Spr_20D81E
-
-@Spr_20D81E_0:
-	dc.b	1
-	dc.b	$F4, 6, 0, 0, $F8
-
-@Spr_20D81E_1:
-	dc.b	1
-	dc.b	$F4, 6, 0, 6, $F8
-
-@Spr_20D81E_2:
-	dc.b	1
-	dc.b	$F4, 6, 0, $C, $F8
-
-@Spr_20D81E_3:
-	dc.b	1
-	dc.b	$F8, 5, 0, $12, $F8
+KemusiSprites:
+	include	"src/sprites/r5/kemusi.asm"
+	even
 
 ; ------------------------------------------------------------------------------

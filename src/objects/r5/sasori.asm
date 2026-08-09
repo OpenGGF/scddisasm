@@ -45,12 +45,12 @@ SasoriObject_0_Routine0:
 	move.b	#$C,obj.height(a0)
 	move.b	#$31,obj.collide_type(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
-	lea	Unk20D53ESprites(pc),a1
+	lea	SasoriSprites1(pc),a1
 	move.l	#-$10000,d0
 	move.w	#3,d1
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D2A0
-	lea	Unk20D576Sprites(pc),a1
+	lea	SasoriSprites2(pc),a1
 	move.l	#-$8000,d0
 	move.w	#7,d1
 
@@ -91,7 +91,7 @@ SasoriObject_0_Routine2:
 	move.b	#$18,obj.width(a1)
 	move.b	#$18,obj.width_2(a1)
 	move.b	#$10,obj.height(a1)
-	move.l	#Spr_20D5AE,obj.sprite_data(a1)
+	move.l	#SasoriGunSprites,obj.sprite_data(a1)
 	move.b	obj.subtype(a0),obj.sprite_frame(a1)
 	bsr.s	loc_20D2B0
 	subq.b	#1,obj.sprite_layer(a1)
@@ -220,7 +220,7 @@ SasoriObject_0_RoutineC:
 	move.b	#$10,obj.width_2(a1)
 	move.b	#$10,obj.height(a1)
 	move.b	#$B2,obj.collide_type(a1)
-	move.l	#Spr_20D5C4,obj.sprite_data(a1)
+	move.l	#SasoriMissileSprites,obj.sprite_data(a1)
 	bsr.w	loc_20D2B0
 	addi.w	#-$18,obj.y(a1)
 	move.w	#-4,d0
@@ -309,72 +309,24 @@ SasoriAnims:
 	include	"src/anims/r5/sasori.asm"
 	even
 
-Unk20D53ESprites:
-	dc.w	Unk20D53ESprite_0-*
-	dc.w	Unk20D53ESprite_1-Unk20D53ESprites
+SasoriSprites1:
+	include	"src/sprites/r5/sasori_1.asm"
+	even
 
-Unk20D53ESprite_0:
-	dc.b	5
-	dc.b	$FD, $D, 0, $19, $EB
-	dc.b	$F0, 8, 0, 0, $F0
-	dc.b	$F8, $D, 0, 3, $E8
-	dc.b	$F0, 7, 0, $B, 8
-	dc.b	$FC, $D, 0, $19, $E0
+SasoriSprites2:
+	include	"src/sprites/r5/sasori_2.asm"
+	even
 
-Unk20D53ESprite_1:
-	dc.b	5
-	dc.b	$FD, $D, 0, $19, $E7
-	dc.b	$F0, 8, 0, 0, $F0
-	dc.b	$F8, $D, 0, 3, $E8
-	dc.b	$F0, 7, 0, $B, 8
-	dc.b	$FC, $D, 0, $19, $E4
-
-Unk20D576Sprites:
-	dc.w	Unk20D576Sprite_0-*
-	dc.w	Unk20D576Sprite_1-Unk20D576Sprites
-
-Unk20D576Sprite_0:
-	dc.b	5
-	dc.b	$FD, $D, 0, $38, $E9
-	dc.b	$F0, 8, 0, $21, $F0
-	dc.b	$F8, $D, 0, $24, $E8
-	dc.b	$F0, 7, 0, $2C, 8
-	dc.b	$FC, $D, 0, $38, $E1
-
-Unk20D576Sprite_1:
-	dc.b	5
-	dc.b	$FD, $D, 0, $38, $E8
-	dc.b	$F0, 8, 0, $21, $F0
-	dc.b	$F8, $D, 0, $24, $E8
-	dc.b	$F0, 7, 0, $2C, 8
-	dc.b	$FC, $D, 0, $38, $E2
-
-Spr_20D5AE:
-	dc.w	@Spr_20D5AE_0-*
-	dc.w	@Spr_20D5AE_1-Spr_20D5AE
-
-@Spr_20D5AE_0:
-	dc.b	1
-	dc.b	$F8, 9, 0, $13, $F4
-
-@Spr_20D5AE_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, $34, $F8
+SasoriGunSprites:
+	include	"src/sprites/r5/sasori_gun.asm"
+	even
 
 SasoriMissileAnims:
 	include	"src/anims/r5/sasori_missile.asm"
 	even
 
-Spr_20D5C4:
-	dc.w	@Spr_20D5C4_0-*
-	dc.w	@Spr_20D5C4_1-Spr_20D5C4
-
-@Spr_20D5C4_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, $40, $F8
-
-@Spr_20D5C4_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, $44, $F8
+SasoriMissileSprites:
+	include	"src/sprites/r5/sasori_missile.asm"
+	even
 
 ; ------------------------------------------------------------------------------

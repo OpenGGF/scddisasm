@@ -24,7 +24,7 @@ StalactiteObject_0_Routine0:
 	move.b	#8,obj.width(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
-	move.l	#Spr_20DF12,obj.sprite_data(a0)
+	move.l	#StalactiteSprites,obj.sprite_data(a0)
 	move.w	#$342,d0
 	tst.b	(time_zone).l
 	beq.s	loc_20DE7E
@@ -102,13 +102,8 @@ loc_20DEFC:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20DF12:
-	dc.w	@Spr_20DF12_0-*
-
-@Spr_20DF12_0:
-	dc.b	2
-	dc.b	$E8, 7, 0, 0, $F8
-	dc.b	8, 5, 0, 8, $F8
-	dc.b	0
+StalactiteSprites:
+	include	"src/sprites/r5/stalactite.asm"
+	even
 
 ; ------------------------------------------------------------------------------

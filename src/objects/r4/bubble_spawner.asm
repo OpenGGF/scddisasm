@@ -67,7 +67,7 @@ loc_20A600:
 	move.b	obj.angle(a0),d0
 	addq.b	#1,obj.angle(a0)
 	andi.w	#$7F,d0
-	lea	(byte_21D7A6).l,a1
+	lea	(WobbleTable).l,a1
 	move.b	(a1,d0.w),d0
 	ext.w	d0
 	add.w	obj.var_30(a0),d0

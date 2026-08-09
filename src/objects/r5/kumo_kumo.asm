@@ -33,12 +33,12 @@ KumoKumoObject_0_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	move.b	#$35,obj.collide_type(a0)
-	lea	Unk20DAD2Sprites(pc),a1
+	lea	KumoKumoSprites1(pc),a1
 	lea	KumoKumoAnims1(pc),a2
 	move.l	#-$80000,d0
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D8C4
-	lea	Unk20DB72Sprites(pc),a1
+	lea	KumoKumoSprites2(pc),a1
 	lea	KumoKumoAnims2(pc),a2
 	move.l	#-$50000,d0
 
@@ -162,7 +162,7 @@ KumoKumoObject_0_RoutineC:
 	move.b	#$C,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
 	move.b	#$F7,obj.collide_type(a1)
-	move.l	#Spr_20DC08,obj.sprite_data(a1)
+	move.l	#KumoWebSprites,obj.sprite_data(a1)
 	move.w	#$18,d0
 	move.l	#$30000,d1
 	btst	#0,obj.sprite_flags(a1)
@@ -227,7 +227,7 @@ loc_20DA98:
 	clr.w	obj.ground_speed(a1)
 
 loc_20DAB0:
-	lea	KumoKumoWebAnims(pc),a1
+	lea	KumoWebAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -242,106 +242,20 @@ KumoKumoAnims2:
 	include	"src/anims/r5/kumo_kumo_2.asm"
 	even
 
-Unk20DAD2Sprites:
-	dc.w	Unk20DAD2Sprite_0-*
-	dc.w	Unk20DAD2Sprite_1-Unk20DAD2Sprites
-	dc.w	Unk20DAD2Sprite_2-Unk20DAD2Sprites
-
-Unk20DAD2Sprite_0:
-	dc.b	$E
-	dc.b	$F1, 7, 0, $1B, $FF
-	dc.b	$11, 4, 0, $23, $FF
-	dc.b	$F0, 7, 0, $1B, 3
-	dc.b	$10, 4, 0, $23, 3
-	dc.b	$EF, 7, 0, $1B, 6
-	dc.b	$F, 4, 0, $23, 6
-	dc.b	$E7, $E, 0, 0, $EC
-	dc.b	$EF, 0, 0, $C, $C
-	dc.b	$F1, 7, 8, $1B, $E4
-	dc.b	$11, 4, 8, $23, $E4
-	dc.b	$F0, 7, 8, $1B, $E8
-	dc.b	$10, 4, 8, $23, $E8
-	dc.b	$EF, 7, 8, $1B, $EB
-	dc.b	$F, 4, 8, $23, $EB
-
-Unk20DAD2Sprite_1:
-	dc.b	8
-	dc.b	$F1, 7, 0, $D, $FF
-	dc.b	$F0, 7, 0, $D, 3
-	dc.b	$EF, 7, 0, $D, 6
-	dc.b	$F0, $E, 0, 0, $EC
-	dc.b	$F8, 0, 0, $C, $C
-	dc.b	$F1, 7, 8, $D, $E4
-	dc.b	$F0, 7, 8, $D, $E8
-	dc.b	$EF, 7, 8, $D, $EB
-
-Unk20DAD2Sprite_2:
-	dc.b	8
-	dc.b	$F9, 6, 0, $15, $FF
-	dc.b	$F8, 6, 0, $15, 3
-	dc.b	$F7, 6, 0, $15, 6
-	dc.b	$F3, $E, 0, 0, $EC
-	dc.b	$FB, 0, 0, $C, $C
-	dc.b	$F9, 6, 8, $15, $E4
-	dc.b	$F8, 6, 8, $15, $E8
-	dc.b	$F7, 6, 8, $15, $EB
-	dc.b	0
-
-Unk20DB72Sprites:
-	dc.w	Unk20DB72Sprite_0-*
-	dc.w	Unk20DB72Sprite_1-Unk20DB72Sprites
-	dc.w	Unk20DB72Sprite_2-Unk20DB72Sprites
-
-Unk20DB72Sprite_0:
-	dc.b	$D
-	dc.b	$F1, 7, 0, $1B, $FF
-	dc.b	$11, 4, 0, $23, $FF
-	dc.b	$F0, 7, 0, $1B, 3
-	dc.b	$10, 4, 0, $23, 3
-	dc.b	$EF, 7, 0, $1B, 6
-	dc.b	$F, 4, 0, $23, 6
-	dc.b	$E7, $E, 0, $2B, $EC
-	dc.b	$F1, 7, 8, $1B, $E4
-	dc.b	$11, 4, 8, $23, $E4
-	dc.b	$F0, 7, 8, $1B, $E8
-	dc.b	$10, 4, 8, $23, $E8
-	dc.b	$EF, 7, 8, $1B, $EB
-	dc.b	$F, 4, 8, $23, $EB
-
-Unk20DB72Sprite_1:
-	dc.b	7
-	dc.b	$F1, 7, 0, $D, $FF
-	dc.b	$F0, 7, 0, $D, 3
-	dc.b	$EF, 7, 0, $D, 6
-	dc.b	$F0, $E, 0, $2B, $EC
-	dc.b	$F1, 7, 8, $D, $E4
-	dc.b	$F0, 7, 8, $D, $E8
-	dc.b	$EF, 7, 8, $D, $EB
-
-Unk20DB72Sprite_2:
-	dc.b	7
-	dc.b	$F9, 6, 0, $15, $FF
-	dc.b	$F8, 6, 0, $15, 3
-	dc.b	$F7, 6, 0, $15, 6
-	dc.b	$F3, $E, 0, $2B, $EC
-	dc.b	$F9, 6, 8, $15, $E4
-	dc.b	$F8, 6, 8, $15, $E8
-	dc.b	$F7, 6, 8, $15, $EB
-
-KumoKumoWebAnims:
-	include	"src/anims/r5/kumo_kumo_web.asm"
+KumoKumoSprites1:
+	include	"src/sprites/r5/kumo_kumo_1.asm"
 	even
 
-Spr_20DC08:
-	dc.w	@Spr_20DC08_0-*
-	dc.w	@Spr_20DC08_1-Spr_20DC08
+KumoKumoSprites2:
+	include	"src/sprites/r5/kumo_kumo_2.asm"
+	even
 
-@Spr_20DC08_0:
-	dc.b	1
-	dc.b	$F8, 9, $80, $25, $F4
+KumoWebAnims:
+	include	"src/anims/r5/kumo_web.asm"
+	even
 
-@Spr_20DC08_1:
-	dc.b	1
-	dc.b	$F8, 9, $98, $25, $F4
+KumoWebSprites:
+	include	"src/sprites/r5/kumo_web.asm"
+	even
 
 ; ------------------------------------------------------------------------------

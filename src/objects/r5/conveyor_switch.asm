@@ -25,7 +25,7 @@ ConveyorSwitchObject_0_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	move.w	#$4797,obj.sprite_tile(a0)
-	move.l	#Spr_20CF60,obj.sprite_data(a0)
+	move.l	#ConveyorSwitchSprites,obj.sprite_data(a0)
 	btst	#0,(r5_conveyor_reverse).l
 	beq.s	loc_20CE76
 	move.b	#2,obj.sprite_frame(a0)
@@ -134,27 +134,8 @@ loc_20CF50:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20CF60:
-	dc.w	@Spr_20CF60_0-*
-	dc.w	@Spr_20CF60_1-Spr_20CF60
-	dc.w	@Spr_20CF60_2-Spr_20CF60
-
-@Spr_20CF60_0:
-	dc.b	2
-	dc.b	$F0, 9, 0, 3, 4
-	dc.b	$F4, 2, 0, 0, $FC
-	dc.b	0
-
-@Spr_20CF60_1:
-	dc.b	2
-	dc.b	$DC, 6, 0, 9, $F8
-	dc.b	$F4, 2, 0, 0, $FC
-	dc.b	0
-
-@Spr_20CF60_2:
-	dc.b	2
-	dc.b	$F0, 9, 8, 3, $E4
-	dc.b	$F4, 2, 0, 0, $FC
-	dc.b	0
+ConveyorSwitchSprites:
+	include	"src/sprites/r5/conveyor_switch.asm"
+	even
 
 ; ------------------------------------------------------------------------------

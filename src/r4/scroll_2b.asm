@@ -255,7 +255,7 @@ loc_202CF2:
 
 loc_202D1E:
 	lea	(byte_202D9C).l,a3
-	lea	(byte_21D7A6).l,a4
+	lea	(WobbleTable).l,a4
 	move.b	(bg_water_deform).w,d3
 	move.b	d3,d4
 	addi.w	#$80,(bg_water_deform).w

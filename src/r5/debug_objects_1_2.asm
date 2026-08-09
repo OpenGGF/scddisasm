@@ -2,11 +2,11 @@
 
 DebugObjects:
 	debugStart
-	debugObject $31, 1, Spr_20CF60, $4797, 0, 0, 0, 0
+	debugObject $31, 1, ConveyorSwitchSprites, $4797, 0, 0, 0, 0
 	debugObject $2C, 3, HologramSprites, $3B6, 0, 0, 0, 0
-	debugObject $32, 1, Unk20F878Sprites, $44A7, 0, 0, 0, 0
-	debugObject $32, 1, Unk20F878Sprites, $44A7, 1, 0, 0, 1
-	debugObject $32, 1, Unk20F878Sprites, $44A7, 2, 1, 0, 0
+	debugObject $32, 1, BreakWallSprites, $44A7, 0, 0, 0, 0
+	debugObject $32, 1, BreakWallSprites, $44A7, 1, 0, 0, 1
+	debugObject $32, 1, BreakWallSprites, $44A7, 2, 1, 0, 0
 	debugObject $30, 1, PlatformSprites, $4304, 0, 0, 0, 0
 	debugObject $30, 1, PlatformSprites, $4304, 1, 0, 0, 1
 	debugObject $30, 1, PlatformSprites, $4304, 2, 0, 0, 0
@@ -35,9 +35,9 @@ DebugObjects:
 	debugObject $2F, 1, BridgeSprites, $4300, 0, 0, 0, 2
 	debugObject $2E, 1, RobotTransportSprites, $4D2, 0, 0, 0, 0
 	debugObject $2C, 3, HologramSprites, $3B6, 0, 0, 0, 0
-	debugObject $2D, 3, Spr_20EF1E, $4BA, 0, 0, 0, 0
-	debugObject $2D, 3, Spr_20EF32, $4BA, 1, 0, 0, 3
-	debugObject $2B, 1, Spr_20EB34, $446B, 0, 0, 0, 0
+	debugObject $2D, 3, AnimalSprites1, $4BA, 0, 0, 0, 0
+	debugObject $2D, 3, AnimalSprites2, $4BA, 1, 0, 0, 3
+	debugObject $2B, 1, BigBreakWallSprites, $446B, 0, 0, 0, 0
 	debugObject $24, 1, BlockSprites, $C332, 0, 0, 0, 0
 	debugObject $24, 1, BlockSprites, $C332, 1, 0, 0, 4
 	debugObject $2A, 1, SwingSprites, $358, 0, 0, 0, 0
@@ -48,12 +48,12 @@ DebugObjects:
 	debugObject $2A, 1, SwingSprites, $358, 5, 0, 0, 0
 	debugObject $29, 1, SinePlatformSprites, $4487, 0, 0, 0, 0
 	debugObject $29, 1, SinePlatformSprites, $4487, 1, 2, 0, 0
-	debugObject $28, 3, Spr_20E49E, $4350, 0, 0, 0, 0
-	debugObject $28, 3, Spr_20E49E, $4350, 1, 0, 0, 1
-	debugObject $28, 3, Spr_20E49E, $4350, 2, 0, 0, 2
-	debugObject $28, 3, Spr_20E49E, $4350, 3, 0, 0, 3
-	debugObject $28, 3, Spr_20E49E, $4350, 4, 0, 0, 4
-	debugObject $28, 3, Spr_20E49E, $4350, 5, 0, 0, 5
+	debugObject $28, 3, CollapseFloorSprites, $4350, 0, 0, 0, 0
+	debugObject $28, 3, CollapseFloorSprites, $4350, 1, 0, 0, 1
+	debugObject $28, 3, CollapseFloorSprites, $4350, 2, 0, 0, 2
+	debugObject $28, 3, CollapseFloorSprites, $4350, 3, 0, 0, 3
+	debugObject $28, 3, CollapseFloorSprites, $4350, 4, 0, 0, 4
+	debugObject $28, 3, CollapseFloorSprites, $4350, 5, 0, 0, 5
 	debugObject $27, 1, CirclePlatformSprites, $4300, 0, 0, 0, 0
 	debugObject $27, 1, CirclePlatformSprites, $4300, 1, 1, 0, 0
 	debugObject $26, 1, SpikesSprites, $44B, 0, 0, 0, 0
@@ -64,17 +64,17 @@ DebugObjects:
 	debugObject $26, 1, SpikesSprites, $44B, 5, 0, 0, 1
 	debugObject $26, 1, SpikesSprites, $44B, 6, 0, 0, 2
 	debugObject $26, 1, SpikesSprites, $44B, 7, 0, 0, 3
-	debugObject $25, 1, Spr_20DF12, $C342, 0, 0, 0, 0
-	debugObject $23, 1, Unk20DAD2Sprites, $A414, 0, 1, 0, 1
-	debugObject $23, 1, Unk20DAD2Sprites, $A414, 0, 0, 0, 0
-	debugObject $23, 1, Unk20DB72Sprites, $A414, 1, 1, 0, 1
-	debugObject $23, 1, Unk20DB72Sprites, $A414, 1, 0, 0, 0
-	debugObject $21, 1, Unk20D53ESprites, $A3B6, 0, 0, 0, 0
-	debugObject $21, 1, Unk20D576Sprites, $A3B6, 1, 0, 0, 0
-	debugObject $22, 1, Spr_20D81E, $A3FE, 0, 0, 0, 2
-	debugObject $22, 1, Spr_20D81E, $A3FE, 1, 0, 0, 3
-	debugObject $20, 1, Unk20D170Sprites, $A390, 0, 0, 0, 0
-	debugObject $20, 1, Unk20D1E0Sprites, $A390, 1, 0, 0, 0
+	debugObject $25, 1, StalactiteSprites, $C342, 0, 0, 0, 0
+	debugObject $23, 1, KumoKumoSprites1, $A414, 0, 1, 0, 1
+	debugObject $23, 1, KumoKumoSprites1, $A414, 0, 0, 0, 0
+	debugObject $23, 1, KumoKumoSprites2, $A414, 1, 1, 0, 1
+	debugObject $23, 1, KumoKumoSprites2, $A414, 1, 0, 0, 0
+	debugObject $21, 1, SasoriSprites1, $A3B6, 0, 0, 0, 0
+	debugObject $21, 1, SasoriSprites2, $A3B6, 1, 0, 0, 0
+	debugObject $22, 1, KemusiSprites, $A3FE, 0, 0, 0, 2
+	debugObject $22, 1, KemusiSprites, $A3FE, 1, 0, 0, 3
+	debugObject $20, 1, NoroNoroSprites1, $A390, 0, 0, 0, 0
+	debugObject $20, 1, NoroNoroSprites2, $A390, 1, 0, 0, 0
 	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
 	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
 	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0
