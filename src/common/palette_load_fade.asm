@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 LoadFadePalette:
-	lea	(PaletteTable).l,a1
+	lea	PaletteTable,a1
 	lsl.w	#3,d0
 	adda.w	d0,a1
 	movea.l	(a1)+,a2

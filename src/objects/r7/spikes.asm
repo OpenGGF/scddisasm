@@ -61,7 +61,7 @@ loc_20ED8A:
 	blt.w	loc_20EE0A
 
 loc_20ED96:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	loc_20EDFE
 	clr.b	obj.collide_type(a1)
@@ -69,11 +69,11 @@ loc_20ED96:
 	btst	#3,obj.flags(a1)
 	beq.s	loc_20EDFE
 	move.b	#1,obj.var_35(a0)
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_20EDFE
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	beq.s	loc_20EDFC
 	tst.w	obj.var_30(a0)
@@ -86,7 +86,7 @@ loc_20ED96:
 	move.l	d3,obj.y(a0)
 	jsr	HurtPlayer
 	movea.l	(sp)+,a0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	GetOffObject
 	bra.s	loc_20EDFE
 
@@ -108,7 +108,7 @@ loc_20EE0A:
 	movem.l	(sp)+,a0-a2
 	moveq	#$FFFFFFF4,d4
 	moveq	#3,d3
-	lea	(word_20EEA2).l,a2
+	lea	word_20EEA2,a2
 
 loc_20EE26:
 	jsr	SpawnObject
@@ -135,7 +135,7 @@ loc_20EE26:
 loc_20EE8C:
 	tst.b	obj.var_35(a0)
 	beq.s	loc_20EE9C
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	GetOffObject
 
 loc_20EE9C:
@@ -163,7 +163,7 @@ loc_20EED4:
 ; ------------------------------------------------------------------------------
 
 sub_20EEDA:
-	lea	(hud_score_object).w,a1
+	lea	hud_score_object,a1
 	moveq	#$7D,d1
 
 loc_20EEE0:

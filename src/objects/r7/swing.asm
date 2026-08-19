@@ -18,7 +18,7 @@ off_20CE96:
 ; ------------------------------------------------------------------------------
 
 sub_20CE9A:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.b	#8,obj.height(a0)
 	jsr	SolidObject
 	bne.s	loc_20CEBA

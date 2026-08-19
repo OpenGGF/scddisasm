@@ -30,18 +30,18 @@ WoodBlockObject_0_Routine0:
 	move.w	#$350,obj.sprite_tile(a0)
 	move.l	#WoodBlockSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
-	cmpi.w	#$780,(target_water_y).w
+	cmpi.w	#$780,target_water_y
 	beq.s	WoodBlockObject_0_Routine2
-	cmpi.w	#$5E0,(target_water_y).w
+	cmpi.w	#$5E0,target_water_y
 	beq.s	WoodBlockObject_0_Routine2
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
 WoodBlockObject_0_Routine2:
-	move.w	(water_y).w,obj.y(a0)
-	move.w	(static_water_y).w,d0
-	cmp.w	(target_water_y).w,d0
+	move.w	water_y,obj.y(a0)
+	move.w	static_water_y,d0
+	cmp.w	target_water_y,d0
 	bne.s	locret_20EE92
 	cmpi.w	#$780,d0
 	bne.s	loc_20EE7E
@@ -69,13 +69,13 @@ locret_20EE92:
 ; ------------------------------------------------------------------------------
 
 WoodBlockObject_0_Routine4:
-	move.w	(water_y).w,obj.y(a0)
-	lea	(player_object).w,a1
+	move.w	water_y,obj.y(a0)
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	locret_20EEB6
 	addq.b	#2,obj.routine(a0)
 	move.w	obj.x(a1),obj.x(a0)
-	move.w	#$5E0,(target_water_y).w
+	move.w	#$5E0,target_water_y
 
 locret_20EEB6:
 	rts
@@ -84,25 +84,25 @@ locret_20EEB6:
 
 WoodBlockObject_0_Routine6:
 	addq.b	#2,obj.routine(a0)
-	move.w	(water_speed).w,d0
+	move.w	water_speed,d0
 	neg.w	d0
 	move.w	d0,obj.y_speed(a0)
 
 WoodBlockObject_0_Routine8:
-	move.w	(water_y).w,obj.y(a0)
-	lea	(player_object).w,a1
+	move.w	water_y,obj.y(a0)
+	lea	player_object,a1
 	move.b	obj.x_speed(a1),d4
 	ext.w	d4
 	add.w	obj.x(a1),d4
 	sub.w	obj.x(a0),d4
 	beq.s	loc_20EF4A
-	lea	(CheckBlockRight3).l,a6
+	lea	CheckBlockRight3,a6
 	moveq	#1,d6
 	moveq	#0,d5
 	move.b	obj.width(a0),d5
 	tst.w	d4
 	bpl.s	loc_20EEFE
-	lea	(CheckBlockLeft3).l,a6
+	lea	CheckBlockLeft3,a6
 	neg.w	d6
 	neg.w	d5
 	neg.w	d4
@@ -137,7 +137,7 @@ loc_20EF30:
 ; ------------------------------------------------------------------------------
 
 loc_20EF4A:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	locret_20EF5C
 	move.w	obj.x(a0),obj.x(a1)

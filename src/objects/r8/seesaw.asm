@@ -8,7 +8,7 @@ SeesawObject:
 	jsr	DrawObject
 	move.w	obj.x(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -94,7 +94,7 @@ SeesawObject_0_Routine2:
 	bne.w	loc_20B7B8
 	btst	#5,obj.var_3e(a0)
 	beq.w	locret_20B710
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.w	locret_20B710
 	move.w	#0,obj.y_speed(a0)
 	btst	#7,obj.var_3e(a0)
@@ -165,7 +165,7 @@ byte_20B712:
 ; ------------------------------------------------------------------------------
 
 loc_20B716:
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.w	loc_20B7AA
 	movea.l	obj.var_32(a0),a1
 	btst	#5,obj.var_3e(a1)
@@ -222,12 +222,12 @@ loc_20B7AA:
 ; ------------------------------------------------------------------------------
 
 loc_20B7B8:
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.w	locret_20B832
 	movea.l	obj.var_32(a0),a1
 	btst	#5,obj.var_3e(a1)
 	bne.s	loc_20B7E2
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jsr	SolidObject
@@ -251,7 +251,7 @@ loc_20B7EC:
 	bsr.w	sub_20B834
 	movea.l	obj.var_32(a0),a1
 	bclr	#2,obj.var_3e(a1)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	locret_20B832
 	movea.l	obj.var_32(a0),a1

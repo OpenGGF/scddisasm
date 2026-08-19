@@ -19,7 +19,7 @@ off_20CD1E:
 ; ------------------------------------------------------------------------------
 
 sub_20CD26:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ byte_20CD8A:
 DoorObject_0_Routine2:
 	moveq	#0,d0
 	move.b	obj.var_30(a0),d0
-	lea	(switch_flags).w,a1
+	lea	switch_flags,a1
 	btst	#7,(a1,d0.w)
 	seq	obj.var_3c(a0)
 	cmpi.b	#4,obj.var_31(a0)
@@ -71,7 +71,7 @@ DoorObject_0_Routine2:
 	clr.b	obj.var_3c(a0)
 
 loc_20CDC4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),obj.var_38(a0)
 	move.w	obj.y(a1),obj.var_3e(a0)
 	jsr	sub_20CEB6(pc)
@@ -108,7 +108,7 @@ off_20CE08:
 ; ------------------------------------------------------------------------------
 
 DoorObject_2_Routine0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.var_3e(a0),d0
 	bcc.s	loc_20CE3A
@@ -143,7 +143,7 @@ locret_20CE56:
 ; ------------------------------------------------------------------------------
 
 DoorObject_2_Routine4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d0
 	sub.w	obj.var_38(a0),d0
 	bcc.s	loc_20CE80

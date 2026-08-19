@@ -5,12 +5,12 @@ CyclePalette:
 
 ; ------------------------------------------------------------------------------
 
-	lea	(word_2001F8).l,a0
-	subq.b	#1,(palette_cycle_timers).w
+	lea	word_2001F8,a0
+	subq.b	#1,palette_cycle_timers
 	bpl.s	loc_2001BE
-	move.b	#7,(palette_cycle_timers).w
+	move.b	#7,palette_cycle_timers
 	moveq	#0,d0
-	move.b	(palette_cycle_steps).w,d0
+	move.b	palette_cycle_steps,d0
 	cmpi.b	#2,d0
 	bne.s	loc_2001AA
 	moveq	#0,d0
@@ -22,19 +22,19 @@ loc_2001AA:
 	addq.b	#1,d0
 
 loc_2001AC:
-	move.b	d0,(palette_cycle_steps).w
+	move.b	d0,palette_cycle_steps
 	lsl.w	#3,d0
-	lea	(palette+$6A).w,a1
+	lea	palette+$6A,a1
 	move.l	(a0,d0.w),(a1)+
 	move.l	4(a0,d0.w),(a1)
 
 loc_2001BE:
 	adda.w	#$18,a0
-	subq.b	#1,(palette_cycle_timers+1).w
+	subq.b	#1,palette_cycle_timers+1
 	bpl.s	locret_2001F6
-	move.b	#5,(palette_cycle_timers+1).w
+	move.b	#5,palette_cycle_timers+1
 	moveq	#0,d0
-	move.b	(palette_cycle_steps+1).w,d0
+	move.b	palette_cycle_steps+1,d0
 	cmpi.b	#2,d0
 	bne.s	loc_2001DE
 	moveq	#0,d0
@@ -46,10 +46,10 @@ loc_2001DE:
 	addq.b	#1,d0
 
 loc_2001E0:
-	move.b	d0,(palette_cycle_steps+1).w
+	move.b	d0,palette_cycle_steps+1
 	andi.w	#3,d0
 	lsl.w	#3,d0
-	lea	(palette+$58).w,a1
+	lea	palette+$58,a1
 	move.l	(a0,d0.w),(a1)+
 	move.l	4(a0,d0.w),(a1)
 
@@ -87,25 +87,25 @@ word_2001F8:
 ; ------------------------------------------------------------------------------
 
 DoCyclePalette:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_2002C0).l,a1
-	lea	(word_2002C8).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_2002C0,a1
+	lea	word_2002C8,a2
 	bsr.s	CycleColor
-	lea	(byte_2002CE).l,a1
-	lea	(word_2002D6).l,a2
+	lea	byte_2002CE,a1
+	lea	word_2002D6,a2
 	bsr.s	CycleColor
-	lea	(byte_2002DC).l,a1
-	lea	(word_2002E4).l,a2
+	lea	byte_2002DC,a1
+	lea	word_2002E4,a2
 	bsr.s	CycleColor
-	lea	(byte_2002EA).l,a1
-	lea	(word_2002F2).l,a2
+	lea	byte_2002EA,a1
+	lea	word_2002F2,a2
 	bsr.s	CycleColor
-	lea	(byte_2002F8).l,a1
-	lea	(word_200300).l,a2
+	lea	byte_2002F8,a1
+	lea	word_200300,a2
 	bsr.s	CycleColor
-	lea	(byte_200306).l,a1
-	lea	(word_20030E).l,a2
+	lea	byte_200306,a1
+	lea	word_20030E,a2
 
 ; ------------------------------------------------------------------------------
 
@@ -116,7 +116,7 @@ CycleColor:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0

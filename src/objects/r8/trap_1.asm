@@ -3,12 +3,12 @@
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20BDAC
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	bclr	#7,2(a1,d0.w)
 
@@ -76,7 +76,7 @@ loc_20BE4C:
 SpikesObject_1_Routine2:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20BE9A
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20BE86
@@ -159,7 +159,7 @@ SpikesObject_0_Routine0:
 SpikesObject_0_Routine2:
 	tst.b	obj.sprite_frame(a0)
 	bne.w	loc_20BFBC
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20BF64
@@ -172,13 +172,13 @@ loc_20BF64:
 	beq.s	locret_20BFBA
 	btst	#3,obj.flags(a0)
 	beq.s	locret_20BFBA
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	locret_20BFBA
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	locret_20BFBA
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	loc_20BFB8
 	tst.w	obj.var_30(a0)
@@ -202,7 +202,7 @@ locret_20BFBA:
 loc_20BFBC:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20BFE8
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20BFD4
@@ -251,13 +251,13 @@ off_20C018:
 ; ------------------------------------------------------------------------------
 
 loc_20C01E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	TopSolidObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20C028:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------
@@ -300,11 +300,11 @@ TrapDoorObject_0_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20C0B8:
-	lea	(byte_20C1B4).l,a1
+	lea	byte_20C1B4,a1
 	moveq	#4,d2
 	tst.b	obj.var_3e(a0)
 	beq.s	loc_20C0E0
-	lea	(byte_20C1C4).l,a1
+	lea	byte_20C1C4,a1
 	moveq	#-4,d2
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	loc_20C0E0
@@ -341,11 +341,11 @@ TrapDoorObject_0_Routine4:
 ; ------------------------------------------------------------------------------
 
 loc_20C126:
-	lea	(byte_20C194).l,a1
+	lea	byte_20C194,a1
 	moveq	#-4,d2
 	tst.b	obj.var_3e(a0)
 	beq.s	loc_20C14E
-	lea	(byte_20C1A4).l,a1
+	lea	byte_20C1A4,a1
 	moveq	#4,d2
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	loc_20C14E

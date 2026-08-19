@@ -9,7 +9,7 @@ SwitchObject:
 	move.b	#$10,obj.width(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.w	#$4E4,d0
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_20D84C
 	move.w	#$386,d0
 
@@ -17,7 +17,7 @@ loc_20D84C:
 	move.w	d0,obj.sprite_tile(a0)
 	move.l	#Spr_20D8F0,obj.sprite_data(a0)
 	move.b	#8,obj.height(a0)
-	lea	(switch_flags).w,a1
+	lea	switch_flags,a1
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	lea	(a1,d0.w),a1
@@ -25,7 +25,7 @@ loc_20D84C:
 
 loc_20D870:
 	move.b	obj.var_3f(a0),obj.var_3e(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	movea.w	obj.var_3c(a0),a2
 	sne.b	obj.var_3f(a0)

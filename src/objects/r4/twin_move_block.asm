@@ -32,7 +32,7 @@ off_20D808:
 ; ------------------------------------------------------------------------------
 
 sub_20D80C:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	rts
 

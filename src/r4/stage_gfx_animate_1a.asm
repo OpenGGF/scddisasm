@@ -1,52 +1,52 @@
 ; ------------------------------------------------------------------------------
 
 AnimateStageGfx:
-	tst.b	(paused).w
+	tst.b	paused
 	bne.w	locret_20FD2E
 	jsr	LoadPowerupArt
-	cmpi.w	#$280,(scroll_fg_x).w
+	cmpi.w	#$280,scroll_fg_x
 	bcc.w	locret_20FD2E
-	cmpi.w	#$160,(scroll_fg_y).w
+	cmpi.w	#$160,scroll_fg_y
 	bcc.w	locret_20FD2E
-	lea	(stage_anim_timers).w,a2
-	lea	(stage_anim_frames).w,a4
-	lea	(unk_20FD82).l,a1
+	lea	stage_anim_timers,a2
+	lea	stage_anim_frames,a4
+	lea	unk_20FD82,a1
 	move.w	#$7F,d6
 	bsr.w	AnimateStageGfxScript
 	bne.s	loc_20FCC6
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019300,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4500,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20FCC6:
-	lea	(unk_20FDD4).l,a1
+	lea	unk_20FDD4,a1
 	move.w	#$7F,d6
 	bsr.w	AnimateStageGfxScript
 	bne.s	loc_20FCFA
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019300,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4700,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20FCFA:
-	lea	(unk_20FE26).l,a1
+	lea	unk_20FE26,a1
 	move.w	#$7F,d6
 	bsr.w	AnimateStageGfxScript
 	bne.s	locret_20FD2E
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019300,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4900,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 locret_20FD2E:
 	rts
@@ -76,7 +76,7 @@ loc_20FD40:
 	add.w	d1,d1
 	add.w	d1,d0
 	movea.l	2(a1,d0.w),a1
-	lea	(stage_anim_gfx).l,a3
+	lea	stage_anim_gfx,a3
 
 loc_20FD64:
 	move.l	(a1)+,(a3)+

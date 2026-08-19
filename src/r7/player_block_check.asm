@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 PlayerCheckBlock:
-	move.b	(stage_frames+1).l,d0
+	move.b	stage_frames+1,d0
 	andi.b	#3,d0
 	bne.s	locret_206578
 	move.w	obj.x_speed(a0),d0
@@ -18,11 +18,11 @@ loc2_206530:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
 	cmpi.b	#2,d1
 	bne.s	loc_206564
-	add.b	(good_future).l,d1
+	add.b	good_future,d1
 
 loc_206564:
 	add.w	d1,d1

@@ -5,10 +5,10 @@ RobotGeneratorObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20E096(pc,d0.w),d0
 	jsr	off_20E096(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	cmpi.b	#2,obj.routine(a0)
 	bgt.s	locret_20E094
-	jmp	(CheckObjectDespawn).l
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -34,9 +34,9 @@ RobotGeneratorInit:
 	move.b	#$20,obj.height(a0)
 	lea	word_20E4C4(pc),a1
 	moveq	#0,d0
-	move.b	(act).l,d0
+	move.b	act,d0
 	asl.w	#2,d0
-	add.b	(time_zone).l,d0
+	add.b	time_zone,d0
 	add.w	d0,d0
 	move.w	(a1,d0.w),obj.sprite_tile(a0)
 	move.l	#RobotTransportSprites,obj.sprite_data(a0)
@@ -45,28 +45,28 @@ RobotGeneratorInit:
 	move.w	#4,obj.var_2a(a0)
 	move.w	#1,obj.var_32(a0)
 	moveq	#0,d0
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	loc_20E10A
 	addq.b	#2,d0
 
 loc_20E10A:
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	loc_20E114
 	addq.b	#1,d0
 
 loc_20E114:
 	move.b	d0,obj.sprite_frame(a0)
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	RobotGeneratorMain
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	RobotGeneratorMain
 	move.b	#$FA,obj.collide_type(a0)
 	subi.w	#$10,obj.y(a0)
 
 RobotGeneratorMain:
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	locret_20E19C
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	locret_20E19C
 	bsr.w	sub_20E218
 	tst.b	obj.collide_status(a0)
@@ -75,13 +75,13 @@ RobotGeneratorMain:
 	clr.w	obj.var_2a(a0)
 	move.b	#7,obj.sprite_frame(a0)
 	addq.b	#2,obj.routine(a0)
-	move.b	#1,(good_future).l
+	move.b	#1,good_future
 	move.l	#$96,d0
-	jsr	(AddPoints).l
-	lea	(player_object).w,a1
-	jsr	(SolidObject).l
+	jsr	AddPoints
+	lea	player_object,a1
+	jsr	SolidObject
 	beq.s	locret_20E186
-	jsr	(GetOffObject).l
+	jsr	GetOffObject
 
 locret_20E186:
 	rts
@@ -89,10 +89,10 @@ locret_20E186:
 ; ------------------------------------------------------------------------------
 
 loc_20E188:
-	lea	(player_object).w,a1
-	jsr	(SolidObject).l
+	lea	player_object,a1
+	jsr	SolidObject
 	lea	RobotTransportAnims(pc),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
@@ -113,7 +113,7 @@ RobotGeneratorExplode:
 	move.l	a6,obj.var_2c(a0)
 	ext.w	d5
 	ext.w	d6
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	locret_20E1EE
 	move.b	#$18,obj.id(a1)
 	move.b	#1,obj.routine_2(a1)
@@ -122,7 +122,7 @@ RobotGeneratorExplode:
 	add.w	d5,obj.x(a1)
 	add.w	d6,obj.y(a1)
 	move.w	#$9E,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 locret_20E1EE:
 	rts
@@ -142,7 +142,7 @@ RobotGeneratorDestroyed:
 	subq.b	#6,obj.routine(a0)
 	move.w	obj.var_30(a0),obj.y(a0)
 	move.w	#$D9,d0
-	jmp	(PlayFmSound).l
+	jmp	PlayFmSound
 
 ; ------------------------------------------------------------------------------
 

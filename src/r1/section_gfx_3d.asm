@@ -10,7 +10,7 @@ UpdateSectionGfx:
 ; ------------------------------------------------------------------------------
 
 SetObjectSpriteTile:
-	lea	(ObjectSpriteTiles).l,a1
+	lea	ObjectSpriteTiles,a1
 	add.w	d0,d0
 	move.w	ObjectSpriteTiles(pc,d0.w),d4
 	lea	ObjectSpriteTiles(pc,d4.w),a2

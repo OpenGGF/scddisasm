@@ -82,7 +82,7 @@ BumperObject_0_Routine2:
 	jsr	SubCpuCommand
 
 .NoSound:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	clr.b	obj.collide_status(a0)
 	move.w	obj.x(a0),d1
 	move.w	obj.y(a0),d2
@@ -101,7 +101,7 @@ BumperObject_0_Routine2:
 	bclr	#5,obj.flags(a1)
 	clr.b	obj.var_3c(a1)
 	move.b	#1,obj.anim_id(a0)
-	lea	(object_states).l,a2
+	lea	object_states,a2
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	.Animate
@@ -110,7 +110,7 @@ BumperObject_0_Routine2:
 	addq.b	#1,2(a2,d0.w)
 
 .Animate:
-	lea	(BumperAnims).l,a1
+	lea	BumperAnims,a1
 	bsr.w	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_32(a0),d0
@@ -144,11 +144,11 @@ FlipperObject_0_Routine0:
 FlipperObject_0_Routine2:
 	tst.b	obj.anim_id(a0)
 	bne.s	.Animate
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	FlipperCheckPlayer
 
 .Animate:
-	lea	(FlipperAnims).l,a1
+	lea	FlipperAnims,a1
 	bsr.w	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -180,10 +180,10 @@ FlipperCheckPlayer:
 	move.w	d2,d0
 
 .GetSlopeData:
-	lea	(FlipperTopSlope).l,a3
+	lea	FlipperTopSlope,a3
 	tst.w	obj.y_speed(a1)
 	bpl.s	.GetColumn
-	lea	(FlipperBottomSlope).l,a3
+	lea	FlipperBottomSlope,a3
 
 .GetColumn:
 	move.b	(a3,d0.w),d0

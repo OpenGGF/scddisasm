@@ -145,7 +145,7 @@ loc_20EC9E:
 ; ------------------------------------------------------------------------------
 
 loc_20ECB0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	SolidObject
 	jmp	DrawObject
 

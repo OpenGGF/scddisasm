@@ -53,7 +53,7 @@ locret_2089EE:
 
 FreezerObject_0_Routine4:
 	bsr.w	sub_208CA0
-	lea	(FreezerAnims).l,a1
+	lea	FreezerAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ FreezerObject_0_RoutineA:
 	tst.b	obj.var_30(a0)
 	beq.s	loc_208AAE
 	subq.b	#1,obj.var_30(a0)
-	move.b	(p1_joy_tap).w,d0
+	move.b	p1_joy_tap,d0
 	andi.b	#$70,d0
 	beq.s	locret_208AE4
 	bclr	#0,obj.var_2c(a1)
@@ -187,7 +187,7 @@ byte_208B68:
 
 sub_208B88:
 	moveq	#5,d6
-	lea	(byte_208C10).l,a3
+	lea	byte_208C10,a3
 
 loc_208B90:
 	moveq	#0,d1
@@ -264,7 +264,7 @@ locret_208C9E:
 sub_208CA0:
 	cmpi.b	#1,obj.anim_id(a0)
 	bne.s	locret_208CB8
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.b	#$2B,obj.anim_id(a1)
 	beq.s	locret_208CB8
 	bsr.s	sub_208CBA
@@ -276,9 +276,9 @@ locret_208CB8:
 ; ------------------------------------------------------------------------------
 
 sub_208CBA:
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_208D14
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	loc_208D14
 	cmpi.b	#4,obj.routine(a1)
 	bcc.s	loc_208D14

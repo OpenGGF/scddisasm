@@ -263,7 +263,7 @@ locret_20D772:
 ; ------------------------------------------------------------------------------
 
 BigbomObject_2_Routine4:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.w	sub_20D8B8
 	bcc.s	locret_20D788
 	move.w	obj.x(a6),d0
@@ -287,7 +287,7 @@ BigbomObject_2_Routine6:
 
 BigbomObject_2_Routine8:
 	moveq	#0,d0
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20D7BA
 	move.b	obj.var_3d(a0),d0
 
@@ -317,15 +317,15 @@ locret_20D7F4:
 
 BigbomObject_2_RoutineA:
 	moveq	#0,d0
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20D804
 	move.b	obj.var_3d(a0),d0
 
 loc_20D804:
 	move.b	d0,obj.collide_type(a0)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	locret_20D820
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.w	sub_20D8B8
 	bcc.s	locret_20D820
 	move.b	#$10,obj.routine(a0)
@@ -374,7 +374,7 @@ loc_20D87C:
 loc_20D8A0:
 	tst.b	obj.sprite_frame(a0)
 	bne.s	locret_20D8AE
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.s	sub_20D8B8
 	bcs.s	loc_20D8DC
 
@@ -419,7 +419,7 @@ BigbomObject_2_Routine12:
 	cmpi.b	#2,obj.subtype_2(a0)
 	bne.s	locret_20D906
 	moveq	#0,d0
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20D902
 	move.b	obj.var_3d(a0),d0
 
@@ -695,7 +695,7 @@ BigbomObject_5_Routine2:
 	cmpi.b	#2,obj.subtype_2(a0)
 	bne.s	loc_20DBB0
 	moveq	#0,d0
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20DBAC
 	move.b	obj.var_3d(a0),d0
 
@@ -711,7 +711,7 @@ loc_20DBB0:
 	add.l	d0,obj.var_2a(a0)
 	move.l	obj.var_36(a0),d0
 	add.l	d0,obj.var_2e(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	cmpi.w	#$E0,d0

@@ -69,7 +69,7 @@ locret_20B9F0:
 
 TentouObject_0_Routine4:
 	bsr.w	sub_20BB12
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	subi.w	#-$50,d0
@@ -100,10 +100,10 @@ TentouObject_0_Routine6:
 	move.l	obj.var_32(a0),obj.y(a0)
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 	tst.l	obj.var_2a(a0)
 	bmi.s	loc_20BA68
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 
 loc_20BA68:
 	jsr	(a1)
@@ -190,7 +190,7 @@ locret_20BB2C:
 
 ; ------------------------------------------------------------------------------
 
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	subi.w	#-$100,d0

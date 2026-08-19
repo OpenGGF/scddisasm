@@ -20,7 +20,7 @@ off_20D092:
 ; ------------------------------------------------------------------------------
 
 loc_20D09C:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	SolidObject
@@ -38,7 +38,7 @@ CrusherObject_0_Routine0:
 	move.w	obj.y(a0),obj.var_32(a0)
 
 CrusherObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	bcc.s	loc_20D0EE
@@ -74,7 +74,7 @@ loc_20D128:
 ; ------------------------------------------------------------------------------
 
 CrusherObject_0_Routine6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	bcc.s	loc_20D13C
@@ -109,10 +109,10 @@ loc_20D176:
 ; ------------------------------------------------------------------------------
 
 sub_20D17A:
-	lea	(byte_20D1D0).l,a2
+	lea	byte_20D1D0,a2
 	tst.b	obj.var_3c(a0)
 	beq.s	loc_20D18C
-	lea	(byte_20D1D8).l,a2
+	lea	byte_20D1D8,a2
 
 loc_20D18C:
 	tst.b	obj.var_3a(a0)

@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 RevolveDoorObject:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20B80E(pc,d0.w),d0
@@ -113,7 +113,7 @@ RevolveDoorObject_0_Routine2:
 	beq.s	loc_20B942
 	cmpi.b	#$33,obj.anim_id(a6)
 	bcs.s	locret_20B99A
-	lea	(RevolveDoorAnims).l,a1
+	lea	RevolveDoorAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ loc_20B942:
 	move.w	#0,obj.x_speed(a6)
 	move.w	#0,obj.ground_speed(a6)
 	move.b	#$33,obj.anim_id(a6)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	loc_20B98E
 	move.b	#$34,obj.anim_id(a6)
 
@@ -153,7 +153,7 @@ locret_20B99A:
 ; ------------------------------------------------------------------------------
 
 RevolveDoorObject_0_Routine4:
-	lea	(RevolveDoorAnims).l,a1
+	lea	RevolveDoorAnims,a1
 	jsr	AnimateObject
 	cmpi.b	#5,obj.anim_id(a6)
 	bne.w	sub_20B9F0
@@ -162,11 +162,11 @@ RevolveDoorObject_0_Routine4:
 RevolveDoorObject_0_Routine6:
 	bclr	#0,obj.var_2c(a6)
 	bsr.w	sub_20B9F0
-	eori.b	#1,(stage_layer).l
+	eori.b	#1,stage_layer
 	eori.b	#1,obj.sprite_flags(a6)
 	eori.b	#1,obj.flags(a6)
 	ori.w	#$8000,obj.sprite_tile(a6)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	loc_20B9E8
 	andi.w	#$7FFF,obj.sprite_tile(a6)
 
@@ -209,14 +209,14 @@ loc_20BA2E:
 	moveq	#4,d0
 	btst	#0,obj.flags(a6)
 	bne.s	loc_20BA42
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	loc_20BA4C
 	bra.s	loc_20BA4A
 
 ; ------------------------------------------------------------------------------
 
 loc_20BA42:
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20BA4C
 
 loc_20BA4A:

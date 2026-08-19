@@ -4,16 +4,16 @@ PlayerGroundCollide:
 	btst	#3,obj.flags(a0)
 	beq.s	loc_200C56
 	moveq	#0,d0
-	move.b	d0,(collide_angle_1).w
-	move.b	d0,(collide_angle_2).w
+	move.b	d0,collide_angle_1
+	move.b	d0,collide_angle_2
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_200C56:
 	moveq	#3,d0
-	move.b	d0,(collide_angle_1).w
-	move.b	d0,(collide_angle_2).w
+	move.b	d0,collide_angle_1
+	move.b	d0,collide_angle_2
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	bpl.s	loc_200C78
@@ -52,7 +52,7 @@ loc_200C84:
 	move.b	obj.width(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$D,d5
@@ -68,7 +68,7 @@ loc_200C84:
 	ext.w	d0
 	neg.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$D,d5
@@ -156,10 +156,10 @@ locret_200D5E:
 ; ------------------------------------------------------------------------------
 
 CheckGroundAngle:
-	move.b	(collide_angle_2).w,d2
+	move.b	collide_angle_2,d2
 	cmp.w	d0,d1
 	ble.s	loc_200DB2
-	move.b	(collide_angle_1).w,d2
+	move.b	collide_angle_1,d2
 	move.w	d0,d1
 
 loc_200DB2:
@@ -190,7 +190,7 @@ loc_200DD0:
 	move.b	obj.height(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$D,d5
@@ -205,7 +205,7 @@ loc_200DD0:
 	move.b	obj.height(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$D,d5
@@ -255,7 +255,7 @@ loc_200E6C:
 	move.b	obj.width(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#-$10,a3
 	move.w	#$1000,d6
 	moveq	#$D,d5
@@ -271,7 +271,7 @@ loc_200E6C:
 	move.b	obj.width(a0),d0
 	ext.w	d0
 	sub.w	d0,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#-$10,a3
 	move.w	#$1000,d6
 	moveq	#$D,d5
@@ -321,7 +321,7 @@ loc_200F0E:
 	ext.w	d0
 	sub.w	d0,d3
 	eori.w	#$F,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#-$10,a3
 	move.w	#$800,d6
 	moveq	#$D,d5
@@ -337,7 +337,7 @@ loc_200F0E:
 	ext.w	d0
 	sub.w	d0,d3
 	eori.w	#$F,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#-$10,a3
 	move.w	#$800,d6
 	moveq	#$D,d5

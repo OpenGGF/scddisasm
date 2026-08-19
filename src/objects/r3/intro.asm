@@ -121,7 +121,7 @@ sub_20DF86:
 ; ------------------------------------------------------------------------------
 
 MetalSonicObject_0_Routine8:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E236
 	tst.b	obj.var_3b(a0)
 	beq.s	loc_20DFD2
@@ -186,8 +186,8 @@ loc_20E036:
 ; ------------------------------------------------------------------------------
 
 loc_20E04A:
-	move.b	#-1,(amy_captured).l
-	lea	(StagePalette).l,a3
+	move.b	#-1,amy_captured
+	lea	StagePalette,a3
 	bsr.w	sub_20E2C8
 	jmp	DeleteObject
 
@@ -219,9 +219,9 @@ sub_20E08C:
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject:
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	bne.w	loc_20E04A
-	tst.b	(amy_captured).l
+	tst.b	amy_captured
 	bne.w	loc_20E04A
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
@@ -262,7 +262,7 @@ loc_20E0E8:
 	addq.b	#2,obj.routine(a0)
 
 loc_20E11C:
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	sub_20E262
 
 ; ------------------------------------------------------------------------------
@@ -339,7 +339,7 @@ loc_20E1B4:
 	move.w	a1,obj.var_34(a0)
 
 loc_20E1E0:
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bsr.w	sub_20E262
 	bra.w	loc_20E306
 
@@ -363,7 +363,7 @@ loc_20E20E:
 	addq.w	#4,d0
 	move.w	d0,obj.y(a0)
 	move.b	#2,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	sub_20E262
 
 ; ------------------------------------------------------------------------------
@@ -448,7 +448,7 @@ sub_20E2C4:
 ; ------------------------------------------------------------------------------
 
 sub_20E2C8:
-	lea	(palette+$20).w,a4
+	lea	palette+$20,a4
 	movem.l	(a3)+,d0-d3
 	movem.l	d0-d3,(a4)
 	movem.l	(a3)+,d0-d3
@@ -463,7 +463,7 @@ word_20E2E0:
 ; ------------------------------------------------------------------------------
 
 sub_20E300:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -493,7 +493,7 @@ locret_20E33E:
 ; ------------------------------------------------------------------------------
 
 IntroSpikesObject:
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	bne.w	loc_20E56C
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
@@ -513,24 +513,24 @@ off_20E35E:
 loc_20E364:
 	cmpi.b	#1,obj.subtype(a0)
 	beq.s	loc_20E376
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20E376:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	locret_20E3CA
 	btst	#3,obj.flags(a0)
 	beq.s	locret_20E3CA
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	locret_20E3CA
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	locret_20E3CA
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	loc_20E3C8
 	tst.w	obj.var_30(a0)
@@ -552,7 +552,7 @@ locret_20E3CA:
 ; ------------------------------------------------------------------------------
 
 IntroSpikesObject_0_Routine0:
-	tst.b	(amy_captured).l
+	tst.b	amy_captured
 	bne.w	loc_20E56C
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
@@ -586,7 +586,7 @@ loc_20E436:
 IntroSpikesObject_0_Routine2:
 	cmpi.b	#1,obj.subtype(a0)
 	beq.w	loc_20E364
-	lea	(object_spawn_pool).w,a1
+	lea	object_spawn_pool,a1
 	move.w	#$5F,d0
 
 loc_20E45E:
@@ -623,7 +623,7 @@ loc_20E470:
 	bcc.s	loc_20E4BC
 	addq.b	#2,obj.routine(a0)
 	bsr.s	sub_20E4C0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------

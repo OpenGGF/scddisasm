@@ -31,12 +31,12 @@ SpikeBallObject_0_Routine0:
 	move.w	obj.x(a0),obj.var_2a(a0)
 	lea	word_20E536(pc),a1
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	add.w	d0,d0
 	move.w	(a1,d0.w),obj.var_2e(a0)
 	lea	word_20E506(pc),a1
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	lsl.w	#4,d0
 	moveq	#0,d1
 	move.b	obj.subtype(a0),d1

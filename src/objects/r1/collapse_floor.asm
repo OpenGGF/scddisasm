@@ -5,10 +5,10 @@ CollapseFloorObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20C23A(pc,d0.w),d0
 	jsr	off_20C23A(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	cmpi.b	#4,obj.routine(a0)
 	bge.s	locret_20C238
-	jmp	(CheckObjectDespawn).l
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -65,17 +65,17 @@ loc_20C2AA:
 	move.b	d1,obj.height(a0)
 
 CollapseFloorObject_0_Routine2:
-	lea	(player_object).w,a1
-	jsr	(TopSolidObject).l
+	lea	player_object,a1
+	jsr	TopSolidObject
 	bne.s	loc_20C2C2
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20C2C2:
-	jsr	(GetOffObject).l
+	jsr	GetOffObject
 	move.w	#$A3,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 	addq.b	#2,obj.routine(a0)
 	move.b	obj.subtype(a0),d0
 	bpl.w	loc_20C33A
@@ -91,12 +91,12 @@ CollapseFloorObject_0_Routine4:
 loc_20C2EE:
 	move.b	obj.var_3e(a0),d0
 	beq.s	locret_20C30C
-	lea	(player_object).w,a1
-	jsr	(TopSolidObject).l
+	lea	player_object,a1
+	jsr	TopSolidObject
 	beq.s	locret_20C30C
 	tst.w	obj.var_2a(a0)
 	bne.s	locret_20C30C
-	jsr	(GetOffObject).l
+	jsr	GetOffObject
 
 locret_20C30C:
 	rts
@@ -108,7 +108,7 @@ CollapseFloorObject_0_Routine6:
 	add.l	d0,obj.y(a0)
 	addi.l	#$4000,obj.var_2c(a0)
 	move.w	obj.y(a0),d0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	sub.w	obj.y(a1),d0
 	cmpi.w	#$200,d0
 	bgt.w	loc_20C334
@@ -117,7 +117,7 @@ CollapseFloorObject_0_Routine6:
 ; ------------------------------------------------------------------------------
 
 loc_20C334:
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -162,7 +162,7 @@ loc_20C390:
 	move.w	d2,d1
 
 loc_20C396:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.w	loc_20C426
 	move.b	(a6)+,d0
 	bmi.w	loc_20C410
@@ -204,13 +204,13 @@ loc_20C410:
 ; ------------------------------------------------------------------------------
 
 loc_20C426:
-	lea	(player_object).w,a1
-	jsr	(TopSolidObject).l
+	lea	player_object,a1
+	jsr	TopSolidObject
 	beq.s	loc_20C438
-	jsr	(GetOffObject).l
+	jsr	GetOffObject
 
 loc_20C438:
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -241,7 +241,7 @@ loc_20C43E:
 ; ------------------------------------------------------------------------------
 
 loc_20C47C:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x_speed(a1),d0
 	btst	#5,d2
 	beq.s	loc_20C48C
@@ -263,7 +263,7 @@ loc_20C49A:
 	move.b	obj.id(a0),obj.var_3f(a0)
 
 loc_20C4A8:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.w	loc_20C516
 	move.b	#3,obj.sprite_layer(a1)
 	move.w	#$44BE,obj.sprite_tile(a1)
@@ -289,12 +289,12 @@ loc_20C4A8:
 ; ------------------------------------------------------------------------------
 
 loc_20C516:
-	lea	(player_object).w,a1
-	jsr	(TopSolidObject).l
+	lea	player_object,a1
+	jsr	TopSolidObject
 	beq.s	loc_20C528
-	jsr	(GetOffObject).l
+	jsr	GetOffObject
 
 loc_20C528:
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------

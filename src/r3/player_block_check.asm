@@ -142,11 +142,11 @@ sub_20681E:
 	andi.w	#$7FF,d0
 	beq.s	loc_206862
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
 	cmpi.b	#2,d1
 	bne.s	loc_206846
-	add.b	(good_future).l,d1
+	add.b	good_future,d1
 
 loc_206846:
 	add.w	d1,d1
@@ -245,7 +245,7 @@ loc_2068DA:
 	move.w	#120,obj.var_30(a0)
 
 loc_2068EC:
-	move.b	#0,(r3_no_bumper).l
+	move.b	#0,r3_no_bumper
 	move.l	d1,-(sp)
 	move.w	off_206930(pc,d1.w),d0
 	jsr	off_206930(pc,d0.w)
@@ -263,7 +263,7 @@ loc_20691A:
 	jsr	PlayFmSound
 
 loc_206920:
-	tst.b	(r3_no_bumper).l
+	tst.b	r3_no_bumper
 	beq.s	loc_20692C
 	moveq	#0,d0
 	rts
@@ -454,7 +454,7 @@ PlayerCheckBlock_2_Routine12:
 loc_206AEC:
 	cmp.b	(a1,d3.w),d2
 	bcc.s	loc_206AFC
-	move.b	#1,(r3_no_bumper).l
+	move.b	#1,r3_no_bumper
 	rts
 
 ; ------------------------------------------------------------------------------

@@ -73,7 +73,7 @@ PohBeeObject_1_Routine4:
 ; ------------------------------------------------------------------------------
 
 loc_20DC3E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20DC5C
 	beq.s	loc_20DC4E
 	move.b	#$C,obj.routine(a0)

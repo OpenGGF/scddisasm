@@ -1,34 +1,34 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(unk_20023A).l,a1
-	lea	(unk_200242).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	unk_20023A,a1
+	lea	unk_200242,a2
 	bsr.w	CycleColor
-	lea	(unk_200248).l,a1
-	lea	(unk_200250).l,a2
+	lea	unk_200248,a1
+	lea	unk_200250,a2
 	bsr.w	CycleColor
-	lea	(unk_200256).l,a1
-	lea	(unk_20025E).l,a2
+	lea	unk_200256,a1
+	lea	unk_20025E,a2
 	bsr.s	CycleColor
-	cmpi.b	#1,(act).l
+	cmpi.b	#1,act
 	beq.s	loc_2001E2
-	lea	(unk_200264).l,a1
-	lea	(unk_200276).l,a2
+	lea	unk_200264,a1
+	lea	unk_200276,a2
 	bsr.s	CycleColor
-	lea	(unk_20027C).l,a1
-	lea	(unk_200282).l,a2
+	lea	unk_20027C,a1
+	lea	unk_200282,a2
 	bra.w	CycleColor
 
 ; ------------------------------------------------------------------------------
 
 loc_2001E2:
-	lea	(unk_200286).l,a1
-	lea	(unk_200296).l,a2
+	lea	unk_200286,a1
+	lea	unk_200296,a2
 	bsr.s	CycleColor
-	lea	(unk_20029A).l,a1
-	lea	(unk_2002A8).l,a2
+	lea	unk_20029A,a1
+	lea	unk_2002A8,a2
 
 ; ------------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ CycleColor:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0

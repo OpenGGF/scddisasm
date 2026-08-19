@@ -83,7 +83,7 @@ MinomusiObject_0_Routine4:
 	bne.s	locret_20E5B6
 	move.w	#$79,obj.var_2a(a0)
 	move.b	#2,d6
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E5B8
 	bcs.s	loc_20E5B2
 	neg.b	d6

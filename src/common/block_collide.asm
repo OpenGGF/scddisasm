@@ -4,7 +4,7 @@ GetBlock:
 	move.w	d2,d0
 	lsr.w	#1,d0
 	andi.w	#$780,d0
-	cmpi.b	#2,(zone).l
+	cmpi.b	#2,zone
 	bne.s	loc_200FC6
 	andi.w	#$380,d0
 
@@ -18,20 +18,20 @@ loc_200FC6:
 	else
 		moveq	#0,d1
 	endif
-	lea	(stage_map).w,a1
+	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
 	beq.s	loc_201026
 	bmi.s	loc_20102A
-	cmpi.b	#5,(zone).l
+	cmpi.b	#5,zone
 	beq.s	loc_200FF6
-	cmpi.b	#6,(zone).l
+	cmpi.b	#6,zone
 	bne.s	loc_200FFC
 
 loc_200FF6:
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 
 loc_200FFC:
-	cmpi.b	#4,(zone).l
+	cmpi.b	#4,zone
 	bne.s	loc_20100C
 	bclr	#6,obj.sprite_flags(a0)
 
@@ -59,7 +59,7 @@ loc_201026:
 
 loc_20102A:
 	andi.w	#$7F,d1
-	cmpi.b	#4,(zone).l
+	cmpi.b	#4,zone
 	bne.s	loc_201092
 	btst	#6,obj.sprite_flags(a0)
 	bne.s	loc_201058
@@ -104,14 +104,14 @@ loc_201082:
 ; ------------------------------------------------------------------------------
 
 loc_201092:
-	cmpi.b	#5,(zone).l
+	cmpi.b	#5,zone
 	bne.w	loc_2010F8
 	ori.w	#$8000,obj.sprite_tile(a0)
 	cmpi.b	#4,d1
 	beq.s	loc_2010E2
 	cmpi.b	#6,d1
 	beq.s	loc_2010E2
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.w	loc_20117C
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 	cmpi.b	#$28,d1
@@ -140,12 +140,12 @@ loc_2010F2:
 ; ------------------------------------------------------------------------------
 
 loc_2010F8:
-	cmpi.b	#6,(zone).l
+	cmpi.b	#6,zone
 	bne.s	loc_201168
 	cmpi.b	#3,obj.id(a0)
 	bcc.w	loc_20117C
 	ori.w	#$8000,obj.sprite_tile(a0)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	loc_20117C
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 	cmpi.b	#$46,d1
@@ -243,11 +243,11 @@ loc_2011B2:
 ; ------------------------------------------------------------------------------
 
 loc_2011C0:
-	movea.l	(stage_collision).w,a2
+	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
 	beq.s	loc_2011B2
-	lea	(StageCollisionAngles).l,a2
+	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d3,d1
@@ -266,7 +266,7 @@ loc_2011E6:
 loc_2011F6:
 	andi.w	#$F,d1
 	add.w	d0,d1
-	lea	(StageCollisionColumns).l,a2
+	lea	StageCollisionColumns,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 	eor.w	d6,d4
@@ -336,11 +336,11 @@ loc_201272:
 ; ------------------------------------------------------------------------------
 
 loc_201280:
-	movea.l	(stage_collision).w,a2
+	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
 	beq.s	loc_201272
-	lea	(StageCollisionAngles).l,a2
+	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d3,d1
@@ -359,7 +359,7 @@ loc_2012A6:
 loc_2012B6:
 	andi.w	#$F,d1
 	add.w	d0,d1
-	lea	(StageCollisionColumns).l,a2
+	lea	StageCollisionColumns,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 	eor.w	d6,d4
@@ -422,11 +422,11 @@ loc_201322:
 ; ------------------------------------------------------------------------------
 
 loc_201330:
-	movea.l	(stage_collision).w,a2
+	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
 	beq.s	loc_201322
-	lea	(StageCollisionAngles).l,a2
+	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d2,d1
@@ -445,7 +445,7 @@ loc_20135E:
 loc_201366:
 	andi.w	#$F,d1
 	add.w	d0,d1
-	lea	(StageCollisionRows).l,a2
+	lea	StageCollisionRows,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 	eor.w	d6,d4
@@ -504,11 +504,11 @@ loc_2013D2:
 ; ------------------------------------------------------------------------------
 
 loc_2013E0:
-	movea.l	(stage_collision).w,a2
+	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
 	beq.s	loc_2013D2
-	lea	(StageCollisionAngles).l,a2
+	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d2,d1
@@ -527,7 +527,7 @@ loc_20140E:
 loc_201416:
 	andi.w	#$F,d1
 	add.w	d0,d1
-	lea	(StageCollisionRows).l,a2
+	lea	StageCollisionRows,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 	eor.w	d6,d4
@@ -563,8 +563,8 @@ ConvertStageCollision:
 
 ; ------------------------------------------------------------------------------
 
-	lea	(StageCollisionColumns).l,a1
-	lea	(StageCollisionColumns).l,a2
+	lea	StageCollisionColumns,a1
+	lea	StageCollisionColumns,a2
 	move.w	#$FF,d3
 
 loc_20146A:
@@ -586,11 +586,11 @@ loc_201476:
 	dbf	d2,loc_201470
 	adda.w	#$20,a1
 	dbf	d3,loc_20146A
-	lea	(StageCollisionColumns).l,a1
-	lea	(StageCollisionRows).l,a2
+	lea	StageCollisionColumns,a1
+	lea	StageCollisionRows,a2
 	bsr.s	sub_2014AE
-	lea	(StageCollisionColumns).l,a1
-	lea	(StageCollisionColumns).l,a2
+	lea	StageCollisionColumns,a1
+	lea	StageCollisionColumns,a2
 
 ; ------------------------------------------------------------------------------
 

@@ -5,7 +5,7 @@ BossDoorObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20F0BA(pc,d0.w),d0
 	jsr	off_20F0BA(pc,d0.w)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jsr	DrawObject
 	jmp	loc2_20F1B2
@@ -30,12 +30,12 @@ BossDoorObject_0_Routine0:
 	move.l	#BossDoorSprites,obj.sprite_data(a0)
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	lea	2(a1,d0.w),a1
 	move.l	a1,obj.var_2c(a0)
@@ -69,7 +69,7 @@ loc_20F142:
 ; ------------------------------------------------------------------------------
 
 BossDoorObject_0_Routine2:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.s	sub_20F15E
 	bcc.s	locret_20F15C
 	st	obj.var_3f(a0)
@@ -125,7 +125,7 @@ loc2_20F1B2:
 	beq.s	locret_20F1E4
 	move.w	obj.x(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0

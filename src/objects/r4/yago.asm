@@ -47,7 +47,7 @@ YagoObject_0_Routine2:
 	bmi.s	loc_20DF2E
 
 loc_20DF12:
-	lea	(YagoAnims1).l,a1
+	lea	YagoAnims1,a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_3e(a0),d0
@@ -73,17 +73,17 @@ YagoObject_0_Routine4:
 	add.w	d1,obj.y(a0)
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 	btst	#0,obj.sprite_flags(a0)
 	bne.s	loc_20DF7C
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 
 loc_20DF7C:
 	jsr	(a1)
 	cmpi.w	#5,d1
 	bmi.s	loc_20DFA4
 	move.w	obj.x(a0),d0
-	sub.w	(player_object+obj.x).w,d0
+	sub.w	player_object+obj.x,d0
 	btst	#0,obj.sprite_flags(a0)
 	beq.s	loc_20DF96
 	neg.w	d0
@@ -181,10 +181,10 @@ YagoObject_0_RoutineE:
 	add.l	d0,obj.x(a0)
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 	btst	#0,obj.sprite_flags(a0)
 	bne.s	loc_20E07C
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 
 loc_20E07C:
 	jsr	(a1)
@@ -275,7 +275,7 @@ YagoObject_1_Routine2:
 	bmi.s	loc_20E198
 
 loc_20E17C:
-	lea	(YagoAnims2).l,a1
+	lea	YagoAnims2,a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	obj.var_3e(a0),d0
@@ -303,17 +303,17 @@ YagoObject_1_Routine4:
 	add.w	d1,obj.y(a0)
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 	btst	#0,obj.sprite_flags(a0)
 	bne.s	loc_20E1EC
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 
 loc_20E1EC:
 	jsr	(a1)
 	cmpi.w	#5,d1
 	bmi.s	loc_20E214
 	move.w	obj.x(a0),d0
-	sub.w	(player_object+obj.x).w,d0
+	sub.w	player_object+obj.x,d0
 	btst	#0,obj.sprite_flags(a0)
 	beq.s	loc_20E206
 	neg.w	d0
@@ -411,10 +411,10 @@ YagoObject_1_RoutineE:
 	add.l	d0,obj.x(a0)
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 	btst	#0,obj.sprite_flags(a0)
 	bne.s	loc_20E2EC
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 
 loc_20E2EC:
 	jsr	(a1)

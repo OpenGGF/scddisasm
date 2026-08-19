@@ -26,17 +26,17 @@ ConveyorSwitchObject_0_Routine0:
 	move.b	#$18,obj.height(a0)
 	move.w	#$4797,obj.sprite_tile(a0)
 	move.l	#ConveyorSwitchSprites,obj.sprite_data(a0)
-	btst	#0,(r5_conveyor_reverse).l
+	btst	#0,r5_conveyor_reverse
 	beq.s	loc_20CE76
 	move.b	#2,obj.sprite_frame(a0)
 
 loc_20CE76:
-	move.b	(r5_conveyor_reverse).l,obj.var_3c(a0)
+	move.b	r5_conveyor_reverse,obj.var_3c(a0)
 
 ConveyorSwitchObject_0_Routine2:
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.s	loc_20CECC
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20CE96
@@ -53,7 +53,7 @@ loc_20CE96:
 loc_20CEA8:
 	cmpi.w	#8,d0
 	bcc.s	loc_20CECC
-	bchg	#0,(r5_conveyor_reverse).l
+	bchg	#0,r5_conveyor_reverse
 	addq.b	#2,obj.routine(a0)
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	locret_20CECA
@@ -66,7 +66,7 @@ locret_20CECA:
 ; ------------------------------------------------------------------------------
 
 loc_20CECC:
-	move.b	(r5_conveyor_reverse).l,d0
+	move.b	r5_conveyor_reverse,d0
 	cmp.b	obj.var_3c(a0),d0
 	beq.s	loc_20CEE2
 	move.b	#$FF,obj.var_3d(a0)
@@ -92,7 +92,7 @@ loc_20CEFC:
 	bne.s	locret_20CF24
 	clr.b	obj.var_3a(a0)
 	clr.b	obj.sprite_frame(a0)
-	btst	#0,(r5_conveyor_reverse).l
+	btst	#0,r5_conveyor_reverse
 	beq.s	loc_20CF1C
 	move.b	#2,obj.sprite_frame(a0)
 
@@ -106,7 +106,7 @@ locret_20CF24:
 ; ------------------------------------------------------------------------------
 
 ConveyorSwitchObject_0_Routine6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20CF36
@@ -129,7 +129,7 @@ loc_20CF48:
 
 loc_20CF50:
 	move.b	#2,obj.routine(a0)
-	move.b	(r5_conveyor_reverse).l,obj.var_3c(a0)
+	move.b	r5_conveyor_reverse,obj.var_3c(a0)
 	rts
 
 ; ------------------------------------------------------------------------------

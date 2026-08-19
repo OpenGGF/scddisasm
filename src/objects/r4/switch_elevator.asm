@@ -32,7 +32,7 @@ off_20E622:
 ; ------------------------------------------------------------------------------
 
 sub_20E626:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	SolidObject
@@ -54,7 +54,7 @@ loc_20E662:
 	move.b	#5,obj.height(a0)
 
 SwitchObject2_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	sub_20E69A(pc)
 	bne.s	loc_20E680
 	bclr	#0,obj.subtype(a0)
@@ -141,7 +141,7 @@ loc_20E734:
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -163,7 +163,7 @@ off_20E75E:
 ; ------------------------------------------------------------------------------
 
 sub_20E762:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	SolidObject

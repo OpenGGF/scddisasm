@@ -77,13 +77,13 @@ DangoObject_0_Routine4:
 DangoObject_0_Routine6:
 	bsr.w	sub_20EF34
 	beq.s	loc_20EDFE
-	move.w	(player_object+obj.x).w,d0
+	move.w	player_object+obj.x,d0
 	sub.w	obj.x(a0),d0
 	spl	d1
 	subi.w	#$FF80,d0
 	subi.w	#$100,d0
 	bcc.s	DangoObject_0_RoutineA
-	move.w	(player_object+obj.y).w,d0
+	move.w	player_object+obj.y,d0
 	sub.w	obj.y(a0),d0
 	subi.w	#$FF80,d0
 	subi.w	#$100,d0
@@ -161,7 +161,7 @@ loc_20EE7E:
 ; ------------------------------------------------------------------------------
 
 loc_20EE84:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d1
 	move.w	obj.y(a0),d2
 	sub.w	obj.x(a1),d1
@@ -229,11 +229,11 @@ sub_20EF34:
 	add.l	d0,obj.x(a0)
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 	tst.w	obj.var_2a(a0)
 	bpl.s	loc_20EF56
 	neg.w	d3
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 
 loc_20EF56:
 	jsr	(a1)

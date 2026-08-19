@@ -32,7 +32,7 @@ LargeBreakWallObject_0_Routine2:
 	move.b	obj.collide_status(a0),d6
 	beq.s	loc_20EA6A
 	clr.b	obj.collide_status(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	asr	obj.x_speed(a1)
 	asr	obj.ground_speed(a1)
 	jsr	SolidObject
@@ -45,7 +45,7 @@ loc_20EA68:
 ; ------------------------------------------------------------------------------
 
 loc_20EA6A:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ LargeBreakWallObject_0_Routine4:
 	move.l	obj.var_2e(a0),d1
 	add.l	d0,obj.x(a0)
 	add.l	d1,obj.y(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	cmpi.w	#-$E0,d0

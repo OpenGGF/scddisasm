@@ -26,11 +26,11 @@ StalactiteObject_0_Routine0:
 	move.b	#$18,obj.height(a0)
 	move.l	#StalactiteSprites,obj.sprite_data(a0)
 	move.w	#$342,d0
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	loc_20DE7E
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	beq.s	loc_20DE82
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	loc_20DE82
 
 loc_20DE7E:
@@ -40,7 +40,7 @@ loc_20DE82:
 	move.w	d0,obj.sprite_tile(a0)
 
 StalactiteObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20DE9A
 	bcc.s	locret_20DE98
 	addq.b	#2,obj.routine(a0)
@@ -71,7 +71,7 @@ StalactiteObject_0_Routine4:
 	tst.b	obj.sprite_flags(a0)
 	bmi.s	loc_20DED4
 	move.w	obj.y(a0),d0
-	cmp.w	(player_object+obj.y).w,d0
+	cmp.w	player_object+obj.y,d0
 	blt.s	loc_20DED4
 	jmp	DeleteObject
 

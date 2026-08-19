@@ -1,16 +1,16 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_200202).l,a1
-	lea	(word_200208).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_200202,a1
+	lea	word_200208,a2
 	bsr.w	sub_2001B8
-	lea	(byte_200210).l,a1
-	lea	(word_200216).l,a2
+	lea	byte_200210,a1
+	lea	word_200216,a2
 	bsr.w	sub_2001B8
-	lea	(byte_20021E).l,a1
-	lea	(word_200224).l,a2
+	lea	byte_20021E,a1
+	lea	word_200224,a2
 
 ; ------------------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ sub_2001B8:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0

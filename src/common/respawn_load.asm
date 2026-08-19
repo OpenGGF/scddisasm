@@ -1,36 +1,36 @@
 ; ------------------------------------------------------------------------------
 
 LoadTimeWarpData:
-	move.w	(warp_x).l,obj.x(a6)
-	move.w	(warp_y).l,obj.y(a6)
-	move.b	(warp_player_flags).l,obj.flags(a6)
-	move.w	(warp_ground_speed).l,obj.ground_speed(a6)
-	move.w	(warp_x_speed).l,obj.x_speed(a6)
-	move.w	(warp_y_speed).l,obj.y_speed(a6)
-	move.w	(warp_rings).l,(rings).l
-	move.b	(warp_lives_flags).l,(lives_flags).l
-	move.l	(warp_time).l,(time).l
-	move.b	(warp_water_routine).l,(water_routine).w
-	move.w	(warp_bottom_bound).l,(bottom_bound).w
-	move.w	(warp_bottom_bound).l,(target_bottom_bound).w
-	move.w	(warp_scroll_fg_x).l,(scroll_fg_x).w
-	move.w	(warp_scroll_fg_y).l,(scroll_fg_y).w
-	move.w	(warp_scroll_bg_x).l,(scroll_bg_x).w
-	move.w	(warp_scroll_bg_y).l,(scroll_bg_y).w
-	move.w	(warp_scroll_bg2_x).l,(scroll_bg2_x).w
-	move.w	(warp_scroll_bg2_y).l,(scroll_bg2_y).w
-	move.w	(warp_scroll_bg3_x).l,(scroll_bg3_x).w
-	move.w	(warp_scroll_bg3_y).l,(scroll_bg3_y).w
-	cmpi.b	#6,(zone).l
+	move.w	warp_x,obj.x(a6)
+	move.w	warp_y,obj.y(a6)
+	move.b	warp_player_flags,obj.flags(a6)
+	move.w	warp_ground_speed,obj.ground_speed(a6)
+	move.w	warp_x_speed,obj.x_speed(a6)
+	move.w	warp_y_speed,obj.y_speed(a6)
+	move.w	warp_rings,rings
+	move.b	warp_lives_flags,lives_flags
+	move.l	warp_time,time
+	move.b	warp_water_routine,water_routine
+	move.w	warp_bottom_bound,bottom_bound
+	move.w	warp_bottom_bound,target_bottom_bound
+	move.w	warp_scroll_fg_x,scroll_fg_x
+	move.w	warp_scroll_fg_y,scroll_fg_y
+	move.w	warp_scroll_bg_x,scroll_bg_x
+	move.w	warp_scroll_bg_y,scroll_bg_y
+	move.w	warp_scroll_bg2_x,scroll_bg2_x
+	move.w	warp_scroll_bg2_y,scroll_bg2_y
+	move.w	warp_scroll_bg3_x,scroll_bg3_x
+	move.w	warp_scroll_bg3_y,scroll_bg3_y
+	cmpi.b	#6,zone
 	bne.s	loc_2063C6
-	move.b	(warp_shrunk).l,(shrunk_player).l
+	move.b	warp_shrunk,shrunk_player
 
 loc_2063C6:
-	tst.b	(spawn_mode).l
+	tst.b	spawn_mode
 	bpl.s	locret_2063DC
-	move.w	(warp_x).l,d0
+	move.w	warp_x,d0
 	subi.w	#$A0,d0
-	move.w	d0,(left_bound).w
+	move.w	d0,left_bound
 
 locret_2063DC:
 	rts
@@ -38,45 +38,45 @@ locret_2063DC:
 ; ------------------------------------------------------------------------------
 
 LoadCheckpoint:
-	lea	(player_object).w,a6
-	cmpi.b	#2,(spawn_mode).l
+	lea	player_object,a6
+	cmpi.b	#2,spawn_mode
 	beq.w	LoadTimeWarpData
-	move.b	(respawn_spawn_mode).l,(spawn_mode).l
-	move.w	(respawn_x).l,obj.x(a6)
-	move.w	(respawn_y).l,obj.y(a6)
-	clr.w	(rings).l
-	clr.b	(lives_flags).l
-	move.l	(respawn_time).l,(time).l
-	move.b	#59,(time_frames).l
-	subq.b	#1,(time_seconds).l
-	move.b	(respawn_water_routine).l,(water_routine).w
-	move.w	(respawn_bottom_bound).l,(bottom_bound).w
-	move.w	(respawn_bottom_bound).l,(target_bottom_bound).w
-	move.w	(respawn_scroll_fg_x).l,(scroll_fg_x).w
-	move.w	(respawn_scroll_fg_y).l,(scroll_fg_y).w
-	move.w	(respawn_scroll_bg_x).l,(scroll_bg_x).w
-	move.w	(respawn_scroll_bg_y).l,(scroll_bg_y).w
-	move.w	(respawn_scroll_bg2_x).l,(scroll_bg2_x).w
-	move.w	(respawn_scroll_bg2_y).l,(scroll_bg2_y).w
-	move.w	(respawn_scroll_bg3_x).l,(scroll_bg3_x).w
-	move.w	(respawn_scroll_bg3_y).l,(scroll_bg3_y).w
-	cmpi.b	#6,(zone).l
+	move.b	respawn_spawn_mode,spawn_mode
+	move.w	respawn_x,obj.x(a6)
+	move.w	respawn_y,obj.y(a6)
+	clr.w	rings
+	clr.b	lives_flags
+	move.l	respawn_time,time
+	move.b	#59,time_frames
+	subq.b	#1,time_seconds
+	move.b	respawn_water_routine,water_routine
+	move.w	respawn_bottom_bound,bottom_bound
+	move.w	respawn_bottom_bound,target_bottom_bound
+	move.w	respawn_scroll_fg_x,scroll_fg_x
+	move.w	respawn_scroll_fg_y,scroll_fg_y
+	move.w	respawn_scroll_bg_x,scroll_bg_x
+	move.w	respawn_scroll_bg_y,scroll_bg_y
+	move.w	respawn_scroll_bg2_x,scroll_bg2_x
+	move.w	respawn_scroll_bg2_y,scroll_bg2_y
+	move.w	respawn_scroll_bg3_x,scroll_bg3_x
+	move.w	respawn_scroll_bg3_y,scroll_bg3_y
+	cmpi.b	#6,zone
 	bne.s	loc_206498
-	move.b	(respawn_shrunk).l,(shrunk_player).l
+	move.b	respawn_shrunk,shrunk_player
 
 loc_206498:
-	cmpi.b	#2,(zone).l
+	cmpi.b	#2,zone
 	bne.s	loc_2064BA
-	move.w	(respawn_water_y).l,(static_water_y).w
-	move.b	(respawn_water_routine).l,(water_routine).w
-	move.b	(respawn_water_full).l,(water_full).w
+	move.w	respawn_water_y,static_water_y
+	move.b	respawn_water_routine,water_routine
+	move.b	respawn_water_full,water_full
 
 loc_2064BA:
-	tst.b	(spawn_mode).l
+	tst.b	spawn_mode
 	bpl.s	locret_2064D0
-	move.w	(respawn_x).l,d0
+	move.w	respawn_x,d0
 	subi.w	#$A0,d0
-	move.w	d0,(left_bound).w
+	move.w	d0,left_bound
 
 locret_2064D0:
 	rts

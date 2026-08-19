@@ -23,23 +23,23 @@ GameOverInit:
 	move.w	#$120,obj.var_2a(a0)
 	move.w	#$8544,obj.sprite_tile(a0)
 	move.l	#GameOverSprites,obj.sprite_data(a0)
-	move.b	#8,(powerup_changed).l
-	bclr	#0,(time_over).l
+	move.b	#8,powerup_changed
+	bclr	#0,time_over
 	beq.s	loc_20A896
-	tst.b	(lives).l
+	tst.b	lives
 	beq.s	loc_20A89E
 	move.l	#TimeOverSprites,obj.sprite_data(a0)
-	addq.b	#2,(powerup_changed).l
+	addq.b	#2,powerup_changed
 	bra.s	loc_20A89E
 
 ; ------------------------------------------------------------------------------
 
 loc_20A896:
-	tst.b	(lives).l
+	tst.b	lives
 	bne.s	loc_20A8AE
 
 loc_20A89E:
-	bset	#7,(powerup_changed).l
+	bset	#7,powerup_changed
 	jsr	SpawnObject
 	beq.s	loc_20A8B4
 
@@ -57,7 +57,7 @@ loc_20A8B4:
 	move.w	#$E0,obj.x+2(a1)
 	move.w	#$1C0,obj.x(a1)
 	move.w	#$120,obj.var_2a(a1)
-	tst.b	(lives).l
+	tst.b	lives
 	bne.s	GameOverMain
 	move.w	#$6E,d0
 	jmp	SubCpuCommand

@@ -185,8 +185,8 @@ loc_20DAD4:
 	bchg	#0,obj.flags(a0)
 	neg.l	obj.var_2a(a0)
 	neg.w	obj.var_34(a0)
-	lea	(CheckBlockLeft).l,a1
-	lea	(CheckBlockRight).l,a2
+	lea	CheckBlockLeft,a1
+	lea	CheckBlockRight,a2
 	cmpa.l	obj.var_36(a0),a1
 	bne.s	loc_20DB02
 	exg	a1,a2

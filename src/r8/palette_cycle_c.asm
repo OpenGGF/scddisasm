@@ -1,21 +1,21 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_200212).l,a1
-	lea	(word_20021A).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_200212,a1
+	lea	word_20021A,a2
 	bsr.w	CycleColor
-	lea	(byte_200220).l,a1
-	lea	(word_200228).l,a2
+	lea	byte_200220,a1
+	lea	word_200228,a2
 	bsr.w	CycleColor
-	lea	(byte_20022E).l,a1
-	lea	(word_200236).l,a2
+	lea	byte_20022E,a1
+	lea	word_200236,a2
 	bsr.s	CycleColor
-	tst.b	(act).l
+	tst.b	act
 	bne.s	locret_2001D2
-	lea	(byte_20023C).l,a1
-	lea	(word_20024A).l,a2
+	lea	byte_20023C,a1
+	lea	word_20024A,a2
 	bra.w	CycleColor
 
 ; ------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ CycleColor:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0
@@ -107,7 +107,7 @@ word_20024A:
 ; ------------------------------------------------------------------------------
 
 CycleBossPalette:
-	tst.b	(boss_started).w
+	tst.b	boss_started
 	beq.s	locret_20027C
 	addq.b	#1,(a4)
 	cmpi.b	#4,(a4)
@@ -123,7 +123,7 @@ CycleBossPalette:
 loc_20026E:
 	move.b	d0,(a3)
 	lea	word_20027E(pc,d0.w),a3
-	lea	((palette+$30)).w,a4
+	lea	(palette+$30),a4
 	move.l	(a3)+,(a4)+
 	move.l	(a3),(a4)
 

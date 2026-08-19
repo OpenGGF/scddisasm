@@ -9,7 +9,7 @@ AmyRoseObject:
 	jsr	CheckObjectDespawn
 	cmpi.b	#$33,obj.id(a0)
 	beq.s	locret_20EF30
-	lea	(StagePalette).l,a3
+	lea	StagePalette,a3
 	bsr.w	sub_20F3E4
 
 locret_20EF30:
@@ -39,13 +39,13 @@ AmyRoseObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.b	#$F5,obj.collide_type(a0)
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	loc_20EF8A
 	move.w	#$3F43,obj.x(a0)
 	move.w	#$1AB,obj.y(a0)
 
 loc_20EF8A:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
 	bcc.s	loc_20EF9A
@@ -65,7 +65,7 @@ loc_20EF9A:
 	jsr	PlayFmSound
 
 loc_20EFD0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	neg.w	obj.y_speed(a1)
 	addq.b	#2,obj.routine(a0)
 	move.w	#$258,obj.var_30(a0)
@@ -74,7 +74,7 @@ loc_20EFD0:
 ; ------------------------------------------------------------------------------
 
 loc_20EFE4:
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20F308
 
 ; ------------------------------------------------------------------------------
@@ -97,18 +97,18 @@ locret_20F018:
 ; ------------------------------------------------------------------------------
 
 loc_20F01A:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20F3B4
 	move.b	#$3C,obj.var_3f(a0)
 	addq.b	#2,obj.routine(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20F308
 
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject_0_Routine4:
 	bsr.w	sub_20F36A
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20F3B4
 	tst.w	obj.var_30(a0)
 	beq.s	loc_20F050
@@ -179,7 +179,7 @@ loc_20F0D0:
 	tst.w	obj.x_speed(a0)
 	bpl.s	loc_20F0FA
 	move.w	#$60,d1
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	loc_20F0EA
 	move.w	#$80,d1
 
@@ -203,7 +203,7 @@ loc_20F0FA:
 loc_20F110:
 	bsr.w	loc_20F2FA
 	move.b	#2,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20F308
 
 ; ------------------------------------------------------------------------------
@@ -213,14 +213,14 @@ loc_20F124:
 
 loc_20F128:
 	move.b	#1,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20F308
 
 ; ------------------------------------------------------------------------------
 
 loc_20F138:
 	move.b	#$FF,obj.var_38(a0)
-	clr.b	(update_hud_time).l
+	clr.b	update_hud_time
 	move.b	#1,obj.var_2a(a0)
 	jmp	StartResults
 
@@ -274,9 +274,9 @@ locret_20F1C4:
 
 AmyRoseObject_0_RoutineA:
 	bsr.w	sub_20F36A
-	lea	(player_object).w,a1
-	bset	#0,(control_locked).w
-	move.w	#0,(player_joy_hold).w
+	lea	player_object,a1
+	bset	#0,control_locked
+	move.w	#0,player_joy_hold
 	move.b	#5,obj.anim_id(a1)
 	bsr.w	sub_20F3B4
 	moveq	#$C,d0
@@ -291,7 +291,7 @@ loc_20F1F0:
 	move.b	#$E,obj.sprite_frame(a0)
 	tst.b	obj.var_38(a0)
 	bne.s	locret_20F21C
-	clr.b	(update_hud_time).l
+	clr.b	update_hud_time
 	move.b	#1,obj.var_2a(a0)
 	jmp	StartResults
 
@@ -304,7 +304,7 @@ locret_20F21C:
 
 AmyRoseObject_0_RoutineC:
 	bsr.w	sub_20F36A
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20F3B4
 	moveq	#$C,d0
 	btst	#0,obj.flags(a1)
@@ -324,8 +324,8 @@ loc_20F236:
 ; ------------------------------------------------------------------------------
 
 loc_20F24E:
-	lea	(player_object).w,a1
-	tst.b	(debug_mode).l
+	lea	player_object,a1
+	tst.b	debug_mode
 	bne.w	locret_20F2E0
 	btst	#0,obj.flags(a1)
 	bne.s	loc_20F26E
@@ -476,7 +476,7 @@ locret_20F3AC:
 
 ; ------------------------------------------------------------------------------
 
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -512,7 +512,7 @@ sub_20F3D2:
 ; ------------------------------------------------------------------------------
 
 sub_20F3E4:
-	lea	(palette+$20).w,a4
+	lea	palette+$20,a4
 	movem.l	(a3)+,d0-d3
 	movem.l	d0-d3,(a4)
 	movem.l	(a3)+,d0-d3

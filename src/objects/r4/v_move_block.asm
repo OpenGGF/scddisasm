@@ -32,7 +32,7 @@ VMoveBlockObject_0_Routine4:
 
 sub_20C2C0:
 	movem.l	d2-d3,-(sp)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	movem.l	(sp)+,d2-d3
 	rts

@@ -38,7 +38,7 @@ BreakWallObject_0_Routine2:
 	beq.s	loc_20F794
 	clr.w	obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x_speed(a1),obj.var_2a(a0)
 	move.w	obj.y_speed(a1),obj.var_2e(a0)
 	jsr	SolidObject
@@ -51,7 +51,7 @@ loc_20F792:
 ; ------------------------------------------------------------------------------
 
 loc_20F794:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -69,7 +69,7 @@ loc_20F7AA:
 	addq.w	#3,a5
 
 loc_20F7CA:
-	lea	(player_object).w,a3
+	lea	player_object,a3
 	asr	obj.x_speed(a3)
 	moveq	#2,d6
 	movea.w	a0,a1
@@ -112,7 +112,7 @@ BreakWallObject_0_Routine4:
 	move.l	obj.var_2e(a0),d1
 	add.l	d0,obj.x(a0)
 	add.l	d1,obj.y(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	cmpi.w	#-$E0,d0

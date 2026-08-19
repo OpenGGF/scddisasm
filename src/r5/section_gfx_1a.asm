@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 InitSectionGfx:
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	andi.b	#3,d0
 	beq.s	loc_20C502
 	moveq	#2,d0
@@ -11,7 +11,7 @@ loc_20C502:
 	lea	SectionGfxRanges(pc),a1
 	moveq	#0,d0
 	moveq	#0,d1
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 
 loc_20C50E:
 	cmp.w	(a1)+,d0
@@ -22,14 +22,14 @@ loc_20C50E:
 ; ------------------------------------------------------------------------------
 
 loc_20C516:
-	move.b	d1,(gfx_section_id).l
+	move.b	d1,gfx_section_id
 	move.w	SectionGfxInitLists(pc,d1.w),d0
 	jmp	AddGfxQueue
 
 ; ------------------------------------------------------------------------------
 
 UpdateSectionGfx:
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	andi.b	#3,d0
 	beq.s	loc_20C534
 	rts
@@ -38,7 +38,7 @@ loc_20C534:
 	lea	SectionGfxRanges(pc),a1
 	moveq	#0,d0
 	moveq	#0,d1
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 
 loc_20C540:
 	cmp.w	(a1)+,d0
@@ -49,14 +49,14 @@ loc_20C540:
 ; ------------------------------------------------------------------------------
 
 loc_20C548:
-	cmp.b	(gfx_section_id).l,d1
+	cmp.b	gfx_section_id,d1
 	bne.s	loc_20C552
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20C552:
-	move.b	d1,(gfx_section_id).l
+	move.b	d1,gfx_section_id
 	move.w	SectionGfxUpdateLists(pc,d1.w),d0
 	jmp	InitGfxQueue
 

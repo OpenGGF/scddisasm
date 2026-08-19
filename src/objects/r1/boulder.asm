@@ -30,7 +30,7 @@ BoulderInit:
 BoulderMain:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	locret_208210
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	SolidObject

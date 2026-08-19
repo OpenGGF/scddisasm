@@ -32,12 +32,12 @@ SearchlightObject_0_Routine0:
 	beq.s	SearchlightObject_0_Routine2
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$24AF,obj.sprite_tile(a0)
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	beq.s	SearchlightObject_0_Routine2
 	addi.w	#$2000,obj.sprite_tile(a0)
 
 SearchlightObject_0_Routine2:
-	move.w	(scroll_fg_y).w,d0
+	move.w	scroll_fg_y,d0
 	addi.w	#$70,d0
 	move.w	d0,obj.y(a0)
 	moveq	#0,d0
@@ -45,7 +45,7 @@ SearchlightObject_0_Routine2:
 	add.w	d0,d0
 	move.w	off_20F72A(pc,d0.w),d0
 	jsr	off_20F72A(pc,d0.w)
-	move.w	(stage_frames).l,d0
+	move.w	stage_frames,d0
 	andi.b	#3,d0
 	btst	#2,obj.subtype_2(a0)
 	beq.s	loc_20F718

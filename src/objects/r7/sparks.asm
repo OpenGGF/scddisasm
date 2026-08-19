@@ -23,7 +23,7 @@ SparksObject_0_Routine0:
 	move.l	#Spr_20C4BC,obj.sprite_data(a0)
 
 SparksObject_0_Routine2:
-	lea	(SparksAnims).l,a1
+	lea	SparksAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------

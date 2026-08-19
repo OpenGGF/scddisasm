@@ -5,7 +5,7 @@ EggMobileChaseObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20BA94(pc,d0.w),d0
 	jsr	off_20BA94(pc,d0.w)
-	lea	(EggMobileChaseAnims).l,a1
+	lea	EggMobileChaseAnims,a1
 	tst.b	obj.var_2d(a0)
 	beq.s	loc_20BA88
 	subq.b	#1,obj.var_2d(a0)
@@ -59,7 +59,7 @@ EggMobileChaseObject_0_Routine2:
 	bsr.w	loc_20BEEA
 	btst	#7,obj.routine_2(a0)
 	beq.s	loc_20BB22
-	lea	(byte_20C0D4).l,a1
+	lea	byte_20C0D4,a1
 	bra.s	loc_20BB38
 
 ; ------------------------------------------------------------------------------
@@ -67,13 +67,13 @@ EggMobileChaseObject_0_Routine2:
 loc_20BB22:
 	btst	#6,obj.routine_2(a0)
 	beq.s	loc_20BB32
-	lea	(byte_20C0E6).l,a1
+	lea	byte_20C0E6,a1
 	bra.s	loc_20BB38
 
 ; ------------------------------------------------------------------------------
 
 loc_20BB32:
-	lea	(byte_20C062).l,a1
+	lea	byte_20C062,a1
 
 loc_20BB38:
 	moveq	#0,d0
@@ -327,7 +327,7 @@ locret_20BDE4:
 
 EggMobileChaseObject_0_Routine6:
 	bsr.w	loc_20BF80
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#0,d1
 	moveq	#0,d2
 	move.w	obj.x(a1),d1
@@ -508,11 +508,11 @@ locret_20BFC8:
 ; ------------------------------------------------------------------------------
 
 EggMobileChaseObject_0_Routine8:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.w	#$478,obj.x(a1)
 	blt.s	locret_20BFEA
 	move.b	#2,obj.routine(a0)
-	move.b	#4,(boss_started).w
+	move.b	#4,boss_started
 	move.l	#$32C80,obj.x_speed(a0)
 
 locret_20BFEA:
@@ -735,7 +735,7 @@ loc_20C19C:
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	move.b	obj.flags(a1),obj.flags(a0)
-	lea	(EggmanChaseAnims).l,a1
+	lea	EggmanChaseAnims,a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	rts
@@ -743,12 +743,12 @@ loc_20C19C:
 ; ------------------------------------------------------------------------------
 
 EggmanChaseObject_0_Routine4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.w	#$840,obj.x(a1)
 	blt.s	locret_20C206
 	cmpi.w	#$550,obj.y(a1)
 	blt.s	locret_20C206
-	move.b	#4,(boss_flags).w
+	move.b	#4,boss_flags
 	movea.w	obj.var_32(a0),a1
 	tst.b	obj.id(a1)
 	beq.s	loc_20C1F0

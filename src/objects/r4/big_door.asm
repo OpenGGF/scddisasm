@@ -16,7 +16,7 @@ off_20CEEE:
 ; ------------------------------------------------------------------------------
 
 BigDoorObject_0_Routine0:
-	lea	(switch_flags).w,a1
+	lea	switch_flags,a1
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	adda.w	d0,a1
@@ -33,7 +33,7 @@ BigDoorObject_0_Routine2:
 	movea.l	obj.var_30(a0),a1
 	tst.b	(a1)
 	bne.s	loc_20CF48
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -93,7 +93,7 @@ BigDoorObject_0_Routine4:
 	add.l	d0,obj.y(a0)
 
 loc_20CFD2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jmp	DrawObject
 

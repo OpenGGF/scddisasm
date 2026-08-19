@@ -169,7 +169,7 @@ loc_20D10E:
 sub_20D112:
 	move.w	a0,-(sp)
 	movea.w	obj.var_2c(a0),a0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	movea.w	(sp)+,a0
 	jmp	SolidObject
@@ -177,12 +177,12 @@ sub_20D112:
 ; ------------------------------------------------------------------------------
 
 sub_20D12A:
-	move.w	(player_object+obj.x).w,d0
+	move.w	player_object+obj.x,d0
 	sub.w	obj.x(a0),d0
 	sub.w	d4,d0
 	sub.w	d5,d0
 	bcc.s	locret_20D148
-	move.w	(player_object+obj.y).w,d0
+	move.w	player_object+obj.y,d0
 	sub.w	obj.var_2e(a0),d0
 	subi.w	#-$30,d0
 	subi.w	#$60,d0

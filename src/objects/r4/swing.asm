@@ -8,7 +8,7 @@ SwingObject:
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -30,7 +30,7 @@ off_20CFC2:
 ; ------------------------------------------------------------------------------
 
 sub_20CFC6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jsr	TopSolidObject

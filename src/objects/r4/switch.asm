@@ -11,7 +11,7 @@ SwitchObject:
 	move.w	#$50A,obj.sprite_tile(a0)
 	move.l	#SwitchSprites,obj.sprite_data(a0)
 	move.b	#$A,obj.height(a0)
-	lea	(switch_flags).w,a1
+	lea	switch_flags,a1
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	lea	(a1,d0.w),a1
@@ -38,7 +38,7 @@ loc_20CBFE:
 	move.b	obj.var_3f(a0),obj.var_3e(a0)
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	loc_20CC1C
 	bsr.w	sub_20CCCE
@@ -112,7 +112,7 @@ loc_20CCA8:
 	movea.w	d0,a1
 	move.w	obj.var_36(a1),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0

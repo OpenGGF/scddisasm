@@ -28,13 +28,13 @@ TestObjectInit:
 TestObjectMain:
 	move.w	obj.var_30(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
 	cmpi.w	#$280,d0
 	bhi.w	DeleteObject
-	lea	(PowerupAnims).l,a1
+	lea	PowerupAnims,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 

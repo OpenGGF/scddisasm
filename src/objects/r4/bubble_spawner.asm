@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 BubbleSpawnerObject:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20A564(pc,d0.w),d1
@@ -45,14 +45,14 @@ loc_20A5B4:
 	move.b	d0,obj.angle(a0)
 
 BubbleSpawnerObject_0_Routine2:
-	lea	(BubbleSpawnAnims).l,a1
+	lea	BubbleSpawnAnims,a1
 	jsr	AnimateObject
 	cmpi.b	#6,obj.sprite_frame(a0)
 	bne.s	BubbleSpawnerObject_0_Routine4
 	move.b	#1,obj.var_2e(a0)
 
 BubbleSpawnerObject_0_Routine4:
-	move.w	(water_y).w,d0
+	move.w	water_y,d0
 	cmp.w	obj.y(a0),d0
 	bcs.s	loc_20A600
 
@@ -67,7 +67,7 @@ loc_20A600:
 	move.b	obj.angle(a0),d0
 	addq.b	#1,obj.angle(a0)
 	andi.w	#$7F,d0
-	lea	(WobbleTable).l,a1
+	lea	WobbleTable,a1
 	move.b	(a1,d0.w),d0
 	ext.w	d0
 	add.w	obj.var_30(a0),d0
@@ -111,7 +111,7 @@ loc_20A698:
 ; ------------------------------------------------------------------------------
 
 BubbleSpawnerObject_0_Routine6:
-	lea	(BubbleSpawnAnims).l,a1
+	lea	BubbleSpawnAnims,a1
 	jsr	AnimateObject
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_20A6B6
@@ -132,7 +132,7 @@ BubbleSpawnerObject_0_Routine8:
 BubbleSpawnerObject_0_RoutineA:
 	tst.w	obj.var_36(a0)
 	bne.s	loc_20A722
-	move.w	(water_y).w,d0
+	move.w	water_y,d0
 	cmp.w	obj.y(a0),d0
 	bcc.w	loc_20A7D4
 	tst.b	obj.sprite_flags(a0)
@@ -149,7 +149,7 @@ loc_20A6E8:
 	bcc.s	loc_20A6E8
 	move.b	d0,obj.var_34(a0)
 	andi.w	#$C,d1
-	lea	(unk_20A80C).l,a1
+	lea	unk_20A80C,a1
 	adda.w	d1,a1
 	move.l	a1,obj.var_3c(a0)
 	subq.b	#1,obj.var_32(a0)
@@ -211,7 +211,7 @@ loc_20A7AC:
 	clr.w	obj.var_36(a0)
 
 loc_20A7C8:
-	lea	(BubbleSpawnAnims).l,a1
+	lea	BubbleSpawnAnims,a1
 	jsr	AnimateObject
 
 loc_20A7D4:
@@ -219,7 +219,7 @@ loc_20A7D4:
 	bmi.s	loc_20A7F8
 	move.w	obj.x(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -227,7 +227,7 @@ loc_20A7D4:
 	bhi.w	DeleteObject
 
 loc_20A7F8:
-	move.w	(water_y).w,d0
+	move.w	water_y,d0
 	cmp.w	obj.y(a0),d0
 	bcs.w	DrawObject
 	bclr	#7,obj.sprite_flags(a0)

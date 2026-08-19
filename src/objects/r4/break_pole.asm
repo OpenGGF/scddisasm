@@ -60,7 +60,7 @@ BreakPoleObject_0_Routine4:
 	movea.l	obj.var_2c(a0),a1
 	subq.w	#1,obj.var_2a(a0)
 	beq.s	loc_206B04
-	move.w	(p1_joy_hold).w,d0
+	move.w	p1_joy_hold,d0
 	move.w	d0,d1
 	andi.b	#$70,d0
 	bne.s	loc_206B04
@@ -100,8 +100,8 @@ BreakPoleObject_0_Routine6:
 ; ------------------------------------------------------------------------------
 
 sub_206B16:
-	lea	(player_object).w,a1
-	tst.b	(debug_mode).l
+	lea	player_object,a1
+	tst.b	debug_mode
 	bne.s	loc_206B4C
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0

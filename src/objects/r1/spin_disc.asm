@@ -3,7 +3,7 @@
 SpinDiscSolid:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	jmp	(SolidObject).l
+	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
@@ -12,14 +12,14 @@ SpinDiscObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_2093E0(pc,d0.w),d0
 	jsr	off_2093E0(pc,d0.w)
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.s	loc_2093D4
-	lea	(SpinDiscAnims).l,a1
+	lea	SpinDiscAnims,a1
 	bsr.w	AnimateObject
 
 loc_2093D4:
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ SpinDiscObject_0_Routine0:
 SpinDiscObject_0_Routine2:
 	tst.b	obj.sprite_flags(a0)
 	bpl.w	locret_209452
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	SpinDiscSolid
 	beq.s	locret_209452
 	bset	#0,obj.var_2c(a1)
@@ -74,7 +74,7 @@ locret_209452:
 loc_209454:
 	addq.b	#8,obj.var_2b(a1)
 	move.b	obj.var_2b(a1),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	moveq	#0,d0
 	move.b	obj.var_39(a1),d0
 	muls.w	d1,d0
@@ -92,7 +92,7 @@ loc_209454:
 	addq.b	#1,obj.var_39(a1)
 
 loc_209494:
-	move.w	(p1_joy_hold).w,(player_joy_hold).w
+	move.w	p1_joy_hold,player_joy_hold
 	bsr.w	sub_2094B4
 	bra.w	loc_209506
 
@@ -126,7 +126,7 @@ sub_2094B4:
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
 	bcc.s	loc_2094E2
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	loc_2094CC
 	addq.b	#1,obj.var_39(a1)
 	bra.s	locret_209504
@@ -134,7 +134,7 @@ sub_2094B4:
 ; ------------------------------------------------------------------------------
 
 loc_2094CC:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	locret_209504
 	subq.b	#1,obj.var_39(a1)
 	bcc.s	locret_209504
@@ -144,7 +144,7 @@ loc_2094CC:
 ; ------------------------------------------------------------------------------
 
 loc_2094E2:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	loc_2094F0
 	addq.b	#1,obj.var_39(a1)
 	bra.s	locret_209504
@@ -152,7 +152,7 @@ loc_2094E2:
 ; ------------------------------------------------------------------------------
 
 loc_2094F0:
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	locret_209504
 	subq.b	#1,obj.var_39(a1)
 	bcc.s	locret_209504
@@ -164,7 +164,7 @@ locret_209504:
 ; ------------------------------------------------------------------------------
 
 loc_209506:
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.w	locret_2095C2
 	clr.b	obj.var_2c(a1)
@@ -177,7 +177,7 @@ loc_209526:
 	moveq	#0,d0
 	move.b	obj.angle(a1),d0
 	subi.b	#$40,d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	muls.w	d2,d1
 	asr.l	#8,d1
 	add.w	d1,obj.x_speed(a1)
@@ -189,8 +189,8 @@ loc_209526:
 	move.b	#1,obj.var_3c(a1)
 	clr.b	obj.var_38(a1)
 	move.w	#$A0,d0
-	jsr	(PlayFmSound).l
-	tst.b	(shrunk_player).l
+	jsr	PlayFmSound
+	tst.b	shrunk_player
 	beq.s	loc_20957C
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)
@@ -205,7 +205,7 @@ loc_20957C:
 loc_209588:
 	btst	#2,obj.flags(a1)
 	bne.s	loc_2095C4
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_2095A6
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)

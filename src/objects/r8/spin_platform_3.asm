@@ -104,7 +104,7 @@ SpinPlatformObject_0_Routine2:
 SpinPlatformObject_0_Routine4:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	sne	obj.var_3e(a0)
 	addi.w	#-1,obj.var_2c(a0)
@@ -114,7 +114,7 @@ SpinPlatformObject_0_Routine4:
 	addq.b	#2,obj.routine(a0)
 	tst.b	obj.var_3e(a0)
 	beq.s	locret_20EF4E
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------

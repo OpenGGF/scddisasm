@@ -24,16 +24,16 @@ HotaruObject_2_Routine0:
 	addq.b	#2,obj.routine(a0)
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	lea	2(a1,d0.w),a1
 	move.l	a1,obj.var_2a(a0)
-	lea	(word_20E33A).l,a1
+	lea	word_20E33A,a1
 	move.b	obj.subtype(a0),d0
 	andi.w	#$C,d0
 	adda.w	d0,a1
@@ -42,7 +42,7 @@ HotaruObject_2_Routine0:
 	sne	d0
 	move.b	d0,obj.subtype(a0)
 	move.w	#$845D,d0
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_20DCD4
 	move.w	#$8320,d0
 
@@ -54,7 +54,7 @@ HotaruObject_2_Routine2:
 	move.w	#$1E0,d2
 	move.w	#$FF10,d3
 	move.w	#$1E0,d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E202
 	bcc.s	loc_20DCF6
 	addq.b	#2,obj.routine(a0)
@@ -201,7 +201,7 @@ loc_20DE6E:
 	move.l	a1,obj.sprite_data(a0)
 	move.l	a2,obj.var_32(a0)
 	move.l	d0,obj.var_2e(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),d0
 	cmp.w	obj.x(a0),d0
 	blt.s	locret_20DE98
@@ -236,7 +236,7 @@ loc_20DECC:
 	move.w	#$70,d2
 	move.w	#-$50,d3
 	move.w	#$A0,d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E202
 	bcc.s	loc_20DF06
 	movea.w	obj.var_2a(a0),a2
@@ -268,7 +268,7 @@ HotaruObject_0_Routine4:
 	move.w	8(a3),d0
 	add.w	8(a4),d0
 	asr.w	#1,d0
-	sub.w	(scroll_fg_x).w,d0
+	sub.w	scroll_fg_x,d0
 	cmpi.w	#$98,d0
 	blt.w	loc_20DF7A
 	cmpi.w	#$A8,d0
@@ -280,7 +280,7 @@ loc_20DF44:
 	move.w	$C(a3),d0
 	add.w	$C(a4),d0
 	asr.w	#1,d0
-	sub.w	(scroll_fg_y).w,d0
+	sub.w	scroll_fg_y,d0
 	cmpi.w	#$68,d0
 	blt.w	loc_20DFD0
 	cmpi.w	#$78,d0
@@ -366,8 +366,8 @@ HotaruObject_0_Routine6:
 	move.b	#0,obj.sprite_flags(a0)
 	move.w	obj.x(a0),d0
 	move.w	obj.y(a0),d1
-	sub.w	(scroll_fg_x).w,d0
-	sub.w	(scroll_fg_y).w,d1
+	sub.w	scroll_fg_x,d0
+	sub.w	scroll_fg_y,d1
 	addi.w	#$80,d0
 	addi.w	#$80,d1
 	swap	d0
@@ -389,8 +389,8 @@ HotaruObject_0_RoutineA:
 	move.w	obj.x+2(a0),d1
 	subi.w	#$80,d0
 	subi.w	#$80,d1
-	add.w	(scroll_fg_x).w,d0
-	add.w	(scroll_fg_y).w,d1
+	add.w	scroll_fg_x,d0
+	add.w	scroll_fg_y,d1
 	move.w	d0,obj.x(a0)
 	move.w	d1,obj.y(a0)
 
@@ -449,7 +449,7 @@ HotaruObject_0_Routine14:
 	subq.w	#2,obj.y(a0)
 	tst.b	obj.sprite_flags(a0)
 	bmi.s	loc_20E0F6
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	cmpi.w	#$A0,d0

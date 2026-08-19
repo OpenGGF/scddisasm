@@ -53,7 +53,7 @@ locret_20E0D8:
 ; ------------------------------------------------------------------------------
 
 SemiObject_1_Routine4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20E0E8
 	bcc.s	locret_20E0E6
 	addq.b	#2,obj.routine(a0)
@@ -137,7 +137,7 @@ SemiObject_1_RoutineC:
 	bne.s	loc_20E1EC
 	andi.w	#$3F,obj.var_32(a0)
 	bne.s	loc_20E1E8
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E0E8
 	bcc.s	loc_20E1E8
 	jsr	SpawnObject

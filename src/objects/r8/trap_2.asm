@@ -4,12 +4,12 @@ loc_20CCAC:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20CCD0
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	bclr	#7,2(a1,d0.w)
 
@@ -171,7 +171,7 @@ locret_20CDE0:
 loc_20CDE2:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20CDE0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20CDFA
@@ -351,7 +351,7 @@ byte_20CF72:
 ; ------------------------------------------------------------------------------
 
 SpikeCrusherObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcs.s	locret_20CFA8
@@ -384,7 +384,7 @@ loc_20CFB2:
 	move.b	#$50,d1
 
 loc_20CFB8:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),d0
 	sub.w	obj.var_36(a0),d0
 	add.w	d1,d0
@@ -450,7 +450,7 @@ word_20D02C:
 ; ------------------------------------------------------------------------------
 
 sub_20D038:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20D04E
@@ -674,7 +674,7 @@ loc_20D22A:
 SpikesObject_2_Routine2:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20D278
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20D264
@@ -771,12 +771,12 @@ SpikesObject_1_Routine2:
 loc_20D346:
 	move.w	#$8488,obj.sprite_tile(a0)
 	move.b	#$83,obj.collide_type(a0)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	loc_20D382
 	clr.b	obj.collide_type(a0)
 
 loc_20D35E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------
@@ -784,7 +784,7 @@ loc_20D35E:
 loc_20D368:
 	move.b	#3,obj.sprite_layer(a0)
 	move.b	#$83,obj.collide_type(a0)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20D382
 	clr.b	obj.collide_type(a0)
 	bra.s	loc_20D35E
@@ -795,18 +795,18 @@ loc_20D382:
 	tst.b	obj.sprite_frame(a0)
 	bne.w	loc_20D3E4
 	clr.b	obj.collide_type(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	locret_20D3E2
 	btst	#3,obj.flags(a0)
 	beq.s	locret_20D3E2
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	locret_20D3E2
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	locret_20D3E2
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	loc_20D3E0
 	tst.w	obj.var_30(a0)
@@ -830,7 +830,7 @@ locret_20D3E2:
 loc_20D3E4:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20D3F6
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 
 locret_20D3F6:
@@ -877,15 +877,15 @@ SpikesObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 
 SpikesObject_0_Routine2:
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20D45E
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20D45E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ RollTunnelObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20618C(pc,d0.w),d0
 	jsr	off_20618C(pc,d0.w)
-	tst.b	(debug_cheat).l
+	tst.b	debug_cheat
 	beq.s	loc_206186
 	jsr	DrawObject
 
@@ -31,7 +31,7 @@ sub_206190:
 ; ------------------------------------------------------------------------------
 
 sub_2061B2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.b	#$2B,obj.anim_id(a1)
 	beq.w	locret_20626E
 	cmpi.b	#6,obj.routine(a1)
@@ -46,7 +46,7 @@ sub_2061B2:
 
 loc_2061E0:
 	move.w	#$A00,d1
-	cmpi.b	#5,(zone).l
+	cmpi.b	#5,zone
 	bne.s	loc_2061F2
 	move.w	#$D00,d1
 
@@ -109,7 +109,7 @@ locret_20626E:
 ; ------------------------------------------------------------------------------
 
 loc_206270:
-	move.b	(p1_joy_hold).w,d1
+	move.b	p1_joy_hold,d1
 	cmpi.b	#4,obj.subtype(a0)
 	beq.s	loc_2062BC
 	cmpi.b	#2,obj.subtype(a0)
@@ -155,7 +155,7 @@ loc_2062BC:
 ; ------------------------------------------------------------------------------
 
 sub_2062D2:
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.s	loc_206306
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0

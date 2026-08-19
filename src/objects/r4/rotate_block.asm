@@ -25,7 +25,7 @@ loc_20EBE2:
 
 ; ------------------------------------------------------------------------------
 
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	TopSolidObject
 
 ; ------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ RotateBlockObject_1_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20EC8E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.b	#2,obj.var_3d(a0)
 	bcc.s	loc_20ECAC
 	move.w	obj.x(a0),d0
@@ -172,7 +172,7 @@ RotateBlockObject_1_Routine6:
 	move.b	byte_20EDD8(pc,d0.w),d0
 	bmi.s	loc_20EDCA
 	move.b	d0,obj.sprite_frame(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	move.b	obj.height(a0),d1
 	ext.w	d1
@@ -185,7 +185,7 @@ RotateBlockObject_1_Routine6:
 	bne.s	locret_20EDD6
 	move.b	#8,obj.var_3a(a0)
 	addq.b	#1,obj.var_3b(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.b	#1,obj.var_3b(a0)
 	bne.s	loc_20EDAA
 	move.w	obj.x(a0),obj.x(a1)
@@ -229,13 +229,13 @@ sub_20EDE8:
 	move.w	obj.y(a0),d2
 	add.w	d0,d2
 	move.w	obj.x(a0),d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	clr.b	(a4)
 	movea.w	#$10,a3
 	moveq	#0,d6
 	moveq	#$D,d5
 	jsr	CheckBlockY
-	move.b	(collide_angle_1).w,d3
+	move.b	collide_angle_1,d3
 	btst	#0,d3
 	beq.s	locret_20EE14
 	move.b	#0,d3
@@ -287,10 +287,10 @@ RotateBlockObject_0_Routine2:
 	cmpi.b	#4,d0
 	bcc.w	loc_20EEFA
 	add.b	d0,d0
-	lea	(byte_20EF04).l,a2
+	lea	byte_20EF04,a2
 	tst.b	obj.var_3d(a0)
 	beq.s	loc_20EEA0
-	lea	(byte_20EF0C).l,a2
+	lea	byte_20EF0C,a2
 
 loc_20EEA0:
 	lea	(a2,d0.w),a2
@@ -302,7 +302,7 @@ loc_20EEA0:
 	add.w	obj.y(a1),d1
 	move.w	d0,obj.x(a0)
 	move.w	d1,obj.y(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	tst.b	obj.var_3d(a0)
 	bne.s	loc_20EED8
@@ -332,7 +332,7 @@ locret_20EEF8:
 ; ------------------------------------------------------------------------------
 
 loc_20EEFA:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------

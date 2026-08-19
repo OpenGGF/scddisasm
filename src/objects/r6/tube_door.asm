@@ -27,7 +27,7 @@ loc_20D420:
 ; ------------------------------------------------------------------------------
 
 loc_20D428:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	SolidObject
@@ -48,7 +48,7 @@ TubeDoorObject_0_Routine0:
 	bset	#0,obj.flags(a0)
 
 TubeDoorObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	bcc.s	loc_20D486
@@ -94,7 +94,7 @@ loc_20D4DE:
 ; ------------------------------------------------------------------------------
 
 TubeDoorObject_0_Routine6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	bcc.s	loc_20D4F2

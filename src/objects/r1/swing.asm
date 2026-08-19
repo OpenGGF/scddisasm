@@ -5,9 +5,9 @@ SwingObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20EB74(pc,d0.w),d0
 	jsr	off_20EB74(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
-	jmp	(CheckObjectDespawn2).l
+	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
@@ -18,18 +18,18 @@ off_20EB74:
 ; ------------------------------------------------------------------------------
 
 sub_20EB78:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20EB82
-	lea	(player_object_2).w,a1
+	lea	player_object_2,a1
 
 ; ------------------------------------------------------------------------------
 
 sub_20EB82:
 	move.b	#8,obj.height(a0)
-	jsr	(TopSolidObject).l
+	jsr	TopSolidObject
 	bne.s	loc_20EB9E
 	move.b	#$C,obj.height(a0)
-	jsr	(TopSolidObject).l
+	jsr	TopSolidObject
 	beq.s	loc_20EBC8
 
 loc_20EB9E:
@@ -71,7 +71,7 @@ SwingObject_0_Routine0:
 	move.b	#3,obj.sprite_layer(a0)
 	move.l	#SwingSprites,obj.sprite_data(a0)
 	moveq	#$11,d0
-	jsr	(SetObjectSpriteTile).l
+	jsr	SetObjectSpriteTile
 	move.b	#$18,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	tst.b	obj.var_3c(a0)
@@ -87,7 +87,7 @@ SwingObject_0_Routine0:
 	subq.b	#1,d2
 
 loc_20EC62:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	loc_20EC9E
 	move.b	#$29,obj.id(a1)
 	move.w	obj.var_36(a0),obj.var_36(a1)
@@ -164,7 +164,7 @@ loc_20ED24:
 
 loc_20ED3E:
 	move.b	obj.var_3a(a0),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	move.b	obj.var_3c(a0),d2
 	ext.w	d2
 	asl.w	#4,d2

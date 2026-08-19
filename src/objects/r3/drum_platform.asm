@@ -8,7 +8,7 @@ DrumPlatformObject:
 	jsr	DrawObject
 	move.w	obj.var_32(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -34,7 +34,7 @@ off_20CD46:
 sub_20CD4E:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20CDA0
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	loc_20CD8E
 	moveq	#8,d0
 	cmpi.b	#2,obj.sprite_frame(a0)
@@ -53,7 +53,7 @@ loc_20CD8A:
 	move.b	d0,obj.height(a0)
 
 loc_20CD8E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	TopSolidObject
@@ -91,16 +91,16 @@ locret_20CDEE:
 DrumPlatformObject_0_Routine2:
 	tst.b	obj.var_3a(a0)
 	bne.s	loc_20CE04
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	GetOffObject
 	bra.w	loc_20CEC2
 
 ; ------------------------------------------------------------------------------
 
 loc_20CE04:
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	locret_20CE1C
-	tst.b	(stage_anim_timers).w
+	tst.b	stage_anim_timers
 	bne.s	locret_20CE1C
 	bsr.w	sub_20CEB0
 	subq.b	#1,obj.var_3a(a0)
@@ -129,9 +129,9 @@ DrumPlatformObject_0_Routine4:
 ; ------------------------------------------------------------------------------
 
 loc_20CE3E:
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	locret_20CE56
-	tst.b	(stage_anim_timers).w
+	tst.b	stage_anim_timers
 	bne.s	locret_20CE56
 	bsr.w	sub_20CEB0
 	subq.b	#1,obj.var_3a(a0)
@@ -154,16 +154,16 @@ loc_20CE58:
 DrumPlatformObject_0_Routine6:
 	tst.b	obj.var_3a(a0)
 	bne.s	loc_20CE7E
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	GetOffObject
 	bra.w	loc_20CEC2
 
 ; ------------------------------------------------------------------------------
 
 loc_20CE7E:
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	locret_20CE96
-	tst.b	(stage_anim_timers).w
+	tst.b	stage_anim_timers
 	bne.s	locret_20CE96
 	bsr.w	sub_20CEB0
 	subq.b	#1,obj.var_3a(a0)
@@ -255,7 +255,7 @@ byte_20CF2A:
 ; ------------------------------------------------------------------------------
 
 sub_20CF36:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	rts
 
 ; ------------------------------------------------------------------------------

@@ -32,7 +32,7 @@ BreakWallObject_0_Routine2:
 	beq.s	loc_20F914
 	clr.w	obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x_speed(a1),obj.var_2a(a0)
 	move.w	obj.y_speed(a1),obj.var_2e(a0)
 	bra.s	loc_20F92A
@@ -40,17 +40,17 @@ BreakWallObject_0_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20F914:
-	lea	(player_object).w,a1
-	jsr	(SolidObject).l
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	lea	player_object,a1
+	jsr	SolidObject
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
 loc_20F92A:
 	move.w	#$B0,d0
-	jsr	(PlayFmSound).l
-	lea	(player_object).w,a6
+	jsr	PlayFmSound
+	lea	player_object,a6
 	asr	obj.x_speed(a6)
 	lea	byte_20FB36(pc),a5
 	moveq	#0,d0
@@ -66,7 +66,7 @@ loc_20F92A:
 ; ------------------------------------------------------------------------------
 
 loc_20F958:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	BreakWallObject_0_Routine4
 	move.b	obj.id(a0),obj.id(a1)
 	move.b	obj.routine(a0),obj.routine(a1)
@@ -102,17 +102,17 @@ BreakWallObject_0_Routine4:
 	move.l	obj.var_2e(a0),d1
 	add.l	d0,obj.x(a0)
 	add.l	d1,obj.y(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	cmpi.w	#-$E0,d0
 	ble.s	loc_20F9F8
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20F9F8:
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 

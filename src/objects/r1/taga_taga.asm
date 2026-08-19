@@ -1,14 +1,14 @@
 ; ------------------------------------------------------------------------------
 
 TagaTagaObject:
-	jsr	(DestroyInGoodFuture).l
+	jsr	DestroyInGoodFuture
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20BACC(pc,d0.w),d0
 	jsr	off_20BACC(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
-	jmp	(CheckObjectDespawn2).l
+	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ TagaTagaObject_0_Routine0:
 	move.w	obj.x(a0),obj.var_2a(a0)
 	move.w	obj.y(a0),obj.var_2c(a0)
 	moveq	#3,d0
-	jsr	(SetObjectSpriteTile).l
+	jsr	SetObjectSpriteTile
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20BB28
 	lea	TagaTagaSprites1(pc),a1
@@ -62,7 +62,7 @@ TagaTagaObject_0_Routine2:
 
 TagaTagaObject_0_Routine4:
 	movea.l	obj.var_3c(a0),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
@@ -75,7 +75,7 @@ TagaTagaObject_0_Routine6:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	TagaTagaObject_0_Routine8
 	move.w	#$A2,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 TagaTagaObject_0_Routine8:
 	move.l	obj.var_34(a0),d0
@@ -89,11 +89,11 @@ TagaTagaObject_0_Routine8:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_20BBC8
 	move.w	#$A2,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 loc_20BBC8:
 	movea.l	obj.var_3c(a0),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 

@@ -51,7 +51,7 @@ sub_20A770:
 	move.b	obj.var_38(a0),d2
 	move.w	d2,d3
 	add.w	d3,d3
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),d0
 	sub.w	obj.var_32(a0),d0
 	add.w	d2,d0

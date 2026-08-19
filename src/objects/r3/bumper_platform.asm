@@ -49,7 +49,7 @@ BumperPlatformObject_0_Routine2:
 	jsr	PlayFmSound
 
 loc_20B1DA:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	clr.b	obj.collide_status(a0)
 	move.w	obj.x(a1),d5
 	move.w	obj.y(a1),d6

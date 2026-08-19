@@ -28,7 +28,7 @@ SpikeWallObject_0_Routine2:
 	move.l	obj.var_2c(a0),d0
 	add.l	d0,obj.x(a0)
 	moveq	#0,d0
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20E766
 	move.b	obj.var_33(a0),d0
 

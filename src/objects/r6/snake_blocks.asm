@@ -7,7 +7,7 @@ SnakeBlocksObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20EC24(pc,d0.w),d0
 	jsr	off_20EC24(pc,d0.w)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -73,7 +73,7 @@ loc_20ECAA:
 	move.b	obj.routine(a0),d0
 	move.w	off_20ECE2(pc,d0.w),d0
 	jsr	off_20ECE2(pc,d0.w)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jmp	DrawObject
 
@@ -224,7 +224,7 @@ locret_20EE20:
 ; ------------------------------------------------------------------------------
 
 SnakeBlocksObject_0_Routine12:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	loc_20EE34
 	jsr	GetOffObject

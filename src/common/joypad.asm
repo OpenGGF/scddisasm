@@ -3,16 +3,16 @@
 InitJoypads:
 	bsr.w	StopZ80
 	moveq	#$40,d0
-	move.b	d0,(IO_CTRL_1).l
-	move.b	d0,(IO_CTRL_2).l
-	move.b	d0,(IO_CTRL_3).l
+	move.b	d0,IO_CTRL_1
+	move.b	d0,IO_CTRL_2
+	move.b	d0,IO_CTRL_3
 	bra.w	StartZ80
 
 ; ------------------------------------------------------------------------------
 
 ReadJoypads:
-	lea	(p1_joy_hold).w,a0
-	lea	(IO_DATA_1).l,a1
+	lea	p1_joy_hold,a0
+	lea	IO_DATA_1,a1
 	bsr.s	ReadJoypad
 	addq.w	#2,a1
 

@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 MetalSonicObject:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	movea.w	obj.var_2e(a0),a2
 	bsr.w	sub_20BFAC
 	bsr.w	sub_20BF54
@@ -9,7 +9,7 @@ MetalSonicObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20BE48(pc,d0.w),d0
 	jsr	off_20BE48(pc,d0.w)
-	lea	(MetalSonicAnims).l,a1
+	lea	MetalSonicAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -114,7 +114,7 @@ MetalSonicObject_1_Routine6:
 
 MetalSonicObject_1_RoutineA:
 	move.b	#$82,obj.var_38(a2)
-	bset	#7,(boss_flags).w
+	bset	#7,boss_flags
 	addq.b	#1,obj.var_2d(a0)
 	move.w	#$3C,obj.var_2a(a0)
 	move.w	#$20,d0
@@ -172,7 +172,7 @@ sub_20BFAC:
 	move.w	#$3E90,d0
 	cmp.w	obj.x(a0),d0
 	ble.w	loc_20C032
-	lea	(player_object).w,a3
+	lea	player_object,a3
 	cmp.w	obj.x(a3),d0
 	ble.s	loc_20BFCC
 
@@ -185,7 +185,7 @@ loc_20BFCC:
 	tst.b	$39(a2)
 	bne.s	loc_20C002
 	move.b	#1,$39(a2)
-	bset	#7,(boss_flags).w
+	bset	#7,boss_flags
 	move.w	#$BB,d0
 	movem.l	a0-a2,-(sp)
 	jsr	PlayFmSound
@@ -215,12 +215,12 @@ locret_20C030:
 loc_20C032:
 	move.w	d0,obj.x(a0)
 	move.b	#$82,$39(a2)
-	bset	#7,(boss_flags).w
+	bset	#7,boss_flags
 	move.w	#$BB,d0
 	movem.l	a0-a2,-(sp)
 	jsr	PlayFmSound
 	movem.l	(sp)+,a0-a2
-	lea	(player_object).w,a3
+	lea	player_object,a3
 	bsr.w	sub_20C072
 	bclr	#5,obj.var_2c(a0)
 	move.b	#$10,obj.routine(a0)
@@ -464,7 +464,7 @@ loc_20C22A:
 MetalSonicObject_0_RoutineA:
 	bsr.w	sub_20CE68
 	bsr.w	sub_20CA0E
-	lea	(word_20C246).l,a3
+	lea	word_20C246,a3
 	bra.w	sub_20CEE0
 
 ; ------------------------------------------------------------------------------
@@ -505,7 +505,7 @@ loc_20C27A:
 MetalSonicObject_0_RoutineC:
 	bsr.w	sub_20CE68
 	bsr.w	sub_20CA0E
-	lea	(word_20C294).l,a3
+	lea	word_20C294,a3
 	bra.w	sub_20CEE0
 
 ; ------------------------------------------------------------------------------
@@ -565,7 +565,7 @@ loc_20C2F6:
 MetalSonicObject_0_RoutineE:
 	bsr.w	sub_20CE68
 	bsr.w	sub_20CA0E
-	lea	(word_20C30E).l,a3
+	lea	word_20C30E,a3
 	bsr.w	sub_20CEE0
 	rts
 
@@ -662,7 +662,7 @@ loc_20C3DA:
 ; ------------------------------------------------------------------------------
 
 MetalSonicObject_0_Routine10:
-	lea	(player_object).w,a3
+	lea	player_object,a3
 	bsr.w	sub_20C072
 	moveq	#0,d0
 	move.b	obj.var_2d(a0),d0
@@ -740,14 +740,14 @@ loc_20C47A:
 ; ------------------------------------------------------------------------------
 
 EggmanObject:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20C4B0(pc,d0.w),d0
 	jsr	off_20C4B0(pc,d0.w)
 	bsr.w	sub_20C97C
 	bsr.w	sub_20C940
-	lea	(EggmanAnims).l,a1
+	lea	EggmanAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -769,8 +769,8 @@ EggmanObject_0_Routine0:
 	move.b	#$24,obj.height(a0)
 	move.w	#$300,obj.sprite_tile(a0)
 	move.l	#Spr_20D0DE,obj.sprite_data(a0)
-	addq.b	#7,(boss_flags).w
-	move.b	#7,(boss_started).w
+	addq.b	#7,boss_flags
+	move.b	#7,boss_started
 	movem.l	d7-a7,-(sp)
 	move.w	#6,d0
 	jsr	LoadPalette
@@ -814,8 +814,8 @@ EggmanObject_1_Routine0:
 	addq.b	#1,obj.var_2d(a0)
 	bset	#0,obj.flags(a0)
 	move.w	#$B40,d0
-	move.w	d0,(left_bound).w
-	move.w	d0,(target_left_bound).w
+	move.w	d0,left_bound
+	move.w	d0,target_left_bound
 	move.w	#$67,d0
 	movem.l	a0-a2,-(sp)
 	jsr	SubCpuCommand
@@ -827,12 +827,12 @@ EggmanObject_1_Routine0:
 loc_20C580:
 	move.w	8(a1),d0
 	subi.w	#$A0,d0
-	cmp.w	(left_bound).w,d0
+	cmp.w	left_bound,d0
 	blt.w	locret_20C634
 	cmpi.w	#$B40,d0
 	bgt.w	locret_20C634
-	move.w	d0,(left_bound).w
-	move.w	d0,(target_left_bound).w
+	move.w	d0,left_bound
+	move.w	d0,target_left_bound
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -894,7 +894,7 @@ EggmanObject_0_Routine4:
 
 loc_20C64A:
 	bsr.w	sub_20C9FC
-	lea	(word_20C658).l,a3
+	lea	word_20C658,a3
 	bra.w	sub_20CEE0
 
 ; ------------------------------------------------------------------------------
@@ -1114,7 +1114,7 @@ loc_20C81A:
 
 EggmanObject_2_Routine12:
 	move.w	#$20,d0
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20C836
 	move.w	#$1F,d0
 
@@ -1133,7 +1133,7 @@ loc_20C836:
 
 sub_20C85E:
 	lea	word_20C886(pc),a3
-	lea	(palette+$20).w,a4
+	lea	palette+$20,a4
 	movem.l	(a3)+,d0-d3
 	movem.l	d0-d3,(a4)
 	movem.l	d0-d3,-$80(a4)
@@ -1152,7 +1152,7 @@ word_20C886:
 sub_20C8A6:
 	move.b	obj.width_2(a0),d0
 	move.w	obj.x(a0),d1
-	sub.w	(scroll_fg_x).w,d1
+	sub.w	scroll_fg_x,d1
 	add.w	d0,d1
 	bge.s	loc_20C8D2
 	addq.w	#1,obj.var_3c(a0)
@@ -1239,7 +1239,7 @@ word_20C930:
 sub_20C940:
 	btst	#4,obj.var_2c(a0)
 	beq.s	locret_20C97A
-	lea	(player_object).w,a3
+	lea	player_object,a3
 	tst.b	(a3)
 	beq.s	locret_20C97A
 	cmpi.b	#6,obj.routine(a3)
@@ -1269,15 +1269,15 @@ sub_20C97C:
 	move.w	#$3DA0,d0
 
 loc_20C992:
-	move.w	d0,(left_bound).w
-	move.w	d0,(target_left_bound).w
+	move.w	d0,left_bound
+	move.w	d0,target_left_bound
 	move.w	obj.x(a1),d0
-	sub.w	(left_bound).w,d0
+	sub.w	left_bound,d0
 	subi.w	#$A0,d0
 	bge.s	loc_20C9B4
 	addi.w	#$A0,d0
 	andi.w	#$FFFE,d0
-	move.w	d0,(scroll_focus_x).w
+	move.w	d0,scroll_focus_x
 
 loc_20C9B4:
 	move.b	obj.var_38(a0),d0
@@ -1303,24 +1303,24 @@ EggmanObject_3_Routine0:
 
 EggmanObject_3_Routine2:
 	move.w	#$B40,d0
-	move.w	d0,(right_bound).w
-	move.w	d0,(target_right_bound).w
+	move.w	d0,right_bound
+	move.w	d0,target_right_bound
 	rts
 
 ; ------------------------------------------------------------------------------
 
 EggmanObject_3_Routine4:
 	move.w	#$3DA0,d0
-	move.w	d0,(right_bound).w
-	move.w	d0,(target_right_bound).w
+	move.w	d0,right_bound
+	move.w	d0,target_right_bound
 	rts
 
 ; ------------------------------------------------------------------------------
 
 EggmanObject_3_Routine6:
-	lea	(word_20292E+4).l,a3
-	move.w	(a3),(right_bound).w
-	move.w	(a3),(target_right_bound).w
+	lea	word_20292E+4,a3
+	move.w	(a3),right_bound
+	move.w	(a3),target_right_bound
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1399,7 +1399,7 @@ loc_20CA88:
 ; ------------------------------------------------------------------------------
 
 sub_20CA8E:
-	lea	(word_20CABA).l,a2
+	lea	word_20CABA,a2
 
 loc_20CA94:
 	move.w	(a2)+,d2
@@ -1528,7 +1528,7 @@ loc_20CBE6:
 	move.b	#9,obj.var_2b(a0)
 
 loc_20CBF6:
-	lea	(BossLaserAnims).l,a1
+	lea	BossLaserAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1603,7 +1603,7 @@ BossLaserObject_0_Routine6:
 ; ------------------------------------------------------------------------------
 
 loc_20CCA4:
-	lea	(BossLaserImpactAnims).l,a1
+	lea	BossLaserImpactAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1646,7 +1646,7 @@ DebrisObject:
 loc_20CD30:
 	bsr.w	loc_20CEA0
 	move.w	obj.y(a0),d0
-	move.w	(scroll_fg_y).w,d1
+	move.w	scroll_fg_y,d1
 	addi.w	#$E8,d1
 	sub.w	d1,d0
 	bgt.s	loc_20CD4A
@@ -1713,7 +1713,7 @@ loc_20CDE0:
 	add.w	d0,obj.x(a0)
 	move.w	obj.var_38(a0),d0
 	add.w	d0,obj.y(a0)
-	lea	(BossExhaustAnims).l,a1
+	lea	BossExhaustAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 

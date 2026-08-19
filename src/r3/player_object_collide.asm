@@ -19,7 +19,7 @@ PlayerObjectCollide:
 loc_2071AC:
 	move.w	#$10,d4
 	add.w	d5,d5
-	lea	(object_spawn_pool).w,a1
+	lea	object_spawn_pool,a1
 	move.w	#$5F,d6
 
 loc_2071BA:
@@ -41,7 +41,7 @@ loc_2071CE:
 loc_2071D2:
 	andi.w	#$3F,d0
 	add.w	d0,d0
-	lea	(byte_207558).l,a2
+	lea	byte_207558,a2
 	lea	-2(a2,d0.w),a2
 	moveq	#0,d1
 	move.b	(a2)+,d1
@@ -127,9 +127,9 @@ locret_207290:
 ; ------------------------------------------------------------------------------
 
 sub_207292:
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	loc_2072AC
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_2072AC
 	cmpi.b	#2,obj.anim_id(a0)
 	bne.w	sub_20735C
@@ -154,8 +154,8 @@ locret_2072D4:
 loc_2072D6:
 	bset	#7,obj.flags(a1)
 	moveq	#0,d0
-	move.w	(score_chain).w,d0
-	addq.w	#2,(score_chain).w
+	move.w	score_chain,d0
+	addq.w	#2,score_chain
 	cmpi.w	#6,d0
 	bcs.s	loc_2072EE
 	moveq	#6,d0
@@ -163,7 +163,7 @@ loc_2072D6:
 loc_2072EE:
 	move.w	d0,explode.points(a1)
 	move.w	word_20734E(pc,d0.w),d0
-	cmpi.w	#$20,(score_chain).w
+	cmpi.w	#$20,score_chain
 	bcs.s	loc_207308
 	move.w	#1000,d0
 	move.w	#10,explode.points(a1)
@@ -210,9 +210,9 @@ word_20734E:
 ; ------------------------------------------------------------------------------
 
 sub_20735C:
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	loc_20736C
-	tst.b	(invincible).l
+	tst.b	invincible
 	beq.s	loc_207370
 
 loc_20736C:
@@ -228,9 +228,9 @@ loc_207370:
 	movea.l	a1,a2
 
 HurtPlayer:
-	tst.b	(shield).l
+	tst.b	shield
 	bne.s	loc_2073A6
-	tst.w	(rings).l
+	tst.w	rings
 	beq.w	loc_207410
 	jsr	SpawnObject
 	bne.s	loc_2073A6
@@ -240,9 +240,9 @@ HurtPlayer:
 
 loc_2073A6:
 	clr.b	obj.var_2a(a0)
-	bclr	#0,(shield).l
+	bclr	#0,shield
 	bne.s	loc2_2073BC
-	move.b	#0,(combine_ring).l
+	move.b	#0,combine_ring
 
 loc2_2073BC:
 	move.b	#4,obj.routine(a0)
@@ -271,13 +271,13 @@ loc_2073FA:
 ; ------------------------------------------------------------------------------
 
 loc_207410:
-	tst.w	(debug_cheat).l
+	tst.w	debug_cheat
 	bne.w	loc_2073A6
 
 KillPlayer:
-	tst.w	(debug_mode).l
+	tst.w	debug_mode
 	bne.s	loc_20746E
-	move.b	#0,(invincible).l
+	move.b	#0,invincible
 	move.b	#6,obj.routine(a0)
 	bsr.w	PlayerSetGround
 	bset	#1,obj.flags(a0)
@@ -312,13 +312,13 @@ loc_207472:
 	beq.w	loc_20754A
 	cmpi.b	#$3B,d1
 	beq.w	loc_20754A
-	tst.b	(boss_started).w
+	tst.b	boss_started
 	beq.w	locret_207500
-	cmpi.b	#1,(boss_started).w
+	cmpi.b	#1,boss_started
 	beq.s	loc_2074CA
-	cmpi.b	#4,(boss_started).w
+	cmpi.b	#4,boss_started
 	beq.s	loc_2074EC
-	cmpi.b	#5,(boss_started).w
+	cmpi.b	#5,boss_started
 	beq.s	loc_2074FA
 
 loc_2074CA:

@@ -3,14 +3,14 @@
 TamabbohObject:
 	cmpi.b	#1,obj.subtype(a0)
 	beq.w	loc_20B9B4
-	jsr	(DestroyInGoodFuture).l
+	jsr	DestroyInGoodFuture
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20B7A0(pc,d0.w),d0
 	jsr	off_20B7A0(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
-	jmp	(CheckObjectDespawn2).l
+	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ TamabbohObject_1_Routine0:
 	move.b	#$F,obj.height(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
 	moveq	#4,d0
-	jsr	(SetObjectSpriteTile).l
+	jsr	SetObjectSpriteTile
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B7F8
 	lea	TamabbohSprites1(pc),a1
@@ -57,7 +57,7 @@ loc_20B806:
 TamabbohObject_1_Routine2:
 	move.l	#$10000,d0
 	add.l	d0,obj.y(a0)
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	bpl.s	locret_20B82A
 	addq.b	#2,obj.routine(a0)
@@ -68,7 +68,7 @@ locret_20B82A:
 ; ------------------------------------------------------------------------------
 
 TamabbohObject_1_Routine4:
-	tst.w	(debug_mode).l
+	tst.w	debug_mode
 	bne.s	loc_20B84E
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B84E
@@ -80,7 +80,7 @@ TamabbohObject_1_Routine4:
 ; ------------------------------------------------------------------------------
 
 loc_20B846:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20B8A0
 	bcs.s	loc_20B89A
 
@@ -95,14 +95,14 @@ loc_20B84E:
 loc_20B862:
 	cmpi.w	#$80,d0
 	bge.s	loc_20B888
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	cmpi.w	#-7,d1
 	blt.s	loc_20B888
 	cmpi.w	#7,d1
 	bgt.s	loc_20B888
 	add.w	d1,obj.y(a0)
 	movea.l	obj.var_30(a0),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ TamabbohObject_1_Routine6:
 
 TamabbohObject_1_Routine8:
 	movea.l	obj.var_30(a0),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
@@ -153,17 +153,17 @@ TamabbohObject_1_RoutineA:
 	move.w	#$78,obj.var_34(a0)
 	tst.b	obj.subtype(a0)
 	bne.s	locret_20B91E
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	locret_20B91E
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_20B90A
 	move.w	#$A0,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 loc_20B90A:
 	bsr.s	sub_20B920
 	sf	obj.var_3f(a1)
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	locret_20B91E
 	bsr.s	sub_20B920
 	st	obj.var_3f(a1)
@@ -207,7 +207,7 @@ loc_20B9B4:
 	move.b	obj.routine(a0),d0
 	move.w	off_20B9C8(pc,d0.w),d0
 	jsr	off_20B9C8(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -249,15 +249,15 @@ loc_20BA26:
 TamabbohObject_0_Routine2:
 	tst.b	obj.sprite_flags(a0)
 	bmi.s	loc_20BA3C
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20BA3C:
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	bpl.s	loc_20BA4C
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -271,7 +271,7 @@ loc_20BA4C:
 	move.l	obj.var_36(a0),d0
 	add.l	d0,obj.var_2e(a0)
 	lea	TamaMissileAnims(pc),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 

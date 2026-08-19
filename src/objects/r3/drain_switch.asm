@@ -42,7 +42,7 @@ loc_20AAA6:
 	move.w	#$4F8,obj.y(a1)
 
 DrainSwitchObject_0_Routine2:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	lea	obj.var_3e(a0),a5
 	bsr.w	sub_20AAF2
 	tst.w	obj.var_2a(a0)

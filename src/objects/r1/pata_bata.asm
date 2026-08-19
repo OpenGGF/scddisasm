@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 PataBataObject:
-	jsr	(DestroyInGoodFuture).l
+	jsr	DestroyInGoodFuture
 	tst.b	obj.routine(a0)
 	bne.w	loc_20B4B8
 	addq.b	#2,obj.routine(a0)
@@ -15,7 +15,7 @@ PataBataObject:
 	move.w	obj.y(a0),obj.var_2c(a0)
 	move.w	#$8000,obj.var_2e(a0)
 	moveq	#1,d0
-	jsr	(SetObjectSpriteTile).l
+	jsr	SetObjectSpriteTile
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B492
 	move.l	#-$8000,d0
@@ -63,17 +63,17 @@ loc_20B4EE:
 	move.w	obj.var_36(a0),d0
 	add.w	d0,obj.var_34(a0)
 	move.b	obj.var_34(a0),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	swap	d0
 	move.w	obj.var_38(a0),d1
 	asr.l	d1,d0
 	add.l	obj.var_2c(a0),d0
 	move.l	d0,obj.y(a0)
 	lea	PataBataAnims(pc),a1
-	jsr	(AnimateObject).l
-	jsr	(DrawObject).l
+	jsr	AnimateObject
+	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
-	jmp	(CheckObjectDespawn2).l
+	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 

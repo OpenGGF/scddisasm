@@ -24,7 +24,7 @@ MeshObject_0_Routine0:
 
 MeshObject_0_Routine2:
 	move.b	#4,obj.sprite_layer(a0)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	locret_20B804
 	move.b	#0,obj.sprite_layer(a0)
 

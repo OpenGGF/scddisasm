@@ -22,7 +22,7 @@ SpikesObject:
 loc_20BFB4:
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -53,7 +53,7 @@ SpikesObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$31E,d0
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_20C002
 	move.w	#$3FC,d0
 
@@ -79,24 +79,24 @@ SpikesObject_0_Routine2:
 	jsr	sub_20C0AE(pc)
 	tst.b	obj.sprite_frame(a0)
 	beq.s	loc_20C058
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20C058:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	locret_20C0AC
 	btst	#3,obj.flags(a0)
 	beq.s	locret_20C0AC
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	locret_20C0AC
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	locret_20C0AC
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	loc_20C0AA
 	tst.w	obj.var_30(a0)

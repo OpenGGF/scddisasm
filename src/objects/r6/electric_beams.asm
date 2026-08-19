@@ -35,21 +35,21 @@ ElectricBeamsObject_0_Routine2:
 	tst.w	obj.var_3a(a0)
 	bne.s	loc_20CC5C
 	bsr.w	sub_20CD38
-	cmpi.b	#2,(time_zone).l
+	cmpi.b	#2,time_zone
 	bne.s	loc_20CC2C
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	locret_20CC5A
 
 loc_20CC2C:
-	tst.b	(act).l
+	tst.b	act
 	bne.s	loc_20CC3E
-	move.w	(scroll_fg_y).w,d0
+	move.w	scroll_fg_y,d0
 	cmpi.w	#$400,d0
 	bcc.s	locret_20CC5A
 
 loc_20CC3E:
 	move.w	#$168,d0
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	beq.s	loc_20CC56
 	move.w	#$1E0,d0
 	subq.b	#1,d1
@@ -94,14 +94,14 @@ loc_20CCA2:
 loc_20CCA6:
 	move.b	obj.var_3c(a0),d0
 	addq.b	#1,d0
-	move.b	d0,(r6_beam_mode).l
+	move.b	d0,r6_beam_mode
 	moveq	#0,d0
 	move.b	obj.var_3c(a0),d0
 	bsr.w	sub_20CD80
 	subq.w	#1,obj.var_3a(a0)
 	bne.s	locret_20CCE0
 	subq.b	#2,obj.routine(a0)
-	clr.b	(r6_beam_mode).l
+	clr.b	r6_beam_mode
 	addq.b	#1,obj.var_3c(a0)
 	cmpi.b	#3,obj.var_3c(a0)
 	bcs.s	locret_20CCE0
@@ -114,7 +114,7 @@ locret_20CCE0:
 ; ------------------------------------------------------------------------------
 
 sub_20CCE2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	rts
@@ -122,7 +122,7 @@ sub_20CCE2:
 ; ------------------------------------------------------------------------------
 
 sub_20CCF4:
-	lea	(object_spawn_pool).w,a1
+	lea	object_spawn_pool,a1
 	move.w	#$5F,d0
 
 loc_20CCFC:
@@ -138,7 +138,7 @@ loc_20CD0A:
 	bne.s	locret_20CD36
 	move.b	#$21,obj.id(a1)
 	move.b	#1,obj.subtype(a1)
-	lea	(player_object).w,a2
+	lea	player_object,a2
 	move.w	obj.x(a2),obj.x(a1)
 	move.w	obj.y(a2),obj.y(a1)
 
@@ -148,26 +148,26 @@ locret_20CD36:
 ; ------------------------------------------------------------------------------
 
 sub_20CD38:
-	lea	(palette+$40).w,a3
+	lea	palette+$40,a3
 	move.w	#$626,d0
 	move.w	#$646,d2
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	beq.s	loc_20CD6E
-	lea	(palette+$7A).w,a3
+	lea	palette+$7A,a3
 	move.w	#$222,d0
 	move.w	#$680,d2
 	subq.b	#1,d1
 	beq.s	loc_20CD6E
 	move.w	#$402,d0
 	move.w	#$246,d2
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20CD6E
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20CD6E:
-	lea	(palette+$64).w,a2
+	lea	palette+$64,a2
 	move.w	d0,(a2)+
 	move.w	d0,(a2)+
 	move.w	d0,(a2)+
@@ -186,15 +186,15 @@ byte_20CD7C:
 
 sub_20CD80:
 	move.b	byte_20CD7C(pc,d0.w),d0
-	lea	(palette+$64).w,a2
+	lea	palette+$64,a2
 	lea	(a2,d0.w),a2
-	lea	(word_20CE28).l,a1
-	move.b	(time_zone).l,d1
+	lea	word_20CE28,a1
+	move.b	time_zone,d1
 	beq.s	loc_20CDAA
-	lea	(word_20CE0E).l,a1
+	lea	word_20CE0E,a1
 	subq.b	#1,d1
 	beq.s	loc_20CDAA
-	lea	(word_20CE42).l,a1
+	lea	word_20CE42,a1
 
 loc_20CDAA:
 	moveq	#0,d1
@@ -209,15 +209,15 @@ loc_20CDAA:
 	clr.b	obj.var_3e(a0)
 
 loc_20CDC8:
-	lea	(palette+$40).w,a2
-	lea	(word_20CE38).l,a1
-	move.b	(time_zone).l,d1
+	lea	palette+$40,a2
+	lea	word_20CE38,a1
+	move.b	time_zone,d1
 	beq.s	loc_20CDEE
-	lea	(palette+$7A).w,a2
-	lea	(word_20CE1E).l,a1
+	lea	palette+$7A,a2
+	lea	word_20CE1E,a1
 	subq.b	#1,d1
 	beq.s	loc_20CDEE
-	lea	(word_20CE52).l,a1
+	lea	word_20CE52,a1
 
 loc_20CDEE:
 	moveq	#0,d1
@@ -291,7 +291,7 @@ word_20CE52:
 
 sub_20CE5C:
 	move.b	byte_20CE7E(pc,d0.w),d0
-	lea	(palette+$64).w,a2
+	lea	palette+$64,a2
 	lea	(a2,d0.w),a2
 	move.w	#$80,d0
 	tst.b	obj.var_2e(a0)

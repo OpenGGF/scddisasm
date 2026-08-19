@@ -38,7 +38,7 @@ loc_20F944:
 ; ------------------------------------------------------------------------------
 
 ProjectorObject_0_Routine0:
-	tst.b	(projector_destroyed).l
+	tst.b	projector_destroyed
 	bne.s	loc_20F944
 	move.w	#5,d0
 	jsr	AddGfxQueue
@@ -52,7 +52,7 @@ ProjectorObject_0_Routine0:
 	move.l	#HologramSprites,obj.sprite_data(a0)
 	move.l	#byte_20FC1E,obj.var_2c(a0)
 	move.w	#$4E8,obj.sprite_tile(a0)
-	tst.b	(act).l
+	tst.b	act
 	beq.s	loc_20F9A8
 	move.w	#$300,obj.sprite_tile(a0)
 
@@ -101,7 +101,7 @@ ProjectorObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 
 loc_20FA78:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ ProjectorObject_0_Routine4:
 	st	obj.var_3f(a0)
 	move.w	#4,d0
 	jsr	AddGfxQueue
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	ProjectorObject_0_Routine6
 	jsr	GetOffObject
@@ -155,7 +155,7 @@ loc_20FAFE:
 ProjectorObject_0_Routine8:
 	subq.w	#1,obj.var_2a(a0)
 	bne.s	locret_20FB1A
-	st	(projector_destroyed).l
+	st	projector_destroyed
 	bra.w	loc_20F944
 
 ; ------------------------------------------------------------------------------
@@ -178,7 +178,7 @@ loc_20FB1C:
 	move.b	#4,obj.sprite_layer(a0)
 	move.l	#HologramSprites,obj.sprite_data(a0)
 	move.w	#$4E8,obj.sprite_tile(a0)
-	tst.b	(act).l
+	tst.b	act
 	beq.s	loc_20FB64
 	move.w	#$300,obj.sprite_tile(a0)
 

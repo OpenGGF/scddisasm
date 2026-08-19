@@ -29,7 +29,7 @@ off_20EF1A:
 ; ------------------------------------------------------------------------------
 
 EggmanStatueObject_1_Routine0:
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20EF34
 	addq.l	#4,sp
 	jmp	DeleteObject
@@ -53,7 +53,7 @@ EggmanStatueObject_1_Routine2:
 	beq.s	loc_20EF94
 	clr.w	obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	locret_20EF92
 	jsr	GetOffObject
@@ -64,7 +64,7 @@ locret_20EF92:
 ; ------------------------------------------------------------------------------
 
 loc_20EF94:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------

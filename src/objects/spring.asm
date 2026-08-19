@@ -7,7 +7,7 @@ MoveSpringObject:
 	jsr	off_20824E(pc,d0.w)
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -70,7 +70,7 @@ loc_2082DC:
 ; ------------------------------------------------------------------------------
 
 sub_2082E2:
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.s	loc_208318
 	jsr	CheckBlockDown
 	add.w	d1,obj.y(a0)
@@ -82,7 +82,7 @@ sub_2082E2:
 
 loc_208306:
 	jsr	MoveObject
-	lea	(MoveSpringAnims).l,a1
+	lea	MoveSpringAnims,a1
 	jsr	AnimateObject
 
 loc_208318:
@@ -114,8 +114,8 @@ SpringSpriteInit:
 	addq.b	#2,obj.routine(a0)
 
 SpringSpriteMain:
-	move.w	(player_object+obj.x).w,obj.x(a0)
-	move.w	(player_object+obj.y).w,obj.y(a0)
+	move.w	player_object+obj.x,obj.x(a0)
+	move.w	player_object+obj.y,obj.y(a0)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
@@ -151,7 +151,7 @@ loc_20838A:
 loc_2083BC:
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -247,7 +247,7 @@ sub_2084AA:
 SpringUpMain:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	locret_2084C6
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_2084AA
 	bne.s	loc_2084C8
 
@@ -270,7 +270,7 @@ loc_2084C8:
 ; ------------------------------------------------------------------------------
 
 SpringUpAnim:
-	lea	(SpringAnims).l,a1
+	lea	SpringAnims,a1
 	bra.w	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -294,7 +294,7 @@ sub_20851C:
 SpringSideMain:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	locret_20853E
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20851C
 	btst	#5,obj.flags(a0)
 	bne.s	loc_208540
@@ -332,7 +332,7 @@ loc_208588:
 ; ------------------------------------------------------------------------------
 
 SpringSideAnim:
-	lea	(SpringAnims).l,a1
+	lea	SpringAnims,a1
 	bra.w	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -355,7 +355,7 @@ sub_2085BE:
 SpringDownMain:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	locret_2085DA
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_2085BE
 	bne.s	loc_2085DC
 
@@ -376,7 +376,7 @@ loc_2085DC:
 	jsr	PlayFmSound
 
 SpringDownAnim:
-	lea	(SpringAnims).l,a1
+	lea	SpringAnims,a1
 	bra.w	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -392,7 +392,7 @@ SpringDownReset:
 SpringDiagonalMain:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	locret_208640
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_2084AA
 	bne.s	loc_208642
 	btst	#5,obj.flags(a0)
@@ -441,7 +441,7 @@ loc_2086A2:
 	jsr	PlayFmSound
 
 SpringDiagonalAnim:
-	lea	(SpringAnims).l,a1
+	lea	SpringAnims,a1
 	bra.w	AnimateObject
 
 ; ------------------------------------------------------------------------------

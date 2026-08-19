@@ -103,7 +103,7 @@ sub_20DBB8:
 TagaTagaObject_0_Routine2:
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20DBFC
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.w	sub_20DCA2
 	bcs.w	loc_20DCD0
 
@@ -249,7 +249,7 @@ TagaTagaObject_0_Routine8:
 ; ------------------------------------------------------------------------------
 
 	move.w	obj.x(a0),d0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	sub.w	obj.x(a1),d0
 	bpl.w	loc_20DDCE
 	neg.w	d0
@@ -314,7 +314,7 @@ TagaMissileObject_0_Routine4:
 	add.l	d0,obj.var_2a(a0)
 	move.l	obj.var_36(a0),d0
 	add.l	d0,obj.var_2e(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	cmpi.w	#$E0,d0

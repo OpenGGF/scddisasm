@@ -1,30 +1,30 @@
 ; ------------------------------------------------------------------------------
 
 DrawStageBg:
-	lea	(VDP_CTRL).l,a5
-	lea	(VDP_DATA).l,a6
-	lea	(scroll_flags_bg).w,a2
-	lea	(scroll_bg_x).w,a3
-	lea	(stage_map+$40).w,a4
+	lea	VDP_CTRL,a5
+	lea	VDP_DATA,a6
+	lea	scroll_flags_bg,a2
+	lea	scroll_bg_x,a3
+	lea	stage_map+$40,a4
 	move.w	#$6000,d2
 	bsr.w	sub_203164
-	lea	(scroll_flags_bg2).w,a2
-	lea	(scroll_bg2_x).w,a3
+	lea	scroll_flags_bg2,a2
+	lea	scroll_bg2_x,a3
 	bra.w	locret_20324A
 
 ; ------------------------------------------------------------------------------
 
 DrawStage:
-	lea	(VDP_CTRL).l,a5
-	lea	(VDP_DATA).l,a6
-	lea	(scroll_flags_bg_work).l,a2
-	lea	(scroll_bg_x_work).l,a3
-	lea	(stage_map+$40).w,a4
+	lea	VDP_CTRL,a5
+	lea	VDP_DATA,a6
+	lea	scroll_flags_bg_work,a2
+	lea	scroll_bg_x_work,a3
+	lea	stage_map+$40,a4
 	move.w	#$6000,d2
 	bsr.w	sub_203164
-	lea	(scroll_flags_fg_work).l,a2
-	lea	(scroll_fg_x_work).l,a3
-	lea	(stage_map).w,a4
+	lea	scroll_flags_fg_work,a2
+	lea	scroll_fg_x_work,a3
+	lea	stage_map,a4
 	move.w	#$4000,d2
 
 DrawStageFg:
@@ -75,7 +75,7 @@ locret_203162:
 ; ------------------------------------------------------------------------------
 
 sub_203164:
-	lea	(unk_203530).l,a0
+	lea	unk_203530,a0
 	adda.w	#1,a0
 	moveq	#$FFFFFFF0,d4
 	bclr	#0,(a2)
@@ -85,7 +85,7 @@ sub_203164:
 	move.w	#$E0,d4
 
 loc_203180:
-	move.w	(scroll_bg_y).w,d0
+	move.w	scroll_bg_y,d0
 	add.w	d4,d0
 	andi.w	#$FFF0,d0
 	asr.w	#4,d0
@@ -133,7 +133,7 @@ loc_2031D0:
 	move.w	#$140,d5
 
 loc_2031E4:
-	move.w	(scroll_bg_y).w,d0
+	move.w	scroll_bg_y,d0
 	andi.w	#$FFF0,d0
 	asr.w	#4,d0
 	suba.w	#1,a0
@@ -318,7 +318,7 @@ GetBlockDataAbsX:
 	add.w	4(a3),d4
 
 GetBlockDataAbsXY:
-	lea	(stage_blocks).l,a1
+	lea	stage_blocks,a1
 	move.w	d4,d3
 	lsr.w	#1,d3
 	andi.w	#$380,d3
@@ -390,9 +390,9 @@ GetChunkBlock:
 
 PlaceBlock:
 	move.l	a0,-(sp)
-	lea	(stage_map).w,a4
-	lea	(VDP_CTRL).l,a5
-	lea	(VDP_DATA).l,a6
+	lea	stage_map,a4
+	lea	VDP_CTRL,a5
+	lea	VDP_DATA,a6
 	move.w	#$4000,d2
 	move.l	#$800000,d7
 	movem.l	d3-d5,-(sp)
@@ -413,7 +413,7 @@ loc_203406:
 	bsr.w	CheckBlockVisible
 	bne.s	loc_203430
 	movem.l	d3-d5,-(sp)
-	lea	(stage_blocks).l,a1
+	lea	stage_blocks,a1
 	andi.w	#$3FF,d3
 	lsl.w	#3,d3
 	adda.w	d3,a1
@@ -428,7 +428,7 @@ loc_203430:
 ; ------------------------------------------------------------------------------
 
 CheckBlockVisible:
-	move.w	(scroll_fg_y).w,d0
+	move.w	scroll_fg_y,d0
 	move.w	d0,d1
 	andi.w	#$FFF0,d0
 	subi.w	#$10,d0
@@ -438,7 +438,7 @@ CheckBlockVisible:
 	andi.w	#$FFF0,d1
 	cmp.w	d1,d4
 	bgt.s	loc_203474
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 	move.w	d0,d1
 	andi.w	#$FFF0,d0
 	subi.w	#$10,d0
@@ -496,14 +496,14 @@ GetBlockVramWrite2:
 ; ------------------------------------------------------------------------------
 
 InitStageDraw:
-	lea	(VDP_CTRL).l,a5
-	lea	(VDP_DATA).l,a6
-	lea	(scroll_fg_x).w,a3
-	lea	(stage_map).w,a4
+	lea	VDP_CTRL,a5
+	lea	VDP_DATA,a6
+	lea	scroll_fg_x,a3
+	lea	stage_map,a4
 	move.w	#$4000,d2
 	bsr.s	InitStageDrawFg
-	lea	(scroll_bg_x).w,a3
-	lea	(stage_map+$40).w,a4
+	lea	scroll_bg_x,a3
+	lea	stage_map+$40,a4
 	move.w	#$6000,d2
 	bra.w	loc_203502
 
@@ -535,9 +535,9 @@ loc_203502:
 
 loc_203506:
 	movem.l	d4-d6/a0,-(sp)
-	lea	(unk_203530).l,a0
+	lea	unk_203530,a0
 	adda.w	#1,a0
-	move.w	(scroll_bg_y).w,d0
+	move.w	scroll_bg_y,d0
 	add.w	d4,d0
 	andi.w	#$7F0,d0
 	bsr.w	sub_2035C2

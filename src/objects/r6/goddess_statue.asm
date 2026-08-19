@@ -23,13 +23,13 @@ GoddessStatueObject_0_Routine0:
 	move.b	#$32,obj.var_2b(a0)
 
 GoddessStatueObject_0_Routine2:
-	move.w	(player_object+obj.x).w,d0
+	move.w	player_object+obj.x,d0
 	sub.w	obj.x(a0),d0
 	addi.w	#$10,d0
 	bcs.s	locret_2088AC
 	cmpi.w	#$20,d0
 	bcc.s	locret_2088AC
-	move.w	(player_object+obj.y).w,d0
+	move.w	player_object+obj.y,d0
 	sub.w	obj.y(a0),d0
 	addi.w	#$20,d0
 	bcs.s	locret_2088AC
@@ -73,7 +73,7 @@ loc_2088C6:
 	move.b	#$47,obj.collide_type(a1)
 	move.b	#8,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
-	move.b	#$FF,(lost_ring_anim_timer).l
+	move.b	#$FF,lost_ring_anim_timer
 	move.w	#$FE00,obj.y_speed(a1)
 	jsr	Random
 	lsl.w	#1,d0

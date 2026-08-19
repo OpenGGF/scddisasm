@@ -43,17 +43,17 @@ CapsuleInit:
 	move.b	#$18,obj.height(a0)
 
 CapsuleMain:
-	lea	(CapsuleAnims).l,a1
+	lea	CapsuleAnims,a1
 	jsr	AnimateObject
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.w	sub_209EA2
 	beq.s	locret_209D7A
-	clr.b	(update_hud_time).l
+	clr.b	update_hud_time
 	move.b	#2,obj.sprite_frame(a0)
 	move.b	#$78,obj.var_2a(a0)
 	addq.b	#2,obj.routine(a0)
-	move.w	(player_object+obj.x).w,d0
-	move.b	(player_object+obj.width).w,d1
+	move.w	player_object+obj.x,d0
+	move.b	player_object+obj.width,d1
 	ext.w	d1
 	addi.w	#$20,d1
 	sub.w	obj.x(a0),d0
@@ -62,19 +62,19 @@ CapsuleMain:
 	add.w	d1,d1
 	cmp.w	d1,d0
 	bcc.s	loc_209D6E
-	move.w	(player_object+obj.y_speed).w,d0
+	move.w	player_object+obj.y_speed,d0
 	neg.w	d0
 	asr.w	#2,d0
-	move.w	d0,(player_object+obj.y_speed).w
+	move.w	d0,player_object+obj.y_speed
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_209D6E:
-	move.w	(player_object+obj.x_speed).w,d0
+	move.w	player_object+obj.x_speed,d0
 	neg.w	d0
 	asr.w	#2,d0
-	move.w	d0,(player_object+obj.x_speed).w
+	move.w	d0,player_object+obj.x_speed
 
 locret_209D7A:
 	rts
@@ -134,7 +134,7 @@ byte_209DE8:
 
 sub_209DF8:
 	moveq	#0,d0
-	move.b	(StageDataIndex+$E).l,d0
+	move.b	StageDataIndex+$E,d0
 	move.l	d7,d6
 	jsr	LoadPalette
 	move.l	d6,d7
@@ -178,7 +178,7 @@ word_209E5C:
 ; ------------------------------------------------------------------------------
 
 CapsuleSeed:
-	lea	(CapsuleAnims).l,a1
+	lea	CapsuleAnims,a1
 	jsr	AnimateObject
 	jsr	MoveObjectFall
 	jsr	CheckBlockDown
@@ -250,7 +250,7 @@ BigRingFlashInit:
 	move.l	#BigRingFlashSprites,obj.sprite_data(a0)
 
 BigRingFlashAnimate:
-	lea	(BigRingFlashAnims).l,a1
+	lea	BigRingFlashAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -263,7 +263,7 @@ BigRingFlashDelete:
 BigRingObject:
 	tst.b	obj.subtype(a0)
 	bne.s	BigRingFlashObject
-	cmpi.w	#50,(rings).l
+	cmpi.w	#50,rings
 	bcc.s	loc_209F44
 	jmp	CheckObjectDespawn
 
@@ -293,14 +293,14 @@ off_209F62:
 ; ------------------------------------------------------------------------------
 
 BigRingInit:
-	cmpi.b	#$7F,(game_time_stones).l
+	cmpi.b	#$7F,game_time_stones
 	bne.s	loc_209F78
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
 loc_209F78:
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	beq.s	loc_209F86
 	jmp	DeleteObject
 
@@ -316,19 +316,19 @@ loc_209F86:
 	move.b	#$20,obj.height(a0)
 
 BigRingMain:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20A026
 	beq.s	BigRingAnimate
-	move.b	#1,(enter_special_stage).l
+	move.b	#1,enter_special_stage
 	addq.b	#2,obj.routine(a0)
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 	addi.w	#$150,d0
 	move.w	d0,obj.x(a1)
-	bset	#0,(control_locked).w
-	move.w	#$808,(player_joy_hold).w
+	bset	#0,control_locked
+	move.w	#$808,player_joy_hold
 	move.w	#0,obj.x_speed(a1)
 	move.w	#0,obj.ground_speed(a1)
-	move.b	#1,(scroll_lock).w
+	move.b	#1,scroll_lock
 	move.w	#$AF,d0
 	jsr	PlayFmSound
 	jsr	SpawnObject
@@ -339,7 +339,7 @@ BigRingMain:
 	move.b	#1,obj.subtype(a1)
 
 BigRingAnimate:
-	lea	(BigRingAnims).l,a1
+	lea	BigRingAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -377,12 +377,12 @@ loc_20A062:
 ; ------------------------------------------------------------------------------
 
 GoalObject:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20A08E(pc,d0.w),d0
 	jsr	off_20A08E(pc,d0.w)
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	beq.s	loc_20A088
 	jsr	DrawObject
 
@@ -399,9 +399,9 @@ off_20A08E:
 ; ------------------------------------------------------------------------------
 
 GoalInit:
-	cmpi.w	#$201,(zone).l
+	cmpi.w	#$201,zone
 	bne.s	loc_20A0C4
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	bne.s	loc_20A0C4
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20A0BC
@@ -412,7 +412,7 @@ GoalInit:
 ; ------------------------------------------------------------------------------
 
 loc_20A0BC:
-	tst.l	(gfx_queue).w
+	tst.l	gfx_queue
 	beq.s	loc_20A0C4
 	rts
 
@@ -440,11 +440,11 @@ GoalMain:
 	cmp.w	obj.x(a0),d0
 	bcs.s	locret_20A13C
 	addq.b	#2,obj.routine(a0)
-	move.w	(scroll_fg_x).w,(left_bound).w
-	move.w	(scroll_fg_x).w,(target_left_bound).w
-	clr.w	(warp_timer).w
-	clr.b	(warp_direction).w
-	clr.b	(warping).l
+	move.w	scroll_fg_x,left_bound
+	move.w	scroll_fg_x,target_left_bound
+	clr.w	warp_timer
+	clr.b	warp_direction
+	clr.b	warping
 	moveq	#$12,d0
 	jmp	AddGfxQueue
 
@@ -462,19 +462,19 @@ GoalDone:
 
 sub_20A140:
 	moveq	#0,d0
-	move.w	(zone).l,d0
+	move.w	zone,d0
 	lsl.b	#7,d0
 	lsr.w	#4,d0
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	cmpi.b	#2,d1
 	bne.s	loc_20A15E
-	add.b	(good_future).l,d1
+	add.b	good_future,d1
 
 loc_20A15E:
 	add.b	d1,d1
 	add.b	d1,d0
 	move.w	word_20A17A(pc,d0.w),obj.sprite_tile(a0)
-	cmpi.b	#3,(zone).l
+	cmpi.b	#3,zone
 	beq.s	locret_20A178
 	ori.w	#$8000,obj.sprite_tile(a0)
 
@@ -527,7 +527,7 @@ SignpostInit:
 	move.b	#$20,obj.height(a0)
 	move.b	#4,obj.sprite_layer(a0)
 	move.w	#$43C,obj.sprite_tile(a0)
-	cmpi.b	#3,(zone).l
+	cmpi.b	#3,zone
 	beq.s	loc_20A240
 	ori.b	#$80,obj.sprite_tile(a0)
 
@@ -535,7 +535,7 @@ loc_20A240:
 	move.l	#SignpostSprites,obj.sprite_data(a0)
 
 SignpostMain:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	move.w	obj.y(a6),d0
 	sub.w	obj.y(a0),d0
 	addi.w	#$80,d0
@@ -545,14 +545,14 @@ SignpostMain:
 	move.w	obj.x(a0),d0
 	cmp.w	obj.x(a6),d0
 	bcc.s	locret_20A2A2
-	move.w	(scroll_fg_x).w,(left_bound).w
-	move.w	(scroll_fg_x).w,(target_left_bound).w
-	clr.b	(update_hud_time).l
+	move.w	scroll_fg_x,left_bound
+	move.w	scroll_fg_x,target_left_bound
+	clr.b	update_hud_time
 	move.b	#120,obj.var_2a(a0)
 	move.b	#0,obj.sprite_frame(a0)
 	addq.b	#2,obj.routine(a0)
-	clr.b	(speed_shoes).l
-	clr.b	(invincible).l
+	clr.b	speed_shoes
+	clr.b	invincible
 	move.w	#$9D,d0
 	jmp	PlayFmSound
 
@@ -564,7 +564,7 @@ locret_20A2A2:
 ; ------------------------------------------------------------------------------
 
 SignpostSpin:
-	lea	(SignpostAnims).l,a1
+	lea	SignpostAnims,a1
 	jsr	AnimateObject
 	subq.b	#1,obj.var_2a(a0)
 	bne.s	locret_20A2C6
@@ -580,7 +580,7 @@ locret_20A2C6:
 StartResults:
 	subq.b	#1,obj.var_2a(a0)
 	bne.w	locret_20A362
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	loc_20A2E2
 	move.w	#$82,d0
 	jsr	SubCpuCommand
@@ -588,11 +588,11 @@ StartResults:
 loc_20A2E2:
 	move.w	#$6B,d0
 	jsr	SubCpuCommand
-	bset	#0,(control_locked).w
-	move.w	#$808,(player_joy_hold).w
-	cmpi.w	#$502,(zone).l
+	bset	#0,control_locked
+	move.w	#$808,player_joy_hold
+	cmpi.w	#$502,zone
 	bne.s	loc_20A308
-	move.w	#0,(player_joy_hold).w
+	move.w	#0,player_joy_hold
 
 loc_20A308:
 	move.b	#$B4,obj.var_2a(a0)
@@ -600,12 +600,12 @@ loc_20A308:
 	jsr	SpawnObject
 	move.b	#$3A,obj.id(a1)
 	move.b	#$10,obj.var_32(a1)
-	move.b	#1,(update_hud_bonus).w
+	move.b	#1,update_hud_bonus
 	moveq	#0,d0
-	move.b	(time_minutes).l,d0
+	move.b	time_minutes,d0
 	mulu.w	#$3C,d0
 	moveq	#0,d1
-	move.b	(time_seconds).l,d1
+	move.b	time_seconds,d1
 	add.w	d1,d0
 	divu.w	#$F,d0
 	moveq	#$14,d1
@@ -615,10 +615,10 @@ loc_20A308:
 
 loc_20A34C:
 	add.w	d0,d0
-	move.w	word_20A364(pc,d0.w),(time_bonus).w
-	move.w	(rings).l,d0
+	move.w	word_20A364(pc,d0.w),time_bonus
+	move.w	rings,d0
 	mulu.w	#$64,d0
-	move.w	d0,(ring_bonus).w
+	move.w	d0,ring_bonus
 
 locret_20A362:
 	rts
@@ -657,8 +657,8 @@ ResultsActive:
 
 LoadCapsulePalette:
 	move.w	#7,d6
-	lea	(word_20A3A6).l,a1
-	lea	(palette+$20).w,a2
+	lea	word_20A3A6,a1
+	lea	palette+$20,a2
 
 loc_20A39E:
 	move.l	(a1)+,(a2)+

@@ -39,7 +39,7 @@ DangoObject_0_Routine0:
 	move.b	#9,obj.height(a0)
 	move.b	#$2C,obj.collide_type(a0)
 	move.w	#$245D,d0
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	loc_20F26E
 	move.w	#$23E9,d0
 
@@ -83,13 +83,13 @@ DangoObject_0_Routine4:
 DangoObject_0_Routine6:
 	bsr.w	sub_20F43E
 	beq.s	loc_20F308
-	move.w	(player_object+obj.x).w,d0
+	move.w	player_object+obj.x,d0
 	sub.w	obj.x(a0),d0
 	spl	d1
 	subi.w	#$FF80,d0
 	subi.w	#$100,d0
 	bcc.s	DangoObject_0_RoutineA
-	move.w	(player_object+obj.y).w,d0
+	move.w	player_object+obj.y,d0
 	sub.w	obj.y(a0),d0
 	subi.w	#$FF80,d0
 	subi.w	#$100,d0
@@ -167,7 +167,7 @@ loc_20F388:
 ; ------------------------------------------------------------------------------
 
 loc_20F38E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d1
 	move.w	obj.y(a0),d2
 	sub.w	obj.x(a1),d1
@@ -235,11 +235,11 @@ sub_20F43E:
 	add.l	d0,obj.x(a0)
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 	tst.w	obj.var_2a(a0)
 	bpl.s	loc_20F460
 	neg.w	d3
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 
 loc_20F460:
 	jsr	(a1)

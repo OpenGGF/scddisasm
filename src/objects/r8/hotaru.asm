@@ -78,7 +78,7 @@ HotaruObject_2_Routine4:
 ; ------------------------------------------------------------------------------
 
 loc_20F3FA:
-	move.w	(stage_frames).l,d0
+	move.w	stage_frames,d0
 	andi.w	#$7F,d0
 	addi.w	#$BF0,d0
 	move.w	d0,obj.var_2c(a0)
@@ -388,7 +388,7 @@ loc_20F644:
 	addq.b	#2,obj.routine(a0)
 
 loc_20F660:
-	lea	(HotaruAnims).l,a1
+	lea	HotaruAnims,a1
 	jsr	AnimateObject
 	subq.b	#1,obj.var_3a(a0)
 	beq.s	loc_20F678
@@ -421,7 +421,7 @@ off_20F68C:
 ; ------------------------------------------------------------------------------
 
 sub_20F69A:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -433,7 +433,7 @@ HotaruObject_0_Routine0:
 	move.w	obj.x(a1),d0
 	cmpi.w	#$BD0,d0
 	bcs.s	locret_20F6DE
-	move.b	#1,(boss_door_flag).l
+	move.b	#1,boss_door_flag
 	jsr	SpawnObject
 	bne.s	locret_20F6DE
 	move.b	#$29,obj.id(a1)
@@ -452,13 +452,13 @@ HotaruObject_0_Routine2:
 	move.w	obj.x(a1),d0
 	cmpi.w	#$BD0,d0
 	bcs.s	locret_20F710
-	cmpi.w	#$CC,(scroll_focus_y).w
+	cmpi.w	#$CC,scroll_focus_y
 	blt.s	loc_20F6FC
-	move.b	#8,(boss_flags).w
+	move.b	#8,boss_flags
 
 loc_20F6FC:
-	addq.w	#6,(scroll_focus_y).w
-	cmpi.b	#8,(boss_flags).w
+	addq.w	#6,scroll_focus_y
+	cmpi.b	#8,boss_flags
 	bne.s	locret_20F710
 	addq.b	#2,obj.routine(a0)
 	clr.w	obj.var_3a(a0)
@@ -469,7 +469,7 @@ locret_20F710:
 ; ------------------------------------------------------------------------------
 
 HotaruObject_0_Routine4:
-	lea	(byte_20F874).l,a3
+	lea	byte_20F874,a3
 	jsr	sub_20F83C(pc)
 	cmpi.b	#$10,obj.var_3a(a0)
 	bne.s	locret_20F750
@@ -549,7 +549,7 @@ locret_20F7E0:
 
 HotaruObject_0_RoutineC:
 	if STAGE_GOOD_FUTURE<>0
-		lea	(byte_20F884).l,a3
+		lea	byte_20F884,a3
 		jsr	sub_20F83C(pc)
 		cmpi.b	#$10,obj.var_3a(a0)
 		beq.s	loc_20F7F6
@@ -581,13 +581,13 @@ loc_20F7F6:
 ; ------------------------------------------------------------------------------
 
 sub_20F81E:
-	lea	(word_20F894).l,a1
+	lea	word_20F894,a1
 	lea	(a1,d0.w),a1
 
 ; ------------------------------------------------------------------------------
 
 sub_20F828:
-	lea	(palette+$60).w,a2
+	lea	palette+$60,a2
 	if STAGE_GOOD_FUTURE<>0
 		movem.l	(a1)+,d0-d2
 		move.l	d0,2(a2)
@@ -610,7 +610,7 @@ sub_20F83C:
 	lea	(a3,d0.w),a3
 	move.b	(a3)+,d0
 	move.b	(a3)+,obj.var_3b(a0)
-	lea	(word_20F894).l,a1
+	lea	word_20F894,a1
 	lea	(a1,d0.w),a1
 	jsr	sub_20F828(pc)
 	addq.b	#2,obj.var_3a(a0)

@@ -13,7 +13,7 @@ FireShooterObject:
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -70,7 +70,7 @@ loc_20C988:
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -95,7 +95,7 @@ off_20C9BE:
 ; ------------------------------------------------------------------------------
 
 loc_20C9C8:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
@@ -137,11 +137,11 @@ loc_20CA30:
 loc_20CA36:
 	subq.b	#1,obj.var_3a(a0)
 	beq.s	loc_20CA64
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	loc_20CA60
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	beq.s	loc_20CA56
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	loc_20CA60
 
 loc_20CA56:
@@ -181,7 +181,7 @@ loc_20CA88:
 
 loc_20CAA4:
 	jsr	sub_20CB40(pc)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20CADC
 	bne.s	loc_20CABC
 	move.b	#8,obj.var_3a(a0)
@@ -256,11 +256,11 @@ loc_20CB38:
 ; ------------------------------------------------------------------------------
 
 sub_20CB40:
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	locret_20CB8C
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	beq.s	loc_20CB5A
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	locret_20CB8C
 
 loc_20CB5A:

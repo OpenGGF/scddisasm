@@ -9,7 +9,7 @@ locret_206658:
 ; ------------------------------------------------------------------------------
 
 sub_20665A:
-	tst.b	(boss_flags).w
+	tst.b	boss_flags
 	bne.s	locret_206658
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d2
@@ -45,11 +45,11 @@ sub_20665A:
 
 sub_2066BA:
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	andi.b	#$7F,d1
 	cmpi.b	#2,d1
 	bne.s	loc_2066D2
-	add.b	(good_future).l,d1
+	add.b	good_future,d1
 
 loc_2066D2:
 	add.w	d1,d1
@@ -306,7 +306,7 @@ PlayerBlocksD:
 ; ------------------------------------------------------------------------------
 
 loc_2068AA:
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	move.l	#$8000,d0
 	tst.b	d1
 	beq.s	loc_2068CA
@@ -317,7 +317,7 @@ loc_2068AA:
 
 loc_2068CA:
 	move.b	#$C0,d1
-	tst.b	(r5_conveyor_reverse).l
+	tst.b	r5_conveyor_reverse
 	beq.s	loc_2068DA
 	neg.l	d0
 	neg.b	d1
@@ -328,7 +328,7 @@ loc_2068DA:
 	jsr	PlayerCheckBlockFront
 	tst.w	d1
 	bpl.s	locret_2068F8
-	tst.b	(r5_conveyor_reverse).l
+	tst.b	r5_conveyor_reverse
 	beq.s	loc_2068F4
 	neg.w	d1
 

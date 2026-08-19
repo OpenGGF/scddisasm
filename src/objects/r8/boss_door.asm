@@ -51,9 +51,9 @@ loc_20B74A:
 ; ------------------------------------------------------------------------------
 
 BossDoorObject_0_Routine2:
-	tst.b	(boss_started).w
+	tst.b	boss_started
 	bpl.s	locret_20B77E
-	clr.b	(boss_door_flag).l
+	clr.b	boss_door_flag
 	addq.b	#2,obj.routine(a0)
 
 locret_20B77E:

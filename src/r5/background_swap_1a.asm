@@ -3,12 +3,12 @@
 CheckBackgroundSwap:
 	move.l	a6,-(sp)
 	moveq	#0,d2
-	lea	(word_2029BA).l,a0
+	lea	word_2029BA,a0
 
 loc_20294E:
 	move.w	(a0)+,d1
 	bmi.s	loc_20295C
-	cmp.w	(player_object+obj.x).w,d1
+	cmp.w	player_object+obj.x,d1
 	bcc.s	loc_20295C
 	addq.b	#1,d2
 	bra.s	loc_20294E
@@ -16,7 +16,7 @@ loc_20294E:
 ; ------------------------------------------------------------------------------
 
 loc_20295C:
-	cmp.b	(r5_bg_change).l,d2
+	cmp.b	r5_bg_change,d2
 	bne.s	loc_202968
 
 loc_202964:
@@ -26,7 +26,7 @@ loc_202964:
 ; ------------------------------------------------------------------------------
 
 loc_202968:
-	move.b	d2,(r5_bg_change).l
+	move.b	d2,r5_bg_change
 
 	clr.l	gfx_queue					; Discard graphics queue
 	clr.w	gfx_queue_tiles

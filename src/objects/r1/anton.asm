@@ -1,14 +1,14 @@
 ; ------------------------------------------------------------------------------
 
 AntonObject:
-	jsr	(DestroyInGoodFuture).l
+	jsr	DestroyInGoodFuture
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20B2E6(pc,d0.w),d0
 	jsr	off_20B2E6(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	move.w	obj.var_2e(a0),d0
-	jmp	(CheckObjectDespawn2).l
+	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ AntonObject_0_Routine0:
 	move.b	#$29,obj.collide_type(a0)
 	move.w	obj.x(a0),obj.var_2e(a0)
 	moveq	#2,d0
-	jsr	(SetObjectSpriteTile).l
+	jsr	SetObjectSpriteTile
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B336
 	move.l	#-$10000,d0
@@ -49,7 +49,7 @@ loc_20B33E:
 AntonObject_0_Routine2:
 	move.l	#$10000,d0
 	add.l	d0,obj.y(a0)
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	bpl.s	locret_20B35E
 	addq.b	#2,obj.routine(a0)
@@ -70,14 +70,14 @@ AntonObject_0_Routine4:
 loc_20B374:
 	cmpi.w	#$80,d0
 	bge.s	loc_20B39A
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	cmpi.w	#$FFF9,d1
 	blt.s	loc_20B39A
 	cmpi.w	#7,d1
 	bgt.s	loc_20B39A
 	add.w	d1,obj.y(a0)
 	lea	AntonAnims(pc),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 

@@ -22,7 +22,7 @@ WaterSurfaceObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 
 WaterSurfaceObject_0_Routine2:
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 	addi.w	#$A0,d0
 	moveq	#0,d1
 	move.b	obj.var_2a(a0),d1
@@ -37,9 +37,9 @@ loc_206938:
 	ext.w	d1
 	add.w	d1,d0
 	move.w	d0,obj.x(a0)
-	move.w	(water_y).w,obj.y(a0)
+	move.w	water_y,obj.y(a0)
 	addq.w	#2,obj.y(a0)
-	lea	(WaterSurfaceAnims).l,a1
+	lea	WaterSurfaceAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------

@@ -2,45 +2,45 @@
 
 AnimateStageGfx:
 	jsr	LoadPowerupArt
-	lea	(stage_anim_timers).w,a2
-	lea	(stage_anim_frames).w,a4
-	lea	(unk_20EADA).l,a1
+	lea	stage_anim_timers,a2
+	lea	stage_anim_frames,a4
+	lea	unk_20EADA,a1
 	move.w	#$3F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	loc_20EA2C
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$42C0,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20EA2C:
-	lea	(unk_20EAEC).l,a1
+	lea	unk_20EAEC,a1
 	move.w	#$3F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	loc_20EA60
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$43C0,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20EA60:
-	lea	(unk_20EAFE).l,a1
+	lea	unk_20EAFE,a1
 	move.w	#$7F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	locret_20EA94
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019300,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$44C0,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 locret_20EA94:
 	rts
@@ -63,7 +63,7 @@ loc_20EAAC:
 	add.w	d0,d0
 	add.w	d0,d0
 	movea.l	2(a1,d0.w),a1
-	lea	(stage_anim_gfx).l,a3
+	lea	stage_anim_gfx,a3
 
 loc_20EABC:
 	move.l	(a1)+,(a3)+

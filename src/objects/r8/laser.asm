@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 LaserObject:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20B478(pc,d0.w),d0
@@ -80,7 +80,7 @@ LaserObject_0_Routine4:
 	move.b	#7,obj.anim_id(a0)
 
 loc_20B556:
-	lea	(LaserAnims).l,a1
+	lea	LaserAnims,a1
 	jsr	AnimateObject
 	jsr	CheckBlockDown
 	tst.w	d1
@@ -117,7 +117,7 @@ LaserObject_0_Routine6:
 
 loc_20B5CE:
 	move.w	d0,obj.y(a0)
-	lea	(LaserAnims).l,a1
+	lea	LaserAnims,a1
 	jsr	AnimateObject
 	bra.w	loc_20B60A
 
@@ -138,7 +138,7 @@ LaserObject_0_Routine8:
 ; ------------------------------------------------------------------------------
 
 loc_20B5FE:
-	lea	(LaserAnims).l,a1
+	lea	LaserAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ loc_20B60A:
 	beq.s	locret_20B620
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B622
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_20B62A
 
 locret_20B620:
@@ -157,11 +157,11 @@ locret_20B620:
 ; ------------------------------------------------------------------------------
 
 loc_20B622:
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	locret_20B620
 
 loc_20B62A:
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.w	locret_20B6DC
 	move.b	obj.width(a6),d1
 	ext.w	d1
@@ -204,8 +204,8 @@ loc_20B6A8:
 	move.b	#$38,obj.anim_id(a6)
 	move.b	#$A,obj.height(a6)
 	move.b	#5,obj.width(a6)
-	eori.b	#1,(shrunk_player).l
-	tst.b	(shrunk_player).l
+	eori.b	#1,shrunk_player
+	tst.b	shrunk_player
 	bne.s	locret_20B6DC
 	move.b	#$13,obj.height(a6)
 	move.b	#9,obj.width(a6)

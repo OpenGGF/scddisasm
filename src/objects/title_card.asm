@@ -30,7 +30,7 @@ TitleCardInit:
 	move.b	#4,obj.sprite_layer(a0)
 	moveq	#0,d1
 	moveq	#7,d6
-	lea	(word_20B014).l,a2
+	lea	word_20B014,a2
 
 loc_20A9A4:
 	jsr	SpawnObject
@@ -47,7 +47,7 @@ loc_20A9A4:
 	move.b	6(a2,d2.w),obj.sprite_frame(a1)
 	cmpi.b	#5,d1
 	bne.s	loc_20A9F6
-	move.b	(act).l,d3
+	move.b	act,d3
 	add.b	d3,obj.sprite_frame(a1)
 
 loc_20A9F6:
@@ -122,7 +122,7 @@ loc_20AA6C:
 
 loc_20AA76:
 	addq.b	#4,obj.routine(a0)
-	move.b	#1,(scroll_lock).w
+	move.b	#1,scroll_lock
 	moveq	#2,d0
 	jmp	AddGfxQueue
 
@@ -156,10 +156,10 @@ loc_20AAB2:
 ; ------------------------------------------------------------------------------
 
 TitleCardWaitGfx:
-	tst.l	(gfx_queue).w
+	tst.l	gfx_queue
 	bne.s	locret_20AACC
-	clr.b	(scroll_lock).w
-	clr.b	(control_locked).w
+	clr.b	scroll_lock
+	clr.b	control_locked
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------

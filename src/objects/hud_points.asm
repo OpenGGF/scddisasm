@@ -76,7 +76,7 @@ HudInit:
 ; ------------------------------------------------------------------------------
 
 loc_2096F8:
-	tst.w	(debug_cheat).l
+	tst.w	debug_cheat
 	beq.s	loc_209706
 	move.b	#2,obj.sprite_frame(a0)
 
@@ -91,7 +91,7 @@ HudMain:
 	bne.s	loc_20975C
 	tst.b	obj.subtype_2(a0)
 	beq.s	loc_209748
-	tst.w	(rings).l
+	tst.w	rings
 	beq.s	loc_209734
 	bclr	#5,obj.sprite_tile(a0)
 	bra.s	loc_20975C
@@ -99,7 +99,7 @@ HudMain:
 ; ------------------------------------------------------------------------------
 
 loc_209734:
-	move.b	(stage_vblank_frames+3).l,d0
+	move.b	stage_vblank_frames+3,d0
 	andi.b	#$F,d0
 	bne.s	loc_20975C
 	eori.b	#$20,obj.sprite_tile(a0)
@@ -109,7 +109,7 @@ loc_209734:
 
 loc_209748:
 	move.b	#0,obj.sprite_frame(a0)
-	tst.w	(debug_cheat).l
+	tst.w	debug_cheat
 	beq.s	loc_20975C
 	move.b	#2,obj.sprite_frame(a0)
 
@@ -125,8 +125,8 @@ HudSprites:
 ; ------------------------------------------------------------------------------
 
 AddPoints:
-	move.b	#1,(update_hud_score).l
-	lea	(score).l,a3
+	move.b	#1,update_hud_score
+	lea	score,a3
 	add.l	d0,(a3)
 	move.l	#999999,d1
 	cmp.l	(a3),d1
@@ -135,11 +135,11 @@ AddPoints:
 
 loc_209826:
 	move.l	(a3),d0
-	cmp.l	(next_life_score).l,d0
+	cmp.l	next_life_score,d0
 	bcs.s	locret_209850
-	addi.l	#5000,(next_life_score).l
-	addq.b	#1,(lives).l
-	addq.b	#1,(update_hud_lives).l
+	addi.l	#5000,next_life_score
+	addq.b	#1,lives
+	addq.b	#1,update_hud_lives
 	move.w	#$7A,d0
 	jmp	SubCpuCommand
 
@@ -151,25 +151,25 @@ locret_209850:
 ; ------------------------------------------------------------------------------
 
 UpdateHudNumbers:
-	tst.w	(debug_cheat).l
+	tst.w	debug_cheat
 	beq.s	loc_2098A8
 	bsr.w	DrawHudPosition
 	move.l	#$73600002,d0
 	moveq	#0,d1
-	move.b	(object_states).l,d1
-	move.w	(player_object+obj.y).w,d2
+	move.b	object_states,d1
+	move.w	player_object+obj.y,d2
 	lsr.w	#1,d2
 	andi.w	#$380,d2
-	move.b	(player_object+obj.x).w,d1
+	move.b	player_object+obj.x,d1
 	andi.w	#$7F,d1
 	add.w	d1,d2
-	lea	(stage_map).w,a1
+	lea	stage_map,a1
 	moveq	#0,d1
 	move.b	(a1,d2.w),d1
 	andi.w	#$7F,d1
-	move.w	(debug_block).l,d1
+	move.w	debug_block,d1
 	andi.w	#$7FF,d1
-	lea	(Hud100).l,a2
+	lea	Hud100,a2
 	moveq	#2,d6
 	bsr.w	DrawHudNumber
 	bra.w	loc_209902
@@ -177,47 +177,47 @@ UpdateHudNumbers:
 ; ------------------------------------------------------------------------------
 
 loc_2098A8:
-	tst.b	(update_hud_score).l
+	tst.b	update_hud_score
 	beq.s	loc_2098CC
 	bpl.s	loc_2098B6
 	bsr.w	ResetHudScore
 
 loc_2098B6:
-	clr.b	(update_hud_score).l
+	clr.b	update_hud_score
 	move.l	#$70600002,d0
-	move.l	(score).l,d1
+	move.l	score,d1
 	bsr.w	DrawHudScore
 
 loc_2098CC:
-	tst.b	(update_hud_rings).l
+	tst.b	update_hud_rings
 	beq.s	loc_209902
 	bpl.s	loc_2098DA
 	bsr.w	ResetHudRings
 
 loc_2098DA:
-	clr.b	(update_hud_rings).l
+	clr.b	update_hud_rings
 	move.l	#$73600002,d0
 	moveq	#0,d1
-	move.w	(rings).l,d1
+	move.w	rings,d1
 	cmpi.w	#1000,d1
 	bcs.s	loc_2098FE
 	move.w	#999,d1
-	move.w	d1,(rings).l
+	move.w	d1,rings
 
 loc_2098FE:
 	bsr.w	DrawHudRings
 
 loc_209902:
-	tst.w	(debug_cheat).l
+	tst.w	debug_cheat
 	bne.w	loc_2099AE
-	tst.b	(update_hud_time).l
+	tst.b	update_hud_time
 	beq.w	loc_2099AE
-	tst.w	(paused).w
+	tst.w	paused
 	bne.w	loc_2099AE
-	lea	(time).l,a1
+	lea	time,a1
 	cmpi.l	#$93B3B,(a1)+
 	beq.w	loc_209A0C
-	tst.b	(control_locked).w
+	tst.b	control_locked
 	bne.s	loc_209958
 	addq.b	#1,-(a1)
 	cmpi.b	#$3C,(a1)
@@ -235,21 +235,21 @@ loc_209902:
 loc_209958:
 	move.l	#$72200002,d0
 	moveq	#0,d1
-	move.b	(time_minutes).l,d1
+	move.b	time_minutes,d1
 	bsr.w	DrawHudMinutes
 	move.l	#$72600002,d0
 	moveq	#0,d1
-	move.b	(time_seconds).l,d1
+	move.b	time_seconds,d1
 	bsr.w	DrawHudSeconds
 	move.l	#$72E00002,d0
 	moveq	#0,d1
-	move.b	(time_frames).l,d1
+	move.b	time_frames,d1
 	mulu.w	#100,d1
 	divu.w	#60,d1
 	swap	d1
 	move.w	#0,d1
 	swap	d1
-	cmpi.l	#$93B3B,(time).l
+	cmpi.l	#$93B3B,time
 	bne.s	loc_2099AA
 	move.w	#99,d1
 
@@ -257,32 +257,32 @@ loc_2099AA:
 	bsr.w	DrawHudSeconds
 
 loc_2099AE:
-	tst.b	(update_hud_lives).l
+	tst.b	update_hud_lives
 	beq.s	loc_2099C0
-	clr.b	(update_hud_lives).l
+	clr.b	update_hud_lives
 	bsr.w	DrawHudLives
 
 loc_2099C0:
-	tst.b	(update_hud_bonus).w
+	tst.b	update_hud_bonus
 	beq.s	locret_209A0A
-	clr.b	(update_hud_bonus).w
+	clr.b	update_hud_bonus
 	move.l	#$47800002,d0
-	cmpi.w	#$502,(zone).l
+	cmpi.w	#$502,zone
 	bne.s	loc_2099E0
 	move.l	#$6D400001,d0
 
 loc_2099E0:
 	moveq	#0,d1
-	move.w	(time_bonus).w,d1
+	move.w	time_bonus,d1
 	bsr.w	DrawHudBonus
 	move.l	#$48C00002,d0
-	cmpi.w	#$502,(zone).l
+	cmpi.w	#$502,zone
 	bne.s	loc_209A00
 	move.l	#$6E800001,d0
 
 loc_209A00:
 	moveq	#0,d1
-	move.w	(ring_bonus).w,d1
+	move.w	ring_bonus,d1
 	bsr.w	DrawHudBonus
 
 locret_209A0A:
@@ -291,14 +291,14 @@ locret_209A0A:
 ; ------------------------------------------------------------------------------
 
 loc_209A0C:
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	bne.s	locret_209A38
-	clr.b	(update_hud_time).l
-	move.l	#0,(time).l
-	lea	(player_object).w,a0
+	clr.b	update_hud_time
+	move.l	#0,time
+	lea	player_object,a0
 	movea.l	a0,a2
 	bsr.w	KillPlayer
-	move.b	#1,(time_over).l
+	move.b	#1,time_over
 
 locret_209A38:
 	rts
@@ -306,7 +306,7 @@ locret_209A38:
 ; ------------------------------------------------------------------------------
 
 ResetHudRings:
-	move.l	#$73600002,(VDP_CTRL).l
+	move.l	#$73600002,VDP_CTRL
 	lea	HudRingResetTiles(pc),a2
 	move.w	#2,d2
 	bra.s	ResetHudNumber
@@ -314,14 +314,14 @@ ResetHudRings:
 ; ------------------------------------------------------------------------------
 
 ResetHudScore:
-	lea	(VDP_DATA).l,a6
+	lea	VDP_DATA,a6
 	bsr.w	DrawHudLives
-	move.l	#$70600002,(VDP_CTRL).l
+	move.l	#$70600002,VDP_CTRL
 	lea	HudScoreResetTiles(pc),a2
 	move.w	#6,d2
 
 ResetHudNumber:
-	lea	(HudNumbersGfx).l,a1
+	lea	HudNumbersGfx,a1
 
 loc_209A70:
 	move.w	#$F,d1
@@ -360,19 +360,19 @@ HudRingResetTiles:
 DrawHudPosition:
 	move.l	#$70E00002,d0
 	moveq	#0,d1
-	move.w	(player_object+obj.x).w,d1
+	move.w	player_object+obj.x,d1
 	bsr.w	DrawHudHexNumber
 	move.l	#$72600002,d0
-	move.w	(player_object+obj.y).w,d1
+	move.w	player_object+obj.y,d1
 	bra.w	DrawHudHexNumber
 
 ; ------------------------------------------------------------------------------
 
 DrawHudBonus:
-	lea	(Hud10000).l,a2
+	lea	Hud10000,a2
 	moveq	#4,d6
 	moveq	#0,d4
-	lea	(HudNumbersGfx).l,a1
+	lea	HudNumbersGfx,a1
 
 loc_209AD2:
 	moveq	#0,d2
@@ -437,19 +437,19 @@ loc_209B28:
 ; ------------------------------------------------------------------------------
 
 DrawHudRings:
-	lea	(Hud100).l,a2
+	lea	Hud100,a2
 	moveq	#2,d6
 	bra.s	loc_209B46
 
 ; ------------------------------------------------------------------------------
 
 DrawHudScore:
-	lea	(Hud100000).l,a2
+	lea	Hud100000,a2
 	moveq	#5,d6
 
 loc_209B46:
 	moveq	#0,d4
-	lea	(HudNumbersGfx).l,a1
+	lea	HudNumbersGfx,a1
 
 loc_209B4E:
 	moveq	#0,d2
@@ -500,12 +500,12 @@ loc_209B92:
 ; ------------------------------------------------------------------------------
 
 DrawHudCounter:
-	move.l	#$5F800003,(VDP_CTRL).l
-	lea	(VDP_DATA).l,a6
-	lea	(Hud10).l,a2
+	move.l	#$5F800003,VDP_CTRL
+	lea	VDP_DATA,a6
+	lea	Hud10,a2
 	moveq	#1,d6
 	moveq	#0,d4
-	lea	(HudNumbersGfx).l,a1
+	lea	HudNumbersGfx,a1
 
 loc_209BBE:
 	moveq	#0,d2
@@ -570,7 +570,7 @@ Hud1h:
 
 DrawHudHexNumber:
 	moveq	#3,d6
-	lea	(Hud1000h).l,a2
+	lea	Hud1000h,a2
 	bra.s	DrawHudNumber
 
 ; ------------------------------------------------------------------------------
@@ -578,34 +578,34 @@ DrawHudHexNumber:
 DrawHudLives:
 	move.l	#$74A00002,d0
 	moveq	#0,d1
-	move.b	(lives).l,d1
+	move.b	lives,d1
 	cmpi.b	#9,d1
 	bcs.s	loc_209C40
 	moveq	#9,d1
 
 loc_209C40:
-	lea	(Hud1).l,a2
+	lea	Hud1,a2
 	moveq	#0,d6
 	bra.s	DrawHudNumber
 
 ; ------------------------------------------------------------------------------
 
 DrawHudMinutes:
-	lea	(Hud1).l,a2
+	lea	Hud1,a2
 	moveq	#0,d6
 	bra.s	DrawHudNumber
 
 ; ------------------------------------------------------------------------------
 
 DrawHudSeconds:
-	lea	(Hud10).l,a2
+	lea	Hud10,a2
 	moveq	#1,d6
 
 ; ------------------------------------------------------------------------------
 
 DrawHudNumber:
 	moveq	#0,d4
-	lea	(HudNumbersGfx).l,a1
+	lea	HudNumbersGfx,a1
 
 loc_209C64:
 	moveq	#0,d2

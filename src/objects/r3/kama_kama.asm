@@ -60,7 +60,7 @@ KamaKamaObject_0_Routine4:
 	beq.s	loc_20D0F2
 	bclr	#0,obj.sprite_flags(a0)
 	bclr	#0,obj.flags(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
 	bcc.s	loc_20D0D4
@@ -318,7 +318,7 @@ KamaSickleObject_0_Routine4:
 	jsr	PlayFmSound
 
 loc_20D356:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20D378
 	beq.s	loc_20D360
 	bsr.s	sub_20D3B8
@@ -336,7 +336,7 @@ loc_20D36E:
 ; ------------------------------------------------------------------------------
 
 sub_20D378:
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_20D388
 	btst	#2,obj.flags(a1)
 	beq.s	loc_20D3B4

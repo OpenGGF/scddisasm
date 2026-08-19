@@ -72,7 +72,7 @@ loc_20D03A:
 	add.w	d1,obj.y(a0)
 	tst.b	obj.subtype(a0)
 	bne.w	loc_20D0F0
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.w	sub_20D10C
 	bcc.w	loc_20D0D4
 	move.b	#1,obj.anim_id(a0)

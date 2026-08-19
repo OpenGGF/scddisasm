@@ -35,7 +35,7 @@ loc_20EEB0:
 	bmi.s	loc_20EED0
 	tst.b	obj.var_3e(a0)
 	bne.s	loc_20EED0
-	lea	(switch_flags).w,a1
+	lea	switch_flags,a1
 	ext.w	d0
 	tst.b	(a1,d0.w)
 	beq.s	loc_20EED0

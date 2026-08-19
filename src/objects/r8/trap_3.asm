@@ -4,12 +4,12 @@ loc_20D95E:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20D982
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	bclr	#7,2(a1,d0.w)
 
@@ -52,7 +52,7 @@ locret_20D9C0:
 loc_20D9C2:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20D9C0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20D9DA
@@ -232,7 +232,7 @@ byte_20DB52:
 ; ------------------------------------------------------------------------------
 
 SpikeCrusherObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcs.s	locret_20DB88
@@ -265,7 +265,7 @@ loc_20DB92:
 	move.b	#$50,d1
 
 loc_20DB98:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),d0
 	sub.w	obj.var_36(a0),d0
 	add.w	d1,d0
@@ -330,7 +330,7 @@ word_20DC08:
 ; ------------------------------------------------------------------------------
 
 sub_20DC14:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20DC2A
@@ -501,7 +501,7 @@ loc_20DD8E:
 SpikesObject_1_Routine2:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20DDDC
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20DDC8
@@ -586,7 +586,7 @@ SpikesObject_0_Routine0:
 SpikesObject_0_Routine2:
 	tst.b	obj.sprite_frame(a0)
 	bne.w	loc_20DF04
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20DEAC
@@ -599,13 +599,13 @@ loc_20DEAC:
 	beq.s	locret_20DF02
 	btst	#3,obj.flags(a0)
 	beq.s	locret_20DF02
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	locret_20DF02
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	locret_20DF02
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	loc_20DF00
 	tst.w	obj.var_30(a0)
@@ -629,7 +629,7 @@ locret_20DF02:
 loc_20DF04:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20DF28
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20DF1C

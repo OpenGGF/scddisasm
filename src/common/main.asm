@@ -13,54 +13,54 @@ S1StageMusicIds:
 ; ------------------------------------------------------------------------------
 
 InitStage:
-	clr.w	(stage_demo).l
-	cmpi.b	#$7F,(game_time_stones).l
+	clr.w	stage_demo
+	cmpi.b	#$7F,game_time_stones
 	bne.s	loc_201512
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	bne.s	loc_201512
-	move.b	#1,(good_future).l
+	move.b	#1,good_future
 
 loc_201512:
-	move.b	#0,(stage_started).l
-	clr.b	(vblank_routine).w
-	clr.b	(use_player_2).l
-	move.b	#0,(paused).w
-	bset	#0,(stage_start_flags).l
+	move.b	#0,stage_started
+	clr.b	vblank_routine
+	clr.b	use_player_2
+	move.b	#0,paused
+	bset	#0,stage_start_flags
 	bne.s	loc_201578
-	clr.b	(palette_fade_flags).l
-	clr.b	(respawn_checkpoint).l
-	move.l	#$1388,(next_life_score).l
+	clr.b	palette_fade_flags
+	clr.b	respawn_checkpoint
+	move.l	#$1388,next_life_score
 	bsr.w	ResetObjectStates
-	clr.b	(spawn_mode).l
-	clr.b	(zone_good_futures).l
-	clr.l	(score).l
-	move.b	#3,(lives).l
-	tst.b	(time_attack).l
+	clr.b	spawn_mode
+	clr.b	zone_good_futures
+	clr.l	score
+	move.b	#3,lives
+	tst.b	time_attack
 	beq.s	loc_201578
-	move.b	#1,(lives).l
+	move.b	#1,lives
 
 loc_201578:
-	bset	#7,(game_mode).w
+	bset	#7,game_mode
 	bsr.w	ClearGfxQueue
-	tst.b	(enter_special_stage).l
+	tst.b	enter_special_stage
 	bne.s	loc_20159E
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	beq.s	loc_2015D4
-	bset	#0,(palette_fade_flags).l
+	bset	#0,palette_fade_flags
 	beq.s	loc_2015AA
 
 loc_20159E:
 	bsr.w	FadeToWhite
-	bclr	#0,(palette_fade_flags).l
+	bclr	#0,palette_fade_flags
 
 loc_2015AA:
-	clr.b	(warp_direction).w
-	tst.w	(restart_stage).l
+	clr.b	warp_direction
+	tst.w	restart_stage
 	beq.w	loc_201644
-	move.w	#0,(restart_stage).l
-	cmpi.b	#2,(act).l
+	move.w	#0,restart_stage
+	cmpi.b	#2,act
 	bne.s	locret_2015D2
-	bclr	#7,(time_zone).l
+	bclr	#7,time_zone
 
 locret_2015D2:
 	rts
@@ -68,62 +68,62 @@ locret_2015D2:
 ; ------------------------------------------------------------------------------
 
 loc_2015D4:
-	bset	#0,(palette_fade_flags).l
+	bset	#0,palette_fade_flags
 	beq.s	loc_2015E2
 	bsr.w	FadeToBlack
 
 loc_2015E2:
-	cmpi.w	#2,(restart_stage).l
+	cmpi.w	#2,restart_stage
 	bne.s	loc_2015FE
-	move.w	#0,(restart_stage).l
-	move.b	#0,(palette_fade_flags).l
+	move.w	#0,restart_stage
+	move.b	#0,palette_fade_flags
 	bra.s	loc_201626
 
 ; ------------------------------------------------------------------------------
 
 loc_2015FE:
-	tst.b	(lives).l
+	tst.b	lives
 	bne.s	loc_201644
-	move.b	#0,(stage_start_flags).l
-	move.b	#0,(respawn_checkpoint).l
-	move.b	#0,(spawn_mode).l
-	move.b	#0,(palette_fade_flags).l
+	move.b	#0,stage_start_flags
+	move.b	#0,respawn_checkpoint
+	move.b	#0,spawn_mode
+	move.b	#0,palette_fade_flags
 
 loc_201626:
-	lea	(palette).w,a1
+	lea	palette,a1
 	move.w	#$1F,d6
 
 loc_20162E:
 	move.l	#0,(a1)+
 	dbf	d6,loc_20162E
-	move.b	#$C,(vblank_routine).w
+	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_201644:
-	cmpi.w	#$800,(demo_index).w
+	cmpi.w	#$800,demo_index
 	bne.s	loc_201662
-	move.w	#0,(demo_index).w
-	clr.w	(stage_demo).l
-	move.b	#0,(palette_fade_flags).l
+	move.w	#0,demo_index
+	clr.w	stage_demo
+	move.b	#0,palette_fade_flags
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_201662:
 	moveq	#0,d0
-	btst	#0,(palette_clear_flags).l
+	btst	#0,palette_clear_flags
 	bne.s	loc_201678
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	beq.s	loc_20167E
 
 loc_201678:
 	move.l	#$EEE0EEE,d0
 
 loc_20167E:
-	lea	(palette).w,a1
+	lea	palette,a1
 	move.w	#$1F,d6
 
 loc_201686:
@@ -131,14 +131,14 @@ loc_201686:
 	dbf	d6,loc_201686
 
 loc_20168C:
-	move.b	#$C,(vblank_routine).w
+	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	bsr.w	AdvanceGfxQueue
 	bne.s	loc_20168C
-	tst.l	(gfx_queue).w
+	tst.l	gfx_queue
 	bsr.w	PlayStageMusic
 	moveq	#0,d0
-	lea	(StageDataIndex).l,a2
+	lea	StageDataIndex,a2
 	moveq	#0,d0
 	move.b	(a2),d0
 	beq.s	loc_2016B6
@@ -147,9 +147,9 @@ loc_20168C:
 loc_2016B6:
 	moveq	#1,d0
 	bsr.w	LoadGfxList
-	clr.b	(powerup_changed).l
-	clr.l	(flower_counts).l
-	lea	(object_draw_queue).w,a1
+	clr.b	powerup_changed
+	clr.l	flower_counts
+	lea	object_draw_queue,a1
 	moveq	#0,d0
 	move.w	#$FF,d1
 
@@ -165,28 +165,28 @@ loc_2016D2:
 	move.l	d0,(a1)+
 	dbf	d1,.ClearVariables1
 
-	lea	(object_pool).w,a1
+	lea	object_pool,a1
 	moveq	#0,d0
 	move.w	#$7FF,d1
 
 loc_2016F4:
 	move.l	d0,(a1)+
 	dbf	d1,loc_2016F4
-	lea	(unk_buffer_2).l,a1
+	lea	unk_buffer_2,a1
 	moveq	#0,d0
 	move.w	#$3FF,d1
 
 loc_201706:
 	move.l	d0,(a1)+
 	dbf	d1,loc_201706
-	lea	(vblank_e_count).w,a1
+	lea	vblank_e_count,a1
 	moveq	#0,d0
 	move.w	#$15,d1
 
 loc_201716:
 	move.l	d0,(a1)+
 	dbf	d1,loc_201716
-	lea	(scroll_fg_x).w,a1
+	lea	scroll_fg_x,a1
 	moveq	#0,d0
 	move.w	#$3F,d1
 
@@ -194,10 +194,10 @@ loc_201726:
 	move.l	d0,(a1)+
 	dbf	d1,loc_201726
 	move	#$2700,sr
-	move.l	#(StageChunks+$6C00),(demo_data).w
-	move.w	#0,(demo_index).w
+	move.l	#(StageChunks+$6C00),demo_data
+	move.w	#0,demo_index
 	bsr.w	ClearScreen
-	lea	(VDP_CTRL).l,a6
+	lea	VDP_CTRL,a6
 	move.w	#$8B03,(a6)
 	move.w	#$8230,(a6)
 	move.w	#$8407,(a6)
@@ -205,9 +205,9 @@ loc_201726:
 	move.w	#$9001,(a6)
 	move.w	#$8004,(a6)
 	move.w	#$8720,(a6)
-	move.w	#$8ADF,(hblank_vdp_reg).w
-	move.w	(hblank_vdp_reg).w,(a6)
-	move.w	#$1E,(drown_timer).l
+	move.w	#$8ADF,hblank_vdp_reg
+	move.w	hblank_vdp_reg,(a6)
+	move.w	#$1E,drown_timer
 	move	#$2300,sr
 	moveq	#3,d0
 	bsr.w	LoadPalette
@@ -215,69 +215,69 @@ loc_201726:
 	bsr.w	LoadFadePalette
 	bsr.w	InitScroll
 	bsr.w	UpdateScroll
-	bset	#2,(scroll_flags_fg).w
+	bset	#2,scroll_flags_fg
 	bsr.w	LoadStageData
 	bsr.w	InitStageDraw
 	jsr	ConvertStageCollision
 	bsr.w	LoadStageCollision
 
 loc_2017A6:
-	move.b	#$C,(vblank_routine).w
+	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	bsr.w	AdvanceGfxQueue
 	bne.s	loc_2017A6
-	tst.l	(gfx_queue).w
+	tst.l	gfx_queue
 	bne.s	loc_2017A6
 	bsr.w	SpawnPlayer
-	move.b	#$1C,(hud_score_object+obj.id).w
-	move.b	#$1C,(hud_lives_object+obj.id).w
-	move.b	#1,(hud_lives_object+obj.subtype).w
-	move.b	#$1C,(hud_rings_object+obj.id).w
-	move.b	#1,(hud_rings_object+obj.subtype_2).w
+	move.b	#$1C,hud_score_object+obj.id
+	move.b	#$1C,hud_lives_object+obj.id
+	move.b	#1,hud_lives_object+obj.subtype
+	move.b	#$1C,hud_rings_object+obj.id
+	move.b	#1,hud_rings_object+obj.subtype_2
 	bsr.w	LoadLifeIcon
-	move.b	#$19,(hud_icon_object+obj.id).w
-	move.b	#$A,(hud_icon_object+obj.subtype).w
-	bset	#1,(stage_start_flags).l
+	move.b	#$19,hud_icon_object+obj.id
+	move.b	#$A,hud_icon_object+obj.subtype
+	bset	#1,stage_start_flags
 	bne.s	loc_20180A
-	move.b	#$3C,(title_card_object+obj.id).w
-	move.b	#1,(control_locked).w
-	clr.b	(gfx_section_id).l
+	move.b	#$3C,title_card_object+obj.id
+	move.b	#1,control_locked
+	clr.b	gfx_section_id
 
 loc_20180A:
-	move.w	#0,(player_joy_hold).w
-	move.w	#0,(p1_joy_hold).w
-	move.w	#0,(p2_joy_hold).w
-	move.w	#0,(bored_timer).w
-	move.w	#0,(bored_timer_p2).w
-	move.b	#0,(r5_bg_change).l
+	move.w	#0,player_joy_hold
+	move.w	#0,p1_joy_hold
+	move.w	#0,p2_joy_hold
+	move.w	#0,bored_timer
+	move.w	#0,bored_timer_p2
+	move.b	#0,r5_bg_change
 	moveq	#0,d0
-	tst.b	(spawn_mode).l
+	tst.b	spawn_mode
 	bne.s	loc_20184C
-	move.w	d0,(rings).l
-	move.l	d0,(time).l
-	move.b	d0,(lives_flags).l
+	move.w	d0,rings
+	move.l	d0,time
+	move.b	d0,lives_flags
 
 loc_20184C:
-	move.b	d0,(time_over).l
-	move.b	d0,(shield).l
-	move.b	d0,(invincible).l
-	move.b	d0,(speed_shoes).l
-	move.b	d0,(warping).l
-	move.w	d0,(debug_mode).l
-	move.w	d0,(restart_stage).l
-	move.w	d0,(stage_frames).l
-	move.b	d0,(spawn_mode).l
-	move.b	#1,(update_hud_score).l
-	move.b	#1,(update_hud_rings).l
-	move.b	#1,(update_hud_time).l
-	move.b	#1,(update_hud_lives).l
-	move.b	#$80,(update_hud_rings).l
-	move.b	#$80,(update_hud_score).l
-	move.w	#0,(s1_demo_index).w
-	move.w	#$202F,(palette_fade_start).w
+	move.b	d0,time_over
+	move.b	d0,shield
+	move.b	d0,invincible
+	move.b	d0,speed_shoes
+	move.b	d0,warping
+	move.w	d0,debug_mode
+	move.w	d0,restart_stage
+	move.w	d0,stage_frames
+	move.b	d0,spawn_mode
+	move.b	#1,update_hud_score
+	move.b	#1,update_hud_rings
+	move.b	#1,update_hud_time
+	move.b	#1,update_hud_lives
+	move.b	#$80,update_hud_rings
+	move.b	#$80,update_hud_score
+	move.w	#0,s1_demo_index
+	move.w	#$202F,palette_fade_start
 	jsr	AnimateStageGfx
-	move.b	#1,(fade_enable_display).l
-	bclr	#7,(time_zone).l
+	move.b	#1,fade_enable_display
+	bclr	#7,time_zone
 	beq.s	loc_2018DC
 
 loc_2018D6:
@@ -287,43 +287,43 @@ loc_2018D6:
 ; ------------------------------------------------------------------------------
 
 loc_2018DC:
-	bclr	#0,(palette_clear_flags).l
+	bclr	#0,palette_clear_flags
 	bne.s	loc_2018D6
 	bsr.w	FadeFromBlack
 
 loc_2018EA:
-	bclr	#7,(game_mode).w
-	move.b	#1,(stage_started).l
+	bclr	#7,game_mode
+	move.b	#1,stage_started
 
 loc_2018F8:
-	move.b	#8,(vblank_routine).w
+	move.b	#8,vblank_routine
 	bsr.w	VSync
-	tst.b	(control_locked).w
+	tst.b	control_locked
 	bne.s	loc_201916
-	btst	#7,(p1_joy_tap).w
+	btst	#7,p1_joy_tap
 	beq.s	loc_201916
-	eori.b	#1,(paused).w
+	eori.b	#1,paused
 
 loc_201916:
-	btst	#0,(paused).w
+	btst	#0,paused
 	beq.w	loc_201988
 	bsr.w	PauseMusic
-	move.b	(p1_joy_tap).w,d0
-	tst.b	(time_attack).l
+	move.b	p1_joy_tap,d0
+	tst.b	time_attack
 	bne.s	loc_201966
 	andi.b	#$70,d0
 	cmpi.b	#$70,d0
 	bne.s	loc_2018F8
-	subq.b	#1,(lives).l
+	subq.b	#1,lives
 	bpl.s	loc_201948
-	clr.b	(lives).l
+	clr.b	lives
 
 loc_201948:
 	move.w	#$E,d0
 	jsr	SubCpuCommand
 	bsr.w	ResetObjectStates
-	clr.b	(spawn_mode).l
-	move.w	#1,(restart_stage).l
+	clr.b	spawn_mode
+	move.w	#1,restart_stage
 	bra.s	loc_201974
 
 ; ------------------------------------------------------------------------------
@@ -331,31 +331,31 @@ loc_201948:
 loc_201966:
 	andi.b	#$70,d0
 	beq.w	loc_2018F8
-	clr.b	(lives).l
+	clr.b	lives
 
 loc_201974:
-	clr.b	(paused).w
-	clr.w	(stage_demo).l
-	clr.b	(respawn_checkpoint).l
+	clr.b	paused
+	clr.w	stage_demo
+	clr.b	respawn_checkpoint
 	bra.w	InitStage
 
 ; ------------------------------------------------------------------------------
 
 loc_201988:
 	bsr.w	UnpauseMusic
-	addq.w	#1,(stage_frames).l
+	addq.w	#1,stage_frames
 	jsr	SpawnStageObjects
 	jsr	UpdateObjects
-	cmpi.w	#$800,(demo_index).w
+	cmpi.w	#$800,demo_index
 	beq.w	InitStage
-	tst.w	(restart_stage).l
+	tst.w	restart_stage
 	bne.w	InitStage
-	tst.w	(debug_mode).l
+	tst.w	debug_mode
 	bne.s	loc_2019D0
-	cmpi.b	#6,(player_object+obj.routine).w
+	cmpi.b	#6,player_object+obj.routine
 	bcs.s	loc_2019D0
-	move.w	(scroll_fg_y).w,(bottom_bound).w
-	move.w	(scroll_fg_y).w,(target_bottom_bound).w
+	move.w	scroll_fg_y,bottom_bound
+	move.w	scroll_fg_y,target_bottom_bound
 	bra.s	loc_2019D4
 
 ; ------------------------------------------------------------------------------
@@ -365,7 +365,7 @@ loc_2019D0:
 
 loc_2019D4:
 	jsr	DrawObjects
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.s	loc_2019E6
 	bsr.w	CyclePalette
 
@@ -378,10 +378,10 @@ loc_2019E6:
 ; ------------------------------------------------------------------------------
 
 SpawnPlayer:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#1,d0
 	move.b	d0,obj.id(a1)
-	tst.b	(spawn_mode).l
+	tst.b	spawn_mode
 	beq.s	locret_201A10
 	move.w	#$78,obj.var_30(a1)
 
@@ -431,9 +431,9 @@ RestoreFlowers:
 
 LoadStageCollision:
 	moveq	#0,d0
-	move.b	(zone).l,d0
+	move.b	zone,d0
 	lsl.w	#2,d0
-	move.l	off_201A7E(pc,d0.w),(stage_collision).w
+	move.l	off_201A7E(pc,d0.w),stage_collision
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -451,39 +451,39 @@ off_201A7E:
 ; ------------------------------------------------------------------------------
 
 UpdateGlobalAnims:
-	subq.b	#1,(log_spike_anim_timer).l
+	subq.b	#1,log_spike_anim_timer
 	bpl.s	loc_201ABC
-	move.b	#$B,(log_spike_anim_timer).l
-	subq.b	#1,(log_spike_anim_frame).l
-	andi.b	#7,(log_spike_anim_frame).l
+	move.b	#$B,log_spike_anim_timer
+	subq.b	#1,log_spike_anim_frame
+	andi.b	#7,log_spike_anim_frame
 
 loc_201ABC:
-	subq.b	#1,(ring_anim_timer).l
+	subq.b	#1,ring_anim_timer
 	bpl.s	loc_201ADA
-	move.b	#7,(ring_anim_timer).l
-	addq.b	#1,(ring_anim_frame).l
-	andi.b	#3,(ring_anim_frame).l
+	move.b	#7,ring_anim_timer
+	addq.b	#1,ring_anim_frame
+	andi.b	#3,ring_anim_frame
 
 loc_201ADA:
-	subq.b	#1,(unk_anim_timer).l
+	subq.b	#1,unk_anim_timer
 	bpl.s	loc_201B02
-	move.b	#7,(unk_anim_timer).l
-	addq.b	#1,(unk_anim_frame).l
-	cmpi.b	#6,(unk_anim_frame).l
+	move.b	#7,unk_anim_timer
+	addq.b	#1,unk_anim_frame
+	cmpi.b	#6,unk_anim_frame
 	bcs.s	loc_201B02
-	move.b	#0,(unk_anim_frame).l
+	move.b	#0,unk_anim_frame
 
 loc_201B02:
-	tst.b	(lost_ring_anim_timer).l
+	tst.b	lost_ring_anim_timer
 	beq.s	locret_201B30
 	moveq	#0,d0
-	move.b	(lost_ring_anim_timer).l,d0
-	add.w	(lost_ring_anim_accum).l,d0
-	move.w	d0,(lost_ring_anim_accum).l
+	move.b	lost_ring_anim_timer,d0
+	add.w	lost_ring_anim_accum,d0
+	move.w	d0,lost_ring_anim_accum
 	rol.w	#7,d0
 	andi.w	#3,d0
-	move.b	d0,(lost_ring_anim_frame).l
-	subq.b	#1,(lost_ring_anim_timer).l
+	move.b	d0,lost_ring_anim_frame
+	subq.b	#1,lost_ring_anim_timer
 
 locret_201B30:
 	rts
@@ -493,16 +493,16 @@ locret_201B30:
 PlayStageMusic:
 	moveq	#0,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	bclr	#7,d0
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	bne.s	loc_201B54
 	cmpi.b	#2,d0
 	bne.s	loc_201B54
-	add.b	(good_future).l,d0
+	add.b	good_future,d0
 
 loc_201B54:
-	move.b	(zone).l,d1
+	move.b	zone,d1
 	add.w	d1,d1
 	add.w	d1,d1
 	add.w	d0,d1
@@ -532,11 +532,11 @@ PlayStageMusic2:
 LoadLifeIcon:
 	move.l	#$74200002,d0
 	moveq	#0,d2
-	move.b	(time_zone).l,d2
+	move.b	time_zone,d2
 	bclr	#7,d2
 	lsl.w	#7,d2
 	move.l	d0,4(a6)
-	lea	(LivesIconsGfx).l,a1
+	lea	LivesIconsGfx,a1
 	lea	(a1,d2.w),a3
 	move.l	(a3)+,(a6)
 	move.l	(a3)+,(a6)
@@ -577,9 +577,9 @@ LoadLifeIcon:
 PauseMusic:
 	move.w	#$AB,d0
 	jsr	PlayFmSound
-	bset	#7,(paused).w
+	bset	#7,paused
 	bne.s	locret_201C3A
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
 	beq.s	loc_201C20
@@ -591,9 +591,9 @@ loc_201C16:
 ; ------------------------------------------------------------------------------
 
 loc_201C20:
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_201C16
-	tst.b	(speed_shoes).l
+	tst.b	speed_shoes
 	bne.s	loc_201C16
 	move.w	#$90,d0
 	jmp	SubCpuCommand
@@ -606,9 +606,9 @@ locret_201C3A:
 ; ------------------------------------------------------------------------------
 
 UnpauseMusic:
-	bclr	#7,(paused).w
+	bclr	#7,paused
 	beq.s	locret_201C76
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
 	beq.s	loc_201C5C
@@ -620,9 +620,9 @@ loc_201C52:
 ; ------------------------------------------------------------------------------
 
 loc_201C5C:
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_201C52
-	tst.b	(speed_shoes).l
+	tst.b	speed_shoes
 	bne.s	loc_201C52
 	move.w	#$91,d0
 	jmp	SubCpuCommand
@@ -636,15 +636,15 @@ locret_201C76:
 
 VBlank:
 	if STANDALONE=0
-		bset	#0,(MCD_INTERRUPT).l
+		bset	#0,MCD_INTERRUPT
 	endif
 	movem.l	d0-d7/a0-a6,-(sp)
-	tst.b	(vblank_routine).w
+	tst.b	vblank_routine
 	beq.s	VBlankLag
-	move.w	(VDP_CTRL).l,d0
-	move.l	#$40000010,(VDP_CTRL).l
-	move.l	(scroll_y).w,(VDP_DATA).l
-	btst	#6,(system_version).l
+	move.w	VDP_CTRL,d0
+	move.l	#$40000010,VDP_CTRL
+	move.l	scroll_y,VDP_DATA
+	btst	#6,system_version
 	beq.s	loc_201CB4
 	move.w	#$700,d0
 
@@ -652,21 +652,21 @@ loc_201CB0:
 	dbf	d0,loc_201CB0
 
 loc_201CB4:
-	move.b	(vblank_routine).w,d0
-	move.b	#0,(vblank_routine).w
+	move.b	vblank_routine,d0
+	move.b	#0,vblank_routine
 	andi.w	#$3E,d0
 	move.w	VBlankIndex(pc,d0.w),d0
 	jsr	VBlankIndex(pc,d0.w)
 
 loc_201CCA:
 	jsr	FlushFmQueues
-	tst.b	(paused).w
+	tst.b	paused
 	bne.s	loc_201CDE
 	bsr.w	UpdateBoredTimer
 	bsr.w	UpdateWarpTimer
 
 loc_201CDE:
-	addq.l	#1,(stage_vblank_frames).l
+	addq.l	#1,stage_vblank_frames
 	movem.l	(sp)+,d0-d7/a0-a6
 	rte
 
@@ -690,12 +690,12 @@ VBlankIndex:
 ; ------------------------------------------------------------------------------
 
 VBlankLag:
-	tst.b	(stage_started).l
+	tst.b	stage_started
 	beq.w	loc_201CCA
-	cmpi.b	#2,(zone).l
+	cmpi.b	#2,zone
 	bne.w	loc_201CCA
-	move.w	(VDP_CTRL).l,d0
-	btst	#6,(system_version).l
+	move.w	VDP_CTRL,d0
+	btst	#6,system_version
 	beq.s	loc_201D32
 	move.w	#$700,d0
 
@@ -703,32 +703,32 @@ loc_201D2E:
 	dbf	d0,loc_201D2E
 
 loc_201D32:
-	move.w	#1,(do_hblank).w
+	move.w	#1,do_hblank
 	jsr	StopZ80
-	tst.b	(water_full).w
+	tst.b	water_full
 	bne.s	loc_201D6A
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$C000,(a5)
-	move.w	#$80,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$80,dma_stack
+	move.w	dma_stack,(a5)
 	bra.s	loc_201D8E
 
 ; ------------------------------------------------------------------------------
 
 loc_201D6A:
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9540,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$C000,(a5)
-	move.w	#$80,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$80,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_201D8E:
-	move.w	(hblank_vdp_reg).w,(a5)
+	move.w	hblank_vdp_reg,(a5)
 	jsr	StartZ80
 	bra.w	loc_201CCA
 
@@ -738,9 +738,9 @@ VBlankGeneral:
 	bsr.w	VBlankCommon
 
 VBlankS1SegaLogo:
-	tst.w	(global_timer).w
+	tst.w	global_timer
 	beq.w	locret_201DAC
-	subq.w	#1,(global_timer).w
+	subq.w	#1,global_timer
 
 locret_201DAC:
 	rts
@@ -751,9 +751,9 @@ VBlankS1Title:
 	bsr.w	VBlankCommon
 	bsr.w	DrawStageBg
 	bsr.w	ProcessGfxQueueFast
-	tst.w	(global_timer).w
+	tst.w	global_timer
 	beq.w	locret_201DC6
-	subq.w	#1,(global_timer).w
+	subq.w	#1,global_timer
 
 locret_201DC6:
 	rts
@@ -767,7 +767,7 @@ VBlankUnk6:
 ; ------------------------------------------------------------------------------
 
 VBlankPause:
-	cmpi.b	#$10,(game_mode).w
+	cmpi.b	#$10,game_mode
 	beq.w	VBlankS1SpecialStage
 
 ; ------------------------------------------------------------------------------
@@ -775,47 +775,47 @@ VBlankPause:
 VBlankStage:
 	jsr	StopZ80
 	bsr.w	ReadJoypads
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$C000,(a5)
-	move.w	#$80,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(VDP_CTRL).l,a5
+	move.w	#$80,dma_stack
+	move.w	dma_stack,(a5)
+	lea	VDP_CTRL,a5
 	move.l	#$940193C0,(a5)
 	move.l	#$96E69500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7C00,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(VDP_CTRL).l,a5
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
+	lea	VDP_CTRL,a5
 	move.l	#$94019340,(a5)
 	move.l	#$96FC9500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7800,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(player_object).w,a0
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
+	lea	player_object,a0
 	bsr.w	LoadPlayerGfx
-	tst.b	(update_player_gfx).w
+	tst.b	update_player_gfx
 	beq.s	loc_201E86
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019370,(a5)
 	move.l	#$96E49500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7000,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	move.b	#0,(update_player_gfx).w
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
+	move.b	#0,update_player_gfx
 
 loc_201E86:
 	jsr	AnimateStageGfx
 	jsr	StartZ80
-	movem.l	(scroll_fg_x).w,d0-d7
-	movem.l	d0-d7,(scroll_fg_x_work).l
-	movem.l	(scroll_flags_fg).w,d0-d1
-	movem.l	d0-d1,(scroll_flags_fg_work).l
+	movem.l	scroll_fg_x,d0-d7
+	movem.l	d0-d7,scroll_fg_x_work
+	movem.l	scroll_flags_fg,d0-d1
+	movem.l	d0-d1,scroll_flags_fg_work
 	bsr.w	DrawStage
 	bsr.w	ProcessGfxQueueSlow
 	jmp	UpdateHudNumbers
@@ -830,32 +830,32 @@ VBlankS1SpecialStage:
 VBlankStageLoad:
 	jsr	StopZ80
 	bsr.w	ReadJoypads
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$C000,(a5)
-	move.w	#$80,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(VDP_CTRL).l,a5
+	move.w	#$80,dma_stack
+	move.w	dma_stack,(a5)
+	lea	VDP_CTRL,a5
 	move.l	#$940193C0,(a5)
 	move.l	#$96E69500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7C00,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(VDP_CTRL).l,a5
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
+	lea	VDP_CTRL,a5
 	move.l	#$94019340,(a5)
 	move.l	#$96FC9500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7800,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
 	jsr	StartZ80
-	movem.l	(scroll_fg_x).w,d0-d7
-	movem.l	d0-d7,(scroll_fg_x_work).l
-	movem.l	(scroll_flags_fg).w,d0-d1
-	movem.l	d0-d1,(scroll_flags_fg_work).l
+	movem.l	scroll_fg_x,d0-d7
+	movem.l	d0-d7,scroll_fg_x_work
+	movem.l	scroll_flags_fg,d0-d1
+	movem.l	d0-d1,scroll_flags_fg_work
 	bsr.w	DrawStage
 	bra.w	ProcessGfxQueueFast
 
@@ -863,23 +863,23 @@ VBlankStageLoad:
 
 VBlankUnkE:
 	bsr.w	VBlankCommon
-	addq.b	#1,(vblank_e_count).w
-	move.b	#$E,(vblank_routine).w
+	addq.b	#1,vblank_e_count
+	move.b	#$E,vblank_routine
 	rts
 
 ; ------------------------------------------------------------------------------
 
 VBlankPaletteFade:
 	bsr.w	VBlankCommon
-	cmpi.b	#1,(fade_enable_display).l
+	cmpi.b	#1,fade_enable_display
 	bne.s	loc_201F90
-	addq.b	#1,(fade_enable_display).l
-	move.w	(display_vdp_reg).w,d0
+	addq.b	#1,fade_enable_display
+	move.w	display_vdp_reg,d0
 	ori.b	#$40,d0
-	move.w	d0,(VDP_CTRL).l
+	move.w	d0,VDP_CTRL
 
 loc_201F90:
-	move.w	(hblank_vdp_reg).w,(a5)
+	move.w	hblank_vdp_reg,(a5)
 	bra.w	ProcessGfxQueueFast
 
 ; ------------------------------------------------------------------------------
@@ -887,45 +887,45 @@ loc_201F90:
 VBlankS1Continue:
 	jsr	StopZ80
 	bsr.w	ReadJoypads
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$C000,(a5)
-	move.w	#$80,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(VDP_CTRL).l,a5
+	move.w	#$80,dma_stack
+	move.w	dma_stack,(a5)
+	lea	VDP_CTRL,a5
 	move.l	#$94019340,(a5)
 	move.l	#$96FC9500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7800,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(VDP_CTRL).l,a5
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
+	lea	VDP_CTRL,a5
 	move.l	#$940193C0,(a5)
 	move.l	#$96E69500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7C00,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
 	jsr	StartZ80
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	bsr.w	LoadPlayerGfx
-	tst.b	(update_player_gfx).w
+	tst.b	update_player_gfx
 	beq.s	loc_20204C
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019370,(a5)
 	move.l	#$96E49500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7000,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	move.b	#0,(update_player_gfx).w
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
+	move.b	#0,update_player_gfx
 
 loc_20204C:
-	tst.w	(global_timer).w
+	tst.w	global_timer
 	beq.w	locret_202058
-	subq.w	#1,(global_timer).w
+	subq.w	#1,global_timer
 
 locret_202058:
 	rts
@@ -935,43 +935,43 @@ locret_202058:
 VBlankCommon:
 	jsr	StopZ80
 	bsr.w	ReadJoypads
-	tst.b	(water_full).w
+	tst.b	water_full
 	bne.s	loc_202090
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$C000,(a5)
-	move.w	#$80,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$80,dma_stack
+	move.w	dma_stack,(a5)
 	bra.s	loc_2020B4
 
 ; ------------------------------------------------------------------------------
 
 loc_202090:
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9540,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$C000,(a5)
-	move.w	#$80,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$80,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_2020B4:
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019340,(a5)
 	move.l	#$96FC9500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7800,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
-	lea	(VDP_CTRL).l,a5
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
+	lea	VDP_CTRL,a5
 	move.l	#$940193C0,(a5)
 	move.l	#$96E69500,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$7C00,(a5)
-	move.w	#$83,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$83,dma_stack
+	move.w	dma_stack,(a5)
 	jmp	StartZ80
 
 ; ------------------------------------------------------------------------------
@@ -982,11 +982,11 @@ HBlank:
 ; ------------------------------------------------------------------------------
 
 UpdateWarpTimer:
-	tst.b	(player_object+obj.var_2a).w
+	tst.b	player_object+obj.var_2a
 	bne.s	locret_202114
-	tst.w	(warp_timer).w
+	tst.w	warp_timer
 	beq.s	locret_202114
-	addq.w	#1,(warp_timer).w
+	addq.w	#1,warp_timer
 
 locret_202114:
 	rts
@@ -994,14 +994,14 @@ locret_202114:
 ; ------------------------------------------------------------------------------
 
 UpdateBoredTimer:
-	tst.w	(bored_timer).w
+	tst.w	bored_timer
 	beq.s	loc_202120
-	addq.w	#1,(bored_timer).w
+	addq.w	#1,bored_timer
 
 loc_202120:
-	tst.w	(bored_timer_p2).w
+	tst.w	bored_timer_p2
 	beq.s	locret_20212A
-	addq.w	#1,(bored_timer_p2).w
+	addq.w	#1,bored_timer_p2
 
 locret_20212A:
 	rts

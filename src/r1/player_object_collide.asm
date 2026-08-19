@@ -17,7 +17,7 @@ PlayerObjectCollide:
 loc_206D48:
 	move.w	#$10,d4
 	add.w	d5,d5
-	lea	(object_spawn_pool).w,a1
+	lea	object_spawn_pool,a1
 	move.w	#$5F,d6
 
 loc_206D56:
@@ -37,7 +37,7 @@ loc_206D62:
 loc_206D6E:
 	andi.w	#$3F,d0
 	add.w	d0,d0
-	lea	(byte_2070D4).l,a2
+	lea	byte_2070D4,a2
 	lea	-2(a2,d0.w),a2
 	moveq	#0,d1
 	move.b	(a2)+,d1
@@ -123,9 +123,9 @@ locret_206E2C:
 ; ------------------------------------------------------------------------------
 
 sub_206E2E:
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	loc_206E48
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_206E48
 	cmpi.b	#2,obj.anim_id(a0)
 	bne.w	loc_206EF8
@@ -150,8 +150,8 @@ locret_206E70:
 loc_206E72:
 	bset	#7,obj.flags(a1)
 	moveq	#0,d0
-	move.w	(score_chain).w,d0
-	addq.w	#2,(score_chain).w
+	move.w	score_chain,d0
+	addq.w	#2,score_chain
 	cmpi.w	#6,d0
 	bcs.s	loc_206E8A
 	moveq	#6,d0
@@ -159,7 +159,7 @@ loc_206E72:
 loc_206E8A:
 	move.w	d0,explode.points(a1)
 	move.w	word_206EEA(pc,d0.w),d0
-	cmpi.w	#$20,(score_chain).w
+	cmpi.w	#$20,score_chain
 	bcs.s	loc_206EA4
 	move.w	#1000,d0
 	move.w	#10,explode.points(a1)
@@ -167,7 +167,7 @@ loc_206E8A:
 loc_206EA4:
 	bsr.w	AddPoints
 	move.w	#$96,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 	move.b	#$18,obj.id(a1)
 	move.b	#0,obj.routine(a1)
 	move.b	#1,obj.subtype(a1)
@@ -205,9 +205,9 @@ loc_206EF2:
 	bset	#7,obj.flags(a1)
 
 loc_206EF8:
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	loc_206F08
-	tst.b	(invincible).l
+	tst.b	invincible
 	beq.s	loc_206F0C
 
 loc_206F08:
@@ -223,11 +223,11 @@ loc_206F0C:
 	movea.l	a1,a2
 
 HurtPlayer:
-	tst.b	(shield).l
+	tst.b	shield
 	bne.s	loc_206F42
-	tst.w	(rings).l
+	tst.w	rings
 	beq.w	loc_206FAC
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	loc_206F42
 	move.b	#$11,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -235,9 +235,9 @@ HurtPlayer:
 
 loc_206F42:
 	clr.b	obj.var_2a(a0)
-	bclr	#0,(shield).l
+	bclr	#0,shield
 	bne.s	loc_206F58
-	move.b	#0,(combine_ring).l
+	move.b	#0,combine_ring
 
 loc_206F58:
 	move.b	#4,obj.routine(a0)
@@ -266,13 +266,13 @@ loc_206F96:
 ; ------------------------------------------------------------------------------
 
 loc_206FAC:
-	tst.w	(debug_cheat).l
+	tst.w	debug_cheat
 	bne.w	loc_206F42
 
 KillPlayer:
-	tst.w	(debug_mode).l
+	tst.w	debug_mode
 	bne.s	loc_20700A
-	move.b	#0,(invincible).l
+	move.b	#0,invincible
 	move.b	#6,obj.routine(a0)
 	bsr.w	PlayerSetGround
 	bset	#1,obj.flags(a0)
@@ -284,7 +284,7 @@ KillPlayer:
 	bset	#7,obj.sprite_tile(a0)
 	move.b	#0,obj.sprite_layer(a0)
 	move.w	#$93,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 loc_20700A:
 	moveq	#-1,d0
@@ -313,7 +313,7 @@ loc_20700E:
 	beq.w	loc_2070C6
 	cmpi.b	#$3B,d1
 	beq.w	loc_2070C6
-	cmpi.b	#1,(boss_started).w
+	cmpi.b	#1,boss_started
 	bne.s	locret_207088
 	cmpi.b	#$3C,d1
 	blt.s	locret_207088

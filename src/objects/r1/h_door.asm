@@ -65,15 +65,15 @@ loc_205EB6:
 	jsr	SetObjectSpriteTile
 
 HDoorObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_205E3A
-	lea	(player_object_2).w,a1
+	lea	player_object_2,a1
 	bra.w	sub_205E3A
 
 ; ------------------------------------------------------------------------------
 
 HDoorObject_0_Routine4:
-	lea	(HDoorAnims).l,a1
+	lea	HDoorAnims,a1
 	bra.w	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ loc_205F72:
 	jsr	PlayFmSound
 
 HDoorSplashObject_0_Routine2:
-	lea	(SplashAnims).l,a1
+	lea	SplashAnims,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 

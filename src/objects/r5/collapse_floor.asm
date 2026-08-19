@@ -25,7 +25,7 @@ CollapseFloorObject_1_Routine0:
 	move.b	#3,obj.sprite_layer(a0)
 	move.b	#$11,obj.height(a0)
 	move.w	#$4350,d0
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_20E31C
 	move.w	#$43A0,d0
 
@@ -40,14 +40,14 @@ loc_20E31C:
 	move.b	d1,obj.width_2(a0)
 
 CollapseFloorObject_1_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	loc_20E368
 	addq.b	#2,obj.routine(a0)
 	clr.b	obj.state_id(a0)
 	move.w	#8,obj.var_2a(a0)
 	moveq	#8,d0
-	tst.w	(player_object+obj.x_speed).w
+	tst.w	player_object+obj.x_speed
 	bpl.s	loc_20E35A
 	neg.w	d0
 
@@ -63,7 +63,7 @@ loc_20E368:
 ; ------------------------------------------------------------------------------
 
 CollapseFloorObject_1_Routine4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	subq.w	#1,obj.var_2a(a0)
 	bpl.s	loc_20E388
@@ -104,7 +104,7 @@ loc_20E3A8:
 	move.b	#9,obj.sprite_frame(a1)
 
 loc_20E3EE:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	loc_20E400
 	jsr	GetOffObject
@@ -119,7 +119,7 @@ loc_20E400:
 	move.w	#7,obj.var_2a(a0)
 	move.w	obj.var_2c(a0),d0
 	add.w	d0,obj.x(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	jmp	DrawObject
 

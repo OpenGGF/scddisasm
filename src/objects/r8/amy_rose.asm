@@ -31,10 +31,10 @@ AmyRoseObject_1_Routine0:
 	move.w	#$2220,obj.sprite_tile(a0)
 	move.l	#Spr_20D230,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
-	bset	#0,(control_locked).w
+	bset	#0,control_locked
 
 AmyRoseObject_1_Routine2:
-	tst.b	(boss_started).w
+	tst.b	boss_started
 	beq.s	loc_20D07C
 	rts
 
@@ -45,7 +45,7 @@ loc_20D07C:
 	move.w	#$140,obj.x_speed(a0)
 
 AmyRoseObject_1_Routine4:
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	jsr	AnimateObject
 	bsr.w	sub_20D14E
 	cmpi.w	#$EA0,obj.x(a0)
@@ -88,7 +88,7 @@ loc_20D0D8:
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject_1_RoutineE:
-	lea	(palette_cycle_timers).w,a1
+	lea	palette_cycle_timers,a1
 	move.l	#$7F7F7F7F,d0
 	move.b	d0,(a1)+
 	move.l	d0,(a1)+
@@ -106,14 +106,14 @@ AmyRoseObject_1_RoutineE:
 	bsr.w	sub_20D1D6
 
 loc_20D130:
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20D13C:
-	bset	#7,(time_zone).l
-	move.w	#1,(restart_stage).l
+	bset	#7,time_zone
+	move.w	#1,restart_stage
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ sub_20D14E:
 ; ------------------------------------------------------------------------------
 
 sub_20D168:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#0,d0
 	move.b	obj.var_2d(a0),d0
 	move.w	off_20D17A(pc,d0.w),d0
@@ -149,7 +149,7 @@ off_20D17A:
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject_0_Routine0:
-	move.w	#$808,(player_joy_hold).w
+	move.w	#$808,player_joy_hold
 	cmpi.w	#$F90,obj.x(a1)
 	bge.s	loc_20D192
 	rts
@@ -160,7 +160,7 @@ loc_20D192:
 	addq.b	#2,obj.var_2d(a0)
 
 AmyRoseObject_0_Routine2:
-	move.w	#$404,(player_joy_hold).w
+	move.w	#$404,player_joy_hold
 	cmpi.w	#$F70,obj.x(a1)
 	ble.s	loc_20D1A6
 	rts
@@ -169,7 +169,7 @@ AmyRoseObject_0_Routine2:
 
 loc_20D1A6:
 	addq.b	#2,obj.var_2d(a0)
-	move.w	#0,(player_joy_hold).w
+	move.w	#0,player_joy_hold
 
 AmyRoseObject_0_Routine4:
 	cmpi.b	#6,obj.routine(a0)
@@ -196,7 +196,7 @@ locret_20D1D4:
 ; ------------------------------------------------------------------------------
 
 sub_20D1D6:
-	lea	(palette).w,a2
+	lea	palette,a2
 	move.w	#$3F,d6
 
 loc_20D1DE:
@@ -232,8 +232,8 @@ sub_20D208:
 	move.w	#-4,d0
 
 loc_20D21C:
-	add.w	d0,(bottom_bound).w
-	add.w	d0,(target_bottom_bound).w
+	add.w	d0,bottom_bound
+	add.w	d0,target_bottom_bound
 	rts
 
 ; ------------------------------------------------------------------------------

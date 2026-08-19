@@ -23,7 +23,7 @@ off_20C200:
 ; ------------------------------------------------------------------------------
 
 sub_20C212:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	SolidObject
@@ -33,7 +33,7 @@ sub_20C212:
 loc_20C224:
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -47,12 +47,12 @@ loc_20C242:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20C266
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	bclr	#7,2(a1,d0.w)
 
@@ -303,7 +303,7 @@ HMoveBlockObject_4_Routine2:
 	bsr.s	sub_20C592
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	locret_20C590
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20C586
@@ -517,7 +517,7 @@ byte_20C77A:
 HMoveBlockObject_6_Routine2:
 	tst.b	obj.var_3a(a0)
 	bne.s	loc_20C7AE
-	lea	(byte_20C7DA).l,a1
+	lea	byte_20C7DA,a1
 	moveq	#0,d0
 	move.b	obj.var_3b(a0),d0
 	add.b	d0,d0

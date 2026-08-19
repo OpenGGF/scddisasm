@@ -66,7 +66,7 @@ GaObject_0_Routine4:
 	move.w	#$33,obj.var_2a(a0)
 
 loc_20B3E0:
-	lea	(GaAnims).l,a1
+	lea	GaAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -88,7 +88,7 @@ GaObject_0_Routine6:
 
 loc_20B432:
 	move.w	obj.x(a0),d0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	sub.w	obj.x(a1),d0
 	bpl.s	loc_20B450
 	neg.l	obj.var_2c(a0)

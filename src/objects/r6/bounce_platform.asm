@@ -111,15 +111,15 @@ loc_20D0AC:
 ; ------------------------------------------------------------------------------
 
 sub_20D0BA:
-	cmpi.b	#2,(time_zone).l
+	cmpi.b	#2,time_zone
 	bcc.s	loc_20D0DA
 	move.b	#$3C,d0
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	loc_20D0D4
 	addi.b	#$1E,d0
 
 loc_20D0D4:
-	cmp.b	(palette_cycle_steps+3).w,d0
+	cmp.b	palette_cycle_steps+3,d0
 	beq.s	loc_20D0DE
 
 loc_20D0DA:
@@ -141,7 +141,7 @@ BouncePlatformSprites:
 ; ------------------------------------------------------------------------------
 
 loc_20D0F0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y_speed(a1),d0
 	bpl.s	loc_20D104
 	neg.w	d0
@@ -162,7 +162,7 @@ loc_20D112:
 loc_20D118:
 	move.b	obj.var_2e(a0),d0
 	add.b	d0,obj.height(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20D130
 	move.b	obj.var_2e(a0),d0
 	sub.b	d0,obj.height(a0)

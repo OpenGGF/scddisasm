@@ -5,8 +5,8 @@ LogShadowObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_208988(pc,d0.w),d0
 	jsr	off_208988(pc,d0.w)
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -33,15 +33,15 @@ LogShadowObject_0_Routine2:
 
 sub_2089BC:
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	andi.b	#$7F,d0
 	cmpi.b	#2,d0
 	bne.s	loc_2089D4
-	add.b	(good_future).l,d0
+	add.b	good_future,d0
 
 loc_2089D4:
 	add.w	d0,d0
-	add.b	(act).l,d0
+	add.b	act,d0
 	add.w	d0,d0
 	move.w	word_2089EC(pc,d0.w),obj.sprite_tile(a0)
 	ori.w	#$4000,obj.sprite_tile(a0)

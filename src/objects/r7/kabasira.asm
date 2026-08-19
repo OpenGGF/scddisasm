@@ -126,7 +126,7 @@ KabasiraObject_0_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20D584:
-	lea	(player_object).w,a2
+	lea	player_object,a2
 	bsr.w	sub_20D646
 	bcc.w	loc_20D604
 	move.w	#$F0,obj.var_3a(a0)
@@ -220,7 +220,7 @@ loc_20D66E:
 ; ------------------------------------------------------------------------------
 
 loc_20D6B0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bpl.s	loc_20D6C0

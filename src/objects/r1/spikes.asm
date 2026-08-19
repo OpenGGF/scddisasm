@@ -29,7 +29,7 @@ SpikesObject_0_Routine0:
 	move.b	#$83,obj.collide_type(a0)
 
 SpikesObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	bcc.s	loc_20C188
@@ -40,24 +40,24 @@ loc_20C188:
 	bcc.s	loc_20C1F2
 	btst	#1,obj.sprite_flags(a0)
 	beq.s	loc_20C1A2
-	lea	(player_object).w,a1
-	jsr	(SolidObject).l
+	lea	player_object,a1
+	jsr	SolidObject
 	bra.s	loc_20C1F2
 
 ; ------------------------------------------------------------------------------
 
 loc_20C1A2:
-	jsr	(SolidObject).l
+	jsr	SolidObject
 	beq.s	loc_20C1F2
 	btst	#3,obj.flags(a0)
 	beq.s	loc_20C1F2
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	loc_20C1F2
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_20C1F2
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	loc_20C1F0
 	tst.w	obj.var_30(a0)
@@ -68,14 +68,14 @@ loc_20C1A2:
 	asl.l	#8,d0
 	sub.l	d0,d3
 	move.l	d3,obj.y(a0)
-	jsr	(HurtPlayer).l
+	jsr	HurtPlayer
 
 loc_20C1F0:
 	movea.l	(sp)+,a0
 
 loc_20C1F2:
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 

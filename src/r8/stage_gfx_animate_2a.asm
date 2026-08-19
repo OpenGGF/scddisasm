@@ -2,71 +2,71 @@
 
 AnimateStageGfx:
 	jsr	LoadPowerupArt
-	lea	(stage_anim_timers).w,a2
-	lea	(stage_anim_frames).w,a4
-	lea	(byte_20FA18).l,a1
+	lea	stage_anim_timers,a2
+	lea	stage_anim_frames,a4
+	lea	byte_20FA18,a1
 	move.w	#$3F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	loc_20F902
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4440,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20F902:
-	lea	(byte_20FA2A).l,a1
+	lea	byte_20FA2A,a1
 	move.w	#$3F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	loc_20F936
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4540,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20F936:
-	lea	(byte_20FA3C).l,a1
+	lea	byte_20FA3C,a1
 	move.w	#$7F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	loc_20F96A
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94019300,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4640,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20F96A:
-	lea	(byte_20FA4E).l,a1
+	lea	byte_20FA4E,a1
 	move.w	#$1F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	loc_20F99E
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4840,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20F99E:
-	lea	(byte_20FA6C).l,a1
+	lea	byte_20FA6C,a1
 	move.w	#$1F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	locret_20F9D2
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$48C0,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 locret_20F9D2:
 	rts
@@ -89,7 +89,7 @@ loc_20F9EA:
 	add.w	d0,d0
 	add.w	d0,d0
 	movea.l	2(a1,d0.w),a1
-	lea	(stage_anim_gfx).l,a3
+	lea	stage_anim_gfx,a3
 
 loc_20F9FA:
 	move.l	(a1)+,(a3)+

@@ -8,7 +8,7 @@ PlatformChainObject:
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -30,7 +30,7 @@ off_20EC4E:
 ; ------------------------------------------------------------------------------
 
 sub_20EC52:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jsr	TopSolidObject
@@ -54,7 +54,7 @@ PlatformChainObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$4340,obj.sprite_tile(a0)
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_20ECA2
 	move.w	#$4400,obj.sprite_tile(a0)
 
@@ -168,7 +168,7 @@ sub_20EDB8:
 	bne.s	locret_20EDEA
 	move.b	obj.subtype(a0),d0
 	andi.w	#$F,d0
-	lea	(switch_flags).w,a1
+	lea	switch_flags,a1
 	btst	#7,(a1,d0.w)
 	beq.s	loc_20EDE6
 	tst.b	obj.var_3d(a0)

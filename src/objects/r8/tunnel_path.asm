@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 loc_208154:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	cmpi.b	#6,obj.routine(a6)
 	bcs.s	loc_208162
 	rts
@@ -9,7 +9,7 @@ loc_208154:
 ; ------------------------------------------------------------------------------
 
 loc_208162:
-	move.w	(p1_joy_hold).w,(player_joy_hold).w
+	move.w	p1_joy_hold,player_joy_hold
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20817C(pc,d0.w),d0
@@ -37,7 +37,7 @@ TunnelPathObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 TunnelPathObject_0_Routine4:
-	btst	#0,(player_joy_tap).w
+	btst	#0,player_joy_tap
 	beq.s	loc_2081B2
 	subi.w	#$10,obj.var_38(a0)
 	bra.s	loc_2081E0
@@ -45,7 +45,7 @@ TunnelPathObject_0_Routine4:
 ; ------------------------------------------------------------------------------
 
 loc_2081B2:
-	btst	#1,(player_joy_tap).w
+	btst	#1,player_joy_tap
 	beq.s	loc_2081C2
 	addi.w	#$10,obj.var_38(a0)
 	bra.s	loc_2081E0
@@ -53,7 +53,7 @@ loc_2081B2:
 ; ------------------------------------------------------------------------------
 
 loc_2081C2:
-	btst	#2,(player_joy_tap).w
+	btst	#2,player_joy_tap
 	beq.s	loc_2081D2
 	subi.w	#$10,obj.var_36(a0)
 	bra.s	loc_2081E0
@@ -61,7 +61,7 @@ loc_2081C2:
 ; ------------------------------------------------------------------------------
 
 loc_2081D2:
-	btst	#3,(player_joy_tap).w
+	btst	#3,player_joy_tap
 	beq.s	locret_2081F0
 	addi.w	#$10,obj.var_36(a0)
 
@@ -78,19 +78,19 @@ locret_2081F0:
 ; ------------------------------------------------------------------------------
 
 TunnelPathObject:
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	beq.s	loc_20823C
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20823C
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
@@ -110,7 +110,7 @@ loc_208234:
 	bclr	#7,2(a1,d0.w)
 
 loc_20823C:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	cmpi.b	#$2B,obj.anim_id(a6)
 	beq.s	locret_208276
 	cmpi.b	#6,obj.routine(a6)

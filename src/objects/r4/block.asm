@@ -20,7 +20,7 @@ BlockObject:
 	move.b	d1,obj.height(a0)
 
 loc_20EDAC:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn

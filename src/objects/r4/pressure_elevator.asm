@@ -33,7 +33,7 @@ PressureElevatorObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 PressureElevatorObject_0_Routine2:
-	move.w	(player_object+obj.y).w,d0
+	move.w	player_object+obj.y,d0
 	subi.w	#$E0,d0
 	cmp.w	obj.var_2a(a0),d0
 	ble.s	loc_20F85E
@@ -64,7 +64,7 @@ loc_20F89E:
 	tst.b	obj.sprite_flags(a0)
 	bmi.s	loc_20F8BE
 	move.w	obj.y(a0),d0
-	sub.w	(player_object+obj.y).w,d0
+	sub.w	player_object+obj.y,d0
 	bpl.s	loc_20F8B0
 	neg.w	d0
 
@@ -77,11 +77,11 @@ loc_20F8B0:
 ; ------------------------------------------------------------------------------
 
 loc_20F8BE:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	loc_20F8F2
 	move.b	#8,obj.routine(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	GetOffObject
 	move.b	#$1F,obj.height(a0)
 	addq.w	#2,obj.y(a0)
@@ -111,11 +111,11 @@ PressureElevatorObject_0_RoutineA:
 ; ------------------------------------------------------------------------------
 
 loc_20F926:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	bne.s	loc_20F944
 	move.b	#4,obj.routine(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	subq.w	#2,obj.y(a0)
 	subq.w	#4,obj.y(a1)
 

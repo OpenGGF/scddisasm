@@ -20,7 +20,7 @@ off_20D18A:
 ; ------------------------------------------------------------------------------
 
 loc_20D190:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	TopSolidObject
@@ -28,7 +28,7 @@ loc_20D190:
 ; ------------------------------------------------------------------------------
 
 GeyserObject_0_Routine0:
-	lea	(palette+$6E).w,a2
+	lea	palette+$6E,a2
 	move.w	#$646,(a2)+
 	move.w	#$A8A,(a2)+
 	move.w	#$EEE,(a2)
@@ -42,9 +42,9 @@ GeyserObject_0_Routine0:
 
 GeyserObject_0_Routine2:
 	bsr.s	sub_20D1FA
-	lea	(GeyserAnims).l,a1
+	lea	GeyserAnims,a1
 	jsr	AnimateObject
-	move.w	(water_y).w,d0
+	move.w	water_y,d0
 	subi.w	#$30,d0
 	move.w	d0,obj.y(a0)
 	bra.w	loc_20D190

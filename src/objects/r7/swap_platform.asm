@@ -11,10 +11,10 @@ SwapPlatformObject:
 	move.l	#Spr_20F650,obj.sprite_data(a0)
 
 loc_20F610:
-	move.b	(debug_cheat).l,obj.sprite_frame(a0)
-	tst.b	(stage_layer).l
+	move.b	debug_cheat,obj.sprite_frame(a0)
+	tst.b	stage_layer
 	beq.s	loc_20F630
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	sne	obj.var_2a(a0)
 	bra.s	loc_20F644
@@ -25,7 +25,7 @@ loc_20F630:
 	tst.b	obj.var_2a(a0)
 	beq.s	loc_20F644
 	clr.b	obj.var_2a(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	GetOffObject
 
 loc_20F644:

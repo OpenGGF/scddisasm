@@ -1,55 +1,55 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	tst.b	(act).l
+	tst.b	act
 	bne.s	loc_2001AA
-	cmpi.w	#$280,(scroll_fg_x).w
+	cmpi.w	#$280,scroll_fg_x
 	bcc.s	loc_2001AA
-	cmpi.w	#$160,(scroll_fg_y).w
+	cmpi.w	#$160,scroll_fg_y
 	bcs.s	loc_2001F2
-	bset	#7,(palette_cycle_timers+4).w
+	bset	#7,palette_cycle_timers+4
 	bne.s	loc_2001AA
 	moveq	#4,d0
 	bsr.w	LoadPalette
 
 loc_2001AA:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_20032C).l,a1
-	lea	(word_200354).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_20032C,a1
+	lea	word_200354,a2
 	bsr.w	CycleColor
-	lea	(byte_200336).l,a1
-	lea	(word_200354).l,a2
+	lea	byte_200336,a1
+	lea	word_200354,a2
 	bsr.w	CycleColor
-	lea	(byte_200340).l,a1
-	lea	(word_200354).l,a2
+	lea	byte_200340,a1
+	lea	word_200354,a2
 	bsr.w	CycleColor
-	lea	(byte_20034A).l,a1
-	lea	(word_200354).l,a2
+	lea	byte_20034A,a1
+	lea	word_200354,a2
 	bra.w	CycleColor
 
 ; ------------------------------------------------------------------------------
 
 loc_2001F2:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_200294).l,a1
-	lea	(word_2002A6).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_200294,a1
+	lea	word_2002A6,a2
 	bsr.w	CycleColor
-	lea	(byte_2002AE).l,a1
-	lea	(word_2002C0).l,a2
+	lea	byte_2002AE,a1
+	lea	word_2002C0,a2
 	bsr.w	CycleColor
-	lea	(byte_2002CA).l,a1
-	lea	(word_2002DC).l,a2
+	lea	byte_2002CA,a1
+	lea	word_2002DC,a2
 	bsr.w	CycleColor
-	lea	(byte_2002E4).l,a1
-	lea	(word_2002F6).l,a2
+	lea	byte_2002E4,a1
+	lea	word_2002F6,a2
 	bsr.w	CycleColor
-	lea	(byte_200300).l,a1
-	lea	(word_200312).l,a2
+	lea	byte_200300,a1
+	lea	word_200312,a2
 	bsr.w	CycleColor
-	lea	(byte_200316).l,a1
-	lea	(word_200328).l,a2
+	lea	byte_200316,a1
+	lea	word_200328,a2
 
 ; ------------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ CycleColor:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0

@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 PathSwapObject:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20B83C(pc,d0.w),d0
@@ -28,7 +28,7 @@ loc_20B850:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$34D,obj.sprite_tile(a0)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20B86E
 	ori.b	#$80,obj.sprite_tile(a0)
 
@@ -73,7 +73,7 @@ loc_20B894:
 	bcc.s	loc_20B8E8
 	move.b	#$3C,obj.var_2a(a0)
 	addq.b	#2,obj.routine(a0)
-	eori.b	#1,(stage_layer).l
+	eori.b	#1,stage_layer
 
 locret_20B8E6:
 	rts
@@ -83,14 +83,14 @@ locret_20B8E6:
 loc_20B8E8:
 	btst	#7,obj.sprite_tile(a0)
 	beq.s	loc_20B8FA
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	bne.s	loc_20B904
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20B8FA:
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	loc_20B904
 	rts
 
@@ -104,7 +104,7 @@ loc_20B904:
 ; ------------------------------------------------------------------------------
 
 PathSwapObject_0_Routine4:
-	lea	(PathSwapAnims).l,a1
+	lea	PathSwapAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ PathSwapObject_0_Routine4:
 PathSwapObject_0_Routine6:
 	ori.w	#$8000,obj.sprite_tile(a0)
 	move.b	#4,obj.sprite_layer(a0)
-	tst.b	(stage_layer).l
+	tst.b	stage_layer
 	beq.s	loc_20B93C
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 	move.b	#0,obj.sprite_layer(a0)

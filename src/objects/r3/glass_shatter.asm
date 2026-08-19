@@ -24,7 +24,7 @@ GlassShatterObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$638B,d0
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_20B2EA
 	move.w	#$642A,d0
 

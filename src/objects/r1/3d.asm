@@ -1,12 +1,12 @@
 ; ------------------------------------------------------------------------------
 
 Plant3dObject:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20DCEA(pc,d0.w),d0
 	jsr	off_20DCEA(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
 	bra.w	CheckObjectDespawn2
 
@@ -38,7 +38,7 @@ loc_20DD20:
 ; ------------------------------------------------------------------------------
 
 loc_20DD24:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 
 loc_20DD2A:
 	addq.b	#2,obj.routine(a1)
@@ -60,7 +60,7 @@ loc_20DD2A:
 	moveq	#0,d2
 
 loc_20DD78:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	addq.b	#2,obj.routine(a1)
 	move.b	#$2C,obj.id(a1)
 	move.b	#1,obj.subtype(a1)
@@ -192,14 +192,14 @@ locret_20DEC6:
 ; ------------------------------------------------------------------------------
 
 Boost3dObject:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	tst.b	obj.subtype_2(a0)
 	bne.w	loc_20DE36
 	move.w	off_20DEF0(pc,d0.w),d0
 	jsr	off_20DEF0(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
 	bra.w	CheckObjectDespawn2
 
@@ -234,8 +234,8 @@ Boost3dObject_1_Routine2:
 	addq.b	#1,obj.anim_id(a0)
 
 loc_20DF4E:
-	lea	(Boost3dAnims).l,a1
-	jsr	(AnimateObject).l
+	lea	Boost3dAnims,a1
+	jsr	AnimateObject
 	bra.s	loc_20DF6C
 
 ; ------------------------------------------------------------------------------

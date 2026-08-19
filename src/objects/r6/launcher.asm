@@ -40,7 +40,7 @@ LauncherObject_0_Routine0:
 	move.b	#8,obj.routine(a1)
 
 LauncherObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	locret_208F10
 	bset	#0,obj.var_2c(a1)
@@ -62,9 +62,9 @@ LauncherObject_0_Routine4:
 	move.l	obj.x(a0),d1
 	add.l	d0,d1
 	move.l	d1,obj.x(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
-	move.w	(p1_joy_hold).w,d0
+	move.w	p1_joy_hold,d0
 	andi.b	#$70,d0
 	beq.s	loc_208F76
 	bclr	#0,obj.var_2c(a1)
@@ -120,7 +120,7 @@ LauncherObject_0_Routine8:
 	subi.w	#$18,obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	subi.w	#$10,obj.y(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------

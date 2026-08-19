@@ -22,19 +22,19 @@ ScarabObject_6_Routine0:
 	addq.b	#2,obj.routine(a0)
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
 	add.w	d1,d0
 	lea	2(a1,d0.w),a1
 	move.l	a1,obj.var_2a(a0)
 
 ScarabObject_6_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20DCE4
 	bcs.s	loc_20DD08
 	jmp	CheckObjectDespawn
@@ -356,7 +356,7 @@ off_20E040:
 ScarabObject_2_Routine0:
 	tst.b	obj.collide_status(a0)
 	beq.s	loc_20E076
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.b	#4,obj.routine(a1)
 	beq.s	loc_20E072
 	cmpi.b	#6,obj.routine(a1)
@@ -392,7 +392,7 @@ loc_20E08C:
 ; ------------------------------------------------------------------------------
 
 loc_20E096:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	a1,obj.var_32(a0)
 	bset	#0,obj.var_2c(a1)
 	bset	#2,obj.flags(a1)
@@ -542,13 +542,13 @@ ScarabObject_0_Routine2:
 loc_20E236:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	ScarabObject_0_Routine6
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E2F6
 
 ScarabObject_0_Routine6:
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.s	ScarabObject_0_Routine8
-	lea	(MonitorTimeAnims).l,a1
+	lea	MonitorTimeAnims,a1
 	jsr	AnimateObject
 
 ScarabObject_0_Routine8:
@@ -573,7 +573,7 @@ ScarabObject_0_Routine4:
 	move.b	#1,obj.collide_status(a6)
 
 loc_20E286:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E2F6
 	beq.s	loc_20E296
 	jsr	GetOffObject

@@ -43,7 +43,7 @@ TubeDoorObject_1_Routine0:
 	move.b	#5,obj.sprite_frame(a0)
 
 TubeDoorObject_1_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
 	subi.w	#$FEC0,d0
@@ -101,7 +101,7 @@ sub_20F1D0:
 TubeDoorObject_1_Routine6:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	TopSolidObject
 
 ; ------------------------------------------------------------------------------
@@ -142,15 +142,15 @@ TubeDoorObject_0_Routine0:
 TubeDoorObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 	move.b	#1,obj.sprite_frame(a0)
-	lea	(switch_flags).w,a1
+	lea	switch_flags,a1
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	bclr	#6,(a1,d0.w)
 
 TubeDoorObject_0_Routine4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
-	lea	(switch_flags).w,a2
+	lea	switch_flags,a2
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	tst.b	(a2,d0.w)
@@ -164,7 +164,7 @@ loc_20F2B2:
 	move.w	#$10,d1
 	move.w	#$FFFD,d2
 	move.w	#$7B,d3
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.w	sub_20F36A
 	bcs.s	loc_20F2DA
 	rts
@@ -197,7 +197,7 @@ loc_20F2F0:
 ; ------------------------------------------------------------------------------
 
 TubeDoorObject_0_Routine8:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	move.w	#$FF00,d0
 	move.w	#$200,d1
 	move.w	#$FF60,d2
@@ -219,7 +219,7 @@ TubeDoorObject_0_RoutineA:
 	move.w	#$10,d1
 	move.w	#$FF88,d2
 	move.w	#$74,d3
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.s	sub_20F36A
 	bcs.s	loc_20F334
 	rts

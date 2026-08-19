@@ -94,7 +94,7 @@ loc_20EEFC:
 	addi.b	#$10,obj.var_2f(a0)
 	bcc.s	locret_20EF1C
 	addq.b	#2,obj.routine(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	GetOffObject
 	clr.w	obj.var_38(a0)
 	move.b	#2,obj.sprite_frame(a0)
@@ -124,7 +124,7 @@ off_20EF32:
 
 sub_20EF3A:
 	move.b	obj.var_31(a0),obj.var_30(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	BottomSolidObject
 	sne	obj.var_31(a0)
 	beq.s	loc_20EF6C
@@ -138,7 +138,7 @@ sub_20EF3A:
 	move.b	obj.var_35(a0),obj.var_35(a1)
 
 loc_20EF6C:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.w	#$FF,obj.var_30(a0)
 	bne.s	loc_20EF8A
 	addq.w	#8,obj.y(a1)
@@ -163,7 +163,7 @@ sub_20EFA4:
 	moveq	#0,d0
 	move.b	obj.var_34(a0),d0
 	mulu.w	#6,d0
-	move.b	(time_seconds).l,d1
+	move.b	time_seconds,d1
 	andi.w	#$FF,d1
 	divu.w	#10,d1
 	andi.w	#7,d1
@@ -431,7 +431,7 @@ loc_20F1CC:
 	subq.w	#8,obj.var_38(a0)
 	subq.b	#1,obj.var_3a(a0)
 	beq.s	RingPrizeObject_0_Routine8
-	move.w	(bottom_bound).w,d0
+	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
 	bcs.s	RingPrizeObject_0_Routine8
@@ -446,7 +446,7 @@ RingPrizeObject_0_Routine4:
 	jsr	sub_208ACA
 
 RingPrizeObject_0_Routine6:
-	lea	(RingPrizeAnims).l,a1
+	lea	RingPrizeAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 

@@ -5,8 +5,8 @@ VDoorObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20CDF8(pc,d0.w),d0
 	jsr	off_20CDF8(pc,d0.w)
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -18,12 +18,12 @@ off_20CDF8:
 ; ------------------------------------------------------------------------------
 
 sub_20CDFE:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 
 loc_20CE02:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	jmp	(SolidObject).l
+	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
@@ -35,10 +35,10 @@ VDoorObject_0_Routine0:
 	move.b	#4,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	moveq	#$C,d0
-	jsr	(SetObjectSpriteTile).l
+	jsr	SetObjectSpriteTile
 
 VDoorObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
 	bcc.s	loc_20CE4C
@@ -57,7 +57,7 @@ loc_20CE4C:
 	btst	#7,obj.sprite_flags(a0)
 	beq.s	loc_20CE84
 	move.w	#$A4,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 	move.b	#1,obj.sprite_frame(a0)
 
 loc_20CE84:

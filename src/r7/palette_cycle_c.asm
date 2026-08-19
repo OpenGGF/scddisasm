@@ -2,19 +2,19 @@
 
 CyclePalette:
 	rts
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_200214).l,a1
-	lea	(word_20021C).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_200214,a1
+	lea	word_20021C,a2
 	bsr.w	sub_2001CA
-	lea	(byte_200228).l,a1
-	lea	(word_200230).l,a2
+	lea	byte_200228,a1
+	lea	word_200230,a2
 	bsr.w	sub_2001CA
-	lea	(byte_20023C).l,a1
-	lea	(word_200244).l,a2
+	lea	byte_20023C,a1
+	lea	word_200244,a2
 	bsr.w	sub_2001CA
-	lea	(byte_200250).l,a1
-	lea	(word_200308).l,a2
+	lea	byte_200250,a1
+	lea	word_200308,a2
 
 ; ------------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ sub_2001CA:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0

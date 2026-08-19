@@ -13,7 +13,7 @@ loc_20BA14:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	beq.s	loc_20BA24
-	cmpi.b	#6,(player_object+obj.routine).w
+	cmpi.b	#6,player_object+obj.routine
 	bcc.s	loc_20BA3A
 
 loc_20BA24:
@@ -163,7 +163,7 @@ locret_20BBA2:
 ; ------------------------------------------------------------------------------
 
 loc_20BBA4:
-	lea	(LaunchAnims).l,a1
+	lea	LaunchAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
@@ -182,16 +182,16 @@ locret_20BBBE:
 ; ------------------------------------------------------------------------------
 
 sub_20BBC0:
-	lea	(unk_20BC64).l,a2
-	lea	(word_20BC82).l,a3
+	lea	unk_20BC64,a2
+	lea	word_20BC82,a3
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20BBF2
-	lea	(unk_20BC6E).l,a2
-	lea	(word_20BCA6).l,a3
+	lea	unk_20BC6E,a2
+	lea	word_20BCA6,a3
 	cmpi.b	#1,obj.subtype(a0)
 	beq.s	loc_20BBF2
-	lea	(unk_20BC78).l,a2
-	lea	(word_20BCCA).l,a3
+	lea	unk_20BC78,a2
+	lea	word_20BCCA,a3
 
 loc_20BBF2:
 	move.w	#$520,obj.sprite_tile(a0)
@@ -319,7 +319,7 @@ SpringLauncherObject_0_Routine6:
 	beq.s	loc_20BD48
 	cmpi.b	#2,obj.subtype_2(a0)
 	bne.s	loc_20BD54
-	move.b	(p1_joy_tap).w,d0
+	move.b	p1_joy_tap,d0
 	andi.b	#$70,d0
 	beq.s	loc_20BD54
 	move.b	#4,obj.subtype_2(a0)
@@ -340,12 +340,12 @@ loc_20BD2C:
 	bne.s	loc_20BD54
 
 loc_20BD38:
-	bclr	#0,(player_object+obj.var_2c).w
+	bclr	#0,player_object+obj.var_2c
 	move.w	#$CE,d0
 	jsr	PlayFmSound
 
 loc_20BD48:
-	lea	(SpringAnims).l,a1
+	lea	SpringAnims,a1
 	jsr	AnimateObject
 
 loc_20BD54:
@@ -373,37 +373,37 @@ locret_20BD92:
 ; ------------------------------------------------------------------------------
 
 SpringLauncherObject_0_RoutineA:
-	lea	(unk_20BEDA).l,a2
-	lea	(unk_20BEE4).l,a3
-	lea	(unk_20BF0C).l,a4
+	lea	unk_20BEDA,a2
+	lea	unk_20BEE4,a3
+	lea	unk_20BF0C,a4
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20BDC4
-	lea	(unk_20BEF8).l,a3
-	lea	(unk_20BF20).l,a4
+	lea	unk_20BEF8,a3
+	lea	unk_20BF20,a4
 	tst.b	obj.subtype_2(a0)
 	beq.s	loc_20BDC4
-	lea	(unk_20BF34).l,a4
+	lea	unk_20BF34,a4
 
 loc_20BDC4:
-	lea	(unk_20C238).l,a5
+	lea	unk_20C238,a5
 	bra.s	loc_20BE02
 
 ; ------------------------------------------------------------------------------
 
 SpringLauncherObject_0_RoutineC:
-	lea	(unk_20BEDA).l,a2
-	lea	(unk_20BEEE).l,a3
-	lea	(unk_20BF16).l,a4
+	lea	unk_20BEDA,a2
+	lea	unk_20BEEE,a3
+	lea	unk_20BF16,a4
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20BDFC
-	lea	(unk_20BF02).l,a3
-	lea	(unk_20BF2A).l,a4
+	lea	unk_20BF02,a3
+	lea	unk_20BF2A,a4
 	tst.b	obj.subtype_2(a0)
 	beq.s	loc_20BDFC
-	lea	(unk_20BF3E).l,a4
+	lea	unk_20BF3E,a4
 
 loc_20BDFC:
-	lea	(unk_20C242).l,a5
+	lea	unk_20C242,a5
 
 loc_20BE02:
 	movea.l	obj.var_2a(a0),a1
@@ -414,7 +414,7 @@ loc_20BE02:
 	move.b	(a3,d0.w),d1
 	or.b	d1,obj.sprite_flags(a0)
 	move.b	(a4,d0.w),d0
-	lea	(word_20BF48).l,a4
+	lea	word_20BF48,a4
 	add.w	d0,d0
 	add.w	d0,d0
 	move.w	(a4,d0.w),d1
@@ -444,9 +444,9 @@ loc_20BE02:
 ; ------------------------------------------------------------------------------
 
 loc_20BE7E:
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.s	locret_20BE96
-	lea	(player_object).w,a2
+	lea	player_object,a2
 	bsr.s	sub_20BE98
 	bne.w	loc_20C0B2
 	move.b	#0,obj.subtype_2(a0)
@@ -637,9 +637,9 @@ word_20BF48:
 ; ------------------------------------------------------------------------------
 
 loc_20BF88:
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.s	locret_20BF9A
-	lea	(player_object).w,a2
+	lea	player_object,a2
 	bsr.s	sub_20BF9C
 	bne.w	loc_20C156
 
@@ -699,7 +699,7 @@ sub_20C002:
 	move.b	obj.anim_index(a1),d0
 	move.w	d0,d2
 	move.b	(a3,d0.w),d0
-	lea	(word_20C24C).l,a1
+	lea	word_20C24C,a1
 	add.w	d0,d0
 	add.w	d0,d0
 	move.w	obj.x(a0),obj.x(a2)
@@ -713,12 +713,12 @@ sub_20C002:
 ; ------------------------------------------------------------------------------
 
 loc_20C036:
-	lea	(word_20C06A).l,a3
+	lea	word_20C06A,a3
 	moveq	#0,d0
 	move.b	obj.routine_2(a4),d0
 	subi.b	#$A,d0
 	beq.s	loc_20C04E
-	lea	(word_20C08E).l,a3
+	lea	word_20C08E,a3
 
 loc_20C04E:
 	move.b	$1B(a1),d0
@@ -815,7 +815,7 @@ loc_20C156:
 	move.b	#$3C,obj.var_32(a0)
 	addq.b	#2,obj.routine(a0)
 	movea.l	obj.var_2a(a0),a1
-	lea	(unk_20C224).l,a3
+	lea	unk_20C224,a3
 	bsr.w	sub_20C002
 
 loc_20C194:
@@ -993,7 +993,7 @@ loc_20C2EE:
 BoosterObject_0_Routine6:
 	addi.w	#$40,obj.y_speed(a0)
 	jsr	MoveObject
-	move.w	(scroll_fg_y).w,d0
+	move.w	scroll_fg_y,d0
 	addi.w	#$E8,d0
 	cmp.w	obj.y(a0),d0
 	bcc.s	locret_20C324
@@ -1007,9 +1007,9 @@ locret_20C324:
 ; ------------------------------------------------------------------------------
 
 loc_20C326:
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.s	locret_20C338
-	lea	(player_object).w,a2
+	lea	player_object,a2
 	bsr.s	sub_20C33A
 	bne.w	loc_20C352
 
@@ -1034,7 +1034,7 @@ loc_20C346:
 ; ------------------------------------------------------------------------------
 
 loc_20C352:
-	clr.b	(player_object+obj.var_2c).w
+	clr.b	player_object+obj.var_2c
 	jsr	SpawnObject
 	bne.s	loc_20C396
 	move.b	#8,obj.id(a1)

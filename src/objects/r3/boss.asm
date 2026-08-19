@@ -59,7 +59,7 @@ EntryBarrierObject_0_Routine4:
 	cmpi.b	#$10,obj.var_2a(a0)
 	blt.s	loc_20DC2A
 	move.b	#0,obj.anim_id(a0)
-	lea	(EntryBarrierAnims).l,a1
+	lea	EntryBarrierAnims,a1
 	jsr	AnimateObject
 
 loc_20DC2A:
@@ -102,7 +102,7 @@ locret_20DC82:
 sub_20DC84:
 	btst	#1,obj.var_2c(a0)
 	bne.w	locret_20DCD0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.w	#$480,obj.x(a1)
 	blt.s	locret_20DCD0
 	cmpi.w	#$51C,obj.y(a1)
@@ -154,17 +154,17 @@ loc_20DCF8:
 BossMachineObject:
 	tst.b	obj.var_3b(a0)
 	beq.s	loc_20DD2E
-	cmpi.w	#$B0,(scroll_focus_y).w
+	cmpi.w	#$B0,scroll_focus_y
 	bge.s	loc_20DD28
-	addq.w	#6,(scroll_focus_y).w
-	cmpi.w	#$B2,(scroll_focus_y).w
+	addq.w	#6,scroll_focus_y
+	cmpi.w	#$B2,scroll_focus_y
 	bge.s	loc_20DD28
 	bra.s	loc_20DD2E
 
 ; ------------------------------------------------------------------------------
 
 loc_20DD28:
-	move.w	#$B2,(scroll_focus_y).w
+	move.w	#$B2,scroll_focus_y
 
 loc_20DD2E:
 	moveq	#0,d0
@@ -235,7 +235,7 @@ locret_20DDFE:
 BossMachineObject_0_Routine2:
 	movea.w	obj.var_34(a0),a1
 	move.b	#1,$1C(a1)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	#$1C0,d1
 	move.w	#$DC,d2
 	move.w	obj.y(a1),d0
@@ -290,12 +290,12 @@ sub_20DE80:
 	move.b	obj.var_3a(a0),d0
 	add.b	d0,d0
 	move.w	word_20DEBC(pc,d0.w),d0
-	move.w	(player_object+obj.y).w,d1
+	move.w	player_object+obj.y,d1
 	cmp.w	d0,d1
 	bgt.s	loc_20DEB8
 	cmpi.w	#$80,d1
 	blt.s	loc_20DEB8
-	move.w	(player_object+obj.x).w,d1
+	move.w	player_object+obj.x,d1
 	cmpi.w	#$340,d1
 	blt.s	loc_20DEB8
 	cmpi.w	#$3C0,d1
@@ -424,7 +424,7 @@ loc_20DFA2:
 	move.w	obj.y(a0),obj.var_2e(a0)
 	addi.w	#-$70,obj.var_2e(a0)
 	move.w	#$14,d0
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20DFC8
 	move.w	#$13,d0
 
@@ -439,7 +439,7 @@ loc_20DFD2:
 	bne.s	locret_20DFEA
 	bsr.w	sub_20DE80
 	bne.s	locret_20DFEA
-	move.b	#3,(boss_flags).w
+	move.b	#3,boss_flags
 	bsr.w	sub_20DED8
 
 locret_20DFEA:
@@ -684,7 +684,7 @@ EggmanObject:
 	jsr	off_20E214(pc,d0.w)
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_20E20E
-	lea	(EggmanAnims).l,a1
+	lea	EggmanAnims,a1
 	jsr	AnimateObject
 
 loc_20E20E:
@@ -795,7 +795,7 @@ loc_20E32A:
 	move.w	obj.y(a1),obj.y(a0)
 	btst	#2,obj.var_2c(a1)
 	beq.s	loc_20E350
-	lea	(GearAnims).l,a1
+	lea	GearAnims,a1
 	jsr	AnimateObject
 
 loc_20E350:
@@ -845,7 +845,7 @@ BombLauncherObject_0_Routine0:
 	movea.w	obj.var_34(a0),a2
 
 BombLauncherObject_0_Routine2:
-	cmpi.w	#$400,(player_object+obj.y).w
+	cmpi.w	#$400,player_object+obj.y
 	bge.s	locret_20E3D6
 	tst.b	$3A(a2)
 	bne.s	locret_20E3D6
@@ -1031,7 +1031,7 @@ loc_20E57E:
 ; ------------------------------------------------------------------------------
 
 loc_20E584:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	clr.b	obj.collide_status(a0)
 	move.w	obj.x(a0),d1
 	move.w	obj.y(a0),d2
@@ -1050,7 +1050,7 @@ loc_20E584:
 	bclr	#5,obj.flags(a1)
 	clr.b	obj.var_3c(a1)
 	move.b	#1,obj.anim_id(a0)
-	lea	(object_states).l,a2
+	lea	object_states,a2
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20E5F2
@@ -1084,7 +1084,7 @@ loc_20E61C:
 	move.l	#ExplosionSprites,obj.sprite_data(a0)
 
 BombObject_0_Routine4:
-	lea	(ExplosionAnims).l,a1
+	lea	ExplosionAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
@@ -1229,7 +1229,7 @@ loc_20EA6C:
 ExitBarrierObject_0_Routine4:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	loc_20EA80
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 
 loc_20EA80:

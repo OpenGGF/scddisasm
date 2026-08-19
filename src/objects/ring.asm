@@ -38,17 +38,17 @@ byte_208854:
 ; ------------------------------------------------------------------------------
 
 RingInit:
-	lea	(object_states).l,a2
+	lea	object_states,a2
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
 	beq.s	loc_2088AC
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
@@ -80,7 +80,7 @@ loc_2088C8:
 	move.w	#1,d1
 	lsr.b	#4,d0
 	add.w	d0,d0
-	lea	(byte_208854).l,a1
+	lea	byte_208854,a1
 	move.b	(a1,d0.w),d5
 	ext.w	d5
 	move.b	1(a1,d0.w),d6
@@ -90,10 +90,10 @@ loc_2088C8:
 	move.w	obj.y(a0),d3
 	lea	1(a2),a3
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	bclr	#7,d0
 	beq.s	loc_208918
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d0
@@ -122,10 +122,10 @@ loc_20892A:
 	swap	d1
 	lea	1(a2),a3
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	bclr	#7,d0
 	beq.s	loc_208956
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d0
@@ -158,7 +158,7 @@ loc_20896E:
 	move.l	#RingSprites,obj.sprite_data(a1)
 	move.w	#$A7AE,obj.sprite_tile(a1)
 	move.b	#2,obj.sprite_layer(a1)
-	cmpi.b	#6,(zone).l
+	cmpi.b	#6,zone
 	bne.s	loc_2089C4
 	move.b	#0,obj.sprite_layer(a1)
 	move.b	obj.subtype_2(a0),obj.subtype_2(a1)
@@ -184,10 +184,10 @@ loc_2089E6:
 
 loc_2089F2:
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	bclr	#7,d0
 	beq.s	loc_208A18
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d0
@@ -215,7 +215,7 @@ RingMain:
 	bmi.s	loc_208A4C
 	move.w	obj.var_32(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -223,9 +223,9 @@ RingMain:
 	bhi.w	RingDelete
 
 loc_208A4C:
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	bne.s	loc_208A5C
-	move.b	(ring_anim_frame).l,obj.sprite_frame(a0)
+	move.b	ring_anim_frame,obj.sprite_frame(a0)
 
 loc_208A5C:
 	bra.w	DrawObject
@@ -237,17 +237,17 @@ RingCollect:
 	move.b	#0,obj.collide_type(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	bsr.w	sub_208ACA
-	lea	(object_states).l,a2
+	lea	object_states,a2
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
 	beq.s	loc_208AAC
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
@@ -269,7 +269,7 @@ loc_208AAC:
 	bset	d1,2(a2,d0.w)
 
 RingSparkle:
-	lea	(RingAnims).l,a1
+	lea	RingAnims,a1
 	bsr.w	AnimateObject
 	bra.w	DrawObject
 
@@ -281,21 +281,21 @@ RingDelete:
 ; ------------------------------------------------------------------------------
 
 sub_208ACA:
-	addq.w	#1,(rings).l
-	ori.b	#1,(update_hud_rings).l
+	addq.w	#1,rings
+	ori.b	#1,update_hud_rings
 	move.w	#$95,d0
-	cmpi.w	#100,(rings).l
+	cmpi.w	#100,rings
 	bcs.s	loc_208B1A
-	bset	#1,(lives_flags).l
+	bset	#1,lives_flags
 	beq.s	loc_208B04
-	cmpi.w	#200,(rings).l
+	cmpi.w	#200,rings
 	bcs.s	loc_208B1A
-	bset	#2,(lives_flags).l
+	bset	#2,lives_flags
 	bne.s	loc_208B1A
 
 loc_208B04:
-	addq.b	#1,(lives).l
-	addq.b	#1,(update_hud_lives).l
+	addq.b	#1,lives
+	addq.b	#1,update_hud_lives
 	move.w	#$7A,d0
 	jmp	SubCpuCommand
 
@@ -326,7 +326,7 @@ off_208B2E:
 LostRingInit:
 	movea.l	a0,a1
 	moveq	#0,d5
-	move.w	(rings).l,d5
+	move.w	rings,d5
 	moveq	#$20,d0
 	cmp.w	d0,d5
 	bcs.s	loc_208B4A
@@ -354,7 +354,7 @@ loc_208B5A:
 	move.b	obj.subtype_2(a0),obj.subtype_2(a1)
 	move.w	#$A7AE,obj.sprite_tile(a1)
 	move.b	#3,obj.sprite_layer(a1)
-	cmpi.b	#6,(zone).l
+	cmpi.b	#6,zone
 	bne.s	loc_208BB8
 	move.b	#0,obj.sprite_layer(a1)
 	tst.b	obj.subtype_2(a0)
@@ -367,7 +367,7 @@ loc_208BB8:
 	move.b	#$47,obj.collide_type(a1)
 	move.b	#8,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
-	move.b	#-1,(lost_ring_anim_timer).l
+	move.b	#-1,lost_ring_anim_timer
 	tst.w	d4
 	bmi.s	loc_208C00
 	move.w	d4,d0
@@ -392,18 +392,18 @@ loc_208C00:
 	dbf	d5,loc_208B52
 
 loc_208C10:
-	move.w	#0,(rings).l
-	move.b	#$80,(update_hud_rings).l
-	move.b	#0,(lives_flags).l
+	move.w	#0,rings
+	move.b	#$80,update_hud_rings
+	move.b	#0,lives_flags
 	move.w	#$94,d0
 	jsr	PlayFmSound
 
 LostRingMain:
-	move.b	(lost_ring_anim_frame).l,obj.sprite_frame(a0)
+	move.b	lost_ring_anim_frame,obj.sprite_frame(a0)
 	bsr.w	MoveObject
 	addi.w	#$18,obj.y_speed(a0)
 	bmi.s	loc_208C70
-	move.b	(stage_vblank_frames+3).l,d0
+	move.b	stage_vblank_frames+3,d0
 	add.b	d7,d0
 	andi.b	#3,d0
 	bne.s	loc_208C70
@@ -417,9 +417,9 @@ LostRingMain:
 	neg.w	obj.y_speed(a0)
 
 loc_208C70:
-	tst.b	(lost_ring_anim_timer).l
+	tst.b	lost_ring_anim_timer
 	beq.s	LostRingDelete
-	move.w	(bottom_bound).w,d0
+	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
 	bcs.s	LostRingDelete
@@ -434,7 +434,7 @@ LostRingCollect:
 	bsr.w	sub_208ACA
 
 LostRingSparkle:
-	lea	(RingAnims).l,a1
+	lea	RingAnims,a1
 	bsr.w	AnimateObject
 	bra.w	DrawObject
 

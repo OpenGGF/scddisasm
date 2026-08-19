@@ -121,7 +121,7 @@ locret_20D674:
 ; ------------------------------------------------------------------------------
 
 VanishPlatformObject_0_Routine6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	sne.b	obj.var_3f(a0)
 	addi.w	#-1,obj.var_2a(a0)

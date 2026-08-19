@@ -124,7 +124,7 @@ loc_20D340:
 	move.w	obj.var_32(a0),d0
 	add.w	d0,8(a1)
 	addi.w	#-$10,$C(a1)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	loc_20D3C4
 	bcs.s	loc_20D382
 	rts

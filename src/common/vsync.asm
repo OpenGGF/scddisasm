@@ -4,7 +4,7 @@ VSync:
 	move	#$2300,sr
 
 loc_20083A:
-	tst.b	(vblank_routine).w
+	tst.b	vblank_routine
 	bne.s	loc_20083A
 	rts
 

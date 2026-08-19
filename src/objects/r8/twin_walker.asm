@@ -137,7 +137,7 @@ off_20E326:
 ; ------------------------------------------------------------------------------
 
 TwinWalkerObject_1_Routine0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	jmp	DrawObject
 
@@ -204,7 +204,7 @@ off_20E3C4:
 ; ------------------------------------------------------------------------------
 
 TwinWalkerObject_2_Routine0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	loc_20E3F2
 	movea.w	obj.var_2e(a0),a1
@@ -222,7 +222,7 @@ loc_20E3F2:
 ; ------------------------------------------------------------------------------
 
 TwinWalkerObject_2_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20E454
 	jsr	DrawObject
 	movea.w	obj.var_2e(a0),a1

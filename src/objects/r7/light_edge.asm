@@ -25,15 +25,15 @@ sub_206604:
 
 sub_20661C:
 	bset	#1,obj.flags(a0)
-	move.w	(water_y).w,d0
+	move.w	water_y,d0
 	addi.w	#$80,d0
-	move.w	(scroll_fg_y).w,d1
+	move.w	scroll_fg_y,d1
 	cmp.w	d1,d0
 	bcs.s	loc_20664E
 	addi.w	#$E0,d1
 	cmp.w	d1,d0
 	bcc.s	loc_206644
-	tst.b	(water_speed).w
+	tst.b	water_speed
 	bmi.s	loc_20664E
 	addq.w	#4,d0
 	bra.s	loc_20664E
@@ -57,9 +57,9 @@ loc_206662:
 	move.b	d0,obj.var_2a(a0)
 	add.w	d0,d0
 	move.w	word_206682(pc,d0.w),d0
-	move.w	(scroll_fg_x).w,obj.x(a0)
+	move.w	scroll_fg_x,obj.x(a0)
 	add.w	d0,obj.x(a0)
-	lea	(LightEdgeAnims).l,a1
+	lea	LightEdgeAnims,a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------

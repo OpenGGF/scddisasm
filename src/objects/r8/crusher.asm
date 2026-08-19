@@ -117,7 +117,7 @@ byte_20BB76:
 CrusherObject_0_Routine2:
 	tst.w	obj.y_speed(a0)
 	bpl.s	loc_20BB88
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 
 loc_20BB88:
@@ -182,7 +182,7 @@ loc_20BC02:
 	move.w	obj.var_32(a0),d0
 	cmpi.w	#$210,d0
 	bne.s	loc_20BC66
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	bne.s	loc_20BC38
 	rts
@@ -207,7 +207,7 @@ loc_20BC38:
 loc_20BC66:
 	tst.w	obj.y_speed(a0)
 	bmi.s	locret_20BC76
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 
 locret_20BC76:

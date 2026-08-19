@@ -25,7 +25,7 @@ loc_20EB8E:
 	bsr.w	sub_20EBC0
 
 loc_20EB98:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	loc_20EBA8
 	clr.b	obj.collide_type(a1)
@@ -47,7 +47,7 @@ byte_20EBB4:
 ; ------------------------------------------------------------------------------
 
 sub_20EBC0:
-	btst	#7,(boss_flags).w
+	btst	#7,boss_flags
 	beq.s	locret_20EC06
 	tst.w	obj.var_2a(a0)
 	bne.s	loc_20EBF0
@@ -113,7 +113,7 @@ loc_20EC66:
 	moveq	#0,d0
 	move.b	obj.sprite_frame(a0),d0
 	add.w	d0,d0
-	lea	(byte_20EBB4).l,a1
+	lea	byte_20EBB4,a1
 	adda.w	d0,a1
 	move.b	(a1)+,d0
 	move.b	(a1),d1
@@ -127,7 +127,7 @@ locret_20EC86:
 ; ------------------------------------------------------------------------------
 
 loc_20EC88:
-	bclr	#7,(boss_flags).w
+	bclr	#7,boss_flags
 	btst	#6,obj.subtype_2(a0)
 	beq.s	loc_20EC9C
 	clr.b	obj.subtype_2(a0)

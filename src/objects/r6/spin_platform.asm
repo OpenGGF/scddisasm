@@ -39,7 +39,7 @@ SpinPlatformObject_0_Routine2:
 	bsr.w	sub_20D7E6
 	lea	SpinPlatformAnims(pc),a1
 	jsr	AnimateObject
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20D5B8
 	beq.s	locret_20D65A
 	bset	#0,obj.flags(a1)
@@ -110,10 +110,10 @@ loc_20D67A:
 	addq.b	#1,obj.var_39(a1)
 
 loc_20D6BA:
-	move.w	(p1_joy_hold).w,(player_joy_hold).w
+	move.w	p1_joy_hold,player_joy_hold
 	cmpi.b	#1,0(a1)
 	beq.s	loc_20D6CE
-	move.w	(p2_joy_hold).w,(player_joy_hold).w
+	move.w	p2_joy_hold,player_joy_hold
 
 loc_20D6CE:
 	bsr.w	sub_20D6E8
@@ -149,7 +149,7 @@ sub_20D6E8:
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
 	bcc.s	loc_20D714
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	loc_20D700
 	addq.b	#1,$39(a1)
 	bra.s	locret_20D734
@@ -157,7 +157,7 @@ sub_20D6E8:
 ; ------------------------------------------------------------------------------
 
 loc_20D700:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	locret_20D734
 	subq.b	#1,obj.var_39(a1)
 	bcc.s	locret_20D734
@@ -167,7 +167,7 @@ loc_20D700:
 ; ------------------------------------------------------------------------------
 
 loc_20D714:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	loc_20D722
 	addq.b	#1,obj.var_39(a1)
 	bra.s	locret_20D734
@@ -175,7 +175,7 @@ loc_20D714:
 ; ------------------------------------------------------------------------------
 
 loc_20D722:
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	locret_20D734
 	subq.b	#1,obj.var_39(a1)
 	bcc.s	locret_20D734
@@ -187,7 +187,7 @@ locret_20D734:
 ; ------------------------------------------------------------------------------
 
 loc_20D736:
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.w	locret_20D7DC
 	clr.b	obj.var_2c(a1)
@@ -206,7 +206,7 @@ loc_20D736:
 	bclr	#5,obj.flags(a1)
 	move.b	#1,obj.var_3c(a1)
 	clr.b	obj.var_38(a1)
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_20D796
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)
@@ -221,7 +221,7 @@ loc_20D796:
 loc_20D7A2:
 	btst	#2,obj.flags(a1)
 	bne.s	loc_20D7DE
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_20D7C0
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)
@@ -311,7 +311,7 @@ SpinPlatformObject_1_Routine2:
 ; ------------------------------------------------------------------------------
 
 sub_20D85A:
-	move.w	(stage_frames).l,d0
+	move.w	stage_frames,d0
 	andi.w	#$FF,d0
 	jsr	SineCosine
 	add.w	d0,d0

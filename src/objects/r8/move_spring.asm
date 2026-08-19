@@ -68,11 +68,11 @@ loc_20E8AE:
 
 MoveSpringMain:
 	move.w	#$20,d3
-	lea	(CheckBlockRight).l,a1
+	lea	CheckBlockRight,a1
 	tst.w	obj.x_speed(a0)
 	bpl.s	loc_20E8CE
 	move.w	#-$18,d3
-	lea	(CheckBlockLeft).l,a1
+	lea	CheckBlockLeft,a1
 
 loc_20E8CE:
 	jsr	(a1)

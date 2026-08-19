@@ -1,24 +1,24 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	lea	(palette_cycle_timers).w,a4
-	lea	(palette_cycle_steps).w,a5
+	lea	palette_cycle_timers,a4
+	lea	palette_cycle_steps,a5
 	bsr.s	sub_2001A2
-	btst	#0,(r5_bg_change).l
+	btst	#0,r5_bg_change
 	beq.s	loc_20019A
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20019A:
-	lea	(byte_20020E).l,a1
+	lea	byte_20020E,a1
 	bra.s	loc_2001B2
 
 ; ------------------------------------------------------------------------------
 
 sub_2001A2:
 	lea	byte_2001F8(pc),a1
-	tst.b	(r5_conveyor_reverse).l
+	tst.b	r5_conveyor_reverse
 	beq.s	loc_2001B2
 	lea	byte_200232(pc),a1
 
@@ -39,7 +39,7 @@ loc_2001C8:
 	move.b	2(a1),d1
 	mulu.w	d1,d0
 	add.w	d0,d0
-	lea	(palette).w,a2
+	lea	palette,a2
 	moveq	#0,d2
 	move.b	0(a1),d2
 	add.w	d2,d2

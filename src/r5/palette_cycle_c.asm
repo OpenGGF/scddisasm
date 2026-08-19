@@ -1,22 +1,22 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	tst.b	(boss_flags).w
+	tst.b	boss_flags
 	beq.s	loc_20018C
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20018C:
-	lea	(palette_cycle_timers).w,a4
-	lea	(palette_cycle_steps).w,a5
+	lea	palette_cycle_timers,a4
+	lea	palette_cycle_steps,a5
 	bra.w	loc_200198
 
 ; ------------------------------------------------------------------------------
 
 loc_200198:
 	lea	byte_2001EE(pc),a1
-	tst.b	(r5_conveyor_reverse).l
+	tst.b	r5_conveyor_reverse
 	beq.s	loc_2001A8
 	lea	byte_200204(pc),a1
 
@@ -37,7 +37,7 @@ loc_2001BE:
 	move.b	2(a1),d1
 	mulu.w	d1,d0
 	add.w	d0,d0
-	lea	(palette).w,a2
+	lea	palette,a2
 	moveq	#0,d2
 	move.b	0(a1),d2
 	add.w	d2,d2

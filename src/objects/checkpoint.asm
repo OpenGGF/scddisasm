@@ -1,31 +1,31 @@
 ; ------------------------------------------------------------------------------
 
 sub_20593E:
-	move.b	(spawn_mode).l,(respawn_spawn_mode).l
-	move.w	(player_object+obj.x).w,(respawn_x).l
-	move.w	(player_object+obj.y).w,(respawn_y).l
-	move.b	(water_routine).w,(respawn_water_routine).l
-	move.w	(bottom_bound).w,(respawn_bottom_bound).l
-	move.w	(scroll_fg_x).w,(respawn_scroll_fg_x).l
-	move.w	(scroll_fg_y).w,(respawn_scroll_fg_y).l
-	move.w	(scroll_bg_x).w,(respawn_scroll_bg_x).l
-	move.w	(scroll_bg_y).w,(respawn_scroll_bg_y).l
-	move.w	(scroll_bg2_x).w,(respawn_scroll_bg2_x).l
-	move.w	(scroll_bg2_y).w,(respawn_scroll_bg2_y).l
-	move.w	(scroll_bg3_x).w,(respawn_scroll_bg3_x).l
-	move.w	(scroll_bg3_y).w,(respawn_scroll_bg3_y).l
-	move.w	(static_water_y).w,(respawn_water_y).l
-	move.b	(water_routine).w,(respawn_water_routine).l
-	move.b	(water_full).w,(respawn_water_full).l
-	move.l	(time).l,d0
+	move.b	spawn_mode,respawn_spawn_mode
+	move.w	player_object+obj.x,respawn_x
+	move.w	player_object+obj.y,respawn_y
+	move.b	water_routine,respawn_water_routine
+	move.w	bottom_bound,respawn_bottom_bound
+	move.w	scroll_fg_x,respawn_scroll_fg_x
+	move.w	scroll_fg_y,respawn_scroll_fg_y
+	move.w	scroll_bg_x,respawn_scroll_bg_x
+	move.w	scroll_bg_y,respawn_scroll_bg_y
+	move.w	scroll_bg2_x,respawn_scroll_bg2_x
+	move.w	scroll_bg2_y,respawn_scroll_bg2_y
+	move.w	scroll_bg3_x,respawn_scroll_bg3_x
+	move.w	scroll_bg3_y,respawn_scroll_bg3_y
+	move.w	static_water_y,respawn_water_y
+	move.b	water_routine,respawn_water_routine
+	move.b	water_full,respawn_water_full
+	move.l	time,d0
 	cmpi.l	#$50000,d0
 	bcs.s	loc_2059D4
 	move.l	#$50000,d0
 
 loc_2059D4:
-	move.l	d0,(respawn_time).l
+	move.l	d0,respawn_time
 	if STAGE_ZONE<>2
-		move.b	(shrunk_player).l,(respawn_shrunk).l
+		move.b	shrunk_player,respawn_shrunk
 	endif
 	rts
 
@@ -57,7 +57,7 @@ CheckpointInit:
 	move.b	#8,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	move.b	#4,obj.sprite_layer(a0)
-	move.b	(respawn_checkpoint).l,d0
+	move.b	respawn_checkpoint,d0
 	cmp.b	obj.subtype(a0),d0
 	bcs.s	loc_205A46
 	move.b	#1,obj.var_2e(a0)
@@ -108,8 +108,8 @@ CheckpointMain:
 	beq.s	locret_205AF8
 	clr.b	obj.collide_type(a0)
 	move.b	#1,obj.var_2e(a0)
-	move.b	obj.subtype(a0),(respawn_checkpoint).l
-	move.b	#1,(spawn_mode).l
+	move.b	obj.subtype(a0),respawn_checkpoint
+	move.b	#1,spawn_mode
 	bsr.w	sub_20593E
 	move.w	#$AE,d0
 	jmp	PlayFmSound
@@ -152,7 +152,7 @@ locret_205B4A:
 ; ------------------------------------------------------------------------------
 
 CheckpointAnimate:
-	lea	(CheckpointAnims).l,a1
+	lea	CheckpointAnims,a1
 	bra.w	AnimateObject
 
 ; ------------------------------------------------------------------------------

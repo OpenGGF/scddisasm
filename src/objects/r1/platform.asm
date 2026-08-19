@@ -5,7 +5,7 @@ PlatformObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20C86E(pc,d0.w),d0
 	jsr	off_20C86E(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -17,10 +17,10 @@ off_20C86E:
 ; ------------------------------------------------------------------------------
 
 loc_20C872:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	jmp	(TopSolidObject).l
+	jmp	TopSolidObject
 
 ; ------------------------------------------------------------------------------
 
@@ -32,10 +32,10 @@ PlatformObject_0_Routine0:
 	move.w	obj.y(a0),obj.var_3a(a0)
 	move.w	obj.y(a0),obj.var_36(a0)
 	move.l	#PlatformSprites,d0
-	cmpi.w	#0,(zone).l
+	cmpi.w	#0,zone
 	beq.s	loc_20C8CE
 	move.l	#PlatformSprites,d0
-	cmpi.w	#1,(zone).l
+	cmpi.w	#1,zone
 	beq.s	loc_20C8CE
 	move.l	#PlatformSprites,d0
 
@@ -52,9 +52,9 @@ loc_20C8CE:
 	move.b	byte_20C952(pc,d1.w),obj.var_2d(a0)
 	move.b	obj.subtype_2(a0),d0
 	beq.s	loc_20C948
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	beq.s	loc_20C90C
-	jmp	(loc_20CCAC).l
+	jmp	loc_20CCAC
 
 ; ------------------------------------------------------------------------------
 
@@ -94,7 +94,7 @@ byte_20C952:
 ; ------------------------------------------------------------------------------
 
 PlatformObject_0_Routine2:
-	tst.w	(time_stop).l
+	tst.w	time_stop
 	beq.s	loc_20C962
 	bra.w	loc_20C872
 
@@ -109,7 +109,7 @@ loc_20C962:
 	jsr	off_20C9A2(pc,d0.w)
 	move.w	obj.var_38(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -120,8 +120,8 @@ loc_20C962:
 ; ------------------------------------------------------------------------------
 
 loc_20C994:
-	lea	(player_object).w,a1
-	jsr	(GetOffObject).l
+	lea	player_object,a1
+	jsr	GetOffObject
 	bra.w	loc_20CCAC
 
 ; ------------------------------------------------------------------------------
@@ -145,7 +145,7 @@ PlatformObject_1_Routine0:
 	jsr	loc_20CC94(pc)
 	add.w	obj.var_3a(a0),d0
 	move.w	d0,obj.y(a0)
-	jmp	(loc_20C872).l
+	jmp	loc_20C872
 
 ; ------------------------------------------------------------------------------
 
@@ -266,13 +266,13 @@ loc_20CAAA:
 	addi.w	#$40,obj.y_speed(a0)
 
 loc_20CAD0:
-	move.w	(scroll_fg_y).w,d0
+	move.w	scroll_fg_y,d0
 	addi.w	#$100,d0
 	cmp.w	obj.y(a0),d0
 	bcc.s	locret_20CAEE
-	lea	(player_object).w,a1
-	jsr	(GetOffObject).l
-	jmp	(DeleteObject).l
+	lea	player_object,a1
+	jsr	GetOffObject
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -315,7 +315,7 @@ PlatformObject_2_Routine2:
 	add.w	obj.var_3a(a0),d0
 	move.w	d0,obj.y(a0)
 	addq.b	#2,obj.var_2a(a0)
-	jmp	(loc_20C872).l
+	jmp	loc_20C872
 
 ; ------------------------------------------------------------------------------
 
@@ -363,9 +363,9 @@ PlatformObject_3_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20CB7A:
-	jsr	(MoveObject).l
+	jsr	MoveObject
 	subq.w	#8,obj.y_speed(a0)
-	jsr	(CheckBlockUp).l
+	jsr	CheckBlockUp
 	tst.w	d1
 	bmi.s	loc_20CB92
 	bra.w	loc_20C9FE
@@ -508,7 +508,7 @@ PlatformObject_5_Routine4:
 loc_20CC94:
 	moveq	#0,d0
 	move.b	obj.var_2a(a0),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	moveq	#0,d2
 	move.b	obj.var_2d(a0),d2
 	muls.w	d2,d0
@@ -521,17 +521,17 @@ loc_20CCAC:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20CCD0
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	bclr	#7,2(a1,d0.w)
 
 loc_20CCD0:
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 

@@ -1,10 +1,10 @@
 ; ------------------------------------------------------------------------------
 
 GetPlayerObject:
-	lea	(player_object).w,a6
-	tst.b	(use_player_2).l
+	lea	player_object,a6
+	tst.b	use_player_2
 	beq.s	locret_2029E0
-	lea	(player_object_2).w,a6
+	lea	player_object_2,a6
 
 locret_2029E0:
 	rts
@@ -12,29 +12,29 @@ locret_2029E0:
 ; ------------------------------------------------------------------------------
 
 InitScroll:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	moveq	#0,d0
-	move.b	d0,(unused_scroll_x_flag).w
-	move.b	d0,(unused_scroll_y_flag).w
-	move.b	d0,(unused_scroll_die).w
-	move.b	d0,(unused_scroll_timer).w
-	move.b	d0,(event_routine).w
-	lea	(unk_202A3E).l,a0
+	move.b	d0,unused_scroll_x_flag
+	move.b	d0,unused_scroll_y_flag
+	move.b	d0,unused_scroll_die
+	move.b	d0,unused_scroll_timer
+	move.b	d0,event_routine
+	lea	unk_202A3E,a0
 	move.w	(a0)+,d0
-	move.w	d0,(unused_scroll_routine).w
+	move.w	d0,unused_scroll_routine
 	move.l	(a0)+,d0
-	move.l	d0,(left_bound).w
-	move.l	d0,(target_left_bound).w
+	move.l	d0,left_bound
+	move.l	d0,target_left_bound
 	move.l	(a0)+,d0
-	move.l	d0,(top_bound).w
-	move.l	d0,(target_top_bound).w
-	move.w	(left_bound).w,d0
+	move.l	d0,top_bound
+	move.l	d0,target_top_bound
+	move.w	left_bound,d0
 	addi.w	#$240,d0
-	move.w	d0,(unused_scroll_x_keep).w
-	move.w	#$1010,(scroll_cross_x).w
+	move.w	d0,unused_scroll_x_keep
+	move.w	#$1010,scroll_cross_x
 	move.w	(a0)+,d0
-	move.w	d0,(scroll_focus_y).w
-	move.w	#$A0,(scroll_focus_x).w
+	move.w	d0,scroll_focus_y
+	move.w	#$A0,scroll_focus_x
 	bra.w	loc_202A6A
 
 ; ------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ unk_202A4A:
 ; ------------------------------------------------------------------------------
 
 loc_202A6A:
-	tst.b	(spawn_mode).l
+	tst.b	spawn_mode
 	beq.s	loc_202A8A
 	jsr	LoadCheckpoint
 	moveq	#0,d0
@@ -106,20 +106,20 @@ loc_202A88:
 ; ------------------------------------------------------------------------------
 
 loc_202A8A:
-	lea	(StagePlayerSpawn).l,a1
-	tst.w	(stage_demo).l
+	lea	StagePlayerSpawn,a1
+	tst.w	stage_demo
 	bpl.s	loc_202AAC
-	move.w	(s1_credits_index).l,d0
+	move.w	s1_credits_index,d0
 	subq.w	#1,d0
 	lsl.w	#2,d0
-	lea	(unk_202A4A).l,a1
+	lea	unk_202A4A,a1
 	adda.w	d0,a1
 	bra.s	loc_202AB6
 
 ; ------------------------------------------------------------------------------
 
 loc_202AAC:
-	move.w	(stage_demo).l,d0
+	move.w	stage_demo,d0
 	lsl.w	#2,d0
 	adda.w	d0,a1
 
@@ -137,27 +137,27 @@ loc_202AC6:
 	moveq	#0,d1
 
 loc_202ACE:
-	move.w	(right_bound).w,d2
+	move.w	right_bound,d2
 	cmp.w	d2,d1
 	bcs.s	loc_202AD8
 	move.w	d2,d1
 
 loc_202AD8:
-	move.w	d1,(scroll_fg_x).w
+	move.w	d1,scroll_fg_x
 	subi.w	#$60,d0
 	bcc.s	loc_202AE4
 	moveq	#0,d0
 
 loc_202AE4:
-	cmp.w	(bottom_bound).w,d0
+	cmp.w	bottom_bound,d0
 	blt.s	loc_202AEE
-	move.w	(bottom_bound).w,d0
+	move.w	bottom_bound,d0
 
 loc_202AEE:
-	move.w	d0,(scroll_fg_y).w
+	move.w	d0,scroll_fg_y
 	bsr.w	InitBgScroll
-	lea	(unk_202B06).l,a1
-	move.l	(a1),(loop_chunk_1).w
+	lea	unk_202B06,a1
+	move.l	(a1),loop_chunk_1
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ unk_202B06:
 
 InitBgScroll:
 	swap	d0
-	btst	#0,(r5_bg_change).l
+	btst	#0,r5_bg_change
 	beq.s	loc_202B1A
 	lsr.l	#2,d0
 	bra.s	loc_202B26
@@ -191,52 +191,52 @@ loc_202B1A:
 	add.l	d2,d0
 
 loc_202B26:
-	move.l	d0,(scroll_bg_y).w
+	move.l	d0,scroll_bg_y
 	swap	d0
-	move.w	d0,(scroll_bg2_y).w
-	move.w	d0,(scroll_bg3_y).w
+	move.w	d0,scroll_bg2_y
+	move.w	d0,scroll_bg3_y
 	move.l	d1,d2
 	lsr.l	#2,d2
 	add.l	d1,d2
-	move.w	d2,(scroll_bg_x).w
+	move.w	d2,scroll_bg_x
 	lsr.l	#1,d1
-	move.w	d1,(scroll_bg2_x).w
+	move.w	d1,scroll_bg2_x
 	lsr.l	#1,d1
-	move.w	d1,(scroll_bg3_x).w
+	move.w	d1,scroll_bg3_x
 	rts
 
 ; ------------------------------------------------------------------------------
 
 UpdateScroll:
-	lea	(player_object).w,a6
-	tst.b	(scroll_lock).w
+	lea	player_object,a6
+	tst.b	scroll_lock
 	beq.s	loc_202B58
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_202B58:
-	clr.w	(scroll_flags_fg).w
-	clr.w	(scroll_flags_bg).w
-	clr.w	(scroll_flags_bg2).w
-	clr.w	(scroll_flags_bg3).w
+	clr.w	scroll_flags_fg
+	clr.w	scroll_flags_bg
+	clr.w	scroll_flags_bg2
+	clr.w	scroll_flags_bg3
 	bsr.w	ScrollFgX
 	bsr.w	ScrollFgY
 	bsr.w	StageEvents
-	move.w	(scroll_fg_y).w,(scroll_y).w
-	move.w	(scroll_bg_y).w,(scroll_y+2).w
-	move.w	(scroll_x_move).w,d4
+	move.w	scroll_fg_y,scroll_y
+	move.w	scroll_bg_y,scroll_y+2
+	move.w	scroll_x_move,d4
 	ext.l	d4
 	asl.l	#6,d4
 	moveq	#6,d6
 	bsr.w	ScrollBg3X
-	move.w	(scroll_x_move).w,d4
+	move.w	scroll_x_move,d4
 	ext.l	d4
 	asl.l	#7,d4
 	moveq	#4,d6
 	bsr.w	ScrollBg2X
-	lea	(bg_scroll_lines).w,a1
-	move.w	(scroll_x_move).w,d4
+	lea	bg_scroll_lines,a1
+	move.w	scroll_x_move,d4
 	ext.l	d4
 	asl.l	#6,d4
 	move.l	d4,d3
@@ -244,8 +244,8 @@ loc_202B58:
 	add.l	d3,d4
 	moveq	#2,d6
 	bsr.w	ScrollBgX
-	move.w	(scroll_fg_y).w,d0
-	btst	#0,(r5_bg_change).l
+	move.w	scroll_fg_y,d0
+	btst	#0,r5_bg_change
 	beq.s	loc_202BC6
 	lsr.w	#2,d0
 	bra.s	loc_202BD2
@@ -262,19 +262,19 @@ loc_202BC6:
 
 loc_202BD2:
 	bsr.w	ScrollBgY
-	move.w	(scroll_bg_y).w,(scroll_y+2).w
-	move.w	(scroll_bg_y).w,(scroll_bg2_y).w
-	move.w	(scroll_bg_y).w,(scroll_bg3_y).w
-	move.b	(scroll_flags_bg3).w,d0
-	or.b	(scroll_flags_bg2).w,d0
-	or.b	d0,(scroll_flags_bg).w
-	clr.b	(scroll_flags_bg3).w
-	clr.b	(scroll_flags_bg2).w
-	lea	(bg_scroll_lines).w,a1
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_bg_y,scroll_y+2
+	move.w	scroll_bg_y,scroll_bg2_y
+	move.w	scroll_bg_y,scroll_bg3_y
+	move.b	scroll_flags_bg3,d0
+	or.b	scroll_flags_bg2,d0
+	or.b	d0,scroll_flags_bg
+	clr.b	scroll_flags_bg3
+	clr.b	scroll_flags_bg2
+	lea	bg_scroll_lines,a1
+	move.w	scroll_fg_x,d0
 	neg.w	d0
 	swap	d0
-	btst	#0,(r5_bg_change).l
+	btst	#0,r5_bg_change
 	beq.s	loc_202C1E
 	bsr.w	sub_202CF2
 	bsr.w	sub_202D42
@@ -283,7 +283,7 @@ loc_202BD2:
 ; ------------------------------------------------------------------------------
 
 loc_202C1E:
-	move.w	(scroll_bg_x).w,d0
+	move.w	scroll_bg_x,d0
 	neg.w	d0
 	move.w	#7,d6
 
@@ -292,7 +292,7 @@ loc_202C28:
 	dbf	d6,loc_202C28
 	bsr.w	sub_202C64
 	bsr.w	sub_202CAE
-	move.w	(scroll_bg_x).w,d0
+	move.w	scroll_bg_x,d0
 	neg.w	d0
 	move.w	#7,d6
 
@@ -301,9 +301,9 @@ loc_202C40:
 	dbf	d6,loc_202C40
 
 loc_202C46:
-	lea	(scroll_lines).w,a1
-	lea	(bg_scroll_lines).w,a2
-	move.w	(scroll_bg_y).w,d0
+	lea	scroll_lines,a1
+	lea	bg_scroll_lines,a2
+	move.w	scroll_bg_y,d0
 	move.w	d0,d2
 	andi.w	#$3F8,d0
 	lsr.w	#2,d0
@@ -314,8 +314,8 @@ loc_202C46:
 ; ------------------------------------------------------------------------------
 
 sub_202C64:
-	move.w	(scroll_bg3_x).w,d0
-	move.w	(scroll_fg_x).w,d2
+	move.w	scroll_bg3_x,d0
+	move.w	scroll_fg_x,d2
 	sub.w	d0,d2
 	ext.l	d2
 	moveq	#6,d1
@@ -324,7 +324,7 @@ sub_202C64:
 	ext.l	d2
 	moveq	#$A,d1
 	asl.l	d1,d2
-	move.w	(scroll_bg3_x).w,d3
+	move.w	scroll_bg3_x,d3
 	moveq	#5,d6
 	adda.w	#$44,a1
 
@@ -357,8 +357,8 @@ byte_202CA8:
 ; ------------------------------------------------------------------------------
 
 sub_202CAE:
-	move.w	(scroll_bg3_x).w,d0
-	move.w	(scroll_fg_x).w,d2
+	move.w	scroll_bg3_x,d0
+	move.w	scroll_fg_x,d2
 	sub.w	d0,d2
 	ext.l	d2
 	moveq	#6,d1
@@ -367,7 +367,7 @@ sub_202CAE:
 	ext.l	d2
 	moveq	#$A,d1
 	asl.l	d1,d2
-	move.w	(scroll_bg3_x).w,d3
+	move.w	scroll_bg3_x,d3
 	moveq	#6,d6
 
 loc_202CCE:
@@ -400,8 +400,8 @@ byte_202CEA:
 ; ------------------------------------------------------------------------------
 
 sub_202CF2:
-	move.w	(scroll_bg3_x).w,d0
-	move.w	(scroll_fg_x).w,d2
+	move.w	scroll_bg3_x,d0
+	move.w	scroll_fg_x,d2
 	sub.w	d0,d2
 	ext.l	d2
 	moveq	#7,d1
@@ -410,7 +410,7 @@ sub_202CF2:
 	ext.l	d2
 	moveq	#9,d1
 	asl.l	d1,d2
-	move.w	(scroll_bg3_x).w,d3
+	move.w	scroll_bg3_x,d3
 	moveq	#$A,d6
 	adda.w	#$2C,a1
 
@@ -449,8 +449,8 @@ byte_202D36:
 ; ------------------------------------------------------------------------------
 
 sub_202D42:
-	move.w	(scroll_bg3_x).w,d0
-	move.w	(scroll_fg_x).w,d2
+	move.w	scroll_bg3_x,d0
+	move.w	scroll_fg_x,d2
 	sub.w	d0,d2
 	ext.l	d2
 	moveq	#6,d1
@@ -459,7 +459,7 @@ sub_202D42:
 	ext.l	d2
 	moveq	#$A,d1
 	asl.l	d1,d2
-	move.w	(scroll_bg3_x).w,d3
+	move.w	scroll_bg3_x,d3
 	moveq	#2,d6
 
 loc_202D62:
@@ -534,24 +534,24 @@ loc_202DAE:
 ; ------------------------------------------------------------------------------
 
 ScrollFgX:
-	move.w	(scroll_fg_x).w,d4
+	move.w	scroll_fg_x,d4
 	bsr.s	CheckScrollFgX
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 	andi.w	#$10,d0
-	move.b	(scroll_cross_x).w,d1
+	move.b	scroll_cross_x,d1
 	eor.b	d1,d0
 	bne.s	locret_202DF6
-	eori.b	#$10,(scroll_cross_x).w
-	move.w	(scroll_fg_x).w,d0
+	eori.b	#$10,scroll_cross_x
+	move.w	scroll_fg_x,d0
 	sub.w	d4,d0
 	bpl.s	loc_202DF0
-	bset	#2,(scroll_flags_fg).w
+	bset	#2,scroll_flags_fg
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_202DF0:
-	bset	#3,(scroll_flags_fg).w
+	bset	#3,scroll_flags_fg
 
 locret_202DF6:
 	rts
@@ -560,8 +560,8 @@ locret_202DF6:
 
 CheckScrollFgX:
 	move.w	8(a6),d0
-	sub.w	(scroll_fg_x).w,d0
-	sub.w	(scroll_focus_x).w,d0
+	sub.w	scroll_fg_x,d0
+	sub.w	scroll_focus_x,d0
 	beq.s	loc_202E0A
 	bcs.s	loc_202E3A
 	bra.s	loc_202E10
@@ -569,7 +569,7 @@ CheckScrollFgX:
 ; ------------------------------------------------------------------------------
 
 loc_202E0A:
-	clr.w	(scroll_x_move).w
+	clr.w	scroll_x_move
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -580,17 +580,17 @@ loc_202E10:
 	move.w	#$10,d0
 
 loc_202E1A:
-	add.w	(scroll_fg_x).w,d0
-	cmp.w	(right_bound).w,d0
+	add.w	scroll_fg_x,d0
+	cmp.w	right_bound,d0
 	blt.s	loc_202E28
-	move.w	(right_bound).w,d0
+	move.w	right_bound,d0
 
 loc_202E28:
 	move.w	d0,d1
-	sub.w	(scroll_fg_x).w,d1
+	sub.w	scroll_fg_x,d1
 	asl.w	#8,d1
-	move.w	d0,(scroll_fg_x).w
-	move.w	d1,(scroll_x_move).w
+	move.w	d0,scroll_fg_x
+	move.w	d1,scroll_x_move
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -601,10 +601,10 @@ loc_202E3A:
 	move.w	#$FFF0,d0
 
 loc_202E44:
-	add.w	(scroll_fg_x).w,d0
-	cmp.w	(left_bound).w,d0
+	add.w	scroll_fg_x,d0
+	cmp.w	left_bound,d0
 	bgt.s	loc_202E28
-	move.w	(left_bound).w,d0
+	move.w	left_bound,d0
 	bra.s	loc_202E28
 
 ; ------------------------------------------------------------------------------
@@ -626,7 +626,7 @@ loc_202E5E:
 ScrollFgY:
 	moveq	#0,d1
 	move.w	$C(a6),d0
-	sub.w	(scroll_fg_y).w,d0
+	sub.w	scroll_fg_y,d0
 	btst	#2,$22(a6)
 	beq.s	loc_202E78
 	subq.w	#5,d0
@@ -635,30 +635,30 @@ loc_202E78:
 	btst	#1,$22(a6)
 	beq.s	loc_202E98
 	addi.w	#$20,d0
-	sub.w	(scroll_focus_y).w,d0
+	sub.w	scroll_focus_y,d0
 	bcs.s	loc_202EE4
 	subi.w	#$40,d0
 	bcc.s	loc_202EE4
-	tst.b	(bottom_bound_shift).w
+	tst.b	bottom_bound_shift
 	bne.s	loc_202EF6
 	bra.s	loc_202EA4
 
 ; ------------------------------------------------------------------------------
 
 loc_202E98:
-	sub.w	(scroll_focus_y).w,d0
+	sub.w	scroll_focus_y,d0
 	bne.s	loc_202EAA
-	tst.b	(bottom_bound_shift).w
+	tst.b	bottom_bound_shift
 	bne.s	loc_202EF6
 
 loc_202EA4:
-	clr.w	(scroll_y_move).w
+	clr.w	scroll_y_move
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_202EAA:
-	cmpi.w	#$60,(scroll_focus_y).w
+	cmpi.w	#$60,scroll_focus_y
 	bne.s	loc_202ED2
 	move.w	$14(a6),d1
 	bpl.s	loc_202EBA
@@ -698,12 +698,12 @@ loc_202EE4:
 
 loc_202EF6:
 	moveq	#0,d0
-	move.b	d0,(bottom_bound_shift).w
+	move.b	d0,bottom_bound_shift
 
 loc_202EFC:
 	moveq	#0,d1
 	move.w	d0,d1
-	add.w	(scroll_fg_y).w,d1
+	add.w	scroll_fg_y,d1
 	tst.w	d0
 	bpl.w	loc_202F4E
 	bra.w	loc_202F1A
@@ -714,24 +714,24 @@ loc_202F0E:
 	neg.w	d1
 	ext.l	d1
 	asl.l	#8,d1
-	add.l	(scroll_fg_y).w,d1
+	add.l	scroll_fg_y,d1
 	swap	d1
 
 loc_202F1A:
-	cmp.w	(top_bound).w,d1
+	cmp.w	top_bound,d1
 	bgt.s	loc_202F72
 	cmpi.w	#$FF00,d1
 	bgt.s	loc_202F3E
 	andi.w	#$7FF,d1
 	andi.w	#$7FF,$C(a6)
-	andi.w	#$7FF,(scroll_fg_y).w
-	andi.w	#$3FF,(scroll_bg_y).w
+	andi.w	#$7FF,scroll_fg_y
+	andi.w	#$3FF,scroll_bg_y
 	bra.s	loc_202F72
 
 ; ------------------------------------------------------------------------------
 
 loc_202F3E:
-	move.w	(top_bound).w,d1
+	move.w	top_bound,d1
 	bra.s	loc_202F72
 
 ; ------------------------------------------------------------------------------
@@ -739,48 +739,48 @@ loc_202F3E:
 loc_202F44:
 	ext.l	d1
 	asl.l	#8,d1
-	add.l	(scroll_fg_y).w,d1
+	add.l	scroll_fg_y,d1
 	swap	d1
 
 loc_202F4E:
-	cmp.w	(bottom_bound).w,d1
+	cmp.w	bottom_bound,d1
 	blt.s	loc_202F72
 	subi.w	#$800,d1
 	bcs.s	loc_202F6E
 	andi.w	#$7FF,$C(a6)
-	subi.w	#$800,(scroll_fg_y).w
-	andi.w	#$3FF,(scroll_bg_y).w
+	subi.w	#$800,scroll_fg_y
+	andi.w	#$3FF,scroll_bg_y
 	bra.s	loc_202F72
 
 ; ------------------------------------------------------------------------------
 
 loc_202F6E:
-	move.w	(bottom_bound).w,d1
+	move.w	bottom_bound,d1
 
 loc_202F72:
-	move.w	(scroll_fg_y).w,d4
+	move.w	scroll_fg_y,d4
 	swap	d1
 	move.l	d1,d3
-	sub.l	(scroll_fg_y).w,d3
+	sub.l	scroll_fg_y,d3
 	ror.l	#8,d3
-	move.w	d3,(scroll_y_move).w
-	move.l	d1,(scroll_fg_y).w
-	move.w	(scroll_fg_y).w,d0
+	move.w	d3,scroll_y_move
+	move.l	d1,scroll_fg_y
+	move.w	scroll_fg_y,d0
 	andi.w	#$10,d0
-	move.b	(scroll_cross_y).w,d1
+	move.b	scroll_cross_y,d1
 	eor.b	d1,d0
 	bne.s	locret_202FB4
-	eori.b	#$10,(scroll_cross_y).w
-	move.w	(scroll_fg_y).w,d0
+	eori.b	#$10,scroll_cross_y
+	move.w	scroll_fg_y,d0
 	sub.w	d4,d0
 	bpl.s	loc_202FAE
-	bset	#0,(scroll_flags_fg).w
+	bset	#0,scroll_flags_fg
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_202FAE:
-	bset	#1,(scroll_flags_fg).w
+	bset	#1,scroll_flags_fg
 
 locret_202FB4:
 	rts
@@ -788,48 +788,48 @@ locret_202FB4:
 ; ------------------------------------------------------------------------------
 
 ScrollBgXY:
-	move.l	(scroll_bg_x).w,d2
+	move.l	scroll_bg_x,d2
 	move.l	d2,d0
 	add.l	d4,d0
-	move.l	d0,(scroll_bg_x).w
+	move.l	d0,scroll_bg_x
 	move.l	d0,d1
 	swap	d1
 	andi.w	#$10,d1
-	move.b	(scroll_cross_bg_x).w,d3
+	move.b	scroll_cross_bg_x,d3
 	eor.b	d3,d1
 	bne.s	loc_202FEA
-	eori.b	#$10,(scroll_cross_bg_x).w
+	eori.b	#$10,scroll_cross_bg_x
 	sub.l	d2,d0
 	bpl.s	loc_202FE4
-	bset	#2,(scroll_flags_bg).w
+	bset	#2,scroll_flags_bg
 	bra.s	loc_202FEA
 
 ; ------------------------------------------------------------------------------
 
 loc_202FE4:
-	bset	#3,(scroll_flags_bg).w
+	bset	#3,scroll_flags_bg
 
 loc_202FEA:
-	move.l	(scroll_bg_y).w,d3
+	move.l	scroll_bg_y,d3
 	move.l	d3,d0
 	add.l	d5,d0
-	move.l	d0,(scroll_bg_y).w
+	move.l	d0,scroll_bg_y
 	move.l	d0,d1
 	swap	d1
 	andi.w	#$10,d1
-	move.b	(scroll_cross_bg_y).w,d2
+	move.b	scroll_cross_bg_y,d2
 	eor.b	d2,d1
 	bne.s	locret_20301E
-	eori.b	#$10,(scroll_cross_bg_y).w
+	eori.b	#$10,scroll_cross_bg_y
 	sub.l	d3,d0
 	bpl.s	loc_203018
-	bset	#0,(scroll_flags_bg).w
+	bset	#0,scroll_flags_bg
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_203018:
-	bset	#1,(scroll_flags_bg).w
+	bset	#1,scroll_flags_bg
 
 locret_20301E:
 	rts
@@ -837,26 +837,26 @@ locret_20301E:
 ; ------------------------------------------------------------------------------
 
 UnkScrollBgY:
-	move.l	(scroll_bg_y).w,d3
+	move.l	scroll_bg_y,d3
 	move.l	d3,d0
 	add.l	d5,d0
-	move.l	d0,(scroll_bg_y).w
+	move.l	d0,scroll_bg_y
 	move.l	d0,d1
 	swap	d1
 	andi.w	#$10,d1
-	move.b	(scroll_cross_bg_y).w,d2
+	move.b	scroll_cross_bg_y,d2
 	eor.b	d2,d1
 	bne.s	locret_203054
-	eori.b	#$10,(scroll_cross_bg_y).w
+	eori.b	#$10,scroll_cross_bg_y
 	sub.l	d3,d0
 	bpl.s	loc_20304E
-	bset	#4,(scroll_flags_bg).w
+	bset	#4,scroll_flags_bg
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20304E:
-	bset	#5,(scroll_flags_bg).w
+	bset	#5,scroll_flags_bg
 
 locret_203054:
 	rts
@@ -864,23 +864,23 @@ locret_203054:
 ; ------------------------------------------------------------------------------
 
 ScrollBgY:
-	move.w	(scroll_bg_y).w,d3
-	move.w	d0,(scroll_bg_y).w
+	move.w	scroll_bg_y,d3
+	move.w	d0,scroll_bg_y
 	move.w	d0,d1
 	andi.w	#$10,d1
-	move.b	(scroll_cross_bg_y).w,d2
+	move.b	scroll_cross_bg_y,d2
 	eor.b	d2,d1
 	bne.s	locret_203084
-	eori.b	#$10,(scroll_cross_bg_y).w
+	eori.b	#$10,scroll_cross_bg_y
 	sub.w	d3,d0
 	bpl.s	loc_20307E
-	bset	#0,(scroll_flags_bg).w
+	bset	#0,scroll_flags_bg
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20307E:
-	bset	#1,(scroll_flags_bg).w
+	bset	#1,scroll_flags_bg
 
 locret_203084:
 	rts
@@ -888,27 +888,27 @@ locret_203084:
 ; ------------------------------------------------------------------------------
 
 ScrollBgX:
-	move.l	(scroll_bg_x).w,d2
+	move.l	scroll_bg_x,d2
 	move.l	d2,d0
 	add.l	d4,d0
-	move.l	d0,(scroll_bg_x).w
+	move.l	d0,scroll_bg_x
 	move.l	d0,d1
 	swap	d1
 	andi.w	#$10,d1
-	move.b	(scroll_cross_bg_x).w,d3
+	move.b	scroll_cross_bg_x,d3
 	eor.b	d3,d1
 	bne.s	locret_2030B8
-	eori.b	#$10,(scroll_cross_bg_x).w
+	eori.b	#$10,scroll_cross_bg_x
 	sub.l	d2,d0
 	bpl.s	loc_2030B2
-	bset	d6,(scroll_flags_bg).w
+	bset	d6,scroll_flags_bg
 	bra.s	locret_2030B8
 
 ; ------------------------------------------------------------------------------
 
 loc_2030B2:
 	addq.b	#1,d6
-	bset	d6,(scroll_flags_bg).w
+	bset	d6,scroll_flags_bg
 
 locret_2030B8:
 	rts
@@ -916,27 +916,27 @@ locret_2030B8:
 ; ------------------------------------------------------------------------------
 
 ScrollBg2X:
-	move.l	(scroll_bg2_x).w,d2
+	move.l	scroll_bg2_x,d2
 	move.l	d2,d0
 	add.l	d4,d0
-	move.l	d0,(scroll_bg2_x).w
+	move.l	d0,scroll_bg2_x
 	move.l	d0,d1
 	swap	d1
 	andi.w	#$10,d1
-	move.b	(scroll_cross_bg2_x).w,d3
+	move.b	scroll_cross_bg2_x,d3
 	eor.b	d3,d1
 	bne.s	locret_2030EC
-	eori.b	#$10,(scroll_cross_bg2_x).w
+	eori.b	#$10,scroll_cross_bg2_x
 	sub.l	d2,d0
 	bpl.s	loc_2030E6
-	bset	d6,(scroll_flags_bg2).w
+	bset	d6,scroll_flags_bg2
 	bra.s	locret_2030EC
 
 ; ------------------------------------------------------------------------------
 
 loc_2030E6:
 	addq.b	#1,d6
-	bset	d6,(scroll_flags_bg2).w
+	bset	d6,scroll_flags_bg2
 
 locret_2030EC:
 	rts
@@ -944,27 +944,27 @@ locret_2030EC:
 ; ------------------------------------------------------------------------------
 
 ScrollBg3X:
-	move.l	(scroll_bg3_x).w,d2
+	move.l	scroll_bg3_x,d2
 	move.l	d2,d0
 	add.l	d4,d0
-	move.l	d0,(scroll_bg3_x).w
+	move.l	d0,scroll_bg3_x
 	move.l	d0,d1
 	swap	d1
 	andi.w	#$10,d1
-	move.b	(scroll_cross_bg3_x).w,d3
+	move.b	scroll_cross_bg3_x,d3
 	eor.b	d3,d1
 	bne.s	locret_203120
-	eori.b	#$10,(scroll_cross_bg3_x).w
+	eori.b	#$10,scroll_cross_bg3_x
 	sub.l	d2,d0
 	bpl.s	loc_20311A
-	bset	d6,(scroll_flags_bg3).w
+	bset	d6,scroll_flags_bg3
 	bra.s	locret_203120
 
 ; ------------------------------------------------------------------------------
 
 loc_20311A:
 	addq.b	#1,d6
-	bset	d6,(scroll_flags_bg3).w
+	bset	d6,scroll_flags_bg3
 
 locret_203120:
 	rts

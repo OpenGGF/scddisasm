@@ -1,9 +1,9 @@
 ; ------------------------------------------------------------------------------
 
 DestroyInGoodFuture:
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	locret_20E3DC
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	bne.s	loc_20E3AE
 	tst.b	obj.subtype(a0)
 	beq.s	locret_20E3DC
@@ -31,9 +31,9 @@ locret_20E3DC:
 CheckAnimalPrescence:
 	tst.b	obj.subtype(a0)
 	bmi.s	locret_20E40E
-	cmpi.b	#2,(time_zone).l
+	cmpi.b	#2,time_zone
 	bge.s	loc_20E3FE
-	tst.b	(projector_destroyed).l
+	tst.b	projector_destroyed
 	bne.s	locret_20E40E
 	addq.l	#4,sp
 	jmp	CheckObjectDespawn
@@ -41,7 +41,7 @@ CheckAnimalPrescence:
 ; ------------------------------------------------------------------------------
 
 loc_20E3FE:
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	locret_20E40E
 	addq.l	#4,sp
 	jmp	DeleteObject

@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 sub_20BD22:
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.s	loc_20BD3A
 	cmpi.b	#6,obj.routine(a1)
 	bcc.s	loc_20BD3A
@@ -19,7 +19,7 @@ loc_20BD3A:
 ; ------------------------------------------------------------------------------
 
 loc_20BD44:
-	lea	(unk_20BDD0).l,a2
+	lea	unk_20BDD0,a2
 	andi.w	#7,d0
 	asl.w	#2,d0
 	lea	(a2,d0.w),a2
@@ -119,7 +119,7 @@ SpringboardObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20BE04(pc,d0.w),d0
 	jsr	off_20BE04(pc,d0.w)
-	jmp	(CheckObjectDespawn).l
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -165,13 +165,13 @@ loc_20BE68:
 
 loc_20BE72:
 	lea	SpringboardAnims(pc),a1
-	jsr	(AnimateObject).l
-	jmp	(DrawObject).l
+	jsr	AnimateObject
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
 SpringboardObject_0_Routine4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#3,d0
 	bsr.w	sub_20BD22
 	tst.b	d1
@@ -191,7 +191,7 @@ loc_20BEAE:
 ; ------------------------------------------------------------------------------
 
 SpringboardObject_0_Routine8:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#3,d0
 	bsr.w	sub_20BD22
 	tst.b	d1
@@ -222,7 +222,7 @@ SpringboardObject_0_RoutineC:
 	nop
 	nop
 	nop
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#4,d0
 	bsr.w	sub_20BD22
 	tst.b	d1
@@ -275,7 +275,7 @@ loc_20BF90:
 ; ------------------------------------------------------------------------------
 
 SpringboardObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#5,d0
 	bsr.w	sub_20BD22
 	tst.b	d1
@@ -295,7 +295,7 @@ loc_20BFC0:
 ; ------------------------------------------------------------------------------
 
 SpringboardObject_0_Routine6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#5,d0
 	bsr.w	sub_20BD22
 	tst.b	d1
@@ -322,7 +322,7 @@ loc_20BFF8:
 
 SpringboardObject_0_RoutineA:
 	move.b	#1,obj.anim_id(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	moveq	#6,d0
 	bsr.w	sub_20BD22
 	tst.b	d1

@@ -65,7 +65,7 @@ Spr_20F326:
 ; ------------------------------------------------------------------------------
 
 loc_20F32E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20F35E
 	bcc.s	loc_20F340
 	move.l	obj.var_2c(a0),d0

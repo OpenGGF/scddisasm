@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 AnimalObject:
-	jsr	(CheckAnimalPrescence).l
+	jsr	CheckAnimalPrescence
 	move.b	obj.subtype(a0),d0
 	andi.b	#$7F,d0
 	bne.w	loc_20D0C2
@@ -62,10 +62,10 @@ AnimalObject_1_Routine2:
 loc_20D046:
 	move.b	d0,obj.var_2e(a0)
 	lea	AnimalAnims1(pc),a1
-	jsr	(AnimateObject).l
-	jsr	(DrawObject).l
+	jsr	AnimateObject
+	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
-	jmp	(CheckObjectDespawn2).l
+	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
@@ -83,14 +83,14 @@ AnimalObject_1_Routine4:
 	andi.b	#$7F,d0
 	beq.w	loc_20D190
 	lea	AnimalAnims1(pc),a1
-	jsr	(AnimateObject).l
-	jmp	(DrawObject).l
+	jsr	AnimateObject
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
 sub_20D0A2:
 	move.b	obj.var_2e(a0),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	asr.w	d2,d1
 	asr.w	d3,d0
 	add.w	obj.var_2a(a0),d1
@@ -146,7 +146,7 @@ AnimalObject_0_Routine2:
 	smi	d0
 	addq.b	#1,d0
 	move.b	d0,obj.sprite_frame(a0)
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	bpl.s	loc_20D158
 	add.w	d1,obj.y(a0)
@@ -155,8 +155,8 @@ AnimalObject_0_Routine2:
 	bsr.s	loc_20D190
 
 loc_20D158:
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -167,13 +167,13 @@ AnimalObject_0_Routine4:
 	tst.b	obj.var_3f(a1)
 	bne.w	loc_20D18A
 	lea	AnimalAnims2(pc),a1
-	jsr	(AnimateObject).l
-	jmp	(DrawObject).l
+	jsr	AnimateObject
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20D18A:
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -187,9 +187,9 @@ loc_20D190:
 sub_20D19E:
 	lea	word_20D272(pc),a1
 	moveq	#0,d0
-	move.b	(act).l,d0
+	move.b	act,d0
 	asl.w	#2,d0
-	add.b	(time_zone).l,d0
+	add.b	time_zone,d0
 	add.w	d0,d0
 	move.w	(a1,d0.w),obj.sprite_tile(a0)
 	rts

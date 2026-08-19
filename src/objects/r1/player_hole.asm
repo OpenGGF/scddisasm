@@ -5,7 +5,7 @@ PlayerHoleObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_208A20(pc,d0.w),d0
 	jsr	off_208A20(pc,d0.w)
-	jmp	(CheckObjectDespawn).l
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ PlayerHoleObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$3A0,obj.sprite_tile(a0)
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	loc_208A44
 	move.w	#$3BB,obj.sprite_tile(a0)
 
@@ -40,7 +40,7 @@ loc_208A6C:
 	bclr	#6,2(a1,d0.w)
 
 PlayerHoleObject_0_Routine2:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	tst.b	obj.var_2c(a6)
 	beq.s	locret_208AB6
 	move.w	obj.x(a6),d0
@@ -57,7 +57,7 @@ PlayerHoleObject_0_Routine2:
 	bcc.s	locret_208AB6
 	bsr.s	sub_208ABE
 	move.w	#$A3,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 	addq.b	#2,obj.routine(a0)
 	bra.s	PlayerHoleObject_0_Routine4
 
@@ -69,19 +69,19 @@ locret_208AB6:
 ; ------------------------------------------------------------------------------
 
 PlayerHoleObject_0_Routine4:
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
 sub_208ABE:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	bset	#6,2(a1,d0.w)
 	rts

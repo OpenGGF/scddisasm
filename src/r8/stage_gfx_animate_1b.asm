@@ -21,7 +21,7 @@ loc_20EADE:
 	add.w	d0,d0
 	add.w	d0,d0
 	movea.l	2(a1,d0.w),a1
-	lea	(stage_anim_gfx).l,a3
+	lea	stage_anim_gfx,a3
 
 loc_20EAEE:
 	move.l	(a1)+,(a3)+

@@ -18,7 +18,7 @@ off_20CEBC:
 ; ------------------------------------------------------------------------------
 
 loc_20CEC0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	TopSolidObject
@@ -98,7 +98,7 @@ PlatformObject_1_Routine2:
 ; ------------------------------------------------------------------------------
 
 sub_20CF84:
-	move.w	(stage_frames).l,d0
+	move.w	stage_frames,d0
 	andi.w	#$FF,d0
 	jsr	SineCosine
 	add.w	d0,d0

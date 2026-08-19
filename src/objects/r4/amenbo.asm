@@ -155,7 +155,7 @@ loc_20D8C0:
 loc_20D8C4:
 	move.l	obj.var_2c(a0),d0
 	add.l	d0,obj.x(a0)
-	move.w	(water_y).w,obj.y(a0)
+	move.w	water_y,obj.y(a0)
 	subq.w	#8,obj.y(a0)
 	rts
 
@@ -165,7 +165,7 @@ sub_20D8D8:
 	subq.w	#1,obj.var_3c(a0)
 	bpl.w	locret_20D97C
 	move.w	#$78,obj.var_3c(a0)
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.w	sub_20D97E
 	bcc.w	locret_20D97C
 	jsr	SpawnObject

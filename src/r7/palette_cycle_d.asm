@@ -1,30 +1,30 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_200240).l,a1
-	lea	(word_20024E).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_200240,a1
+	lea	word_20024E,a2
 	bsr.w	sub_2001F6
-	lea	(byte_200256).l,a1
-	lea	(word_20025E).l,a2
+	lea	byte_200256,a1
+	lea	word_20025E,a2
 	bsr.w	sub_2001F6
-	lea	(byte_20026A).l,a1
-	lea	(word_200272).l,a2
+	lea	byte_20026A,a1
+	lea	word_200272,a2
 	bsr.w	sub_2001F6
-	lea	(byte_20027E).l,a1
-	lea	(word_200286).l,a2
+	lea	byte_20027E,a1
+	lea	word_200286,a2
 	bsr.w	sub_2001F6
-	lea	(byte_2002A0).l,a1
-	lea	(word_2002B2).l,a2
+	lea	byte_2002A0,a1
+	lea	word_2002B2,a2
 	bsr.w	sub_2001F6
-	lea	(byte_2002C2).l,a1
-	tst.b	(act).l
+	lea	byte_2002C2,a1
+	tst.b	act
 	bne.s	loc_2001F0
-	lea	(byte_2002E4).l,a1
+	lea	byte_2002E4,a1
 
 loc_2001F0:
-	lea	(word_2002D4).l,a2
+	lea	word_2002D4,a2
 
 ; ------------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ sub_2001F6:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0

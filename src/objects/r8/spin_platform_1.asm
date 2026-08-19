@@ -106,7 +106,7 @@ SpinPlatformObject_2_Routine2:
 SpinPlatformObject_2_Routine4:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	sne.b	obj.var_3e(a0)
 	addi.w	#-1,obj.var_2c(a0)
@@ -116,7 +116,7 @@ SpinPlatformObject_2_Routine4:
 	addq.b	#2,obj.routine(a0)
 	tst.b	obj.var_3e(a0)
 	beq.s	locret_20D2F2
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ SpinPlatformObject_0_Routine4:
 	bsr.w	sub_20D470
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	sne.b	obj.var_3e(a0)
 	cmpi.w	#$158,obj.var_32(a0)
@@ -240,7 +240,7 @@ SpinPlatformObject_0_Routine4:
 	move.w	#$D8,obj.var_36(a0)
 	tst.b	obj.var_3e(a0)
 	beq.s	locret_20D444
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------
@@ -277,7 +277,7 @@ sub_20D470:
 	move.w	obj.x(a0),d4
 	move.w	obj.var_2c(a0),d2
 	move.w	obj.var_2e(a0),d3
-	lea	(unk_23E876).l,a1
+	lea	unk_23E876,a1
 	move.w	obj.var_32(a0),d0
 	add.w	d0,d0
 	adda.w	d0,a1

@@ -1,55 +1,55 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_20028A).l,a1
-	lea	(word_200292).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_20028A,a1
+	lea	word_200292,a2
 	bsr.w	CycleColor
-	lea	(byte_200298).l,a1
-	lea	(word_2002A0).l,a2
+	lea	byte_200298,a1
+	lea	word_2002A0,a2
 	bsr.w	CycleColor
-	lea	(byte_2002A6).l,a1
-	lea	(word_2002AE).l,a2
+	lea	byte_2002A6,a1
+	lea	word_2002AE,a2
 	bsr.w	CycleColor
-	tst.b	(act).l
+	tst.b	act
 	bne.s	loc_2001F0
-	lea	(byte_2002B4).l,a1
-	lea	(word_2002BE).l,a2
+	lea	byte_2002B4,a1
+	lea	word_2002BE,a2
 	bsr.s	CycleColor
-	lea	(byte_2002C2).l,a1
-	lea	(word_2002CE).l,a2
+	lea	byte_2002C2,a1
+	lea	word_2002CE,a2
 	bsr.s	CycleColor
-	lea	(byte_2002D2).l,a1
-	lea	(word_2002DE).l,a2
+	lea	byte_2002D2,a1
+	lea	word_2002DE,a2
 	bra.w	CycleColor
 
 ; ------------------------------------------------------------------------------
 
 loc_2001F0:
-	cmpi.b	#1,(act).l
+	cmpi.b	#1,act
 	bne.s	loc_200224
-	lea	(byte_2002E2).l,a1
-	lea	(word_2002F0).l,a2
+	lea	byte_2002E2,a1
+	lea	word_2002F0,a2
 	bsr.s	CycleColor
-	lea	(byte_2002F8).l,a1
-	lea	(word_2002FE).l,a2
+	lea	byte_2002F8,a1
+	lea	word_2002FE,a2
 	bsr.s	CycleColor
-	lea	(byte_200302).l,a1
-	lea	(word_200328).l,a2
+	lea	byte_200302,a1
+	lea	word_200328,a2
 	bra.s	CycleColor
 
 ; ------------------------------------------------------------------------------
 
 loc_200224:
-	lea	(byte_20032C).l,a1
-	lea	(word_20033E).l,a2
+	lea	byte_20032C,a1
+	lea	word_20033E,a2
 	bsr.s	CycleColor
-	lea	(byte_200346).l,a1
-	lea	(word_200358).l,a2
+	lea	byte_200346,a1
+	lea	word_200358,a2
 	bsr.s	CycleColor
-	lea	(byte_200362).l,a1
-	lea	(word_200368).l,a2
+	lea	byte_200362,a1
+	lea	word_200368,a2
 
 ; ------------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ CycleColor:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0
@@ -249,7 +249,7 @@ word_200368:
 ; ------------------------------------------------------------------------------
 
 CycleBossPalette:
-	tst.b	(boss_started).w
+	tst.b	boss_started
 	beq.s	locret2_200398
 	addq.b	#1,(a4)
 	cmpi.b	#4,(a4)
@@ -265,7 +265,7 @@ CycleBossPalette:
 loc_20038A:
 	move.b	d0,(a3)
 	lea	word_20039A(pc,d0.w),a3
-	lea	(palette+$30).w,a4
+	lea	palette+$30,a4
 	move.l	(a3)+,(a4)+
 	move.l	(a3),(a4)
 

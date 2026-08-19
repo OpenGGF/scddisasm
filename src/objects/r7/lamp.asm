@@ -54,14 +54,14 @@ LampObject_0_Routine2:
 	bsr.w	sub_20D4FA
 	move.w	d0,obj.var_30(a0)
 	move.w	#$160,obj.var_32(a0)
-	move.w	(scroll_fg_y).w,d0
+	move.w	scroll_fg_y,d0
 	subi.w	#$160,d0
 	ext.l	d0
 	divs.w	#3,d0
 	sub.w	d0,obj.var_32(a0)
 	move.w	obj.var_32(a0),d0
 	addi.w	#$C,d0
-	move.w	(scroll_fg_y).w,d1
+	move.w	scroll_fg_y,d1
 	cmp.w	d0,d1
 	bge.s	loc_20D4D4
 	move.w	obj.var_30(a0),obj.x(a0)
@@ -87,7 +87,7 @@ loc_20D4D4:
 sub_20D4FA:
 	moveq	#0,d0
 	moveq	#0,d1
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 	divu.w	#$140,d0
 	cmpi.w	#$30,d0
 	ble.s	loc_20D510
@@ -119,7 +119,7 @@ LampObject_0_Routine4:
 
 	move.w	obj.x(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0

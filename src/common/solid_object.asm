@@ -60,7 +60,7 @@ loc_207D6A:
 	bclr	#4,obj.flags(a1)
 	bclr	#2,obj.flags(a1)
 	beq.s	loc_207DA8
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_207D92
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)
@@ -135,7 +135,7 @@ SolidObject:
 	beq.w	loc_2080C6
 	tst.b	obj.sprite_flags(a0)
 	bpl.w	loc_2080C6
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	bne.w	loc_2080C6
 	move.b	obj.width_2(a0),d1
 	ext.w	d1

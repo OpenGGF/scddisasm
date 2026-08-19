@@ -25,7 +25,7 @@ InvisibleBlockObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 
 InvisibleBlockObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------

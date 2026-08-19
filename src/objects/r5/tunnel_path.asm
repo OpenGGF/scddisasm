@@ -1,19 +1,19 @@
 ; ------------------------------------------------------------------------------
 
 TunnelPathObject:
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	beq.s	loc_208A44
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_208A44
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
@@ -36,7 +36,7 @@ loc_208A44:
 	tst.b	obj.subtype(a0)
 	bpl.s	loc_208A66
 	beq.s	loc_208A66
-	tst.b	(r5_conveyor_reverse).l
+	tst.b	r5_conveyor_reverse
 	bne.s	loc_208A5E
 	btst	#0,obj.subtype(a0)
 	beq.s	loc_208A66
@@ -49,7 +49,7 @@ loc_208A5E:
 	beq.s	loc_208A90
 
 loc_208A66:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	cmpi.b	#$2B,obj.anim_id(a6)
 	beq.s	locret_208A96
 	cmpi.b	#6,obj.routine(a6)

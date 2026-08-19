@@ -17,7 +17,7 @@ loc_20E938:
 loc_20E946:
 	move.w	off_20E964(pc,d0.w),d0
 	jsr	off_20E964(pc,d0.w)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 
 loc_20E958:
@@ -48,7 +48,7 @@ FallSpikesObject_0_Routine0:
 	move.l	#FallSpikesSprites,obj.sprite_data(a0)
 	move.l	#$3000,d0
 	move.w	obj.y(a0),d1
-	cmp.w	(static_water_y).w,d1
+	cmp.w	static_water_y,d1
 	ble.s	loc_20E9B8
 	move.l	#$1000,d0
 
@@ -79,7 +79,7 @@ locret_20EA22:
 ; ------------------------------------------------------------------------------
 
 FallSpikesObject_0_Routine2:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bsr.s	sub_20EA2E
 	bcs.s	loc_20EA52
 	rts

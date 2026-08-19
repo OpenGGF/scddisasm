@@ -28,12 +28,12 @@ MoveWallObject_0_Routine0:
 	move.l	#MoveWallSprites,obj.sprite_data(a0)
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	add.w	d1,d0
 	lea	2(a1,d0.w),a1
 	move.l	a1,obj.var_2c(a0)
@@ -83,7 +83,7 @@ locret_20F032:
 ; ------------------------------------------------------------------------------
 
 MoveWallObject_0_Routine6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ MoveWallObject_0_Routine6:
 loc_20F03E:
 	move.w	obj.x(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0

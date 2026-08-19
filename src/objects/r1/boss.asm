@@ -9,9 +9,9 @@ EggmanObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20B996(pc,d0.w),d0
 	jsr	off_20B996(pc,d0.w)
-	lea	(EggmanAnims).l,a1
-	jsr	(AnimateObject).l
-	jmp	(DrawObject).l
+	lea	EggmanAnims,a1
+	jsr	AnimateObject
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ locret_20B9C8:
 
 sub_20B9CA:
 	move.w	#$310,d1
-	tst.b	(boss_flags).w
+	tst.b	boss_flags
 	beq.s	loc_20B9F2
 	move.w	#$100,d1
 	tst.b	obj.var_35(a0)
@@ -60,8 +60,8 @@ loc_20B9F0:
 	add.w	d0,d1
 
 loc_20B9F2:
-	move.w	d1,(bottom_bound).w
-	move.w	d1,(target_bottom_bound).w
+	move.w	d1,bottom_bound
+	move.w	d1,target_bottom_bound
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ sub_20B9FC:
 loc_20BA0C:
 	subq.b	#1,obj.var_34(a0)
 	bne.s	locret_20BA18
-	jsr	(sub_20BC06).l
+	jsr	sub_20BC06
 
 locret_20BA18:
 	rts
@@ -137,14 +137,14 @@ loc_20BAA8:
 	bsr.w	sub_20BBCE
 	bsr.w	sub_20BC06
 	move.w	#$98,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 ; ------------------------------------------------------------------------------
 
 sub_20BAC0:
 	tst.b	obj.anim_id(a0)
 	bne.s	locret_20BAD8
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	tst.w	obj.var_30(a1)
 	bne.s	loc_20BADA
 	cmpi.b	#6,obj.routine(a1)
@@ -230,7 +230,7 @@ sub_20BBA2:
 ; ------------------------------------------------------------------------------
 
 sub_20BBCE:
-	lea	(player_object).w,a2
+	lea	player_object,a2
 	move.w	#$400,d1
 	move.w	#-$400,d2
 	move.w	#$400,obj.ground_speed(a2)
@@ -306,8 +306,8 @@ sub_20BC92:
 
 EggmanObject_0_Routine0:
 	moveq	#4,d0
-	jsr	(AddGfxQueue).l
-	move.b	#1,(boss_started).w
+	jsr	AddGfxQueue
+	move.b	#1,boss_started
 	clr.b	obj.flags(a0)
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
@@ -325,14 +325,14 @@ EggmanObject_0_Routine0:
 	move.w	#$78,obj.y(a0)
 	move.w	#5,d0
 	movem.l	d7-a7,-(sp)
-	jsr	(LoadPalette).l
+	jsr	LoadPalette
 	movem.l	(sp)+,d7-a7
 	rts
 
 ; ------------------------------------------------------------------------------
 
 sub_20BD1C:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.w	locret_20BD34
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -464,7 +464,7 @@ sub_20BD36:
 	movea.l	a1,a3
 	move.w	a4,obj.var_30(a1)
 	move.b	#3,obj.var_2b(a0)
-	jsr	(sub_20BC06).l
+	jsr	sub_20BC06
 
 locret_20BF42:
 	rts
@@ -473,26 +473,26 @@ locret_20BF42:
 
 EggmanObject_0_Routine2:
 	move.w	#$AC0,d0
-	move.w	d0,(right_bound).w
-	move.w	d0,(target_right_bound).w
-	lea	(player_object).w,a1
+	move.w	d0,right_bound
+	move.w	d0,target_right_bound
+	lea	player_object,a1
 	cmpi.w	#$A6A,obj.x(a1)
 	blt.s	locret_20BF90
 	move.w	obj.x(a1),d0
 	subi.w	#$A0,d0
-	cmp.w	(left_bound).w,d0
+	cmp.w	left_bound,d0
 	blt.s	locret_20BF90
 	cmpi.w	#$B60,obj.x(a1)
 	blt.s	loc_20BF88
 	move.b	#$C,obj.routine(a0)
 	move.w	#$AC0,d0
-	move.w	d0,(right_bound).w
-	move.w	d0,(target_right_bound).w
+	move.w	d0,right_bound
+	move.w	d0,target_right_bound
 	move.w	#$AC0,d0
 
 loc_20BF88:
-	move.w	d0,(left_bound).w
-	move.w	d0,(target_left_bound).w
+	move.w	d0,left_bound
+	move.w	d0,target_left_bound
 
 locret_20BF90:
 	rts
@@ -500,8 +500,8 @@ locret_20BF90:
 ; ------------------------------------------------------------------------------
 
 EggmanObject_0_RoutineC:
-	addq.w	#6,(scroll_focus_y).w
-	cmpi.w	#$C8,(scroll_focus_y).w
+	addq.w	#6,scroll_focus_y
+	cmpi.w	#$C8,scroll_focus_y
 	bge.s	loc_20BFA0
 	rts
 
@@ -509,8 +509,8 @@ EggmanObject_0_RoutineC:
 
 loc_20BFA0:
 	move.w	#$67,d0
-	jsr	(SubCpuCommand).l
-	move.b	#1,(boss_flags).w
+	jsr	SubCpuCommand
+	move.b	#1,boss_flags
 	move.b	#$E,obj.routine(a0)
 	rts
 
@@ -544,7 +544,7 @@ EggmanObject_0_Routine4:
 	clr.b	obj.var_1f(a0)
 	move.b	#3,obj.var_2b(a0)
 	bset	#3,obj.var_2c(a0)
-	jsr	(sub_20BC06).l
+	jsr	sub_20BC06
 	movea.w	obj.var_30(a0),a1
 
 loc_20C020:
@@ -553,7 +553,7 @@ loc_20C020:
 	bclr	#1,obj.var_2c(a1)
 
 loc_20C02C:
-	lea	(byte_20C04E).l,a2
+	lea	byte_20C04E,a2
 	move.b	obj.routine_2(a0),d0
 	adda.w	d0,a2
 	tst.b	(a2)
@@ -609,7 +609,7 @@ loc_20C09E:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	moveq	#100,d0
-	jsr	(AddPoints).l
+	jsr	AddPoints
 
 locret_20C0C4:
 	rts
@@ -623,7 +623,7 @@ EggmanObject_0_Routine8:
 	sub.w	d0,obj.y(a0)
 	addq.b	#3,obj.var_2b(a0)
 	move.b	obj.var_2b(a0),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	asr.w	#5,d0
 	move.w	d0,obj.var_38(a0)
 	add.w	d0,obj.y(a0)
@@ -666,24 +666,24 @@ locret_20C16A:
 loc_20C16C:
 	clr.b	obj.var_2b(a0)
 	move.w	#$11,d0
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20C180
 	move.w	#$10,d0
 
 loc_20C180:
-	jsr	(SubCpuCommand).l
-	jsr	(LoadCapsulePalette).l
-	clr.b	(boss_flags).w
-	clr.b	(boss_started).w
+	jsr	SubCpuCommand
+	jsr	LoadCapsulePalette
+	clr.b	boss_flags
+	clr.b	boss_started
 	move.b	#$A,obj.routine(a0)
 
 EggmanObject_0_RoutineA:
-	lea	(unk_2027F8+2).l,a1
+	lea	unk_2027F8+2,a1
 	move.w	(a1)+,d0
 	move.w	(a1)+,d1
-	addq.w	#6,(right_bound).w
-	addq.w	#6,(target_right_bound).w
-	cmp.w	(right_bound).w,d1
+	addq.w	#6,right_bound
+	addq.w	#6,target_right_bound
+	cmp.w	right_bound,d1
 	ble.s	loc_20C1B6
 	addq.l	#4,sp
 	rts
@@ -691,10 +691,10 @@ EggmanObject_0_RoutineA:
 ; ------------------------------------------------------------------------------
 
 loc_20C1B6:
-	move.w	d1,(right_bound).w
-	move.w	d1,(target_right_bound).w
+	move.w	d1,right_bound
+	move.w	d1,target_right_bound
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -703,7 +703,7 @@ BossBodyObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20C1DA(pc,d0.w),d0
 	jsr	off_20C1DA(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1256,7 +1256,7 @@ locret_20C8A4:
 BossBodyObject_0_RoutineE:
 	btst	#0,obj.var_2c(a0)
 	bne.w	loc_20C8C8
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	ble.s	locret_20C8C6
 	movea.w	obj.var_2e(a0),a1
@@ -1270,7 +1270,7 @@ locret_20C8C6:
 
 loc_20C8C8:
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1323,14 +1323,14 @@ sub_20C93C:
 ; ------------------------------------------------------------------------------
 
 sub_20C960:
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	locret_20C988
 	st	obj.routine_2(a1)
 	move.b	#$18,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	move.w	#$9E,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 locret_20C988:
 	rts
@@ -1342,7 +1342,7 @@ BossShoulderObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20C99E(pc,d0.w),d0
 	jsr	off_20C99E(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1416,7 +1416,7 @@ loc_20CA54:
 	cmpi.w	#$240,obj.y(a0)
 	blt.s	loc_20CA74
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1432,7 +1432,7 @@ BossArmObject:
 	jsr	off_20CA96(pc,d0.w)
 	btst	#2,obj.var_2c(a0)
 	bne.s	locret_20CA94
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1510,7 +1510,7 @@ loc_20CB4A:
 	cmpi.w	#$240,obj.y(a0)
 	blt.s	loc_20CB6A
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1526,7 +1526,7 @@ loc_20CB6E:
 	moveq	#0,d0
 	move.b	obj.var_2a(a0),d0
 	addi.b	#$40,d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	asr.w	#4,d0
 	asr.w	#4,d1
 	add.w	d1,obj.x(a0)
@@ -1545,7 +1545,7 @@ BossForearmObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20CBBE(pc,d0.w),d0
 	jsr	off_20CBBE(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1577,7 +1577,7 @@ BossForearmObject_0_Routine2:
 	addi.w	#0,obj.y(a0)
 	btst	#7,obj.var_2c(a0)
 	bne.s	loc_20CC38
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.y(a1),d1
 	cmp.w	obj.y(a0),d1
 	bgt.s	loc_20CC38
@@ -1675,7 +1675,7 @@ loc_20CD0C:
 	cmpi.w	#$240,obj.y(a0)
 	blt.s	loc_20CD2C
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1699,7 +1699,7 @@ BossBumperObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20CD5C(pc,d0.w),d0
 	jsr	off_20CD5C(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1770,7 +1770,7 @@ loc2_20CE02:
 	cmpi.w	#$240,obj.y(a0)
 	blt.s	loc_20CE22
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -1784,7 +1784,7 @@ BossThighObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20CE3A(pc,d0.w),d0
 	jsr	off_20CE3A(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -2090,7 +2090,7 @@ loc_20D12E:
 loc_20D132:
 	moveq	#0,d0
 	move.b	obj.var_2a(a0),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	moveq	#0,d2
 	moveq	#0,d3
 	asr.w	#4,d0
@@ -2182,7 +2182,7 @@ loc_20D22A:
 	cmpi.w	#$240,obj.y(a0)
 	blt.s	loc_20D24A
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -2196,7 +2196,7 @@ BossCalfObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20D262(pc,d0.w),d0
 	jsr	off_20D262(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -2435,7 +2435,7 @@ loc_20D468:
 	cmpi.w	#$240,obj.y(a0)
 	blt.s	loc_20D488
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -2449,7 +2449,7 @@ BossFootObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20D4A0(pc,d0.w),d0
 	jsr	off_20D4A0(pc,d0.w)
-	jmp	(DrawObject).l
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -2505,7 +2505,7 @@ loc_20D52A:
 
 loc_20D536:
 	bsr.w	loc_20D620
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	ble.w	loc_20D556
 	rts
@@ -2529,7 +2529,7 @@ loc_20D556:
 	movea.w	obj.var_2e(a3),a3
 	move.b	#8,obj.var_35(a3)
 	move.w	#$7E,d0
-	jsr	(SubCpuCommand).l
+	jsr	SubCpuCommand
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -2557,7 +2557,7 @@ BossFootObject_0_Routine4:
 	btst	#4,obj.var_2c(a0)
 	bne.w	locret_20D5E0
 	bsr.w	loc_20D67A
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	ble.w	loc_20D556
 
@@ -2677,7 +2677,7 @@ loc_20D706:
 	cmpi.w	#$240,obj.y(a0)
 	blt.s	loc_20D726
 	addq.l	#4,sp
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -2699,10 +2699,10 @@ sub_20D72A:
 	swap	d2
 	add.w	d2,d2
 	add.w	d2,d2
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	locret_20D784
 	st	obj.routine_2(a1)
-	lea	(word_20D786).l,a2
+	lea	word_20D786,a2
 	adda.w	d2,a2
 	move.b	#$18,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -2712,7 +2712,7 @@ sub_20D72A:
 	move.w	(a2),d0
 	add.w	d0,obj.y(a1)
 	move.w	#$9E,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 locret_20D784:
 	rts

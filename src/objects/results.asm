@@ -30,12 +30,12 @@ loc_20AAEE:
 	addq.b	#2,obj.routine(a0)
 
 ResultsInit:
-	tst.l	(gfx_queue).w
+	tst.l	gfx_queue
 	bne.s	locret_20AB1C
-	cmpi.w	#$502,(zone).l
+	cmpi.w	#$502,zone
 	beq.s	loc_20AB1E
-	lea	(player_object).w,a6
-	move.w	(scroll_fg_x).w,d0
+	lea	player_object,a6
+	move.w	scroll_fg_x,d0
 	addi.w	#$150,d0
 	cmp.w	obj.x(a6),d0
 	bcs.s	loc_20AB1E
@@ -46,7 +46,7 @@ locret_20AB1C:
 ; ------------------------------------------------------------------------------
 
 loc_20AB1E:
-	lea	(word_20AD8E).l,a2
+	lea	word_20AD8E,a2
 	moveq	#2,d6
 	moveq	#0,d1
 	movea.l	a0,a1
@@ -63,11 +63,11 @@ loc_20AB38:
 	move.b	#$3A,obj.id(a1)
 	move.b	#4,obj.routine(a1)
 	move.w	#$83C4,obj.sprite_tile(a1)
-	cmpi.w	#$502,(zone).l
+	cmpi.w	#$502,zone
 	bne.s	loc_20AB7A
 	move.w	#$82F2,obj.sprite_tile(a1)
 	move.l	#BadResultsSpritesR73,obj.sprite_data(a1)
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20AB92
 	move.l	#GoodResultsSpritesR73,obj.sprite_data(a1)
 	bra.s	loc_20AB92
@@ -76,7 +76,7 @@ loc_20AB38:
 
 loc_20AB7A:
 	move.l	#BadResultsSprites,obj.sprite_data(a1)
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20AB92
 	move.l	#GoodResultsSprites,obj.sprite_data(a1)
 
@@ -89,7 +89,7 @@ loc_20AB92:
 	move.b	7(a2,d2.w),obj.sprite_frame(a1)
 	cmpi.b	#2,d1
 	bne.s	loc_20ABBE
-	move.b	(act).l,d2
+	move.b	act,d2
 	add.b	d2,obj.sprite_frame(a1)
 
 loc_20ABBE:
@@ -136,11 +136,11 @@ loc_20ABF4:
 ; ------------------------------------------------------------------------------
 
 ResultsBonus:
-	move.b	#1,(update_hud_bonus).w
+	move.b	#1,update_hud_bonus
 	moveq	#0,d0
-	tst.w	(time_bonus).w
+	tst.w	time_bonus
 	bne.s	loc_20AC3E
-	tst.w	(ring_bonus).w
+	tst.w	ring_bonus
 	bne.s	loc_20AC4E
 	subq.w	#1,obj.var_32(a0)
 	bpl.s	loc_20AC1E
@@ -149,7 +149,7 @@ ResultsBonus:
 loc_20AC1E:
 	cmpi.w	#$1E,obj.var_32(a0)
 	bne.s	loc_20AC38
-	tst.b	(enter_special_stage).l
+	tst.b	enter_special_stage
 	beq.s	loc_20AC38
 	move.w	#$C8,d0
 	jsr	PlayFmSound
@@ -161,22 +161,22 @@ loc_20AC38:
 
 loc_20AC3E:
 	addi.w	#10,d0
-	subi.w	#100,(time_bonus).w
-	tst.w	(ring_bonus).w
+	subi.w	#100,time_bonus
+	tst.w	ring_bonus
 	beq.s	loc_20AC58
 
 loc_20AC4E:
 	addi.w	#10,d0
-	subi.w	#100,(ring_bonus).w
+	subi.w	#100,ring_bonus
 
 loc_20AC58:
 	move.l	d0,d1
-	tst.w	(time_bonus).w
+	tst.w	time_bonus
 	bne.s	loc_20AC8A
-	tst.w	(ring_bonus).w
+	tst.w	ring_bonus
 	bne.s	loc_20AC8A
 	jsr	StopZ80
-	move.b	#$9A,(Z80_RAM+$1C09).l
+	move.b	#$9A,Z80_RAM+$1C09
 	jsr	StartZ80
 	cmpi.w	#$2D,obj.var_32(a0)
 	bcc.s	loc_20ACA6
@@ -204,25 +204,25 @@ loc_20ACA6:
 ; ------------------------------------------------------------------------------
 
 ResultsNextStage:
-	move.w	#2,(restart_stage).l
-	move.b	#0,(spawn_mode).l
-	clr.w	(gfx_section_id).l
-	clr.l	(flower_counts).l
-	clr.b	(r5_bg_change).l
-	clr.b	(projector_destroyed).l
-	clr.b	(respawn_checkpoint).l
-	tst.b	(time_attack).l
+	move.w	#2,restart_stage
+	move.b	#0,spawn_mode
+	clr.w	gfx_section_id
+	clr.l	flower_counts
+	clr.b	r5_bg_change
+	clr.b	projector_destroyed
+	clr.b	respawn_checkpoint
+	tst.b	time_attack
 	beq.s	loc_20ACF2
-	bclr	#0,(stage_start_flags).l
+	bclr	#0,stage_start_flags
 
 loc_20ACF2:
-	bclr	#1,(stage_start_flags).l
-	move.b	#1,(time_zone).l
-	move.w	(zone).l,d0
+	bclr	#1,stage_start_flags
+	move.b	#1,time_zone
+	move.w	zone,d0
 	addq.b	#1,d0
 	cmpi.b	#2,d0
 	bne.s	loc_20AD18
-	move.b	#2,(time_zone).l
+	move.b	#2,time_zone
 
 loc_20AD18:
 	cmpi.b	#3,d0
@@ -232,32 +232,32 @@ loc_20AD18:
 	move.b	#0,d0
 
 loc_20AD2A:
-	move.w	d0,(zone).l
+	move.w	d0,zone
 	jsr	ResetObjectStates
 	jsr	FadeOutMusic
 	jsr	DrawObject
-	move.b	(act).l,d0
+	move.b	act,d0
 	subq.b	#1,d0
 	bpl.s	loc_20AD54
-	clr.b	(zone_good_futures).l
+	clr.b	zone_good_futures
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20AD54:
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	bne.s	locret_20AD8C
-	cmpi.b	#$7F,(game_time_stones).l
+	cmpi.b	#$7F,game_time_stones
 	beq.s	loc_20AD84
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	locret_20AD8C
-	clr.b	(good_future).l
-	bset	d0,(zone_good_futures).l
-	cmpi.b	#3,(zone_good_futures).l
+	clr.b	good_future
+	bset	d0,zone_good_futures
+	cmpi.b	#3,zone_good_futures
 	bne.s	locret_20AD8C
 
 loc_20AD84:
-	move.b	#1,(good_future).l
+	move.b	#1,good_future
 
 locret_20AD8C:
 	rts

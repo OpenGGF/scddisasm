@@ -5,9 +5,9 @@ WaterfallObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_207172(pc,d0.w),d0
 	jsr	off_207172(pc,d0.w)
-	lea	(WaterfallAnims).l,a1
-	jsr	(AnimateObject).l
-	jmp	(DrawObject).l
+	lea	WaterfallAnims,a1
+	jsr	AnimateObject
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ WaterfallObject_0_Routine2:
 	addq.w	#4,d0
 	cmp.w	obj.var_2a(a0),d0
 	bcs.s	loc_2071C0
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ loc_2071C0:
 	moveq	#$B,d6
 
 loc_2071E0:
-	jsr	(PlaceBlock).l
+	jsr	PlaceBlock
 	addi.w	#$10,d5
 	dbf	d6,loc_2071E0
 

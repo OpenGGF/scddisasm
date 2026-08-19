@@ -1,23 +1,23 @@
 ; ------------------------------------------------------------------------------
 
 CyclePalette:
-	tst.b	(act).l
+	tst.b	act
 	bne.s	loc_20018E
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20018E:
-	lea	(palette_cycle_timers).w,a5
-	lea	(palette_cycle_steps).w,a4
-	lea	(byte_20020E).l,a1
-	lea	(word_20022C).l,a2
+	lea	palette_cycle_timers,a5
+	lea	palette_cycle_steps,a4
+	lea	byte_20020E,a1
+	lea	word_20022C,a2
 	bsr.w	CycleColor
-	lea	(byte_200218).l,a1
-	lea	(word_20022C).l,a2
+	lea	byte_200218,a1
+	lea	word_20022C,a2
 	bsr.w	CycleColor
-	lea	(byte_200222).l,a1
-	lea	(word_20022C).l,a2
+	lea	byte_200222,a1
+	lea	word_20022C,a2
 	bra.w	*+4
 
 ; ------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ CycleColor:
 	move.b	(a1)+,d0
 	move.b	(a1)+,d1
 	add.w	d0,d0
-	lea	(palette).w,a3
+	lea	palette,a3
 	lea	(a3,d0.w),a3
 	moveq	#0,d0
 	move.b	(a4),d0

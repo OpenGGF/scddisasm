@@ -1,19 +1,19 @@
 ; ------------------------------------------------------------------------------
 
 TunnelPathObject:
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	beq.s	loc_20906A
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20906A
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
@@ -33,7 +33,7 @@ loc_209062:
 	bclr	#7,2(a1,d0.w)
 
 loc_20906A:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	cmpi.b	#$2B,obj.anim_id(a6)
 	beq.s	locret_20909A
 	cmpi.b	#6,obj.routine(a6)
@@ -203,7 +203,7 @@ locret_209252:
 ; ------------------------------------------------------------------------------
 
 loc_209254:
-	move.b	(p1_joy_hold).w,d0
+	move.b	p1_joy_hold,d0
 	andi.b	#$70,d0
 	beq.s	locret_209252
 	andi.w	#$7FFF,d1

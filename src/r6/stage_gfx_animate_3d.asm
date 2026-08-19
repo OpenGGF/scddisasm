@@ -2,35 +2,35 @@
 
 AnimateStageGfx:
 	jsr	LoadPowerupArt
-	lea	(stage_anim_timers).w,a2
-	lea	(stage_anim_frames).w,a4
-	lea	(unk_20E5D2).l,a1
+	lea	stage_anim_timers,a2
+	lea	stage_anim_frames,a4
+	lea	unk_20E5D2,a1
 	move.w	#$3F,d6
 	bsr.w	AnimateTilesSimple
 	bne.w	loc_20E4B8
-	bclr	#6,(boss_flags).w
+	bclr	#6,boss_flags
 	bne.s	loc_20E45E
-	btst	#7,(boss_flags).w
+	btst	#7,boss_flags
 	beq.s	loc_20E494
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4E00,(a5)
-	move.w	#$82,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$82,dma_stack
+	move.w	dma_stack,(a5)
 	bra.s	loc_20E4B8
 
 ; ------------------------------------------------------------------------------
 
 loc_20E45E:
-	bset	#7,(boss_flags).w
-	lea	(VDP_CTRL).l,a5
+	bset	#7,boss_flags
+	lea	VDP_CTRL,a5
 	move.w	#$8F01,(a5)
 	move.l	#$940093FF,(a5)
 	move.w	#$9780,(a5)
 	move.l	#$50000081,(a5)
-	move.w	#0,(VDP_DATA).l
+	move.w	#0,VDP_DATA
 
 loc_20E486:
 	move.w	(a5),d1
@@ -42,39 +42,39 @@ loc_20E486:
 ; ------------------------------------------------------------------------------
 
 loc_20E494:
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$5000,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20E4B8:
-	lea	(unk_20E5E0).l,a1
+	lea	unk_20E5E0,a1
 	move.w	#$1F,d6
 	bsr.w	AnimateTilesSimple
 	bne.s	loc_20E4EC
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4F80,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 loc_20E4EC:
-	lea	(unk_20E574).l,a1
+	lea	unk_20E574,a1
 	move.w	#$1F,d6
 	bsr.w	AnimateStageGfxScript
 	bne.s	locret_20E520
-	lea	(VDP_CTRL).l,a5
+	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$968C95C0,(a5)
 	move.w	#$977F,(a5)
 	move.w	#$4F00,(a5)
-	move.w	#$81,(dma_stack).w
-	move.w	(dma_stack).w,(a5)
+	move.w	#$81,dma_stack
+	move.w	dma_stack,(a5)
 
 locret_20E520:
 	rts
@@ -104,7 +104,7 @@ loc_20E532:
 	add.w	d1,d1
 	add.w	d1,d0
 	movea.l	2(a1,d0.w),a1
-	lea	(stage_anim_gfx).l,a3
+	lea	stage_anim_gfx,a3
 
 loc_20E556:
 	move.l	(a1)+,(a3)+
@@ -158,7 +158,7 @@ loc_20E5A4:
 	add.w	d0,d0
 	add.w	d0,d0
 	movea.l	2(a1,d0.w),a1
-	lea	(stage_anim_gfx).l,a3
+	lea	stage_anim_gfx,a3
 
 loc_20E5B4:
 	move.l	(a1)+,(a3)+

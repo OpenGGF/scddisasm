@@ -1,19 +1,19 @@
 ; ------------------------------------------------------------------------------
 
 TunnelPathObject:
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	beq.s	loc_208B3E
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_208B3E
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
@@ -33,7 +33,7 @@ loc_208B36:
 	bclr	#7,2(a1,d0.w)
 
 loc_208B3E:
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	cmpi.b	#$2B,obj.anim_id(a6)
 	beq.s	locret_208B6E
 	cmpi.b	#6,obj.routine(a6)
@@ -44,7 +44,7 @@ loc_208B3E:
 	jsr	off_208B70(pc,d1.w)
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	locret_208B6E
-	jmp	(CheckObjectDespawn).l
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -116,7 +116,7 @@ loc_208C16:
 	move.w	obj.y(a0),obj.y(a6)
 	clr.b	obj.var_32(a0)
 	move.w	#$91,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 locret_208C5C:
 	rts
@@ -127,7 +127,7 @@ TunnelPathObject_0_Routine4:
 	bsr.w	sub_208CEA
 	addq.b	#2,obj.routine(a0)
 	move.w	#$91,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 	rts
 
 ; ------------------------------------------------------------------------------

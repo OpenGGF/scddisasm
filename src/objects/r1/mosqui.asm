@@ -1,14 +1,14 @@
 ; ------------------------------------------------------------------------------
 
 MosquiObject:
-	jsr	(DestroyInGoodFuture).l
+	jsr	DestroyInGoodFuture
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20B5AA(pc,d0.w),d0
 	jsr	off_20B5AA(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	move.w	obj.var_2a(a0),d0
-	jmp	(CheckObjectDespawn2).l
+	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ MosquiObject_0_Routine0:
 	move.b	#$2B,obj.collide_type(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
 	moveq	#0,d0
-	jsr	(SetObjectSpriteTile).l
+	jsr	SetObjectSpriteTile
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B600
 	lea	MosquiSprites1(pc),a1
@@ -52,9 +52,9 @@ loc_20B60E:
 	move.l	d0,obj.var_2c(a0)
 
 MosquiObject_0_Routine2:
-	tst.w	(debug_mode).l
+	tst.w	debug_mode
 	bne.s	loc_20B62A
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20B66C
 	bcs.s	loc_20B660
 
@@ -78,7 +78,7 @@ loc_20B63E:
 
 loc_20B656:
 	movea.l	obj.var_30(a0),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
@@ -108,13 +108,13 @@ locret_20B690:
 
 MosquiObject_0_Routine4:
 	movea.l	obj.var_30(a0),a1
-	jmp	(AnimateObject).l
+	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
 MosquiObject_0_Routine6:
 	addq.w	#6,obj.y(a0)
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	cmpi.w	#-8,d1
 	bgt.s	locret_20B6C8
 	subi.w	#-8,d1
@@ -123,7 +123,7 @@ MosquiObject_0_Routine6:
 	tst.b	obj.sprite_flags(a0)
 	bpl.s	locret_20B6C8
 	move.w	#$A7,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 locret_20B6C8:
 	rts
@@ -133,7 +133,7 @@ locret_20B6C8:
 MosquiObject_0_Routine8:
 	tst.b	obj.sprite_flags(a0)
 	bmi.s	locret_20B6D6
-	jmp	(DespawnObject).l
+	jmp	DespawnObject
 
 ; ------------------------------------------------------------------------------
 

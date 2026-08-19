@@ -32,9 +32,9 @@ loc_20672A:
 	jsr	PlayFmSound
 
 SplashObject_0_Routine2:
-	move.w	(water_y).w,obj.y(a0)
+	move.w	water_y,obj.y(a0)
 	addq.w	#4,obj.y(a0)
-	lea	(SplashAnims).l,a1
+	lea	SplashAnims,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 

@@ -5,8 +5,8 @@ SceneryObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_2088C4(pc,d0.w),d0
 	jsr	off_2088C4(pc,d0.w)
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -32,16 +32,16 @@ SceneryObject_0_Routine2:
 
 sub_2088F2:
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	andi.b	#$7F,d0
 	cmpi.b	#2,d0
 	bne.s	loc_20890C
 	moveq	#1,d0
-	add.b	(good_future).l,d0
+	add.b	good_future,d0
 
 loc_20890C:
 	add.w	d0,d0
-	add.b	(act).l,d0
+	add.b	act,d0
 	add.w	d0,d0
 	move.w	word_208924(pc,d0.w),obj.sprite_tile(a0)
 	ori.w	#$4000,obj.sprite_tile(a0)

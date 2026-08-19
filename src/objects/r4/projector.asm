@@ -34,7 +34,7 @@ loc_20F4C6:
 ; ------------------------------------------------------------------------------
 
 ProjectorObject_0_Routine0:
-	tst.b	(projector_destroyed).l
+	tst.b	projector_destroyed
 	bne.s	loc_20F4C6
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
@@ -90,7 +90,7 @@ ProjectorObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 
 loc_20F5E4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ ProjectorObject_0_Routine4:
 	addq.b	#2,obj.routine(a0)
 	move.b	#1,obj.sprite_frame(a0)
 	st	obj.var_3f(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	ProjectorObject_0_Routine6
 	jsr	GetOffObject
@@ -142,7 +142,7 @@ loc_20F660:
 ProjectorObject_0_Routine8:
 	subq.w	#1,obj.var_2a(a0)
 	bne.s	locret_20F67C
-	st	(projector_destroyed).l
+	st	projector_destroyed
 	bra.w	loc_20F4C6
 
 ; ------------------------------------------------------------------------------

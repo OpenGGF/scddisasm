@@ -19,7 +19,7 @@ off_20CA4E:
 ; ------------------------------------------------------------------------------
 
 loc_20CA52:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	TopSolidObject
 
 ; ------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ PistonObject_0_Routine2:
 loc_20CACC:
 	cmpi.b	#$21,obj.var_3b(a0)
 	bcs.s	loc_20CADE
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ loc_20CB64:
 	cmpi.b	#$20,0(a1)
 	bne.s	loc_20CB86
 	move.w	$C(a1),obj.y(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	jmp	DrawObject
 

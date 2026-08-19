@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 PlayerCheckBored:
-	lea	(bored_timer).w,a1
+	lea	bored_timer,a1
 	cmpi.b	#5,obj.anim_id(a0)
 	beq.s	loc_203D2E
 	move.w	#0,(a1)
@@ -21,7 +21,7 @@ loc_203D38:
 	move.b	#$2B,obj.anim_id(a0)
 	ori.b	#$80,obj.sprite_tile(a0)
 	move.b	#0,obj.sprite_layer(a0)
-	move.b	#1,(lives).l
+	move.b	#1,lives
 	move.w	#$FB00,obj.y_speed(a0)
 	move.w	#$100,obj.x_speed(a0)
 	btst	#0,obj.flags(a0)
@@ -41,11 +41,11 @@ locret_203D82:
 ; ------------------------------------------------------------------------------
 
 PlayerObject:
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	bne.s	loc_203DA0
 	cmpa.w	#$D040,a0
 	beq.s	loc_203DA0
-	tst.b	(debug_mode).l
+	tst.b	debug_mode
 	beq.s	loc_203DA0
 	jmp	DebugMode
 
@@ -90,17 +90,17 @@ off_203DD8:
 ; ------------------------------------------------------------------------------
 
 PlayerMakeWarpStars:
-	tst.b	(warp_object_1+obj.id).w
+	tst.b	warp_object_1+obj.id
 	bne.s	locret_203E20
-	move.b	#1,(warping).l
-	move.b	#3,(warp_object_1+obj.id).w
-	move.b	#5,(warp_object_1+obj.anim_id).w
-	move.b	#3,(warp_object_2+obj.id).w
-	move.b	#6,(warp_object_2+obj.anim_id).w
-	move.b	#3,(warp_object_3+obj.id).w
-	move.b	#7,(warp_object_3+obj.anim_id).w
-	move.b	#3,(warp_object_4+obj.id).w
-	move.b	#8,(warp_object_4+obj.anim_id).w
+	move.b	#1,warping
+	move.b	#3,warp_object_1+obj.id
+	move.b	#5,warp_object_1+obj.anim_id
+	move.b	#3,warp_object_2+obj.id
+	move.b	#6,warp_object_2+obj.anim_id
+	move.b	#3,warp_object_3+obj.id
+	move.b	#7,warp_object_3+obj.anim_id
+	move.b	#3,warp_object_4+obj.id
+	move.b	#8,warp_object_4+obj.anim_id
 
 locret_203E20:
 	rts
@@ -116,7 +116,7 @@ PlayerInit:
 	addq.b	#2,obj.routine(a0)
 	move.b	#$13,obj.height(a0)
 	move.b	#9,obj.width(a0)
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_203E48
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -127,17 +127,17 @@ loc_203E48:
 	move.b	#2,obj.sprite_layer(a0)
 	move.b	#$18,obj.width_2(a0)
 	move.b	#4,obj.sprite_flags(a0)
-	move.w	#$600,(player_max_speed).w
-	move.w	#$C,(player_acceleration).w
-	move.w	#$80,(player_deceleration).w
+	move.w	#$600,player_max_speed
+	move.w	#$C,player_acceleration
+	move.w	#$80,player_deceleration
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerMakeSplash:
-	tst.b	(zone).l
+	tst.b	zone
 	bne.s	locret_203EE2
-	move.b	(stage_frames+1).l,d0
+	move.b	stage_frames+1,d0
 	andi.b	#3,d0
 	bne.s	locret_203EE2
 	move.b	obj.height(a0),d2
@@ -231,7 +231,7 @@ PlayerGetChunk:
 	andi.w	#$7F,d1
 	add.w	d1,d0
 	move.l	#StageChunks,d1
-	lea	(stage_map).w,a1
+	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
 	andi.b	#$7F,d1
 	rts
@@ -280,7 +280,7 @@ locret_204000:
 PlayerCheckHangBar:
 	cmpi.b	#$2B,obj.anim_id(a0)
 	beq.w	locret_20409E
-	cmpi.b	#2,(spawn_mode).l
+	cmpi.b	#2,spawn_mode
 	beq.w	locret_20409E
 	btst	#0,obj.var_2c(a0)
 	bne.s	locret_20409E
@@ -294,13 +294,13 @@ PlayerCheckHangBar:
 	andi.w	#$7FF,d0
 	cmpi.w	#$159,d0
 	bne.s	locret_20409E
-	move.w	(warp_timer).w,d0
+	move.w	warp_timer,d0
 	beq.s	loc_204060
-	clr.w	(warp_timer).w
-	clr.b	(warping).l
+	clr.w	warp_timer
+	clr.b	warping
 	cmpi.w	#$5A,d0
 	bcs.s	loc_204060
-	clr.b	(warp_direction).w
+	clr.b	warp_direction
 
 loc_204060:
 	bclr	#2,obj.flags(a0)
@@ -326,14 +326,14 @@ PlayerCheckBeam:
 	beq.w	locret_2040FE
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	locret_2040FE
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	locret_2040FE
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	locret_2040FE
 	tst.w	obj.var_30(a0)
 	bne.s	locret_2040FE
 	moveq	#0,d0
-	move.b	(r6_beam_mode).l,d0
+	move.b	r6_beam_mode,d0
 	beq.s	locret_2040FE
 	subq.b	#1,d0
 	add.w	d0,d0
@@ -388,9 +388,9 @@ BeamBlocks3:
 PlayerCheckSparks:
 	cmpi.b	#$2B,obj.anim_id(a0)
 	beq.w	locret_2041DA
-	tst.b	(warping).l
+	tst.b	warping
 	bne.w	locret_2041DA
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.w	locret_2041DA
 	cmpi.w	#$980,obj.x(a0)
 	bcs.s	loc_204150
@@ -398,30 +398,30 @@ PlayerCheckSparks:
 	bcs.w	locret_2041DA
 
 loc_204150:
-	btst	#7,(boss_flags).w
+	btst	#7,boss_flags
 	bne.w	locret_2041DA
 	tst.w	obj.var_30(a0)
 	bne.s	locret_2041DA
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_204184
 	cmpi.w	#$A10,obj.x(a0)
 	bcs.s	loc_20419C
-	tst.b	(boss_music).l
+	tst.b	boss_music
 	beq.s	locret_2041DA
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	loc_204196
 	bra.s	loc_20419C
 
 ; ------------------------------------------------------------------------------
 
 loc_204184:
-	cmpi.b	#2,(time_zone).l
+	cmpi.b	#2,time_zone
 	bne.s	loc_20419C
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.s	loc_20419C
 
 loc_204196:
-	tst.b	(stage_anim_frames+2).w
+	tst.b	stage_anim_frames+2
 	beq.s	locret_2041DA
 
 loc_20419C:
@@ -431,12 +431,12 @@ loc_20419C:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	moveq	#2,d6
-	lea	(word_2041DC).l,a1
-	cmpi.b	#2,(time_zone).l
+	lea	word_2041DC,a1
+	cmpi.b	#2,time_zone
 	bne.s	loc_2041D0
-	tst.b	(good_future).l
+	tst.b	good_future
 	bne.s	loc_2041D0
-	lea	(word_2041E2).l,a1
+	lea	word_2041E2,a1
 
 loc_2041D0:
 	cmp.w	(a1)+,d0
@@ -463,17 +463,17 @@ word_2041E2:
 PlayerCheckBounce:
 	cmpi.b	#$2B,obj.anim_id(a0)
 	beq.w	locret_2042B8
-	tst.b	(boss_flags).w
+	tst.b	boss_flags
 	bne.w	locret_2042B8
-	cmpi.b	#2,(time_zone).l
+	cmpi.b	#2,time_zone
 	bcc.s	loc_20421C
 	move.b	#$3C,d0
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	loc_204214
 	addi.b	#$1E,d0
 
 loc_204214:
-	cmp.b	(palette_cycle_steps+3).w,d0
+	cmp.b	palette_cycle_steps+3,d0
 	beq.w	locret_2042B8
 
 loc_20421C:
@@ -531,7 +531,7 @@ PlayerExtendedCamera:
 
 ; ------------------------------------------------------------------------------
 
-	move.w	(scroll_focus_x).w,d1
+	move.w	scroll_focus_x,d1
 	move.w	obj.ground_speed(a0),d0
 	bpl.s	loc_2042C8
 	neg.w	d0
@@ -573,7 +573,7 @@ loc_204304:
 	subq.w	#2,d1
 
 loc_204306:
-	move.w	d1,(scroll_focus_x).w
+	move.w	d1,scroll_focus_x
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -581,19 +581,19 @@ loc_204306:
 PlayerMain:
 	bsr.s	PlayerExtendedCamera
 	bsr.w	PlayerMakeSplash
-	tst.w	(debug_cheat).l
+	tst.w	debug_cheat
 	beq.s	loc_20432C
-	btst	#4,(p1_joy_tap).w
+	btst	#4,p1_joy_tap
 	beq.s	loc_20432C
-	move.b	#1,(debug_mode).l
+	move.b	#1,debug_mode
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20432C:
-	tst.b	(control_locked).w
+	tst.b	control_locked
 	bne.s	loc_204338
-	move.w	(p1_joy_hold).w,(player_joy_hold).w
+	move.w	p1_joy_hold,player_joy_hold
 
 loc_204338:
 	btst	#0,obj.var_2c(a0)
@@ -618,8 +618,8 @@ loc_204346:
 loc_20436C:
 	bsr.s	PlayerUpdatePowerups
 	bsr.w	PlayerBufferPosition
-	move.b	(collide_angle_1).w,obj.var_36(a0)
-	move.b	(collide_angle_2).w,obj.var_37(a0)
+	move.b	collide_angle_1,obj.var_36(a0)
+	move.b	collide_angle_2,obj.var_37(a0)
 	bsr.w	PlayerAnimate
 	tst.b	obj.var_2c(a0)
 	bmi.s	loc_204396
@@ -648,7 +648,7 @@ PlayerStates:
 ; ------------------------------------------------------------------------------
 
 PlayerUpdatePowerups:
-	cmpi.w	#$D2,(warp_timer).w
+	cmpi.w	#$D2,warp_timer
 	bcc.s	loc_2043CE
 	move.w	obj.var_30(a0),d0
 	beq.s	loc_2043C0
@@ -662,17 +662,17 @@ loc_2043C0:
 	jsr	DrawObject
 
 loc_2043CE:
-	tst.b	(invincible).l
+	tst.b	invincible
 	beq.s	loc_204412
 	tst.w	obj.var_32(a0)
 	beq.s	loc_204412
 	subq.w	#1,obj.var_32(a0)
 	bne.s	loc_204412
-	tst.b	(speed_shoes).l
+	tst.b	speed_shoes
 	bne.s	loc_20440A
-	tst.b	(boss_music).l
+	tst.b	boss_music
 	bne.s	loc_20440A
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	loc_204404
 	move.w	#$E,d0
 	jsr	SubCpuCommand
@@ -681,23 +681,23 @@ loc_204404:
 	jsr	PlayStageMusic
 
 loc_20440A:
-	move.b	#0,(invincible).l
+	move.b	#0,invincible
 
 loc_204412:
-	tst.b	(speed_shoes).l
+	tst.b	speed_shoes
 	beq.s	locret_204468
 	tst.w	obj.var_34(a0)
 	beq.s	locret_204468
 	subq.w	#1,obj.var_34(a0)
 	bne.s	locret_204468
-	move.w	#$600,(player_max_speed).w
-	move.w	#$C,(player_acceleration).w
-	move.w	#$80,(player_deceleration).w
-	tst.b	(invincible).l
+	move.w	#$600,player_max_speed
+	move.w	#$C,player_acceleration
+	move.w	#$80,player_deceleration
+	tst.b	invincible
 	bne.s	loc_204460
-	tst.b	(boss_music).l
+	tst.b	boss_music
 	bne.s	loc_204460
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	bne.s	loc_20445A
 	move.w	#$E,d0
 	jsr	SubCpuCommand
@@ -706,7 +706,7 @@ loc_20445A:
 	jsr	PlayStageMusic
 
 loc_204460:
-	move.b	#0,(speed_shoes).l
+	move.b	#0,speed_shoes
 
 locret_204468:
 	rts
@@ -714,12 +714,12 @@ locret_204468:
 ; ------------------------------------------------------------------------------
 
 PlayerBufferPosition:
-	move.w	(player_pos_index).w,d0
-	lea	(player_positions).w,a1
+	move.w	player_pos_index,d0
+	lea	player_positions,a1
 	lea	(a1,d0.w),a1
 	move.w	obj.x(a0),(a1)+
 	move.w	obj.y(a0),(a1)+
-	addq.b	#4,(player_pos_index+1).w
+	addq.b	#4,player_pos_index+1
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -730,36 +730,36 @@ PlayerCheckWater:
 ; ------------------------------------------------------------------------------
 
 SetPlayerWarpRespawn:
-	move.b	(spawn_mode).l,(warp_spawn_mode).l
-	move.w	obj.x(a0),(warp_x).l
-	move.w	obj.y(a0),(warp_y).l
-	move.w	obj.ground_speed(a0),(warp_ground_speed).l
-	move.w	obj.x_speed(a0),(warp_x_speed).l
-	move.w	obj.y_speed(a0),(warp_y_speed).l
-	move.b	obj.flags(a0),(warp_player_flags).l
-	bclr	#3,(warp_player_flags).l
-	move.b	(water_routine).w,(warp_water_routine).l
-	move.w	(bottom_bound).w,(warp_bottom_bound).l
-	move.w	(scroll_fg_x).w,(warp_scroll_fg_x).l
-	move.w	(scroll_fg_y).w,(warp_scroll_fg_y).l
-	move.w	(scroll_bg_x).w,(warp_scroll_bg_x).l
-	move.w	(scroll_bg_y).w,(warp_scroll_bg_y).l
-	move.w	(scroll_bg2_x).w,(warp_scroll_bg2_x).l
-	move.w	(scroll_bg2_y).w,(warp_scroll_bg2_y).l
-	move.w	(scroll_bg3_x).w,(warp_scroll_bg3_x).l
-	move.w	(scroll_bg3_y).w,(warp_scroll_bg3_y).l
-	move.w	(static_water_y).w,(warp_water_y).l
-	move.b	(water_routine).w,(warp_water_routine).l
-	move.b	(water_full).w,(warp_water_full).l
-	move.w	(rings).l,(warp_rings).l
-	move.b	(lives_flags).l,(warp_lives_flags).l
-	move.l	(time).l,d0
+	move.b	spawn_mode,warp_spawn_mode
+	move.w	obj.x(a0),warp_x
+	move.w	obj.y(a0),warp_y
+	move.w	obj.ground_speed(a0),warp_ground_speed
+	move.w	obj.x_speed(a0),warp_x_speed
+	move.w	obj.y_speed(a0),warp_y_speed
+	move.b	obj.flags(a0),warp_player_flags
+	bclr	#3,warp_player_flags
+	move.b	water_routine,warp_water_routine
+	move.w	bottom_bound,warp_bottom_bound
+	move.w	scroll_fg_x,warp_scroll_fg_x
+	move.w	scroll_fg_y,warp_scroll_fg_y
+	move.w	scroll_bg_x,warp_scroll_bg_x
+	move.w	scroll_bg_y,warp_scroll_bg_y
+	move.w	scroll_bg2_x,warp_scroll_bg2_x
+	move.w	scroll_bg2_y,warp_scroll_bg2_y
+	move.w	scroll_bg3_x,warp_scroll_bg3_x
+	move.w	scroll_bg3_y,warp_scroll_bg3_y
+	move.w	static_water_y,warp_water_y
+	move.b	water_routine,warp_water_routine
+	move.b	water_full,warp_water_full
+	move.w	rings,warp_rings
+	move.b	lives_flags,warp_lives_flags
+	move.l	time,d0
 	cmpi.l	#$50000,d0
 	bcs.s	loc_204558
 	move.l	#$50000,d0
 
 loc_204558:
-	move.l	d0,(warp_time).l
+	move.l	d0,warp_time
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -767,7 +767,7 @@ loc_204558:
 PlayerCheckWarp:
 	tst.b	obj.var_2a(a0)
 	bne.w	locret_20461E
-	tst.b	(warp_direction).w
+	tst.b	warp_direction
 	beq.w	locret_20461E
 	move.w	#$600,d2
 	moveq	#0,d0
@@ -776,15 +776,15 @@ PlayerCheckWarp:
 	neg.w	d0
 
 loc_20457E:
-	tst.w	(warp_timer).w
+	tst.w	warp_timer
 	bne.s	loc_20458A
-	move.w	#1,(warp_timer).w
+	move.w	#1,warp_timer
 
 loc_20458A:
-	move.w	(warp_timer).w,d1
+	move.w	warp_timer,d1
 	cmpi.w	#$E6,d1
 	bcs.s	loc_2045A0
-	move.b	#1,(restart_stage).l
+	move.b	#1,restart_stage
 	bra.w	FadeOutMusic
 
 ; ------------------------------------------------------------------------------
@@ -792,17 +792,17 @@ loc_20458A:
 loc_2045A0:
 	cmpi.w	#$D2,d1
 	bcs.s	loc_2045F4
-	cmpi.b	#2,(spawn_mode).l
+	cmpi.b	#2,spawn_mode
 	beq.s	locret_2045F2
-	move.b	#1,(scroll_lock).w
-	move.b	(time_zone).l,d0
+	move.b	#1,scroll_lock
+	move.b	time_zone,d0
 	bne.s	loc_2045CA
 	move.w	#$82,d0
 	jsr	SubCpuCommand
 	moveq	#0,d0
 
 loc_2045CA:
-	add.b	(warp_direction).w,d0
+	add.b	warp_direction,d0
 	bpl.s	loc_2045D4
 	moveq	#0,d0
 	bra.s	loc_2045DC
@@ -816,9 +816,9 @@ loc_2045D4:
 
 loc_2045DC:
 	bset	#7,d0
-	move.b	d0,(time_zone).l
+	move.b	d0,time_zone
 	bsr.w	SetPlayerWarpRespawn
-	move.b	#2,(spawn_mode).l
+	move.b	#2,spawn_mode
 
 locret_2045F2:
 	rts
@@ -830,8 +830,8 @@ loc_2045F4:
 	bcc.s	loc_20460C
 	cmp.w	d2,d0
 	bcc.w	PlayerMakeWarpStars
-	clr.w	(warp_timer).w
-	clr.b	(warping).l
+	clr.w	warp_timer
+	clr.b	warping
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -839,9 +839,9 @@ loc_2045F4:
 loc_20460C:
 	cmp.w	d2,d0
 	bcc.s	locret_20461E
-	clr.w	(warp_timer).w
-	clr.b	(warp_direction).w
-	clr.b	(warping).l
+	clr.w	warp_timer
+	clr.b	warp_direction
+	clr.b	warping
 
 locret_20461E:
 	rts
@@ -849,17 +849,17 @@ locret_20461E:
 ; ------------------------------------------------------------------------------
 
 PlayerGroundState:
-	tst.b	(sneeze_flag).w
+	tst.b	sneeze_flag
 	beq.s	loc_204632
 	cmpi.b	#5,obj.anim_id(a0)
 	bne.s	locret_20468C
-	clr.b	(sneeze_flag).w
+	clr.b	sneeze_flag
 
 loc_204632:
 	bsr.w	PlayerCheckBored
 	cmpi.b	#$2B,obj.anim_id(a0)
 	bne.s	loc_204662
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_204650
 	cmpi.b	#$79,obj.sprite_frame(a0)
 	bne.s	locret_20468C
@@ -1005,7 +1005,7 @@ loc_204788:
 ; ------------------------------------------------------------------------------
 
 loc_20479A:
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.s	loc_2047AA
 	bset	#4,obj.var_2c(a0)
@@ -1050,7 +1050,7 @@ PlayerHangBar:
 	andi.w	#$7FF,d0
 	cmpi.w	#$159,d0
 	bne.s	loc_20482A
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.s	loc_204844
 
@@ -1065,7 +1065,7 @@ loc_20482A:
 
 loc_204844:
 	moveq	#2,d0
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	loc_20485E
 	neg.w	d0
 	bset	#0,obj.flags(a0)
@@ -1075,7 +1075,7 @@ loc_204844:
 ; ------------------------------------------------------------------------------
 
 loc_20485E:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	locret_204894
 	bclr	#0,obj.flags(a0)
 	bclr	#0,obj.sprite_flags(a0)
@@ -1096,9 +1096,9 @@ locret_204894:
 ; ------------------------------------------------------------------------------
 
 PlayerCheckBooster3d:
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	bne.s	locret_204902
-	tst.w	(zone).l
+	tst.w	zone
 	bne.s	locret_204902
 	move.w	obj.y(a0),d0
 	lsr.w	#1,d0
@@ -1106,9 +1106,9 @@ PlayerCheckBooster3d:
 	move.b	obj.x(a0),d1
 	andi.w	#$7F,d1
 	add.w	d1,d0
-	lea	(stage_map).w,a1
+	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
-	lea	(byte_204904).l,a2
+	lea	byte_204904,a2
 
 loc_2048CA:
 	move.b	(a2)+,d0
@@ -1150,19 +1150,19 @@ byte_204904:
 ; ------------------------------------------------------------------------------
 
 PlayerMoveGround:
-	move.w	(player_max_speed).w,d6
-	move.w	(player_acceleration).w,d5
-	move.w	(player_deceleration).w,d4
-	tst.b	(water_slide_flag).w
+	move.w	player_max_speed,d6
+	move.w	player_acceleration,d5
+	move.w	player_deceleration,d4
+	tst.b	water_slide_flag
 	bne.w	loc_204C1E
 	tst.w	obj.var_3e(a0)
 	bne.w	loc_204BCE
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	loc_204934
 	bsr.w	PlayerMoveGroundLeft
 
 loc_204934:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	loc_204940
 	bsr.w	PlayerMoveGroundRight
 
@@ -1189,7 +1189,7 @@ loc_20496C:
 	moveq	#0,d0
 	move.b	obj.var_3d(a0),d0
 	lsl.w	#6,d0
-	lea	(object_pool).w,a1
+	lea	object_pool,a1
 	lea	(a1,d0.w),a1
 	tst.b	obj.flags(a1)
 	bmi.s	loc_2049FE
@@ -1251,48 +1251,48 @@ loc_2049F4:
 ; ------------------------------------------------------------------------------
 
 loc_2049FE:
-	move.b	(focus_mode).w,d0
+	move.b	focus_mode,d0
 	andi.b	#$F,d0
 	beq.s	loc_204A12
-	addq.b	#1,(focus_mode).w
-	andi.b	#$CF,(focus_mode).w
+	addq.b	#1,focus_mode
+	andi.b	#$CF,focus_mode
 
 loc_204A12:
-	btst	#7,(focus_mode).w
+	btst	#7,focus_mode
 	bne.w	loc_204B16
-	btst	#6,(focus_mode).w
+	btst	#6,focus_mode
 	bne.w	loc_204B36
-	btst	#1,(player_joy_hold).w
+	btst	#1,player_joy_hold
 	bne.w	loc_204B36
-	andi.b	#$F,(focus_mode).w
+	andi.b	#$F,focus_mode
 	beq.s	loc_204A4A
-	btst	#0,(player_joy_tap).w
+	btst	#0,player_joy_tap
 	beq.s	loc_204A5E
-	bset	#7,(focus_mode).w
+	bset	#7,focus_mode
 	bra.w	loc_204BF2
 
 ; ------------------------------------------------------------------------------
 
 loc_204A4A:
-	btst	#0,(player_joy_tap).w
+	btst	#0,player_joy_tap
 	beq.w	loc_204A5E
-	move.b	#1,(focus_mode).w
+	move.b	#1,focus_mode
 	bra.w	loc_204BF2
 
 ; ------------------------------------------------------------------------------
 
 loc_204A5E:
-	btst	#0,(player_joy_hold).w
+	btst	#0,player_joy_hold
 	beq.s	loc_204ADA
 	move.b	#7,obj.anim_id(a0)
 	tst.b	obj.var_2a(a0)
 	beq.s	loc_204ABC
 	move.b	#0,obj.anim_id(a0)
 	moveq	#$64,d0
-	move.w	(player_max_speed).w,d1
+	move.w	player_max_speed,d1
 	move.w	d1,d2
 	asl.w	#1,d1
-	tst.b	(speed_shoes).l
+	tst.b	speed_shoes
 	beq.s	loc_204A8E
 	asr.w	#1,d2
 	sub.w	d2,d1
@@ -1328,7 +1328,7 @@ loc_204AB6:
 ; ------------------------------------------------------------------------------
 
 loc_204ABC:
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.s	loc_204AD6
 	move.b	#1,obj.var_2a(a0)
@@ -1365,43 +1365,43 @@ loc_204AFA:
 ; ------------------------------------------------------------------------------
 
 loc_204B16:
-	btst	#0,(player_joy_hold).w
+	btst	#0,player_joy_hold
 	beq.s	loc_204B36
 	move.b	#7,obj.anim_id(a0)
-	cmpi.w	#$C8,(scroll_focus_y).w
+	cmpi.w	#$C8,scroll_focus_y
 	beq.w	loc_204BF2
-	addq.w	#2,(scroll_focus_y).w
+	addq.w	#2,scroll_focus_y
 	bra.w	loc_204BF2
 
 ; ------------------------------------------------------------------------------
 
 loc_204B36:
-	btst	#6,(focus_mode).w
+	btst	#6,focus_mode
 	bne.w	loc_204BB2
-	andi.b	#$F,(focus_mode).w
+	andi.b	#$F,focus_mode
 	beq.s	loc_204B5A
-	btst	#1,(player_joy_tap).w
+	btst	#1,player_joy_tap
 	beq.s	loc_204B6C
-	bset	#6,(focus_mode).w
+	bset	#6,focus_mode
 	bra.w	loc_204BF2
 
 ; ------------------------------------------------------------------------------
 
 loc_204B5A:
-	btst	#1,(player_joy_tap).w
+	btst	#1,player_joy_tap
 	beq.s	loc_204B6C
-	move.b	#1,(focus_mode).w
+	move.b	#1,focus_mode
 	bra.w	loc_204BF2
 
 ; ------------------------------------------------------------------------------
 
 loc_204B6C:
-	btst	#1,(player_joy_hold).w
+	btst	#1,player_joy_hold
 	beq.s	loc_204BCE
 	move.b	#8,obj.anim_id(a0)
 	tst.b	obj.var_2a(a0)
 	bne.s	loc_204BB0
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.s	loc_204BB0
 	move.b	#1,obj.var_2a(a0)
@@ -1421,36 +1421,36 @@ loc_204BB0:
 ; ------------------------------------------------------------------------------
 
 loc_204BB2:
-	btst	#1,(player_joy_hold).w
+	btst	#1,player_joy_hold
 	beq.s	loc_204BCE
 	move.b	#8,obj.anim_id(a0)
-	cmpi.w	#8,(scroll_focus_y).w
+	cmpi.w	#8,scroll_focus_y
 	beq.s	loc_204BF2
-	subq.w	#2,(scroll_focus_y).w
+	subq.w	#2,scroll_focus_y
 	bra.s	loc_204BF2
 
 ; ------------------------------------------------------------------------------
 
 loc_204BCE:
-	cmpi.w	#$60,(scroll_focus_y).w
+	cmpi.w	#$60,scroll_focus_y
 	bne.s	loc_204BE8
-	move.b	(focus_mode).w,d0
+	move.b	focus_mode,d0
 	andi.b	#$F,d0
 	bne.s	loc_204BF2
-	move.b	#0,(focus_mode).w
+	move.b	#0,focus_mode
 	bra.s	loc_204BF2
 
 ; ------------------------------------------------------------------------------
 
 loc_204BE8:
 	bcc.s	loc_204BEE
-	addq.w	#4,(scroll_focus_y).w
+	addq.w	#4,scroll_focus_y
 
 loc_204BEE:
-	subq.w	#2,(scroll_focus_y).w
+	subq.w	#2,scroll_focus_y
 
 loc_204BF2:
-	move.b	(player_joy_hold).w,d0
+	move.b	player_joy_hold,d0
 	andi.b	#$C,d0
 	bne.s	loc_204C1E
 	move.w	obj.ground_speed(a0),d0
@@ -1641,22 +1641,22 @@ locret_204D92:
 ; ------------------------------------------------------------------------------
 
 PlayerMoveRoll:
-	move.w	(player_max_speed).w,d6
+	move.w	player_max_speed,d6
 	asl.w	#1,d6
-	move.w	(player_acceleration).w,d5
+	move.w	player_acceleration,d5
 	asr.w	#1,d5
-	move.w	(player_deceleration).w,d4
+	move.w	player_deceleration,d4
 	asr.w	#2,d4
-	tst.b	(water_slide_flag).w
+	tst.b	water_slide_flag
 	bne.w	loc_204ED0
 	tst.w	obj.var_3e(a0)
 	bne.s	loc_204DCC
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	loc_204DC0
 	bsr.w	PlayerMoveRollLeft
 
 loc_204DC0:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	loc_204DCC
 	bsr.w	PlayerMoveRollRight
 
@@ -1664,10 +1664,10 @@ loc_204DCC:
 	tst.b	obj.var_2a(a0)
 	beq.w	loc_204E76
 	move.w	#$32,d0
-	move.w	(player_max_speed).w,d1
+	move.w	player_max_speed,d1
 	move.w	d1,d2
 	asl.w	#1,d1
-	tst.b	(speed_shoes).l
+	tst.b	speed_shoes
 	beq.s	loc_204DEC
 	asr.w	#1,d2
 	sub.w	d2,d1
@@ -1698,7 +1698,7 @@ loc_204E12:
 
 loc_204E14:
 	move.w	d0,obj.ground_speed(a0)
-	btst	#1,(player_joy_hold).w
+	btst	#1,player_joy_hold
 	beq.s	loc_204E48
 	rts
 
@@ -1766,7 +1766,7 @@ loc_204E98:
 
 loc_204E9E:
 	bclr	#2,obj.flags(a0)
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_204EBA
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -1849,11 +1849,11 @@ loc_204F46:
 ; ------------------------------------------------------------------------------
 
 PlayerMoveAir:
-	move.w	(player_max_speed).w,d6
-	move.w	(player_acceleration).w,d5
+	move.w	player_max_speed,d6
+	move.w	player_acceleration,d5
 	asl.w	#1,d5
 	move.w	obj.x_speed(a0),d0
-	tst.w	(zone).l
+	tst.w	zone
 	bne.s	loc_204F7A
 	cmpi.w	#$6C8,obj.x(a0)
 	bcs.s	loc_204F72
@@ -1865,7 +1865,7 @@ loc_204F72:
 	bne.s	loc_204FAA
 
 loc_204F7A:
-	btst	#2,(player_joy_hold).w
+	btst	#2,player_joy_hold
 	beq.s	loc_204F94
 	bset	#0,obj.flags(a0)
 	sub.w	d5,d0
@@ -1876,7 +1876,7 @@ loc_204F7A:
 	move.w	d1,d0
 
 loc_204F94:
-	btst	#3,(player_joy_hold).w
+	btst	#3,player_joy_hold
 	beq.s	loc_204FAA
 	bclr	#0,obj.flags(a0)
 	add.w	d5,d0
@@ -1886,13 +1886,13 @@ loc_204F94:
 
 loc_204FAA:
 	move.w	d0,obj.x_speed(a0)
-	cmpi.w	#$60,(scroll_focus_y).w
+	cmpi.w	#$60,scroll_focus_y
 	beq.s	loc_204FC0
 	bcc.s	loc_204FBC
-	addq.w	#4,(scroll_focus_y).w
+	addq.w	#4,scroll_focus_y
 
 loc_204FBC:
-	subq.w	#2,(scroll_focus_y).w
+	subq.w	#2,scroll_focus_y
 
 loc_204FC0:
 	cmpi.w	#$FC00,obj.y_speed(a0)
@@ -1950,13 +1950,13 @@ PlayerCheckBounds:
 	asl.l	#8,d0
 	add.l	d0,d1
 	swap	d1
-	move.w	(left_bound).w,d0
+	move.w	left_bound,d0
 	addi.w	#$10,d0
 	cmp.w	d1,d0
 	bhi.s	loc_205074
-	move.w	(right_bound).w,d0
+	move.w	right_bound,d0
 	addi.w	#$130,d0
-	tst.b	(boss_started).w
+	tst.b	boss_started
 	bne.s	loc_20504E
 	addi.w	#$38,d0
 
@@ -1965,7 +1965,7 @@ loc_20504E:
 	bls.s	loc_205074
 
 loc_205052:
-	move.w	(bottom_bound).w,d0
+	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
 	blt.s	loc_205062
@@ -1991,7 +1991,7 @@ loc_205074:
 ; ------------------------------------------------------------------------------
 
 PlayerCheckRoll:
-	tst.b	(water_slide_flag).w
+	tst.b	water_slide_flag
 	bne.s	locret_2050B2
 	move.w	obj.ground_speed(a0),d0
 	bpl.s	loc_20509A
@@ -2000,10 +2000,10 @@ PlayerCheckRoll:
 loc_20509A:
 	cmpi.w	#$80,d0
 	bcs.s	locret_2050B2
-	move.b	(player_joy_hold).w,d0
+	move.b	player_joy_hold,d0
 	andi.b	#$C,d0
 	bne.s	locret_2050B2
-	btst	#1,(player_joy_hold).w
+	btst	#1,player_joy_hold
 	bne.s	PlayerStartRoll
 
 locret_2050B2:
@@ -2020,7 +2020,7 @@ PlayerStartRoll:
 
 loc_2050BE:
 	bset	#2,obj.flags(a0)
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_2050DA
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -2052,14 +2052,14 @@ PlayerCheckJump:
 ; ------------------------------------------------------------------------------
 
 loc_205106:
-	move.b	(player_joy_hold).w,d0
+	move.b	player_joy_hold,d0
 	andi.b	#3,d0
 	beq.s	loc_205118
 	tst.w	obj.ground_speed(a0)
 	beq.w	locret_2051DA
 
 loc_205118:
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.w	locret_2051DA
 	btst	#3,obj.flags(a0)
@@ -2097,12 +2097,12 @@ loc_205164:
 	addq.l	#4,sp
 	move.b	#1,obj.var_3c(a0)
 	clr.b	obj.var_38(a0)
-	clr.b	(focus_mode).w
+	clr.b	focus_mode
 	move.w	#$92,d0
 	jsr	PlayFmSound
 	btst	#2,obj.flags(a0)
 	bne.s	loc_2051DC
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_2051BE
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -2141,7 +2141,7 @@ PlayerJumpHeight:
 loc_2051FA:
 	cmp.w	obj.y_speed(a0),d1
 	ble.s	locret_205214
-	move.b	(player_joy_hold).w,d0
+	move.b	player_joy_hold,d0
 	andi.b	#$70,d0
 	bne.s	locret_205214
 	move.b	#0,obj.var_2a(a0)
@@ -2288,11 +2288,11 @@ PlayerBlockCollideAir:
 	move.w	obj.x_speed(a0),d1
 	move.w	obj.y_speed(a0),d2
 	jsr	Atan2
-	move.b	d0,(debug_angle).l
+	move.b	d0,debug_angle
 	subi.b	#$20,d0
-	move.b	d0,(debug_angle_shift).l
+	move.b	d0,debug_angle_shift
 	andi.b	#$C0,d0
-	move.b	d0,(debug_quadrant).l
+	move.b	d0,debug_quadrant
 	cmpi.b	#$40,d0
 	beq.w	loc_2053E0
 	cmpi.b	#$80,d0
@@ -2314,7 +2314,7 @@ loc_20534E:
 
 loc_205360:
 	bsr.w	PlayerCheckBlockDownWide
-	move.b	d1,(debug_floor_distance).l
+	move.b	d1,debug_floor_distance
 	tst.w	d1
 	bpl.s	locret_2053DE
 	move.b	obj.y_speed(a0),d2
@@ -2506,7 +2506,7 @@ loc_20550A:
 	btst	#2,obj.flags(a0)
 	beq.s	loc_205556
 	bclr	#2,obj.flags(a0)
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	loc_205540
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -2524,7 +2524,7 @@ loc_205550:
 
 loc_205556:
 	move.b	#0,obj.var_3c(a0)
-	move.w	#0,(score_chain).w
+	move.w	#0,score_chain
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -2534,7 +2534,7 @@ PlayerSetGroundSteep:
 	bclr	#1,obj.flags(a0)
 	bclr	#4,obj.flags(a0)
 	move.b	#0,obj.var_3c(a0)
-	move.w	#0,(score_chain).w
+	move.w	#0,score_chain
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -2556,7 +2556,7 @@ loc_20559E:
 ; ------------------------------------------------------------------------------
 
 sub_2055B4:
-	move.w	(bottom_bound).w,d0
+	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
 	bcs.w	KillPlayer
@@ -2586,24 +2586,24 @@ PlayerDead:
 ; ------------------------------------------------------------------------------
 
 sub_205608:
-	move.w	(bottom_bound).w,d0
+	move.w	bottom_bound,d0
 	addi.w	#$100,d0
 	cmp.w	obj.y(a0),d0
 	bcc.w	locret_205676
 	move.w	#$FFC8,obj.y_speed(a0)
 	addq.b	#2,obj.routine(a0)
-	clr.b	(update_hud_time).l
-	addq.b	#1,(update_hud_lives).l
-	subq.b	#1,(lives).l
+	clr.b	update_hud_time
+	addq.b	#1,update_hud_lives
+	subq.b	#1,lives
 	bpl.s	loc_20563C
-	clr.b	(lives).l
+	clr.b	lives
 
 loc_20563C:
 	cmpi.b	#$2B,obj.anim_id(a0)
 	beq.s	loc_205656
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	beq.s	loc_205656
-	move.b	#0,(lives).l
+	move.b	#0,lives
 	bra.s	loc_205670
 
 ; ------------------------------------------------------------------------------
@@ -2612,7 +2612,7 @@ loc_205656:
 	jsr	SpawnObject
 	move.b	#$3B,0(a1)
 	move.w	#$1E0,obj.var_3a(a0)
-	tst.b	(lives).l
+	tst.b	lives
 	beq.s	locret_205676
 
 loc_205670:
@@ -2628,30 +2628,30 @@ PlayerRestart:
 	beq.w	locret_2056E6
 	subq.w	#1,obj.var_3a(a0)
 	bne.w	locret_2056E6
-	move.w	#1,(restart_stage).l
+	move.w	#1,restart_stage
 	bsr.w	ResetObjectStates
-	clr.l	(flower_counts).l
-	tst.b	(respawn_checkpoint).l
+	clr.l	flower_counts
+	tst.b	respawn_checkpoint
 	bne.s	loc_2056B4
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	bne.s	loc_2056B4
-	bclr	#1,(stage_start_flags).l
+	bclr	#1,stage_start_flags
 
 loc_2056B4:
 	move.w	#$E,d0
-	tst.b	(lives).l
+	tst.b	lives
 	beq.s	loc_2056E2
-	cmpi.b	#1,(time_zone).l
+	cmpi.b	#1,time_zone
 	bne.s	loc_2056DC
-	tst.b	(respawn_checkpoint).l
+	tst.b	respawn_checkpoint
 	beq.s	loc_2056E2
-	move.b	#1,(spawn_mode).l
+	move.b	#1,spawn_mode
 	bra.s	loc_2056E2
 
 ; ------------------------------------------------------------------------------
 
 loc_2056DC:
-	clr.b	(spawn_mode).l
+	clr.b	spawn_mode
 
 loc_2056E2:
 	bra.w	SubCpuCommand
@@ -2668,11 +2668,11 @@ PlayerCheckChunk:
 
 ; ------------------------------------------------------------------------------
 
-	cmpi.b	#5,(zone).l
+	cmpi.b	#5,zone
 	beq.s	loc_205708
-	cmpi.b	#2,(zone).l
+	cmpi.b	#2,zone
 	beq.s	loc_205708
-	tst.b	(zone).l
+	tst.b	zone
 	bne.w	locret_2057CC
 
 loc_205708:
@@ -2682,11 +2682,11 @@ loc_205708:
 	move.b	obj.x(a0),d1
 	andi.w	#$7F,d1
 	add.w	d1,d0
-	lea	(stage_map).w,a1
+	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
-	cmp.b	(roll_chunk_1).w,d1
+	cmp.b	roll_chunk_1,d1
 	bne.s	loc_205746
-	tst.b	(zone).l
+	tst.b	zone
 	bne.w	loc_2057CE
 	move.w	obj.y(a0),d0
 	andi.w	#$FF,d0
@@ -2697,13 +2697,13 @@ loc_205708:
 ; ------------------------------------------------------------------------------
 
 loc_205746:
-	cmp.b	(roll_chunk_2).w,d1
+	cmp.b	roll_chunk_2,d1
 	beq.w	loc_2057CE
 
 loc_20574E:
-	cmp.b	(loop_chunk_1).w,d1
+	cmp.b	loop_chunk_1,d1
 	beq.s	locret_20577E
-	cmp.b	(loop_chunk_2).w,d1
+	cmp.b	loop_chunk_2,d1
 	beq.s	loc_205762
 	bclr	#6,obj.sprite_flags(a0)
 	rts
@@ -2711,7 +2711,7 @@ loc_20574E:
 ; ------------------------------------------------------------------------------
 
 loc_205762:
-	cmpi.b	#5,(zone).l
+	cmpi.b	#5,zone
 	beq.w	loc_2057DE
 	btst	#1,obj.flags(a0)
 	beq.s	locret_20577E
@@ -2809,7 +2809,7 @@ locret_205822:
 ; ------------------------------------------------------------------------------
 
 PlayerAnimate:
-	lea	(PlayerAnims).l,a1
+	lea	PlayerAnims,a1
 	moveq	#0,d0
 	move.b	obj.anim_id(a0),d0
 	cmp.b	obj.prev_anim_id(a0),d0
@@ -2887,7 +2887,7 @@ loc_2058BE:
 	bpl.s	locret_20588C
 	addq.b	#1,d0
 	bne.w	loc_205978
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	bne.w	loc_205A40
 	moveq	#0,d1
 	move.b	obj.angle(a0),d0
@@ -2927,7 +2927,7 @@ loc_205918:
 	lsr.b	#4,d0
 	lsl.b	#1,d0
 	andi.b	#$E,d0
-	lea	(PlayerRun3dAnim).l,a1
+	lea	PlayerRun3dAnim,a1
 	bra.s	loc_20595A
 
 ; ------------------------------------------------------------------------------
@@ -2935,13 +2935,13 @@ loc_205918:
 loc_205930:
 	lsr.b	#4,d0
 	andi.b	#6,d0
-	lea	(PlayerPeeloutAnim).l,a1
+	lea	PlayerPeeloutAnim,a1
 	cmpi.w	#$A00,d2
 	bcc.s	loc_20595A
-	lea	(PlayerRunAnim).l,a1
+	lea	PlayerRunAnim,a1
 	cmpi.w	#$600,d2
 	bcc.s	loc_20595A
-	lea	(PlayerWalkAnim).l,a1
+	lea	PlayerWalkAnim,a1
 	move.b	d0,d1
 	lsr.b	#1,d1
 	add.b	d1,d0
@@ -2971,17 +2971,17 @@ loc_205978:
 	neg.w	d2
 
 loc_205984:
-	lea	(PlayerRollShrunkAnim).l,a1
-	tst.b	(shrunk_player).l
+	lea	PlayerRollShrunkAnim,a1
+	tst.b	shrunk_player
 	bne.s	loc_2059C2
-	lea	(PlayerRollFastAnim).l,a1
+	lea	PlayerRollFastAnim,a1
 	btst	#1,obj.var_2c(a0)
 	beq.s	loc_2059B6
 	move.b	obj.angle(a0),d0
 	addi.b	#$10,d0
 	andi.b	#$C0,d0
 	beq.s	loc_2059C2
-	lea	(PlayerRoll3dAnim).l,a1
+	lea	PlayerRoll3dAnim,a1
 	bra.s	loc_2059C2
 
 ; ------------------------------------------------------------------------------
@@ -2989,7 +2989,7 @@ loc_205984:
 loc_2059B6:
 	cmpi.w	#$600,d2
 	bcc.s	loc_2059C2
-	lea	(PlayerRollAnim).l,a1
+	lea	PlayerRollAnim,a1
 
 loc_2059C2:
 	neg.w	d2
@@ -3025,10 +3025,10 @@ loc_2059F4:
 loc_2059FC:
 	lsr.w	#6,d2
 	move.b	d2,obj.anim_timer(a0)
-	lea	(PlayerPushShrunkAnim).l,a1
-	tst.b	(shrunk_player).l
+	lea	PlayerPushShrunkAnim,a1
+	tst.b	shrunk_player
 	bne.s	loc_205A16
-	lea	(PlayerPushAnim).l,a1
+	lea	PlayerPushAnim,a1
 
 loc_205A16:
 	move.b	obj.flags(a0),d1
@@ -3081,10 +3081,10 @@ loc_205A88:
 	neg.w	d2
 
 loc_205A90:
-	lea	(PlayerRunShrunkAnim).l,a1
+	lea	PlayerRunShrunkAnim,a1
 	cmpi.w	#$600,d2
 	bcc.s	loc_205AA2
-	lea	(PlayerWalkShrunkAnim).l,a1
+	lea	PlayerWalkShrunkAnim,a1
 
 loc_205AA2:
 	neg.w	d2
@@ -3100,7 +3100,7 @@ loc_205AAC:
 ; ------------------------------------------------------------------------------
 
 sub_205AB6:
-	tst.b	(shrunk_player).l
+	tst.b	shrunk_player
 	beq.s	locret_205AC2
 	move.b	byte_205AC4(pc,d0.w),d0
 
@@ -3200,21 +3200,21 @@ PlayerAnims:
 LoadPlayerGfx:
 	tst.b	(a0)
 	beq.w	locret_205DBC
-	lea	(player_sprite_frame).w,a2
+	lea	player_sprite_frame,a2
 	moveq	#0,d0
 	move.b	obj.sprite_frame(a0),d0
 	cmp.b	(a2),d0
 	beq.s	locret_205DBC
 	move.b	d0,(a2)
-	lea	(PlayerGfxScript).l,a2
+	lea	PlayerGfxScript,a2
 	add.w	d0,d0
 	adda.w	(a2,d0.w),a2
 	moveq	#0,d1
 	move.w	(a2)+,d1
 	subq.b	#1,d1
 	bmi.s	locret_205DBC
-	lea	(player_gfx).w,a3
-	move.b	#1,(update_player_gfx).w
+	lea	player_gfx,a3
+	move.b	#1,update_player_gfx
 
 loc_205D8E:
 	moveq	#0,d2
@@ -3225,7 +3225,7 @@ loc_205D8E:
 	move.b	(a2)+,d2
 	andi.w	#$FFF,d2
 	lsl.l	#5,d2
-	lea	(PlayerGfx).l,a1
+	lea	PlayerGfx,a1
 	adda.l	d2,a1
 
 loc_205DA8:

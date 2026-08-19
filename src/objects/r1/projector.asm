@@ -7,14 +7,14 @@ ProjectorObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20E514(pc,d0.w),d0
 	jsr	off_20E514(pc,d0.w)
-	jsr	(DrawObject).l
+	jsr	DrawObject
 	cmpi.b	#2,obj.routine(a0)
 	bgt.s	locret_20E512
-	jsr	(CheckObjectDespawn).l
+	jsr	CheckObjectDespawn
 	tst.b	(a0)
 	bne.s	locret_20E512
 	move.w	#4,d0
-	jmp	(AddGfxQueue).l
+	jmp	AddGfxQueue
 
 ; ------------------------------------------------------------------------------
 
@@ -33,15 +33,15 @@ off_20E514:
 ; ------------------------------------------------------------------------------
 
 loc_20E51E:
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
 ProjectorObject_0_Routine0:
-	tst.b	(projector_destroyed).l
+	tst.b	projector_destroyed
 	bne.s	loc_20E51E
 	move.w	#5,d0
-	jsr	(AddGfxQueue).l
+	jsr	AddGfxQueue
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
@@ -50,7 +50,7 @@ ProjectorObject_0_Routine0:
 	move.b	#$C,obj.height(a0)
 	move.b	#$FB,obj.collide_type(a0)
 	move.w	#$403,d0
-	tst.b	(act).l
+	tst.b	act
 	beq.s	loc_20E56E
 	move.w	#$3AF,d0
 
@@ -58,7 +58,7 @@ loc_20E56E:
 	move.w	d0,obj.sprite_tile(a0)
 	move.l	#HologramSprites,obj.sprite_data(a0)
 	move.l	#byte_20E7F8,obj.var_2c(a0)
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.w	loc_20E51E
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -67,7 +67,7 @@ loc_20E56E:
 	subq.w	#7,obj.y(a1)
 	move.b	#$FF,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.w	loc_20E51E
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -76,7 +76,7 @@ loc_20E56E:
 	subq.w	#4,obj.y(a1)
 	move.b	#1,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.w	loc_20E51E
 	move.b	#$24,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -85,7 +85,7 @@ loc_20E56E:
 	addi.w	#-$18,obj.y(a1)
 	move.b	#$80,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.w	loc_20E51E
 	move.b	#$24,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -102,8 +102,8 @@ ProjectorObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 
 loc_20E652:
-	lea	(player_object).w,a1
-	jmp	(SolidObject).l
+	lea	player_object,a1
+	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
@@ -112,11 +112,11 @@ ProjectorObject_0_Routine4:
 	move.b	#1,obj.sprite_frame(a0)
 	st	obj.var_3f(a0)
 	move.w	#4,d0
-	jsr	(AddGfxQueue).l
-	lea	(player_object).w,a1
-	jsr	(SolidObject).l
+	jsr	AddGfxQueue
+	lea	player_object,a1
+	jsr	SolidObject
 	beq.s	ProjectorObject_0_Routine6
-	jsr	(GetOffObject).l
+	jsr	GetOffObject
 
 ProjectorObject_0_Routine6:
 	movea.l	obj.var_2c(a0),a6
@@ -130,7 +130,7 @@ ProjectorObject_0_Routine6:
 	move.l	a6,obj.var_2c(a0)
 	ext.w	d5
 	ext.w	d6
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	locret_20E6D6
 	move.b	#$18,obj.id(a1)
 	move.b	#1,obj.routine_2(a1)
@@ -139,7 +139,7 @@ ProjectorObject_0_Routine6:
 	add.w	d5,obj.x(a1)
 	add.w	d6,obj.y(a1)
 	move.w	#$9E,d0
-	jsr	(PlayFmSound).l
+	jsr	PlayFmSound
 
 locret_20E6D6:
 	rts
@@ -156,7 +156,7 @@ loc_20E6D8:
 ProjectorObject_0_Routine8:
 	subq.w	#1,obj.var_2a(a0)
 	bne.s	locret_20E6F4
-	st	(projector_destroyed).l
+	st	projector_destroyed
 	bra.w	loc_20E51E
 
 ; ------------------------------------------------------------------------------
@@ -178,7 +178,7 @@ loc_20E6F6:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
 	move.w	#$403,d0
-	tst.b	(act).l
+	tst.b	act
 	beq.s	loc_20E732
 	move.w	#$3AF,d0
 
@@ -202,8 +202,8 @@ loc_20E750:
 
 loc_20E760:
 	lea	HologramAnims(pc),a1
-	jsr	(AnimateObject).l
-	jmp	(DrawObject).l
+	jsr	AnimateObject
+	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 

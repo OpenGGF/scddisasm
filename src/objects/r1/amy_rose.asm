@@ -1,20 +1,20 @@
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject:
-	tst.b	(time_attack).l
+	tst.b	time_attack
 	bne.s	loc_20E8C6
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20E8D2(pc,d0.w),d0
 	jsr	off_20E8D2(pc,d0.w)
 	bsr.w	sub_20EE10
-	jsr	(DrawObject).l
-	jsr	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jsr	CheckObjectDespawn
 	cmpi.b	#$2F,obj.id(a0)
 	beq.s	locret_20E8D0
 
 loc_20E8C6:
-	lea	(unk_2007B4).l,a3
+	lea	unk_2007B4,a3
 	bsr.w	sub_20EE90
 
 locret_20E8D0:
@@ -42,7 +42,7 @@ AmyRoseObject_0_Routine0:
 	bsr.w	sub_20EE8C
 
 loc_20E90C:
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	beq.s	loc_20E91E
 	add.w	d1,obj.y(a0)
@@ -51,7 +51,7 @@ loc_20E90C:
 ; ------------------------------------------------------------------------------
 
 loc_20E91E:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20EE60
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
@@ -65,13 +65,13 @@ loc_20E932:
 
 loc_20E93C:
 	move.b	#5,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20EDAE
 
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject_0_Routine2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.w	sub_20EE60
 	btst	#6,obj.var_3e(a0)
 	bne.w	loc_20EA2A
@@ -148,7 +148,7 @@ loc_20E9EA:
 ; ------------------------------------------------------------------------------
 
 loc_20E9FC:
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	cmpi.w	#7,d1
 	bpl.s	loc_20EA2A
 	cmpi.w	#-7,d1
@@ -157,7 +157,7 @@ loc_20E9FC:
 	bsr.w	loc_20EDA0
 	bsr.w	loc_20EC6C
 	move.b	#2,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20EDAE
 
 ; ------------------------------------------------------------------------------
@@ -168,10 +168,10 @@ loc_20EA2A:
 	bne.s	loc_20EA50
 
 loc_20EA36:
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	add.w	d1,obj.y(a0)
 	move.b	#1,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20EDAE
 
 ; ------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ loc_20EA50:
 
 loc_20EA6A:
 	move.b	#4,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20EDAE
 
 ; ------------------------------------------------------------------------------
@@ -205,7 +205,7 @@ loc_20EA86:
 	move.b	#4,obj.sprite_frame(a0)
 
 loc_20EAA2:
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	bpl.s	locret_20EABA
 	clr.w	obj.y_speed(a0)
@@ -218,7 +218,7 @@ locret_20EABA:
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject_0_Routine4:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bset	#0,obj.var_2c(a1)
 	move.b	#5,obj.anim_id(a1)
 	bsr.w	loc_20EBAC
@@ -232,14 +232,14 @@ loc_20EAE0:
 	add.w	obj.x(a1),d0
 	move.w	d0,obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
-	move.w	(p1_joy_hold).w,(player_joy_hold).w
+	move.w	p1_joy_hold,player_joy_hold
 	bsr.w	loc_20EBE8
 	btst	#0,obj.var_2c(a1)
 	beq.s	loc_20EB1C
-	cmpi.l	#$93200,(time).l
+	cmpi.l	#$93200,time
 	bcc.s	loc_20EB2A
 	move.b	#3,obj.anim_id(a0)
-	lea	(AmyRoseAnims).l,a1
+	lea	AmyRoseAnims,a1
 	bra.w	loc_20EDAE
 
 ; ------------------------------------------------------------------------------
@@ -290,7 +290,7 @@ AmyRoseObject_0_Routine8:
 	move.b	#7,obj.sprite_frame(a0)
 
 loc_20EB8A:
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	tst.w	d1
 	bpl.s	locret_20EBAA
 	clr.w	obj.x_speed(a0)
@@ -310,7 +310,7 @@ loc_20EBAC:
 	movem.l	a0-a1,-(sp)
 	exg	a0,a1
 	bsr.w	loc_20EDA0
-	jsr	(CheckBlockDown).l
+	jsr	CheckBlockDown
 	add.w	d1,obj.y(a0)
 	movem.l	(sp)+,a0-a1
 	tst.w	obj.x_speed(a1)
@@ -334,7 +334,7 @@ locret_20EBE6:
 ; ------------------------------------------------------------------------------
 
 loc_20EBE8:
-	move.b	(player_joy_tap).w,d0
+	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
 	beq.w	locret_20EC62
 
@@ -344,7 +344,7 @@ loc_20EBF4:
 	moveq	#0,d0
 	move.b	obj.angle(a1),d0
 	subi.b	#$40,d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	muls.w	d2,d1
 	asr.l	#8,d1
 	add.w	d1,obj.x_speed(a1)
@@ -397,10 +397,10 @@ loc_20EC84:
 ; ------------------------------------------------------------------------------
 
 loc_20EC96:
-	cmpi.l	#$93200,(time).l
+	cmpi.l	#$93200,time
 	bcc.w	locret_20ED5A
-	lea	(player_object).w,a1
-	tst.b	(debug_mode).l
+	lea	player_object,a1
+	tst.b	debug_mode
 	bne.w	locret_20ED5A
 	btst	#0,obj.flags(a1)
 	bne.s	loc_20ECC4
@@ -442,11 +442,11 @@ loc_20ECFC:
 	bne.s	loc_20ED5C
 	cmpi.w	#$680,d0
 	bcc.s	loc_20ED5C
-	tst.b	(shield).l
+	tst.b	shield
 	bne.s	loc_20ED5C
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	loc_20ED5C
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	loc_20ED5C
 	bclr	#2,obj.flags(a1)
 	ori.b	#$81,obj.var_3e(a0)
@@ -455,7 +455,7 @@ loc_20ECFC:
 	move.b	#7,obj.sprite_frame(a0)
 	move.b	#4,obj.routine(a0)
 	move.w	#$7C,d0
-	jsr	(SubCpuCommand).l
+	jsr	SubCpuCommand
 
 locret_20ED5A:
 	rts
@@ -469,7 +469,7 @@ loc_20ED5C:
 ; ------------------------------------------------------------------------------
 
 AmyRoseUnknown1:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
 	bcc.s	loc_20ED74
@@ -482,7 +482,7 @@ loc_20ED74:
 ; ------------------------------------------------------------------------------
 
 AmyRoseUnknown2:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
 	bcc.s	loc_20ED8A
@@ -567,7 +567,7 @@ sub_20EE10:
 loc_20EE1C:
 	add.b	d0,obj.var_3b(a0)
 	bcc.s	locret_20EE5E
-	jsr	(SpawnObject).l
+	jsr	SpawnObject
 	bne.s	locret_20EE5E
 	move.b	#$30,obj.id(a1)
 	moveq	#8,d1
@@ -625,7 +625,7 @@ sub_20EE8C:
 ; ------------------------------------------------------------------------------
 
 sub_20EE90:
-	lea	(palette+$20).w,a4
+	lea	palette+$20,a4
 	movem.l	(a3)+,d0-d3
 	movem.l	d0-d3,(a4)
 	movem.l	(a3)+,d0-d3
@@ -644,8 +644,8 @@ HeartObject:
 	move.b	obj.routine(a0),d0
 	move.w	off_20EEE2(pc,d0.w),d0
 	jsr	off_20EEE2(pc,d0.w)
-	jsr	(DrawObject).l
-	jmp	(CheckObjectDespawn).l
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
@@ -671,7 +671,7 @@ HeartObject_0_Routine2:
 	move.b	obj.var_3a(a0),d0
 	add.b	d0,d0
 	add.b	obj.var_3a(a0),d0
-	jsr	(SineCosine).l
+	jsr	SineCosine
 	asr.w	#2,d0
 	move.w	d0,obj.x_speed(a0)
 
@@ -694,7 +694,7 @@ loc_20EF44:
 loc_20EF5A:
 	cmpi.b	#$78,d0
 	bne.s	locret_20EF66
-	jmp	(DeleteObject).l
+	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 

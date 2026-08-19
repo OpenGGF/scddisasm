@@ -7,7 +7,7 @@ FloatBlockObject:
 	jsr	off_209DAA(pc,d0.w)
 	move.w	obj.x(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -41,9 +41,9 @@ FloatBlockObject_0_Routine0:
 
 FloatBlockObject_0_Routine2:
 	bsr.w	sub_209EBE
-	tst.b	(time_zone).l
+	tst.b	time_zone
 	beq.s	loc_209E24
-	cmpi.b	#2,(time_zone).l
+	cmpi.b	#2,time_zone
 	bne.s	loc_209E0A
 	btst	#3,obj.flags(a0)
 	bne.s	loc_209E2A
@@ -69,7 +69,7 @@ loc_209E2A:
 FloatBlockObject_0_Routine4:
 	bsr.w	sub_209EBE
 	addq.w	#2,obj.y(a0)
-	move.w	(scroll_fg_y).w,d0
+	move.w	scroll_fg_y,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
 	bcc.s	loc_209E4A
@@ -92,7 +92,7 @@ FloatBlockObject_0_Routine6:
 ; ------------------------------------------------------------------------------
 
 loc_209E64:
-	lea	(BlockAnimsR1).l,a1
+	lea	BlockAnimsR1,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -110,7 +110,7 @@ FloatBlockObject_0_Routine8:
 ; ------------------------------------------------------------------------------
 
 loc_209E92:
-	lea	(BlockAnimsR1).l,a1
+	lea	BlockAnimsR1,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 
@@ -118,7 +118,7 @@ loc_209E92:
 
 FloatBlockObject_0_RoutineA:
 	bsr.w	sub_209EBE
-	lea	(BlockAnimsR1).l,a1
+	lea	BlockAnimsR1,a1
 	bsr.w	AnimateObject
 	jmp	DrawObject
 

@@ -13,8 +13,8 @@ PlayerCheckBlockFront:
 	add.l	d1,d2
 	swap	d2
 	swap	d3
-	move.b	d0,(collide_angle_1).w
-	move.b	d0,(collide_angle_2).w
+	move.b	d0,collide_angle_1
+	move.b	d0,collide_angle_2
 	move.b	d0,d1
 	addi.b	#$20,d0
 	bpl.s	loc_20650E
@@ -53,8 +53,8 @@ loc_206530:
 ; ------------------------------------------------------------------------------
 
 PlayerCheckBlockAbove:
-	move.b	d0,(collide_angle_1).w
-	move.b	d0,(collide_angle_2).w
+	move.b	d0,collide_angle_1
+	move.b	d0,collide_angle_2
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
 	cmpi.b	#$40,d0
@@ -74,7 +74,7 @@ PlayerCheckBlockDownWide:
 	move.b	obj.width(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$D,d5
@@ -89,7 +89,7 @@ PlayerCheckBlockDownWide:
 	move.b	obj.width(a0),d0
 	ext.w	d0
 	sub.w	d0,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$D,d5
@@ -98,10 +98,10 @@ PlayerCheckBlockDownWide:
 	move.b	#0,d2
 
 loc_2065C8:
-	move.b	(collide_angle_2).w,d3
+	move.b	collide_angle_2,d3
 	cmp.w	d0,d1
 	ble.s	loc_2065D6
-	move.b	(collide_angle_1).w,d3
+	move.b	collide_angle_1,d3
 	exg.l	d0,d1
 
 loc_2065D6:
@@ -121,7 +121,7 @@ PlayerCheckBlockDown:
 
 PlayerCheckBlockDown2:
 	addi.w	#$A,d2
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$E,d5
@@ -129,7 +129,7 @@ PlayerCheckBlockDown2:
 	move.b	#0,d2
 
 CheckBlockAngle:
-	move.b	(collide_angle_1).w,d3
+	move.b	collide_angle_1,d3
 	btst	#0,d3
 	beq.s	locret_206610
 	move.b	d2,d3
@@ -150,13 +150,13 @@ CheckBlockDown2:
 	add.w	d0,d2
 
 CheckBlockDown3:
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	move.b	#0,(a4)
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$D,d5
 	jsr	CheckBlockY
-	move.b	(collide_angle_1).w,d3
+	move.b	collide_angle_1,d3
 	btst	#0,d3
 	beq.s	locret_20664A
 	move.b	#0,d3
@@ -176,7 +176,7 @@ PlayerCheckBlockRightWide:
 	move.b	obj.height(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$E,d5
@@ -191,7 +191,7 @@ PlayerCheckBlockRightWide:
 	move.b	obj.height(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$E,d5
@@ -209,7 +209,7 @@ PlayerCheckBlockRight:
 
 PlayerCheckBlockRight2:
 	addi.w	#$A,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$E,d5
@@ -226,13 +226,13 @@ CheckBlockRight2:
 	move.w	obj.y(a0),d2
 
 CheckBlockRight3:
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	move.b	#0,(a4)
 	movea.w	#$10,a3
 	move.w	#0,d6
 	moveq	#$E,d5
 	jsr	CheckBlockX
-	move.b	(collide_angle_1).w,d3
+	move.b	collide_angle_1,d3
 	btst	#0,d3
 	beq.s	locret_20670A
 	move.b	#$C0,d3
@@ -253,7 +253,7 @@ PlayerCheckBlockUpWide:
 	move.b	obj.width(a0),d0
 	ext.w	d0
 	add.w	d0,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#-$10,a3
 	move.w	#$1000,d6
 	moveq	#$E,d5
@@ -269,7 +269,7 @@ PlayerCheckBlockUpWide:
 	move.b	obj.width(a0),d0
 	ext.w	d0
 	sub.w	d0,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#-$10,a3
 	move.w	#$1000,d6
 	moveq	#$E,d5
@@ -287,7 +287,7 @@ PlayerCheckBlockUp:
 PlayerCheckBlockUp2:
 	subi.w	#$A,d2
 	eori.w	#$F,d2
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#-$10,a3
 	move.w	#$1000,d6
 	moveq	#$E,d5
@@ -309,12 +309,12 @@ CheckBlockUp2:
 	eori.w	#$F,d2
 
 CheckBlockUp3:
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#-$10,a3
 	move.w	#$1000,d6
 	moveq	#$E,d5
 	jsr	CheckBlockY
-	move.b	(collide_angle_1).w,d3
+	move.b	collide_angle_1,d3
 	btst	#0,d3
 	beq.s	locret_2067E0
 	move.b	#$80,d3
@@ -335,7 +335,7 @@ PlayerCheckBlockLeftWide:
 	ext.w	d0
 	sub.w	d0,d3
 	eori.w	#$F,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#-$10,a3
 	move.w	#$800,d6
 	moveq	#$E,d5
@@ -351,7 +351,7 @@ PlayerCheckBlockLeftWide:
 	ext.w	d0
 	sub.w	d0,d3
 	eori.w	#$F,d3
-	lea	(collide_angle_2).w,a4
+	lea	collide_angle_2,a4
 	movea.w	#-$10,a3
 	move.w	#$800,d6
 	moveq	#$E,d5
@@ -370,7 +370,7 @@ PlayerCheckBlockLeft:
 PlayerCheckBlockLeft2:
 	subi.w	#$A,d3
 	eori.w	#$F,d3
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	movea.w	#-$10,a3
 	move.w	#$800,d6
 	moveq	#$E,d5
@@ -387,13 +387,13 @@ CheckBlockLeft2:
 	move.w	obj.y(a0),d2
 
 CheckBlockLeft3:
-	lea	(collide_angle_1).w,a4
+	lea	collide_angle_1,a4
 	move.b	#0,(a4)
 	movea.w	#-$10,a3
 	move.w	#$800,d6
 	moveq	#$E,d5
 	jsr	CheckBlockX
-	move.b	(collide_angle_1).w,d3
+	move.b	collide_angle_1,d3
 	btst	#0,d3
 	beq.s	locret_2068AC
 	move.b	#$40,d3

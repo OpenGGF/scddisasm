@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 EggmanObject:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	tst.w	obj.var_2e(a0)
 	beq.s	loc_20B1F8
 	movea.w	obj.var_2e(a0),a2
@@ -29,7 +29,7 @@ loc_20B226:
 	move.b	obj.routine(a0),d0
 	move.w	off_20B266(pc,d0.w),d0
 	jsr	off_20B266(pc,d0.w)
-	lea	(EggmanAnims).l,a1
+	lea	EggmanAnims,a1
 	jsr	AnimateObject
 	movea.l	a0,a3
 	adda.w	#obj.var_3d,a3
@@ -244,7 +244,7 @@ loc_20B40E:
 sub_20B416:
 	tst.b	obj.anim_id(a0)
 	bne.s	locret_20B432
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	tst.w	obj.var_30(a1)
 	bne.w	loc_20B434
 	cmpi.b	#6,obj.routine(a1)
@@ -278,31 +278,31 @@ EggmanObject_0_Routine0:
 
 EggmanObject_0_Routine2:
 	move.w	#$E60,d0
-	move.w	d0,(right_bound).w
-	move.w	d0,(target_right_bound).w
-	lea	(player_object).w,a1
+	move.w	d0,right_bound
+	move.w	d0,target_right_bound
+	lea	player_object,a1
 	move.w	obj.x(a1),d0
 	subi.w	#$A0,d0
-	cmp.w	(left_bound).w,d0
+	cmp.w	left_bound,d0
 	blt.s	locret_20B4E2
 	cmpi.w	#$F00,8(a1)
 	blt.s	loc_20B4DA
-	move.b	#8,(boss_flags).w
-	move.b	#8,(boss_started).w
+	move.b	#8,boss_flags
+	move.b	#8,boss_started
 	bsr.w	sub_20CF00
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	movea.w	obj.var_2e(a0),a2
 	bsr.w	sub_20BFA4
 	bclr	#1,obj.var_2c(a0)
 	move.b	#4,obj.routine(a0)
 	move.w	#$E60,d0
-	move.w	d0,(right_bound).w
-	move.w	d0,(target_right_bound).w
+	move.w	d0,right_bound
+	move.w	d0,target_right_bound
 	move.w	#$E60,d0
 
 loc_20B4DA:
-	move.w	d0,(left_bound).w
-	move.w	d0,(target_left_bound).w
+	move.w	d0,left_bound
+	move.w	d0,target_left_bound
 
 locret_20B4E2:
 	rts
@@ -341,7 +341,7 @@ loc_20B548:
 	addi.w	#$100,obj.y(a0)
 	move.w	#$68,d0
 	jsr	SubCpuCommand
-	bset	#7,(boss_started).w
+	bset	#7,boss_started
 	clr.b	obj.var_2a(a0)
 	clr.b	obj.var_2b(a0)
 	addq.b	#1,obj.var_2d(a0)
@@ -870,7 +870,7 @@ loc_20B9FC:
 	moveq	#0,d0
 	move.b	obj.var_3a(a0),d0
 	add.b	d0,d0
-	lea	(off_20BAEA).l,a3
+	lea	off_20BAEA,a3
 	movea.l	a3,a4
 	adda.w	d0,a4
 	adda.w	(a4),a3
@@ -1458,7 +1458,7 @@ sub_20BFA4:
 	moveq	#0,d0
 	move.b	obj.var_3a(a0),d0
 	mulu.w	#$A,d0
-	lea	(dword_20BFC4).l,a3
+	lea	dword_20BFC4,a3
 	adda.w	d0,a3
 	move.l	(a3)+,obj.var_34(a0)
 	move.l	(a3)+,obj.x_speed(a0)
@@ -1903,7 +1903,7 @@ loc_20C2A2:
 	movem.l	(sp)+,d7-a7
 	move.b	#$36,obj.routine(a0)
 	clr.b	obj.var_2a(a0)
-	clr.b	(boss_started).w
+	clr.b	boss_started
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1918,7 +1918,7 @@ EggmanObject_0_Routine36:
 ; ------------------------------------------------------------------------------
 
 EggMobileObject:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	movea.w	obj.var_2e(a0),a2
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
@@ -2277,7 +2277,7 @@ locret_20C64C:
 ; ------------------------------------------------------------------------------
 
 BossPanelObject:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	movea.w	obj.var_2e(a0),a2
 	movea.w	obj.var_2e(a2),a3
 	tst.b	obj.var_3b(a2)
@@ -2390,7 +2390,7 @@ loc_20C75E:
 	moveq	#0,d0
 	move.b	obj.var_34(a2),d0
 	add.w	d0,d0
-	lea	(unk_2364C4).l,a5
+	lea	unk_2364C4,a5
 	move.w	(a5,d0.w),d0
 	lea	(a5,d0.w),a4
 	move.l	a4,obj.sprite_data(a0)

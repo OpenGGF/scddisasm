@@ -35,7 +35,7 @@ MetalPlatformObject_0_Routine2:
 	jsr	sub_20C4F0(pc)
 	move.w	obj.var_32(a0),d0
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -51,7 +51,7 @@ loc_20C4D2:
 ; ------------------------------------------------------------------------------
 
 sub_20C4D6:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	TopSolidObject
 
 ; ------------------------------------------------------------------------------
@@ -110,10 +110,10 @@ MetalPlatformObject_1_Routine2:
 	tst.b	obj.var_38(a0)
 	bne.s	loc_20C582
 	move.b	#1,obj.var_3f(a0)
-	lea	(byte_20C5B4).l,a1
+	lea	byte_20C5B4,a1
 	cmpi.b	#1,obj.subtype(a0)
 	beq.s	loc_20C55E
-	lea	(byte_20C5D4).l,a1
+	lea	byte_20C5D4,a1
 
 loc_20C55E:
 	moveq	#0,d0
@@ -210,10 +210,10 @@ MetalPlatformObject_1_Routine6:
 	tst.b	obj.var_38(a0)
 	bne.s	loc_20C636
 	clr.b	obj.var_3f(a0)
-	lea	(byte_20C670).l,a1
+	lea	byte_20C670,a1
 	cmpi.b	#3,obj.subtype(a0)
 	beq.s	loc_20C616
-	lea	(byte_20C690).l,a1
+	lea	byte_20C690,a1
 
 loc_20C616:
 	moveq	#0,d0
@@ -352,13 +352,13 @@ MetalPlatformObject_2_Routine2:
 	bne.s	loc_20C746
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
-	lea	(byte_20C78C).l,a1
+	lea	byte_20C78C,a1
 	subq.b	#5,d0
 	beq.s	loc_20C726
-	lea	(byte_20C798).l,a1
+	lea	byte_20C798,a1
 	subq.b	#1,d0
 	beq.s	loc_20C726
-	lea	(byte_20C7A4).l,a1
+	lea	byte_20C7A4,a1
 
 loc_20C726:
 	moveq	#0,d0

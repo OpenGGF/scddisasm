@@ -75,13 +75,13 @@ loc_20F26E:
 	jsr	(a1)
 	move.w	a0,-(sp)
 	movea.w	obj.var_2c(a0),a0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	jsr	DrawObject
 	movea.w	(sp)+,a0
 	move.w	a0,-(sp)
 	movea.w	obj.var_2a(a0),a0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	sne	obj.var_3f(a0)
 	jsr	DrawObject

@@ -4,7 +4,7 @@ InitSectionGfx:
 	lea	SectionGfxRanges(pc),a1
 	moveq	#0,d0
 	moveq	#0,d1
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 
 loc_20CACE:
 	cmp.w	(a1)+,d0
@@ -15,9 +15,9 @@ loc_20CACE:
 ; ------------------------------------------------------------------------------
 
 loc_20CAD6:
-	move.b	d1,(gfx_section_id).l
+	move.b	d1,gfx_section_id
 	move.w	SectionGfxInitLists(pc,d1.w),d0
-	jmp	(AddGfxQueue).l
+	jmp	AddGfxQueue
 
 ; ------------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ UpdateSectionGfx:
 	lea	SectionGfxRanges(pc),a1
 	moveq	#0,d0
 	moveq	#0,d1
-	move.w	(scroll_fg_x).w,d0
+	move.w	scroll_fg_x,d0
 
 loc_20CAF2:
 	cmp.w	(a1)+,d0
@@ -36,16 +36,16 @@ loc_20CAF2:
 ; ------------------------------------------------------------------------------
 
 loc_20CAFA:
-	cmp.b	(gfx_section_id).l,d1
+	cmp.b	gfx_section_id,d1
 	bne.s	loc_20CB04
 	rts
 
 ; ------------------------------------------------------------------------------
 
 loc_20CB04:
-	move.b	d1,(gfx_section_id).l
+	move.b	d1,gfx_section_id
 	move.w	SectionGfxUpdateLists(pc,d1.w),d0
-	jmp	(InitGfxQueue).l
+	jmp	InitGfxQueue
 
 ; ------------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ SectionGfxInitLists:
 ; ------------------------------------------------------------------------------
 
 SetObjectSpriteTile:
-	lea	(ObjectSpriteTiles).l,a1
+	lea	ObjectSpriteTiles,a1
 	add.w	d0,d0
 	move.w	ObjectSpriteTiles(pc,d0.w),d4
 	lea	ObjectSpriteTiles(pc,d4.w),a2

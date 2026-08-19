@@ -2,18 +2,18 @@
 
 DecompNemesisVram:
 	movem.l	d0-d7/a0-a1/a3-a5,-(sp)
-	lea	(WriteNemesisRowVram).l,a3
-	lea	(VDP_DATA).l,a4
+	lea	WriteNemesisRowVram,a3
+	lea	VDP_DATA,a4
 	bra.s	DecompNemesisMain
 
 ; ------------------------------------------------------------------------------
 
 DecompNemesis:
 	movem.l	d0-d7/a0-a1/a3-a5,-(sp)
-	lea	(WriteNemesisRow).l,a3
+	lea	WriteNemesisRow,a3
 
 DecompNemesisMain:
-	lea	(nemesis_code_table).w,a1
+	lea	nemesis_code_table,a1
 	move.w	(a0)+,d2
 	lsl.w	#1,d2
 	bcc.s	loc_2023F2

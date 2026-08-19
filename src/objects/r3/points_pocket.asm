@@ -33,9 +33,9 @@ off_20B604:
 ; ------------------------------------------------------------------------------
 
 PocketObject_0_Routine0:
-	cmpi.b	#2,(time_zone).l
+	cmpi.b	#2,time_zone
 	bne.w	loc_20B636
-	tst.b	(good_future).l
+	tst.b	good_future
 	beq.w	loc_20B636
 	jmp	DeleteObject
 
@@ -50,9 +50,9 @@ loc_20B636:
 	move.w	#7,obj.var_30(a0)
 
 PocketObject_0_Routine2:
-	tst.w	(debug_mode).l
+	tst.w	debug_mode
 	bne.w	locret_20B678
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	lea	obj.var_3e(a0),a5
 	bsr.w	sub_20B67A
 	tst.b	obj.var_3e(a0)
@@ -120,7 +120,7 @@ PocketObject_0_Routine4:
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
-	lea	(player_object).w,a6
+	lea	player_object,a6
 	bset	#6,obj.var_2c(a6)
 
 locret_20B760:
@@ -234,8 +234,8 @@ PocketObject_0_Routine12:
 	tst.b	obj.var_3e(a0)
 	beq.w	locret_20B876
 	sf	obj.var_3e(a0)
-	bclr	#0,(player_object+obj.var_2c).w
-	bclr	#6,(player_object+obj.var_2c).w
+	bclr	#0,player_object+obj.var_2c
+	bclr	#6,player_object+obj.var_2c
 
 locret_20B876:
 	rts

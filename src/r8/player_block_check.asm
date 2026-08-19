@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 PlayerCheckBlock:
-	cmpi.b	#2,(act).l
+	cmpi.b	#2,act
 	bne.s	loc_20635A
 	rts
 
@@ -61,11 +61,11 @@ locret_2063CE:
 
 sub_2063D0:
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	andi.b	#$7F,d1
 	cmpi.b	#2,d1
 	bne.s	loc_2063E8
-	add.b	(good_future).l,d1
+	add.b	good_future,d1
 
 loc_2063E8:
 	add.w	d1,d1

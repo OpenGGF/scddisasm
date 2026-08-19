@@ -88,7 +88,7 @@ KumoKumoObject_0_Routine6:
 KumoKumoObject_0_Routine8:
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20D95C
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	bsr.s	sub_20D970
 	tst.b	d6
 	beq.s	loc_20D95C
@@ -190,7 +190,7 @@ loc_20DA4C:
 	tst.b	obj.collide_status(a0)
 	beq.s	loc_20DA78
 	clr.b	obj.collide_status(a0)
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	cmpi.b	#4,obj.routine(a1)
 	beq.s	loc_20DA78
 	cmpi.b	#6,obj.routine(a1)

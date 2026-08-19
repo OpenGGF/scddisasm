@@ -2,11 +2,11 @@
 
 FadeFromBlack:
 	moveq	#0,d0
-	lea	(palette).w,a0
-	move.b	(palette_fade_start).w,d0
+	lea	palette,a0
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	moveq	#0,d1
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_200336:
 	move.w	d1,(a0)+
@@ -14,7 +14,7 @@ loc_200336:
 	move.w	#$15,d4
 
 loc_200340:
-	move.b	#$12,(vblank_routine).w
+	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsFromBlack
 	bsr.w	AdvanceGfxQueue
@@ -25,25 +25,25 @@ loc_200340:
 
 FadeColorsFromBlack:
 	moveq	#0,d0
-	lea	(palette).w,a0
-	lea	(fade_palette).w,a1
-	move.b	(palette_fade_start).w,d0
+	lea	palette,a0
+	lea	fade_palette,a1
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	adda.w	d0,a1
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_20036C:
 	bsr.s	FadeColorFromBlack
 	dbf	d0,loc_20036C
-	cmpi.b	#1,(zone).l
+	cmpi.b	#1,zone
 	bne.s	locret_200398
 	moveq	#0,d0
-	lea	(water_palette).w,a0
-	lea	(water_fade_palette).w,a1
-	move.b	(palette_fade_start).w,d0
+	lea	water_palette,a0
+	lea	water_fade_palette,a1
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	adda.w	d0,a1
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_200392:
 	bsr.s	FadeColorFromBlack
@@ -92,13 +92,13 @@ loc_2003C2:
 
 	if (STAGE_ZONE=6)&(STAGE_TIME=2)
 	BossFadeFromBlack:
-		move.b	#$12,(vblank_routine).w
-		lea	(palette+$20).w,a0
-		lea	(fade_palette+$20).w,a1
+		move.b	#$12,vblank_routine
+		lea	palette+$20,a0
+		lea	fade_palette+$20,a1
 		bsr.w	sub_200384
 		if STAGE_GOOD_FUTURE=0
-			lea	(palette+$60).w,a0
-			lea	(fade_palette+$60).w,a1
+			lea	palette+$60,a0
+			lea	fade_palette+$60,a1
 			bsr.w	sub_200384
 		endif
 		rts
@@ -117,11 +117,11 @@ loc_2003C2:
 ; ------------------------------------------------------------------------------
 
 FadeToBlack:
-	move.w	#$3F,(palette_fade_start).w
+	move.w	#$3F,palette_fade_start
 	move.w	#$15,d4
 
 loc_2003D0:
-	move.b	#$12,(vblank_routine).w
+	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsToBlack
 	bsr.w	AdvanceGfxQueue
@@ -132,19 +132,19 @@ loc_2003D0:
 
 FadeColorsToBlack:
 	moveq	#0,d0
-	lea	(palette).w,a0
-	move.b	(palette_fade_start).w,d0
+	lea	palette,a0
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_2003F6:
 	bsr.s	FadeColorToBlack
 	dbf	d0,loc_2003F6
 	moveq	#0,d0
-	lea	(water_palette).w,a0
-	move.b	(palette_fade_start).w,d0
+	lea	water_palette,a0
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_20040C:
 	bsr.s	FadeColorToBlack
@@ -189,13 +189,13 @@ loc_200440:
 ; ------------------------------------------------------------------------------
 
 FadeFromWhite:
-	move.w	#$3F,(palette_fade_start).w
+	move.w	#$3F,palette_fade_start
 	moveq	#0,d0
-	lea	(palette).w,a0
-	move.b	(palette_fade_start).w,d0
+	lea	palette,a0
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	move.w	#$EEE,d1
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_20045E:
 	move.w	d1,(a0)+
@@ -203,7 +203,7 @@ loc_20045E:
 	move.w	#$15,d4
 
 loc_200468:
-	move.b	#$12,(vblank_routine).w
+	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsFromWhite
 	bsr.w	AdvanceGfxQueue
@@ -214,25 +214,25 @@ loc_200468:
 
 FadeColorsFromWhite:
 	moveq	#0,d0
-	lea	(palette).w,a0
-	lea	(fade_palette).w,a1
-	move.b	(palette_fade_start).w,d0
+	lea	palette,a0
+	lea	fade_palette,a1
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	adda.w	d0,a1
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_200494:
 	bsr.s	FadeColorFromWhite
 	dbf	d0,loc_200494
-	cmpi.b	#1,(zone).l
+	cmpi.b	#1,zone
 	bne.s	locret_2004C0
 	moveq	#0,d0
-	lea	(water_palette).w,a0
-	lea	(water_fade_palette).w,a1
-	move.b	(palette_fade_start).w,d0
+	lea	water_palette,a0
+	lea	water_fade_palette,a1
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	adda.w	d0,a1
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_2004BA:
 	bsr.s	FadeColorFromWhite
@@ -282,11 +282,11 @@ loc_2004EE:
 ; ------------------------------------------------------------------------------
 
 FadeToWhite:
-	move.w	#$3F,(palette_fade_start).w
+	move.w	#$3F,palette_fade_start
 	move.w	#$15,d4
 
 loc_2004FC:
-	move.b	#$12,(vblank_routine).w
+	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsToWhite
 	bsr.w	AdvanceGfxQueue
@@ -297,19 +297,19 @@ loc_2004FC:
 
 FadeColorsToWhite:
 	moveq	#0,d0
-	lea	(palette).w,a0
-	move.b	(palette_fade_start).w,d0
+	lea	palette,a0
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_200522:
 	bsr.s	FadeColorToWhite
 	dbf	d0,loc_200522
 	moveq	#0,d0
-	lea	(water_palette).w,a0
-	move.b	(palette_fade_start).w,d0
+	lea	water_palette,a0
+	move.b	palette_fade_start,d0
 	adda.w	d0,a0
-	move.b	(palette_fade_length).w,d0
+	move.b	palette_fade_length,d0
 
 loc_200538:
 	bsr.s	FadeColorToWhite
@@ -411,9 +411,9 @@ loc_20057C:
 	loc_2004F0:
 		move.b	d0,(a3)
 		lea	word_20050A(pc,d0.w),a3
-		move.w	(a3)+,(palette+$40).w
+		move.w	(a3)+,palette+$40
 		if STAGE_GOOD_FUTURE=0
-			lea	(palette+$64).w,a4
+			lea	palette+$64,a4
 			move.l	(a3)+,(a4)+
 			adda.w	#2,a4
 			move.l	(a3)+,(a4)+
@@ -422,7 +422,7 @@ loc_20057C:
 			move.l	(a3)+,(a4)+
 			move.l	(a3)+,(a4)+
 		else
-			lea	(palette+$6E).w,a4
+			lea	palette+$6E,a4
 			move.w	(a3)+,(a4)+
 			move.l	(a3)+,(a4)+
 			move.l	(a3)+,(a4)+
@@ -458,13 +458,13 @@ loc_20057C:
 
 
 	BossFadeObjectsFromWhite:
-		move.w	#$2F,(palette_fade_start).w
+		move.w	#$2F,palette_fade_start
 		moveq	#0,d0
-		lea	(palette).w,a0
-		move.b	(palette_fade_start).w,d0
+		lea	palette,a0
+		move.b	palette_fade_start,d0
 		adda.w	d0,a0
 		move.w	#$EEE,d1
-		move.b	(palette_fade_length).w,d0
+		move.b	palette_fade_length,d0
 
 	loc_2005C4:
 		move.w	d1,(a0)+
@@ -472,10 +472,10 @@ loc_20057C:
 		move.w	#$15,d4
 
 	loc_2005CE:
-		move.b	#$12,(vblank_routine).w
+		move.b	#$12,vblank_routine
 		bsr.w	VSync
 		bsr.w	FadeColorsFromWhite
-		move.w	#$EEE,(palette+$40).w
+		move.w	#$EEE,palette+$40
 		bsr.w	AdvanceGfxQueue
 		dbf	d4,loc_2005CE
 		rts

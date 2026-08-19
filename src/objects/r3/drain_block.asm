@@ -41,7 +41,7 @@ DrainBlockObject_0_Routine2:
 	bne.s	locret_20ACB4
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	TopSolidObject
 	beq.s	locret_20ACB4
 	bclr	#3,obj.flags(a1)

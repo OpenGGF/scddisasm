@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 UpdateObjects:
-	lea	(object_pool).w,a0
+	lea	object_pool,a0
 	moveq	#$7F,d7
 	moveq	#0,d0
 
@@ -10,7 +10,7 @@ loc_203594:
 	beq.s	loc_2035AA
 	add.w	d0,d0
 	add.w	d0,d0
-	lea	(ObjectIndex).l,a1
+	lea	ObjectIndex,a1
 	movea.l	-4(a1,d0.w),a1
 	jsr	(a1)
 	moveq	#0,d0
@@ -102,7 +102,7 @@ DrawObject:
 	beq.w	loc_2036DC
 	move.b	obj.width_2(a0),d0
 	move.w	obj.x(a0),d3
-	sub.w	(scroll_fg_x).w,d3
+	sub.w	scroll_fg_x,d3
 	move.w	d3,d1
 	add.w	d0,d1
 	bmi.s	locret_2036F8
@@ -112,7 +112,7 @@ DrawObject:
 	bge.s	locret_2036F8
 	move.b	obj.height(a0),d0
 	move.w	obj.y(a0),d3
-	cmpi.w	#$100,(scroll_fg_y).w
+	cmpi.w	#$100,scroll_fg_y
 	bcc.s	loc_2036B6
 	cmpi.w	#$800,d3
 	bcs.s	loc_2036C8
@@ -122,14 +122,14 @@ DrawObject:
 ; ------------------------------------------------------------------------------
 
 loc_2036B6:
-	cmpi.w	#$700,(scroll_fg_y).w
+	cmpi.w	#$700,scroll_fg_y
 	bcs.s	loc_2036C8
 	cmpi.w	#$100,d3
 	bcc.s	loc_2036C8
 	addi.w	#$800,d3
 
 loc_2036C8:
-	sub.w	(scroll_fg_y).w,d3
+	sub.w	scroll_fg_y,d3
 	move.w	d3,d1
 	add.w	d0,d1
 	bmi.s	locret_2036F8
@@ -139,7 +139,7 @@ loc_2036C8:
 	bge.s	locret_2036F8
 
 loc_2036DC:
-	lea	(object_draw_queue).w,a1
+	lea	object_draw_queue,a1
 	move.w	obj.sprite_layer(a0),d0
 	lsr.w	#1,d0
 	andi.w	#$380,d0
@@ -156,7 +156,7 @@ locret_2036F8:
 ; ------------------------------------------------------------------------------
 
 DrawOtherObject:
-	lea	(object_draw_queue).w,a2
+	lea	object_draw_queue,a2
 	move.w	obj.sprite_layer(a1),d0
 	lsr.w	#1,d0
 	andi.w	#$380,d0
@@ -195,9 +195,9 @@ dword_203726:
 ; ------------------------------------------------------------------------------
 
 DrawObjects:
-	lea	(sprites).w,a2
+	lea	sprites,a2
 	moveq	#0,d5
-	lea	(object_draw_queue).w,a4
+	lea	object_draw_queue,a4
 	moveq	#7,d7
 
 loc_203742:
@@ -287,7 +287,7 @@ loc_2037FA:
 loc_203802:
 	lea	$80(a4),a4
 	dbf	d7,loc_203742
-	move.b	d5,(sprite_count).w
+	move.b	d5,sprite_count
 	cmpi.b	#$50,d5
 	beq.s	loc_20381C
 	move.l	#0,(a2)
@@ -465,12 +465,12 @@ locret_203950:
 
 CheckObjectVisible:
 	move.w	obj.x(a0),d0
-	sub.w	(scroll_fg_x).w,d0
+	sub.w	scroll_fg_x,d0
 	bmi.s	loc_203976
 	cmpi.w	#$140,d0
 	bge.s	loc_203976
 	move.w	obj.y(a0),d1
-	sub.w	(scroll_fg_y).w,d1
+	sub.w	scroll_fg_y,d1
 	bmi.s	loc_203976
 	cmpi.w	#$E0,d1
 	bge.s	loc_203976
@@ -489,7 +489,7 @@ CheckObjectVisibleWide:
 	moveq	#0,d1
 	move.b	obj.width_2(a0),d1
 	move.w	obj.x(a0),d0
-	sub.w	(scroll_fg_x).w,d0
+	sub.w	scroll_fg_x,d0
 	add.w	d1,d0
 	bmi.s	loc_2039AA
 	add.w	d1,d1
@@ -497,7 +497,7 @@ CheckObjectVisibleWide:
 	cmpi.w	#$140,d0
 	bge.s	loc_2039AA
 	move.w	obj.y(a0),d1
-	sub.w	(scroll_fg_y).w,d1
+	sub.w	scroll_fg_y,d1
 	bmi.s	loc_2039AA
 	cmpi.w	#$E0,d1
 	bge.s	loc_2039AA

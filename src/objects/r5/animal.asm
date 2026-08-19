@@ -187,9 +187,9 @@ loc_20EE74:
 sub_20EE82:
 	lea	word_20EF56(pc),a1
 	moveq	#0,d0
-	move.b	(act).l,d0
+	move.b	act,d0
 	asl.w	#2,d0
-	add.b	(time_zone).l,d0
+	add.b	time_zone,d0
 	add.w	d0,d0
 	move.w	(a1,d0.w),obj.sprite_tile(a0)
 	rts

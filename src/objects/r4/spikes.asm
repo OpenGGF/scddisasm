@@ -41,24 +41,24 @@ off_20C0AC:
 loc_20C0B0:
 	tst.b	obj.sprite_frame(a0)
 	beq.s	loc_20C0C0
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
 loc_20C0C0:
-	lea	(player_object).w,a1
+	lea	player_object,a1
 	jsr	SolidObject
 	beq.s	locret_20C114
 	btst	#3,obj.flags(a0)
 	beq.s	locret_20C114
-	tst.b	(warping).l
+	tst.b	warping
 	bne.s	locret_20C114
-	tst.b	(invincible).l
+	tst.b	invincible
 	bne.s	locret_20C114
 	move.l	a0,-(sp)
 	movea.l	a0,a2
-	lea	(player_object).w,a0
+	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
 	bcc.s	loc_20C112
 	tst.w	obj.var_30(a0)

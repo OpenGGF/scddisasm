@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 ResetObjectStates:
-	lea	(object_states).l,a2
+	lea	object_states,a2
 	move.w	#$101,(a2)+
 	move.w	#$BE,d0
 
@@ -14,7 +14,7 @@ loc_207114:
 
 SpawnStageObjects:
 	moveq	#0,d0
-	move.b	(spawn_routine).w,d0
+	move.b	spawn_routine,d0
 	move.w	off_20712A(pc,d0.w),d0
 	jmp	off_20712A(pc,d0.w)
 
@@ -27,26 +27,26 @@ off_20712A:
 ; ------------------------------------------------------------------------------
 
 StageObjectSpawnInit:
-	addq.b	#2,(spawn_routine).w
-	lea	(StageObjectMaps).l,a0
+	addq.b	#2,spawn_routine
+	lea	StageObjectMaps,a0
 	movea.l	a0,a1
 	adda.w	(a0),a0
-	move.l	a0,(spawn_chunk_right).w
-	move.l	a0,(spawn_chunk_left).w
+	move.l	a0,spawn_chunk_right
+	move.l	a0,spawn_chunk_left
 	adda.w	2(a1),a1
-	move.l	a1,(spawn_chunk_right_2).w
-	move.l	a1,(spawn_chunk_left_2).w
-	lea	(object_states).l,a2
+	move.l	a1,spawn_chunk_right_2
+	move.l	a1,spawn_chunk_left_2
+	lea	object_states,a2
 	move.w	#$101,(a2)
 	moveq	#0,d2
-	move.w	(scroll_fg_x).w,d6
+	move.w	scroll_fg_x,d6
 	subi.w	#$80,d6
 	bcc.s	loc_207168
 	moveq	#0,d6
 
 loc_207168:
 	andi.w	#$FF80,d6
-	movea.l	(spawn_chunk_right).w,a0
+	movea.l	spawn_chunk_right,a0
 
 loc_207170:
 	cmp.w	(a0),d6
@@ -63,8 +63,8 @@ loc_20717E:
 ; ------------------------------------------------------------------------------
 
 loc_207182:
-	move.l	a0,(spawn_chunk_right).w
-	movea.l	(spawn_chunk_left).w,a0
+	move.l	a0,spawn_chunk_right
+	movea.l	spawn_chunk_left,a0
 	subi.w	#$80,d6
 	bcs.s	loc_2071A2
 
@@ -82,23 +82,23 @@ loc_20719E:
 ; ------------------------------------------------------------------------------
 
 loc_2071A2:
-	move.l	a0,(spawn_chunk_left).w
-	move.w	#-1,(prev_spawn_chunk).w
+	move.l	a0,spawn_chunk_left
+	move.w	#-1,prev_spawn_chunk
 
 StageObjectSpawnMain:
-	lea	(object_states).l,a2
+	lea	object_states,a2
 	moveq	#0,d2
-	move.w	(scroll_fg_x).w,d6
+	move.w	scroll_fg_x,d6
 	andi.w	#$FF80,d6
-	cmp.w	(prev_spawn_chunk).w,d6
+	cmp.w	prev_spawn_chunk,d6
 	beq.w	locret_20728C
 	bge.s	loc_207232
 	nop
 	nop
 	nop
 	nop
-	move.w	d6,(prev_spawn_chunk).w
-	movea.l	(spawn_chunk_left).w,a0
+	move.w	d6,prev_spawn_chunk
+	movea.l	spawn_chunk_left,a0
 	subi.w	#$80,d6
 	bcs.s	loc_20720E
 
@@ -129,8 +129,8 @@ loc_20720C:
 	addq.w	#8,a0
 
 loc_20720E:
-	move.l	a0,(spawn_chunk_left).w
-	movea.l	(spawn_chunk_right).w,a0
+	move.l	a0,spawn_chunk_left
+	movea.l	spawn_chunk_right,a0
 	addi.w	#$300,d6
 
 loc_20721A:
@@ -147,7 +147,7 @@ loc_207228:
 ; ------------------------------------------------------------------------------
 
 loc_20722C:
-	move.l	a0,(spawn_chunk_right).w
+	move.l	a0,spawn_chunk_right
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -157,8 +157,8 @@ loc_207232:
 	nop
 	nop
 	nop
-	move.w	d6,(prev_spawn_chunk).w
-	movea.l	(spawn_chunk_right).w,a0
+	move.w	d6,prev_spawn_chunk
+	movea.l	spawn_chunk_right,a0
 	addi.w	#$280,d6
 
 loc_207246:
@@ -178,8 +178,8 @@ loc_207254:
 	bclr	#7,2(a2,d3.w)
 
 loc_207268:
-	move.l	a0,(spawn_chunk_right).w
-	movea.l	(spawn_chunk_left).w,a0
+	move.l	a0,spawn_chunk_right
+	movea.l	spawn_chunk_left,a0
 	subi.w	#$300,d6
 	bcs.s	loc_207288
 
@@ -197,7 +197,7 @@ loc_207284:
 ; ------------------------------------------------------------------------------
 
 loc_207288:
-	move.l	a0,(spawn_chunk_left).w
+	move.l	a0,spawn_chunk_left
 
 locret_20728C:
 	rts
@@ -206,7 +206,7 @@ locret_20728C:
 
 CheckObjectTimeZone:
 	moveq	#0,d0
-	move.b	(time_zone).l,d0
+	move.b	time_zone,d0
 	bclr	#7,d0
 	move.w	d2,d3
 	add.w	d3,d3
@@ -273,7 +273,7 @@ locret_207316:
 ; ------------------------------------------------------------------------------
 
 SpawnObject:
-	lea	(object_spawn_pool).w,a1
+	lea	object_spawn_pool,a1
 	move.w	#$5F,d0
 
 loc_207320:
@@ -314,7 +314,7 @@ CheckObjectDespawn2:
 	tst.b	obj.sprite_flags(a0)
 	bmi.s	loc_2073BC
 	andi.w	#$FF80,d0
-	move.w	(scroll_fg_x).w,d1
+	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
@@ -325,15 +325,15 @@ DespawnObject:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_2073B2
-	lea	(object_states).l,a1
+	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
 	add.w	d1,d0
 	moveq	#0,d1
-	move.b	(time_zone).l,d1
+	move.b	time_zone,d1
 	bclr	#7,d1
 	beq.s	loc_2073AA
-	move.b	(warp_direction).w,d2
+	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
@@ -360,7 +360,7 @@ loc_2073B2:
 ; ------------------------------------------------------------------------------
 
 loc_2073BC:
-	btst	#7,(time_zone).l
+	btst	#7,time_zone
 	bne.s	DespawnObject
 	moveq	#0,d0
 	rts
