@@ -43,7 +43,7 @@ locret_203B26:
 PlayerObject:
 	tst.b	time_attack
 	bne.s	loc_203B44
-	cmpa.w	#$D040,a0
+	cmpa.w	#player_object_2,a0
 	beq.s	loc_203B44
 	tst.b	debug_mode
 	beq.s	loc_203B44
