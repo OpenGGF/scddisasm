@@ -33,7 +33,7 @@ loc_20B850:
 	ori.b	#$80,obj.sprite_tile(a0)
 
 loc_20B86E:
-	move.l	#Spr_20B956,obj.sprite_data(a0)
+	move.l	#PathSwapSprites,obj.sprite_data(a0)
 	move.b	#$18,obj.width(a0)
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
@@ -128,61 +128,8 @@ PathSwapAnims:
 	include	"src/anims/r7/path_swap.asm"
 	even
 
-Spr_20B956:
-	dc.w	@Spr_20B956_0-*
-	dc.w	@Spr_20B956_1-Spr_20B956
-	dc.w	@Spr_20B956_2-Spr_20B956
-	dc.w	@Spr_20B956_3-Spr_20B956
-	dc.w	@Spr_20B956_4-Spr_20B956
-
-@Spr_20B956_0:
-	dc.b	6
-	dc.b	$F0, 7, 0, 0, $F0
-	dc.b	$F0, 7, 8, 0, 0
-	dc.b	$F8, 3, 0, $10, $E8
-	dc.b	$10, 4, 0, $14, $F0
-	dc.b	$F8, 3, 8, $10, $10
-	dc.b	$10, 4, 8, $14, 0
-	dc.b	0
-
-@Spr_20B956_1:
-	dc.b	6
-	dc.b	$F4, 6, 0, 8, $F0
-	dc.b	$F4, 6, 8, 8, 0
-	dc.b	$F8, 3, 0, $10, $E8
-	dc.b	$10, 4, 0, $14, $F0
-	dc.b	$F8, 3, 8, $10, $10
-	dc.b	$10, 4, 8, $14, 0
-	dc.b	0
-
-@Spr_20B956_2:
-	dc.b	6
-	dc.b	$FC, 4, 0, $E, $F0
-	dc.b	$FC, 4, 8, $E, 0
-	dc.b	$F8, 3, 0, $10, $E8
-	dc.b	$10, 4, 0, $14, $F0
-	dc.b	$F8, 3, 8, $10, $10
-	dc.b	$10, 4, 8, $14, 0
-	dc.b	0
-
-@Spr_20B956_4:
-	dc.b	6
-	dc.b	$F0, 7, $10, 0, $F0
-	dc.b	$F0, 7, $18, 0, 0
-	dc.b	$F8, 3, 0, $10, $E8
-	dc.b	$10, 4, 0, $14, $F0
-	dc.b	$F8, 3, 8, $10, $10
-	dc.b	$10, 4, 8, $14, 0
-	dc.b	0
-
-@Spr_20B956_3:
-	dc.b	6
-	dc.b	$F4, 6, $10, 8, $F0
-	dc.b	$F4, 6, $18, 8, 0
-	dc.b	$F8, 3, 0, $10, $E8
-	dc.b	$10, 4, 0, $14, $F0
-	dc.b	$F8, 3, 8, $10, $10
-	dc.b	$10, 4, 8, $14, 0
-	dc.b	0
+PathSwapSprites:
+	include	"src/sprites/r7/path_swap.asm"
+	even
 
 ; ------------------------------------------------------------------------------

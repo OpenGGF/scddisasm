@@ -10,7 +10,7 @@ LightEdgeObject:
 ; ------------------------------------------------------------------------------
 
 off_206600:
-	dc.w	sub_206604-*
+	dc.w	sub_206604-off_206600
 	dc.w	sub_20661C-off_206600
 
 ; ------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ off_206600:
 sub_206604:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$82FC,obj.sprite_tile(a0)
-	move.l	#Spr_20668C,obj.sprite_data(a0)
+	move.l	#LightEdgeSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 
 ; ------------------------------------------------------------------------------
@@ -72,24 +72,8 @@ LightEdgeAnims:
 	include	"src/anims/r7/light_edge.asm"
 	even
 
-Spr_20668C:
-	dc.w	@Spr_20668C_0-*
-	dc.w	@Spr_20668C_1-Spr_20668C
-
-@Spr_20668C_0:
-	dc.b	5
-	dc.b	$FC, $C, 0, 0, $B0
-	dc.b	$FC, $C, 0, 0, $D0
-	dc.b	$FC, $C, 0, 0, $F0
-	dc.b	$FC, $C, 0, 0, $10
-	dc.b	$FC, $C, 0, 0, $30
-
-@Spr_20668C_1:
-	dc.b	5
-	dc.b	$FC, $C, 8, 0, $B0
-	dc.b	$FC, $C, 8, 0, $D0
-	dc.b	$FC, $C, 8, 0, $F0
-	dc.b	$FC, $C, 8, 0, $10
-	dc.b	$FC, $C, 8, 0, $30
+LightEdgeSprites:
+	include	"src/sprites/r7/light_edge.asm"
+	even
 
 ; ------------------------------------------------------------------------------

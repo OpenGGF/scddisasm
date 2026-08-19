@@ -35,7 +35,7 @@ MetalSonicObject_0_Routine0:
 	move.b	#$14,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	move.w	#$37C,obj.sprite_tile(a0)
-	move.l	#Spr_20D1FA,obj.sprite_data(a0)
+	move.l	#MetalSonicSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 
 MetalSonicObject_0_Routine2:
@@ -629,7 +629,7 @@ ElectricShieldObject_0_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$18,obj.height(a0)
 	move.w	#$37C,obj.sprite_tile(a0)
-	move.l	#Spr_20D37E,obj.sprite_data(a0)
+	move.l	#ElectricShieldSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 
 ElectricShieldObject_0_Routine2:
@@ -768,7 +768,7 @@ EggmanObject_0_Routine0:
 	move.b	#$24,obj.width_2(a0)
 	move.b	#$24,obj.height(a0)
 	move.w	#$300,obj.sprite_tile(a0)
-	move.l	#Spr_20D0DE,obj.sprite_data(a0)
+	move.l	#EggmanSprites,obj.sprite_data(a0)
 	addq.b	#7,boss_flags
 	move.b	#7,boss_started
 	movem.l	d7-a7,-(sp)
@@ -1476,7 +1476,7 @@ BossLaserObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$2300,obj.sprite_tile(a0)
-	move.l	#Spr_20D140,obj.sprite_data(a0)
+	move.l	#BossLaserSprites,obj.sprite_data(a0)
 	move.b	#2,obj.routine(a0)
 	rts
 
@@ -1623,7 +1623,7 @@ DebrisObject:
 	move.b	#4,obj.width_2(a0)
 	move.b	#4,obj.height(a0)
 	move.w	#$451C,obj.sprite_tile(a0)
-	move.l	#Spr_20D3D6,obj.sprite_data(a0)
+	move.l	#DebrisSprites,obj.sprite_data(a0)
 	jsr	Random
 	andi.l	#$FFFF,d0
 	ext.l	d0
@@ -1679,7 +1679,7 @@ BossExhaustObject_0_Routine0:
 	move.b	#$14,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$2300,obj.sprite_tile(a0)
-	move.l	#Spr_20D160,obj.sprite_data(a0)
+	move.l	#BossExhaustSprites,obj.sprite_data(a0)
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20CD9C
 	move.w	#$FFCD,obj.var_36(a0)
@@ -1750,7 +1750,7 @@ MetalSonicDebrisObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$37C,obj.sprite_tile(a0)
-	move.l	#Spr_20D3AE,obj.sprite_data(a0)
+	move.l	#MetalSonicDebrisSprites,obj.sprite_data(a0)
 
 MetalSonicDebrisObject_0_Routine2:
 	bsr.w	loc_20CEA0
@@ -2036,331 +2036,44 @@ EggmanAnims:
 	include	"src/anims/r7/eggman.asm"
 	even
 
-Spr_20D0DE:
-	dc.w	@Spr_20D0DE_0-*
-	dc.w	@Spr_20D0DE_1-Spr_20D0DE
-
-@Spr_20D0DE_0:
-	dc.b	7
-	dc.b	$DC, $F, 0, 0, $D8
-	dc.b	$FC, $F, 0, $10, $D8
-	dc.b	$1C, 8, 0, $20, $E0
-	dc.b	$E4, $F, 0, $23, $F8
-	dc.b	4, $F, 0, $33, $F8
-	dc.b	$FC, 3, 0, $43, $18
-	dc.b	$1C, 0, 0, $47, $18
-
-@Spr_20D0DE_1:
-	dc.b	$A
-	dc.b	$F, 0, 0, $5E, $16
-	dc.b	$EB, 9, 0, $58, $E8
-	dc.b	$FC, 6, 0, $76, $E0
-	dc.b	$DC, $F, 0, 0, $D8
-	dc.b	$FC, $F, 0, $10, $D8
-	dc.b	$1C, 8, 0, $20, $E0
-	dc.b	$E4, $F, 0, $23, $F8
-	dc.b	4, $F, 0, $33, $F8
-	dc.b	$FC, 3, 0, $43, $18
-	dc.b	$1C, 0, 0, $47, $18
-	dc.b	0
+EggmanSprites:
+	include	"src/sprites/r7/eggman.asm"
+	even
 
 BossLaserAnims:
 	include	"src/anims/r7/boss_laser.asm"
 	even
 
-Spr_20D140:
-	dc.w	@Spr_20D140_0-*
-	dc.w	@Spr_20D140_1-Spr_20D140
-
-@Spr_20D140_0:
-	dc.b	1
-	dc.b	$F0, 7, 0, $48, $F8
-
-@Spr_20D140_1:
-	dc.b	1
-	dc.b	$F0, 7, 0, $50, $F8
+BossLaserSprites:
+	include	"src/sprites/r7/boss_laser.asm"
+	even
 
 BossExhaustAnims:
 	include	"src/anims/r7/boss_exhaust.asm"
 	even
 
-Spr_20D160:
-	dc.w	@Spr_20D160_0-*
-	dc.w	@Spr_20D160_1-Spr_20D160
-	dc.w	@Spr_20D160_2-Spr_20D160
-	dc.w	@Spr_20D160_3-Spr_20D160
-	dc.w	@Spr_20D160_4-Spr_20D160
-	dc.w	@Spr_20D160_5-Spr_20D160
-
-@Spr_20D160_0:
-	dc.b	1
-	dc.b	$F8, $D, 0, $5F, $F4
-
-@Spr_20D160_1:
-	dc.b	1
-	dc.b	$F8, 9, 0, $67, $FC
-
-@Spr_20D160_2:
-	dc.b	2
-	dc.b	$F8, 0, 0, $6D, $EC
-	dc.b	$F8, $D, 0, $6E, $F4
-	dc.b	0
-
-@Spr_20D160_3:
-	dc.b	1
-	dc.b	$F8, $D, $10, $5F, $F4
-
-@Spr_20D160_4:
-	dc.b	1
-	dc.b	$F8, 9, $10, $67, $FC
-
-@Spr_20D160_5:
-	dc.b	2
-	dc.b	0, 0, $10, $6D, $EC
-	dc.b	$F8, $D, $10, $6E, $F4
-	dc.b	0
+BossExhaustSprites:
+	include	"src/sprites/r7/boss_exhaust.asm"
+	even
 
 MetalSonicAnims:
 	include	"src/anims/r7/metal_sonic.asm"
 	even
 
-Spr_20D1FA:
-	dc.w	@Spr_20D1FA_0-*
-	dc.w	@Spr_20D1FA_1-Spr_20D1FA
-	dc.w	@Spr_20D1FA_2-Spr_20D1FA
-	dc.w	@Spr_20D1FA_3-Spr_20D1FA
-	dc.w	@Spr_20D1FA_4-Spr_20D1FA
-	dc.w	@Spr_20D1FA_5-Spr_20D1FA
-	dc.w	@Spr_20D1FA_6-Spr_20D1FA
-	dc.w	@Spr_20D1FA_7-Spr_20D1FA
-	dc.w	@Spr_20D1FA_8-Spr_20D1FA
-	dc.w	@Spr_20D1FA_9-Spr_20D1FA
-	dc.w	@Spr_20D1FA_A-Spr_20D1FA
-	dc.w	@Spr_20D1FA_B-Spr_20D1FA
-	dc.w	@Spr_20D1FA_C-Spr_20D1FA
-	dc.w	@Spr_20D1FA_D-Spr_20D1FA
-	dc.w	@Spr_20D1FA_E-Spr_20D1FA
-	dc.w	@Spr_20D1FA_F-Spr_20D1FA
-	dc.w	@Spr_20D1FA_10-Spr_20D1FA
-	dc.w	@Spr_20D1FA_11-Spr_20D1FA
-	dc.w	@Spr_20D1FA_12-Spr_20D1FA
-	dc.w	@Spr_20D1FA_13-Spr_20D1FA
-	dc.w	@Spr_20D1FA_14-Spr_20D1FA
-	dc.w	@Spr_20D1FA_15-Spr_20D1FA
-	dc.w	@Spr_20D1FA_16-Spr_20D1FA
-	dc.w	@Spr_20D1FA_17-Spr_20D1FA
+MetalSonicSprites:
+	include	"src/sprites/r7/metal_sonic.asm"
+	even
 
-@Spr_20D1FA_0:
-	dc.b	3
-	dc.b	$EC, $B, 0, 0, $F4
-	dc.b	$C, $C, 0, $C, $EC
-	dc.b	$C, 0, 0, $10, $C
+ElectricShieldSprites:
+	include	"src/sprites/r7/electric_shield.asm"
+	even
 
-@Spr_20D1FA_1:
-	dc.b	3
-	dc.b	$EC, $F, 0, $11, $EC
-	dc.b	$C, $C, 0, $C, $EC
-	dc.b	$C, 0, 0, $10, $C
+MetalSonicDebrisSprites:
+	include	"src/sprites/r7/metal_sonic_debris.asm"
+	even
 
-@Spr_20D1FA_2:
-	dc.b	3
-	dc.b	$EC, $F, 0, $21, $EC
-	dc.b	$C, $C, 0, $C, $EC
-	dc.b	$C, 0, 0, $10, $C
-
-@Spr_20D1FA_3:
-	dc.b	2
-	dc.b	$EC, $F, 0, $31, $EC
-	dc.b	$C, $C, 0, $41, $F4
-	dc.b	0
-
-@Spr_20D1FA_4:
-	dc.b	3
-	dc.b	$EC, $F, 0, $BF, $EC
-	dc.b	$C, $C, 0, $C, $EC
-	dc.b	$C, 0, 0, $10, $C
-
-@Spr_20D1FA_5:
-	dc.b	2
-	dc.b	$EC, $D, 0, $CF, $EC
-	dc.b	$FC, $E, 0, $D7, $F4
-	dc.b	0
-
-@Spr_20D1FA_6:
-	dc.b	2
-	dc.b	$F0, $F, 0, $E3, $F0
-	dc.b	$10, $C, 0, $F3, $F0
-	dc.b	0
-
-@Spr_20D1FA_7:
-	dc.b	3
-	dc.b	$F0, $F, 0, $E3, $F0
-	dc.b	$10, $C, 0, $F3, $F0
-	dc.b	4, 5, 1, $5F, $F0
-
-@Spr_20D1FA_8:
-	dc.b	3
-	dc.b	$F0, $F, 0, $E3, $F0
-	dc.b	$10, $C, 0, $F3, $F0
-	dc.b	4, 5, 1, $63, $F0
-
-@Spr_20D1FA_9:
-	dc.b	2
-	dc.b	$E8, $F, 0, $45, $EC
-	dc.b	8, 9, 0, $55, $F4
-	dc.b	0
-
-@Spr_20D1FA_A:
-	dc.b	3
-	dc.b	$E8, $F, 0, $45, $EC
-	dc.b	8, 9, 0, $55, $F4
-	dc.b	$FC, 5, 1, $63, $F0
-
-@Spr_20D1FA_B:
-	dc.b	3
-	dc.b	$E8, $F, 0, $45, $EC
-	dc.b	8, 9, 0, $55, $F4
-	dc.b	$F8, $A, 1, $67, $EC
-
-@Spr_20D1FA_C:
-	dc.b	2
-	dc.b	$E8, $F, 0, $5B, $EC
-	dc.b	8, 9, 0, $6B, $F4
-	dc.b	0
-
-@Spr_20D1FA_D:
-	dc.b	3
-	dc.b	$E8, $F, 0, $5B, $EC
-	dc.b	8, 9, 0, $6B, $F4
-	dc.b	$F8, $A, 1, $67, $EC
-
-@Spr_20D1FA_E:
-	dc.b	3
-	dc.b	$E8, $F, 0, $5B, $EC
-	dc.b	8, 9, 0, $6B, $F4
-	dc.b	$F4, $F, 1, $70, $E8
-
-@Spr_20D1FA_F:
-	dc.b	2
-	dc.b	$E8, $E, 0, $71, $EC
-	dc.b	0, $E, 0, $7D, $F4
-	dc.b	0
-
-@Spr_20D1FA_10:
-	dc.b	3
-	dc.b	$F8, 5, 1, $5F, $FC
-	dc.b	$E8, $E, 0, $71, $EC
-	dc.b	0, $E, 0, $7D, $F4
-
-@Spr_20D1FA_11:
-	dc.b	3
-	dc.b	$F8, 5, 1, $63, $FC
-	dc.b	$E8, $E, 0, $71, $EC
-	dc.b	0, $E, 0, $7D, $F4
-
-@Spr_20D1FA_12:
-	dc.b	2
-	dc.b	$FC, 5, 0, $F7, $E8
-	dc.b	$F4, $E, 0, $FB, $F8
-	dc.b	0
-
-@Spr_20D1FA_13:
-	dc.b	2
-	dc.b	$F4, $F, 1, $19, $E8
-	dc.b	$F4, 7, 1, $29, 8
-	dc.b	0
-
-@Spr_20D1FA_14:
-	dc.b	2
-	dc.b	$F4, $F, 1, $31, $E8
-	dc.b	$F4, 7, 1, $41, 8
-	dc.b	0
-
-@Spr_20D1FA_15:
-	dc.b	2
-	dc.b	$E8, $F, 1, $49, $F0
-	dc.b	8, 9, 1, $59, $F0
-	dc.b	0
-
-@Spr_20D1FA_16:
-	dc.b	2
-	dc.b	$EC, $E, 0, $89, $EC
-	dc.b	4, $D, 0, $95, $F4
-	dc.b	0
-
-@Spr_20D1FA_17:
-	dc.b	3
-	dc.b	$E8, $D, 0, $9D, $EC
-	dc.b	$E8, 1, 0, $A5, $C
-	dc.b	$F8, $F, 0, $A7, $F4
-
-Spr_20D37E:
-	dc.w	@Spr_20D37E_0-*
-	dc.w	@Spr_20D37E_1-Spr_20D37E
-
-@Spr_20D37E_0:
-	dc.b	4
-	dc.b	$E8, $A, 1, 7, $E8
-	dc.b	0, $A, 1, $10, $E8
-	dc.b	$E8, $A, $19, $10, 0
-	dc.b	0, $A, $19, 7, 0
-	dc.b	0
-
-@Spr_20D37E_1:
-	dc.b	4
-	dc.b	$E8, $A, $11, $10, $E8
-	dc.b	0, $A, $11, 7, $E8
-	dc.b	$E8, $A, 9, 7, 0
-	dc.b	0, $A, 9, $10, 0
-	dc.b	0
-
-Spr_20D3AE:
-	dc.w	@Spr_20D3AE_0-*
-	dc.w	@Spr_20D3AE_1-Spr_20D3AE
-	dc.w	@Spr_20D3AE_2-Spr_20D3AE
-	dc.w	@Spr_20D3AE_3-Spr_20D3AE
-	dc.w	@Spr_20D3AE_4-Spr_20D3AE
-
-@Spr_20D3AE_0:
-	dc.b	1
-	dc.b	$FC, 0, 0, $B7, $FC
-
-@Spr_20D3AE_1:
-	dc.b	1
-	dc.b	$FC, 0, 0, $B8, $FC
-
-@Spr_20D3AE_2:
-	dc.b	1
-	dc.b	$FC, 0, 0, $B9, $FC
-
-@Spr_20D3AE_3:
-	dc.b	1
-	dc.b	$FC, 0, 0, $BA, $FC
-
-@Spr_20D3AE_4:
-	dc.b	1
-	dc.b	$F8, 5, 0, $BB, $F8
-
-Spr_20D3D6:
-	dc.w	@Spr_20D3D6_0-*
-	dc.w	@Spr_20D3D6_1-Spr_20D3D6
-	dc.w	@Spr_20D3D6_2-Spr_20D3D6
-	dc.w	@Spr_20D3D6_3-Spr_20D3D6
-
-@Spr_20D3D6_0:
-	dc.b	1
-	dc.b	$FC, 0, 0, $11, $FC
-
-@Spr_20D3D6_1:
-	dc.b	1
-	dc.b	$FC, 0, 8, $11, $FC
-
-@Spr_20D3D6_2:
-	dc.b	1
-	dc.b	$FC, 0, $10, $11, $FC
-
-@Spr_20D3D6_3:
-	dc.b	1
-	dc.b	$FC, 0, $18, $11, $FC
+DebrisSprites:
+	include	"src/sprites/r7/debris.asm"
+	even
 
 ; ------------------------------------------------------------------------------

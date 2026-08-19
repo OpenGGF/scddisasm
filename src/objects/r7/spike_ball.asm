@@ -27,7 +27,7 @@ SpikeBallObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$386,obj.sprite_tile(a0)
-	move.l	#Spr_20E4F8,obj.sprite_data(a0)
+	move.l	#SpikeBallSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_2a(a0)
 	lea	word_20E536(pc),a1
 	moveq	#0,d0
@@ -83,14 +83,9 @@ locret_20E4F6:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20E4F8:
-	dc.w	@Spr_20E4F8_0-*
-
-@Spr_20E4F8_0:
-	dc.b	2
-	dc.b	$F0, $D, 0, 0, $F0
-	dc.b	0, $D, $10, 0, $F0
-	dc.b	0
+SpikeBallSprites:
+	include	"src/sprites/r7/spike_ball.asm"
+	even
 
 word_20E506:
 	dc.w	$400, 0, $18, $C

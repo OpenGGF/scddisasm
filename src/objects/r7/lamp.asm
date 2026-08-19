@@ -10,7 +10,7 @@ LampObject:
 ; ------------------------------------------------------------------------------
 
 off_20D40A:
-	dc.w	LampObject_0_Routine0-*
+	dc.w	LampObject_0_Routine0-off_20D40A
 	dc.w	LampObject_0_Routine2-off_20D40A
 	dc.w	LampObject_0_Routine4-off_20D40A
 
@@ -20,7 +20,7 @@ LampObject_0_Routine0:
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#0,obj.sprite_layer(a0)
 	move.w	#$451C,obj.sprite_tile(a0)
-	move.l	#Spr_20D56E,obj.sprite_data(a0)
+	move.l	#LampSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20D450
@@ -110,8 +110,8 @@ loc_20D510:
 
 LampObject_0_Routine4:
 	movea.w	obj.var_2e(a0),a1
-	move.w	$30(a1),obj.x(a0)
-	move.w	$32(a1),obj.y(a0)
+	move.w	obj.var_30(a1),obj.x(a0)
+	move.w	obj.var_32(a1),obj.y(a0)
 	addi.w	#$7C,obj.y(a0)
 	rts
 
@@ -134,24 +134,8 @@ locret_20D56C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D56E:
-	dc.w	@Spr_20D56E_0-*
-	dc.w	@Spr_20D56E_1-Spr_20D56E
-
-@Spr_20D56E_0:
-	dc.b	2
-	dc.b	$F4, $A, $80, 0, $E8
-	dc.b	$F4, $A, $88, 0, 0
-	dc.b	0
-
-@Spr_20D56E_1:
-	dc.b	7
-	dc.b	$90, 7, $80, 9, $F8
-	dc.b	$B0, 7, $80, 9, $F8
-	dc.b	$D0, 7, $80, 9, $F8
-	dc.b	$F0, 7, $80, 9, $F8
-	dc.b	$10, 7, $80, 9, $F8
-	dc.b	$30, 7, $80, 9, $F8
-	dc.b	$50, 7, $80, 9, $F8
+LampSprites:
+	include	"src/sprites/r7/lamp.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -7,7 +7,7 @@ BossBlockObject:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$450C,obj.sprite_tile(a0)
-	move.l	#Spr_20ECA4,obj.sprite_data(a0)
+	move.l	#BossBlockSprites,obj.sprite_data(a0)
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	move.b	d0,obj.sprite_frame(a0)
@@ -141,46 +141,8 @@ loc_20EC9C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20ECA4:
-	dc.w	@Spr_20ECA4_0-*
-	dc.w	@Spr_20ECA4_1-Spr_20ECA4
-	dc.w	@Spr_20ECA4_2-Spr_20ECA4
-	dc.w	@Spr_20ECA4_3-Spr_20ECA4
-	dc.w	@Spr_20ECA4_4-Spr_20ECA4
-	dc.w	@Spr_20ECA4_5-Spr_20ECA4
-
-@Spr_20ECA4_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@Spr_20ECA4_1:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-
-@Spr_20ECA4_2:
-	dc.b	3
-	dc.b	$F0, $F, 0, 0, $D0
-	dc.b	$F0, $F, 0, 0, $F0
-	dc.b	$F0, $F, 0, 0, $10
-
-@Spr_20ECA4_3:
-	dc.b	4
-	dc.b	$F0, $F, 0, 0, $C0
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
-	dc.b	$F0, $F, 0, 0, $20
-
-@Spr_20ECA4_4:
-	dc.b	2
-	dc.b	$E0, $F, 0, 0, $F0
-	dc.b	0, $F, 0, 0, $F0
-
-@Spr_20ECA4_5:
-	dc.b	3
-	dc.b	$D0, $F, 0, 0, $F0
-	dc.b	$F0, $F, 0, 0, $F0
-	dc.b	$10, $F, 0, 0, $F0
-	dc.b	0
+BossBlockSprites:
+	include	"src/sprites/r7/boss_block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ SpikesObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$4FC,obj.sprite_tile(a0)
-	move.l	#Spr_20EEF4,obj.sprite_data(a0)
+	move.l	#SpikesSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
@@ -121,7 +121,7 @@ loc_20EE26:
 	move.b	#4,obj.width_2(a1)
 	move.b	#$10,obj.height(a1)
 	move.w	#$4FC,obj.sprite_tile(a1)
-	move.l	#Spr_20EEF4,obj.sprite_data(a1)
+	move.l	#SpikesSprites,obj.sprite_data(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	add.w	d4,obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -181,16 +181,8 @@ loc_20EEE8:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20EEF4:
-	dc.w	@Spr_20EEF4_0-*
-	dc.w	@Spr_20EEF4_1-Spr_20EEF4
-
-@Spr_20EEF4_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@Spr_20EEF4_1:
-	dc.b	1
-	dc.b	$F0, 3, 0, 0, $FC
+SpikesSprites:
+	include	"src/sprites/r7/spikes.asm"
+	even
 
 ; ------------------------------------------------------------------------------

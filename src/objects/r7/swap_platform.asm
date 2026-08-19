@@ -8,7 +8,7 @@ SwapPlatformObject:
 	move.b	#$20,obj.width(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$11,obj.height(a0)
-	move.l	#Spr_20F650,obj.sprite_data(a0)
+	move.l	#SwapPlatformSprites,obj.sprite_data(a0)
 
 loc_20F610:
 	move.b	debug_cheat,obj.sprite_frame(a0)
@@ -34,16 +34,8 @@ loc_20F644:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F650:
-	dc.w	@Spr_20F650_0-*
-	dc.w	@Spr_20F650_1-Spr_20F650
-
-@Spr_20F650_0:
-	dc.b	0
-
-@Spr_20F650_1:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E0
-	dc.b	$F0, $F, 0, 0, 0
+SwapPlatformSprites:
+	include	"src/sprites/r7/swap_platform.asm"
+	even
 
 ; ------------------------------------------------------------------------------

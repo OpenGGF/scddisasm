@@ -91,8 +91,8 @@ AmyRoseGfx:
 	incbin	"src/gfx/r7/amy_rose.nem"
 	even
 
-Spr_21F5B0:
-	include	"src/sprites/r7/Spr_21F5B0.asm"
+AmyRoseSprites:
+	include	"src/sprites/r7/amy_rose.asm"
 	even
 
 AmyRoseAnims:

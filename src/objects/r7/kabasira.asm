@@ -108,7 +108,7 @@ sub_20D532:
 	move.b	#$C,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
 	move.w	#$23C6,obj.sprite_tile(a1)
-	move.l	#Spr_20DBA4,obj.sprite_data(a1)
+	move.l	#KabasiraSprites,obj.sprite_data(a1)
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -240,88 +240,8 @@ KabasiraAnims:
 	include	"src/anims/r7/kabasira.asm"
 	even
 
-Spr_20DBA4:
-	dc.w	@Spr_20DBA4_0-*
-	dc.w	@Spr_20DBA4_1-Spr_20DBA4
-	dc.w	@Spr_20DBA4_2-Spr_20DBA4
-	dc.w	@Spr_20DBA4_3-Spr_20DBA4
-	dc.w	@Spr_20DBA4_4-Spr_20DBA4
-	dc.w	@Spr_20DBA4_5-Spr_20DBA4
-	dc.w	@Spr_20DBA4_6-Spr_20DBA4
-	dc.w	@Spr_20DBA4_7-Spr_20DBA4
-	dc.w	@Spr_20DBA4_8-Spr_20DBA4
-	dc.w	@Spr_20DBA4_9-Spr_20DBA4
-	dc.w	@Spr_20DBA4_A-Spr_20DBA4
-	dc.w	@Spr_20DBA4_B-Spr_20DBA4
-	dc.w	@Spr_20DBA4_C-Spr_20DBA4
-	dc.w	@Spr_20DBA4_D-Spr_20DBA4
-
-@Spr_20DBA4_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$FA, 4, 0, $18, $F8
-
-@Spr_20DBA4_1:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F8
-	dc.b	$FA, 4, $10, $18, $F8
-
-@Spr_20DBA4_2:
-	dc.b	2
-	dc.b	$F8, 5, 0, 4, $F8
-	dc.b	$FA, 8, 0, $1C, $F4
-
-@Spr_20DBA4_3:
-	dc.b	2
-	dc.b	$F8, 5, 0, 4, $F8
-	dc.b	$FA, 8, 0, $1F, $F4
-
-@Spr_20DBA4_4:
-	dc.b	2
-	dc.b	$FB, 0, 0, $22, $F6
-	dc.b	$F8, 5, 0, 8, $F8
-
-@Spr_20DBA4_5:
-	dc.b	2
-	dc.b	$FB, 0, $10, $22, $F6
-	dc.b	$F8, 5, 0, 8, $F8
-
-@Spr_20DBA4_6:
-	dc.b	2
-	dc.b	$FA, 8, 0, $1C, $F4
-	dc.b	$F8, 5, 0, $C, $F8
-
-@Spr_20DBA4_7:
-	dc.b	2
-	dc.b	$FA, 8, 0, $1F, $F4
-	dc.b	$F8, 5, 0, $C, $F8
-
-@Spr_20DBA4_8:
-	dc.b	2
-	dc.b	$FA, 4, 0, $18, $F8
-	dc.b	$F8, 5, 0, $10, $F8
-
-@Spr_20DBA4_9:
-	dc.b	2
-	dc.b	$FA, 4, $10, $18, $F8
-	dc.b	$F8, 5, 0, $10, $F8
-
-@Spr_20DBA4_A:
-	dc.b	2
-	dc.b	$FB, 0, 0, $1A, $FF
-	dc.b	$F8, 5, 0, $14, $F8
-
-@Spr_20DBA4_B:
-	dc.b	2
-	dc.b	$FB, 0, 0, $1B, $FF
-	dc.b	$F8, 5, 0, $14, $F8
-
-@Spr_20DBA4_C:
-	dc.b	0
-
-@Spr_20DBA4_D:
-	dc.b	2
-	dc.b	$FB, 0, $80, $22, $F6
-	dc.b	$F8, 5, $80, 8, $F8
+KabasiraSprites:
+	include	"src/sprites/r7/kabasira.asm"
+	even
 
 ; ------------------------------------------------------------------------------

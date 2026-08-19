@@ -185,7 +185,7 @@ HotaruObject_0_Routine0:
 	move.w	obj.x(a0),obj.var_2c(a0)
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20DE60
-	lea	Unk20E282Sprites(pc),a1
+	lea	HotaruSprites1(pc),a1
 	lea	HotaruAnims1(pc),a2
 	move.l	#-$10000,d0
 	bra.s	loc_20DE6E
@@ -193,7 +193,7 @@ HotaruObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 loc_20DE60:
-	lea	Unk20E2CESprites(pc),a1
+	lea	HotaruSprites2(pc),a1
 	lea	HotaruAnims2(pc),a2
 	move.l	#-$8000,d0
 
@@ -538,7 +538,7 @@ HotaruObject_1_Routine0:
 	move.b	#$C,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.b	#$B4,obj.collide_type(a0)
-	move.l	#Spr_20E322,obj.sprite_data(a0)
+	move.l	#HotaruSparkSprites,obj.sprite_data(a0)
 
 HotaruObject_1_Routine2:
 	lea	HotaruSparkAnims(pc),a1
@@ -581,96 +581,21 @@ HotaruAnims2:
 	include	"src/anims/r7/hotaru_2.asm"
 	even
 
-Unk20E282Sprites:
-	dc.w	Unk20E282Sprite_0-*
-	dc.w	Unk20E282Sprite_1-Unk20E282Sprites
-	dc.w	Unk20E282Sprite_2-Unk20E282Sprites
-	dc.w	Unk20E282Sprite_3-Unk20E282Sprites
-	dc.w	Unk20E282Sprite_4-Unk20E282Sprites
+HotaruSprites1:
+	include	"src/sprites/r7/hotaru_1.asm"
+	even
 
-Unk20E282Sprite_0:
-	dc.b	2
-	dc.b	$FC, 0, $20, $1E, $EC
-	dc.b	$F4, $E, $20, $1F, $F4
-
-Unk20E282Sprite_1:
-	dc.b	2
-	dc.b	$EC, 9, $20, 0, $F4
-	dc.b	$FC, $A, $20, $C, $F4
-
-Unk20E282Sprite_2:
-	dc.b	2
-	dc.b	$EC, 9, $20, 6, $F4
-	dc.b	$FC, $A, $20, $C, $F4
-
-Unk20E282Sprite_3:
-	dc.b	3
-	dc.b	$EC, 9, $20, 0, $F4
-	dc.b	$FC, $A, $20, $C, $F4
-	dc.b	$F9, $A, $20, $15, $F5
-
-Unk20E282Sprite_4:
-	dc.b	3
-	dc.b	$EC, 9, $20, 6, $F4
-	dc.b	$FC, $A, $20, $C, $F4
-	dc.b	$F9, $A, $20, $15, $F5
-	dc.b	0
-
-Unk20E2CESprites:
-	dc.w	Unk20E2CESprite_0-*
-	dc.w	Unk20E2CESprite_1-Unk20E2CESprites
-	dc.w	Unk20E2CESprite_2-Unk20E2CESprites
-	dc.w	Unk20E2CESprite_3-Unk20E2CESprites
-	dc.w	Unk20E2CESprite_4-Unk20E2CESprites
-
-Unk20E2CESprite_0:
-	dc.b	2
-	dc.b	$FC, 0, $20, $1E, $EC
-	dc.b	$F4, $E, $20, $46, $F4
-
-Unk20E2CESprite_1:
-	dc.b	2
-	dc.b	$EC, 9, $20, 0, $F4
-	dc.b	$FC, $A, $20, $3D, $F4
-
-Unk20E2CESprite_2:
-	dc.b	2
-	dc.b	$EC, 9, $20, 6, $F4
-	dc.b	$FC, $A, $20, $3D, $F4
-
-Unk20E2CESprite_3:
-	dc.b	3
-	dc.b	$EC, 9, $20, 0, $F4
-	dc.b	$FC, $A, $20, $3D, $F4
-	dc.b	$F9, $A, $20, $15, $F5
-
-Unk20E2CESprite_4:
-	dc.b	3
-	dc.b	$EC, 9, $20, 6, $F4
-	dc.b	$FC, $A, $20, $3D, $F4
-	dc.b	$F9, $A, $20, $15, $F5
-	dc.b	0
+HotaruSprites2:
+	include	"src/sprites/r7/hotaru_2.asm"
+	even
 
 HotaruSparkAnims:
 	include	"src/anims/r7/hotaru_spark.asm"
 	even
 
-Spr_20E322:
-	dc.w	@Spr_20E322_0-*
-	dc.w	@Spr_20E322_1-Spr_20E322
-	dc.w	@Spr_20E322_2-Spr_20E322
-
-@Spr_20E322_0:
-	dc.b	1
-	dc.b	$F4, $A, 0, $2B, $F4
-
-@Spr_20E322_1:
-	dc.b	1
-	dc.b	$F4, $A, 0, $34, $F4
-
-@Spr_20E322_2:
-	dc.b	1
-	dc.b	$F4, $A, 8, $34, $F4
+HotaruSparkSprites:
+	include	"src/sprites/r7/hotaru_spark.asm"
+	even
 
 word_20E33A:
 	dc.w	$24, $3C

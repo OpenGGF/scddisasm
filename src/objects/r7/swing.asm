@@ -63,7 +63,7 @@ SwingObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20D08E,obj.sprite_data(a0)
+	move.l	#SwingSprites,obj.sprite_data(a0)
 	move.w	#$366,obj.sprite_tile(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
@@ -176,23 +176,8 @@ loc_20D05E:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D08E:
-	dc.w	@Spr_20D08E_0-*
-	dc.w	@Spr_20D08E_1-Spr_20D08E
-	dc.w	@Spr_20D08E_2-Spr_20D08E
-
-@Spr_20D08E_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 8, $F8
-
-@Spr_20D08E_1:
-	dc.b	2
-	dc.b	$F8, $D, 0, 0, $E0
-	dc.b	$F8, $D, 8, 0, 0
-	dc.b	0
-
-@Spr_20D08E_2:
-	dc.b	1
-	dc.b	$F8, 5, 0, $C, $F8
+SwingSprites:
+	include	"src/sprites/r7/swing.asm"
+	even
 
 ; ------------------------------------------------------------------------------

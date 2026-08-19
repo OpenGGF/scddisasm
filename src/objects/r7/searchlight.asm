@@ -19,7 +19,7 @@ off_20F678:
 SearchlightObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#Unk20F86CSprites,obj.sprite_data(a0)
+	move.l	#SearchlightSprites,obj.sprite_data(a0)
 	move.b	#$7F,obj.width_2(a0)
 	move.b	#$7F,obj.height(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -215,52 +215,8 @@ loc_20F85A:
 
 ; ------------------------------------------------------------------------------
 
-Unk20F86CSprites:
-	dc.w	Unk20F86CSprite_0-*
-	dc.w	Unk20F86CSprite_1-Unk20F86CSprites
-	dc.w	Unk20F86CSprite_2-Unk20F86CSprites
-	dc.w	Unk20F86CSprite_3-Unk20F86CSprites
-
-Unk20F86CSprite_0:
-	dc.b	7
-	dc.b	$90, $B, 0, 0, $F4
-	dc.b	$B0, $B, 0, 0, $F4
-	dc.b	$D0, $B, 0, 0, $F4
-	dc.b	$F0, $B, 0, 0, $F4
-	dc.b	$10, $B, 0, 0, $F4
-	dc.b	$30, $B, 0, 0, $F4
-	dc.b	$50, $B, 0, 0, $F4
-
-Unk20F86CSprite_1:
-	dc.b	7
-	dc.b	$90, $F, 0, $C, 8
-	dc.b	$B0, $F, 0, $C, 0
-	dc.b	$D0, $F, 0, $C, $F8
-	dc.b	$F0, $F, 0, $C, $F0
-	dc.b	$10, $F, 0, $C, $E8
-	dc.b	$30, $F, 0, $C, $E0
-	dc.b	$50, $F, 0, $C, $D8
-
-Unk20F86CSprite_2:
-	dc.b	$E
-	dc.b	$90, $D, 0, $1C, $28
-	dc.b	$A0, $D, 0, $1C, $20
-	dc.b	$B0, $D, 0, $1C, $18
-	dc.b	$C0, $D, 0, $1C, $10
-	dc.b	$D0, $D, 0, $1C, 8
-	dc.b	$E0, $D, 0, $1C, 0
-	dc.b	$F0, $D, 0, $1C, $F8
-	dc.b	0, $D, 0, $1C, $F0
-	dc.b	$10, $D, 0, $1C, $E8
-	dc.b	$20, $D, 0, $1C, $E0
-	dc.b	$30, $D, 0, $1C, $D8
-	dc.b	$40, $D, 0, $1C, $D0
-	dc.b	$50, $D, 0, $1C, $C8
-	dc.b	$60, $D, 0, $1C, $C0
-	dc.b	0
-
-Unk20F86CSprite_3:
-	dc.b	0
-	dc.b	0
+SearchlightSprites:
+	include	"src/sprites/r7/searchlight.asm"
+	even
 
 ; ------------------------------------------------------------------------------

@@ -19,7 +19,7 @@ off_20B7D4:
 MeshObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$42F8,obj.sprite_tile(a0)
-	move.l	#Spr_20B806,obj.sprite_data(a0)
+	move.l	#MeshSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 
 MeshObject_0_Routine2:
@@ -33,15 +33,8 @@ locret_20B804:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20B806:
-	dc.w	@Spr_20B806_0-*
-
-@Spr_20B806_0:
-	dc.b	4
-	dc.b	$F0, 5, 0, 0, $F0
-	dc.b	$F0, 5, 0, 0, 0
-	dc.b	0, 5, 0, 0, $F0
-	dc.b	0, 5, 0, 0, 0
-	dc.b	0
+MeshSprites:
+	include	"src/sprites/r7/mesh.asm"
+	even
 	
 ; ------------------------------------------------------------------------------

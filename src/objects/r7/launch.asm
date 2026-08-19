@@ -73,7 +73,7 @@ SpringLauncherObject_0_Routine0:
 	move.w	obj.x(a0),obj.var_34(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$300,obj.sprite_tile(a0)
-	move.l	#Spr_20C41E,obj.sprite_data(a0)
+	move.l	#LaunchSprites,obj.sprite_data(a0)
 	move.b	#8,obj.width(a0)
 	move.b	#8,obj.height(a0)
 	move.b	#1,obj.sprite_frame(a0)
@@ -123,7 +123,7 @@ loc_20BAFE:
 
 loc_20BB42:
 	move.w	#$300,obj.sprite_tile(a1)
-	move.l	#Spr_20C41E,obj.sprite_data(a1)
+	move.l	#LaunchSprites,obj.sprite_data(a1)
 	move.b	#$20,obj.width(a1)
 	move.b	#$20,obj.height(a1)
 	cmpi.w	#1,d6
@@ -949,7 +949,7 @@ BoosterObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$300,obj.sprite_tile(a0)
-	move.l	#Spr_20C41E,obj.sprite_data(a0)
+	move.l	#LaunchSprites,obj.sprite_data(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.b	#2,obj.sprite_frame(a0)
@@ -1085,41 +1085,8 @@ LaunchAnims:
 	include	"src/anims/r7/launch.asm"
 	even
 
-Spr_20C41E:
-	dc.w	@Spr_20C41E_0-*
-	dc.w	@Spr_20C41E_1-Spr_20C41E
-	dc.w	@Spr_20C41E_2-Spr_20C41E
-	dc.w	@Spr_20C41E_3-Spr_20C41E
-	dc.w	@Spr_20C41E_4-Spr_20C41E
-
-@Spr_20C41E_0:
-	dc.b	1
-	dc.b	$FC, 4, 0, 0, $F8
-
-@Spr_20C41E_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 2, $F8
-
-@Spr_20C41E_2:
-	dc.b	2
-	dc.b	$F4, $E, 0, 6, $E0
-	dc.b	$F4, $E, 8, 6, 0
-	dc.b	0
-
-@Spr_20C41E_3:
-	dc.b	2
-	dc.b	$E0, $B, 0, $12, $F4
-	dc.b	0, $B, $10, $12, $F4
-	dc.b	0
-
-@Spr_20C41E_4:
-	dc.b	7
-	dc.b	$E4, $A, 0, $1E, 4
-	dc.b	$EC, 0, 0, $27, $FC
-	dc.b	$F4, 5, 0, $28, $F4
-	dc.b	$FC, 0, 0, $2C, $EC
-	dc.b	$FC, 0, 0, $2D, 4
-	dc.b	4, 0, 0, $2E, $FC
-	dc.b	4, $A, 0, $2F, $E4
+LaunchSprites:
+	include	"src/sprites/r7/launch.asm"
+	even
 
 ; ------------------------------------------------------------------------------

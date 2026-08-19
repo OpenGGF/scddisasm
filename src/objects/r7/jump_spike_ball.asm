@@ -9,7 +9,7 @@ JumpSpikeBallObject:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	move.w	#$38E,obj.sprite_tile(a0)
-	move.l	#Spr_20E6C4,obj.sprite_data(a0)
+	move.l	#SpikeLaunchSprites,obj.sprite_data(a0)
 	move.b	obj.subtype(a0),obj.sprite_frame(a0)
 	move.w	#$96,obj.var_2a(a0)
 	move.b	#$10,obj.width(a0)
@@ -60,7 +60,7 @@ JumpSpikeBallObject_0_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$386,obj.sprite_tile(a0)
-	move.l	#Spr_20E6F8,obj.sprite_data(a0)
+	move.l	#JumpSpikeBallSprites,obj.sprite_data(a0)
 	move.w	#$20,obj.var_2e(a0)
 	move.l	#$8000,d0
 	btst	#0,obj.subtype(a0)
@@ -135,39 +135,12 @@ locret_20E6C2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20E6C4:
-	dc.w	@Spr_20E6C4_0-*
-	dc.w	@Spr_20E6C4_1-Spr_20E6C4
-	dc.w	@Spr_20E6C4_2-Spr_20E6C4
-	dc.w	@Spr_20E6C4_3-Spr_20E6C4
+SpikeLaunchSprites:
+	include	"src/sprites/r7/spike_launch.asm"
+	even
 
-@Spr_20E6C4_0:
-	dc.b	2
-	dc.b	$F0, 5, $80, 0, $F0
-	dc.b	$F0, 5, $88, 0, 0
-
-@Spr_20E6C4_1:
-	dc.b	2
-	dc.b	0, 5, $90, 0, $F0
-	dc.b	0, 5, $98, 0, 0
-
-@Spr_20E6C4_2:
-	dc.b	2
-	dc.b	$F0, 5, $80, 4, $F0
-	dc.b	0, 5, $90, 4, $F0
-
-@Spr_20E6C4_3:
-	dc.b	2
-	dc.b	$F0, 5, $88, 4, 0
-	dc.b	0, 5, $98, 4, 0
-
-Spr_20E6F8:
-	dc.w	@Spr_20E6F8_0-*
-
-@Spr_20E6F8_0:
-	dc.b	2
-	dc.b	$F0, $D, 0, 0, $F0
-	dc.b	0, $D, $10, 0, $F0
-	dc.b	0
+JumpSpikeBallSprites:
+	include	"src/sprites/r7/jump_spike_ball.asm"
+	even
 
 ; ------------------------------------------------------------------------------

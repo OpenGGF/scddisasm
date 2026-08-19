@@ -2,34 +2,34 @@
 
 DebugObjects:
 	debugStart
-	debugObject $1E, 4, Spr_20C41E, $300, 0, 0, 0, 1
-	debugObject $1E, 4, Spr_20C41E, $300, 1, 0, 0, 1
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 0, 0, 8, 0
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 1, 0, 8, 0
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 2, 0, 8, 0
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 3, 0, 8, 0
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 4, 0, 8, 0
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 5, 0, 8, 1
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 6, 0, 8, 2
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 7, 0, 8, 0
-	debugObject $38, 1, Unk20F86CSprites, $24AF, 8, 0, 8, 0
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 0, 0, 4, 0
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 1, 0, 4, 0
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 2, 0, 4, 0
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 3, 0, 4, 0
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 4, 0, 4, 0
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 5, 0, 4, 1
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 6, 0, 4, 2
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 7, 0, 4, 0
-	debugObject $38, 1, Unk20F86CSprites, $44AF, 8, 0, 4, 0
-	debugObject $20, 1, Spr_20D08E, $366, $16, 0, 0, 0
-	debugObject $20, 1, Spr_20D08E, $2366, $26, 0, 0, 0
-	debugObject $20, 1, Spr_20D08E, $4366, $36, 0, 0, 0
-	debugObject $20, 1, Spr_20D08E, $6366, $46, 0, 0, 0
-	debugObject $20, 1, Spr_20D08E, $366, $56, 0, 0, 0
-	debugObject $20, 1, Spr_20D08E, $2366, $66, 0, 0, 0
-	debugObject $20, 1, Spr_20D08E, $4366, $76, 0, 0, 0
-	debugObject $35, 1, Spr_20F650, 0, 0, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 0, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 1, 0, 0, 1
+	debugObject $38, 1, SearchlightSprites, $24AF, 0, 0, 8, 0
+	debugObject $38, 1, SearchlightSprites, $24AF, 1, 0, 8, 0
+	debugObject $38, 1, SearchlightSprites, $24AF, 2, 0, 8, 0
+	debugObject $38, 1, SearchlightSprites, $24AF, 3, 0, 8, 0
+	debugObject $38, 1, SearchlightSprites, $24AF, 4, 0, 8, 0
+	debugObject $38, 1, SearchlightSprites, $24AF, 5, 0, 8, 1
+	debugObject $38, 1, SearchlightSprites, $24AF, 6, 0, 8, 2
+	debugObject $38, 1, SearchlightSprites, $24AF, 7, 0, 8, 0
+	debugObject $38, 1, SearchlightSprites, $24AF, 8, 0, 8, 0
+	debugObject $38, 1, SearchlightSprites, $44AF, 0, 0, 4, 0
+	debugObject $38, 1, SearchlightSprites, $44AF, 1, 0, 4, 0
+	debugObject $38, 1, SearchlightSprites, $44AF, 2, 0, 4, 0
+	debugObject $38, 1, SearchlightSprites, $44AF, 3, 0, 4, 0
+	debugObject $38, 1, SearchlightSprites, $44AF, 4, 0, 4, 0
+	debugObject $38, 1, SearchlightSprites, $44AF, 5, 0, 4, 1
+	debugObject $38, 1, SearchlightSprites, $44AF, 6, 0, 4, 2
+	debugObject $38, 1, SearchlightSprites, $44AF, 7, 0, 4, 0
+	debugObject $38, 1, SearchlightSprites, $44AF, 8, 0, 4, 0
+	debugObject $20, 1, SwingSprites, $366, $16, 0, 0, 0
+	debugObject $20, 1, SwingSprites, $2366, $26, 0, 0, 0
+	debugObject $20, 1, SwingSprites, $4366, $36, 0, 0, 0
+	debugObject $20, 1, SwingSprites, $6366, $46, 0, 0, 0
+	debugObject $20, 1, SwingSprites, $366, $56, 0, 0, 0
+	debugObject $20, 1, SwingSprites, $2366, $66, 0, 0, 0
+	debugObject $20, 1, SwingSprites, $4366, $76, 0, 0, 0
+	debugObject $35, 1, SwapPlatformSprites, 0, 0, 0, 0, 1
 	debugObject $2B, 3, PowerupSprites, $544, 0, 0, 0, 1
 	debugObject $2B, 3, PowerupSprites, $544, 1, 0, 0, 2
 	debugObject $2B, 3, PowerupSprites, $544, 2, 0, 0, 3
@@ -37,26 +37,26 @@ DebugObjects:
 	debugObject $2B, 3, PowerupSprites, $544, 4, 0, 0, 5
 	debugObject $29, 1, RobotTransportSprites, $3AE, 0, 0, 0, 0
 	debugObject $27, 3, HologramSprites, $4AF, 0, 0, 0, 0
-	debugObject $28, 3, Spr_20EA18, $396, 0, 0, 0, 0
-	debugObject $28, 3, Spr_20EA2C, $396, 1, 0, 0, 3
-	debugObject $21, 1, Unk20D23ESprites, $23E9, 0, 0, 0, 0
-	debugObject $21, 1, Unk20D332Sprites, $23E9, 1, 0, 0, 0
-	debugObject $23, 1, Unk20E282Sprites, $845D, 0, 0, 0, 0
-	debugObject $23, 1, Unk20E2CESprites, $845D, 1, 0, 0, 0
-	debugObject $22, 1, Spr_20DBA4, $A3C6, 0, 0, 0, 0
-	debugObject $22, 1, Spr_20DBA4, $A3C6, 1, 0, 0, 0
-	debugObject $26, 1, Spr_20E6C4, $38E, 0, 0, 0, 0
-	debugObject $26, 1, Spr_20E6C4, $38E, 1, 0, 0, 1
-	debugObject $26, 1, Spr_20E6C4, $38E, 2, 0, 0, 2
-	debugObject $26, 1, Spr_20E6C4, $38E, 3, 0, 0, 3
-	debugObject $25, 1, Spr_20E4F8, $8386, 0, 0, 0, 0
-	debugObject $25, 1, Spr_20E4F8, $8386, 1, 0, 0, 0
-	debugObject $24, 1, Spr_20E3B0, $C376, 0, 0, 0, 0
-	debugObject $24, 1, Spr_20E3B0, $C376, 1, 0, 0, 1
-	debugObject $24, 1, Spr_20E3B0, $C376, 2, 0, 0, 2
-	debugObject $24, 1, Spr_20E3B0, $C376, 3, 0, 0, 3
-	debugObject $24, 1, Spr_20E3B0, $C376, 4, 0, 0, 4
-	debugObject $24, 1, Spr_20E3B0, $C376, 5, 0, 0, 5
+	debugObject $28, 3, AnimalSprites1, $396, 0, 0, 0, 0
+	debugObject $28, 3, AnimalSprites2, $396, 1, 0, 0, 3
+	debugObject $21, 1, KanabunSprites1, $23E9, 0, 0, 0, 0
+	debugObject $21, 1, KanabunSprites2, $23E9, 1, 0, 0, 0
+	debugObject $23, 1, HotaruSprites1, $845D, 0, 0, 0, 0
+	debugObject $23, 1, HotaruSprites2, $845D, 1, 0, 0, 0
+	debugObject $22, 1, KabasiraSprites, $A3C6, 0, 0, 0, 0
+	debugObject $22, 1, KabasiraSprites, $A3C6, 1, 0, 0, 0
+	debugObject $26, 1, SpikeLaunchSprites, $38E, 0, 0, 0, 0
+	debugObject $26, 1, SpikeLaunchSprites, $38E, 1, 0, 0, 1
+	debugObject $26, 1, SpikeLaunchSprites, $38E, 2, 0, 0, 2
+	debugObject $26, 1, SpikeLaunchSprites, $38E, 3, 0, 0, 3
+	debugObject $25, 1, SpikeBallSprites, $8386, 0, 0, 0, 0
+	debugObject $25, 1, SpikeBallSprites, $8386, 1, 0, 0, 0
+	debugObject $24, 1, BlockSprites, $C376, 0, 0, 0, 0
+	debugObject $24, 1, BlockSprites, $C376, 1, 0, 0, 1
+	debugObject $24, 1, BlockSprites, $C376, 2, 0, 0, 2
+	debugObject $24, 1, BlockSprites, $C376, 3, 0, 0, 3
+	debugObject $24, 1, BlockSprites, $C376, 4, 0, 0, 4
+	debugObject $24, 1, BlockSprites, $C376, 5, 0, 0, 5
 	debugObject $A, 1, SpringVSprites, $520, 0, 0, 0, 0
 	debugObject $A, 1, SpringVSprites, $520, 0, 2, 0, 0
 	debugObject $A, 1, SpringHSprites, $520, 4, 0, 0, 0
@@ -86,15 +86,15 @@ DebugObjects:
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 8, 0, 0, $A
 	debugObject $19, 4, MonitorTimeSprites, $5A8, 9, 0, 0, $C
 	debugObject $1F, 4, FlowerSprites, $6D6, 0, 0, 0, 0
-	debugObject $1D, 4, Spr_20B956, 0, 0, 0, 0, 0
-	debugObject $1E, 4, Spr_20C41E, $300, 0, 0, 0, 1
-	debugObject $1E, 4, Spr_20C41E, $300, 1, 0, 0, 1
-	debugObject $1E, 4, Spr_20C41E, $300, 2, 0, 0, 1
-	debugObject $1E, 4, Spr_20C41E, $300, 3, 0, 0, 1
-	debugObject $1E, 4, Spr_20C41E, $300, 4, 0, 0, 1
-	debugObject $1E, 4, Spr_20C41E, $300, 5, 0, 0, 1
-	debugObject $1E, 4, Spr_20C41E, $300, 6, 0, 0, 1
-	debugObject 8, 4, Spr_20C41E, $300, 0, 2, 0, 2
-	debugObject 4, 4, Spr_20B806, $2F8, 0, 0, 0, 0
+	debugObject $1D, 4, PathSwapSprites, 0, 0, 0, 0, 0
+	debugObject $1E, 4, LaunchSprites, $300, 0, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 1, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 2, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 3, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 4, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 5, 0, 0, 1
+	debugObject $1E, 4, LaunchSprites, $300, 6, 0, 0, 1
+	debugObject 8, 4, LaunchSprites, $300, 0, 2, 0, 2
+	debugObject 4, 4, MeshSprites, $2F8, 0, 0, 0, 0
 
 ; ------------------------------------------------------------------------------
