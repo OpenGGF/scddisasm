@@ -50,6 +50,7 @@
 	include	"Level/Collision Chaos/Objects/Block/Main.asm"
 	include	"Level/Collision Chaos/Objects/Metal Platform/Main.asm"
 	include	"Level/Collision Chaos/Objects/KamaKama/Main.asm"
+	include	"Level/Collision Chaos/Objects/Fire Shooter/Main.asm"
 	include	"Level/Collision Chaos/Objects/Glass Shatter/Main.asm"
 	include	"Level/Collision Chaos/Objects/Bumper Platform/Main.asm"
 	include	"Level/Collision Chaos/Objects/Teleporter/Main.asm"

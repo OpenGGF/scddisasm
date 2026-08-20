@@ -43,7 +43,7 @@ ObjectIndex:
 	dc.l	ObjKamaKama			; $24 - KamaKama
 	dc.l	ObjKamaSickle			; $25 - Kama sickle
 	dc.l	ObjDoor			; $26 - Door
-	dc.l	ObjNull			; $27 - Fire shooter (pending port)
+	dc.l	ObjFireShooter			; $27 - Fire shooter
 	dc.l	ObjNull			; $28 - Drum platform (pending port)
 	dc.l	ObjGlassShatter			; $29 - Glass shatter
 	dc.l	ObjBumperPlatform			; $2A - Bumper platform
