@@ -44,7 +44,7 @@ ObjectIndex:
 	dc.l	ObjKamaSickle			; $25 - Kama sickle
 	dc.l	ObjDoor			; $26 - Door
 	dc.l	ObjFireShooter			; $27 - Fire shooter
-	dc.l	ObjNull			; $28 - Drum platform (pending port)
+	dc.l	ObjDrumPlatform			; $28 - Drum platform
 	dc.l	ObjGlassShatter			; $29 - Glass shatter
 	dc.l	ObjBumperPlatform			; $2A - Bumper platform
 	dc.l	ObjTeleporter			; $2B - Teleporter
