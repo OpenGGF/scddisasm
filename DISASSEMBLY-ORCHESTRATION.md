@@ -1,5 +1,9 @@
 # Disassembly Orchestration Ledger
 
+## 2026-08-21
+
+- **R31A object family milestone:** CC Tentou and its spawned bomb are ported from the tracked R3 source into the current object ABI, including parent bobbing and wall/floor motion, timed bomb spawning, collision-triggered explosion, good-future cleanup, current collision probes, and recovered parent/bomb animations and mappings. The USA `DEMO=0` entry probe exits successfully and produces a 250,636-byte binary; remaining stage-specific object families are still pending.
+
 ## 2026-08-20
 
 - **R31A object family milestone:** CC Ga and its falling dust child are ported from the tracked R3 source, including good-future handling, parent animation/state transitions, directional movement and collision types, dust spawning, current ring mapping reuse, and recovered dual Ga mappings. The Ga include is placed after the shared object graph to preserve existing 68K word-branch ranges. The USA `DEMO=0` entry probe exits successfully and produces a 249,660-byte binary; remaining stage-specific object families are still pending.

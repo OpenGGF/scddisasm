@@ -50,7 +50,7 @@ ObjectIndex:
 	dc.l	ObjTeleporter			; $2B - Teleporter
 	dc.l	ObjSpikeChain			; $2C - Spike chain
 	dc.l	ObjGa			; $2D - Ga
-	dc.l	ObjNull			; $2E - Tentou (pending port)
+	dc.l	ObjTentou			; $2E - Tentou
 	dc.l	ObjNull			; $2F - Pocket (pending port)
 	dc.l	ObjNull			; $30 - Intro spikes (pending port)
 	dc.l	ObjNull			; $31 - Metal Sonic (pending port)

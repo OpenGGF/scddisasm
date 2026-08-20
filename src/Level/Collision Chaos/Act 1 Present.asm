@@ -79,6 +79,7 @@
 	include	"Level/Collision Chaos/Animated Tiles Update (Act 1 Present).asm"
 	include	"Level/Collision Chaos/Objects/Robot Generator/Tile IDs.asm"
 	include	"Level/Collision Chaos/Objects/Ga/Main.asm"
+	include	"Level/Collision Chaos/Objects/Tentou/Main.asm"
 	include	"Level/Collision Chaos/Data (Act 1 Present).asm"
 
 ; -------------------------------------------------------------------------
