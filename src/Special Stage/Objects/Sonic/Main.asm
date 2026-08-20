@@ -878,22 +878,22 @@ ObjSonic_CheckBumper:
 	moveq	#0,d3				; No speed
 
 	moveq	#0,d0				; Reset flags
-	cmpi.b	#1,oPlayerStampTL(a0)		; Is the top left stamp being touched a bumper?
+	cmpi.b	#STAMP_BUMPER,oPlayerStampTL(a0)	; Is the top left stamp being touched a bumper?
 	bne.s	.CheckTopRight			; If not, branch
 	bset	#0,d0				; Set top left flag
 
 .CheckTopRight:
-	cmpi.b	#1,oPlayerStampTR(a0)		; Is the top right stamp being touched a bumper?
+	cmpi.b	#STAMP_BUMPER,oPlayerStampTR(a0)	; Is the top right stamp being touched a bumper?
 	bne.s	.CheckBottomRight		; If not, branch
 	bset	#1,d0				; Set top right flag
 
 .CheckBottomRight:
-	cmpi.b	#1,oPlayerStampBR(a0)		; Is the bottom right stamp being touched a bumper?
+	cmpi.b	#STAMP_BUMPER,oPlayerStampBR(a0)	; Is the bottom right stamp being touched a bumper?
 	bne.s	.CheckBottomLeft		; If not, branch
 	bset	#2,d0				; Set bottom right flag
 
 .CheckBottomLeft:
-	cmpi.b	#1,oPlayerStampBL(a0)		; Is the bottom left stamp being touched a bumper?
+	cmpi.b	#STAMP_BUMPER,oPlayerStampBL(a0)	; Is the bottom left stamp being touched a bumper?
 	bne.s	.Handle				; If not, branch
 	bset	#3,d0				; Set bottom left flag
 

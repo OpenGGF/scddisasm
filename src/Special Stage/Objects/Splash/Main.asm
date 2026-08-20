@@ -53,7 +53,7 @@ ObjSplash_Init:
 ObjSplash_Large:
 	subq.w	#1,oTimer(a0)			; Decrement timer
 	bne.s	.End				; If it hasn't run out yet, branch
-	cmpi.b	#3,sonicObject+oPlayerStampC	; Is Sonic on a water stamp?
+	cmpi.b	#STAMP_WATER,sonicObject+oPlayerStampC	; Is Sonic on a water stamp?
 	bne.s	ObjSplash_Delete		; If not, branch
 	
 	moveq	#1,d0				; Set small splash animation
@@ -67,7 +67,7 @@ ObjSplash_Large:
 ; -------------------------------------------------------------------------
 
 ObjSplash_Small:
-	cmpi.b	#3,sonicObject+oPlayerStampC	; Is Sonic on a water stamp?
+	cmpi.b	#STAMP_WATER,sonicObject+oPlayerStampC	; Is Sonic on a water stamp?
 	bne.s	ObjSplash_Delete		; If not, branch
 	
 	tst.b	oAnimFrame(a0)			; Has the animation restarted?
