@@ -33,8 +33,8 @@ ObjectIndex:
 	dc.l	ObjMonitorItem			; $1A - Monitor item
 	dc.l	ObjBoulder			; $1B - Boulder
 	dc.l	ObjHUDPoints			; $1C - HUD/points
-	dc.l	ObjNull			; $1D - Bumper (pending port)
-	dc.l	ObjNull			; $1E - Flipper (pending port)
+	dc.l	ObjBumper			; $1D - Bumper
+	dc.l	ObjFlipper			; $1E - Flipper
 	dc.l	ObjFlower			; $1F - Flower
 	dc.l	ObjSpikes			; $20 - Spikes
 	dc.l	ObjNull			; $21 - Block (pending port)
