@@ -40,8 +40,8 @@ ObjectIndex:
 	dc.l	ObjBlock			; $21 - Block
 	dc.l	ObjHiddenBlock			; $22 - Hidden block
 	dc.l	ObjMetalPlatform			; $23 - Metal platform
-	dc.l	ObjNull			; $24 - KamaKama (pending port)
-	dc.l	ObjNull			; $25 - Kama sickle (pending port)
+	dc.l	ObjKamaKama			; $24 - KamaKama
+	dc.l	ObjKamaSickle			; $25 - Kama sickle
 	dc.l	ObjDoor			; $26 - Door
 	dc.l	ObjNull			; $27 - Fire shooter (pending port)
 	dc.l	ObjNull			; $28 - Drum platform (pending port)
