@@ -102,10 +102,6 @@ Art_BigRing:
 	incbin	"Level/_Objects/Level End/Data/Art (Big Ring).nem"
 	even
 
-Art_BigRingFlash:
-	incbin	"Level/_Objects/Level End/Data/Art (Big Ring Flash).nem"
-	even
-
 Art_GoalPost:
 	incbin	"Level/_Objects/Level End/Data/Art (Goal Post).nem"
 	even
@@ -345,6 +341,27 @@ MapSpr_Powerup:
 	include	"Level/_Objects/Powerup/Data/Mappings.asm"
 	even
 
+Ani_TunnelDoorSplash:
+	include	"Level/_Objects/Spin Tunnel/Data/Animations (Door Splash).asm"
+	even
+MapSpr_TunnelDoorSplash:
+	include	"Level/_Objects/Spin Tunnel/Data/Mappings (Door Splash).asm"
+	even
+
+Ani_TunnelDoor:
+	include	"Level/_Objects/Spin Tunnel/Data/Animations (Door).asm"
+	even
+MapSpr_TunnelDoor:
+	include	"Level/_Objects/Spin Tunnel/Data/Mappings (Door).asm"
+	even
+
+Ani_TunnelWaterfall:
+	include	"Level/_Objects/Spin Tunnel/Data/Animations (Waterfall Splash).asm"
+	even
+MapSpr_TunnelWaterfall:
+	include	"Level/_Objects/Spin Tunnel/Data/Mappings (Waterfall Splash).asm"
+	even
+
 Ani_Explosion:
 	include	"Level/_Objects/Explosion/Data/Animations.asm"
 	even
@@ -371,13 +388,6 @@ Ani_Signpost:
 	even
 MapSpr_GoalSignpost:
 	include	"Level/_Objects/Level End/Data/Mappings (Post).asm"
-	even
-
-Ani_BigRingFlash:
-	include	"Level/_Objects/Level End/Data/Animations (Big Ring Flash).asm"
-	even
-MapSpr_BigRingFlash:
-	include	"Level/_Objects/Level End/Data/Mappings (Big Ring Flash).asm"
 	even
 
 Ani_FlowerCapsule:
