@@ -12,7 +12,7 @@ oUFOPathStart	EQU	oVar58			; Path data start pointer
 oUFOPath	EQU	oVar5C			; Path data pointer
 oUFOPathTime	EQU	oVar60			; Path timer
 oUFOItem	EQU	oVar62			; Item ID
-oUFOUnk		EQU	oVar63			; Unknown
+oUFOUnused	EQU	oVar63			; Unused path header byte
 oUFODrawDelay	EQU	oVar64			; Draw delay
 
 ; -------------------------------------------------------------------------
@@ -463,7 +463,7 @@ SpawnUFOs:
 
 	move.b	#2,(a2)				; Spawn UFO
 	move.b	(a3)+,oUFOItem(a2)
-	move.b	(a3)+,oUFOUnk(a2)
+	move.b	(a3)+,oUFOUnused(a2)		; Skip unused header byte
 	move.l	a3,oUFOPathStart(a2)
 	move.l	a3,oUFOPath(a2)
 	move.l	a4,oUFOShadow(a2)
@@ -488,7 +488,7 @@ SpawnTimeUFO:
 
 	move.b	#3,(a2)				; Spawn UFO
 	move.b	(a3)+,oUFOItem(a2)
-	move.b	(a3)+,oUFOUnk(a2)
+	move.b	(a3)+,oUFOUnused(a2)		; Skip unused header byte
 	move.l	a3,oUFOPathStart(a2)
 	move.l	a3,oUFOPath(a2)
 	move.l	a4,oUFOShadow(a2)
@@ -503,9 +503,23 @@ SpawnTimeUFO:
 ; UFO path data
 ; -------------------------------------------------------------------------
 
+UFOPATHNODE macro duration, startX, startY, targetX, targetY
+	dc.w	\duration, \startX, \startY, \targetX, \targetY
+	endm
+
+; -------------------------------------------------------------------------
+
 TimeUFOPath:
-	incbin	"Special Stage/Data/Time UFO Path.bin"
-	even
+	dc.b	2, 0				; Item ID, unused byte
+	UFOPATHNODE	$5A, $800, $800, $780, $800
+	UFOPATHNODE	$5A, $780, $800, $800, $800
+	UFOPATHNODE	$5A, $800, $800, $800, $780
+	UFOPATHNODE	$5A, $800, $780, $800, $800
+	UFOPATHNODE	$5A, $800, $800, $880, $800
+	UFOPATHNODE	$5A, $880, $800, $800, $800
+	UFOPATHNODE	$5A, $800, $800, $800, $880
+	UFOPATHNODE	$5A, $800, $880, $800, $800
+	dc.w	-1				; Loop
 
 ; -------------------------------------------------------------------------
 
@@ -584,195 +598,363 @@ UFOPaths_SS8:
 ; -------------------------------------------------------------------------
 
 UFOPath_SS1_1:
-	incbin	"Special Stage/Data/Stage 1/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$B4, $780, $B40, $900, $A00
+	UFOPATHNODE	$78, $900, $A00, $780, $B40
+	dc.w	-1				; Loop
 
 UFOPath_SS1_2:
-	incbin	"Special Stage/Data/Stage 1/UFO 2.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$B4, $600, $880, $780, $680
+	UFOPATHNODE	$78, $780, $680, $580, $780
+	UFOPATHNODE	$78, $580, $780, $600, $880
+	dc.w	-1				; Loop
 
 UFOPath_SS1_3:
-	incbin	"Special Stage/Data/Stage 1/UFO 3.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$B4, $A80, $580, $900, $500
+	UFOPATHNODE	$78, $900, $500, $980, $680
+	UFOPATHNODE	$F0, $980, $680, $A80, $580
+	dc.w	-1				; Loop
 
 UFOPath_SS1_4:
-	incbin	"Special Stage/Data/Stage 1/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$F0, $780, $480, $580, $500
+	UFOPATHNODE	$78, $580, $500, $780, $480
+	dc.w	-1				; Loop
 
 UFOPath_SS1_5:
-	incbin	"Special Stage/Data/Stage 1/UFO 5.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$3C, $B00, $A00, $B00, $980
+	UFOPATHNODE	$B4, $B00, $980, $A00, $A00
+	UFOPATHNODE	$78, $A00, $A00, $A80, $B00
+	UFOPATHNODE	$78, $A80, $B00, $B00, $A00
+	dc.w	-1				; Loop
 
 UFOPath_SS1_6:
-	incbin	"Special Stage/Data/Stage 1/UFO 6.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$B4, $980, $880, $900, $980
+	UFOPATHNODE	$78, $900, $980, $B00, $880
+	UFOPATHNODE	$F0, $B00, $880, $980, $880
+	dc.w	-1				; Loop
 
 UFOPath_SS2_1:
-	incbin	"Special Stage/Data/Stage 2/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$F0, $B00, $580, $8C0, $4C0
+	UFOPATHNODE	$F0, $8C0, $4C0, $800, $600
+	UFOPATHNODE	$F0, $800, $600, $A00, $6C0
+	UFOPATHNODE	$F0, $A00, $6C0, $B00, $580
+	dc.w	-1				; Loop
 
 UFOPath_SS2_2:
-	incbin	"Special Stage/Data/Stage 2/UFO 2.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$B4, $580, $500, $500, $580
+	UFOPATHNODE	$F0, $500, $580, $680, $680
+	UFOPATHNODE	$F0, $680, $680, $580, $500
+	dc.w	-1				; Loop
 
 UFOPath_SS2_3:
-	incbin	"Special Stage/Data/Stage 2/UFO 3.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$F0, $680, $700, $580, $700
+	UFOPATHNODE	$12C, $580, $700, $4C0, $800
+	UFOPATHNODE	$12C, $4C0, $800, $680, $800
+	UFOPATHNODE	$168, $680, $800, $680, $700
+	dc.w	-1				; Loop
 
 UFOPath_SS2_4:
-	incbin	"Special Stage/Data/Stage 2/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $600, $980, $700, $A00
+	UFOPATHNODE	$3C, $700, $A00, $600, $980
+	dc.w	-1				; Loop
 
 UFOPath_SS2_5:
-	incbin	"Special Stage/Data/Stage 2/UFO 5.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$12C, $A00, $900, $840, $AC0
+	UFOPATHNODE	$12C, $840, $AC0, $A00, $B00
+	UFOPATHNODE	$F0, $A00, $B00, $A00, $900
+	dc.w	-1				; Loop
 
 UFOPath_SS2_6:
-	incbin	"Special Stage/Data/Stage 2/UFO 6.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$F0, $B40, $800, $A00, $780
+	UFOPATHNODE	$78, $A00, $780, $980, $8C0
+	UFOPATHNODE	$F0, $980, $8C0, $B40, $800
+	dc.w	-1				; Loop
 
 UFOPath_SS3_1:
-	incbin	"Special Stage/Data/Stage 3/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $B00, $500, $A00, $500
+	UFOPATHNODE	$C8, $A00, $500, $900, $700
+	UFOPATHNODE	$78, $900, $700, $A00, $680
+	UFOPATHNODE	$A0, $A00, $680, $B00, $500
+	dc.w	-1				; Loop
 
 UFOPath_SS3_2:
-	incbin	"Special Stage/Data/Stage 3/UFO 2.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$C8, $6C0, $4C0, $500, $600
+	UFOPATHNODE	$A0, $500, $600, $640, $580
+	UFOPATHNODE	$A0, $640, $580, $6C0, $4C0
+	dc.w	-1				; Loop
 
 UFOPath_SS3_3:
-	incbin	"Special Stage/Data/Stage 3/UFO 3.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $600, $780, $500, $780
+	UFOPATHNODE	$C8, $500, $780, $500, $880
+	UFOPATHNODE	$A0, $500, $880, $600, $880
+	UFOPATHNODE	$A0, $600, $880, $600, $780
+	dc.w	-1				; Loop
 
 UFOPath_SS3_4:
-	incbin	"Special Stage/Data/Stage 3/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $600, $980, $500, $980
+	UFOPATHNODE	$C8, $500, $980, $500, $B00
+	UFOPATHNODE	$78, $500, $B00, $600, $980
+	dc.w	-1				; Loop
 
 UFOPath_SS3_5:
-	incbin	"Special Stage/Data/Stage 3/UFO 5.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$C8, $8C0, $A00, $700, $9C0
+	UFOPATHNODE	$C8, $700, $9C0, $700, $B00
+	UFOPATHNODE	$A0, $700, $B00, $8C0, $B00
+	UFOPATHNODE	$A0, $8C0, $B00, $8C0, $A00
+	dc.w	-1				; Loop
 
 UFOPath_SS3_6:
-	incbin	"Special Stage/Data/Stage 3/UFO 6.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$C8, $B00, $980, $A00, $880
+	UFOPATHNODE	$C8, $A00, $880, $980, $A00
+	UFOPATHNODE	$78, $980, $A00, $980, $B00
+	UFOPATHNODE	$F0, $980, $B00, $B00, $980
+	dc.w	-1				; Loop
 
 UFOPath_SS4_1:
-	incbin	"Special Stage/Data/Stage 4/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$A0, $AC0, $4C0, $880, $500
+	UFOPATHNODE	$C8, $880, $500, $B00, $600
+	UFOPATHNODE	$A0, $B00, $600, $AC0, $4C0
+	dc.w	-1				; Loop
 
 UFOPath_SS4_2:
-	incbin	"Special Stage/Data/Stage 4/UFO 2.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$C8, $8A0, $5C0, $740, $5C0
+	UFOPATHNODE	$C8, $740, $5C0, $740, $700
+	UFOPATHNODE	$C8, $740, $700, $8A0, $700
+	UFOPATHNODE	$C8, $8A0, $700, $8A0, $5C0
+	dc.w	-1				; Loop
 
 UFOPath_SS4_3:
-	incbin	"Special Stage/Data/Stage 4/UFO 3.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$C8, $600, $700, $500, $800
+	UFOPATHNODE	$C8, $500, $800, $600, $900
+	UFOPATHNODE	$78, $600, $900, $680, $800
+	UFOPATHNODE	$78, $680, $800, $600, $700
+	dc.w	-1				; Loop
 
 UFOPath_SS4_4:
-	incbin	"Special Stage/Data/Stage 4/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$C8, $600, $A80, $440, $A80
+	UFOPATHNODE	$A0, $440, $A80, $600, $A80
+	dc.w	-1				; Loop
 
 UFOPath_SS4_5:
-	incbin	"Special Stage/Data/Stage 4/UFO 5.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $980, $900, $880, $900
+	UFOPATHNODE	$A0, $880, $900, $740, $A80
+	UFOPATHNODE	$C8, $740, $A80, $980, $900
+	dc.w	-1				; Loop
 
 UFOPath_SS4_6:
-	incbin	"Special Stage/Data/Stage 4/UFO 6.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$A0, $A80, $6C0, $980, $700
+	UFOPATHNODE	$A0, $980, $700, $B00, $780
+	UFOPATHNODE	$78, $B00, $780, $A80, $6C0
+	dc.w	-1				; Loop
 
 UFOPath_SS5_1:
-	incbin	"Special Stage/Data/Stage 5/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$14, $B80, $440, $B00, $440
+	UFOPATHNODE	$50, $B00, $440, $A00, $580
+	UFOPATHNODE	$50, $A00, $580, $BC0, $580
+	UFOPATHNODE	$3C, $BC0, $580, $B80, $440
+	dc.w	-1				; Loop
 
 UFOPath_SS5_2:
-	incbin	"Special Stage/Data/Stage 5/UFO 2.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$3C, $700, $440, $5C0, $440
+	UFOPATHNODE	$64, $5C0, $440, $780, $640
+	UFOPATHNODE	$3C, $780, $640, $840, $580
+	UFOPATHNODE	$64, $840, $580, $700, $440
+	dc.w	-1				; Loop
 
 UFOPath_SS5_3:
-	incbin	"Special Stage/Data/Stage 5/UFO 3.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$64, $AC0, $700, $840, $700
+	UFOPATHNODE	$64, $840, $700, $AC0, $700
+	dc.w	-1				; Loop
 
 UFOPath_SS5_4:
-	incbin	"Special Stage/Data/Stage 5/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$3C, $5C0, $780, $540, $880
+	UFOPATHNODE	$3C, $540, $880, $500, $940
+	UFOPATHNODE	$3C, $500, $940, $5C0, $980
+	UFOPATHNODE	$50, $5C0, $980, $600, $840
+	UFOPATHNODE	$3C, $600, $840, $5C0, $780
+	dc.w	-1				; Loop
 
 UFOPath_SS5_5:
-	incbin	"Special Stage/Data/Stage 5/UFO 5.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$28, $740, $880, $6A0, $900
+	UFOPATHNODE	$64, $6A0, $900, $6A0, $BC0
+	UFOPATHNODE	$3C, $6A0, $BC0, $740, $BC0
+	UFOPATHNODE	$64, $740, $BC0, $740, $880
+	dc.w	-1				; Loop
 
 UFOPath_SS5_6:
-	incbin	"Special Stage/Data/Stage 5/UFO 6.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $980, $840, $840, $980
+	UFOPATHNODE	$64, $840, $980, $AC0, $980
+	UFOPATHNODE	$50, $AC0, $980, $980, $840
+	dc.w	-1				; Loop
 
 UFOPath_SS6_1:
-	incbin	"Special Stage/Data/Stage 6/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $B00, $500, $B00, $680
+	UFOPATHNODE	$50, $B00, $680, $A80, $7C0
+	UFOPATHNODE	$3C, $A80, $7C0, $C00, $7C0
+	UFOPATHNODE	$78, $C00, $7C0, $B00, $500
+	dc.w	-1				; Loop
 
 UFOPath_SS6_2:
-	incbin	"Special Stage/Data/Stage 6/UFO 2.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$64, $980, $480, $7C0, $580
+	UFOPATHNODE	$64, $7C0, $580, $A00, $580
+	UFOPATHNODE	$3C, $A00, $580, $980, $480
+	dc.w	-1				; Loop
 
 UFOPath_SS6_3:
-	incbin	"Special Stage/Data/Stage 6/UFO 3.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$3C, $4C0, $480, $3C0, $480
+	UFOPATHNODE	$64, $3C0, $480, $3C0, $600
+	UFOPATHNODE	$3C, $3C0, $600, $4C0, $600
+	UFOPATHNODE	$64, $4C0, $600, $4C0, $480
+	dc.w	-1				; Loop
 
 UFOPath_SS6_4:
-	incbin	"Special Stage/Data/Stage 6/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$64, $580, $9C0, $400, $B80
+	UFOPATHNODE	$64, $400, $B80, $680, $A80
+	UFOPATHNODE	$3C, $680, $A80, $580, $9C0
+	dc.w	-1				; Loop
 
 UFOPath_SS6_5:
-	incbin	"Special Stage/Data/Stage 6/UFO 5.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $A00, $940, $600, $940
+	UFOPATHNODE	$50, $600, $940, $A00, $940
+	dc.w	-1				; Loop
 
 UFOPath_SS6_6:
-	incbin	"Special Stage/Data/Stage 6/UFO 6.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$64, $C00, $880, $A80, $880
+	UFOPATHNODE	$78, $A80, $880, $C00, $B80
+	UFOPATHNODE	$50, $C00, $B80, $C00, $880
+	dc.w	-1				; Loop
 
 UFOPath_SS7_1:
-	incbin	"Special Stage/Data/Stage 7/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$28, $A00, $700, $B00, $600
+	UFOPATHNODE	$28, $B00, $600, $A00, $700
+	UFOPATHNODE	$3C, $A00, $700, $A80, $600
+	UFOPATHNODE	$3C, $A80, $600, $A00, $700
+	UFOPATHNODE	$50, $A00, $700, $A00, $600
+	UFOPATHNODE	$3C, $A00, $600, $A00, $700
+	dc.w	-1				; Loop
 
 UFOPath_SS7_2:
-	incbin	"Special Stage/Data/Stage 7/UFO 2.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$28, $500, $700, $400, $700
+	UFOPATHNODE	$50, $400, $700, $500, $940
+	UFOPATHNODE	$28, $500, $940, $400, $940
+	UFOPATHNODE	$50, $400, $940, $500, $700
+	dc.w	-1				; Loop
 
 UFOPath_SS7_3:
-	incbin	"Special Stage/Data/Stage 7/UFO 3.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$3C, $4C0, $B80, $580, $B00
+	UFOPATHNODE	$3C, $580, $B00, $4C0, $B80
+	UFOPATHNODE	$3C, $4C0, $B80, $400, $B00
+	UFOPATHNODE	$3C, $400, $B00, $4C0, $B80
+	dc.w	-1				; Loop
 
 UFOPath_SS7_4:
-	incbin	"Special Stage/Data/Stage 7/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $680, $A00, $680, $B00
+	UFOPATHNODE	$50, $680, $B00, $680, $A00
+	UFOPATHNODE	$78, $680, $A00, $880, $B80
+	UFOPATHNODE	$78, $880, $B80, $680, $A00
+	dc.w	-1				; Loop
 
 UFOPath_SS7_5:
-	incbin	"Special Stage/Data/Stage 7/UFO 5.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $A80, $980, $900, $B00
+	UFOPATHNODE	$64, $900, $B00, $BC0, $BC0
+	UFOPATHNODE	$64, $BC0, $BC0, $A80, $980
+	dc.w	-1				; Loop
 
 UFOPath_SS7_6:
-	incbin	"Special Stage/Data/Stage 7/UFO 6.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $C00, $680, $B00, $800
+	UFOPATHNODE	$28, $B00, $800, $C00, $800
+	UFOPATHNODE	$3C, $C00, $800, $C00, $680
+	dc.w	-1				; Loop
 
 UFOPath_SS8_1:
-	incbin	"Special Stage/Data/Stage 8/UFO 1.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $B00, $B80, $C00, $980
+	UFOPATHNODE	$3C, $C00, $980, $C00, $A80
+	UFOPATHNODE	$50, $C00, $A80, $B00, $B80
+	dc.w	-1				; Loop
 
 UFOPath_SS8_2:
-	incbin	"Special Stage/Data/Stage 8/UFO 2.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $C00, $700, $A00, $500
+	UFOPATHNODE	$50, $A00, $500, $B80, $440
+	UFOPATHNODE	$78, $B80, $440, $C00, $700
+	dc.w	-1				; Loop
 
 UFOPath_SS8_3:
-	incbin	"Special Stage/Data/Stage 8/UFO 3.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$78, $980, $940, $A80, $880
+	UFOPATHNODE	$78, $A80, $880, $980, $800
+	UFOPATHNODE	$78, $980, $800, $A80, $780
+	UFOPATHNODE	$3C, $A80, $780, $A00, $700
+	UFOPATHNODE	$50, $A00, $700, $A00, $600
+	UFOPATHNODE	$50, $A00, $600, $A00, $700
+	UFOPATHNODE	$3C, $A00, $700, $A80, $780
+	UFOPATHNODE	$78, $A80, $780, $980, $800
+	UFOPATHNODE	$78, $980, $800, $A80, $880
+	UFOPATHNODE	$78, $A80, $880, $980, $940
+	dc.w	-1				; Loop
 
 UFOPath_SS8_4:
-	incbin	"Special Stage/Data/Stage 8/UFO 4.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $800, $700, $680, $780
+	UFOPATHNODE	$78, $680, $780, $700, $500
+	UFOPATHNODE	$50, $700, $500, $580, $580
+	UFOPATHNODE	$78, $580, $580, $800, $700
+	dc.w	-1				; Loop
 
 UFOPath_SS8_5:
-	incbin	"Special Stage/Data/Stage 8/UFO 5.bin"
-	even
+	dc.b	1, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $680, $B80, $400, $A80
+	UFOPATHNODE	$3C, $400, $A80, $400, $880
+	UFOPATHNODE	$3C, $400, $880, $600, $900
+	UFOPATHNODE	$50, $600, $900, $680, $B80
+	dc.w	-1				; Loop
 
 UFOPath_SS8_6:
-	incbin	"Special Stage/Data/Stage 8/UFO 6.bin"
-	even
+	dc.b	0, 0				; Item ID, unused byte
+	UFOPATHNODE	$50, $600, $480, $400, $600
+	UFOPATHNODE	$50, $400, $600, $600, $480
+	dc.w	-1				; Loop
 
 ; -------------------------------------------------------------------------
