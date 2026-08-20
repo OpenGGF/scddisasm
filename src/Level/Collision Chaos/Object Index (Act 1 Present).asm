@@ -48,7 +48,7 @@ ObjectIndex:
 	dc.l	ObjGlassShatter			; $29 - Glass shatter
 	dc.l	ObjBumperPlatform			; $2A - Bumper platform
 	dc.l	ObjTeleporter			; $2B - Teleporter
-	dc.l	ObjNull			; $2C - Spike chain (pending port)
+	dc.l	ObjSpikeChain			; $2C - Spike chain
 	dc.l	ObjNull			; $2D - Ga (pending port)
 	dc.l	ObjNull			; $2E - Tentou (pending port)
 	dc.l	ObjNull			; $2F - Pocket (pending port)
