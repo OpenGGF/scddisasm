@@ -2,6 +2,7 @@
 
 ## 2026-08-20
 
+- **R31A object family milestone:** CC Glass Shatter, Bumper Platform, and Teleporter are ported from the tracked R3 sources into the current object ABI. The slice includes the original glass animation/point reward path, bumper-platform launch and oscillation logic, teleporter deletion behavior, and recovered sprite mappings. The USA `DEMO=0` entry probe exits successfully and produces a 244,936-byte binary; remaining stage-specific object families are still pending.
 - **R31A object family milestone:** CC Metal Platform is ported with its R3 horizontal, vertical, bobbing, activation, and final-drop state machines, current top-solid/despawn integration, motion tables, and recovered sprite mapping. The USA `DEMO=0` entry probe exits successfully and produces a 244,380-byte binary.
 - **R31A object family milestone:** CC Block and Hidden Block are ported with their R3 motion tables, current `FindNextObjSlot` child spawning, solidity, player-triggered movement, and recovered sprite mappings. The USA `DEMO=0` entry probe exits successfully and produces a 243,516-byte binary.
 - **R31A object family milestone:** CC Bumper and Flipper are ported from the tracked R3 sources into the current object ABI, including collision response, point spawning, saved-object-state updates, animation scripts, sprite mappings, slope tables, and the recovered tile IDs. The USA `DEMO=0` entry probe exits successfully and produces a 242,876-byte binary. Remaining stage-specific object families are still pending.

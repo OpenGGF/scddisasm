@@ -45,9 +45,9 @@ ObjectIndex:
 	dc.l	ObjDoor			; $26 - Door
 	dc.l	ObjNull			; $27 - Fire shooter (pending port)
 	dc.l	ObjNull			; $28 - Drum platform (pending port)
-	dc.l	ObjNull			; $29 - Glass shatter (pending port)
-	dc.l	ObjNull			; $2A - Bumper platform (pending port)
-	dc.l	ObjNull			; $2B - Teleporter (pending port)
+	dc.l	ObjGlassShatter			; $29 - Glass shatter
+	dc.l	ObjBumperPlatform			; $2A - Bumper platform
+	dc.l	ObjTeleporter			; $2B - Teleporter
 	dc.l	ObjNull			; $2C - Spike chain (pending port)
 	dc.l	ObjNull			; $2D - Ga (pending port)
 	dc.l	ObjNull			; $2E - Tentou (pending port)
