@@ -31,7 +31,7 @@ MechaBuObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
 	move.w	#$244E,obj.sprite_tile(a0)
-	move.l	#Spr_20C546,obj.sprite_data(a0)
+	move.l	#MechaBuSprites,obj.sprite_data(a0)
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$E,obj.height(a0)
 	move.b	#$2A,obj.collide_type(a0)
@@ -95,13 +95,9 @@ locret_20C544:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20C546:
-	dc.w	@Spr_20C546_0-*
-@Spr_20C546_0:
-	dc.b	2
-	dc.b	$F0, $F, 0, 0, $E8
-	dc.b	$F0, 7, 0, $10, 8
-	dc.b	0
+MechaBuSprites:
+	include	"src/sprites/r8/mecha_bu.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -125,7 +121,7 @@ MechaBuObject_1_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$244E,obj.sprite_tile(a0)
-	move.l	#Spr_20C620,obj.sprite_data(a0)
+	move.l	#MechaBuSawSprites,obj.sprite_data(a0)
 	move.b	#$C,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.b	#$AB,obj.collide_type(a0)
@@ -166,35 +162,17 @@ loc_20C5F2:
 	add.w	obj.var_2e(a0),d1
 	move.w	d0,obj.x(a0)
 	move.w	d1,obj.y(a0)
-	lea	MechuBuAnims(pc),a1
+	lea	MechuBuSawAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-MechuBuAnims:
-	include	"src/anims/r8/mecha_bu.asm"
+MechuBuSawAnims:
+	include	"src/anims/r8/mecha_bu_saw.asm"
 	even
 	
-Spr_20C620:
-	dc.w	@Spr_20C620_0-*
-	dc.w	@Spr_20C620_1-Spr_20C620
-	dc.w	@Spr_20C620_2-Spr_20C620
-	dc.w	@Spr_20C620_3-Spr_20C620
-@Spr_20C620_0:
-	dc.b	2
-	dc.b	$F8, 9, 0, $24, $F8
-	dc.b	$F0, $B, 0, $18, $F4
-@Spr_20C620_1:
-	dc.b	2
-	dc.b	$F8, 9, 0, $24, $F8
-	dc.b	$EF, $B, $10, $18, $F4
-@Spr_20C620_2:
-	dc.b	2
-	dc.b	$FE, 6, 0, $2A, $FC
-	dc.b	$F0, $B, 0, $18, $F4
-@Spr_20C620_3:
-	dc.b	2
-	dc.b	$FE, 6, 0, $2A, $FC
-	dc.b	$EF, $B, $10, $18, $F4
+MechaBuSawSprites:
+	include	"src/sprites/r8/mecha_bu_saw.asm"
+	even
 
 ; ------------------------------------------------------------------------------

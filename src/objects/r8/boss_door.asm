@@ -30,22 +30,22 @@ BossDoorObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 sub_20B728:
-	move.b	#$3D,0(a1)
-	move.w	obj.var_2a(a0),$2A(a1)
-	move.w	obj.var_2a(a0),8(a1)
-	move.w	obj.y(a0),$C(a1)
+	move.b	#$3D,obj.id(a1)
+	move.w	obj.var_2a(a0),obj.var_2a(a1)
+	move.w	obj.var_2a(a0),obj.x(a1)
+	move.w	obj.y(a0),obj.y(a1)
 	moveq	#8,d0
-	tst.b	$28(a1)
+	tst.b	obj.subtype(a1)
 	beq.s	loc_20B74A
 	neg.w	d0
 
 loc_20B74A:
-	add.w	d0,8(a1)
-	addq.b	#2,$24(a1)
-	ori.b	#4,1(a1)
-	move.b	#2,$18(a1)
-	move.l	#Spr_20BAC4,4(a1)
-	move.w	#$8797,2(a1)
+	add.w	d0,obj.x(a1)
+	addq.b	#2,obj.routine(a1)
+	ori.b	#4,obj.sprite_flags(a1)
+	move.b	#2,obj.sprite_layer(a1)
+	move.l	#BossDoorSprites,obj.sprite_data(a1)
+	move.w	#$8797,obj.sprite_tile(a1)
 	rts
 
 ; ------------------------------------------------------------------------------

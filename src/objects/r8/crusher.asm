@@ -19,7 +19,7 @@ off_20BA78:
 CrusherObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#Spr_20BC8A,obj.sprite_data(a0)
+	move.l	#CrusherSprites,obj.sprite_data(a0)
 	move.w	#$498,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	obj.y(a0),obj.var_30(a0)
@@ -231,42 +231,8 @@ loc_20BC7C:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20BC8A:
-	dc.w	@Spr_20BC8A_0-*
-	dc.w	@Spr_20BC8A_1-Spr_20BC8A
-	dc.w	@Spr_20BC8A_2-Spr_20BC8A
-	dc.w	@Spr_20BC8A_3-Spr_20BC8A
-@Spr_20BC8A_0:
-	dc.b	4
-	dc.b	$E1, $F, 0, 0, $E0
-	dc.b	$E1, $F, 0, $10, 0
-	dc.b	1, $F, $10, 0, $E0
-	dc.b	1, $F, $10, $10, 0
-	dc.b	0
-@Spr_20BC8A_1:
-	dc.b	$C
-	dc.b	$A1, $F, 0, 0, $E0
-	dc.b	$A1, $F, 0, $10, 0
-	dc.b	$C1, $F, $10, 0, $E0
-	dc.b	$C1, $F, $10, $10, 0
-	dc.b	$E1, $F, 0, 0, $E0
-	dc.b	$E1, $F, 0, $10, 0
-	dc.b	1, $F, $10, 0, $E0
-	dc.b	1, $F, $10, $10, 0
-	dc.b	$21, $F, 0, 0, $E0
-	dc.b	$21, $F, 0, $10, 0
-	dc.b	$41, $F, $10, 0, $E0
-	dc.b	$41, $F, $10, $10, 0
-	dc.b	0
-@Spr_20BC8A_2:
-	dc.b	4
-	dc.b	$ED, $F, 0, 0, $E0
-	dc.b	$ED, $F, 0, $10, 0
-	dc.b	$D, $F, 0, $20, $E0
-	dc.b	$D, $F, 0, $30, 0
-	dc.b	0
-@Spr_20BC8A_3:
-	dc.b	0
-	dc.b	0
+CrusherSprites:
+	include	"src/sprites/r8/crusher.asm"
+	even
 
 ; ------------------------------------------------------------------------------

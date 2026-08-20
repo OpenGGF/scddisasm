@@ -39,11 +39,11 @@ DangoObject_0_Routine0:
 	move.b	#9,obj.height(a0)
 	move.b	#$2C,obj.collide_type(a0)
 	move.w	#$242F,obj.sprite_tile(a0)
-	lea	off_20EFDA(pc),a1
+	lea	DangoSprites1(pc),a1
 	lea	DangoAnims1(pc),a2
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20ED7E
-	lea	off_20F048(pc),a1
+	lea	DangoSprites2(pc),a1
 	lea	DangoAnims2(pc),a2
 
 loc_20ED7E:
@@ -266,92 +266,10 @@ DangoAnims2:
 	include	"src/anims/r7/dango_2.asm"
 	even
 
-off_20EFDA:
-	dc.w	byte_20EFE6-*
-	dc.w	byte_20F00F-off_20EFDA
-	dc.w	byte_20F038-off_20EFDA
-	dc.w	byte_20F0B6-off_20EFDA
-	dc.w	byte_20F0C6-off_20EFDA
-	dc.w	byte_20F0D1-off_20EFDA
-
-byte_20EFE6:
-	dc.b	8
-	dc.b	$F4, 0, 0, 0, $F0
-	dc.b	$F4, 0, 0, 1, $F8
-	dc.b	$F4, 0, 0, 2, 0
-	dc.b	$F4, 0, 0, 3, 8
-	dc.b	$FC, $C, 0, 4, $F0
-	dc.b	4, 0, 0, 8, $F0
-	dc.b	4, 4, 0, 9, $F8
-	dc.b	4, 0, 0, $B, 8
-
-byte_20F00F:
-	dc.b	8
-	dc.b	$F4, 0, 0, 0, $F0
-	dc.b	$F4, 0, 0, 1, $F8
-	dc.b	$F4, 0, 0, 2, 0
-	dc.b	$F4, 0, 0, 3, 8
-	dc.b	$FC, $C, 0, 4, $F0
-	dc.b	4, 4, 0, $C, $F0
-	dc.b	4, 0, 0, $E, 0
-	dc.b	4, 0, 0, $F, 8
-
-byte_20F038:
-	dc.b	3
-	dc.b	$F4, 4, 0, $35, $FB
-	dc.b	$F0, $D, 0, $10, $F0
-	dc.b	0, $D, $10, $10, $F0
-
-off_20F048:
-	dc.w	byte_20F054-*
-	dc.w	byte_20F07D-off_20F048
-	dc.w	byte_20F0A6-off_20F048
-	dc.w	byte_20F0B6-off_20F048
-	dc.w	byte_20F0C6-off_20F048
-	dc.w	byte_20F0D1-off_20F048
-
-byte_20F054:
-	dc.b	8
-	dc.b	$F4, 0, 0, $37, $F0
-	dc.b	$F4, 0, 0, 1, $F8
-	dc.b	$F4, 0, 0, $38, 0
-	dc.b	$F4, 0, 0, 3, 8
-	dc.b	$FC, $C, 0, $39, $F0
-	dc.b	4, 0, 0, 8, $F0
-	dc.b	4, 4, 0, $3D, $F8
-	dc.b	4, 0, 0, $B, 8
-
-byte_20F07D:
-	dc.b	8
-	dc.b	$F4, 0, 0, $37, $F0
-	dc.b	$F4, 0, 0, 1, $F8
-	dc.b	$F4, 0, 0, $38, 0
-	dc.b	$F4, 0, 0, 3, 8
-	dc.b	$FC, $C, 0, $39, $F0
-	dc.b	4, 4, 0, $C, $F0
-	dc.b	4, 0, 0, $3F, 0
-	dc.b	4, 0, 0, $F, 8
-
-byte_20F0A6:
-	dc.b	3
-	dc.b	$EF, 1, 0, $40, $F0
-	dc.b	$FF, 1, $10, $40, $F0
-	dc.b	$EF, $B, 0, $42, $F8
-
-byte_20F0B6:
-	dc.b	3
-	dc.b	$F4, 4, 0, $35, $FC
-	dc.b	$F0, $D, 0, $10, $F0
-	dc.b	0, $D, $10, $10, $F0
-
-byte_20F0C6:
-	dc.b	2
-	dc.b	$F0, 4, 0, $18, $F8
-	dc.b	$F8, $E, 0, $1A, $F0
-
-byte_20F0D1:
-	dc.b	2
-	dc.b	$F1, 8, 0, $26, $F0
-	dc.b	$F9, $E, 0, $29, $F0
+DangoSprites:
+	include	"src/sprites/r7/dango.asm"
+	even
+DangoSprites1		equ .Sprites1
+DangoSprites2		equ .Sprites2
 
 ; ------------------------------------------------------------------------------

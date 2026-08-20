@@ -51,13 +51,13 @@ loc_20B81E:
 	move.b	#1,obj.sprite_layer(a0)
 	move.b	#$28,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
-	move.l	#Spr_20BA84,obj.sprite_data(a0)
+	move.l	#RevolveDoorSprites,obj.sprite_data(a0)
 	move.w	#$41B,obj.sprite_tile(a0)
 	jsr	SpawnObjectAfter
 	move.b	#$3E,obj.id(a1)
 	move.b	#4,obj.sprite_flags(a1)
 	move.b	#1,obj.sprite_layer(a1)
-	move.l	#Spr_20BA84,obj.sprite_data(a1)
+	move.l	#RevolveDoorSprites,obj.sprite_data(a1)
 	move.w	#$41B,obj.sprite_tile(a1)
 	move.b	#$28,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
@@ -73,7 +73,7 @@ loc_20B8AA:
 	move.b	#$3E,obj.id(a1)
 	move.b	#4,obj.sprite_flags(a1)
 	move.b	#1,obj.sprite_layer(a1)
-	move.l	#Spr_20BA84,obj.sprite_data(a1)
+	move.l	#RevolveDoorSprites,obj.sprite_data(a1)
 	move.w	#$41B,obj.sprite_tile(a1)
 	move.b	#8,obj.width_2(a1)
 	move.b	#$50,obj.height(a1)
@@ -246,42 +246,12 @@ RevolveDoorAnims:
 	include	"src/anims/r8/revolve_door.asm"
 	even
 
-Spr_20BA84:
-	dc.w	@Spr_20BA84_0-*
-	dc.w	@Spr_20BA84_1-Spr_20BA84
-	dc.w	@Spr_20BA84_2-Spr_20BA84
+RevolveDoorSprites:
+	include	"src/sprites/r8/revolve_door.asm"
+	even
 
-@Spr_20BA84_0:
-	dc.b	3
-	dc.b	$F8, 5, 0, 0, $D8
-	dc.b	$F8, $D, 0, 4, $E8
-	dc.b	$F8, $D, 0, $C, 8
-
-@Spr_20BA84_1:
-	dc.b	3
-	dc.b	$F8, 5, 0, 0, $D8
-	dc.b	$F8, $D, 8, 4, $E8
-	dc.b	$F8, $D, 0, $C, 8
-
-@Spr_20BA84_2:
-	dc.b	5
-	dc.b	$B0, 3, 0, $14, $FC
-	dc.b	$D0, 3, 0, $14, $FC
-	dc.b	$F0, 3, 0, $14, $FC
-	dc.b	$10, 3, 0, $14, $FC
-	dc.b	$30, 3, 0, $14, $FC
-
-Spr_20BAC4:
-	dc.w	@Spr_20BAC4_0-*
-
-@Spr_20BAC4_0:
-	dc.b	6
-	dc.b	$A0, 7, 8, 0, $F8
-	dc.b	$C0, 7, 8, 0, $F8
-	dc.b	$E0, 7, 8, 0, $F8
-	dc.b	0, 7, 8, 0, $F8
-	dc.b	$20, 7, 8, 0, $F8
-	dc.b	$40, 7, 8, 0, $F8
-	dc.b	0
+BossDoorSprites:
+	include	"src/sprites/r8/boss_door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

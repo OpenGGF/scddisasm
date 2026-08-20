@@ -24,12 +24,12 @@ LaserObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$3E0,obj.sprite_tile(a0)
-	move.l	#Spr_23C15C,obj.sprite_data(a0)
+	move.l	#LaserSprites1,obj.sprite_data(a0)
 	move.b	#1,obj.sprite_frame(a0)
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20B4B4
 	move.b	#2,obj.sprite_frame(a0)
-	move.l	#Spr_23C186,obj.sprite_data(a0)
+	move.l	#LaserSprites2,obj.sprite_data(a0)
 
 loc_20B4B4:
 	move.b	#1,obj.var_2a(a0)

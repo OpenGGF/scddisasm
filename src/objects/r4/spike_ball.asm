@@ -11,7 +11,7 @@ SpikeBallObject:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$370,obj.sprite_tile(a0)
-	move.l	#Spr_20EAA2,obj.sprite_data(a0)
+	move.l	#SpikeBallSprites,obj.sprite_data(a0)
 
 loc_20EA96:
 	jsr	DrawObject
@@ -19,7 +19,7 @@ loc_20EA96:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20EAA2:
+SpikeBallSprites:
 	include	"src/sprites/r4/spike_ball.asm"
 	even
 

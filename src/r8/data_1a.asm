@@ -238,7 +238,7 @@ StageCollision:
 	even
 
 StageMaps:
-	dc.w	StageMapFg-*
+	dc.w	StageMapFg-StageMaps
 	dc.w	StageMapBg-StageMaps
 	dc.w	StageMapNull-StageMaps
 	dc.w	StageMapUnk1-StageMaps
@@ -474,12 +474,12 @@ RobotTransportGfxB:
 	incbin	"src/gfx/robot_transport_b.nem"
 	even
 
-unk_23E876:
-	incbin	"src/data/r8/unk_23E876.bin"
+SpinPlatform1Data:
+	incbin	"src/data/r8/spin_platform_1.bin"
 	even
 
-Spr_23EBF2:
-	include	"src/sprites/r8/Spr_23EBF2.asm"
+BuzzsawSprites:
+	include	"src/sprites/r8/buzzsaw_ab.asm"
 	even
 
 RobotTransportSprites:

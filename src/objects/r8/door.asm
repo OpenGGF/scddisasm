@@ -65,9 +65,9 @@ sub_20CFF6:
 ; ------------------------------------------------------------------------------
 
 off_20D02C:
-	dc.l	Unk20D162Sprites
-	dc.l	off_20D16C
-	dc.l	off_20D186
+	dc.l	DoorSprites1
+	dc.l	DoorSprites2
+	dc.l	DoorSprites3
 
 ; ------------------------------------------------------------------------------
 
@@ -209,35 +209,16 @@ DoorAnims:
 	include	"src/anims/r8/door.asm"
 	even
 
-Unk20D162Sprites:
-	dc.w	Unk20D162Sprite_0-*
-	dc.w	Unk20D162Sprite_0-Unk20D162Sprites
-Unk20D162Sprite_0:
-	dc.b	1
-	dc.b	$F0, 7, 0, 0, $F8
+DoorSprites1:
+	include	"src/sprites/r8/door_1.asm"
+	even
 	
-off_20D16C:
-	dc.w	byte_20D170-*
-	dc.w	byte_20D17B-off_20D16C
-byte_20D170:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $F8
-	dc.b	$FC, 0, 8, 8, 8
-byte_20D17B:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $F8
-	dc.b	$FC, 0, 8, 9, 8
+DoorSprites2:
+	include	"src/sprites/r8/door_2.asm"
+	even
 
-off_20D186:
-	dc.w	byte_20D18A-*
-	dc.w	byte_20D195-off_20D186
-byte_20D18A:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $F8
-	dc.b	$FC, 0, 0, 8, $F0
-byte_20D195:
-	dc.b	2
-	dc.b	$F0, 7, 0, 0, $F8
-	dc.b	$FC, 0, 0, 9, $F0
+DoorSprites3:
+	include	"src/sprites/r8/door_3.asm"
+	even
 
 ; ------------------------------------------------------------------------------

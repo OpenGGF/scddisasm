@@ -197,6 +197,8 @@ byte_20E5E4:
 	dc.b	$23, $D, $F6
 	dc.b	$28, $F6, $A
 	dc.b	$FF
+	even
+
 word_20E624:
 	dc.w	$423, $423, $423, 0
 	dc.w	$2FE, $2FE, $2FE, 0

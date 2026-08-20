@@ -29,7 +29,7 @@ AmyRoseObject_1_Routine0:
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$14,obj.height(a0)
 	move.w	#$2220,obj.sprite_tile(a0)
-	move.l	#Spr_20D230,obj.sprite_data(a0)
+	move.l	#AmyRoseSprites,obj.sprite_data(a0)
 	addq.b	#2,obj.routine(a0)
 	bset	#0,control_locked
 
@@ -242,62 +242,8 @@ AmyRoseAnims:
 	include	"src/anims/r8/amy_rose.asm"
 	even
 
-Spr_20D230:
-	dc.w	@Spr_20D230_0-*
-	dc.w	@Spr_20D230_1-Spr_20D230
-	dc.w	@Spr_20D230_2-Spr_20D230
-	dc.w	@Spr_20D230_3-Spr_20D230
-	dc.w	@Spr_20D230_4-Spr_20D230
-	dc.w	@Spr_20D230_5-Spr_20D230
-	dc.w	@Spr_20D230_6-Spr_20D230
-	dc.w	@Spr_20D230_7-Spr_20D230
-
-@Spr_20D230_0:
-	dc.b	2
-	dc.b	$EC, $F, 0, 0, $F0
-	dc.b	$C, $C, 0, $10, $F0
-	dc.b	0
-
-@Spr_20D230_1:
-	dc.b	2
-	dc.b	$EC, $F, 0, $14, $F0
-	dc.b	$C, $C, 0, $24, $F0
-	dc.b	0
-
-@Spr_20D230_2:
-	dc.b	2
-	dc.b	$EC, $E, 0, $28, $F0
-	dc.b	4, 9, 0, $34, $F0
-	dc.b	0
-
-@Spr_20D230_3:
-	dc.b	2
-	dc.b	$EC, $F, 0, $3A, $F0
-	dc.b	$C, $C, 0, $4A, $F0
-	dc.b	0
-
-@Spr_20D230_4:
-	dc.b	2
-	dc.b	$EC, $F, 0, $4E, $F0
-	dc.b	$C, $C, 0, $5E, $F0
-	dc.b	0
-
-@Spr_20D230_5:
-	dc.b	2
-	dc.b	$EC, $E, 0, $62, $F0
-	dc.b	4, 9, 0, $6E, $F0
-	dc.b	0
-
-@Spr_20D230_6:
-	dc.b	2
-	dc.b	$EC, $E, 0, $74, $F0
-	dc.b	4, 9, 0, $80, $F0
-	dc.b	0
-
-@Spr_20D230_7:
-	dc.b	2
-	dc.b	$EC, $A, 0, $86, $F8
-	dc.b	4, $D, 0, $8F, $F0
-	dc.b	0
+AmyRoseSprites:
+	include	"src/sprites/r8/amy_rose.asm"
+	even
 
 ; ------------------------------------------------------------------------------

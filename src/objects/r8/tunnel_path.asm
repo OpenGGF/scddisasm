@@ -258,8 +258,6 @@ loc_2083D2:
 
 ; ------------------------------------------------------------------------------
 
-;   ADDITIONAL PARENT FUNCTION TunnelPathObject_0_Routine6
-
 loc_2083E8:
 	moveq	#0,d0
 	move.w	obj.ground_speed(a6),d2
@@ -356,69 +354,69 @@ word_20849C:
 	dc.w	$800
 
 TunnelPaths:
-	dc.w	@TunnelPath_0-*
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_0-TunnelPaths
-	dc.w	@TunnelPath_1C-TunnelPaths
-	dc.w	@TunnelPath_1E-TunnelPaths
-	dc.w	@TunnelPath_20-TunnelPaths
-	dc.w	@TunnelPath_22-TunnelPaths
-	dc.w	@TunnelPath_24-TunnelPaths
-	dc.w	@TunnelPath_26-TunnelPaths
-	dc.w	@TunnelPath_28-TunnelPaths
-	dc.w	@TunnelPath_2A-TunnelPaths
-	dc.w	@TunnelPath_2C-TunnelPaths
-	dc.w	@TunnelPath_2E-TunnelPaths
-	dc.w	@TunnelPath_30-TunnelPaths
-	dc.w	@TunnelPath_32-TunnelPaths
-	dc.w	@TunnelPath_34-TunnelPaths
-	dc.w	@TunnelPath_36-TunnelPaths
-	dc.w	@TunnelPath_38-TunnelPaths
-	dc.w	@TunnelPath_3A-TunnelPaths
-	dc.w	@TunnelPath_3C-TunnelPaths
-	dc.w	@TunnelPath_3E-TunnelPaths
-	dc.w	@TunnelPath_3E-TunnelPaths
-	dc.w	@TunnelPath_3E-TunnelPaths
-	dc.w	@TunnelPath_3E-TunnelPaths
-	dc.w	@TunnelPath_3E-TunnelPaths
-	dc.w	@TunnelPath_3E-TunnelPaths
-	dc.w	@TunnelPath_3E-TunnelPaths
-	dc.w	@TunnelPath_4C-TunnelPaths
-	dc.w	@TunnelPath_4E-TunnelPaths
-	dc.w	@TunnelPath_50-TunnelPaths
-	dc.w	@TunnelPath_52-TunnelPaths
-	dc.w	@TunnelPath_54-TunnelPaths
-	dc.w	@TunnelPath_56-TunnelPaths
-	dc.w	@TunnelPath_58-TunnelPaths
-	dc.w	@TunnelPath_5A-TunnelPaths
-	dc.w	@TunnelPath_5C-TunnelPaths
-	dc.w	@TunnelPath_5E-TunnelPaths
-	dc.w	@TunnelPath_60-TunnelPaths
-	dc.w	@TunnelPath_62-TunnelPaths
-	dc.w	@TunnelPath_62-TunnelPaths
-	dc.w	@TunnelPath_62-TunnelPaths
-	dc.w	@TunnelPath_62-TunnelPaths
-	dc.w	@TunnelPath_62-TunnelPaths
-	dc.w	@TunnelPath_6C-TunnelPaths
-	dc.w	@TunnelPath_6E-TunnelPaths
-	dc.w	@TunnelPath_70-TunnelPaths
-	dc.w	@TunnelPath_72-TunnelPaths
-	dc.w	@TunnelPath_74-TunnelPaths
-	dc.w	@TunnelPath_76-TunnelPaths
-	dc.w	@TunnelPath_78-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_0-TunnelPaths
+	dc.w	.TunnelPath_1C-TunnelPaths
+	dc.w	.TunnelPath_1E-TunnelPaths
+	dc.w	.TunnelPath_20-TunnelPaths
+	dc.w	.TunnelPath_22-TunnelPaths
+	dc.w	.TunnelPath_24-TunnelPaths
+	dc.w	.TunnelPath_26-TunnelPaths
+	dc.w	.TunnelPath_28-TunnelPaths
+	dc.w	.TunnelPath_2A-TunnelPaths
+	dc.w	.TunnelPath_2C-TunnelPaths
+	dc.w	.TunnelPath_2E-TunnelPaths
+	dc.w	.TunnelPath_30-TunnelPaths
+	dc.w	.TunnelPath_32-TunnelPaths
+	dc.w	.TunnelPath_34-TunnelPaths
+	dc.w	.TunnelPath_36-TunnelPaths
+	dc.w	.TunnelPath_38-TunnelPaths
+	dc.w	.TunnelPath_3A-TunnelPaths
+	dc.w	.TunnelPath_3C-TunnelPaths
+	dc.w	.TunnelPath_3E-TunnelPaths
+	dc.w	.TunnelPath_3E-TunnelPaths
+	dc.w	.TunnelPath_3E-TunnelPaths
+	dc.w	.TunnelPath_3E-TunnelPaths
+	dc.w	.TunnelPath_3E-TunnelPaths
+	dc.w	.TunnelPath_3E-TunnelPaths
+	dc.w	.TunnelPath_3E-TunnelPaths
+	dc.w	.TunnelPath_4C-TunnelPaths
+	dc.w	.TunnelPath_4E-TunnelPaths
+	dc.w	.TunnelPath_50-TunnelPaths
+	dc.w	.TunnelPath_52-TunnelPaths
+	dc.w	.TunnelPath_54-TunnelPaths
+	dc.w	.TunnelPath_56-TunnelPaths
+	dc.w	.TunnelPath_58-TunnelPaths
+	dc.w	.TunnelPath_5A-TunnelPaths
+	dc.w	.TunnelPath_5C-TunnelPaths
+	dc.w	.TunnelPath_5E-TunnelPaths
+	dc.w	.TunnelPath_60-TunnelPaths
+	dc.w	.TunnelPath_62-TunnelPaths
+	dc.w	.TunnelPath_62-TunnelPaths
+	dc.w	.TunnelPath_62-TunnelPaths
+	dc.w	.TunnelPath_62-TunnelPaths
+	dc.w	.TunnelPath_62-TunnelPaths
+	dc.w	.TunnelPath_6C-TunnelPaths
+	dc.w	.TunnelPath_6E-TunnelPaths
+	dc.w	.TunnelPath_70-TunnelPaths
+	dc.w	.TunnelPath_72-TunnelPaths
+	dc.w	.TunnelPath_74-TunnelPaths
+	dc.w	.TunnelPath_76-TunnelPaths
+	dc.w	.TunnelPath_78-TunnelPaths
 
-@TunnelPath_0:
+.TunnelPath_0:
 	dc.w	$14
 	dc.w	$380, $6D0
 	dc.w	$380, $780
@@ -426,7 +424,7 @@ TunnelPaths:
 	dc.w	$280, $380
 	dc.w	$478, $380
 
-@TunnelPath_1C:
+.TunnelPath_1C:
 	dc.w	$14
 	dc.w	$460, $380
 	dc.w	$280, $380
@@ -434,17 +432,17 @@ TunnelPaths:
 	dc.w	$380, $780
 	dc.w	$380, $6B8
 
-@TunnelPath_1E:
+.TunnelPath_1E:
 	dc.w	8
 	dc.w	$480, $2D0
 	dc.w	$480, $378
 
-@TunnelPath_20:
+.TunnelPath_20:
 	dc.w	8
 	dc.w	$480, $360
 	dc.w	$480, $2B8
 
-@TunnelPath_22:
+.TunnelPath_22:
 	dc.w	$18
 	dc.w	$480, $3A0
 	dc.w	$480, $480
@@ -453,7 +451,7 @@ TunnelPaths:
 	dc.w	$680, $380
 	dc.w	$680, $2B8
 
-@TunnelPath_24:
+.TunnelPath_24:
 	dc.w	$18
 	dc.w	$680, $2D0
 	dc.w	$680, $380
@@ -462,7 +460,7 @@ TunnelPaths:
 	dc.w	$480, $480
 	dc.w	$480, $388
 
-@TunnelPath_26:
+.TunnelPath_26:
 	dc.w	$1C
 	dc.w	$4A0, $380
 	dc.w	$500, $380
@@ -472,7 +470,7 @@ TunnelPaths:
 	dc.w	$780, $680
 	dc.w	$780, $5B8
 
-@TunnelPath_28:
+.TunnelPath_28:
 	dc.w	$1C
 	dc.w	$780, $5D0
 	dc.w	$780, $680
@@ -482,43 +480,43 @@ TunnelPaths:
 	dc.w	$500, $380
 	dc.w	$488, $380
 
-@TunnelPath_2A:
+.TunnelPath_2A:
 	dc.w	$C
 	dc.w	$E80, $D0
 	dc.w	$E80, $180
 	dc.w	$1078, $180
 
-@TunnelPath_2C:
+.TunnelPath_2C:
 	dc.w	$C
 	dc.w	$1060, $180
 	dc.w	$E80, $180
 	dc.w	$E80, $B8
 
-@TunnelPath_2E:
+.TunnelPath_2E:
 	dc.w	8
 	dc.w	$1080, $D0
 	dc.w	$1080, $178
 
-@TunnelPath_30:
+.TunnelPath_30:
 	dc.w	8
 	dc.w	$1080, $160
 	dc.w	$1080, $B8
 
-@TunnelPath_32:
+.TunnelPath_32:
 	dc.w	$10
 	dc.w	$1080, $1A0
 	dc.w	$1080, $380
 	dc.w	$F80, $380
 	dc.w	$F80, $2B8
 
-@TunnelPath_34:
+.TunnelPath_34:
 	dc.w	$10
 	dc.w	$F80, $2D0
 	dc.w	$F80, $380
 	dc.w	$1080, $380
 	dc.w	$1080, $188
 
-@TunnelPath_36:
+.TunnelPath_36:
 	dc.w	$14
 	dc.w	$10A0, $180
 	dc.w	$1180, $180
@@ -526,7 +524,7 @@ TunnelPaths:
 	dc.w	$1380, $480
 	dc.w	$1380, $3B8
 
-@TunnelPath_38:
+.TunnelPath_38:
 	dc.w	$14
 	dc.w	$1380, $3D0
 	dc.w	$1380, $480
@@ -534,21 +532,21 @@ TunnelPaths:
 	dc.w	$1180, $180
 	dc.w	$1088, $180
 
-@TunnelPath_3A:
+.TunnelPath_3A:
 	dc.w	$10
 	dc.w	$1880, $2D0
 	dc.w	$1880, $480
 	dc.w	$1980, $480
 	dc.w	$1980, $3B8
 
-@TunnelPath_3C:
+.TunnelPath_3C:
 	dc.w	$10
 	dc.w	$1980, $3D0
 	dc.w	$1980, $480
 	dc.w	$1880, $480
 	dc.w	$1880, $2B8
 
-@TunnelPath_3E:
+.TunnelPath_3E:
 	dc.w	$14
 	dc.w	$380, $5D0
 	dc.w	$380, $680
@@ -556,7 +554,7 @@ TunnelPaths:
 	dc.w	$280, $380
 	dc.w	$478, $380
 
-@TunnelPath_4C:
+.TunnelPath_4C:
 	dc.w	$14
 	dc.w	$460, $380
 	dc.w	$280, $380
@@ -564,7 +562,7 @@ TunnelPaths:
 	dc.w	$380, $680
 	dc.w	$380, $5B8
 
-@TunnelPath_4E:
+.TunnelPath_4E:
 	dc.w	$18
 	dc.w	$480, $360
 	dc.w	$480, $280
@@ -573,7 +571,7 @@ TunnelPaths:
 	dc.w	$680, $180
 	dc.w	$680, $B8
 
-@TunnelPath_50:
+.TunnelPath_50:
 	dc.w	$18
 	dc.w	$680, $D0
 	dc.w	$680, $180
@@ -582,7 +580,7 @@ TunnelPaths:
 	dc.w	$480, $280
 	dc.w	$480, $378
 
-@TunnelPath_52:
+.TunnelPath_52:
 	dc.w	$28
 	dc.w	$480, $3A0
 	dc.w	$480, $480
@@ -595,7 +593,7 @@ TunnelPaths:
 	dc.w	$480, $180
 	dc.w	$480, $B8
 
-@TunnelPath_54:
+.TunnelPath_54:
 	dc.w	$28
 	dc.w	$480, $D0
 	dc.w	$480, $180
@@ -608,7 +606,7 @@ TunnelPaths:
 	dc.w	$480, $480
 	dc.w	$480, $388
 
-@TunnelPath_56:
+.TunnelPath_56:
 	dc.w	$44
 	dc.w	$880, $2D0
 	dc.w	$880, $380
@@ -628,7 +626,7 @@ TunnelPaths:
 	dc.w	$E00, $180
 	dc.w	$1078, $180
 
-@TunnelPath_58:
+.TunnelPath_58:
 	dc.w	$44
 	dc.w	$1060, $180
 	dc.w	$E00, $180
@@ -648,21 +646,21 @@ TunnelPaths:
 	dc.w	$880, $380
 	dc.w	$880, $2B8
 
-@TunnelPath_5A:
+.TunnelPath_5A:
 	dc.w	$10
 	dc.w	$1080, $1A0
 	dc.w	$1080, $680
 	dc.w	$F80, $680
 	dc.w	$F80, $5B8
 
-@TunnelPath_5C:
+.TunnelPath_5C:
 	dc.w	$10
 	dc.w	$F80, $5D0
 	dc.w	$F80, $680
 	dc.w	$1080, $680
 	dc.w	$1080, $188
 
-@TunnelPath_5E:
+.TunnelPath_5E:
 	dc.w	$14
 	dc.w	$10A0, $180
 	dc.w	$1180, $180
@@ -670,7 +668,7 @@ TunnelPaths:
 	dc.w	$1280, $480
 	dc.w	$1280, $3B8
 
-@TunnelPath_60:
+.TunnelPath_60:
 	dc.w	$14
 	dc.w	$1280, $3D0
 	dc.w	$1280, $480
@@ -678,17 +676,17 @@ TunnelPaths:
 	dc.w	$1180, $180
 	dc.w	$1088, $180
 
-@TunnelPath_62:
+.TunnelPath_62:
 	dc.w	8
 	dc.w	$480, $3A0
 	dc.w	$480, $478
 
-@TunnelPath_6C:
+.TunnelPath_6C:
 	dc.w	8
 	dc.w	$480, $460
 	dc.w	$480, $388
 
-@TunnelPath_6E:
+.TunnelPath_6E:
 	dc.w	$14
 	dc.w	$480, $4A0
 	dc.w	$480, $580
@@ -696,7 +694,7 @@ TunnelPaths:
 	dc.w	$380, $480
 	dc.w	$478, $480
 
-@TunnelPath_70:
+.TunnelPath_70:
 	dc.w	$14
 	dc.w	$460, $480
 	dc.w	$380, $480
@@ -704,7 +702,7 @@ TunnelPaths:
 	dc.w	$480, $580
 	dc.w	$480, $488
 
-@TunnelPath_72:
+.TunnelPath_72:
 	dc.w	$14
 	dc.w	$4A0, $480
 	dc.w	$500, $480
@@ -712,7 +710,7 @@ TunnelPaths:
 	dc.w	$680, $380
 	dc.w	$680, $2B8
 
-@TunnelPath_74:
+.TunnelPath_74:
 	dc.w	$14
 	dc.w	$680, $2D0
 	dc.w	$680, $380
@@ -720,7 +718,7 @@ TunnelPaths:
 	dc.w	$500, $480
 	dc.w	$488, $480
 
-@TunnelPath_76:
+.TunnelPath_76:
 	dc.w	$40
 	dc.w	$880, $2D0
 	dc.w	$880, $380
@@ -739,7 +737,7 @@ TunnelPaths:
 	dc.w	$980, $280
 	dc.w	$980, $1B8
 
-@TunnelPath_78:
+.TunnelPath_78:
 	dc.w	$40
 	dc.w	$980, $1D0
 	dc.w	$980, $280

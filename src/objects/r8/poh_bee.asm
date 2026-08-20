@@ -22,14 +22,14 @@ loc_20D918:
 	move.w	#$2455,obj.sprite_tile(a0)
 	move.w	obj.x(a0),obj.var_38(a0)
 	move.w	obj.y(a0),obj.var_3a(a0)
-	lea	Unk20DC36Sprites(pc),a1
+	lea	PohBeeSprites1(pc),a1
 	move.l	#-$10000,d0
 	move.w	#$80,d1
 	move.w	#$400,d2
 	move.w	#3,d3
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20D992
-	lea	Unk20DC4ASprites(pc),a1
+	lea	PohBeeSprites2(pc),a1
 	move.l	#-$8000,d0
 	move.w	#$100,d1
 	move.w	#$300,d2
@@ -244,39 +244,10 @@ PohBeeAnims:
 	include	"src/anims/r8/poh_bee.asm"
 	even
 
-Unk20DC36Sprites:
-	dc.w	Unk20DC4ASprite_0-*
-	dc.w	Unk20DC4ASprite_1-Unk20DC36Sprites
-	dc.w	Unk20DC36Sprite_2-Unk20DC36Sprites
-	dc.w	Unk20DC36Sprite_3-Unk20DC36Sprites
-Unk20DC36Sprite_2:
-	dc.b	1
-	dc.b	$F8, 5, 0, $F, $F8
-Unk20DC36Sprite_3:
-	dc.b	1
-	dc.b	$F4, $A, 0, $13, $F4
-Unk20DC4ASprites:
-	dc.w	Unk20DC4ASprite_0-*
-	dc.w	Unk20DC4ASprite_1-Unk20DC4ASprites
-	dc.w	Unk20DC4ASprite_2-Unk20DC4ASprites
-	dc.w	Unk20DC4ASprite_3-Unk20DC4ASprites
-Unk20DC4ASprite_2:
-	dc.b	1
-	dc.b	$F8, 5, 0, $1C, $F8
-Unk20DC4ASprite_3:
-	dc.b	1
-	dc.b	$F4, $A, 0, $20, $F4
-Unk20DC4ASprite_0:
-	dc.b	4
-	dc.b	$F0, $E, 0, 0, $ED
-	dc.b	8, 8, 0, $C, $F5
-	dc.b	$EC, $C, 0, $29, $F4
-	dc.b	$EC, 0, 0, $2D, $14
-Unk20DC4ASprite_1:
-	dc.b	4
-	dc.b	$F0, $E, 0, 0, $ED
-	dc.b	8, 8, 0, $C, $F5
-	dc.b	$EF, $C, 0, $2E, $F4
-	dc.b	$EF, 0, 0, $32, $14
+PohBeeSprites:
+	include	"src/sprites/r8/poh_bee.asm"
+	even
+PohBeeSprites1		equ .Sprites1
+PohBeeSprites2		equ .Sprites2
 
 ; ------------------------------------------------------------------------------

@@ -91,7 +91,7 @@ sub_20D264:
 	move.b	#$10,obj.width_2(a6)
 	move.b	#5,obj.height(a6)
 	move.w	#$34C,obj.sprite_tile(a6)
-	move.l	#Unk20D4D2Sprites,obj.sprite_data(a6)
+	move.l	#SpinPlatformSprites,obj.sprite_data(a6)
 	move.w	obj.x(a0),obj.var_2e(a6)
 	move.w	obj.y(a0),obj.var_30(a6)
 	rts
@@ -215,7 +215,7 @@ sub_20D3B8:
 	move.b	#$10,obj.width_2(a6)
 	move.b	#5,obj.height(a6)
 	move.w	#$34C,obj.sprite_tile(a6)
-	move.l	#Unk20D4D2Sprites,obj.sprite_data(a6)
+	move.l	#SpinPlatformSprites,obj.sprite_data(a6)
 	move.w	obj.x(a0),obj.var_2c(a6)
 	move.w	obj.y(a0),obj.var_2e(a6)
 	rts
@@ -277,7 +277,7 @@ sub_20D470:
 	move.w	obj.x(a0),d4
 	move.w	obj.var_2c(a0),d2
 	move.w	obj.var_2e(a0),d3
-	lea	unk_23E876,a1
+	lea	SpinPlatform1Data,a1
 	move.w	obj.var_32(a0),d0
 	add.w	d0,d0
 	adda.w	d0,a1
@@ -311,50 +311,18 @@ SpinPlatformAnims:
 	include	"src/anims/r8/spin_platform.asm"
 	even
 	
-Unk20D4D2Sprites:
-	dc.w	Unk20D4D2Sprite_0-*
-	dc.w	Unk20D4D2Sprite_1-Unk20D4D2Sprites
-	dc.w	Unk20D4D2Sprite_2-Unk20D4D2Sprites
-	dc.w	Unk20D4D2Sprite_3-Unk20D4D2Sprites
-	dc.w	Unk20D4D2Sprite_4-Unk20D4D2Sprites
-	dc.w	Unk20D4D2Sprite_5-Unk20D4D2Sprites
-	dc.w	Unk20D4D2Sprite_0-Unk20D4D2Sprites
-Unk20D4D2Sprite_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-Unk20D4D2Sprite_1:
-	dc.b	3
-	dc.b	$F4, 8, 0, 4, $F0
-	dc.b	$FC, $C, 0, 7, $F0
-	dc.b	4, 8, 0, $B, $F8
-Unk20D4D2Sprite_2:
-	dc.b	3
-	dc.b	$F0, 4, 0, $E, $F4
-	dc.b	$F8, 9, 0, $10, $F4
-	dc.b	8, 4, 0, $16, $FC
-Unk20D4D2Sprite_3:
-	dc.b	3
-	dc.b	$F0, 4, 0, $18, $F8
-	dc.b	$F8, 5, 0, $1A, $F8
-	dc.b	8, 4, $10, $18, $F8
-Unk20D4D2Sprite_4:
-	dc.b	3
-	dc.b	$F0, 4, 8, $E, $FC
-	dc.b	$F8, 9, 8, $10, $F4
-	dc.b	8, 4, 8, $16, $F4
-Unk20D4D2Sprite_5:
-	dc.b	3
-	dc.b	$F4, 8, 8, 4, $F8
-	dc.b	$FC, $C, 8, 7, $F0
-	dc.b	4, 8, 8, $B, $F0
-	dc.b	0
+SpinPlatformSprites:
+	include	"src/sprites/r8/spin_platform.asm"
+	even
+
 off_20D53C:
-	dc.w	word_20D540-*
+	dc.w	word_20D540-off_20D53C
 	dc.w	word_20D544-off_20D53C
+
 word_20D540:
 	dc.w	$3C
 	dc.w	0
+	
 word_20D544:
 	dc.w	$3C
 	dc.w	1

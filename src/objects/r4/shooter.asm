@@ -12,7 +12,7 @@ ShooterObject:
 	move.b	#8,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$4318,obj.sprite_tile(a0)
-	move.l	#Spr_20F326,obj.sprite_data(a0)
+	move.l	#ShootSprites,obj.sprite_data(a0)
 	move.l	#-$30000,obj.var_2c(a0)
 	move.w	#$20,d6
 	tst.b	obj.subtype(a0)
@@ -45,7 +45,7 @@ loc_20F2A6:
 	move.b	#$20,obj.width_2(a1)
 	move.b	#6,obj.height(a1)
 	move.w	#$318,obj.sprite_tile(a1)
-	move.l	#ShootSprites,obj.sprite_data(a1)
+	move.l	#MissileSprites,obj.sprite_data(a1)
 	move.b	obj.sprite_flags(a0),obj.sprite_flags(a1)
 	move.b	obj.flags(a0),obj.flags(a1)
 
@@ -55,12 +55,9 @@ loc_20F31A:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20F326:
-	dc.w	@Spr_20F326_0-*
-
-@Spr_20F326_0:
-	dc.b	1
-	dc.b	$F0, 7, 0, 0, $F8
+ShootSprites:
+	include	"src/sprites/r4/shoot.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -75,7 +72,7 @@ loc_20F32E:
 loc_20F340:
 	move.l	obj.var_2c(a0),d0
 	add.l	d0,obj.x(a0)
-	lea	ShootAnims(pc),a1
+	lea	MissileAnims(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
@@ -98,12 +95,12 @@ locret_20F380:
 
 ; ------------------------------------------------------------------------------
 
-ShootAnims:
-	include	"src/anims/r4/shoot.asm"
+MissileAnims:
+	include	"src/anims/r4/missile.asm"
 	even
 
-ShootSprites:
-	include	"src/sprites/r4/shoot.asm"
+MissileSprites:
+	include	"src/sprites/r4/missile.asm"
 	even
 
 ; ------------------------------------------------------------------------------

@@ -37,7 +37,7 @@ loc_20B226:
 	adda.w	#obj.var_3e,a4
 	jsr	CycleBossPalette
 	movea.w	obj.var_2e(a0),a2
-	btst	#0,$3C(a2)
+	btst	#0,obj.var_3c(a2)
 	bne.s	locret_20B264
 	jmp	DrawObject
 
@@ -269,7 +269,7 @@ EggmanObject_0_Routine0:
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$3DE,obj.sprite_tile(a0)
-	move.l	#Spr_2365CC,obj.sprite_data(a0)
+	move.l	#EggmanSprites,obj.sprite_data(a0)
 	move.b	#4,obj.var_3a(a0)
 	subi.w	#$100,obj.y(a0)
 	rts
@@ -389,8 +389,8 @@ loc_20B5BC:
 	bset	#3,obj.var_2c(a0)
 	move.b	#$32,obj.collide_type(a0)
 	move.b	#2,obj.collide_status(a0)
-	move.b	#$33,$20(a2)
-	move.b	#2,$21(a2)
+	move.b	#$33,obj.collide_type(a2)
+	move.b	#2,obj.collide_status(a2)
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -511,7 +511,7 @@ loc_20B6AC:
 
 loc_20B6C0:
 	move.w	d0,obj.x(a0)
-	bra.w	*+4
+	bra.w	loc_20B6C8
 
 ; ------------------------------------------------------------------------------
 
@@ -582,11 +582,11 @@ loc_20B748:
 ; ------------------------------------------------------------------------------
 
 EggmanObject_0_Routine14:
-	btst	#6,$3A(a2)
+	btst	#6,obj.var_3a(a2)
 	bne.s	loc_20B76A
-	bset	#4,$2C(a2)
-	clr.b	$2D(a2)
-	clr.b	$2B(a2)
+	bset	#4,obj.var_2c(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2b(a2)
 
 loc_20B76A:
 	bset	#0,obj.var_2c(a0)
@@ -598,25 +598,25 @@ EggmanObject_0_Routine16:
 	tst.b	obj.var_2d(a0)
 	bne.s	loc_20B7AC
 	addq.b	#1,obj.var_2d(a0)
-	bset	#4,$2C(a2)
-	bclr	#7,$3A(a2)
-	clr.b	$2D(a2)
-	clr.b	$2B(a2)
+	bset	#4,obj.var_2c(a2)
+	bclr	#7,obj.var_3a(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2b(a2)
 	cmpi.b	#2,obj.var_3a(a0)
 	beq.s	loc_20B7A2
-	move.b	#4,$36(a2)
+	move.b	#4,obj.var_36(a2)
 	bra.w	loc_20B7AC
 
 ; ------------------------------------------------------------------------------
 
 loc_20B7A2:
-	move.b	#8,$36(a2)
-	bra.w	*+4
+	move.b	#8,obj.var_36(a2)
+	bra.w	loc_20B7AC
 
 ; ------------------------------------------------------------------------------
 
 loc_20B7AC:
-	btst	#7,$3A(a2)
+	btst	#7,obj.var_3a(a2)
 	bne.s	loc_20B7B6
 	rts
 
@@ -629,13 +629,13 @@ loc_20B7B6:
 ; ------------------------------------------------------------------------------
 
 EggmanObject_0_Routine18:
-	clr.b	$2D(a2)
-	clr.b	$2A(a2)
-	clr.b	$2B(a2)
-	bset	#7,$3A(a2)
-	bset	#5,$3A(a2)
-	bclr	#6,$3A(a2)
-	move.b	#4,$24(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2a(a2)
+	clr.b	obj.var_2b(a2)
+	bset	#7,obj.var_3a(a2)
+	bset	#5,obj.var_3a(a2)
+	bclr	#6,obj.var_3a(a2)
+	move.b	#4,obj.routine(a2)
 	clr.b	obj.var_2a(a0)
 	clr.b	obj.var_2b(a0)
 	bset	#0,obj.var_2c(a0)
@@ -646,20 +646,20 @@ EggmanObject_0_Routine18:
 EggmanObject_0_Routine1A:
 	move.w	#$C9,d0
 	jsr	PlayFmSound
-	clr.b	$2D(a2)
-	clr.b	$2A(a2)
-	clr.b	$2B(a2)
-	move.b	#6,$24(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2a(a2)
+	clr.b	obj.var_2b(a2)
+	move.b	#6,obj.routine(a2)
 	bset	#0,obj.var_2c(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
 EggmanObject_0_Routine1C:
-	clr.b	$2D(a2)
-	clr.b	$2A(a2)
-	clr.b	$2B(a2)
-	move.b	#8,$24(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2a(a2)
+	clr.b	obj.var_2b(a2)
+	move.b	#8,obj.routine(a2)
 	bset	#0,obj.var_2c(a0)
 	rts
 
@@ -671,12 +671,12 @@ EggmanObject_0_Routine1E:
 	cmpi.b	#2,obj.var_2d(a0)
 	beq.s	loc_20B87A
 	addq.b	#1,obj.var_2d(a0)
-	clr.b	$2D(a2)
-	clr.b	$2A(a2)
-	clr.b	$2B(a2)
-	move.b	#$A,$24(a2)
-	clr.b	$3D(a2)
-	clr.b	$3E(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2a(a2)
+	clr.b	obj.var_2b(a2)
+	move.b	#$A,obj.routine(a2)
+	clr.b	obj.var_3d(a2)
+	clr.b	obj.var_3e(a2)
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -699,7 +699,7 @@ loc_20B874:
 loc_20B87A:
 	move.b	obj.var_3a(a0),d0
 	add.b	d0,d0
-	cmp.b	$3D(a2),d0
+	cmp.b	obj.var_3d(a2),d0
 	beq.s	loc_20B888
 	rts
 
@@ -712,10 +712,10 @@ loc_20B888:
 ; ------------------------------------------------------------------------------
 
 EggmanObject_0_Routine20:
-	clr.b	$2D(a2)
-	clr.b	$2A(a2)
-	clr.b	$2B(a2)
-	move.b	#$C,$24(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2a(a2)
+	clr.b	obj.var_2b(a2)
+	move.b	#$C,obj.routine(a2)
 	bset	#0,obj.var_2c(a0)
 	rts
 
@@ -730,7 +730,7 @@ EggmanObject_0_Routine2A:
 	beq.w	loc_20B95E
 	cmpi.b	#4,obj.var_3a(a0)
 	bne.s	loc_20B8D8
-	move.b	#8,$36(a2)
+	move.b	#8,obj.var_36(a2)
 	bra.s	loc_20B93E
 
 ; ------------------------------------------------------------------------------
@@ -741,7 +741,7 @@ loc_20B8D8:
 	bge.s	loc_20B906
 	cmpi.b	#3,obj.var_3a(a0)
 	beq.s	loc_20B8F2
-	move.b	#8,$36(a2)
+	move.b	#8,obj.var_36(a2)
 	bra.s	loc_20B8F8
 
 ; ------------------------------------------------------------------------------
@@ -759,7 +759,7 @@ loc_20B8F8:
 loc_20B906:
 	cmpi.b	#3,obj.var_3a(a0)
 	beq.s	loc_20B916
-	move.b	#4,$36(a2)
+	move.b	#4,obj.var_36(a2)
 	bra.s	loc_20B91C
 
 ; ------------------------------------------------------------------------------
@@ -791,10 +791,10 @@ loc_20B934:
 ; ------------------------------------------------------------------------------
 
 loc_20B93E:
-	bset	#4,$2C(a2)
-	bclr	#7,$3A(a2)
-	clr.b	$2D(a2)
-	clr.b	$2B(a2)
+	bset	#4,obj.var_2c(a2)
+	bclr	#7,obj.var_3a(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2b(a2)
 	move.w	#$1A0,obj.var_38(a0)
 	move.b	#3,obj.var_2d(a0)
 
@@ -846,9 +846,9 @@ loc_20B9C0:
 	move.b	#2,obj.var_2d(a0)
 
 loc_20B9CA:
-	move.b	#$E,$24(a2)
-	clr.b	$2D(a2)
-	clr.b	$2B(a2)
+	move.b	#$E,obj.routine(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2b(a2)
 
 loc_20B9D8:
 	addq.b	#1,obj.var_2a(a0)
@@ -884,7 +884,7 @@ loc_20B9FC:
 	move.w	(a3)+,d1
 	btst	#0,obj.var_2d(a0)
 	beq.s	loc_20BA3C
-	bset	#6,$2C(a2)
+	bset	#6,obj.var_2c(a2)
 	neg.w	d0
 	neg.w	d1
 	bra.s	loc2_20BA42
@@ -892,7 +892,7 @@ loc_20B9FC:
 ; ------------------------------------------------------------------------------
 
 loc_20BA3C:
-	bset	#5,$2C(a2)
+	bset	#5,obj.var_2c(a2)
 
 loc2_20BA42:
 	add.w	d0,obj.x(a0)
@@ -976,7 +976,7 @@ loc_20BAC8:
 ; ------------------------------------------------------------------------------
 
 off_20BAEA:
-	dc.w	off_20BAEA-*
+	dc.w	off_20BAEA-off_20BAEA
 	dc.w	word_20BB34-off_20BAEA
 	dc.w	word_20BB34-off_20BAEA
 	dc.w	word_20BAF4-off_20BAEA
@@ -1315,10 +1315,10 @@ loc_20BE2A:
 	move.b	#1,obj.var_2d(a0)
 
 loc_20BE36:
-	move.b	#$12,$24(a2)
-	move.b	#2,$34(a2)
-	clr.b	$2D(a2)
-	clr.b	$2B(a2)
+	move.b	#$12,obj.routine(a2)
+	move.b	#2,obj.var_34(a2)
+	clr.b	obj.var_2d(a2)
+	clr.b	obj.var_2b(a2)
 
 loc_20BE4A:
 	bsr.w	sub_20BF4A
@@ -1520,7 +1520,7 @@ loc_20C01C:
 ; ------------------------------------------------------------------------------
 
 off_20C030:
-	dc.w	off_20C030-*
+	dc.w	off_20C030-off_20C030
 	dc.w	byte_20C03A-off_20C030
 	dc.w	byte_20C06E-off_20C030
 	dc.w	byte_20C0CA-off_20C030
@@ -1823,12 +1823,12 @@ EggmanObject_0_Routine32:
 	bne.s	loc_20C1E4
 	move.b	#3,obj.anim_id(a0)
 	clr.b	obj.var_3c(a0)
-	move.b	#$10,$24(a2)
-	move.b	#3,$1A(a2)
+	move.b	#$10,obj.routine(a2)
+	move.b	#3,obj.sprite_frame(a2)
 	clr.b	obj.collide_type(a0)
 	clr.b	obj.collide_status(a0)
-	clr.b	$20(a2)
-	clr.b	$21(a2)
+	clr.b	obj.collide_type(a2)
+	clr.b	obj.collide_status(a2)
 	bclr	#3,obj.var_2c(a0)
 
 loc_20C1E4:
@@ -1956,7 +1956,7 @@ EggMobileObject_0_Routine0:
 	move.b	#$24,obj.width_2(a0)
 	move.b	#$24,obj.height(a0)
 	move.w	#$23DE,obj.sprite_tile(a0)
-	move.l	#Spr_2364D0,obj.sprite_data(a0)
+	move.l	#EggMobileSprites,obj.sprite_data(a0)
 	move.w	#0,obj.var_38(a0)
 	move.b	#$FF,obj.var_3b(a0)
 	bsr.w	sub_20CF28
@@ -1968,16 +1968,16 @@ EggMobileObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 EggMobileObject_0_Routine2:
-	move.w	8(a2),obj.x(a0)
-	move.w	$C(a2),obj.y(a0)
+	move.w	obj.x(a2),obj.x(a0)
+	move.w	obj.y(a2),obj.y(a0)
 	bsr.w	sub_20C562
 	rts
 
 ; ------------------------------------------------------------------------------
 
 EggMobileObject_0_RoutineE:
-	move.w	8(a2),obj.x(a0)
-	move.w	$C(a2),obj.y(a0)
+	move.w	obj.x(a2),obj.x(a0)
+	move.w	obj.y(a2),obj.y(a0)
 	bsr.w	sub_20C624
 	rts
 
@@ -2065,8 +2065,8 @@ loc_20C426:
 ; ------------------------------------------------------------------------------
 
 EggMobileObject_0_Routine8:
-	move.w	8(a2),obj.x(a0)
-	move.w	$C(a2),obj.y(a0)
+	move.w	obj.x(a2),obj.x(a0)
+	move.w	obj.y(a2),obj.y(a0)
 	tst.b	obj.var_2d(a0)
 	bne.s	loc_20C454
 	move.b	#2,obj.var_34(a0)
@@ -2189,7 +2189,7 @@ loc_20C578:
 	bclr	#5,obj.var_3a(a0)
 	bchg	#6,obj.var_3a(a0)
 	beq.w	loc_20C5E0
-	bra.w	*+4
+	bra.w	loc_20C596
 
 ; ------------------------------------------------------------------------------
 
@@ -2341,7 +2341,7 @@ BossPanelObject_0_Routine0:
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	move.w	#$2220,obj.sprite_tile(a0)
-	move.l	#Spr_23669C,obj.sprite_data(a0)
+	move.l	#BossPanelSprites1,obj.sprite_data(a0)
 	bsr.w	BossPanelObject_0_Routine4
 	clr.b	obj.collide_type(a0)
 	clr.b	obj.collide_status(a0)
@@ -2351,7 +2351,7 @@ BossPanelObject_0_Routine0:
 
 BossPanelObject_0_Routine2:
 	bsr.w	loc_20C79E
-	cmpi.b	#4,$24(a3)
+	cmpi.b	#4,obj.routine(a3)
 	bne.s	loc2_20C722
 	clr.b	obj.collide_type(a0)
 	clr.b	obj.collide_status(a0)
@@ -2390,7 +2390,7 @@ loc_20C75E:
 	moveq	#0,d0
 	move.b	obj.var_34(a2),d0
 	add.w	d0,d0
-	lea	unk_2364C4,a5
+	lea	BossPanelSprites,a5
 	move.w	(a5,d0.w),d0
 	lea	(a5,d0.w),a4
 	move.l	a4,obj.sprite_data(a0)
@@ -2460,13 +2460,13 @@ loc_20C808:
 ; ------------------------------------------------------------------------------
 
 off_20C810:
-	dc.w	off_20C810-*
+	dc.w	off_20C810-off_20C810
 	dc.w	off_20C810-off_20C810
 	dc.w	off_20C830-off_20C810
 	dc.w	off_20C818-off_20C810
 
 off_20C818:
-	dc.w	byte_20C820-*
+	dc.w	byte_20C820-off_20C818
 	dc.w	byte_20C824-off_20C818
 	dc.w	byte_20C828-off_20C818
 	dc.w	byte_20C82C-off_20C818
@@ -2496,7 +2496,7 @@ byte_20C82C:
 	dc.b	-1
 
 off_20C830:
-	dc.w	byte_20C836-*
+	dc.w	byte_20C836-off_20C830
 	dc.w	byte_20C83A-off_20C830
 	dc.w	byte_20C83E-off_20C830
 
@@ -2536,7 +2536,7 @@ BossPanelObject_0_Routine6:
 	addq.b	#1,obj.var_2d(a0)
 	cmpi.b	#1,obj.var_3a(a3)
 	bne.s	loc_20C892
-	move.l	#Spr_236746,obj.sprite_data(a0)
+	move.l	#BossPanelSprites2,obj.sprite_data(a0)
 
 loc_20C892:
 	subi.l	#$10000,obj.y(a0)
@@ -2584,11 +2584,11 @@ loc_20C8DC:
 	move.b	#3,obj.sprite_layer(a0)
 	addq.b	#1,obj.var_2d(a0)
 	clr.b	obj.var_2a(a0)
-	move.l	#Spr_236988,obj.sprite_data(a0)
+	move.l	#BossPanelSprites6,obj.sprite_data(a0)
 	move.b	#0,obj.sprite_frame(a0)
 	cmpi.b	#3,$3A(a3)
 	bge.w	loc_20C9AA
-	move.l	#Spr_236746,obj.sprite_data(a0)
+	move.l	#BossPanelSprites2,obj.sprite_data(a0)
 	cmpi.b	#2,$3A(a3)
 	beq.w	loc_20C98C
 	cmpi.w	#$F00,obj.x(a1)
@@ -2677,7 +2677,7 @@ loc_20C9F6:
 	cmpi.b	#0,obj.sprite_frame(a0)
 	bne.s	loc_20CA22
 	move.w	#$1C0,d0
-	cmpi.l	#Spr_236988,obj.sprite_data(a0)
+	cmpi.l	#BossPanelSprites6,obj.sprite_data(a0)
 	beq.s	loc_20CA26
 	move.w	#$1B8,d0
 	bra.s	loc_20CA26
@@ -2763,7 +2763,7 @@ loc_20CAB4:
 ; ------------------------------------------------------------------------------
 
 off_20CAC4:
-	dc.w	off_20CAC4-*
+	dc.w	off_20CAC4-off_20CAC4
 	dc.w	byte_20CAD6-off_20CAC4
 	dc.w	byte_20CAD8-off_20CAC4
 	dc.w	byte_20CAD2-off_20CAC4
@@ -2819,15 +2819,15 @@ loc_20CB20:
 	clr.b	obj.var_2a(a0)
 	clr.b	obj.var_2b(a0)
 	addq.b	#1,obj.var_2d(a0)
-	cmpi.l	#Spr_2368DA,obj.sprite_data(a0)
+	cmpi.l	#BossPanelSprites4,obj.sprite_data(a0)
 	beq.s	loc_20CB40
-	move.l	#Spr_236804,obj.sprite_data(a0)
+	move.l	#BossPanelSprites3,obj.sprite_data(a0)
 	bra.s	loc_20CB48
 
 ; ------------------------------------------------------------------------------
 
 loc_20CB40:
-	move.l	#Spr_236912,obj.sprite_data(a0)
+	move.l	#BossPanelSprites5,obj.sprite_data(a0)
 
 loc_20CB48:
 	move.l	obj.var_34(a0),d0
@@ -2939,7 +2939,7 @@ sub_20CBEA:
 ; ------------------------------------------------------------------------------
 
 off_20CC38:
-	dc.w	word_20CC44-*
+	dc.w	word_20CC44-off_20CC38
 	dc.w	word_20CC44-off_20CC38
 	dc.w	word_20CC44-off_20CC38
 	dc.w	word_20CCE4-off_20CC38
@@ -3024,7 +3024,7 @@ SparksObject_0_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$3DE,obj.sprite_tile(a0)
-	move.l	#Spr_2365BC,obj.sprite_data(a0)
+	move.l	#SparksSprites,obj.sprite_data(a0)
 
 SparksObject_0_Routine2:
 	movea.w	obj.var_2e(a0),a2
@@ -3071,7 +3071,7 @@ locret_20CEE2:
 ; ------------------------------------------------------------------------------
 
 off_20CEE4:
-	dc.w	word_20CEE8-*
+	dc.w	word_20CEE8-off_20CEE4
 	dc.w	word_20CEF4-off_20CEE4
 
 word_20CEE8:

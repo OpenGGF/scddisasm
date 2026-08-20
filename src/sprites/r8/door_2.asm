@@ -2,12 +2,18 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-.Anims:
-	dc.w	.Anim0-*
+.Sprites:
+	dc.w	.Sprite0-.Sprites
+	dc.w	.Sprite1-.Sprites
 
-.Anim0:
-	dc.b	8
-	dc.b	0, 1
-	dc.b	$FF
+.Sprite0:
+	dc.b	2
+	dc.b	$F0, 7, 0, 0, $F8
+	dc.b	$FC, 0, 8, 8, 8
+
+.Sprite1:
+	dc.b	2
+	dc.b	$F0, 7, 0, 0, $F8
+	dc.b	$FC, 0, 8, 9, 8
 
 ; ------------------------------------------------------------------------------

@@ -85,15 +85,15 @@ TubeDoorObject_1_Routine4:
 ; ------------------------------------------------------------------------------
 
 sub_20F1D0:
-	move.b	#6,$24(a6)
-	ori.b	#4,1(a6)
-	move.b	#3,$18(a6)
-	move.w	#$33C,2(a6)
-	move.b	#8,$17(a6)
-	move.b	#8,$19(a6)
-	move.b	#4,$16(a6)
-	move.l	#Spr_20F3A8,4(a6)
-	move.w	obj.y(a0),$C(a6)
+	move.b	#6,obj.routine(a6)
+	ori.b	#4,obj.sprite_flags(a6)
+	move.b	#3,obj.sprite_layer(a6)
+	move.w	#$33C,obj.sprite_tile(a6)
+	move.b	#8,obj.width(a6)
+	move.b	#8,obj.width_2(a6)
+	move.b	#4,obj.height(a6)
+	move.l	#TubeDoorSprites,obj.sprite_data(a6)
+	move.w	obj.y(a0),obj.y(a6)
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ TubeDoorObject_1_Routine6:
 
 loc_20F21C:
 	movea.w	obj.var_3e(a0),a1
-	cmpi.b	#$20,0(a1)
+	cmpi.b	#$20,obj.id(a1)
 	bne.w	loc_20F38C
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
@@ -137,7 +137,7 @@ TubeDoorObject_0_Routine0:
 	move.b	#$10,obj.width(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#4,obj.height(a0)
-	move.l	#Spr_20F3A8,obj.sprite_data(a0)
+	move.l	#TubeDoorSprites,obj.sprite_data(a0)
 
 TubeDoorObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
@@ -279,40 +279,8 @@ TubeDoorAnims:
 	include	"src/anims/r8/tube_door.asm"
 	even
 
-Spr_20F3A8:
-	dc.w	@Spr_20F3A8_0-*
-	dc.w	@Spr_20F3A8_1-Spr_20F3A8
-	dc.w	@Spr_20F3A8_2-Spr_20F3A8
-	dc.w	@Spr_20F3A8_3-Spr_20F3A8
-	dc.w	@Spr_20F3A8_4-Spr_20F3A8
-	dc.w	@Spr_20F3A8_5-Spr_20F3A8
-
-@Spr_20F3A8_0:
-	dc.b	1
-	dc.b	$FC, 4, $40, 0, $F8
-
-@Spr_20F3A8_1:
-	dc.b	2
-	dc.b	$FC, 4, 0, 2, $F0
-	dc.b	$FC, 4, 8, 2, 0
-
-@Spr_20F3A8_2:
-	dc.b	2
-	dc.b	$FC, 4, 0, 2, $EC
-	dc.b	$FC, 4, 8, 2, 4
-
-@Spr_20F3A8_3:
-	dc.b	2
-	dc.b	$FC, 4, 0, 2, $E8
-	dc.b	$FC, 4, 8, 2, 8
-
-@Spr_20F3A8_4:
-	dc.b	2
-	dc.b	$FC, 4, 0, 2, $E4
-	dc.b	$FC, 4, 8, 2, $C
-
-@Spr_20F3A8_5:
-	dc.b	0
-	dc.b	0
+TubeDoorSprites:
+	include	"src/sprites/r8/tube_door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

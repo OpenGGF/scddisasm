@@ -76,7 +76,7 @@ BigbomObject_1_Routine6:
 	addi.w	#-1,obj.var_2a(a0)
 	bne.s	locret_20D578
 	movea.w	obj.var_3c(a0),a1
-	addq.b	#2,$24(a1)
+	addq.b	#2,obj.routine(a1)
 	jsr	SpawnObject
 	beq.s	loc_20D53A
 	jmp	DeleteObject
@@ -92,7 +92,7 @@ loc_20D53A:
 	addi.w	#-$1F,d0
 	move.w	d0,obj.y(a1)
 	movea.w	obj.var_3c(a0),a2
-	btst	#0,1(a2)
+	btst	#0,obj.sprite_flags(a2)
 	beq.s	loc_20D574
 	bchg	#0,obj.sprite_flags(a1)
 	bchg	#0,obj.flags(a1)
@@ -119,7 +119,7 @@ BigbomObject_1_RoutineC:
 	cmpi.w	#$20,obj.var_2a(a0)
 	bne.s	loc_20D59A
 	movea.w	obj.var_3c(a0),a1
-	addq.b	#2,$24(a1)
+	addq.b	#2,obj.routine(a1)
 
 loc_20D59A:
 	cmpi.w	#$1E,obj.var_2a(a0)
@@ -198,10 +198,10 @@ BigbomObject_0_Routine2:
 	move.w	off_20D6EC(pc,d0.w),d0
 	jsr	off_20D6EC(pc,d0.w)
 	movea.w	obj.var_3e(a0),a1
-	cmpi.b	#$23,0(a1)
+	cmpi.b	#$23,obj.id(a1)
 	bne.s	loc_20D6E6
-	move.w	obj.x(a0),8(a1)
-	move.w	obj.y(a0),$C(a1)
+	move.w	obj.x(a0),obj.x(a1)
+	move.w	obj.y(a0),obj.y(a1)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
@@ -232,7 +232,7 @@ BigbomObject_2_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	move.w	#$8340,obj.sprite_tile(a0)
-	move.l	#Spr_20D91A,obj.sprite_data(a0)
+	move.l	#BigbomSprites,obj.sprite_data(a0)
 	move.b	#$14,obj.width_2(a0)
 	move.b	#$1A,obj.height(a0)
 	move.b	#$A6,obj.var_3d(a0)
@@ -445,62 +445,9 @@ BigbomObject_2_Routine18:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D91A:
-	dc.w	@Spr_20D91A_0-*
-	dc.w	@Spr_20D91A_1-Spr_20D91A
-	dc.w	@Spr_20D91A_2-Spr_20D91A
-	dc.w	@Spr_20D91A_3-Spr_20D91A
-	dc.w	@Spr_20D91A_4-Spr_20D91A
-
-@Spr_20D91A_0:
-	dc.b	7
-	dc.b	$D4, 2, 0, $55, $FC
-	dc.b	3, $E, 0, 0, $F4
-	dc.b	$13, 4, 0, $C, $E4
-	dc.b	$EC, $F, 0, $34, $EC
-	dc.b	$EC, 3, 0, $44, $C
-	dc.b	$C, $C, 0, $48, $EC
-	dc.b	$C, 0, 0, $4C, $C
-
-@Spr_20D91A_1:
-	dc.b	7
-	dc.b	$D2, 2, 0, $55, $FC
-	dc.b	3, $E, 0, $E, $FC
-	dc.b	$B, 5, 0, $1A, $EC
-	dc.b	$EA, $F, 0, $34, $EC
-	dc.b	$EA, 3, 0, $44, $C
-	dc.b	$A, $C, 0, $48, $EC
-	dc.b	$A, 0, 0, $4C, $C
-
-@Spr_20D91A_2:
-	dc.b	7
-	dc.b	$D4, 2, 0, $55, $FC
-	dc.b	3, $A, 0, $1E, $FC
-	dc.b	$13, 4, 0, $27, $EC
-	dc.b	$EC, $F, 0, $34, $EC
-	dc.b	$EC, 3, 0, $44, $C
-	dc.b	$C, $C, 0, $48, $EC
-	dc.b	$C, 0, 0, $4C, $C
-
-@Spr_20D91A_3:
-	dc.b	7
-	dc.b	$D2, 2, 0, $55, $FC
-	dc.b	3, $A, 0, $29, $FC
-	dc.b	$B, 1, 0, $32, $F4
-	dc.b	$EA, $F, 0, $34, $EC
-	dc.b	$EA, 3, 0, $44, $C
-	dc.b	$A, $C, 0, $48, $EC
-	dc.b	$A, 0, 0, $4C, $C
-
-@Spr_20D91A_4:
-	dc.b	6
-	dc.b	3, $E, 0, 0, $F4
-	dc.b	$13, 4, 0, $C, $E4
-	dc.b	$EC, $F, 0, $34, $EC
-	dc.b	$EC, 3, 0, $44, $C
-	dc.b	$C, $C, 0, $48, $EC
-	dc.b	$C, 0, 0, $4C, $C
-	dc.b	0
+BigbomSprites:
+	include	"src/sprites/r8/bigbom.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -526,7 +473,7 @@ BigbomObject_3_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#2,obj.sprite_layer(a0)
 	move.w	#$8340,obj.sprite_tile(a0)
-	move.l	#Spr_20DA76,obj.sprite_data(a0)
+	move.l	#BigbomFuseSprites,obj.sprite_data(a0)
 	move.b	#4,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
 	move.w	#$3C,obj.var_2a(a0)
@@ -570,17 +517,9 @@ BigbomFuseAnims:
 	include	"src/anims/r8/bigbom_fuse.asm"
 	even
 
-Spr_20DA76:
-	dc.w	@Spr_20DA76_0-*
-	dc.w	@Spr_20DA76_1-Spr_20DA76
-
-@Spr_20DA76_0:
-	dc.b	1
-	dc.b	$F4, 2, 0, $58, $FC
-
-@Spr_20DA76_1:
-	dc.b	1
-	dc.b	$F4, 2, 0, $5B, $FC
+BigbomFuseSprites:
+	include	"src/sprites/r8/bigbom_fuse.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -604,7 +543,7 @@ BigbomObject_4_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	move.w	#$8680,obj.sprite_tile(a0)
-	move.l	#Spr_20DAE4,obj.sprite_data(a0)
+	move.l	#BigbomExplodeSprites,obj.sprite_data(a0)
 	move.w	#$28,obj.var_2a(a0)
 
 BigbomObject_4_Routine2:
@@ -624,44 +563,9 @@ BigbomExplodeAnims:
 	include	"src/anims/r8/bigbom_explode.asm"
 	even
 
-Spr_20DAE4:
-	dc.w	@Spr_20DAE4_0-*
-	dc.w	@Spr_20DAE4_1-Spr_20DAE4
-	dc.w	@Spr_20DAE4_2-Spr_20DAE4
-	dc.w	@Spr_20DAE4_3-Spr_20DAE4
-	dc.w	@Spr_20DAE4_4-Spr_20DAE4
-
-@Spr_20DAE4_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-
-@Spr_20DAE4_1:
-	dc.b	3
-	dc.b	$F0, $D, 0, 4, $F0
-	dc.b	0, 5, 0, $C, $F0
-	dc.b	0, 5, 8, $C, 0
-
-@Spr_20DAE4_2:
-	dc.b	4
-	dc.b	$F0, 5, 0, $10, $F0
-	dc.b	$F0, 5, 0, $14, 0
-	dc.b	0, 5, 0, $18, $F0
-	dc.b	0, 5, $18, $10, 0
-
-@Spr_20DAE4_3:
-	dc.b	4
-	dc.b	$E8, $A, 0, $1C, $E8
-	dc.b	$E8, $A, 8, $1C, 0
-	dc.b	0, $A, $10, $1C, $E8
-	dc.b	0, $A, $18, $1C, 0
-
-@Spr_20DAE4_4:
-	dc.b	4
-	dc.b	$E8, $A, 0, $25, $E8
-	dc.b	$E8, $A, 8, $25, 0
-	dc.b	0, $A, $10, $25, $E8
-	dc.b	0, $A, $18, $25, 0
+BigbomExplodeSprites:
+	include	"src/sprites/r8/bigbom_explode.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -687,7 +591,7 @@ BigbomObject_5_Routine0:
 	move.b	#8,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	move.w	#$8340,obj.sprite_tile(a0)
-	move.l	#Spr_20DBF8,obj.sprite_data(a0)
+	move.l	#BigbomDebrisSprites,obj.sprite_data(a0)
 	move.b	#$A7,obj.collide_type(a0)
 	move.b	#$A7,obj.var_3d(a0)
 
@@ -730,16 +634,8 @@ BigbomDebrisAnims:
 	include	"src/anims/r8/bigbom_debris.asm"
 	even
 
-Spr_20DBF8:
-	dc.w	@Spr_20DBF8_0-*
-	dc.w	@Spr_20DBF8_1-Spr_20DBF8
-
-@Spr_20DBF8_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, $4D, $F8
-
-@Spr_20DBF8_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, $51, $F8
+BigbomDebrisSprites:
+	include	"src/sprites/r8/bigbom_debris.asm"
+	even
 
 ; ------------------------------------------------------------------------------

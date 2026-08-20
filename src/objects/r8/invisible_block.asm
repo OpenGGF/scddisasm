@@ -19,7 +19,7 @@ off_206318:
 InvisibleBlockObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#Spr_20634A,obj.sprite_data(a0)
+	move.l	#InvisibleBlockSprites,obj.sprite_data(a0)
 	move.b	#$10,obj.width(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
@@ -30,11 +30,8 @@ InvisibleBlockObject_0_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20634A:
-	dc.w	@Spr_20634A_0-*
-
-@Spr_20634A_0:
-	dc.b	0
-	dc.b	0
+InvisibleBlockSprites:
+	include	"src/sprites/r8/invisible_block.asm"
+	even
 
 ; ------------------------------------------------------------------------------

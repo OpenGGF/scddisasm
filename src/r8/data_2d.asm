@@ -249,48 +249,48 @@ BossMachineGfx:
 	incbin	"src/gfx/r8/boss_machine.nem"
 	even
 
-unk_2364C4:
-	dc.w	Spr_23669C-unk_2364C4
-	dc.w	Spr_236746-unk_2364C4
-	dc.w	Spr_236804-unk_2364C4
-	dc.w	Spr_2368DA-unk_2364C4
-	dc.w	Spr_236912-unk_2364C4
-	dc.w	Spr_236988-unk_2364C4
+BossPanelSprites:
+	dc.w	BossPanelSprites1-BossPanelSprites
+	dc.w	BossPanelSprites2-BossPanelSprites
+	dc.w	BossPanelSprites3-BossPanelSprites
+	dc.w	BossPanelSprites4-BossPanelSprites
+	dc.w	BossPanelSprites5-BossPanelSprites
+	dc.w	BossPanelSprites6-BossPanelSprites
 
-Spr_2364D0:
-	include	"src/sprites/r8/Spr_2364D0.asm"
+EggMobileSprites:
+	include	"src/sprites/r8/eggmobile.asm"
 	even
 
-Spr_2365BC:
-	include	"src/sprites/r8/Spr_2365BC.asm"
+SparksSprites:
+	include	"src/sprites/r8/sparks.asm"
 	even
 
-Spr_2365CC:
-	include	"src/sprites/r8/Spr_2365CC.asm"
+EggmanSprites:
+	include	"src/sprites/r8/eggman.asm"
 	even
 
-Spr_23669C:
-	include	"src/sprites/r8/Spr_23669C.asm"
+BossPanelSprites1:
+	include	"src/sprites/r8/boss_panel_1.asm"
 	even
 
-Spr_236746:
-	include	"src/sprites/r8/Spr_236746.asm"
+BossPanelSprites2:
+	include	"src/sprites/r8/boss_panel_2.asm"
 	even
 
-Spr_236804:
-	include	"src/sprites/r8/Spr_236804.asm"
+BossPanelSprites3:
+	include	"src/sprites/r8/boss_panel_3.asm"
 	even
 
-Spr_2368DA:
-	include	"src/sprites/r8/Spr_2368DA.asm"
+BossPanelSprites4:
+	include	"src/sprites/r8/boss_panel_4.asm"
 	even
 
-Spr_236912:
-	include	"src/sprites/r8/Spr_236912.asm"
+BossPanelSprites5:
+	include	"src/sprites/r8/boss_panel_5.asm"
 	even
 
-Spr_236988:
-	include	"src/sprites/r8/Spr_236988.asm"
+BossPanelSprites6:
+	include	"src/sprites/r8/boss_panel_6.asm"
 	even
 
 AmyRoseGfx:
@@ -513,407 +513,19 @@ RobotTransportGfxB:
 	incbin	"src/gfx/robot_transport_b.nem"
 	even
 
-unk_23E876:
-	incbin	"src/data/r8/unk_23E876.bin"
+SpinPlatform1Data:
+	incbin	"src/data/r8/spin_platform_1.bin"
 	even
 
 RobotTransportSprites:
 	include	"src/sprites/robot_transport.asm"
 	even
 
-Spr_23C15C:
-	dc.w	@Spr_23C186_0-*
-	dc.w	@Spr_23C186_1-Spr_23C15C
-	dc.w	@Spr_23C186_2-Spr_23C15C
-	dc.w	@Spr_23C186_3-Spr_23C15C
-	dc.w	@Spr_23C15C_4-Spr_23C15C
-	dc.w	@Spr_23C186_5-Spr_23C15C
-	dc.w	@Spr_23C186_6-Spr_23C15C
-	dc.w	@Spr_23C186_7-Spr_23C15C
-	dc.w	@Spr_23C186_8-Spr_23C15C
-	dc.w	@Spr_23C186_9-Spr_23C15C
-	dc.w	@Spr_23C186_A-Spr_23C15C
-	dc.w	@Spr_23C186_B-Spr_23C15C
-	dc.w	@Spr_23C186_C-Spr_23C15C
-	dc.w	@Spr_23C15C_D-Spr_23C15C
-	dc.w	@Spr_23C15C_E-Spr_23C15C
-	dc.w	@Spr_23C15C_F-Spr_23C15C
-	dc.w	@Spr_23C15C_10-Spr_23C15C
-	dc.w	@Spr_23C15C_11-Spr_23C15C
-	dc.w	@Spr_23C15C_12-Spr_23C15C
-	dc.w	@Spr_23C15C_13-Spr_23C15C
-	dc.w	@Spr_23C15C_14-Spr_23C15C
-
-Spr_23C186:
-	dc.w	@Spr_23C186_0-*
-	dc.w	@Spr_23C186_1-Spr_23C186
-	dc.w	@Spr_23C186_2-Spr_23C186
-	dc.w	@Spr_23C186_3-Spr_23C186
-	dc.w	@Spr_23C186_4-Spr_23C186
-	dc.w	@Spr_23C186_5-Spr_23C186
-	dc.w	@Spr_23C186_6-Spr_23C186
-	dc.w	@Spr_23C186_7-Spr_23C186
-	dc.w	@Spr_23C186_8-Spr_23C186
-	dc.w	@Spr_23C186_9-Spr_23C186
-	dc.w	@Spr_23C186_A-Spr_23C186
-	dc.w	@Spr_23C186_B-Spr_23C186
-	dc.w	@Spr_23C186_C-Spr_23C186
-	dc.w	@Spr_23C186_D-Spr_23C186
-	dc.w	@Spr_23C186_E-Spr_23C186
-	dc.w	@Spr_23C186_F-Spr_23C186
-	dc.w	@Spr_23C186_10-Spr_23C186
-	dc.w	@Spr_23C186_11-Spr_23C186
-	dc.w	@Spr_23C186_12-Spr_23C186
-	dc.w	@Spr_23C186_13-Spr_23C186
-	dc.w	@Spr_23C186_14-Spr_23C186
-
-@Spr_23C186_0:
-	dc.b	2
-	dc.b	$F4, 2, 0, 0, $F8
-	dc.b	$F4, 2, 8, 0, 0
-	dc.b	0
-
-@Spr_23C186_1:
-	dc.b	2
-	dc.b	$F4, 2, 0, 3, $F8
-	dc.b	$F4, 2, 8, 3, 0
-	dc.b	0
-
-@Spr_23C186_2:
-	dc.b	2
-	dc.b	$F4, 2, 0, 6, $F8
-	dc.b	$F4, 2, 8, 6, 0
-	dc.b	0
-
-@Spr_23C186_3:
-	dc.b	2
-	dc.b	$FC, 0, 0, $C, $F8
-	dc.b	$FC, 0, 8, $C, 0
-	dc.b	0
-
-@Spr_23C15C_4:
-	dc.b	2
-	dc.b	$FC, 0, 0, $D, $F8
-	dc.b	$FC, 0, 8, $D, 0
-	dc.b	0
-
-@Spr_23C186_5:
-	dc.b	2
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C186_6:
-	dc.b	4
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	$EC, 0, 0, 9, $FC
-	dc.b	$E4, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C186_7:
-	dc.b	6
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	$EC, 0, 0, 9, $FC
-	dc.b	$E4, 0, 0, 9, $FC
-	dc.b	$DC, 0, 0, 9, $FC
-	dc.b	$D4, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C186_8:
-	dc.b	8
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	$EC, 0, 0, 9, $FC
-	dc.b	$E4, 0, 0, 9, $FC
-	dc.b	$DC, 0, 0, 9, $FC
-	dc.b	$D4, 0, 0, 9, $FC
-	dc.b	$CC, 0, 0, 9, $FC
-	dc.b	$C4, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C186_9:
-	dc.b	$A
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	$EC, 0, 0, 9, $FC
-	dc.b	$E4, 0, 0, 9, $FC
-	dc.b	$DC, 0, 0, 9, $FC
-	dc.b	$D4, 0, 0, 9, $FC
-	dc.b	$CC, 0, 0, 9, $FC
-	dc.b	$C4, 0, 0, 9, $FC
-	dc.b	$BC, 0, 0, 9, $FC
-	dc.b	$B4, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C186_A:
-	dc.b	$C
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	$EC, 0, 0, 9, $FC
-	dc.b	$E4, 0, 0, 9, $FC
-	dc.b	$DC, 0, 0, 9, $FC
-	dc.b	$D4, 0, 0, 9, $FC
-	dc.b	$CC, 0, 0, 9, $FC
-	dc.b	$C4, 0, 0, 9, $FC
-	dc.b	$BC, 0, 0, 9, $FC
-	dc.b	$B4, 0, 0, 9, $FC
-	dc.b	$AC, 0, 0, 9, $FC
-	dc.b	$A4, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C186_B:
-	dc.b	$E
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	$EC, 0, 0, 9, $FC
-	dc.b	$E4, 0, 0, 9, $FC
-	dc.b	$DC, 0, 0, 9, $FC
-	dc.b	$D4, 0, 0, 9, $FC
-	dc.b	$CC, 0, 0, 9, $FC
-	dc.b	$C4, 0, 0, 9, $FC
-	dc.b	$BC, 0, 0, 9, $FC
-	dc.b	$B4, 0, 0, 9, $FC
-	dc.b	$AC, 0, 0, 9, $FC
-	dc.b	$A4, 0, 0, 9, $FC
-	dc.b	$9C, 0, 0, 9, $FC
-	dc.b	$94, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C186_C:
-	dc.b	$10
-	dc.b	$FC, 0, 0, 9, $FC
-	dc.b	$F4, 0, 0, 9, $FC
-	dc.b	$EC, 0, 0, 9, $FC
-	dc.b	$E4, 0, 0, 9, $FC
-	dc.b	$DC, 0, 0, 9, $FC
-	dc.b	$D4, 0, 0, 9, $FC
-	dc.b	$CC, 0, 0, 9, $FC
-	dc.b	$C4, 0, 0, 9, $FC
-	dc.b	$BC, 0, 0, 9, $FC
-	dc.b	$B4, 0, 0, 9, $FC
-	dc.b	$AC, 0, 0, 9, $FC
-	dc.b	$A4, 0, 0, 9, $FC
-	dc.b	$9C, 0, 0, 9, $FC
-	dc.b	$94, 0, 0, 9, $FC
-	dc.b	$8C, 0, 0, 9, $FC
-	dc.b	$84, 0, 0, 9, $FC
-	dc.b	0
-
-@Spr_23C15C_D:
-	dc.b	2
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C15C_E:
-	dc.b	4
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	$EC, 0, 0, $A, $FC
-	dc.b	$E4, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C15C_F:
-	dc.b	6
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	$EC, 0, 0, $A, $FC
-	dc.b	$E4, 0, 0, $A, $FC
-	dc.b	$DC, 0, 0, $A, $FC
-	dc.b	$D4, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C15C_10:
-	dc.b	8
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	$EC, 0, 0, $A, $FC
-	dc.b	$E4, 0, 0, $A, $FC
-	dc.b	$DC, 0, 0, $A, $FC
-	dc.b	$D4, 0, 0, $A, $FC
-	dc.b	$CC, 0, 0, $A, $FC
-	dc.b	$C4, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C15C_11:
-	dc.b	$A
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	$EC, 0, 0, $A, $FC
-	dc.b	$E4, 0, 0, $A, $FC
-	dc.b	$DC, 0, 0, $A, $FC
-	dc.b	$D4, 0, 0, $A, $FC
-	dc.b	$CC, 0, 0, $A, $FC
-	dc.b	$C4, 0, 0, $A, $FC
-	dc.b	$BC, 0, 0, $A, $FC
-	dc.b	$B4, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C15C_12:
-	dc.b	$C
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	$EC, 0, 0, $A, $FC
-	dc.b	$E4, 0, 0, $A, $FC
-	dc.b	$DC, 0, 0, $A, $FC
-	dc.b	$D4, 0, 0, $A, $FC
-	dc.b	$CC, 0, 0, $A, $FC
-	dc.b	$C4, 0, 0, $A, $FC
-	dc.b	$BC, 0, 0, $A, $FC
-	dc.b	$B4, 0, 0, $A, $FC
-	dc.b	$AC, 0, 0, $A, $FC
-	dc.b	$A4, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C15C_13:
-	dc.b	$E
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	$EC, 0, 0, $A, $FC
-	dc.b	$E4, 0, 0, $A, $FC
-	dc.b	$DC, 0, 0, $A, $FC
-	dc.b	$D4, 0, 0, $A, $FC
-	dc.b	$CC, 0, 0, $A, $FC
-	dc.b	$C4, 0, 0, $A, $FC
-	dc.b	$BC, 0, 0, $A, $FC
-	dc.b	$B4, 0, 0, $A, $FC
-	dc.b	$AC, 0, 0, $A, $FC
-	dc.b	$A4, 0, 0, $A, $FC
-	dc.b	$9C, 0, 0, $A, $FC
-	dc.b	$94, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C15C_14:
-	dc.b	$10
-	dc.b	$FC, 0, 0, $A, $FC
-	dc.b	$F4, 0, 0, $A, $FC
-	dc.b	$EC, 0, 0, $A, $FC
-	dc.b	$E4, 0, 0, $A, $FC
-	dc.b	$DC, 0, 0, $A, $FC
-	dc.b	$D4, 0, 0, $A, $FC
-	dc.b	$CC, 0, 0, $A, $FC
-	dc.b	$C4, 0, 0, $A, $FC
-	dc.b	$BC, 0, 0, $A, $FC
-	dc.b	$B4, 0, 0, $A, $FC
-	dc.b	$AC, 0, 0, $A, $FC
-	dc.b	$A4, 0, 0, $A, $FC
-	dc.b	$9C, 0, 0, $A, $FC
-	dc.b	$94, 0, 0, $A, $FC
-	dc.b	$8C, 0, 0, $A, $FC
-	dc.b	$84, 0, 0, $A, $FC
-	dc.b	0
-
-@Spr_23C186_D:
-	dc.b	2
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_E:
-	dc.b	4
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$EC, 0, 0, $B, $FC
-	dc.b	$E4, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_F:
-	dc.b	6
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$EC, 0, 0, $B, $FC
-	dc.b	$E4, 0, 0, $B, $FC
-	dc.b	$DC, 0, 0, $B, $FC
-	dc.b	$D4, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_10:
-	dc.b	8
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$EC, 0, 0, $B, $FC
-	dc.b	$E4, 0, 0, $B, $FC
-	dc.b	$DC, 0, 0, $B, $FC
-	dc.b	$D4, 0, 0, $B, $FC
-	dc.b	$CC, 0, 0, $B, $FC
-	dc.b	$C4, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_11:
-	dc.b	$A
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$EC, 0, 0, $B, $FC
-	dc.b	$E4, 0, 0, $B, $FC
-	dc.b	$DC, 0, 0, $B, $FC
-	dc.b	$D4, 0, 0, $B, $FC
-	dc.b	$CC, 0, 0, $B, $FC
-	dc.b	$C4, 0, 0, $B, $FC
-	dc.b	$BC, 0, 0, $B, $FC
-	dc.b	$B4, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_12:
-	dc.b	$C
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$EC, 0, 0, $B, $FC
-	dc.b	$E4, 0, 0, $B, $FC
-	dc.b	$DC, 0, 0, $B, $FC
-	dc.b	$D4, 0, 0, $B, $FC
-	dc.b	$CC, 0, 0, $B, $FC
-	dc.b	$C4, 0, 0, $B, $FC
-	dc.b	$BC, 0, 0, $B, $FC
-	dc.b	$B4, 0, 0, $B, $FC
-	dc.b	$AC, 0, 0, $B, $FC
-	dc.b	$A4, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_13:
-	dc.b	$E
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$EC, 0, 0, $B, $FC
-	dc.b	$E4, 0, 0, $B, $FC
-	dc.b	$DC, 0, 0, $B, $FC
-	dc.b	$D4, 0, 0, $B, $FC
-	dc.b	$CC, 0, 0, $B, $FC
-	dc.b	$C4, 0, 0, $B, $FC
-	dc.b	$BC, 0, 0, $B, $FC
-	dc.b	$B4, 0, 0, $B, $FC
-	dc.b	$AC, 0, 0, $B, $FC
-	dc.b	$A4, 0, 0, $B, $FC
-	dc.b	$9C, 0, 0, $B, $FC
-	dc.b	$94, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_14:
-	dc.b	$10
-	dc.b	$FC, 0, 0, $B, $FC
-	dc.b	$F4, 0, 0, $B, $FC
-	dc.b	$EC, 0, 0, $B, $FC
-	dc.b	$E4, 0, 0, $B, $FC
-	dc.b	$DC, 0, 0, $B, $FC
-	dc.b	$D4, 0, 0, $B, $FC
-	dc.b	$CC, 0, 0, $B, $FC
-	dc.b	$C4, 0, 0, $B, $FC
-	dc.b	$BC, 0, 0, $B, $FC
-	dc.b	$B4, 0, 0, $B, $FC
-	dc.b	$AC, 0, 0, $B, $FC
-	dc.b	$A4, 0, 0, $B, $FC
-	dc.b	$9C, 0, 0, $B, $FC
-	dc.b	$94, 0, 0, $B, $FC
-	dc.b	$8C, 0, 0, $B, $FC
-	dc.b	$84, 0, 0, $B, $FC
-	dc.b	0
-
-@Spr_23C186_4:
-	dc.b	2
-	dc.b	$FC, 0, 0, $E, $F8
-	dc.b	$FC, 0, 0, $F, 0
-	dc.b	0
+LaserSprites:
+	include	"src/sprites/r8/laser.asm"
+	even
+LaserSprites1		equ .Sprites1
+LaserSprites2		equ .Sprites2
 
 Padding3:
 	incbin	"padding/r82d_e_3.bin"

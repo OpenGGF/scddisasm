@@ -88,7 +88,7 @@ sub_20D606:
 	move.b	#$10,obj.width_2(a6)
 	move.b	#$10,obj.height(a6)
 	move.w	#$398,obj.sprite_tile(a6)
-	move.l	#Unk20D6C8Sprites,obj.sprite_data(a6)
+	move.l	#VanishPlatformSprites,obj.sprite_data(a6)
 	move.b	#6,obj.sprite_frame(a6)
 	move.b	#2,obj.routine(a6)
 	move.w	obj.x(a0),obj.var_2e(a6)
@@ -157,60 +157,28 @@ loc_20D6C2:
 
 ; ------------------------------------------------------------------------------
 
-Unk20D6C8Sprites:
-	dc.w	Unk20D6C8Sprite_0-*
-	dc.w	Unk20D6C8Sprite_1-Unk20D6C8Sprites
-	dc.w	Unk20D6C8Sprite_2-Unk20D6C8Sprites
-	dc.w	Unk20D6C8Sprite_3-Unk20D6C8Sprites
-	dc.w	Unk20D6C8Sprite_4-Unk20D6C8Sprites
-	dc.w	Unk20D6C8Sprite_5-Unk20D6C8Sprites
-	dc.w	Unk20D6C8Sprite_6-Unk20D6C8Sprites
-	dc.w	Unk20D6C8Sprite_0-Unk20D6C8Sprites
-Unk20D6C8Sprite_0:
-	dc.b	4
-	dc.b	$F0, 3, 0, 4, $F0
-	dc.b	$F0, 3, 0, 4, $F8
-	dc.b	$F0, 3, 0, 4, 0
-	dc.b	$F0, 3, 0, 4, 8
-Unk20D6C8Sprite_1:
-	dc.b	4
-	dc.b	$F0, 3, 0, 0, $F0
-	dc.b	$F0, 3, 0, 0, $F8
-	dc.b	$F0, 3, 0, 0, 0
-	dc.b	$F0, 3, 0, 0, 8
-Unk20D6C8Sprite_2:
-	dc.b	2
-	dc.b	$F0, 3, 0, 4, $F8
-	dc.b	$F0, 3, 0, 4, 0
-Unk20D6C8Sprite_3:
-	dc.b	2
-	dc.b	$F0, 3, 0, 0, $F8
-	dc.b	$F0, 3, 0, 0, 0
-Unk20D6C8Sprite_4:
-	dc.b	1
-	dc.b	$F0, 3, 0, 4, $FC
-Unk20D6C8Sprite_5:
-	dc.b	1
-	dc.b	$F0, 3, 0, 0, $FC
-Unk20D6C8Sprite_6:
-	dc.b	0
-	dc.b	0
+VanishPlatformSprites:
+	include	"src/sprites/r8/vanish_platform.asm"
+	even
 
 VanishPlatformAnims:
 	include	"src/anims/r8/vanish_platform.asm"
 	even
 
 off_20D7F2:
-	dc.w	word_20D7F8-*
+	dc.w	word_20D7F8-off_20D7F2
 	dc.w	word_20D7FC-off_20D7F2
 	dc.w	word_20D806-off_20D7F2
+
 word_20D7F8:
 	dc.w	$3C
 	dc.w	0
+
 word_20D7FC:
 	dc.w	$3C
 	dc.w	1
 	dc.w	$3C, $20, 0
+
 word_20D806:
 	dc.w	$5A
 	dc.w	2

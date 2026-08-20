@@ -4,13 +4,13 @@ SpinPlatformObject:
 	tst.b	obj.subtype_2(a0)
 	beq.s	loc_20EE30
 	movea.w	obj.var_2a(a0),a1
-	cmpi.b	#$2A,0(a1)
+	cmpi.b	#$2A,obj.id(a1)
 	bne.w	loc_20EF68
 	move.w	obj.var_2e(a0),d0
-	cmp.w	$2E(a1),d0
+	cmp.w	obj.var_2e(a1),d0
 	bne.w	loc_20EF68
 	move.w	obj.var_30(a0),d0
-	cmp.w	$30(a1),d0
+	cmp.w	obj.var_30(a1),d0
 	bne.w	loc_20EF68
 
 loc_20EE30:
@@ -82,16 +82,16 @@ loc_20EEBA:
 ; ------------------------------------------------------------------------------
 
 sub_20EEC0:
-	move.b	#2,$24(a6)
-	ori.b	#4,1(a6)
-	move.b	#3,$18(a6)
-	move.b	#$10,$17(a6)
-	move.b	#$10,$19(a6)
-	move.b	#5,$16(a6)
-	move.w	#$34C,2(a6)
-	move.l	#Unk20EF7ESprites,4(a6)
-	move.w	obj.x(a0),$2E(a6)
-	move.w	obj.y(a0),$30(a6)
+	move.b	#2,obj.routine(a6)
+	ori.b	#4,obj.sprite_flags(a6)
+	move.b	#3,obj.sprite_layer(a6)
+	move.b	#$10,obj.width(a6)
+	move.b	#$10,obj.width_2(a6)
+	move.b	#5,obj.height(a6)
+	move.w	#$34C,obj.sprite_tile(a6)
+	move.l	#SpinPlatformSprites,obj.sprite_data(a6)
+	move.w	obj.x(a0),obj.var_2e(a6)
+	move.w	obj.y(a0),obj.var_30(a6)
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -145,54 +145,13 @@ SpinPlatformAnims:
 	include	"src/anims/r8/spin_platform.asm"
 	even
 
-Unk20EF7ESprites:
-	dc.w	Unk20EF7ESprite_0-*
-	dc.w	Unk20EF7ESprite_1-Unk20EF7ESprites
-	dc.w	Unk20EF7ESprite_2-Unk20EF7ESprites
-	dc.w	Unk20EF7ESprite_3-Unk20EF7ESprites
-	dc.w	Unk20EF7ESprite_4-Unk20EF7ESprites
-	dc.w	Unk20EF7ESprite_5-Unk20EF7ESprites
-	dc.w	Unk20EF7ESprite_0-Unk20EF7ESprites
-
-Unk20EF7ESprite_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-
-Unk20EF7ESprite_1:
-	dc.b	3
-	dc.b	$F4, 8, 0, 4, $F0
-	dc.b	$FC, $C, 0, 7, $F0
-	dc.b	4, 8, 0, $B, $F8
-
-Unk20EF7ESprite_2:
-	dc.b	3
-	dc.b	$F0, 4, 0, $E, $F4
-	dc.b	$F8, 9, 0, $10, $F4
-	dc.b	8, 4, 0, $16, $FC
-
-Unk20EF7ESprite_3:
-	dc.b	3
-	dc.b	$F0, 4, 0, $18, $F8
-	dc.b	$F8, 5, 0, $1A, $F8
-	dc.b	8, 4, $10, $18, $F8
-
-Unk20EF7ESprite_4:
-	dc.b	3
-	dc.b	$F0, 4, 8, $E, $FC
-	dc.b	$F8, 9, 8, $10, $F4
-	dc.b	8, 4, 8, $16, $F4
-
-Unk20EF7ESprite_5:
-	dc.b	3
-	dc.b	$F4, 8, 8, 4, $F8
-	dc.b	$FC, $C, 8, 7, $F0
-	dc.b	4, 8, 8, $B, $F0
-	dc.b	0
+SpinPlatformSprites:
+	include	"src/sprites/r8/spin_platform.asm"
+	even
 
 off_20EFE8:
-	dc.w word_20EFEC-off_20EFE8
-	dc.w word_20EFF0-off_20EFE8
+	dc.w	word_20EFEC-off_20EFE8
+	dc.w	word_20EFF0-off_20EFE8
 
 word_20EFEC:
 	dc.w	$3C

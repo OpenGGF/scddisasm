@@ -29,7 +29,7 @@ BuzzsawObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$4316,obj.sprite_tile(a0)
-	move.l	#Spr_23EBF2,obj.sprite_data(a0)
+	move.l	#BuzzsawSprites,obj.sprite_data(a0)
 	move.b	#$A9,obj.collide_type(a0)
 	move.b	#$50,obj.width_2(a0)
 	move.b	#$50,obj.height(a0)
@@ -167,7 +167,7 @@ loc_20CBDC:
 	bne.s	loc_20CC0C
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#Spr_20CC50,obj.sprite_data(a0)
+	move.l	#BuzzsawHandleSprites,obj.sprite_data(a0)
 	move.b	#$20,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 
@@ -185,12 +185,8 @@ BuzzsawAnims:
 	include	"src/anims/r8/buzzsaw.asm"
 	even
 
-Spr_20CC50:
-	dc.w	@Spr_20CC50_0-*
-@Spr_20CC50_0:
-	dc.b	3
-	dc.b	$F0, 5, 8, $22, $F0
-	dc.b	$E6, 5, 8, $22, $E6
-	dc.b	$DC, 5, 8, $22, $DC
+BuzzsawHandleSprites:
+	include	"src/sprites/r8/buzzsaw_handle.asm"
+	even
 
 ; ------------------------------------------------------------------------------

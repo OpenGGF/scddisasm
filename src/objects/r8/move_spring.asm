@@ -21,7 +21,7 @@ MoveSpringInit:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
-	move.l	#Unk20E920Sprites,obj.sprite_data(a0)
+	move.l	#MoveSpringSpritesR8,obj.sprite_data(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#6,obj.height(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
@@ -108,17 +108,11 @@ loc_20E904:
 ; ------------------------------------------------------------------------------
 
 MoveSpringAnimsR8:
-	include	"src/anims/r8/move_spring.asm"
+	include	"src/anims/move_spring.asm"
 	even
 
-Unk20E920Sprites:
-	dc.w	Unk20E920Sprite_0-*
-	dc.w	Unk20E920Sprite_1-Unk20E920Sprites
-Unk20E920Sprite_0:
-	dc.b	1
-	dc.b	$F8, 5, 0, 0, $F8
-Unk20E920Sprite_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, 4, $F8
+MoveSpringSpritesR8:
+	include	"src/sprites/move_spring.asm"
+	even
 
 ; ------------------------------------------------------------------------------

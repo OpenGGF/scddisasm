@@ -31,7 +31,7 @@ sub_20F364:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	d0,obj.sprite_layer(a0)
 	move.w	#$23B0,obj.sprite_tile(a0)
-	move.l	#Spr_23E2CE,obj.sprite_data(a0)
+	move.l	#HotaruSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	rts
@@ -65,7 +65,7 @@ HotaruObject_2_Routine4:
 	bsr.w	sub_20F69A
 	btst	#0,obj.var_2b(a0)
 	beq.w	loc_20F3FA
-	move.w	8(a1),d0
+	move.w	obj.x(a1),d0
 	andi.w	#$FFF8,d0
 	cmpi.w	#$BC0,d0
 	bcs.s	loc_20F3FA
@@ -82,9 +82,9 @@ loc_20F3FA:
 	andi.w	#$7F,d0
 	addi.w	#$BF0,d0
 	move.w	d0,obj.var_2c(a0)
-	move.w	8(a1),d0
+	move.w	obj.x(a1),d0
 	asl.w	#2,d0
-	add.w	8(a1),d0
+	add.w	obj.x(a1),d0
 	andi.w	#$1F,d0
 	addi.w	#$160,d0
 	move.w	d0,obj.var_2e(a0)
@@ -490,7 +490,7 @@ locret_20F750:
 
 HotaruObject_0_Routine6:
 	movea.w	obj.var_34(a0),a1
-	cmpi.b	#$39,0(a1)
+	cmpi.b	#$39,obj.id(a1)
 	bne.s	loc_20F760
 
 locret_20F75E:

@@ -35,7 +35,7 @@ PropellerObject_0_Routine0:
 	move.w	#$36A,obj.sprite_tile(a0)
 	move.w	#$80,obj.var_2a(a0)
 	move.l	#$10000,obj.var_2c(a0)
-	move.l	#Spr_20CDB0,obj.sprite_data(a0)
+	move.l	#PropellerBaseSprites,obj.sprite_data(a0)
 	move.b	#8,obj.width(a0)
 	move.b	#8,obj.width_2(a0)
 	move.b	#$2E,obj.height(a0)
@@ -75,7 +75,7 @@ sub_20CD3A:
 	move.w	#$36A,obj.sprite_tile(a6)
 	move.w	a0,obj.var_3e(a6)
 	move.b	#3,obj.sprite_layer(a6)
-	move.l	#off_20CF1A,obj.sprite_data(a6)
+	move.l	#PropellerBladeSprites,obj.sprite_data(a6)
 	move.b	#$20,obj.width(a6)
 	move.b	#$20,obj.width_2(a6)
 	move.b	#$1C,obj.height(a6)
@@ -115,31 +115,9 @@ PropellerBaseAnims:
 	include	"src/anims/r8/propeller_base.asm"
 	even
 
-Spr_20CDB0:
-	dc.w	@Spr_20CDB0_0-*
-	dc.w	@Spr_20CDB0_1-Spr_20CDB0
-@Spr_20CDB0_0:
-	dc.b	9
-	dc.b	$D8, 0, 0, $2D, $FC
-	dc.b	$E0, 0, 0, $2D, $FC
-	dc.b	$E8, 0, 0, $2D, $FC
-	dc.b	$F0, 0, 0, $2D, $FC
-	dc.b	$F8, 0, 0, $2D, $FC
-	dc.b	0, 0, 0, $2D, $FC
-	dc.b	8, 0, 0, $2D, $FC
-	dc.b	$18, 0, 0, $2D, $FC
-	dc.b	$20, 5, 0, $25, $F8
-@Spr_20CDB0_1:
-	dc.b	9
-	dc.b	$D8, 0, 0, $2D, $FC
-	dc.b	$E0, 0, 0, $2D, $FC
-	dc.b	$E8, 0, 0, $2D, $FC
-	dc.b	$F0, 0, 0, $2D, $FC
-	dc.b	$F8, 0, 0, $2D, $FC
-	dc.b	0, 0, 0, $2D, $FC
-	dc.b	8, 0, 0, $2D, $FC
-	dc.b	$18, 0, 0, $2D, $FC
-	dc.b	$20, 5, 0, $29, $F8
+PropellerBaseSprites:
+	include	"src/sprites/r8/propeller_base.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -271,42 +249,8 @@ PropellerBladeAnims:
 	include	"src/anims/r8/propeller_blade.asm"
 	even
 
-off_20CF1A:
-	dc.w	byte_20CF2A-*
-	dc.w	byte_20CF35-off_20CF1A
-	dc.w	byte_20CF40-off_20CF1A
-	dc.w	byte_20CF46-off_20CF1A
-	dc.w	byte_20CF4C-off_20CF1A
-	dc.w	byte_20CF52-off_20CF1A
-	dc.w	byte_20CF5D-off_20CF1A
-	dc.w	byte_20CF68-off_20CF1A
-byte_20CF2A:
-	dc.b	2
-	dc.b	$FC, $C, 0, 0, $E0
-	dc.b	$FC, $C, 8, 0, 0
-byte_20CF35:
-	dc.b	2
-	dc.b	$FC, 8, 0, 4, $E8
-	dc.b	$FC, 8, 0, 7, 0
-byte_20CF40:
-	dc.b	1
-	dc.b	$FC, $C, 0, $A, $F0
-byte_20CF46:
-	dc.b	1
-	dc.b	$FC, 0, 0, $E, $FC
-byte_20CF4C:
-	dc.b	1
-	dc.b	$FC, $C, 8, $A, $F0
-byte_20CF52:
-	dc.b	2
-	dc.b	$FC, 8, 0, 4, $E8
-	dc.b	$FC, 8, 0, 7, 0
-byte_20CF5D:
-	dc.b	2
-	dc.b	$FC, 4, 0, $F, $F8
-	dc.b	4, $D, 0, $11, $F0
-byte_20CF68:
-	dc.b	1
-	dc.b	$FC, $B, 0, $19, $F4
+PropellerBladeSprites:
+	include	"src/sprites/r8/propeller_blade.asm"
+	even
 
 ; ------------------------------------------------------------------------------

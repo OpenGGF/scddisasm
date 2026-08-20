@@ -41,7 +41,7 @@ SpikesObject_1_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$43F0,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20BE9C,obj.sprite_data(a0)
+	move.l	#BlockSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -94,11 +94,9 @@ locret_20BE9A:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20BE9C:
-	dc.w	@Spr_20BE9C_0-*
-@Spr_20BE9C_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
+BlockSprites:
+	include	"src/sprites/r8/block.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -145,7 +143,7 @@ SpikesObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$488,obj.sprite_tile(a0)
 	move.b	#4,obj.sprite_layer(a0)
-	move.l	#Spr_20BFEA,obj.sprite_data(a0)
+	move.l	#SpikesSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -220,15 +218,9 @@ locret_20BFE8:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20BFEA:
-	dc.w	@Spr_20BFEA_0-*
-	dc.w	@Spr_20BFEA_1-Spr_20BFEA
-@Spr_20BFEA_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-@Spr_20BFEA_1:
-	dc.b	1
-	dc.b	$F0, $F, $10, 0, $F0
+SpikesSprites:
+	include	"src/sprites/r8/spikes.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -267,7 +259,7 @@ TrapDoorObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#2,obj.sprite_layer(a0)
 	move.w	#$33C,obj.sprite_tile(a0)
-	move.l	#Spr_20C1D4,obj.sprite_data(a0)
+	move.l	#TrapDoorSprites,obj.sprite_data(a0)
 	move.b	#8,obj.height(a0)
 	move.b	#4,obj.width_2(a0)
 	move.b	#$10,obj.sprite_frame(a0)
@@ -387,6 +379,7 @@ byte_20C194:
 	dc.b	2, $C
 	dc.b	1, 8
 	dc.b	0, 4
+
 byte_20C1A4:
 	dc.b	$F, $20
 	dc.b	$E, $1C
@@ -396,6 +389,7 @@ byte_20C1A4:
 	dc.b	$A, $C
 	dc.b	9, 8
 	dc.b	8, 4
+
 byte_20C1B4:
 	dc.b	0, 4
 	dc.b	1, 8
@@ -405,6 +399,7 @@ byte_20C1B4:
 	dc.b	5, $18
 	dc.b	6, $1C
 	dc.b	7, $20
+
 byte_20C1C4:
 	dc.b	8, 4
 	dc.b	9, 8
@@ -414,98 +409,9 @@ byte_20C1C4:
 	dc.b	$D, $18
 	dc.b	$E, $1C
 	dc.b	$F, $20
-Spr_20C1D4:
-	dc.w	@Spr_20C1D4_0-*
-	dc.w	@Spr_20C1D4_1-Spr_20C1D4
-	dc.w	@Spr_20C1D4_2-Spr_20C1D4
-	dc.w	@Spr_20C1D4_3-Spr_20C1D4
-	dc.w	@Spr_20C1D4_4-Spr_20C1D4
-	dc.w	@Spr_20C1D4_5-Spr_20C1D4
-	dc.w	@Spr_20C1D4_6-Spr_20C1D4
-	dc.w	@Spr_20C1D4_7-Spr_20C1D4
-	dc.w	@Spr_20C1D4_8-Spr_20C1D4
-	dc.w	@Spr_20C1D4_9-Spr_20C1D4
-	dc.w	@Spr_20C1D4_A-Spr_20C1D4
-	dc.w	@Spr_20C1D4_B-Spr_20C1D4
-	dc.w	@Spr_20C1D4_C-Spr_20C1D4
-	dc.w	@Spr_20C1D4_D-Spr_20C1D4
-	dc.w	@Spr_20C1D4_E-Spr_20C1D4
-	dc.w	@Spr_20C1D4_F-Spr_20C1D4
-	dc.w	@Spr_20C1D4_10-Spr_20C1D4
-	dc.w	@Spr_20C1D4_11-Spr_20C1D4
-@Spr_20C1D4_10:
-	dc.b	0
-	dc.b	0
-@Spr_20C1D4_11:
-	dc.b	4
-	dc.b	$F8, $D, 0, 0, $C0
-	dc.b	$F8, $D, 0, 8, $E0
-	dc.b	$F8, $D, 8, 8, 0
-	dc.b	$F8, $D, 8, 0, $20
-	dc.b	0
-@Spr_20C1D4_0:
-	dc.b	1
-	dc.b	$F8, 1, 0, $E, $FC
-@Spr_20C1D4_1:
-	dc.b	1
-	dc.b	$F8, 5, 0, $C, $F8
-@Spr_20C1D4_2:
-	dc.b	1
-	dc.b	$F8, 9, 0, $A, $F4
-@Spr_20C1D4_3:
-	dc.b	1
-	dc.b	$F8, $D, 0, 8, $F0
-@Spr_20C1D4_4:
-	dc.b	2
-	dc.b	$F8, $D, 0, 8, $F4
-	dc.b	$F8, 1, 0, 6, $EC
-	dc.b	0
-@Spr_20C1D4_5:
-	dc.b	2
-	dc.b	$F8, $D, 0, 8, $F8
-	dc.b	$F8, 5, 0, 4, $E8
-	dc.b	0
-@Spr_20C1D4_6:
-	dc.b	2
-	dc.b	$F8, $D, 0, 8, $FC
-	dc.b	$F8, 9, 0, 2, $E4
-	dc.b	0
-@Spr_20C1D4_7:
-	dc.b	2
-	dc.b	$F8, $D, 0, 8, 0
-	dc.b	$F8, $D, 0, 0, $E0
-	dc.b	0
-@Spr_20C1D4_8:
-	dc.b	1
-	dc.b	$F8, 1, 8, $E, $FC
-@Spr_20C1D4_9:
-	dc.b	1
-	dc.b	$F8, 5, 8, $C, $F8
-@Spr_20C1D4_A:
-	dc.b	1
-	dc.b	$F8, 9, 8, $A, $F4
-@Spr_20C1D4_B:
-	dc.b	1
-	dc.b	$F8, $D, 8, 8, $F0
-@Spr_20C1D4_C:
-	dc.b	2
-	dc.b	$F8, $D, 8, 8, $EC
-	dc.b	$F8, 1, 8, 6, $C
-	dc.b	0
-@Spr_20C1D4_D:
-	dc.b	2
-	dc.b	$F8, $D, 8, 8, $E8
-	dc.b	$F8, 5, 8, 4, 8
-	dc.b	0
-@Spr_20C1D4_E:
-	dc.b	2
-	dc.b	$F8, $D, 8, 8, $E4
-	dc.b	$F8, 9, 8, 2, 4
-	dc.b	0
-@Spr_20C1D4_F:
-	dc.b	2
-	dc.b	$F8, $D, 8, 8, $E0
-	dc.b	$F8, $D, 8, 0, 0
-	dc.b	0
+
+TrapDoorSprites:
+	include	"src/sprites/r8/trap_door.asm"
+	even
 
 ; ------------------------------------------------------------------------------

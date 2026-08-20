@@ -70,7 +70,7 @@ SpikeCrusherObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	#$400,obj.sprite_tile(a0)
-	move.l	#Spr_23E35A,obj.sprite_data(a0)
+	move.l	#SpikeCrusherSprites,obj.sprite_data(a0)
 	bsr.w	sub_20DAF4
 	moveq	#0,d0
 	tst.b	obj.var_3d(a0)
@@ -407,7 +407,7 @@ SpikeCrusherObject_0_Routine6:
 
 loc_20DC9A:
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#Spr_23E35A,obj.sprite_data(a0)
+	move.l	#SpikeCrusherSprites,obj.sprite_data(a0)
 	move.w	#$4400,obj.sprite_tile(a0)
 	move.b	#6,obj.sprite_frame(a0)
 	move.w	obj.var_34(a0),d0
@@ -465,7 +465,7 @@ SpikesObject_1_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$43F0,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20DDDE,obj.sprite_data(a0)
+	move.l	#BlockSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -519,12 +519,9 @@ locret_20DDDC:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20DDDE:
-	dc.w	@Spr_20DDDE_0-*
-
-@Spr_20DDDE_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
+BlockSprites:
+	include	"src/sprites/r8/block.asm"
+	even
 
 ; ------------------------------------------------------------------------------
 
@@ -571,7 +568,7 @@ SpikesObject_0_Routine0:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$488,obj.sprite_tile(a0)
 	move.b	#3,obj.sprite_layer(a0)
-	move.l	#Spr_20DF2A,obj.sprite_data(a0)
+	move.l	#SpikesSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	move.b	#$10,obj.width_2(a0)
@@ -645,17 +642,11 @@ locret_20DF28:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20DF2A:
-	dc.w	@Spr_20DF2A_0-*
-	dc.w	@Spr_20DF2A_1-Spr_20DF2A
+SpikesSprites:
+	include	"src/sprites/r8/spikes.asm"
+	even
 
-@Spr_20DF2A_0:
-	dc.b	1
-	dc.b	$F0, $F, 0, 0, $F0
-
-@Spr_20DF2A_1:
-	dc.b	1
-	dc.b	$F0, $F, $10, 0, $F0
+; ------------------------------------------------------------------------------
 
 	dc.b	7
 	dc.b	$20

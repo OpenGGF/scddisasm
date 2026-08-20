@@ -231,7 +231,7 @@ ScarabObject_1_Routine0:
 	move.b	#$F0,obj.collide_type(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	move.w	#$243F,obj.sprite_tile(a0)
-	move.l	#Spr_20E32A,obj.sprite_data(a0)
+	move.l	#ScarabSprites,obj.sprite_data(a0)
 	move.w	obj.x(a0),obj.var_2c(a0)
 	move.w	#$3C,obj.var_34(a0)
 	jsr	CheckBlockDown
@@ -632,42 +632,8 @@ ScarabAnims2:
 	include	"src/anims/r8/scarab_2.asm"
 	even
 
-Spr_20E32A:
-	dc.w	@Spr_20E32A_0-*
-	dc.w	@Spr_20E32A_1-Spr_20E32A
-	dc.w	@Spr_20E32A_2-Spr_20E32A
-	dc.w	@Spr_20E32A_3-Spr_20E32A
-	dc.w	@Spr_20E32A_4-Spr_20E32A
-	dc.w	@Spr_20E32A_5-Spr_20E32A
-@Spr_20E32A_0:
-	dc.b	4
-	dc.b	$F4, $A, 0, 0, 0
-	dc.b	$F4, $D, 0, $F, $E0
-	dc.b	4, 4, 0, $17, $E0
-	dc.b	4, 4, 0, $19, $F0
-@Spr_20E32A_1:
-	dc.b	4
-	dc.b	$F4, $A, 0, 0, 0
-	dc.b	$F4, $D, 0, $24, $E0
-	dc.b	4, 0, 0, $2C, $E0
-	dc.b	4, 4, 0, $19, $F0
-@Spr_20E32A_2:
-	dc.b	4
-	dc.b	$F4, $A, 0, 0, 0
-	dc.b	$F4, $D, 0, $35, $D8
-	dc.b	$F4, 1, 0, $3D, $F8
-	dc.b	4, 4, 0, $19, $F0
-@Spr_20E32A_3:
-	dc.b	2
-	dc.b	$F4, 4, 0, 9, $F0
-	dc.b	$FC, 5, 0, $B, $E8
-@Spr_20E32A_4:
-	dc.b	3
-	dc.b	$F4, 8, 0, $1B, $E8
-	dc.b	$FC, $C, 0, $1E, $E0
-	dc.b	4, 4, 0, $22, $E0
-@Spr_20E32A_5:
-	dc.b	1
-	dc.b	$F4, $D, 0, $2D, $E0
+ScarabSprites:
+	include	"src/sprites/r8/scarab.asm"
+	even
 
 ; ------------------------------------------------------------------------------

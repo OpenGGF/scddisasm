@@ -17,7 +17,7 @@ off_20E718:
 SpikeWallObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
-	move.l	#Spr_20E7A6,obj.sprite_data(a0)
+	move.l	#SpikeWallSprites,obj.sprite_data(a0)
 	move.w	#$8440,obj.sprite_tile(a0)
 	move.w	obj.x(a0),obj.var_30(a0)
 	move.b	#$B1,obj.var_33(a0)
@@ -54,56 +54,8 @@ SpikeWallAnims:
 	include	"src/anims/r8/spike_wall.asm"
 	even
 
-Spr_20E7A6:
-	dc.w	@Spr_20E7A6_0-*
-	dc.w	@Spr_20E7A6_1-Spr_20E7A6
-
-@Spr_20E7A6_0:
-	dc.b	$15
-	dc.b	$B4, 1, 0, 2, $F8
-	dc.b	$B4, 1, 8, 2, 0
-	dc.b	$3C, 1, $10, 2, $F8
-	dc.b	$3C, 1, $18, 2, 0
-	dc.b	$C4, 6, 0, 4, $F8
-	dc.b	$C4, 2, 0, $A, $F0
-	dc.b	$C4, 2, 8, $A, 8
-	dc.b	$DC, 6, 0, 4, $F8
-	dc.b	$DC, 2, 0, $A, $F0
-	dc.b	$DC, 2, 8, $A, 8
-	dc.b	$F4, 6, 0, 4, $F8
-	dc.b	$F4, 2, 0, $A, $F0
-	dc.b	$F4, 2, 8, $A, 8
-	dc.b	$C, 6, 0, 4, $F8
-	dc.b	$C, 2, 0, $A, $F0
-	dc.b	$C, 2, 8, $A, 8
-	dc.b	$24, 6, 0, 4, $F8
-	dc.b	$24, 2, 0, $A, $F0
-	dc.b	$24, 2, 8, $A, 8
-	dc.b	$B5, 0, 8, 0, $F0
-	dc.b	$43, 0, 8, 1, $F0
-
-@Spr_20E7A6_1:
-	dc.b	$15
-	dc.b	$B4, 1, 0, 2, $F8
-	dc.b	$B4, 1, 8, 2, 0
-	dc.b	$3C, 1, $10, 2, $F8
-	dc.b	$3C, 1, $18, 2, 0
-	dc.b	$C4, 6, 0, 4, $F8
-	dc.b	$C4, 2, 0, $A, $F0
-	dc.b	$C4, 2, 8, $A, 8
-	dc.b	$DC, 6, 0, 4, $F8
-	dc.b	$DC, 2, 0, $A, $F0
-	dc.b	$DC, 2, 8, $A, 8
-	dc.b	$F4, 6, 0, 4, $F8
-	dc.b	$F4, 2, 0, $A, $F0
-	dc.b	$F4, 2, 8, $A, 8
-	dc.b	$C, 6, 0, 4, $F8
-	dc.b	$C, 2, 0, $A, $F0
-	dc.b	$C, 2, 8, $A, 8
-	dc.b	$24, 6, 0, 4, $F8
-	dc.b	$24, 2, 0, $A, $F0
-	dc.b	$24, 2, 8, $A, 8
-	dc.b	$B5, 0, 8, 1, $F0
-	dc.b	$43, 0, 8, 0, $F0
+SpikeWallSprites:
+	include	"src/sprites/r8/spike_wall.asm"
+	even
 
 ; ------------------------------------------------------------------------------

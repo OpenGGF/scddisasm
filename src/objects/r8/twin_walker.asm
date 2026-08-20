@@ -48,7 +48,7 @@ loc_20E230:
 	move.w	a0,obj.var_2e(a1)
 	ori.b	#4,obj.sprite_flags(a1)
 	move.w	#$318,obj.sprite_tile(a1)
-	move.l	#Spr_20E496,obj.sprite_data(a1)
+	move.l	#TwinWalkerSprites,obj.sprite_data(a1)
 	dbf	d6,loc_20E1F0
 	bsr.w	sub_20E2F8
 	movea.w	a0,a1
@@ -150,14 +150,14 @@ TwinWalkerObject_1_Routine2:
 
 TwinWalkerObject_1_Routine4:
 	movea.w	obj.var_2e(a0),a1
-	addi.w	#$200,$2C(a1)
-	lea	$30(a1),a6
+	addi.w	#$200,obj.var_2c(a1)
+	lea	obj.var_30(a1),a6
 	moveq	#6,d6
 	move.l	obj.x(a0),d5
 	move.l	obj.y(a0),d4
 	moveq	#0,d1
 	moveq	#0,d0
-	move.b	$2C(a1),d0
+	move.b	obj.var_2c(a1),d0
 	jsr	SineCosine
 	swap	d1
 	swap	d0
@@ -168,23 +168,23 @@ loc_20E37A:
 	movea.w	(a6)+,a5
 	add.l	d1,d5
 	add.l	d0,d4
-	move.l	d5,8(a5)
-	move.l	d4,$C(a5)
+	move.l	d5,obj.x(a5)
+	move.l	d4,obj.y(a5)
 	dbf	d6,loc_20E37A
-	movea.w	$3E(a1),a5
+	movea.w	obj.var_3e(a1),a5
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20E39A
-	movea.w	$2E(a1),a5
+	movea.w	obj.var_2e(a1),a5
 
 loc_20E39A:
-	move.l	8(a5),d3
+	move.l	obj.x(a5),d3
 	add.l	d1,d5
 	add.l	d0,d4
-	move.l	d5,8(a5)
-	move.l	d4,$C(a5)
+	move.l	d5,obj.x(a5)
+	move.l	d4,obj.y(a5)
 	sub.l	d3,d5
 	asr.l	#8,d5
-	move.w	d5,$10(a5)
+	move.w	d5,obj.x_speed(a5)
 	bra.w	TwinWalkerObject_1_Routine0
 
 ; ------------------------------------------------------------------------------
@@ -208,13 +208,13 @@ TwinWalkerObject_2_Routine0:
 	jsr	TopSolidObject
 	beq.s	loc_20E3F2
 	movea.w	obj.var_2e(a0),a1
-	tst.b	$2B(a1)
+	tst.b	obj.var_2b(a1)
 	beq.s	loc_20E3F2
-	subq.b	#1,$2B(a1)
-	movea.w	$2E(a1),a2
-	movea.w	$3E(a1),a3
-	addq.b	#2,$24(a2)
-	addq.b	#2,$24(a3)
+	subq.b	#1,obj.var_2b(a1)
+	movea.w	obj.var_2e(a1),a2
+	movea.w	obj.var_3e(a1),a3
+	addq.b	#2,obj.routine(a2)
+	addq.b	#2,obj.routine(a3)
 
 loc_20E3F2:
 	jmp	DrawObject
@@ -226,7 +226,7 @@ TwinWalkerObject_2_Routine2:
 	bsr.w	sub_20E454
 	jsr	DrawObject
 	movea.w	obj.var_2e(a0),a1
-	move.w	$2C(a1),d0
+	move.w	obj.var_2c(a1),d0
 	addi.w	#$4000,d0
 	bmi.s	locret_20E452
 	jsr	CheckBlockDown
@@ -235,16 +235,16 @@ TwinWalkerObject_2_Routine2:
 	addq.w	#2,d1
 	add.w	d1,obj.y(a0)
 	movea.w	obj.var_2e(a0),a1
-	addq.b	#2,$2A(a1)
-	addi.w	#-$8000,$2C(a1)
-	movea.w	$2E(a1),a2
-	movea.w	$3E(a1),a3
-	clr.b	$24(a2)
-	clr.b	$24(a3)
-	clr.w	$10(a2)
-	clr.w	$10(a3)
-	clr.w	$12(a2)
-	clr.w	$12(a3)
+	addq.b	#2,obj.var_2a(a1)
+	addi.w	#-$8000,obj.var_2c(a1)
+	movea.w	obj.var_2e(a1),a2
+	movea.w	obj.var_3e(a1),a3
+	clr.b	obj.routine(a2)
+	clr.b	obj.routine(a3)
+	clr.w	obj.x_speed(a2)
+	clr.w	obj.x_speed(a3)
+	clr.w	obj.y_speed(a2)
+	clr.w	obj.y_speed(a3)
 
 locret_20E452:
 	rts
@@ -272,7 +272,7 @@ locret_20E480:
 
 loc_20E482:
 	movea.w	obj.var_2e(a0),a1
-	cmpi.b	#$26,0(a1)
+	cmpi.b	#$26,obj.id(a1)
 	bne.s	loc_20E490
 	rts
 
@@ -283,26 +283,8 @@ loc_20E490:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20E496:
-	dc.w	@Spr_20E496_0-*
-	dc.w	@Spr_20E496_1-Spr_20E496
-
-@Spr_20E496_0:
-	dc.b	$B
-	dc.b	$FC, 0, 0, $10, $FC
-	dc.b	$D8, 9, 0, 0, $E8
-	dc.b	$D8, 9, 8, 0, 0
-	dc.b	$E8, 1, 0, 6, $F8
-	dc.b	$E8, 1, 8, 6, 0
-	dc.b	$F8, 1, 0, 8, $F8
-	dc.b	$F8, 1, 8, 8, 0
-	dc.b	8, 1, 0, 6, $F8
-	dc.b	8, 1, 8, 6, 0
-	dc.b	$18, 9, 0, $A, $E8
-	dc.b	$18, 9, 8, $A, 0
-
-@Spr_20E496_1:
-	dc.b	1
-	dc.b	$FC, 0, 0, $10, $FC
+TwinWalkerSprites:
+	include	"src/sprites/r8/twin_walker.asm"
+	even
 
 ; ------------------------------------------------------------------------------

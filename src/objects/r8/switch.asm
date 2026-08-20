@@ -15,7 +15,7 @@ SwitchObject:
 
 loc_20D84C:
 	move.w	d0,obj.sprite_tile(a0)
-	move.l	#Spr_20D8F0,obj.sprite_data(a0)
+	move.l	#SwitchSprites,obj.sprite_data(a0)
 	move.b	#8,obj.height(a0)
 	lea	switch_flags,a1
 	moveq	#0,d0
@@ -68,16 +68,8 @@ loc_20D8E4:
 
 ; ------------------------------------------------------------------------------
 
-Spr_20D8F0:
-	dc.w	@Spr_20D8F0_0-*
-	dc.w	@Spr_20D8F0_1-Spr_20D8F0
-@Spr_20D8F0_0:
-	dc.b	2
-	dc.b	$F8, 5, 0, 0, $F0
-	dc.b	$F8, 5, 8, 0, 0
-@Spr_20D8F0_1:
-	dc.b	2
-	dc.b	$FC, 4, 0, 4, $F0
-	dc.b	$FC, 4, 8, 4, 0
+SwitchSprites:
+	include	"src/sprites/r8/switch.asm"
+	even
 
 ; ------------------------------------------------------------------------------

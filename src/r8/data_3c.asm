@@ -225,48 +225,48 @@ BossMachineGfx:
 	incbin	"src/gfx/r8/boss_machine.nem"
 	even
 
-unk_2364C4:
-	dc.w	Spr_23669C-unk_2364C4
-	dc.w	Spr_236746-unk_2364C4
-	dc.w	Spr_236804-unk_2364C4
-	dc.w	Spr_2368DA-unk_2364C4
-	dc.w	Spr_236912-unk_2364C4
-	dc.w	Spr_236988-unk_2364C4
+BossPanelSprites:
+	dc.w	BossPanelSprites1-BossPanelSprites
+	dc.w	BossPanelSprites2-BossPanelSprites
+	dc.w	BossPanelSprites3-BossPanelSprites
+	dc.w	BossPanelSprites4-BossPanelSprites
+	dc.w	BossPanelSprites5-BossPanelSprites
+	dc.w	BossPanelSprites6-BossPanelSprites
 
-Spr_2364D0:
-	include	"src/sprites/r8/Spr_2364D0.asm"
+EggMobileSprites:
+	include	"src/sprites/r8/eggmobile.asm"
 	even
 
-Spr_2365BC:
-	include	"src/sprites/r8/Spr_2365BC.asm"
+SparksSprites:
+	include	"src/sprites/r8/sparks.asm"
 	even
 
-Spr_2365CC:
-	include	"src/sprites/r8/Spr_2365CC.asm"
+EggmanSprites:
+	include	"src/sprites/r8/eggman.asm"
 	even
 
-Spr_23669C:
-	include	"src/sprites/r8/Spr_23669C.asm"
+BossPanelSprites1:
+	include	"src/sprites/r8/boss_panel_1.asm"
 	even
 
-Spr_236746:
-	include	"src/sprites/r8/Spr_236746.asm"
+BossPanelSprites2:
+	include	"src/sprites/r8/boss_panel_2.asm"
 	even
 
-Spr_236804:
-	include	"src/sprites/r8/Spr_236804.asm"
+BossPanelSprites3:
+	include	"src/sprites/r8/boss_panel_3.asm"
 	even
 
-Spr_2368DA:
-	include	"src/sprites/r8/Spr_2368DA.asm"
+BossPanelSprites4:
+	include	"src/sprites/r8/boss_panel_4.asm"
 	even
 
-Spr_236912:
-	include	"src/sprites/r8/Spr_236912.asm"
+BossPanelSprites5:
+	include	"src/sprites/r8/boss_panel_5.asm"
 	even
 
-Spr_236988:
-	include	"src/sprites/r8/Spr_236988.asm"
+BossPanelSprites6:
+	include	"src/sprites/r8/boss_panel_6.asm"
 	even
 
 AmyRoseGfx:
@@ -507,16 +507,16 @@ AnimalsGfx:
 	incbin	"src/gfx/r8/animals.nem"
 	even
 
-Spr_23E2CE:
-	include	"src/sprites/r8/Spr_23E2CE.asm"
+HotaruSprites:
+	include	"src/sprites/r8/hotaru.asm"
 	even
 
-Spr_23E35A:
-	include	"src/sprites/r8/Spr_23E35A.asm"
+SpikeCrusherSprites:
+	include	"src/sprites/r8/spike_crusher.asm"
 	even
 
-Spr_23EBF2:
-	include	"src/sprites/r8/Spr_23EBF2_2.asm"
+BuzzsawSprites:
+	include	"src/sprites/r8/buzzsaw_cd.asm"
 
 Padding3:
 	incbin	"padding/r83c_e_3.bin"
