@@ -7,6 +7,38 @@ Special thanks to flamewing and TheStoneBanana for helping out and contributing,
 Devon  
 July 27, 2025
 
+## Building
+
+The remaining original game files must be placed in `original/japan/`,
+`original/usa/`, or `original/europe/` before building. Generated files are
+written to `out/`.
+
+On Windows, run `make.bat`, followed by `check.bat` to compare every rebuilt binary
+with the originals.
+
+On Linux, install Wine with 32-bit Windows application support or Steam Proton,
+then run:
+
+```sh
+./make.sh
+./check.sh
+```
+
+The Linux build uses Wine (or an automatically detected Steam Proton installation)
+to run the checked-in, byte-exact Windows toolchain; the comparison script itself
+uses the native `cmp` utility. Both scripts default to the USA release. Set
+`REGION=0` for Japan or `REGION=2` for Europe, using the same value for both
+commands:
+
+```sh
+REGION=2 ./make.sh
+REGION=2 ./check.sh
+```
+
+Use a fresh `out/` directory after switching regions because the build overwrites
+outputs but does not remove stale files first. If the Wine or Proton executable has
+a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
+
 ## Currently Contains
 * Initial program
 * System program
