@@ -37,8 +37,8 @@ ObjectIndex:
 	dc.l	ObjFlipper			; $1E - Flipper
 	dc.l	ObjFlower			; $1F - Flower
 	dc.l	ObjSpikes			; $20 - Spikes
-	dc.l	ObjNull			; $21 - Block (pending port)
-	dc.l	ObjNull			; $22 - Hidden block (pending port)
+	dc.l	ObjBlock			; $21 - Block
+	dc.l	ObjHiddenBlock			; $22 - Hidden block
 	dc.l	ObjNull			; $23 - Metal platform (pending port)
 	dc.l	ObjNull			; $24 - KamaKama (pending port)
 	dc.l	ObjNull			; $25 - Kama sickle (pending port)
