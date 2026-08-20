@@ -2,6 +2,7 @@
 ; Origin: origin/test:src/maps/r31a/blocks.nem
 ; Tracked source size: 0xF78 (3,960 bytes).
 
+StageBlocks:
 LevelBlocks:
 	incbin	"Level/Collision Chaos/Data/Blocks (Act 1 Present).nem"
 	even

@@ -10,6 +10,7 @@
 ; are used for the VDP ports, camera RAM, layout RAM, and camera copies.
 ; -------------------------------------------------------------------------
 
+DrawLevelBG:
 DrawStageBg:
 	lea	VDPCTRL,a5
 	lea	VDPDATA,a6
@@ -24,6 +25,7 @@ DrawStageBg:
 
 ; -------------------------------------------------------------------------
 
+DrawLevel:
 DrawStage:
 	lea	VDPCTRL,a5
 	lea	VDPDATA,a6
@@ -43,6 +45,7 @@ DrawStage:
 	lea	levelLayout.w,a4
 	move.w	#$4000,d2
 
+DrawLevelFG:
 DrawStageFg:
 	tst.b	(a2)
 	beq.s	locret_203134
@@ -90,6 +93,7 @@ locret_203134:
 
 ; -------------------------------------------------------------------------
 
+DrawLevelBG1:
 sub_203136:
 	lea	unk_203500,a0
 	adda.w	#1,a0
@@ -193,11 +197,13 @@ loc_20320E:
 
 ; -------------------------------------------------------------------------
 
+DrawLevelBG2:
 nullsub_34:
 	rts
 
 ; -------------------------------------------------------------------------
 
+DrawLevelBG3:
 nullsub_35:
 	rts
 
@@ -206,6 +212,7 @@ nullsub_35:
 ; The block and VDP helper routines are the current shared implementations.
 ; -------------------------------------------------------------------------
 
+InitLevelDraw:
 InitStageDraw:
 	lea	VDPCTRL,a5
 	lea	VDPDATA,a6
@@ -220,6 +227,7 @@ InitStageDraw:
 
 ; -------------------------------------------------------------------------
 
+InitLevelDrawFG:
 InitStageDrawFg:
 	moveq	#-16,d4
 	moveq	#$F,d6
@@ -240,6 +248,7 @@ loc_2034AE:
 
 ; -------------------------------------------------------------------------
 
+InitLevelDrawBG:
 loc_2034D2:
 	moveq	#-16,d4
 	moveq	#$F,d6
