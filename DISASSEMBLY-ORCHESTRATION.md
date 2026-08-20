@@ -2,6 +2,7 @@
 
 ## 2026-08-20
 
+- **R31A object family milestone:** CC Metal Platform is ported with its R3 horizontal, vertical, bobbing, activation, and final-drop state machines, current top-solid/despawn integration, motion tables, and recovered sprite mapping. The USA `DEMO=0` entry probe exits successfully and produces a 244,380-byte binary.
 - **R31A object family milestone:** CC Block and Hidden Block are ported with their R3 motion tables, current `FindNextObjSlot` child spawning, solidity, player-triggered movement, and recovered sprite mappings. The USA `DEMO=0` entry probe exits successfully and produces a 243,516-byte binary.
 - **R31A object family milestone:** CC Bumper and Flipper are ported from the tracked R3 sources into the current object ABI, including collision response, point spawning, saved-object-state updates, animation scripts, sprite mappings, slope tables, and the recovered tile IDs. The USA `DEMO=0` entry probe exits successfully and produces a 242,876-byte binary. Remaining stage-specific object families are still pending.
 - **R31A object ABI milestone:** The Collision Chaos object index now preserves all 60 R3 object-ID slots, and the recovered CC door object is ported to the current word-position object ABI with its original `$371` tile setup, vertical player-triggered movement, despawn range, and sprite mapping. The USA `DEMO=0` entry probe assembles with 0 errors and remains a 237 KiB binary; the other R3 stage-object slots are still explicitly marked pending.

@@ -39,7 +39,7 @@ ObjectIndex:
 	dc.l	ObjSpikes			; $20 - Spikes
 	dc.l	ObjBlock			; $21 - Block
 	dc.l	ObjHiddenBlock			; $22 - Hidden block
-	dc.l	ObjNull			; $23 - Metal platform (pending port)
+	dc.l	ObjMetalPlatform			; $23 - Metal platform
 	dc.l	ObjNull			; $24 - KamaKama (pending port)
 	dc.l	ObjNull			; $25 - Kama sickle (pending port)
 	dc.l	ObjDoor			; $26 - Door

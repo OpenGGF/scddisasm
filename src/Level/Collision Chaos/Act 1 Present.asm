@@ -48,6 +48,7 @@
 	include	"Level/Object Solid.asm"
 	include	"Level/Collision Chaos/Objects/Bumper and Flipper/Main.asm"
 	include	"Level/Collision Chaos/Objects/Block/Main.asm"
+	include	"Level/Collision Chaos/Objects/Metal Platform/Main.asm"
 	include	"Level/Collision Chaos/Objects/Door/Main.asm"
 	include	"Level/_Objects/Boulder/Main.asm"
 	include	"Level/_Objects/Spring/Main.asm"
