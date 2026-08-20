@@ -374,7 +374,7 @@ DetectRAMCart:
 	bne.s	.NormalRAMCart			; If signature is present, branch
 	dbf	d0,.CheckSpecSig
 
-	movea.l	#_BURAM,a0			; Unsure what this does
+	movea.l	#_BURAM,a0			; Set cartridge Backup RAM handler address
 	jsr	CARTSPECPRG
 	bra.w	.Found				; Mark as found
 

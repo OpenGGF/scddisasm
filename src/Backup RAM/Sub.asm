@@ -116,14 +116,14 @@ IRQ1:
 	rte
 
 ; -------------------------------------------------------------------------
-; Unknown decompression routine
+; Decompress LZSS data into RAM
 ; -------------------------------------------------------------------------
 ; PARAMETERS:
 ;	a0.l - Pointer to compressed data
 ;	a1.l - Pointer to destination buffer
 ; -------------------------------------------------------------------------
 
-UnkDecomp:
+LZSSDecomp:
 	movem.l	d0-a2,-(sp)			; Save registers
 
 	lea	decompWindow,a2			; Decompression sliding window
@@ -300,15 +300,16 @@ WaitWordRAMAccess:
 	rts
 
 ; -------------------------------------------------------------------------
-; Unknown map data(?) loading routine
+; Load stamp map
 ; -------------------------------------------------------------------------
 ; PARAMETERS:
+;	d0.l - Destination address
 ;	a1.l - Pointer to source data
 ;	d1.w - Width (minus 1)
 ;	d2.w - Height (minus 1)
 ; -------------------------------------------------------------------------
 
-UnkMapDataLoad:
+LoadStampMap:
 	move.l	#$100,d4			; Stride
 
 .SetupRow:

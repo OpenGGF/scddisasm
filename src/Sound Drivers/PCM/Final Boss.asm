@@ -92,6 +92,8 @@ Song_FinalBossLoop:
 ; Sound effects
 ; -------------------------------------------------------------------------
 
+; The final boss bank keeps the shared Amy and bumper IDs in its SFX table,
+; but these entries are stop-only placeholders and intentionally use no sample.
 SFX_Unknown:
 	include	"Sound Drivers/PCM/SFX/Unknown (Final Boss).asm"
 	even
@@ -131,6 +133,7 @@ SFX_Bumper:
 ; -------------------------------------------------------------------------
 
 SampleIndex:
+	; Only SFX that have PCM data consume sample slots in this bank.
 	SAMPTBLSTART
 	SAMPPTR	LoopR
 	SAMPPTR	LoopL
