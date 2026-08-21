@@ -1050,7 +1050,7 @@ InitLevelDraw:
 ; -------------------------------------------------------------------------
 
 InitLevelDrawFG:
-	move.w	#-16,d4				; Start drawing at the top of the screen
+	moveq	#-16,d4				; Start drawing at the top of the screen
 	moveq	#((224+(16*2))/16)-1,d6		; 16 blocks in a column
 
 .Draw:
@@ -1081,7 +1081,7 @@ InitLevelDrawFG:
 ; -------------------------------------------------------------------------
 
 InitLevelDrawBG:
-	move.w	#-16,d4				; Start drawing at the top of the screen
+	moveq	#-16,d4				; Start drawing at the top of the screen
 	moveq	#((224+(16*2))/16)-1,d6		; 16 blocks in a column
 
 .Draw:
