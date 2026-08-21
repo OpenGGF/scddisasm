@@ -108,7 +108,12 @@ target_water_y		EQU	destWaterHeight
 water_speed		EQU	waterMoveSpeed
 water_routine		EQU	waterRoutine
 water_full		EQU	waterFullscreen
+	if (REGION=USA)&(STAGE_ZONE=2)
+		; USA R4 keeps the older current flag separate from water slides.
+water_current_flag	EQU	windTunnelFlag
+	else
 water_current_flag	EQU	waterSlideFlag
+	endif
 
 ring_anim_timer		EQU	ringAnimTimer
 ring_anim_frame		EQU	ringAnimFrame

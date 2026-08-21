@@ -205,9 +205,14 @@ loc_202D30:
 	clr.w	scroll_flags_bg
 	clr.w	scroll_flags_bg2
 	clr.w	scroll_flags_bg3
+	if REGION=USA
+		bsr.w	StageEvents
+	endif
 	bsr.w	ScrollFgX
 	bsr.w	ScrollFgY
-	bsr.w	StageEvents
+	if REGION<>USA
+		bsr.w	StageEvents
+	endif
 	move.w	scroll_fg_y,scroll_y
 	move.w	scroll_bg_y,scroll_y+2
 	lea	bg_scroll_lines,a1
@@ -420,6 +425,7 @@ loc_202FF0:
 ; ------------------------------------------------------------------------------
 
 ScrollFgY:
+	moveq	#0,d1
 	move.w	$C(a6),d0
 	sub.w	scroll_fg_y,d0
 	btst	#2,$22(a6)

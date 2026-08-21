@@ -258,6 +258,10 @@ unk_20A80C:
 ; ------------------------------------------------------------------------------
 
 sub_20A81E:
+	if REGION=USA
+	cmpi.b	#$17,obj.anim_id(a6)
+	beq.s	loc_20A854
+	endif
 	tst.b	obj.var_2c(a6)
 	bmi.s	loc_20A854
 	move.w	obj.x(a6),d0

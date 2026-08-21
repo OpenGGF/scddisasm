@@ -2397,10 +2397,12 @@ locret_2051E2:
 ; ------------------------------------------------------------------------------
 
 loc_2051E4:
+	if REGION<>USA
 	btst	#2,obj.flags(a0)
 	bne.s	loc_2051F6
 	move.w	#$9C,d0
 	jsr	PlayFmSound
+	endif
 
 loc_2051F6:
 	jmp	PlayerStartRoll

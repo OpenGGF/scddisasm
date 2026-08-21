@@ -205,9 +205,14 @@ loc_202C9E:
 	clr.w	scroll_flags_bg
 	clr.w	scroll_flags_bg2
 	clr.w	scroll_flags_bg3
+	if REGION=USA
+		bsr.w	StageEvents
+	endif
 	bsr.w	ScrollFgX
 	bsr.w	ScrollFgY
-	bsr.w	StageEvents
+	if REGION<>USA
+		bsr.w	StageEvents
+	endif
 	move.w	scroll_fg_y,scroll_y
 	move.w	scroll_bg_y,scroll_y+2
 	lea	bg_scroll_lines,a1
