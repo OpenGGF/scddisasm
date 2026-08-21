@@ -213,6 +213,16 @@ assemble 'Level\Quartz Quadrant\Act 2 Good Future.asm' '..\out\files\R52C__.MMD'
 assemble 'Level\Quartz Quadrant\Act 2 Bad Future.asm' '..\out\files\R52D__.MMD' 'Level\Quartz Quadrant\Act 2 Bad Future.lst' /e DEMO=0
 assemble 'Level\Quartz Quadrant\Act 3 Good Future.asm' '..\out\files\R53C__.MMD' 'Level\Quartz Quadrant\Act 3 Good Future.lst' /e DEMO=0
 assemble 'Level\Quartz Quadrant\Act 3 Bad Future.asm' '..\out\files\R53D__.MMD' 'Level\Quartz Quadrant\Act 3 Bad Future.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 1 Present.asm' '..\out\files\R71A__.MMD' 'Level\Stardust Speedway\Act 1 Present.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 1 Past.asm' '..\out\files\R71B__.MMD' 'Level\Stardust Speedway\Act 1 Past.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 1 Good Future.asm' '..\out\files\R71C__.MMD' 'Level\Stardust Speedway\Act 1 Good Future.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 1 Bad Future.asm' '..\out\files\R71D__.MMD' 'Level\Stardust Speedway\Act 1 Bad Future.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 2 Present.asm' '..\out\files\R72A__.MMD' 'Level\Stardust Speedway\Act 2 Present.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 2 Past.asm' '..\out\files\R72B__.MMD' 'Level\Stardust Speedway\Act 2 Past.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 2 Good Future.asm' '..\out\files\R72C__.MMD' 'Level\Stardust Speedway\Act 2 Good Future.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 2 Bad Future.asm' '..\out\files\R72D__.MMD' 'Level\Stardust Speedway\Act 2 Bad Future.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 3 Good Future.asm' '..\out\files\R73C__.MMD' 'Level\Stardust Speedway\Act 3 Good Future.lst' /e DEMO=0
+assemble 'Level\Stardust Speedway\Act 3 Bad Future.asm' '..\out\files\R73D__.MMD' 'Level\Stardust Speedway\Act 3 Bad Future.lst' /e DEMO=0
 
 assemble_symbols 'Special Stage\Stage Data.asm' 'Special Stage\Stage Data.bin' 'Special Stage\Stage Data.sym'
 run_tool "$ROOT_DIR/bin/dumpasmsym.exe" -m asm 'Special Stage\Stage Data.sym' -o 'Special Stage\Stage Data Labels.inc'

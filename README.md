@@ -96,6 +96,9 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Quartz Quadrant Act 1 (R51A, R51B, R51C, R51D)
     - Quartz Quadrant Act 2 (R52A, R52B, R52C, R52D)
     - Quartz Quadrant Act 3 Good/Bad Future (R53C, R53D)
+    - Stardust Speedway Act 1 (R71A, R71B, R71C, R71D)
+    - Stardust Speedway Act 2 (R72A, R72B, R72C, R72D)
+    - Stardust Speedway Act 3 Good/Bad Future (R73C, R73D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
 * FMVs
