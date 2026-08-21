@@ -259,7 +259,7 @@ LevelScroll:
 	move.w	deformBuffer.w,d0		; Scroll top clouds
 	add.w	cameraBg3X.w,d0
 	neg.w	d0
-	moveq	#3,d1
+	move.w	#3,d1
 
 .ScrollClouds1:
 	move.w	d0,(a1)+
@@ -268,7 +268,7 @@ LevelScroll:
 	move.w	deformBuffer+4.w,d0		; Scroll top middle clouds
 	add.w	cameraBg3X.w,d0
 	neg.w	d0
-	moveq	#3,d1
+	move.w	#3,d1
 
 .ScrollClouds2:
 	move.w	d0,(a1)+
@@ -277,7 +277,7 @@ LevelScroll:
 	move.w	deformBuffer+8.w,d0		; Scroll bottom middle clouds
 	add.w	cameraBg3X.w,d0
 	neg.w	d0
-	moveq	#3,d1
+	move.w	#3,d1
 
 .ScrollClouds3:
 	move.w	d0,(a1)+
@@ -291,7 +291,7 @@ LevelScroll:
 	move.w	d0,(a1)+
 	dbf	d1,.ScrollMountains
 
-	moveq	#3,d1				; Scroll waterfalls
+	move.w	#3,d1			; Scroll waterfalls
 	move.w	cameraBg2X.w,d0
 	neg.w	d0
 
@@ -366,6 +366,22 @@ LevelScroll:
 		move.l	d0,(a1)+
 	endr
 	dbf	d1,.FillHScrollLoop
+	rts
+
+; -------------------------------------------------------------------------
+
+.ScrollBlocksAlt:
+	neg.w	d0				; Start scrolling
+	jmp	.ScrollBlock(pc,d2.w)
+
+.ScrollLoop:
+	neg.w	d0				; Alternate offset
+
+.ScrollBlock:
+	rept	8				; Scroll a block of 8 lines
+		move.l	d0,(a1)+
+	endr
+	dbf	d1,.FillHScrollLoop		; Loop until finished
 	rts
 
 ; -------------------------------------------------------------------------
@@ -736,7 +752,7 @@ DrawLevelBG1:
 	lea	BGCameraSectIDs,a0		; Prepare background section camera IDs
 	adda.w	#1,a0
 
-	move.w	#-$10,d4			; Prepare to draw a row at the top
+	moveq	#-$10,d4			; Prepare to draw a row at the top
 
 	bclr	#0,(a2)				; Should we draw a row at the top?
 	bne.s	.GotRowPos			; If so, branch
@@ -901,7 +917,7 @@ InitLevelDraw:
 ; -------------------------------------------------------------------------
 
 InitLevelDrawFG:
-	move.w	#-16,d4				; Start drawing at the top of the screen
+	moveq	#-16,d4				; Start drawing at the top of the screen
 	moveq	#((224+(16*2))/16)-1,d6		; 16 blocks in a column
 
 .Draw:
@@ -932,7 +948,7 @@ InitLevelDrawFG:
 ; -------------------------------------------------------------------------
 
 InitLevelDrawBG:
-	move.w	#-16,d4				; Start drawing at the top of the screen
+	moveq	#-16,d4				; Start drawing at the top of the screen
 	moveq	#((224+(16*2))/16)-1,d6		; 16 blocks in a column
 
 .Draw:
@@ -949,10 +965,6 @@ InitLevelDrawBG:
 	dbf	d6,.Draw			; Loop until finished
 
 	rts
-
-; -------------------------------------------------------------------------
-
-	dc.w	0
 
 ; -------------------------------------------------------------------------
 ; Background camera sections
