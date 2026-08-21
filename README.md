@@ -99,6 +99,9 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Stardust Speedway Act 1 (R71A, R71B, R71C, R71D)
     - Stardust Speedway Act 2 (R72A, R72B, R72C, R72D)
     - Stardust Speedway Act 3 Good/Bad Future (R73C, R73D)
+    - Metallic Madness Act 1 (R81A, R81B, R81C, R81D)
+    - Metallic Madness Act 2 (R82A, R82B, R82C, R82D)
+    - Metallic Madness Act 3 Good/Bad Future (R83C, R83D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
 * FMVs

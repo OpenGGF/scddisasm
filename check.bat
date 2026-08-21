@@ -111,6 +111,16 @@ fc /b original\%REGPATH%\R72C__.MMD out\files\R72C__.MMD
 fc /b original\%REGPATH%\R72D__.MMD out\files\R72D__.MMD
 fc /b original\%REGPATH%\R73C__.MMD out\files\R73C__.MMD
 fc /b original\%REGPATH%\R73D__.MMD out\files\R73D__.MMD
+fc /b original\%REGPATH%\R81A__.MMD out\files\R81A__.MMD
+fc /b original\%REGPATH%\R81B__.MMD out\files\R81B__.MMD
+fc /b original\%REGPATH%\R81C__.MMD out\files\R81C__.MMD
+fc /b original\%REGPATH%\R81D__.MMD out\files\R81D__.MMD
+fc /b original\%REGPATH%\R82A__.MMD out\files\R82A__.MMD
+fc /b original\%REGPATH%\R82B__.MMD out\files\R82B__.MMD
+fc /b original\%REGPATH%\R82C__.MMD out\files\R82C__.MMD
+fc /b original\%REGPATH%\R82D__.MMD out\files\R82D__.MMD
+fc /b original\%REGPATH%\R83C__.MMD out\files\R83C__.MMD
+fc /b original\%REGPATH%\R83D__.MMD out\files\R83D__.MMD
 fc /b original\%REGPATH%\SPMM__.MMD out\files\SPMM__.MMD
 fc /b original\%REGPATH%\SPSS__.BIN out\files\SPSS__.BIN
 

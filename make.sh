@@ -223,6 +223,16 @@ assemble 'Level\Stardust Speedway\Act 2 Good Future.asm' '..\out\files\R72C__.MM
 assemble 'Level\Stardust Speedway\Act 2 Bad Future.asm' '..\out\files\R72D__.MMD' 'Level\Stardust Speedway\Act 2 Bad Future.lst' /e DEMO=0
 assemble 'Level\Stardust Speedway\Act 3 Good Future.asm' '..\out\files\R73C__.MMD' 'Level\Stardust Speedway\Act 3 Good Future.lst' /e DEMO=0
 assemble 'Level\Stardust Speedway\Act 3 Bad Future.asm' '..\out\files\R73D__.MMD' 'Level\Stardust Speedway\Act 3 Bad Future.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 1 Present.asm' '..\out\files\R81A__.MMD' 'Level\Metallic Madness\Act 1 Present.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 1 Past.asm' '..\out\files\R81B__.MMD' 'Level\Metallic Madness\Act 1 Past.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 1 Good Future.asm' '..\out\files\R81C__.MMD' 'Level\Metallic Madness\Act 1 Good Future.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 1 Bad Future.asm' '..\out\files\R81D__.MMD' 'Level\Metallic Madness\Act 1 Bad Future.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 2 Present.asm' '..\out\files\R82A__.MMD' 'Level\Metallic Madness\Act 2 Present.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 2 Past.asm' '..\out\files\R82B__.MMD' 'Level\Metallic Madness\Act 2 Past.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 2 Good Future.asm' '..\out\files\R82C__.MMD' 'Level\Metallic Madness\Act 2 Good Future.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 2 Bad Future.asm' '..\out\files\R82D__.MMD' 'Level\Metallic Madness\Act 2 Bad Future.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 3 Good Future.asm' '..\out\files\R83C__.MMD' 'Level\Metallic Madness\Act 3 Good Future.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 3 Bad Future.asm' '..\out\files\R83D__.MMD' 'Level\Metallic Madness\Act 3 Bad Future.lst' /e DEMO=0
 
 assemble_symbols 'Special Stage\Stage Data.asm' 'Special Stage\Stage Data.bin' 'Special Stage\Stage Data.sym'
 run_tool "$ROOT_DIR/bin/dumpasmsym.exe" -m asm 'Special Stage\Stage Data.sym' -o 'Special Stage\Stage Data Labels.inc'
