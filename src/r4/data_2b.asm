@@ -5,7 +5,11 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r42b_e_1.bin"
+	if REGION=USA
+		include	"r4/usa_padding_2b.asm"
+	else
+		incbin	"../padding/r42b_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r42b/chunks.bin"
