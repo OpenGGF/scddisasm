@@ -68,6 +68,26 @@ if ! find "$ORIGINAL_DIR" -maxdepth 1 -type f ! -name .gitkeep -print -quit | gr
 	exit 1
 fi
 
+HEADLESS_DESKTOP=${HEADLESS_DESKTOP:-1}
+if [[ $HEADLESS_DESKTOP == 1 && ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
+	CAGE_BIN=${CAGE_BIN:-$(command -v cage || true)}
+	if [[ -z ${CAGE_BIN:-} ]]; then
+		echo 'cage is required for the default headless Linux build runner.' >&2
+		echo 'Install cage or set HEADLESS_DESKTOP=0 only for interactive diagnosis.' >&2
+		exit 1
+	fi
+	exec env \
+		WLR_BACKENDS=headless \
+		WLR_HEADLESS_OUTPUTS=1 \
+		WLR_LIBINPUT_NO_DEVICES=1 \
+		WLR_RENDERER=pixman \
+		WLR_LOG=error \
+		WINEDEBUG="${WINEDEBUG:--all}" \
+		PROTON_LOG=0 \
+		SCDDISASM_HEADLESS=1 \
+		"$CAGE_BIN" -d -- "$ROOT_DIR/make.sh" "$@"
+fi
+
 mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
 cp -a "$ORIGINAL_DIR"/. "$ROOT_DIR/out/files/"
 rm -f "$ROOT_DIR/out/files/.gitkeep"
