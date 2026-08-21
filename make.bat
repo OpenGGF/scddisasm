@@ -13,7 +13,7 @@ del out\files\.gitkeep > nul
 
 cd src
 
-set ASM68K=..\bin\asm68k.exe /p /o ae-,l.,ow+ /e REGION=%REGION%
+set ASM68K=..\bin\asm68k.exe /q /p /o ae-,l.,ow+ /e REGION=%REGION%
 set AS=..\bin\asw.exe -q -xx -n -A -L -U -E -i .
 set P2BIN=..\bin\p2bin.exe
 

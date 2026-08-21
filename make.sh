@@ -86,13 +86,13 @@ run_tool() {
 assemble() {
 	local source=$1 output=$2 listing=$3
 	shift 3
-	run_tool "$ROOT_DIR/bin/asm68k.exe" /p /o 'ae-,l.,ow+' /e "REGION=$REGION" "$@" \
+	run_tool "$ROOT_DIR/bin/asm68k.exe" /q /p /o 'ae-,l.,ow+' /e "REGION=$REGION" "$@" \
 		"$source," "$output," , "$listing"
 }
 
 assemble_symbols() {
 	local source=$1 output=$2 symbols=$3
-	run_tool "$ROOT_DIR/bin/asm68k.exe" /p /o 'ae-,l.,ow+' /e "REGION=$REGION" \
+	run_tool "$ROOT_DIR/bin/asm68k.exe" /q /p /o 'ae-,l.,ow+' /e "REGION=$REGION" \
 		"$source," "$output," "$symbols"
 }
 
@@ -255,7 +255,7 @@ run_tool "$ROOT_DIR/bin/mkisofs.exe" -quiet -abstract ABS.TXT -biblio BIB.TXT -c
 	-A 'SEGA ENTERPRISES' -V SONIC_CD___ -publisher 'SEGA ENTERPRISES' -p 'SEGA ENTERPRISES' \
 	-sysid MEGA_CD -iso-level 1 -o '..\out\misc\files.bin' '..\out\files'
 
-run_tool "$ROOT_DIR/bin/asm68k.exe" /p /o 'ae-,l.,ow+' /e "REGION=$REGION" \
+run_tool "$ROOT_DIR/bin/asm68k.exe" /q /p /o 'ae-,l.,ow+' /e "REGION=$REGION" \
 	'Main.asm,' "..\\out\\$OUTPUT"
 rm -f "$ROOT_DIR/out/misc/files.bin"
 

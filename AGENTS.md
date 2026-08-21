@@ -35,6 +35,7 @@ On Linux from the repository root:
 - `./check.sh` compares all rebuilt components with native `cmp`, prints an aggregate result, and returns nonzero if anything is missing or differs.
 - Set `REGION=0`, `REGION=1`, or `REGION=2` in the environment for Japan, USA, or Europe, respectively; for example, `REGION=2 ./make.sh` followed by `REGION=2 ./check.sh`.
 - Use `WINE_BIN` or `PROTON_BIN` when automatic runtime detection is insufficient. On Bazzite, invoke the Proton launcher through `make.sh`; calling Proton's bundled `files/bin/wine` directly does not perform the required prefix setup. Proton compatibility data is kept under ignored `out/proton/`.
+- The checked-in build frontends pass asm68k's `/q` option. Keep this option on direct asm68k invocations as well: it suppresses the assembler's local information window, so an automated build remains non-interactive and does not produce a popup on the desktop.
 
 The Linux path has been validated on Bazzite with Steam Proton Experimental for USA: the full build completed and all 51 component comparisons matched. The final ISO itself is not a byte-comparison target because ISO filesystem metadata may differ even when every rebuilt component matches.
 
