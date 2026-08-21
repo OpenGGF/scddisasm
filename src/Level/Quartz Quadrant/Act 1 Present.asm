@@ -9,4 +9,4 @@ STAGE_ZONE	EQU	3
 STAGE_ACT	EQU	0
 STAGE_TIME	EQU	1
 
-	include	"Level/Quartz Quadrant/Act Shared.asm"
+	include	"Level/Quartz Quadrant/R5 Legacy Shared.asm"

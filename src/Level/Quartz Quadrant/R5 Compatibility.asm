@@ -145,6 +145,10 @@ scroll_flags_fg	EQU	scrollFlags
 scroll_flags_bg	EQU	scrollFlagsBg
 scroll_flags_bg2	EQU	scrollFlagsBg2
 scroll_flags_bg3	EQU	scrollFlagsBg3
+	if REGION=USA
+		; USA R5 clears this legacy stage-state byte during stage setup.
+r5_usa_unknown_195c	EQU	$00FF195C
+	endif
 scroll_flags_fg_work	EQU	scrollFlagsCopy
 scroll_flags_bg_work	EQU	scrollFlagsBgCopy
 scroll_flags_bg2_work	EQU	scrollFlagsBg2Copy
@@ -362,6 +366,16 @@ InitGfxQueue		EQU	InitPLC
 CheckObjectDespawn	EQU	CheckObjDespawn
 CheckObjectDespawn2	EQU	CheckObjDespawn2
 DestroyInGoodFuture	EQU	DestroyOnGoodFuture
+CheckBlockDown		EQU	ObjGetFloorDist
+CheckBlockUp		EQU	ObjGetCeilDist
+CheckBlockY		EQU	ObjGetFloorDist
+CheckBlockDown3		EQU	ObjGetFloorDist
+
+; R5 keeps the later level collision implementation and its no-op conversion
+; entry, while the recovered main/object sources retain the historical names.
+ConvertStageCollision	EQU	ConvColArray
+ObjSonic_SpecialCol	EQU	SetObjectTileID
+
 MoveObject		EQU	ObjMove
 MoveObjectGrv		EQU	ObjMoveGrv
 PlayerSetGround		EQU	Player_GroundCol

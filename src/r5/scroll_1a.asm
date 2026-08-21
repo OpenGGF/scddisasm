@@ -1,5 +1,18 @@
 ; ------------------------------------------------------------------------------
 
+	if REGION=USA
+InitPlayerObjectPointer:
+		lea	player_object,a6
+		tst.b	use_player_2
+		beq.s	InitPlayerObjectPointer_Return
+		lea	player_object_2,a6
+
+InitPlayerObjectPointer_Return:
+		rts
+
+; ------------------------------------------------------------------------------
+	endif
+
 InitScroll:
 	lea	player_object,a6
 	moveq	#0,d0

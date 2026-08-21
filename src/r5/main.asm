@@ -267,7 +267,14 @@ loc_201756:
 	move.w	#0,s1_demo_index
 	move.w	#$202F,palette_fade_start
 	jsr	AnimateStageGfx
+	if REGION=USA
+		clr.b	scroll_flags_fg
+		jsr	CheckBackgroundSwap
+		clr.b	r5_usa_unknown_195c
+		jsr	InitStageDrawBg
+	else
 	jsr	CheckBackgroundSwap
+	endif
 	move.b	#1,fade_enable_display
 	bclr	#7,time_zone
 	beq.s	loc_2017EC
@@ -290,6 +297,10 @@ loc_2017FA:
 loc_201808:
 	move.b	#8,vblank_routine
 	bsr.w	VSync
+	if REGION=USA
+		cmpi.b	#6,player_object+obj.routine
+		bcc.s	loc_201826
+	endif
 	tst.b	control_locked
 	bne.s	loc_201826
 	btst	#7,p1_joy_tap
@@ -304,8 +315,12 @@ loc_201826:
 	tst.b	time_attack
 	bne.s	loc_20188A
 	andi.b	#$70,d0
+	if REGION=USA
+		beq.s	loc_201808
+	else
 	cmpi.b	#$70,d0
 	bne.s	loc_201808
+	endif
 	subq.b	#1,lives
 	bpl.s	loc_201858
 	clr.b	lives
@@ -355,15 +370,21 @@ loc_2018A6:
 ; ------------------------------------------------------------------------------
 
 loc_2018EE:
-	bsr.w	UpdateScroll
+		bsr.w	UpdateScroll
 
 loc_2018F2:
+	if REGION=USA
+		jsr	CheckBackgroundSwap
+		jsr	DrawObjects
+		bsr.w	CyclePalette
+	else
 	jsr	DrawObjects
 	tst.w	time_stop
 	bne.s	loc_201904
 	bsr.w	CyclePalette
 
 loc_201904:
+	endif
 	jsr	UpdateSectionGfx
 	bsr.w	AdvanceGfxQueue
 	bsr.w	UpdateGlobalAnims
@@ -445,6 +466,28 @@ off_2019A6:
 ; ------------------------------------------------------------------------------
 
 UpdateGlobalAnims:
+	if REGION=USA
+		subq.b	#1,ring_anim_timer
+		bpl.s	loc_R5USA_UpdateGlobalAnims_LostRing
+		move.b	#7,ring_anim_timer
+		addq.b	#1,ring_anim_frame
+		andi.b	#3,ring_anim_frame
+
+loc_R5USA_UpdateGlobalAnims_LostRing:
+		tst.b	lost_ring_anim_timer
+		beq.s	loc_R5USA_UpdateGlobalAnims_Return
+		moveq	#0,d0
+		move.b	lost_ring_anim_timer,d0
+		add.w	lost_ring_anim_accum,d0
+		move.w	d0,lost_ring_anim_accum
+		rol.w	#7,d0
+		andi.w	#3,d0
+		move.b	d0,lost_ring_anim_frame
+		subq.b	#1,lost_ring_anim_timer
+
+loc_R5USA_UpdateGlobalAnims_Return:
+		rts
+	else
 	subq.b	#1,log_spike_anim_timer
 	bpl.s	loc_2019E4
 	move.b	#$B,log_spike_anim_timer
@@ -481,6 +524,7 @@ loc_201A2A:
 
 locret_201A58:
 	rts
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -804,9 +848,13 @@ VBlankStage:
 	move.b	#0,update_player_gfx
 
 loc_201DAE:
+	if REGION=USA
+		jsr	AnimateStageGfx
+	else
 	tst.w	time_stop
 	bne.s	loc_201DBC
 	jsr	AnimateStageGfx
+	endif
 
 loc_201DBC:
 	jsr	StartZ80
@@ -814,6 +862,11 @@ loc_201DBC:
 	movem.l	d0-d7,scroll_fg_x_work
 	movem.l	scroll_flags_fg,d0-d1
 	movem.l	d0-d1,scroll_flags_fg_work
+	if REGION=USA
+		bclr	#0,r5_usa_unknown_195c
+		beq.s	sub_201DDE
+		jmp	InitStageDrawBg
+	endif
 
 ; ------------------------------------------------------------------------------
 

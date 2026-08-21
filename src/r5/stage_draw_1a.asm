@@ -22,12 +22,14 @@ DrawStage:
 	lea	stage_map+$40,a4
 	move.w	#$6000,d2
 	bsr.w	sub_20320C
+	if REGION<>USA
 	lea	scroll_flags_bg2_work,a2
 	lea	scroll_bg2_x_work,a3
 	bsr.w	nullsub_19
 	lea	scroll_flags_bg3_work,a2
 	lea	scroll_bg3_x_work,a3
 	bsr.w	nullsub_20
+	endif
 	lea	scroll_flags_fg_work,a2
 	lea	scroll_fg_x_work,a3
 	lea	stage_map,a4
@@ -550,21 +552,28 @@ loc_2035C6:
 	moveq	#$F,d6
 
 loc_2035CA:
-	movem.l	d4-d6/a0,-(sp)
-	lea	unk_203604,a0
-	btst	#0,r5_bg_change
-	beq.s	loc2_2035E4
-	lea	unk_203646,a0
+		lea	unk_203604,a0
+		btst	#0,r5_bg_change
+		beq.s	loc2_2035E4
+		lea	unk_203646,a0
 
 loc2_2035E4:
-	adda.w	#1,a0
-	move.w	scroll_bg_y,d0
+		adda.w	#1,a0
+	if REGION=USA
+loc_R5USA_InitStageDrawBg_Loop:
+	endif
+		movem.l	d4-d6/a0,-(sp)
+		move.w	scroll_bg_y,d0
 	add.w	d4,d0
 	andi.w	#$FFF0,d0
 	bsr.w	sub_203688
 	movem.l	(sp)+,d4-d6/a0
 	addi.w	#$10,d4
+	if REGION=USA
+	dbf	d6,loc_R5USA_InitStageDrawBg_Loop
+	else
 	dbf	d6,loc_2035CA
+	endif
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -708,8 +717,12 @@ sub_203688:
 	movem.l	d4-d5,-(sp)
 	bsr.w	GetBlockVramWrite
 	movem.l	(sp)+,d4-d5
+	if REGION=USA
+		bra.w	DrawBlockRow
+	else
 	bsr.w	DrawBlockRow
 	bra.s	locret_2036C0
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -719,7 +732,11 @@ loc_2036AC:
 	bsr.w	GetBlockVramWriteAbsX
 	movem.l	(sp)+,d4-d5
 	moveq	#$1F,d6
+	if REGION=USA
+		bra.w	DrawBlockRowAbsX
+	else
 	bsr.w	DrawBlockRowAbsX
+	endif
 
 locret_2036C0:
 	rts
