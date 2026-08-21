@@ -76,16 +76,30 @@ if [[ $HEADLESS_DESKTOP == 1 && ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
 		echo 'Install cage or set HEADLESS_DESKTOP=0 only for interactive diagnosis.' >&2
 		exit 1
 	fi
-	exec env \
+	HEADLESS_RUNTIME_BASE=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}
+	if [[ ! -d $HEADLESS_RUNTIME_BASE || ! -w $HEADLESS_RUNTIME_BASE ]]; then
+		echo "Headless runtime directory '$HEADLESS_RUNTIME_BASE' is not writable." >&2
+		exit 1
+	fi
+	HEADLESS_RUNTIME_DIR=$(mktemp -d "$HEADLESS_RUNTIME_BASE/scddisasm-cage.XXXXXX")
+	trap 'rm -rf -- "$HEADLESS_RUNTIME_DIR"' EXIT
+	if env -u DISPLAY -u WAYLAND_DISPLAY \
+		XDG_RUNTIME_DIR="$HEADLESS_RUNTIME_DIR" \
 		WLR_BACKENDS=headless \
 		WLR_HEADLESS_OUTPUTS=1 \
 		WLR_LIBINPUT_NO_DEVICES=1 \
 		WLR_RENDERER=pixman \
 		WLR_LOG=error \
+		LIBGL_ALWAYS_SOFTWARE=1 \
 		WINEDEBUG="${WINEDEBUG:--all}" \
 		PROTON_LOG=0 \
 		SCDDISASM_HEADLESS=1 \
-		"$CAGE_BIN" -d -- "$ROOT_DIR/make.sh" "$@"
+		"$CAGE_BIN" -d -- "$ROOT_DIR/make.sh" "$@"; then
+		status=0
+	else
+		status=$?
+	fi
+	exit "$status"
 fi
 
 mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
