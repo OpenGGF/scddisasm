@@ -85,6 +85,12 @@ fc /b original\%REGPATH%\R41A__.MMD out\files\R41A__.MMD
 fc /b original\%REGPATH%\R41B__.MMD out\files\R41B__.MMD
 fc /b original\%REGPATH%\R41C__.MMD out\files\R41C__.MMD
 fc /b original\%REGPATH%\R41D__.MMD out\files\R41D__.MMD
+fc /b original\%REGPATH%\R42A__.MMD out\files\R42A__.MMD
+fc /b original\%REGPATH%\R42B__.MMD out\files\R42B__.MMD
+fc /b original\%REGPATH%\R42C__.MMD out\files\R42C__.MMD
+fc /b original\%REGPATH%\R42D__.MMD out\files\R42D__.MMD
+fc /b original\%REGPATH%\R43C__.MMD out\files\R43C__.MMD
+fc /b original\%REGPATH%\R43D__.MMD out\files\R43D__.MMD
 fc /b original\%REGPATH%\R51A__.MMD out\files\R51A__.MMD
 fc /b original\%REGPATH%\R51B__.MMD out\files\R51B__.MMD
 fc /b original\%REGPATH%\R51C__.MMD out\files\R51C__.MMD
