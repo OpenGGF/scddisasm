@@ -2,6 +2,7 @@
 
 ## 2026-08-21
 
+- **R31A object family milestone:** CC Pocket and its spawned display child are ported from the tracked R3 source into the current object ABI, including the future gate, player capture/control flags, timed animation and points cycle, child lifetime linkage, sound effects, and recovered parent/child animations and mappings. The USA `DEMO=0` entry probe exits successfully and produces a 251,488-byte binary; remaining stage-specific object families are still pending.
 - **R31A object family milestone:** CC Tentou and its spawned bomb are ported from the tracked R3 source into the current object ABI, including parent bobbing and wall/floor motion, timed bomb spawning, collision-triggered explosion, good-future cleanup, current collision probes, and recovered parent/bomb animations and mappings. The USA `DEMO=0` entry probe exits successfully and produces a 250,636-byte binary; remaining stage-specific object families are still pending.
 
 ## 2026-08-20
