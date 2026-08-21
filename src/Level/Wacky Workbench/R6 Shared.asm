@@ -138,8 +138,10 @@ R6_LEGACY_PLAYER	EQU	1
 	include	"r6/player_object_collide.asm"
 	include	"common/debug_mode.asm"
 
-	if R6_VARIANT<4
+	if R6_VARIANT=1
 		include	"r6/debug_objects_1b.asm"
+	elseif R6_VARIANT<4
+		include	"r6/debug_objects_1c_1d.asm"
 	elseif R6_VARIANT<8
 		if R6_VARIANT=4
 			include	"r6/debug_objects_2a.asm"

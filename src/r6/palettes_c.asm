@@ -1,6 +1,29 @@
 ; ------------------------------------------------------------------------------
 
 PaletteTable:
+	if R6_VARIANT=2
+		dc.l	PlayerPalette
+		dc.w	$FB00
+		dc.w	$1F
+		dc.l	PlayerPalette
+		dc.w	$FB00
+		dc.w	$1F
+		dc.l	PlayerPalette
+		dc.w	$FB00
+		dc.w	$1F
+		dc.l	PlayerPalette
+		dc.w	$FB00
+		dc.w	7
+		dc.l	StagePalette
+		dc.w	$FB20
+		dc.w	$17
+		dc.l	Pal_200790
+		dc.w	$FB20
+		dc.w	$17
+		dc.l	Pal_2007F0
+		dc.w	$FB20
+		dc.w	7
+	else
 	dc.l	S1TitlePalette
 	dc.w	$FB00
 	dc.w	$1F
@@ -22,8 +45,10 @@ PaletteTable:
 	dc.l	Pal_2007F0
 	dc.w	$FB20
 	dc.w	7
+	endif
 
 S1TitlePalette:
+	if R6_VARIANT<>2
 	if STAGE_ACT<>1
 		dcb.b	5,0
 		dc.b	2, 0
@@ -45,7 +70,8 @@ S1TitlePalette:
 		dc.b	$E, $EC
 		dcb.b	8,0
 		dc.b	$E, $EC
-		dcb.b	$12,0
+	dcb.b	$12,0
+	endif
 	endif
 
 PlayerPalette:
