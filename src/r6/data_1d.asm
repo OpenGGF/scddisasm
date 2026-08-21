@@ -5,7 +5,34 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
+	if REGION=USA
+	; R61D begins inside the USA PLC-table tail retained before its fixed boundary.
+	; The table is not part of the live R6 graphics-list graph.
+LegacyPLCStd2Tail:
+		dc.l	$0023410C
+		dc.w	$8000
+		dc.l	$0023B41E
+		dc.w	$8200
+		dc.l	$0023D104
+		dc.w	$9D00
+
+LegacyPLCResults:
+		dc.w	0
+		dc.l	$00230098
+		dc.w	$7880
+
+LegacyPLCSignpost:
+		dc.w	2
+		dc.l	$0022FABC
+		dc.w	$8780
+		dc.l	$0022F4F2
+		dc.w	$9100
+		dc.l	$0020BF74
+		dc.w	$7DE0
+	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, U).bin"
+	else
 	incbin	"../padding/r61d_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r61d/chunks.bin"

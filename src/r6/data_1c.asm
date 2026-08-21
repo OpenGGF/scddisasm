@@ -5,7 +5,73 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
+	if REGION=USA
+	; R61C retains the tail of an earlier USA PLC table before its fixed boundary.
+	; The table is not part of the live R6 graphics-list graph.
+LegacyPLCPrefix:
+		dc.w	$7700
+		dc.l	$0023B398
+		dc.w	$7D00
+		dc.l	$0023410C
+		dc.w	$8000
+		dc.l	$0023B94E
+		dc.w	$8200
+		dc.l	$0023D932
+		dc.w	$9D00
+		dc.w	0
+		dc.l	$0023D252
+		dc.w	$9A00
+		dc.w	0
+		dc.l	$0023D446
+		dc.w	$9A00
+		dc.w	0
+		dc.l	$00230098
+		dc.w	$7880
+		dc.w	2
+		dc.l	$0022FABC
+		dc.w	$8780
+		dc.l	$0022F4F2
+		dc.w	$9100
+		dc.l	$0020BF12
+		dc.w	$7DE0
+
+LegacyPLCStd2Tail:
+		dc.l	$0023A382
+		dc.w	$6D40
+		dc.l	$0023AF48
+		dc.w	$7340
+		dc.l	$0023AF9A
+		dc.w	$7400
+		dc.l	$0023C448
+		dc.w	$7500
+		dc.l	$0023C780
+		dc.w	$7700
+		dc.l	$0023AE68
+		dc.w	$7D00
+		dc.l	$0023410C
+		dc.w	$8000
+		dc.l	$0023B41E
+		dc.w	$8200
+		dc.l	$0023D104
+		dc.w	$9D00
+
+LegacyPLCResults:
+		dc.w	0
+		dc.l	$00230098
+		dc.w	$7880
+
+LegacyPLCSignpost:
+		dc.w	2
+		dc.l	$0022FABC
+		dc.w	$8780
+		dc.l	$0022F4F2
+		dc.w	$9100
+		dc.l	$0020BF74
+		dc.w	$7DE0
+	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, U).bin"
+	else
 	incbin	"../padding/r61c_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r61c/chunks.bin"
