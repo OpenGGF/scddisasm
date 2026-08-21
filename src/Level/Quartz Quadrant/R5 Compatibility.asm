@@ -205,7 +205,7 @@ colheightmap		EQU	StageCollisionColumns
 colwidthmap		EQU	StageCollisionRows
 
 ; Hardware names retained by the earlier level wrapper.
-MCD_INTERRUPT		EQU	GAMAINFLAG
+MCD_INTERRUPT		EQU	GAIRQ2
 VDP_CTRL		EQU	VDPCTRL
 VDP_DATA		EQU	VDPDATA
 Z80_RAM		EQU	Z80RAM
@@ -233,7 +233,7 @@ vblank_routine		EQU	vintRoutine
 sprite_count		EQU	spriteCount
 random_seed		EQU	rngSeed
 do_hblank		EQU	hintFlag
-do_hblank_updates	EQU	windTunnelFlag
+do_hblank_updates	EQU	waterFullscreen+1
 stage_anim_frames	EQU	aniArtFrames
 stage_anim_timers	EQU	aniArtTimers
 gfx_queue		EQU	plcBuffer
@@ -285,11 +285,7 @@ player_positions	EQU	sonicRecordBuf
 scroll_lines		EQU	hscroll
 object_draw_queue	EQU	objDrawQueue
 stage_started		EQU	levelStarted
-	if R6_LEGACY_PLAYER=0
-stage_start_flags	EQU	levelStarted
-	else
 stage_start_flags	EQU	plcLoadFlags
-	endif
 game_time_stones	EQU	timeStones
 special_stage		EQU	specialStage
 palette_clear_flags	EQU	palClearFlags
