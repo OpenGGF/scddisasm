@@ -53,10 +53,10 @@ ObjectIndex:
 	dc.l	ObjTentou			; $2E - Tentou
 	dc.l	ObjPocket			; $2F - Pocket
 	dc.l	ObjIntroSpikes			; $30 - Intro spikes
-	dc.l	ObjNull			; $31 - Metal Sonic (pending port)
+	dc.l	ObjMetalSonic			; $31 - Metal Sonic
 	dc.l	ObjNull			; $32 - Amy Rose (pending port)
 	dc.l	ObjNull			; $33 - Amy heart (pending port)
-	dc.l	ObjNull			; $34 - Metal Sonic exhaust (pending port)
+	dc.l	ObjMetalSonic_Exhaust			; $34 - Metal Sonic exhaust
 	dc.l	ObjNull			; $35 - Roll tunnel (pending port)
 	dc.l	ObjNull			; $36 - Blank
 	dc.l	ObjRobotGenerator		; $37 - Robot generator
