@@ -196,10 +196,17 @@ palette_cycle_timers	EQU	palCycleTimers
 time_stop		EQU	timeStopTimer
 event_routine		EQU	eventRoutine
 bg_scroll_lines		EQU	deformBuffer
-loop_chunk_1		EQU	unkBuffer+0
-loop_chunk_2		EQU	unkBuffer+1
-roll_chunk_1		EQU	unkBuffer+2
-roll_chunk_2		EQU	unkBuffer+3
+	if R6_LEGACY_PLAYER=0
+loop_chunk_1	EQU	unkBuffer+0
+loop_chunk_2	EQU	unkBuffer+1
+roll_chunk_1	EQU	unkBuffer+2
+roll_chunk_2	EQU	unkBuffer+3
+	else
+loop_chunk_1	EQU	$FFFFF7AC
+loop_chunk_2	EQU	$FFFFF7AD
+roll_chunk_1	EQU	$FFFFF7AE
+roll_chunk_2	EQU	$FFFFF7AF
+	endif
 colanglemap		EQU	StageCollisionAngles
 colheightmap		EQU	StageCollisionColumns
 colwidthmap		EQU	StageCollisionRows

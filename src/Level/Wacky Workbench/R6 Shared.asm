@@ -34,10 +34,20 @@ R6_LEGACY_PLAYER	EQU	1
 	include	"common/palette_load_water.asm"
 	include	"common/palette_load_water_fade.asm"
 
-	if R6_VARIANT<4
+	if R6_VARIANT=1
 		include	"r6/palettes_b.asm"
-	elseif R6_VARIANT<8
+	elseif R6_VARIANT=2
+		include	"r6/palettes_c.asm"
+	elseif R6_VARIANT=3
+		include	"r6/palettes_d.asm"
+	elseif R6_VARIANT=4
 		include	"r6/palettes_a.asm"
+	elseif R6_VARIANT=5
+		include	"r6/palettes_b.asm"
+	elseif R6_VARIANT=6
+		include	"r6/palettes_c.asm"
+	elseif R6_VARIANT=7
+		include	"r6/palettes_d.asm"
 	elseif R6_VARIANT=8
 		include	"r6/palettes_c.asm"
 	else

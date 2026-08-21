@@ -36,7 +36,8 @@ S1TitlePalette:
 	dc.b	$6C, 0, $CE
 
 S1LevelSelectPalette:
-	if STAGE_ACT<>1
+	if R6_VARIANT<>1
+		if STAGE_ACT<>1
 		dcb.b	5,0
 		dc.b	2, 0
 		dcb.b	2,2
@@ -58,6 +59,7 @@ S1LevelSelectPalette:
 		dcb.b	8,0
 		dc.b	$E, $EC
 		dcb.b	$12,0
+		endif
 	endif
 
 PlayerPalette:
