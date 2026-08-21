@@ -66,9 +66,5 @@ ObjectIndex:
 
 ; Null object routine used by unused object IDs.
 ObjNull:
-	moveq	#0,d0
-	rts
-
-; Quartz Quadrant has no special player-collision routine.
-ObjSonic_SpecialCol:
+	move.b	#0,(a0)
 	rts

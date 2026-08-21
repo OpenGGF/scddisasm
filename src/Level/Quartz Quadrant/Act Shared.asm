@@ -62,9 +62,6 @@ STANDALONE	EQU	0
 	include	"Level/Collision Floor.asm"
 	include	"r5/main.asm"
 	include	"Level/Functions (General).asm"
-	include	"Level/Collision Check.asm"
-	include	"common/block_collide.asm"
-	include	"common/object_block_collide.asm"
 
 	if QQ_VARIANT=0
 		include	"r5/background_swap_1a.asm"
@@ -118,13 +115,6 @@ STANDALONE	EQU	0
 
 	include	"Level/_Events.asm"
 	include	"Level/Object Functions.asm"
-	include	"Level/Sub CPU.asm"
-	include	"Level/Object Animate.asm"
-	include	"Level/Load Saved Data.asm"
-	include	"Level/Object Spawner.asm"
-	include	"Level/Object Solid.asm"
-	include	"Level/Object Time Check.asm"
-	include	"Level/Object Tile ID Set (Null).asm"
 
 	if QQ_VARIANT<8
 		if QQ_VARIANT<4
@@ -135,8 +125,11 @@ STANDALONE	EQU	0
 	else
 		include	"r5/object_index_3.asm"
 	endif
+	include	"Level/Object Tile ID Set (Null).asm"
 
 	include	"Level/_Objects/Sonic/Main.asm"
+	include	"Level/Sub CPU.asm"
+	include	"Level/Object Animate.asm"
 	include	"Level/_Objects/Checkpoint/Main.asm"
 	include	"Level/Resume Music (Leftover).asm"
 	include	"Level/_Objects/Test Badnik/Main.asm"
@@ -146,6 +139,8 @@ STANDALONE	EQU	0
 	include	"objects/r1/h_door.asm"
 	include	"Level/_Objects/Powerup/Main.asm"
 	include	"r5/player_block_check.asm"
+	include	"Level/Load Saved Data.asm"
+	include	"Level/Collision Check.asm"
 	include	"r5/player_object_collide.asm"
 	include	"Level/Debug Mode.asm"
 
@@ -156,6 +151,7 @@ STANDALONE	EQU	0
 	else
 		include	"r5/debug_objects_3.asm"
 	endif
+	include	"Level/Object Spawner.asm"
 
 	if QQ_VARIANT<4
 		include	"r5/stage_object_maps_1.asm"
@@ -166,6 +162,7 @@ STANDALONE	EQU	0
 	endif
 
 	include	"objects/r5/tunnel_path.asm"
+	include	"Level/Object Solid.asm"
 	include	"objects/r1/boulder.asm"
 	include	"Level/_Objects/Spring/Main.asm"
 	include	"Level/_Objects/Ring/Main.asm"
@@ -192,10 +189,11 @@ STANDALONE	EQU	0
 	include	"objects/r5/sine_platform.asm"
 	include	"objects/r5/swing.asm"
 	include	"objects/r5/large_break_wall.asm"
-	include	"objects/r5/break_wall.asm"
+	include	"Level/Object Time Check.asm"
 	include	"objects/r5/animal.asm"
 	include	"objects/r5/projector.asm"
 	include	"objects/r5/robot_generator.asm"
+	include	"objects/r5/break_wall.asm"
 
 	if QQ_VARIANT>=8
 		include	"objects/r5/boss.asm"

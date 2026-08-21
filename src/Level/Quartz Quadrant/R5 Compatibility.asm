@@ -436,6 +436,8 @@ Spring45Sprites	EQU	MapSpr_Spring3
 MonitorTimeSprites	EQU	MapSpr_MonitorTime
 DebugItemIndex		EQU	DebugObjects
 LevelPaletteID		EQU	StageDataIndex+$E
+GetBlock		EQU	GetLevelBlock
+PlayerCheckBlockFront	EQU	Player_CalcRoomInFront
 	endif
 
 ; The imported collision helpers retain their historical entry-point names.
