@@ -107,6 +107,10 @@ echo Making opening FMV STM...
 %ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 1 Past.asm", "..\out\files\R31B__.MMD", , "Level\Collision Chaos\Act 1 Past.lst"
 %ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 1 Good Future.asm", "..\out\files\R31C__.MMD", , "Level\Collision Chaos\Act 1 Good Future.lst"
 %ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 1 Bad Future.asm", "..\out\files\R31D__.MMD", , "Level\Collision Chaos\Act 1 Bad Future.lst"
+%ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 2 Present.asm", "..\out\files\R32A__.MMD", , "Level\Collision Chaos\Act 2 Present.lst"
+%ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 2 Past.asm", "..\out\files\R32B__.MMD", , "Level\Collision Chaos\Act 2 Past.lst"
+%ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 2 Good Future.asm", "..\out\files\R32C__.MMD", , "Level\Collision Chaos\Act 2 Good Future.lst"
+%ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 2 Bad Future.asm", "..\out\files\R32D__.MMD", , "Level\Collision Chaos\Act 2 Bad Future.lst"
 
 %ASM68K% "Special Stage\Stage Data.asm", "Special Stage\Stage Data.bin", "Special Stage\Stage Data.sym"
 ..\bin\dumpasmsym.exe -m asm "Special Stage\Stage Data.sym" -o "Special Stage\Stage Data Labels.inc"
