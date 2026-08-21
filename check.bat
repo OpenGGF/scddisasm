@@ -70,6 +70,10 @@ fc /b original\%REGPATH%\R32A__.MMD out\files\R32A__.MMD
 fc /b original\%REGPATH%\R32B__.MMD out\files\R32B__.MMD
 fc /b original\%REGPATH%\R32C__.MMD out\files\R32C__.MMD
 fc /b original\%REGPATH%\R32D__.MMD out\files\R32D__.MMD
+fc /b original\%REGPATH%\R41A__.MMD out\files\R41A__.MMD
+fc /b original\%REGPATH%\R41B__.MMD out\files\R41B__.MMD
+fc /b original\%REGPATH%\R41C__.MMD out\files\R41C__.MMD
+fc /b original\%REGPATH%\R41D__.MMD out\files\R41D__.MMD
 fc /b original\%REGPATH%\SPMM__.MMD out\files\SPMM__.MMD
 fc /b original\%REGPATH%\SPSS__.BIN out\files\SPSS__.BIN
 

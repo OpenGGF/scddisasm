@@ -182,6 +182,10 @@ assemble 'Level\Collision Chaos\Act 2 Present.asm' '..\out\files\R32A__.MMD' 'Le
 assemble 'Level\Collision Chaos\Act 2 Past.asm' '..\out\files\R32B__.MMD' 'Level\Collision Chaos\Act 2 Past.lst' /e DEMO=0
 assemble 'Level\Collision Chaos\Act 2 Good Future.asm' '..\out\files\R32C__.MMD' 'Level\Collision Chaos\Act 2 Good Future.lst' /e DEMO=0
 assemble 'Level\Collision Chaos\Act 2 Bad Future.asm' '..\out\files\R32D__.MMD' 'Level\Collision Chaos\Act 2 Bad Future.lst' /e DEMO=0
+assemble 'Level\Tidal Tempest\Act 1 Present.asm' '..\out\files\R41A__.MMD' 'Level\Tidal Tempest\Act 1 Present.lst' /e DEMO=0
+assemble 'Level\Tidal Tempest\Act 1 Past.asm' '..\out\files\R41B__.MMD' 'Level\Tidal Tempest\Act 1 Past.lst' /e DEMO=0
+assemble 'Level\Tidal Tempest\Act 1 Good Future.asm' '..\out\files\R41C__.MMD' 'Level\Tidal Tempest\Act 1 Good Future.lst' /e DEMO=0
+assemble 'Level\Tidal Tempest\Act 1 Bad Future.asm' '..\out\files\R41D__.MMD' 'Level\Tidal Tempest\Act 1 Bad Future.lst' /e DEMO=0
 
 assemble_symbols 'Special Stage\Stage Data.asm' 'Special Stage\Stage Data.bin' 'Special Stage\Stage Data.sym'
 run_tool "$ROOT_DIR/bin/dumpasmsym.exe" -m asm 'Special Stage\Stage Data.sym' -o 'Special Stage\Stage Data Labels.inc'

@@ -83,6 +83,10 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Collision Chaos Act 2 Past (R32B)
     - Collision Chaos Act 2 Good Future (R32C)
     - Collision Chaos Act 2 Bad Future (R32D)
+    - Tidal Tempest Act 1 Present (R41A)
+    - Tidal Tempest Act 1 Past (R41B)
+    - Tidal Tempest Act 1 Good Future (R41C)
+    - Tidal Tempest Act 1 Bad Future (R41D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
 * FMVs
