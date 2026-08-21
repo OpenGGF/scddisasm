@@ -49,6 +49,7 @@ fc /b original\%REGPATH%\OPEN_S.BIN out\files\OPEN_S.BIN
 fc /b original\%REGPATH%\OPN.STM out\files\OPN.STM
 fc /b original\%REGPATH%\GOODEND.BIN out\files\GOODEND.BIN
 fc /b original\%REGPATH%\BADEND.BIN out\files\BADEND.BIN
+fc /b original\%REGPATH%\PTEST.MMD out\files\PTEST.MMD
 fc /b original\%REGPATH%\PTEST.BIN out\files\PTEST.BIN
 fc /b original\%REGPATH%\PLANET_M.MMD out\files\PLANET_M.MMD
 fc /b original\%REGPATH%\PLANET_S.BIN out\files\PLANET_S.BIN

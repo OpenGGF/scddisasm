@@ -84,6 +84,7 @@ if exist "..\out\files\DUMMY5.MMD" (
 if %REGION%==1 (
     %ASM68K% "Thank You\Data.asm", "..\out\files\THANKS_D.BIN", , "Thank You\Data.lst"
     %ASM68K% "Comin Soon\Main.asm", "..\out\files\COME__.MMD", , "Comin Soon\Main.lst"
+    %ASM68K% "FMV\Main (Pencil Test).asm", "..\out\files\PTEST.MMD", , "FMV\Main (Pencil Test).lst"
 )
 
 %ASM68K% "FMV\Main (Opening).asm", "..\out\files\OPEN_M.MMD", , "FMV\Main (Opening).lst"

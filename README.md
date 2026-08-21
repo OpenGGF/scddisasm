@@ -112,6 +112,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Opening FMV (OPEN_M, OPEN_S, OPN.STM)
     - Good ending Sub CPU program (BADEND.BIN, not a typo)
     - Bad ending Sub CPU program (GOODEND.BIN, not a typo)
+    - Pencil test main CPU program (PTEST.MMD, USA source only)
     - Pencil test Sub CPU program (PTEST.BIN)
 * DA Garden (PLANET_M, PLANET_S, PLANET_D)
 * Visual Mode menu (VM)

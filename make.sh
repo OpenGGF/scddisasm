@@ -156,6 +156,7 @@ assemble 'Thank You\Sub.asm' '..\out\files\THANKS_S.BIN' 'Thank You\Sub.lst'
 if [[ $REGION == 1 ]]; then
 	assemble 'Thank You\Data.asm' '..\out\files\THANKS_D.BIN' 'Thank You\Data.lst'
 	assemble 'Comin Soon\Main.asm' '..\out\files\COME__.MMD' 'Comin Soon\Main.lst'
+	assemble 'FMV\Main (Pencil Test).asm' '..\out\files\PTEST.MMD' 'FMV\Main (Pencil Test).lst'
 fi
 
 assemble 'FMV\Main (Opening).asm' '..\out\files\OPEN_M.MMD' 'FMV\Main (Opening).lst'
