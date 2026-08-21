@@ -153,7 +153,9 @@ SpecChunks:
 InitLevelScroll:
 	swap	d0				; Set background Y positions
 	asr.l	#4,d0
-	add.l	d0,d0
+	move.l	d0,d2
+	add.l	d2,d2
+	add.l	d2,d0
 	move.l	d0,cameraBgY.w
 	swap	d0
 	move.w	d0,cameraBg2Y.w
@@ -170,7 +172,6 @@ InitLevelScroll:
 	move.w	d2,cameraBg2X.w
 
 	lea	deformBuffer.w,a2		; Clear cloud speeds
-	clr.l	(a2)+
 	clr.l	(a2)+
 	clr.l	(a2)+
 	clr.l	(a2)+
@@ -223,7 +224,7 @@ LevelScroll:
 	moveq	#4,d6
 	bsr.w	SetHorizScrollFlagsBG2
 
-	lea	deformBuffer+$10.w,a1		; Prepare deformation buffer
+	lea	deformBuffer+$C.w,a1		; Prepare R12A deformation buffer
 
 	move.w	scrollXDiff.w,d4		; Set scroll offset and flags for the rest + vertical scrolling
 	ext.l	d4
@@ -231,7 +232,9 @@ LevelScroll:
 	move.w	scrollYDiff.w,d5
 	ext.l	d5
 	asl.l	#4,d5
+	move.l	d5,d3
 	add.l	d5,d5
+	add.l	d3,d5
 	bsr.w	SetScrollFlagsBG
 
 	move.w	cameraBgY.w,vscrollScreen+2.w	; Update background Y positions
@@ -248,7 +251,6 @@ LevelScroll:
 	addi.l	#$10000,(a2)+
 	addi.l	#$C000,(a2)+
 	addi.l	#$8000,(a2)+
-	addi.l	#$4000,(a2)+
 
 	move.w	cameraX.w,d0			; Prepare scroll buffer entry
 	neg.w	d0
@@ -257,7 +259,7 @@ LevelScroll:
 	move.w	deformBuffer.w,d0		; Scroll top clouds
 	add.w	cameraBg3X.w,d0
 	neg.w	d0
-	move.w	#2-1,d1
+	moveq	#3,d1
 
 .ScrollClouds1:
 	move.w	d0,(a1)+
@@ -266,7 +268,7 @@ LevelScroll:
 	move.w	deformBuffer+4.w,d0		; Scroll top middle clouds
 	add.w	cameraBg3X.w,d0
 	neg.w	d0
-	move.w	#2-1,d1
+	moveq	#3,d1
 
 .ScrollClouds2:
 	move.w	d0,(a1)+
@@ -275,22 +277,13 @@ LevelScroll:
 	move.w	deformBuffer+8.w,d0		; Scroll bottom middle clouds
 	add.w	cameraBg3X.w,d0
 	neg.w	d0
-	move.w	#2-1,d1
+	moveq	#3,d1
 
 .ScrollClouds3:
 	move.w	d0,(a1)+
 	dbf	d1,.ScrollClouds3
 
-	move.w	deformBuffer+$C.w,d0		; Scroll bottom clouds
-	add.w	cameraBg3X.w,d0
-	neg.w	d0
-	move.w	#2-1,d1
-
-.ScrollClouds4:
-	move.w	d0,(a1)+
-	dbf	d1,.ScrollClouds4
-
-	move.w	#10-1,d1			; Scroll mountains
+	move.w	#$13,d1			; Scroll mountains
 	move.w	cameraBg3X.w,d0
 	neg.w	d0
 
@@ -298,7 +291,7 @@ LevelScroll:
 	move.w	d0,(a1)+
 	dbf	d1,.ScrollMountains
 
-	move.w	#24-1,d1			; Scroll waterfalls
+	moveq	#3,d1				; Scroll waterfalls
 	move.w	cameraBg2X.w,d0
 	neg.w	d0
 
@@ -307,30 +300,72 @@ LevelScroll:
 	dbf	d1,.ScrollWaterfalls
 
 	lea	hscroll.w,a1			; Prepare horizontal scroll buffer
-	lea	deformBuffer+$10.w,a2		; Prepare deformation buffer
+	lea	deformBuffer+$C.w,a2		; Prepare R12A line table
 
 	move.w	cameraBgY.w,d0			; Get background Y position
 	move.w	d0,d2
 	andi.w	#$1F8,d0
 	lsr.w	#2,d0
+	move.w	d0,d3
+	lsr.w	#1,d3
+	moveq	#$23,d1
+	moveq	#$1C,d5
+	sub.w	d3,d1
+	bcs.s	.Interpolate
+	cmpi.w	#$1B,d1
+	bcs.s	.GotLineCount
+	moveq	#$1B,d1
 
-	moveq	#(240/8)-1,d1			; Max number of blocks to scroll
+.GotLineCount:
+	sub.w	d1,d5
 	lea	(a2,d0.w),a2			; Get starting scroll block
-	andi.w	#7,d2				; Get the number of lines to scroll for the first block of lines
-	add.w	d2,d2
-	move.w	(a2)+,d0			; Start scrolling
-	jmp	.ScrollBlock(pc,d2.w)
+	bsr.w	.FillHScroll
 
-.ScrollLoop:
-	move.w	(a2)+,d0			; Scroll another block of lines
+.Interpolate:
+	move.w	cameraBg2X.w,d0
+	move.w	cameraX.w,d2
+	sub.w	d0,d2
+	ext.l	d2
+	asl.l	#8,d2
+	divs.w	#$100,d2
+	ext.l	d2
+	asl.l	#8,d2
+	moveq	#0,d3
+	move.w	d0,d3
+	move.w	d5,d1
+	lsl.w	#3,d1
+	subq.w	#1,d1
 
-.ScrollBlock:
-	rept	8				; Scroll a block of 8 lines
-		move.l	d0,(a1)+
-	endr
-	dbf	d1,.ScrollLoop			; Loop until finished
+.InterpolateLoop:
+	move.w	d3,d0
+	neg.w	d0
+	move.l	d0,(a1)+
+	swap	d3
+	add.l	d2,d3
+	swap	d3
+	dbf	d1,.InterpolateLoop
 
 .End:
+	rts
+
+; -------------------------------------------------------------------------
+; Fill the R12A horizontal-scroll line table
+; -------------------------------------------------------------------------
+
+.FillHScroll:
+	andi.w	#7,d2
+	add.w	d2,d2
+	move.w	(a2)+,d0
+	jmp	.FillHScrollBlock(pc,d2.w)
+
+.FillHScrollLoop:
+	move.w	(a2)+,d0
+
+.FillHScrollBlock:
+	rept	8
+		move.l	d0,(a1)+
+	endr
+	dbf	d1,.FillHScrollLoop
 	rts
 
 ; -------------------------------------------------------------------------
@@ -932,11 +967,10 @@ InitLevelDrawBG:
 ; -------------------------------------------------------------------------
 
 BGCameraSectIDs:
-	BGSECT	16,  BGSTATIC			; Offscreen top row, required to be here
-	BGSECT	64,  BGSTATIC			; Clouds
-	BGSECT	80,  BGDYNAMIC3			; Mountains
-	BGSECT	368, BGDYNAMIC2			; Waterfalls
-	BGSECT	16,  BGSTATIC
+	BGSECT	112, BGSTATIC			; Offscreen row and clouds
+	BGSECT	160, BGDYNAMIC3			; Mountains
+	BGSECT	32,  BGDYNAMIC2			; Waterfalls
+	BGSECT	240, BGSTATIC			; Lower static background
 
 ; -------------------------------------------------------------------------
 
