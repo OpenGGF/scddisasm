@@ -16,6 +16,7 @@ HEADLESS_HOME_DIR="$ROOT_DIR/out/headless-home"
 HEADLESS_TEMP_DIR="$ROOT_DIR/out/headless-tmp"
 HEADLESS_WINE_PREFIX="$ROOT_DIR/out/headless-wine"
 HEADLESS_GLX_LIBRARY="$HEADLESS_GLX_DIR/libGLX_nvidia.so.0"
+HEADLESS_LOCK_FILE="$ROOT_DIR/out/headless-build.lock"
 
 if ! [[ $TOOL_TIMEOUT_SECONDS =~ ^[1-9][0-9]*$ ]] || (( TOOL_TIMEOUT_SECONDS > 300 )); then
 	echo "Invalid SCDDISASM_TOOL_TIMEOUT_SECONDS '$TOOL_TIMEOUT_SECONDS' (expected 1-300)." >&2
@@ -23,6 +24,10 @@ if ! [[ $TOOL_TIMEOUT_SECONDS =~ ^[1-9][0-9]*$ ]] || (( TOOL_TIMEOUT_SECONDS > 3
 fi
 if ! command -v timeout >/dev/null 2>&1; then
 	echo 'The Linux build requires the timeout command to enforce its headless process bound.' >&2
+	exit 1
+fi
+if ! command -v flock >/dev/null 2>&1; then
+	echo 'The Linux build requires flock to prevent concurrent headless Wine prefixes.' >&2
 	exit 1
 fi
 
@@ -219,9 +224,18 @@ cleanup_runtime() {
 	stop_runtime
 	exit "$status"
 }
-trap cleanup_runtime EXIT
 
-mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
+mkdir -p "$ROOT_DIR/out" "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
+exec 9>"$HEADLESS_LOCK_FILE"
+if ! flock -n 9; then
+	echo 'Another headless Linux build is already using the private Wine prefix.' >&2
+	exit 1
+fi
+trap cleanup_runtime EXIT
+# A terminal can be killed before the EXIT trap runs. Once this build owns the
+# lock, clear any private server left behind by that earlier invocation.
+stop_runtime
+
 cp -a "$ORIGINAL_DIR"/. "$ROOT_DIR/out/files/"
 rm -f "$ROOT_DIR/out/files/.gitkeep"
 
