@@ -203,6 +203,7 @@ assemble 'Level\Tidal Tempest\Act 2 Good Future.asm' '..\out\files\R42C__.MMD' '
 assemble 'Level\Tidal Tempest\Act 2 Bad Future.asm' '..\out\files\R42D__.MMD' 'Level\Tidal Tempest\Act 2 Bad Future.lst' /e DEMO=0
 assemble 'Level\Tidal Tempest\Act 3 Good Future.asm' '..\out\files\R43C__.MMD' 'Level\Tidal Tempest\Act 3 Good Future.lst' /e DEMO=0
 assemble 'Level\Tidal Tempest\Act 3 Bad Future.asm' '..\out\files\R43D__.MMD' 'Level\Tidal Tempest\Act 3 Bad Future.lst' /e DEMO=0
+assemble 'Level\Tidal Tempest\Act 3 Good Future.asm' '..\out\files\DEMO43C.MMD' 'Level\Tidal Tempest\Act 3 Good Future (Demo).lst' /e DEMO=1
 assemble 'Level\Quartz Quadrant\Act 1 Present.asm' '..\out\files\R51A__.MMD' 'Level\Quartz Quadrant\Act 1 Present.lst' /e DEMO=0
 assemble 'Level\Quartz Quadrant\Act 1 Past.asm' '..\out\files\R51B__.MMD' 'Level\Quartz Quadrant\Act 1 Past.lst' /e DEMO=0
 assemble 'Level\Quartz Quadrant\Act 1 Good Future.asm' '..\out\files\R51C__.MMD' 'Level\Quartz Quadrant\Act 1 Good Future.lst' /e DEMO=0
@@ -228,6 +229,7 @@ assemble 'Level\Metallic Madness\Act 1 Past.asm' '..\out\files\R81B__.MMD' 'Leve
 assemble 'Level\Metallic Madness\Act 1 Good Future.asm' '..\out\files\R81C__.MMD' 'Level\Metallic Madness\Act 1 Good Future.lst' /e DEMO=0
 assemble 'Level\Metallic Madness\Act 1 Bad Future.asm' '..\out\files\R81D__.MMD' 'Level\Metallic Madness\Act 1 Bad Future.lst' /e DEMO=0
 assemble 'Level\Metallic Madness\Act 2 Present.asm' '..\out\files\R82A__.MMD' 'Level\Metallic Madness\Act 2 Present.lst' /e DEMO=0
+assemble 'Level\Metallic Madness\Act 2 Present.asm' '..\out\files\DEMO82A.MMD' 'Level\Metallic Madness\Act 2 Present (Demo).lst' /e DEMO=1
 assemble 'Level\Metallic Madness\Act 2 Past.asm' '..\out\files\R82B__.MMD' 'Level\Metallic Madness\Act 2 Past.lst' /e DEMO=0
 assemble 'Level\Metallic Madness\Act 2 Good Future.asm' '..\out\files\R82C__.MMD' 'Level\Metallic Madness\Act 2 Good Future.lst' /e DEMO=0
 assemble 'Level\Metallic Madness\Act 2 Bad Future.asm' '..\out\files\R82D__.MMD' 'Level\Metallic Madness\Act 2 Bad Future.lst' /e DEMO=0

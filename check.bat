@@ -91,6 +91,7 @@ fc /b original\%REGPATH%\R42C__.MMD out\files\R42C__.MMD
 fc /b original\%REGPATH%\R42D__.MMD out\files\R42D__.MMD
 fc /b original\%REGPATH%\R43C__.MMD out\files\R43C__.MMD
 fc /b original\%REGPATH%\R43D__.MMD out\files\R43D__.MMD
+fc /b original\%REGPATH%\DEMO43C.MMD out\files\DEMO43C.MMD
 fc /b original\%REGPATH%\R51A__.MMD out\files\R51A__.MMD
 fc /b original\%REGPATH%\R51B__.MMD out\files\R51B__.MMD
 fc /b original\%REGPATH%\R51C__.MMD out\files\R51C__.MMD
@@ -116,6 +117,7 @@ fc /b original\%REGPATH%\R81B__.MMD out\files\R81B__.MMD
 fc /b original\%REGPATH%\R81C__.MMD out\files\R81C__.MMD
 fc /b original\%REGPATH%\R81D__.MMD out\files\R81D__.MMD
 fc /b original\%REGPATH%\R82A__.MMD out\files\R82A__.MMD
+fc /b original\%REGPATH%\DEMO82A.MMD out\files\DEMO82A.MMD
 fc /b original\%REGPATH%\R82B__.MMD out\files\R82B__.MMD
 fc /b original\%REGPATH%\R82C__.MMD out\files\R82C__.MMD
 fc /b original\%REGPATH%\R82D__.MMD out\files\R82D__.MMD
