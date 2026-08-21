@@ -80,6 +80,7 @@ if exist "..\out\files\DUMMY5.MMD" (
 %ASM68K% /e PROTOTYPE=0 /e H32=0 /e EASTEREGG=4 "Title Screen\Secrets\Sound Test Image.asm", "..\out\files\DUMMY3.MMD", , "Title Screen\Secrets\Sound Test Image (Cute Sonic).lst"
 
 %ASM68K% "Time Attack\Sub.asm", "..\out\files\ATTACK.BIN", , "Time Attack\Sub.lst"
+%ASM68K% "Thank You\Sub.asm", "..\out\files\THANKS_S.BIN", , "Thank You\Sub.lst"
 
 %ASM68K% "FMV\Main (Opening).asm", "..\out\files\OPEN_M.MMD", , "FMV\Main (Opening).lst"
 %ASM68K% "FMV\Sub (Opening).asm", "..\out\files\OPEN_S.BIN", , "FMV\Sub (Opening).lst"
