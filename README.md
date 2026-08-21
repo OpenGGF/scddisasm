@@ -87,6 +87,9 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Tidal Tempest Act 1 Past (R41B)
     - Tidal Tempest Act 1 Good Future (R41C)
     - Tidal Tempest Act 1 Bad Future (R41D)
+    - Quartz Quadrant Act 1 (R51A, R51B, R51C, R51D)
+    - Quartz Quadrant Act 2 (R52A, R52B, R52C, R52D)
+    - Quartz Quadrant Act 3 Good/Bad Future (R53C, R53D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
 * FMVs
