@@ -69,37 +69,18 @@ if ! find "$ORIGINAL_DIR" -maxdepth 1 -type f ! -name .gitkeep -print -quit | gr
 fi
 
 HEADLESS_DESKTOP=${HEADLESS_DESKTOP:-1}
-if [[ $HEADLESS_DESKTOP == 1 && ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
-	CAGE_BIN=${CAGE_BIN:-$(command -v cage || true)}
-	if [[ -z ${CAGE_BIN:-} ]]; then
-		echo 'cage is required for the default headless Linux build runner.' >&2
-		echo 'Install cage or set HEADLESS_DESKTOP=0 only for interactive diagnosis.' >&2
-		exit 1
+if [[ $HEADLESS_DESKTOP == 1 ]]; then
+	if [[ ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
+		exec env -u DISPLAY -u WAYLAND_DISPLAY \
+			LIBGL_ALWAYS_SOFTWARE=1 \
+			WINEDEBUG="${WINEDEBUG:--all}" \
+			PROTON_LOG=0 \
+			SCDDISASM_HEADLESS=1 \
+			"$ROOT_DIR/make.sh" "$@"
 	fi
-	HEADLESS_RUNTIME_BASE=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}
-	if [[ ! -d $HEADLESS_RUNTIME_BASE || ! -w $HEADLESS_RUNTIME_BASE ]]; then
-		echo "Headless runtime directory '$HEADLESS_RUNTIME_BASE' is not writable." >&2
-		exit 1
-	fi
-	HEADLESS_RUNTIME_DIR=$(mktemp -d "$HEADLESS_RUNTIME_BASE/scddisasm-cage.XXXXXX")
-	trap 'rm -rf -- "$HEADLESS_RUNTIME_DIR"' EXIT
-	if env -u DISPLAY -u WAYLAND_DISPLAY \
-		XDG_RUNTIME_DIR="$HEADLESS_RUNTIME_DIR" \
-		WLR_BACKENDS=headless \
-		WLR_HEADLESS_OUTPUTS=1 \
-		WLR_LIBINPUT_NO_DEVICES=1 \
-		WLR_RENDERER=pixman \
-		WLR_LOG=error \
-		LIBGL_ALWAYS_SOFTWARE=1 \
-		WINEDEBUG="${WINEDEBUG:--all}" \
-		PROTON_LOG=0 \
-		SCDDISASM_HEADLESS=1 \
-		"$CAGE_BIN" -d -- "$ROOT_DIR/make.sh" "$@"; then
-		status=0
-	else
-		status=$?
-	fi
-	exit "$status"
+	# Keep the invariant even if an operator re-enters the script with the
+	# internal recursion marker already set.
+	unset DISPLAY WAYLAND_DISPLAY
 fi
 
 mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
