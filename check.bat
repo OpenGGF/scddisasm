@@ -55,6 +55,8 @@ fc /b original\%REGPATH%\R12A__.MMD out\files\R12A__.MMD
 fc /b original\%REGPATH%\R12B__.MMD out\files\R12B__.MMD
 fc /b original\%REGPATH%\R12C__.MMD out\files\R12C__.MMD
 fc /b original\%REGPATH%\R12D__.MMD out\files\R12D__.MMD
+fc /b original\%REGPATH%\R13C__.MMD out\files\R13C__.MMD
+fc /b original\%REGPATH%\R13D__.MMD out\files\R13D__.MMD
 fc /b original\%REGPATH%\DEMO11A.MMD out\files\DEMO11A.MMD
 fc /b original\%REGPATH%\R11B__.MMD out\files\R11B__.MMD
 fc /b original\%REGPATH%\R11C__.MMD out\files\R11C__.MMD

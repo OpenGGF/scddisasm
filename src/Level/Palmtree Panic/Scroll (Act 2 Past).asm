@@ -42,7 +42,11 @@ LevelSizeLoad:
 ; -------------------------------------------------------------------------
 
 CamBounds:
-	dc.w	4, 0, $2897, 0, $310, $60
+	if ACT3_SCROLL_VARIANT
+		dc.w	4, 0, $D97, 0, $310, $60
+	else
+		dc.w	4, 0, $2897, 0, $310, $60
+	endif
 
 ; -------------------------------------------------------------------------
 ; Leftover ending demo start positions from Sonic 1
@@ -137,14 +141,22 @@ LevelSizeLoad_StartPos:
 ; -------------------------------------------------------------------------
 
 LevelStartLoc:
-	dc.w	$50, $185
+	if ACT3_SCROLL_VARIANT
+		dc.w	$40, $A2
+	else
+		dc.w	$50, $185
+	endif
 
 ; -------------------------------------------------------------------------
 ; Special chunk IDs
 ; -------------------------------------------------------------------------
 
 SpecChunks:
-	dc.b	$91, $B6, $7F, $7F
+	if ACT3_SCROLL_VARIANT
+		dc.b	$91, $7F, $1E, $1E
+	else
+		dc.b	$91, $B6, $7F, $7F
+	endif
 
 ; -------------------------------------------------------------------------
 ; Initialize level scrolling
@@ -154,8 +166,13 @@ InitLevelScroll:
 	swap	d0				; Set background Y positions
 	asr.l	#4,d0
 	if ACT2_FUTURE_VARIANT=2
+		if ACT3_SCROLL_VARIANT
+			move.l	d0,d2
+			add.l	d2,d0
+		else
 		move.l	d0,d2
 		add.l	d2,d0
+		endif
 	else
 	move.l	d0,d2
 	add.l	d2,d2

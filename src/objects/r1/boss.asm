@@ -2748,47 +2748,47 @@ locret_20D7BA:
 ; ------------------------------------------------------------------------------
 
 EggmanAnims:
-	include	"src/anims/r1/eggman.asm"
+	include	"anims/r1/eggman.asm"
 	even
 
 EggmanSprites:
-	include	"src/sprites/r1/eggman.asm"
+	include	"sprites/r1/eggman.asm"
 	even
 
 BossBodySprites:
-	include	"src/sprites/r1/boss_body.asm"
+	include	"sprites/r1/boss_body.asm"
 	even
 
 BossThighSprites:
-	include	"src/sprites/r1/boss_thigh.asm"
+	include	"sprites/r1/boss_thigh.asm"
 	even
 
 BossCalfSprites:
-	include	"src/sprites/r1/boss_calf.asm"
+	include	"sprites/r1/boss_calf.asm"
 	even
 
 BossFootSprites:
-	include	"src/sprites/r1/boss_foot.asm"
+	include	"sprites/r1/boss_foot.asm"
 	even
 
 BossShoulderSprites:
-	include	"src/sprites/r1/boss_shoulder.asm"
+	include	"sprites/r1/boss_shoulder.asm"
 	even
 
 BossArmSprites:
-	include	"src/sprites/r1/boss_arm.asm"
+	include	"sprites/r1/boss_arm.asm"
 	even
 
 BossForearmSprites1:
-	include	"src/sprites/r1/boss_forearm_1.asm"
+	include	"sprites/r1/boss_forearm_1.asm"
 	even
 
 BossForearmSprites2:
-	include	"src/sprites/r1/boss_forearm_2.asm"
+	include	"sprites/r1/boss_forearm_2.asm"
 	even
 
 BossBumperSprites:
-	include	"src/sprites/r1/boss_bumper.asm"
+	include	"sprites/r1/boss_bumper.asm"
 	even
 
 ; ------------------------------------------------------------------------------

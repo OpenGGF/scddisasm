@@ -28,7 +28,9 @@ LevelPaletteID:
 ; PLC lists
 ; -------------------------------------------------------------------------
 
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		include	"Level/Palmtree Panic/Graphics Lists (Act 3).asm"
+	elseif ACT2_FUTURE_VARIANT=1
 		include	"Level/Palmtree Panic/Graphics Lists (Act 2 Good Future).asm"
 	elseif ACT2_FUTURE_VARIANT=2
 		include	"Level/Palmtree Panic/Graphics Lists (Act 2 Bad Future).asm"
@@ -41,7 +43,13 @@ LevelPaletteID:
 ; with a "align $10000"
 ; -------------------------------------------------------------------------
 
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"../padding/r13c_e_1.bin"
+		else
+			incbin	"../padding/r13d_e_1.bin"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"../padding/r12c_e_1.bin"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"../padding/r12d_e_1.bin"
@@ -52,7 +60,13 @@ LevelPaletteID:
 ; -------------------------------------------------------------------------
 
 LevelChunks:
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"maps/r13c/chunks.bin"
+		else
+			incbin	"maps/r13d/chunks.bin"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"maps/r12c/chunks.bin"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"maps/r12d/chunks.bin"
@@ -204,7 +218,7 @@ Art_HUD:
 	incbin	"Level/_Objects/HUD and Points/Data/Art (HUD).nem"
 	even
 Art_Checkpoint:
-	incbin	"Level/_Objects/Checkpoint/Data/Art.Nem"
+	incbin	"Level/_Objects/Checkpoint/Data/Art.nem"
 	even
 Art_LogShadowWithered:
 	incbin	"Level/Palmtree Panic/Objects/Log Shadow/Data/Art (Withered).nem"
@@ -300,6 +314,26 @@ Art_SwingingPlatform:
 Art_Animals:
 	incbin	"Level/Palmtree Panic/Objects/Animal/Data/Art.nem"
 	even
+	if STAGE_R13
+DoorGfx:
+		incbin	"gfx/r1/door.nem"
+		even
+WaterfallGfx:
+		incbin	"gfx/r1/waterfall.nem"
+		even
+AnimalsGfx:
+		incbin	"gfx/r1/animals.nem"
+		even
+TamabbohGfx:
+		incbin	"gfx/r1/tamabboh.nem"
+		even
+BossMachineGfx:
+		incbin	"gfx/r1/boss_machine.nem"
+		even
+EggmanGfx:
+		incbin	"gfx/r1/eggman.nem"
+		even
+	endif
 Art_SpinningDiscDrill:
 	incbin	"Level/Palmtree Panic/Data/Unused/Art (Spinning Disc Drill).nem"
 	even
@@ -321,7 +355,13 @@ ColWidthMap:
 	incbin	"Level/_Data/Collision Width Map.bin"
 	even
 LevelCollision:
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"maps/r13c/collision.bin"
+		else
+			incbin	"maps/r13d/collision.bin"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"maps/r12c/collision.bin"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"maps/r12d/collision.bin"
@@ -350,7 +390,13 @@ LevelLayouts:
 
 
 LevelLayoutForeground:
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"maps/r13c/foreground.bin"
+		else
+			incbin	"maps/r13d/foreground.bin"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"maps/r12c/foreground.bin"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"maps/r12d/foreground.bin"
@@ -359,7 +405,13 @@ LevelLayoutForeground:
 	endif
 	even
 LevelLayoutBackground:
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"maps/r13c/background.bin"
+		else
+			incbin	"maps/r13d/background.bin"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"maps/r12c/background.bin"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"maps/r12d/background.bin"
@@ -407,7 +459,13 @@ Art_LogInside:
 		even
 	endif
 LevelBlocks:
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"maps/r13c/blocks.nem"
+		else
+			incbin	"maps/r13d/blocks.nem"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"maps/r12c/blocks.nem"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"maps/r12d/blocks.nem"
@@ -417,7 +475,13 @@ LevelBlocks:
 	even
 Art_LevelTiles:
 StageGfx:
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"maps/r13c/gfx.nem"
+		else
+			incbin	"maps/r13d/gfx.nem"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"maps/r12c/gfx.nem"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"maps/r12d/gfx.nem"
@@ -442,7 +506,13 @@ Art_Projector:
 ; with a "align $40000"
 ; -------------------------------------------------------------------------
 
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"../padding/r13c_e_3.bin"
+		else
+			incbin	"../padding/r13d_e_3.bin"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"../padding/r12c_e_3.bin"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"../padding/r12d_e_3.bin"

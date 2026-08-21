@@ -6,6 +6,8 @@
 
 	include	"Level/_Definitions.inc"
 ACT2_FUTURE_VARIANT	EQU	1
+STAGE_R13		EQU	0
+ACT3_SCROLL_VARIANT	EQU	0
 
 ; -------------------------------------------------------------------------
 

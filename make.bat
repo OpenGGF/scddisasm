@@ -95,6 +95,8 @@ echo Making opening FMV STM...
 %ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 2 Past.asm", "..\out\files\R12B__.MMD", , "Level\Palmtree Panic\Act 2 Past.lst"
 %ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 2 Good Future.asm", "..\out\files\R12C__.MMD", , "Level\Palmtree Panic\Act 2 Good Future.lst"
 %ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 2 Bad Future.asm", "..\out\files\R12D__.MMD", , "Level\Palmtree Panic\Act 2 Bad Future.lst"
+%ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 3 Good Future.asm", "..\out\files\R13C__.MMD", , "Level\Palmtree Panic\Act 3 Good Future.lst"
+%ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 3 Bad Future.asm", "..\out\files\R13D__.MMD", , "Level\Palmtree Panic\Act 3 Bad Future.lst"
 %ASM68K% /e DEMO=1 "Level\Palmtree Panic\Act 1 Present.asm", "..\out\files\DEMO11A.MMD", , "Level\Palmtree Panic\Act 1 Present (Demo).lst"
 %ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 1 Past.asm", "..\out\files\R11B__.MMD", , "Level\Palmtree Panic\Act 1 Past.lst"
 %ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 1 Good Future.asm", "..\out\files\R11C__.MMD", , "Level\Palmtree Panic\Act 1 Good Future.lst"

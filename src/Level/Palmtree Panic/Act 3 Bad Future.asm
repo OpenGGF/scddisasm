@@ -1,13 +1,13 @@
 ; -------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
-; Palmtree Panic Act 2 Bad Future
+; Palmtree Panic Act 3 Bad Future
 ; -------------------------------------------------------------------------
 
 	include	"Level/_Definitions.inc"
 ACT2_FUTURE_VARIANT	EQU	2
-STAGE_R13		EQU	0
-ACT3_SCROLL_VARIANT	EQU	0
+STAGE_R13		EQU	1
+ACT3_SCROLL_VARIANT	EQU	1
 
 ; -------------------------------------------------------------------------
 
@@ -23,11 +23,11 @@ ACT3_SCROLL_VARIANT	EQU	0
 	include	"Level/Collision Floor.asm"
 	include	"Level/Main.asm"
 	include	"Level/Functions (General).asm"
-	include	"Level/Palmtree Panic/Scroll (Act 2 Bad Future).asm"
+	include	"Level/Palmtree Panic/Scroll (Act 3).asm"
 	include	"Level/Palmtree Panic/Load Level Data.asm"
 	include	"Level/_Events.asm"
 	include	"Level/Object Functions.asm"
-	include	"Level/Palmtree Panic/Object Index (Act 2 Bad Future).asm"
+	include	"Level/Palmtree Panic/Object Index (Act 3).asm"
 	include	"Level/_Objects/Sonic/Main.asm"
 	include	"Level/Sub CPU.asm"
 	include	"Level/Object Animate.asm"
@@ -40,15 +40,16 @@ ACT3_SCROLL_VARIANT	EQU	0
 	include	"Level/_Objects/Spin Tunnel/Main (Door).asm"
 	include	"Level/_Objects/Powerup/Main.asm"
 	include	"Level/_Objects/Spin Tunnel/Main (Tag).asm"
+	include	"Level/Collision Chaos/Objects/Roll Tunnel/Main.asm"
 	include	"Level/Palmtree Panic/Player Special Collision.asm"
 	include	"Level/Load Saved Data.asm"
 	include	"Level/Collision Check.asm"
 	include	"Level/Palmtree Panic/Player Object Collision.asm"
 	include	"Level/Palmtree Panic/Objects/Effects/Main.asm"
 	include	"Level/Debug Mode.asm"
-	include	"Level/Palmtree Panic/Debug Objects (Act 2 Bad Future).asm"
+	include	"Level/Palmtree Panic/Debug Objects (Act 3).asm"
 	include	"Level/Object Spawner.asm"
-	include	"Level/Palmtree Panic/Object Layout (Act 2 Bad Future).asm"
+	include	"Level/Palmtree Panic/Object Layout (Act 3).asm"
 	include	"Level/Palmtree Panic/Objects/Scenery/Main.asm"
 	include	"Level/Palmtree Panic/Objects/Log Shadow/Main.asm"
 	include	"Level/Palmtree Panic/Objects/Tunnel Path/Main.asm"
@@ -74,11 +75,12 @@ ACT3_SCROLL_VARIANT	EQU	0
 	include	"Level/Palmtree Panic/Objects/Platform/Main.asm"
 	include	"Level/Palmtree Panic/Objects/Tunnel Door/Main.asm"
 	include	"Level/Section Art Load.asm"
-	include	"Level/Palmtree Panic/Section Data (Act 2 Bad Future).asm"
+	include	"Level/Palmtree Panic/Section Data (Act 3).asm"
 	include	"Level/Object Tile ID Set.asm"
-	include	"Level/Palmtree Panic/Object Tile IDs (Act 2 Bad Future).asm"
+	include	"Level/Palmtree Panic/Object Tile IDs (Act 3).asm"
 	include	"Level/Palmtree Panic/Objects/Animal/Main.asm"
 	include	"Level/_Objects/Level End/Main.asm"
+	include	"Level/Palmtree Panic/Objects/Boss/Main.asm"
 	include	"Level/_Objects/Game Over/Main.asm"
 	include	"Level/_Objects/Title Card/Main.asm"
 	include	"Level/_Objects/Results/Main.asm"
@@ -88,5 +90,5 @@ ACT3_SCROLL_VARIANT	EQU	0
 	include	"Level/Palmtree Panic/Objects/Projector/Main.asm"
 	include	"Level/Object Time Check.asm"
 	include	"Level/Palmtree Panic/Objects/Breakable Wall/Main.asm"
-	include	"Level/Palmtree Panic/Animated Tiles Update (Act 2 Bad Future).asm"
-	include	"Level/Palmtree Panic/Data (Act 2 Bad Future).asm"
+	include	"Level/Palmtree Panic/Animated Tiles Update (Act 3).asm"
+	include	"Level/Palmtree Panic/Data (Act 3).asm"
