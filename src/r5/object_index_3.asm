@@ -63,3 +63,18 @@ ObjectIndex:
 	dc.l	TitleCardObject
 
 ; ------------------------------------------------------------------------------
+
+; Null object routine used by unused object IDs.
+ObjNull:
+	moveq	#0,d0
+	rts
+
+; Quartz Quadrant has no special player-collision routine.
+ObjSonic_SpecialCol:
+	rts
+
+	if QQ_VARIANT>=8
+; Act 3 has no background-swap source.
+CheckBackgroundSwap:
+	rts
+	endif

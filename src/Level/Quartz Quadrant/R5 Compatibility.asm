@@ -341,13 +341,6 @@ GameOverObject		EQU	ObjGameOver
 TitleCardObject		EQU	ObjTitleCard
 	endif
 
-; The old object table has one null routine for unused IDs.
-	if R6_LEGACY_PLAYER=0
-ObjNull:
-	moveq	#0,d0
-	rts
-	endif
-
 ; -------------------------------------------------------------------------
 ; Shared service aliases
 ; -------------------------------------------------------------------------
@@ -451,19 +444,6 @@ LevelPaletteID		EQU	StageDataIndex+$E
 
 ; The imported collision helpers retain their historical entry-point names.
 player_objcollide	EQU	PlayerObjectCollide
-
-; Quartz Quadrant does not have the Palmtree Panic special-collision path.
-	if R6_LEGACY_PLAYER=0
-ObjSonic_SpecialCol:
-	rts
-	endif
-
-	if (R6_LEGACY_PLAYER=0)&(QQ_VARIANT>=8)
-; The Act 3 graph has no background-swap source; the old main loop still
-; visits the hook during its shared stage setup.
-CheckBackgroundSwap:
-	rts
-	endif
 
 ; The old player routine uses this entry point for its object-collision call.
 player_objcollide_entry	EQU	PlayerObjectCollide
