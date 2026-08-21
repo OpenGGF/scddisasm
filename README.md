@@ -69,6 +69,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 * Level
     - Palmtree Panic Act 1 (R11A, R11B, R11C, R11D, DEMO11A)
     - Wacky Workbench Act 1 (R61A)
+    - Collision Chaos Act 1 (R31A)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
 * FMVs

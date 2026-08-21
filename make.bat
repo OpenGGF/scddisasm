@@ -97,6 +97,7 @@ echo Making opening FMV STM...
 %ASM68K% /e DEMO=0 "Level\Palmtree Panic\Act 1 Bad Future.asm", "..\out\files\R11D__.MMD", , "Level\Palmtree Panic\Act 1 Bad Future.lst"
 
 %ASM68K% /e DEMO=0 "Level\Wacky Workbench\Act 1 Present.asm", "..\out\files\R61A__.MMD", , "Level\Wacky Workbench\Act 1 Present.lst"
+%ASM68K% /e DEMO=0 "Level\Collision Chaos\Act 1 Present.asm", "..\out\files\R31A__.MMD", , "Level\Collision Chaos\Act 1 Present.lst"
 
 %ASM68K% "Special Stage\Stage Data.asm", "Special Stage\Stage Data.bin", "Special Stage\Stage Data.sym"
 ..\bin\dumpasmsym.exe -m asm "Special Stage\Stage Data.sym" -o "Special Stage\Stage Data Labels.inc"
