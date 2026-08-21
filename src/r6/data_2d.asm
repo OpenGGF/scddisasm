@@ -5,7 +5,20 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r62d_e_1.bin"
+	if REGION=USA
+		; USA retains the tail of a legacy graphics table before the fixed boundary.
+		dc.w	$7DE0
+		dc.l	$0023D59E
+		dc.w	$78C0
+		dc.l	$0023C440
+		dc.w	$7D20
+		dc.l	$0023D0C4
+		dc.w	$8BA0
+		dc.w	0
+		dc.w	$23
+	else
+		incbin	"../padding/r62d_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r62d/chunks.bin"

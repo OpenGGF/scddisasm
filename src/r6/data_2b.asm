@@ -5,13 +5,68 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r62b_e_1.bin"
+	if REGION=USA
+		; USA retains a legacy graphics-table fragment before the fixed boundary.
+		dc.w	$6800
+		dc.l	$0023BDB6
+		dc.w	$6B00
+		dc.l	$0023AAFA
+		dc.w	$6D40
+		dc.l	$0023B6C0
+		dc.w	$7340
+		dc.l	$0023B712
+		dc.w	$7400
+		dc.l	$0023CBC0
+		dc.w	$7500
+		dc.l	$0023CEF8
+		dc.w	$7700
+		dc.l	$0023B5E0
+		dc.w	$7D00
+		dc.l	$0023D3C2
+		dc.w	$7F00
+		dc.l	$0023410C
+		dc.w	$8000
+		dc.l	$0023BB96
+		dc.w	$8200
+		dc.l	$0023B8AE
+		dc.w	$9D00
+		dc.w	0
+		dc.l	$00230098
+		dc.w	$7880
+		dc.w	2
+		dc.l	$0022FABC
+		dc.w	$8780
+		dc.l	$0022F4F2
+		dc.w	$9100
+		dc.l	$0020BBF0
+		dc.w	$7DE0
+		dc.l	$00234878
+		dc.w	$9100
+		dc.l	$0020B144
+		dc.w	$7DE0
+		dc.l	$0023D59E
+		dc.w	$78C0
+		dc.l	$0023C440
+		dc.w	$7D20
+		dc.l	$0023D0C4
+		dc.w	$8BA0
+		dc.w	0
+		dc.w	$23
+	else
+		incbin	"../padding/r62b_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r62b/chunks.bin"
 
 Padding2:
-	incbin	"../padding/r62b_e_2.bin"
+	if REGION=USA
+		; USA uses the final map fragment and animation table shared with R62A.
+		incbin	"maps/r62a/chunks.bin",$E600,$400
+		incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin"
+	else
+		incbin	"../padding/r62b_e_2.bin"
+	endif
 
 PlayerGfx:
 	incbin	"gfx/player.unc"
@@ -459,6 +514,11 @@ HologramGfx:
 	incbin	"gfx/hologram.nem"
 
 Padding3:
-	incbin	"../padding/r62b_e_3.bin"
+	if REGION=USA
+		; USA retains the suffix shared with the R62A graphics tail.
+		incbin	"../padding/r62a_e_3.bin",$5B0,$2088
+	else
+		incbin	"../padding/r62b_e_3.bin"
+	endif
 
 ; ------------------------------------------------------------------------------
