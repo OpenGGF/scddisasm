@@ -68,20 +68,37 @@ if ! find "$ORIGINAL_DIR" -maxdepth 1 -type f ! -name .gitkeep -print -quit | gr
 	exit 1
 fi
 
-HEADLESS_DESKTOP=${HEADLESS_DESKTOP:-1}
-if [[ $HEADLESS_DESKTOP == 1 ]]; then
-	if [[ ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
-		exec env -u DISPLAY -u WAYLAND_DISPLAY \
-			LIBGL_ALWAYS_SOFTWARE=1 \
-			WINEDEBUG="${WINEDEBUG:--all}" \
-			PROTON_LOG=0 \
-			SCDDISASM_HEADLESS=1 \
-			"$ROOT_DIR/make.sh" "$@"
-	fi
-	# Keep the invariant even if an operator re-enters the script with the
-	# internal recursion marker already set.
-	unset DISPLAY WAYLAND_DISPLAY
+# The checked-in Windows tools are console programs, but asm68k can create a
+# Win32 information window. Never let a build attach to the user's desktop.
+if [[ ${HEADLESS_DESKTOP:-1} != 1 ]]; then
+	echo 'HEADLESS_DESKTOP=0 is disabled; the Linux build must remain displayless.' >&2
+	exit 2
 fi
+if [[ ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
+	exec env \
+		-u DISPLAY -u WAYLAND_DISPLAY -u WAYLAND_SOCKET \
+		-u XDG_SESSION_TYPE -u XAUTHORITY -u GDK_BACKEND \
+		-u QT_QPA_PLATFORM -u SDL_VIDEODRIVER \
+		LIBGL_ALWAYS_SOFTWARE=1 \
+		WINEDEBUG=-all \
+		PROTON_LOG=0 \
+		SCDDISASM_HEADLESS=1 \
+		"$ROOT_DIR/make.sh" "$@"
+fi
+# Keep the invariant even if an operator re-enters the script with the
+# internal recursion marker already set.
+unset DISPLAY WAYLAND_DISPLAY WAYLAND_SOCKET XDG_SESSION_TYPE XAUTHORITY \
+	GDK_BACKEND QT_QPA_PLATFORM SDL_VIDEODRIVER
+
+HEADLESS_ENV=(
+	env
+	-u DISPLAY -u WAYLAND_DISPLAY -u WAYLAND_SOCKET
+	-u XDG_SESSION_TYPE -u XAUTHORITY -u GDK_BACKEND
+	-u QT_QPA_PLATFORM -u SDL_VIDEODRIVER
+	LIBGL_ALWAYS_SOFTWARE=1
+	WINEDEBUG=-all
+	PROTON_LOG=0
+)
 
 mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
 cp -a "$ORIGINAL_DIR"/. "$ROOT_DIR/out/files/"
@@ -90,11 +107,12 @@ rm -f "$ROOT_DIR/out/files/.gitkeep"
 run_tool() {
 	if [[ $RUNNER == proton ]]; then
 		mkdir -p "$PROTON_COMPAT_DATA_PATH"
-		STEAM_COMPAT_DATA_PATH="$PROTON_COMPAT_DATA_PATH" \
-		STEAM_COMPAT_CLIENT_INSTALL_PATH="$STEAM_ROOT" \
+		"${HEADLESS_ENV[@]}" \
+			STEAM_COMPAT_DATA_PATH="$PROTON_COMPAT_DATA_PATH" \
+			STEAM_COMPAT_CLIENT_INSTALL_PATH="$STEAM_ROOT" \
 			"$PROTON_BIN" run "$@"
 	else
-		"$WINE_BIN" "$@"
+		"${HEADLESS_ENV[@]}" "$WINE_BIN" "$@"
 	fi
 }
 
