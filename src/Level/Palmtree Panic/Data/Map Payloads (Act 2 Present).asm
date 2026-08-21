@@ -3,9 +3,9 @@
 ; -------------------------------------------------------------------------
 ; Palmtree Panic Act 2 Present tracked-history map payloads
 ; -------------------------------------------------------------------------
-; These labels are an independently reusable data slice. The final R12A
-; entry will provide the current-architecture LevelDataIndex and layout
-; table when its remaining stage modules are ported.
+; These labels preserve an independently reusable map-payload slice for
+; tooling and audits. The live R12A entry provides the current-architecture
+; LevelDataIndex and layout table.
 
 Act2PresentBackground:
 	incbin	"Level/Palmtree Panic/Data/Background (Act 2 Present).bin"
