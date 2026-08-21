@@ -84,6 +84,7 @@
 	include	"Level/Collision Chaos/Objects/Intro Spikes/Main.asm"
 	include	"Level/Collision Chaos/Objects/Metal Sonic/Main.asm"
 	include	"Level/Collision Chaos/Objects/Amy Rose/Main.asm"
+	include	"Level/Collision Chaos/Objects/Roll Tunnel/Main.asm"
 	include	"Level/Collision Chaos/Data (Act 1 Present).asm"
 
 ; -------------------------------------------------------------------------

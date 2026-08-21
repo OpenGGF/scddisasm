@@ -57,7 +57,7 @@ ObjectIndex:
 	dc.l	ObjAmyRose			; $32 - Amy Rose
 	dc.l	ObjAmyHeart			; $33 - Amy heart
 	dc.l	ObjMetalSonic_Exhaust			; $34 - Metal Sonic exhaust
-	dc.l	ObjNull			; $35 - Roll tunnel (pending port)
+	dc.l	ObjRollTunnel			; $35 - Roll tunnel
 	dc.l	ObjNull			; $36 - Blank
 	dc.l	ObjRobotGenerator		; $37 - Robot generator
 	dc.l	ObjProjector			; $38 - Metal Sonic projector
