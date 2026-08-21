@@ -308,7 +308,7 @@ powerup_changed	EQU	powerup
 r5_bg_change		EQU	unkLevelFlag
 enter_special_stage	EQU	specialStage
 zone_good_futures	EQU	goodFutureFlags
-r5_conveyor_reverse	EQU	amyCaptured
+r5_conveyor_reverse	EQU	checkpoint+1
 
 explode.points		EQU	oVar3E
 collide_angle_1		EQU	primaryAngle
