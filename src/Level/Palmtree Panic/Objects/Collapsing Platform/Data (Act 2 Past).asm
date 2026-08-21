@@ -7,7 +7,7 @@
 
 ; ------------------------------------------------------------------------------
 
-even
+	even
 MapSpr_CollapsePlatform1:
 	dc.w	CollapsePlatform1_Map-MapSpr_CollapsePlatform1
 
@@ -37,7 +37,7 @@ CollapsePlatform1_Map:
 	dc.b	$10, 5, 0, $19, 8
 	dc.b	$10, 5, 0, $19, $18
 
-even
+	even
 ObjCollapsePlatform_Sizes1:
 	dc.w	CollapsePlatformSizes1_0-ObjCollapsePlatform_Sizes1
 
@@ -65,7 +65,7 @@ CollapsePlatformSizes1_0:
 	dc.b	6
 	dc.b	6
 
-even
+	even
 MapSpr_CollapsePlatform3:
 	dc.w	CollapsePlatform3_Map0-MapSpr_CollapsePlatform3
 	dc.w	CollapsePlatform3_Map1-MapSpr_CollapsePlatform3
@@ -105,7 +105,7 @@ CollapsePlatform3_Map6:
 	dc.b	$F8, 5, 8, $11, $F8
 	dc.b	0
 
-even
+	even
 MapSpr_CollapsePlatform2:
 	dc.w	CollapsePlatform2_Map0-MapSpr_CollapsePlatform2
 	dc.w	CollapsePlatform2_Map1-MapSpr_CollapsePlatform2
@@ -172,7 +172,7 @@ CollapsePlatform2_Map1:
 	dc.b	0, 5, 0, $15, $20
 	dc.b	0, 5, 0, $15, $30
 
-even
+	even
 ObjCollapsePlatform_Sizes2:
 	dc.w	CollapsePlatformSizes2_0-ObjCollapsePlatform_Sizes2
 	dc.w	CollapsePlatformSizes2_2-ObjCollapsePlatform_Sizes2
@@ -221,4 +221,3 @@ CollapsePlatform4_Map1:
 	dc.b	0
 
 ; ------------------------------------------------------------------------------
-
