@@ -52,7 +52,7 @@ ObjectIndex:
 	dc.l	ObjGa			; $2D - Ga
 	dc.l	ObjTentou			; $2E - Tentou
 	dc.l	ObjPocket			; $2F - Pocket
-	dc.l	ObjNull			; $30 - Intro spikes (pending port)
+	dc.l	ObjIntroSpikes			; $30 - Intro spikes
 	dc.l	ObjNull			; $31 - Metal Sonic (pending port)
 	dc.l	ObjNull			; $32 - Amy Rose (pending port)
 	dc.l	ObjNull			; $33 - Amy heart (pending port)

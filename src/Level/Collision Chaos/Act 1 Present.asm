@@ -81,6 +81,7 @@
 	include	"Level/Collision Chaos/Objects/Ga/Main.asm"
 	include	"Level/Collision Chaos/Objects/Tentou/Main.asm"
 	include	"Level/Collision Chaos/Objects/Pocket/Main.asm"
+	include	"Level/Collision Chaos/Objects/Intro Spikes/Main.asm"
 	include	"Level/Collision Chaos/Data (Act 1 Present).asm"
 
 ; -------------------------------------------------------------------------
