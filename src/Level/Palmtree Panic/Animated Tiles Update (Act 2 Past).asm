@@ -5,7 +5,4 @@
 ; -------------------------------------------------------------------------
 
 UpdateAnimTiles:
-	jmp	LoadPowerupArt
-
-LoadPowerupArt:
 	jmp	LoadShieldArt
