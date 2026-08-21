@@ -52,6 +52,7 @@ fc /b original\%REGPATH%\PLANET_D.BIN out\files\PLANET_D.BIN
 fc /b original\%REGPATH%\VM____.MMD out\files\VM____.MMD
 fc /b original\%REGPATH%\R11A__.MMD out\files\R11A__.MMD
 fc /b original\%REGPATH%\R12A__.MMD out\files\R12A__.MMD
+fc /b original\%REGPATH%\R12B__.MMD out\files\R12B__.MMD
 fc /b original\%REGPATH%\DEMO11A.MMD out\files\DEMO11A.MMD
 fc /b original\%REGPATH%\R11B__.MMD out\files\R11B__.MMD
 fc /b original\%REGPATH%\R11C__.MMD out\files\R11C__.MMD
