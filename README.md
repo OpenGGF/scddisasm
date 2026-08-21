@@ -68,6 +68,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 	    - Secret special stage credits (SPEEND)
 * Level
     - Palmtree Panic Act 1 (R11A, R11B, R11C, R11D, DEMO11A)
+    - Palmtree Panic Act 2 Present (R12A)
     - Wacky Workbench Act 1 (R61A)
     - Collision Chaos Act 1 (R31A)
 * Special Stage (SPMM and SPSS)
