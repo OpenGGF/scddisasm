@@ -45,6 +45,8 @@ case "$REGION" in
 esac
 
 RUNNER=wine
+PROTON_ROOT=
+WINE_SERVER_BIN=
 if [[ -n ${WINE_BIN:-} ]]; then
 	if ! command -v "$WINE_BIN" >/dev/null 2>&1; then
 		echo "WINE_BIN '$WINE_BIN' was not found." >&2
@@ -77,7 +79,14 @@ else
 		echo 'Wine or Steam Proton is required to run the checked-in Windows build tools.' >&2
 		exit 1
 	fi
+	PROTON_ROOT=$(CDPATH= cd -- "$(dirname -- "$PROTON_BIN")" && pwd)
 	PROTON_COMPAT_DATA_PATH=${PROTON_COMPAT_DATA_PATH:-"$ROOT_DIR/out/proton"}
+fi
+
+# A native Wine installation provides wineserver beside wine/wine64. Resolve
+# it before entering the allow-listed child environment.
+if [[ $RUNNER == wine ]]; then
+	WINE_SERVER_BIN=$(command -v wineserver || true)
 fi
 
 ORIGINAL_DIR="$ROOT_DIR/original/$REGION_DIR"
@@ -158,6 +167,7 @@ HEADLESS_ENV=(
 	PROTON_USE_XALIA=0
 	WINE_DISABLE_VULKAN_OPWR=1
 	DXVK_ENABLE_NVAPI=0
+	WINEDLLOVERRIDES='winex11.drv=d;winewayland.drv=d'
 	WINEDEBUG=-all
 	PROTON_LOG=0
 	SCDDISASM_HEADLESS=1
@@ -177,6 +187,27 @@ fi
 if [[ ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
 	exec "${HEADLESS_ENV[@]}" "$ROOT_DIR/make.sh" "$@"
 fi
+
+# Wine keeps a server process alive after a console tool exits. Do not leave
+# one attached to the build prefix: it can retain runtime resources and, on
+# some desktop configurations, outlive the terminal that launched the build.
+cleanup_runtime() {
+	local status=$?
+	trap - EXIT
+	if [[ $RUNNER == proton ]]; then
+		if [[ -x $PROTON_ROOT/files/bin/wineserver ]]; then
+			timeout --kill-after=2s 5s \
+				"${HEADLESS_ENV[@]}" \
+				"WINEPREFIX=$PROTON_COMPAT_DATA_PATH/pfx" \
+				"$PROTON_ROOT/files/bin/wineserver" -k >/dev/null 2>&1 || true
+		fi
+	elif [[ -n $WINE_SERVER_BIN ]]; then
+		timeout --kill-after=2s 5s \
+			"${HEADLESS_ENV[@]}" "$WINE_SERVER_BIN" -k >/dev/null 2>&1 || true
+	fi
+	exit "$status"
+}
+trap cleanup_runtime EXIT
 
 mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
 cp -a "$ORIGINAL_DIR"/. "$ROOT_DIR/out/files/"
