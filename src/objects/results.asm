@@ -50,7 +50,11 @@ loc_20AB1E:
 	moveq	#2,d6
 	moveq	#0,d1
 	movea.l	a0,a1
+	if STAGE_ZONE=4
+		move.w	#$1E0,obj.var_32(a0)
+	else
 	move.w	#$168,obj.var_32(a0)
+	endif
 	bra.s	loc_20AB38
 
 ; ------------------------------------------------------------------------------
@@ -59,7 +63,11 @@ loc_20AB32:
 	jsr	SpawnObject
 
 loc_20AB38:
+	if STAGE_ZONE=4
+		move.w	#$1E0,obj.var_32(a1)
+	else
 	move.w	#$168,obj.var_32(a1)
+	endif
 	move.b	#$3A,obj.id(a1)
 	move.b	#4,obj.routine(a1)
 	move.w	#$83C4,obj.sprite_tile(a1)
@@ -116,7 +124,11 @@ loc_20ABE0:
 	add.w	d0,obj.x(a0)
 
 loc_20ABE4:
+	if STAGE_ZONE=4
+		cmpi.w	#$1D8,obj.var_32(a0)
+	else
 	cmpi.w	#$160,obj.var_32(a0)
+	endif
 	bcc.s	locret_20ABF2
 	jmp	DrawObject
 

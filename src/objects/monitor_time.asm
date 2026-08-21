@@ -453,7 +453,11 @@ loc_2092E0:
 
 loc_2092E6:
 	move.b	#1,invincible
+	if STAGE_ZONE=4
+		move.w	#$528,player_object+obj.var_32
+	else
 	move.w	#$4B0,player_object+obj.var_32
+	endif
 	move.b	#3,invincible_object_1+obj.id
 	move.b	#1,invincible_object_1+obj.anim_id
 	move.b	#3,invincible_object_2+obj.id
@@ -483,7 +487,11 @@ loc_209342:
 
 loc_209348:
 	move.b	#1,speed_shoes
+	if STAGE_ZONE=4
+		move.w	#$528,player_object+obj.var_34
+	else
 	move.w	#$4B0,player_object+obj.var_34
+	endif
 	move.w	#$C00,player_max_speed
 	move.w	#$18,player_acceleration
 	move.w	#$80,player_deceleration
