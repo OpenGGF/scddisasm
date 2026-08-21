@@ -5,6 +5,17 @@ set -euo pipefail
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 REGION=${REGION:-1}
 OUTPUT=${OUTPUT:-scdbuilt.iso}
+TOOL_TIMEOUT_SECONDS=${SCDDISASM_TOOL_TIMEOUT_SECONDS:-120}
+HEADLESS_CONFIG_DIR="$ROOT_DIR/out/headless-config"
+
+if ! [[ $TOOL_TIMEOUT_SECONDS =~ ^[1-9][0-9]*$ ]] || (( TOOL_TIMEOUT_SECONDS > 300 )); then
+	echo "Invalid SCDDISASM_TOOL_TIMEOUT_SECONDS '$TOOL_TIMEOUT_SECONDS' (expected 1-300)." >&2
+	exit 2
+fi
+if ! command -v timeout >/dev/null 2>&1; then
+	echo 'The Linux build requires the timeout command to enforce its headless process bound.' >&2
+	exit 1
+fi
 
 case "$REGION" in
 	0)
@@ -79,7 +90,14 @@ if [[ ${SCDDISASM_HEADLESS:-0} != 1 ]]; then
 		-u DISPLAY -u WAYLAND_DISPLAY -u WAYLAND_SOCKET \
 		-u XDG_SESSION_TYPE -u XAUTHORITY -u GDK_BACKEND \
 		-u QT_QPA_PLATFORM -u SDL_VIDEODRIVER \
+		-u VR_OVERRIDE -u VR_PATHREG_OVERRIDE -u PROTON_VR_RUNTIME \
+		XDG_CONFIG_HOME="$HEADLESS_CONFIG_DIR" \
 		LIBGL_ALWAYS_SOFTWARE=1 \
+		PROTON_USE_WINED3D=1 \
+		PROTON_NO_D3D11=1 \
+		PROTON_NO_D3D10=1 \
+		PROTON_DISABLE_NVAPI=1 \
+		PROTON_HIDE_NVIDIA_GPU=1 \
 		WINEDEBUG=-all \
 		PROTON_LOG=0 \
 		SCDDISASM_HEADLESS=1 \
@@ -88,32 +106,51 @@ fi
 # Keep the invariant even if an operator re-enters the script with the
 # internal recursion marker already set.
 unset DISPLAY WAYLAND_DISPLAY WAYLAND_SOCKET XDG_SESSION_TYPE XAUTHORITY \
-	GDK_BACKEND QT_QPA_PLATFORM SDL_VIDEODRIVER
+	GDK_BACKEND QT_QPA_PLATFORM SDL_VIDEODRIVER \
+	VR_OVERRIDE VR_PATHREG_OVERRIDE PROTON_VR_RUNTIME
 
 HEADLESS_ENV=(
 	env
 	-u DISPLAY -u WAYLAND_DISPLAY -u WAYLAND_SOCKET
 	-u XDG_SESSION_TYPE -u XAUTHORITY -u GDK_BACKEND
 	-u QT_QPA_PLATFORM -u SDL_VIDEODRIVER
+	-u VR_OVERRIDE -u VR_PATHREG_OVERRIDE -u PROTON_VR_RUNTIME
+	XDG_CONFIG_HOME="$HEADLESS_CONFIG_DIR"
 	LIBGL_ALWAYS_SOFTWARE=1
+	PROTON_USE_WINED3D=1
+	PROTON_NO_D3D11=1
+	PROTON_NO_D3D10=1
+	PROTON_DISABLE_NVAPI=1
+	PROTON_HIDE_NVIDIA_GPU=1
 	WINEDEBUG=-all
 	PROTON_LOG=0
+	SCDDISASM_HEADLESS=1
 )
 
-mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc"
+mkdir -p "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc" "$HEADLESS_CONFIG_DIR"
 cp -a "$ORIGINAL_DIR"/. "$ROOT_DIR/out/files/"
 rm -f "$ROOT_DIR/out/files/.gitkeep"
 
 run_tool() {
+	local status=0
 	if [[ $RUNNER == proton ]]; then
 		mkdir -p "$PROTON_COMPAT_DATA_PATH"
-		"${HEADLESS_ENV[@]}" \
+		timeout --kill-after=5s "${TOOL_TIMEOUT_SECONDS}s" \
+			"${HEADLESS_ENV[@]}" \
 			STEAM_COMPAT_DATA_PATH="$PROTON_COMPAT_DATA_PATH" \
 			STEAM_COMPAT_CLIENT_INSTALL_PATH="$STEAM_ROOT" \
-			"$PROTON_BIN" run "$@"
+			"$PROTON_BIN" run "$@" || status=$?
 	else
-		"${HEADLESS_ENV[@]}" "$WINE_BIN" "$@"
+		timeout --kill-after=5s "${TOOL_TIMEOUT_SECONDS}s" \
+			"${HEADLESS_ENV[@]}" "$WINE_BIN" "$@" || status=$?
 	fi
+	if (( status == 0 )); then
+		return 0
+	fi
+	if [[ $status == 124 || $status == 137 ]]; then
+		echo "Headless tool timed out after ${TOOL_TIMEOUT_SECONDS}s: $*" >&2
+	fi
+	return "$status"
 }
 
 assemble() {
