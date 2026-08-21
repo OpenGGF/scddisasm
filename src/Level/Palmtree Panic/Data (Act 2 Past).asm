@@ -1,7 +1,7 @@
 ; -------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
-; Palmtree Panic Act 2 Past data
+; Palmtree Panic Act 2 time-variant data
 ; -------------------------------------------------------------------------
 
 ; -------------------------------------------------------------------------
@@ -16,26 +16,49 @@ LevelDataIndex:
 	dc.b	$81
 
 LevelPaletteID:
-	dc.b	5
-	dc.b	5
+	if ACT2_FUTURE_VARIANT
+		dc.b	4
+		dc.b	4
+	else
+		dc.b	5
+		dc.b	5
+	endif
 
 ; -------------------------------------------------------------------------
 ; PLC lists
 ; -------------------------------------------------------------------------
 
-	include	"Level/Palmtree Panic/Graphics Lists (Act 2 Past).asm"
+	if ACT2_FUTURE_VARIANT=1
+		include	"Level/Palmtree Panic/Graphics Lists (Act 2 Good Future).asm"
+	elseif ACT2_FUTURE_VARIANT=2
+		include	"Level/Palmtree Panic/Graphics Lists (Act 2 Bad Future).asm"
+	else
+		include	"Level/Palmtree Panic/Graphics Lists (Act 2 Past).asm"
+	endif
 
 ; -------------------------------------------------------------------------
 ; Leftover data from other level files used as padding, can be replaced
 ; with a "align $10000"
 ; -------------------------------------------------------------------------
 
-	incbin	"../padding/r12b_e_1.bin"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"../padding/r12c_e_1.bin"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"../padding/r12d_e_1.bin"
+	else
+		incbin	"../padding/r12b_e_1.bin"
+	endif
 
 ; -------------------------------------------------------------------------
 
 LevelChunks:
-	incbin	"maps/r12b/chunks.bin"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"maps/r12c/chunks.bin"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"maps/r12d/chunks.bin"
+	else
+		incbin	"maps/r12b/chunks.bin"
+	endif
 	even
 Ani_Powerup:
 	include	"Level/_Objects/Powerup/Data/Animations.asm"
@@ -101,7 +124,13 @@ MapSpr_FlowerCapsule:
 ; with a "align $20000"
 ; -------------------------------------------------------------------------
 
-	incbin	"../padding/r12b_e_2.bin"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"../padding/r12c_e_2.bin"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"../padding/r12d_e_2.bin"
+	else
+		incbin	"../padding/r12b_e_2.bin"
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -292,7 +321,13 @@ ColWidthMap:
 	incbin	"Level/_Data/Collision Width Map.bin"
 	even
 LevelCollision:
-	incbin	"maps/r12b/collision.bin"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"maps/r12c/collision.bin"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"maps/r12d/collision.bin"
+	else
+		incbin	"maps/r12b/collision.bin"
+	endif
 	even
 
 ; -------------------------------------------------------------------------
@@ -315,10 +350,22 @@ LevelLayouts:
 
 
 LevelLayoutForeground:
-	incbin	"maps/r12b/foreground.bin"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"maps/r12c/foreground.bin"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"maps/r12d/foreground.bin"
+	else
+		incbin	"maps/r12b/foreground.bin"
+	endif
 	even
 LevelLayoutBackground:
-	incbin	"maps/r12b/background.bin"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"maps/r12c/background.bin"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"maps/r12d/background.bin"
+	else
+		incbin	"maps/r12b/background.bin"
+	endif
 	even
 
 LevelLayoutNull:
@@ -346,15 +393,37 @@ Art_SonicHole:
 	incbin	"Level/Palmtree Panic/Objects/Tunnel Path/Data/Art (Hole).nem"
 	even
 Art_Scenery:
+	if ACT2_FUTURE_VARIANT
+Art_SceneryCD:
+		incbin	"gfx/r1/scenery_cd.nem"
+	else
 Art_SceneryB:
-	incbin	"gfx/r1/scenery_b.nem"
+		incbin	"gfx/r1/scenery_b.nem"
+	endif
 	even
+	if ACT2_FUTURE_VARIANT
+Art_LogInside:
+		incbin	"gfx/r1/log_inside_cd.nem"
+		even
+	endif
 LevelBlocks:
-	incbin	"maps/r12b/blocks.nem"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"maps/r12c/blocks.nem"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"maps/r12d/blocks.nem"
+	else
+		incbin	"maps/r12b/blocks.nem"
+	endif
 	even
 Art_LevelTiles:
 StageGfx:
-	incbin	"maps/r12b/gfx.nem"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"maps/r12c/gfx.nem"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"maps/r12d/gfx.nem"
+	else
+		incbin	"maps/r12b/gfx.nem"
+	endif
 	even
 Art_RobotGenerator:
 	incbin	"Level/_Objects/Robot Generator/Data/Art.nem"
@@ -373,6 +442,12 @@ Art_Projector:
 ; with a "align $40000"
 ; -------------------------------------------------------------------------
 
-	incbin	"../padding/r12b_e_3.bin"
+	if ACT2_FUTURE_VARIANT=1
+		incbin	"../padding/r12c_e_3.bin"
+	elseif ACT2_FUTURE_VARIANT=2
+		incbin	"../padding/r12d_e_3.bin"
+	else
+		incbin	"../padding/r12b_e_3.bin"
+	endif
 
 ; -------------------------------------------------------------------------

@@ -153,25 +153,59 @@ SpecChunks:
 InitLevelScroll:
 	swap	d0				; Set background Y positions
 	asr.l	#4,d0
+	if ACT2_FUTURE_VARIANT=2
+		move.l	d0,d2
+		add.l	d2,d0
+	else
 	move.l	d0,d2
 	add.l	d2,d2
 	add.l	d2,d0
+	endif
 	move.l	d0,cameraBgY.w
 	swap	d0
 	move.w	d0,cameraBg2Y.w
 	move.w	d0,cameraBg3Y.w
 
-	lsr.w	#1,d1				; Get background X positions
+	if ACT2_FUTURE_VARIANT
+		lsr.w	#3,d1				; Get background X positions
+	else
+		lsr.w	#1,d1				; Get background X positions
+	endif
 	move.w	d1,cameraBgX.w
-	lsr.w	#2,d1
-	move.w	d1,cameraBg3X.w
+	if ACT2_FUTURE_VARIANT
 	lsr.w	#1,d1
 	move.w	d1,d2
 	add.w	d2,d2
 	add.w	d1,d2
 	move.w	d2,cameraBg2X.w
+	lsr.w	#1,d1
+	move.w	d1,d2
+	add.w	d2,d2
+	add.w	d1,d2
+	move.w	d2,cameraBg3X.w
+	else
+		lsr.w	#2,d1
+		move.w	d1,cameraBg3X.w
+		lsr.w	#1,d1
+		move.w	d1,d2
+		add.w	d2,d2
+		add.w	d1,d2
+		move.w	d2,cameraBg2X.w
+	endif
 
 	lea	deformBuffer.w,a2		; Clear cloud speeds
+	if ACT2_FUTURE_VARIANT=1
+		clr.l	(a2)+
+		clr.l	(a2)+
+		clr.l	(a2)+
+		clr.l	(a2)+
+		clr.l	(a2)+
+	elseif ACT2_FUTURE_VARIANT=2
+		clr.l	(a2)+
+		clr.l	(a2)+
+		clr.l	(a2)+
+		clr.l	(a2)+
+	else
 	clr.l	(a2)+
 	clr.l	(a2)+
 	clr.l	(a2)+
@@ -180,6 +214,7 @@ InitLevelScroll:
 	clr.l	(a2)+
 	clr.l	(a2)+
 	clr.l	(a2)+
+	endif
 	rts
 
 ; -------------------------------------------------------------------------
@@ -210,7 +245,14 @@ LevelScroll:
 
 	move.w	scrollXDiff.w,d4		; Set scroll offset and flags for the clouds and mountains
 	ext.l	d4
+	if ACT2_FUTURE_VARIANT
+		asl.l	#3,d4
+		move.l	d4,d3
+		add.l	d4,d4
+		add.l	d3,d4
+	else
 	asl.l	#5,d4
+	endif
 	moveq	#6,d6
 	bsr.w	SetHorizScrollFlagsBG3
 
@@ -223,17 +265,31 @@ LevelScroll:
 	moveq	#4,d6
 	bsr.w	SetHorizScrollFlagsBG2
 
-	lea	deformBuffer+$20.w,a1		; Prepare R12B deformation buffer
+	if ACT2_FUTURE_VARIANT=1
+		lea	deformBuffer+$14.w,a1		; Prepare R12C deformation buffer
+	elseif ACT2_FUTURE_VARIANT=2
+		lea	deformBuffer+$10.w,a1		; Prepare R12D deformation buffer
+	else
+		lea	deformBuffer+$20.w,a1		; Prepare R12B deformation buffer
+	endif
 
 	move.w	scrollXDiff.w,d4		; Set scroll offset and flags for the rest + vertical scrolling
 	ext.l	d4
-	asl.l	#7,d4
+	if ACT2_FUTURE_VARIANT
+		asl.l	#5,d4
+	else
+		asl.l	#7,d4
+	endif
 	move.w	scrollYDiff.w,d5
 	ext.l	d5
 	asl.l	#4,d5
+	if ACT2_FUTURE_VARIANT=2
+		add.l	d5,d5
+	else
 	move.l	d5,d3
 	add.l	d5,d5
 	add.l	d3,d5
+	endif
 	bsr.w	SetScrollFlagsBG
 
 	move.w	cameraBgY.w,vscrollScreen+2.w	; Update background Y positions
@@ -248,6 +304,16 @@ LevelScroll:
 
 	lea	deformBuffer.w,a2		; Set speeds for the clouds
 	addi.l	#$10000,(a2)+
+	if ACT2_FUTURE_VARIANT=1
+		addi.l	#$E000,(a2)+
+		addi.l	#$C000,(a2)+
+		addi.l	#$A000,(a2)+
+		addi.l	#$8000,(a2)+
+	elseif ACT2_FUTURE_VARIANT=2
+		addi.l	#$C000,(a2)+
+		addi.l	#$8000,(a2)+
+		addi.l	#$4000,(a2)+
+	else
 	addi.l	#$E000,(a2)+
 	addi.l	#$C000,(a2)+
 	addi.l	#$A000,(a2)+
@@ -255,13 +321,20 @@ LevelScroll:
 	addi.l	#$6000,(a2)+
 	addi.l	#$5000,(a2)+
 	addi.l	#$4000,(a2)+
+	endif
 
 	move.w	cameraX.w,d0			; Prepare scroll buffer entry
 	neg.w	d0
 	swap	d0
 
-	lea	deformBuffer.w,a2		; Scroll the eight cloud groups
-	moveq	#7,d6
+	lea	deformBuffer.w,a2		; Scroll the cloud groups
+	if ACT2_FUTURE_VARIANT=1
+		moveq	#4,d6
+	elseif ACT2_FUTURE_VARIANT=2
+		moveq	#3,d6
+	else
+		moveq	#7,d6
+	endif
 
 .ScrollCloudsOuter:
 	move.l	(a2)+,d1
@@ -269,7 +342,7 @@ LevelScroll:
 	add.w	cameraBg3X.w,d1
 	neg.w	d1
 	moveq	#0,d5
-	lea	R12BCloudLineCounts(pc),a3
+		lea	CloudLineCounts(pc),a3
 	move.b	(a3,d6.w),d5
 
 .ScrollCloudsInner:
@@ -277,7 +350,13 @@ LevelScroll:
 	dbf	d5,.ScrollCloudsInner
 	dbf	d6,.ScrollCloudsOuter
 
-	moveq	#7,d1				; Scroll mountains
+	if ACT2_FUTURE_VARIANT=1
+		moveq	#5,d1				; Scroll mountains
+	elseif ACT2_FUTURE_VARIANT=2
+		moveq	#7,d1				; Scroll mountains
+	else
+		moveq	#7,d1				; Scroll mountains
+	endif
 	move.w	cameraBg3X.w,d0
 	neg.w	d0
 
@@ -285,42 +364,121 @@ LevelScroll:
 	move.w	d0,(a1)+
 	dbf	d1,.ScrollMountains
 
-	moveq	#7,d1				; Scroll waterfalls
-	move.w	cameraBg2X.w,d0
-	neg.w	d0
+	if ACT2_FUTURE_VARIANT
+		moveq	#1,d1				; Scroll the middle background
+		move.w	cameraBgX.w,d0
+		neg.w	d0
+
+.ScrollBackground:
+		move.w	d0,(a1)+
+		dbf	d1,.ScrollBackground
+
+		if ACT2_FUTURE_VARIANT=1
+			moveq	#7,d1				; Scroll waterfalls
+		else
+			moveq	#5,d1				; Scroll waterfalls
+		endif
+		move.w	cameraBg2X.w,d0
+		neg.w	d0
 
 .ScrollWaterfalls:
-	move.w	d0,(a1)+
-	dbf	d1,.ScrollWaterfalls
+		move.w	d0,(a1)+
+		dbf	d1,.ScrollWaterfalls
+	else
+		moveq	#7,d1				; Scroll waterfalls
+		move.w	cameraBg2X.w,d0
+		neg.w	d0
 
-	move.w	#$1F,d1				; Scroll lower static background
-	move.w	cameraBg2X.w,d0
-	neg.w	d0
+.ScrollWaterfalls:
+		move.w	d0,(a1)+
+		dbf	d1,.ScrollWaterfalls
+
+		move.w	#$1F,d1				; Scroll lower static background
+		move.w	cameraBg2X.w,d0
+		neg.w	d0
 
 .ScrollLowerBackground:
-	move.w	d0,(a1)+
-	dbf	d1,.ScrollLowerBackground
+		move.w	d0,(a1)+
+		dbf	d1,.ScrollLowerBackground
+	endif
 
 	lea	hscroll.w,a1			; Prepare horizontal scroll buffer
-	lea	deformBuffer+$20.w,a2		; Prepare R12B line table
+	if ACT2_FUTURE_VARIANT=1
+		lea	deformBuffer+$14.w,a2		; Prepare R12C line table
+	elseif ACT2_FUTURE_VARIANT=2
+		lea	deformBuffer+$10.w,a2		; Prepare R12D line table
+	else
+		lea	deformBuffer+$20.w,a2		; Prepare R12B line table
+	endif
 
 	move.w	cameraBgY.w,d0			; Get background Y position
 	move.w	d0,d2
 	andi.w	#$1F8,d0
 	lsr.w	#2,d0
-	moveq	#$1D,d1
-	lea	(a2,d0.w),a2
-	bsr.w	FillHScroll
+	if ACT2_FUTURE_VARIANT=1
+		move.w	d0,d3
+		lsr.w	#1,d3
+		moveq	#$1F,d1
+		moveq	#$1C,d5
+		sub.w	d3,d1
+		bcs.s	.InterpolateHScroll
+		cmpi.w	#$1B,d1
+		bcs.s	.FillHScrollC
+		moveq	#$1B,d1
+
+.FillHScrollC:
+		sub.w	d1,d5
+		lea	(a2,d0.w),a2
+		bsr.w	FillHScroll
+
+.InterpolateHScroll:
+		move.w	cameraBg2X.w,d0
+		move.w	cameraX.w,d2
+		sub.w	d0,d2
+		ext.l	d2
+		asl.l	#8,d2
+		divs.w	#$100,d2
+		ext.l	d2
+		asl.l	#8,d2
+		moveq	#0,d3
+		move.w	d0,d3
+		move.w	d5,d1
+		lsl.w	#3,d1
+		subq.w	#1,d1
+
+.InterpolateHScrollLoop:
+		move.w	d3,d0
+		neg.w	d0
+		move.l	d0,(a1)+
+		swap	d3
+		add.l	d2,d3
+		swap	d3
+		dbf	d1,.InterpolateHScrollLoop
+	elseif ACT2_FUTURE_VARIANT=2
+		moveq	#$1C,d1
+		lea	(a2,d0.w),a2
+		bsr.w	FillHScroll
+	else
+		moveq	#$1D,d1
+		lea	(a2,d0.w),a2
+		bsr.w	FillHScroll
+	endif
 
 .End:
 	rts
 
 ; -------------------------------------------------------------------------
-; R12B cloud-line repeat counts
+; Cloud-line repeat counts for each Act 2 time variant
 ; -------------------------------------------------------------------------
 
-R12BCloudLineCounts:
-	dc.b	1, 1, 1, 1, 1, 1, 1, 1
+CloudLineCounts:
+	if ACT2_FUTURE_VARIANT=1
+		dc.b	1, 3, 3, 3, 1, 0
+	elseif ACT2_FUTURE_VARIANT=2
+		dc.b	0, 4, 3, 3
+	else
+		dc.b	1, 1, 1, 1, 1, 1, 1, 1
+	endif
 
 ; -------------------------------------------------------------------------
 ; Fill the R12B horizontal-scroll line table

@@ -70,6 +70,8 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Palmtree Panic Act 1 (R11A, R11B, R11C, R11D, DEMO11A)
     - Palmtree Panic Act 2 Present (R12A)
     - Palmtree Panic Act 2 Past (R12B)
+    - Palmtree Panic Act 2 Good Future (R12C)
+    - Palmtree Panic Act 2 Bad Future (R12D)
     - Wacky Workbench Act 1 (R61A)
     - Collision Chaos Act 1 (R31A)
 * Special Stage (SPMM and SPSS)
