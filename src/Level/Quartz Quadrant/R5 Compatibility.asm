@@ -178,7 +178,9 @@ palette_fade_start	EQU	palFadeStart
 speed_shoes		EQU	speedShoes
 respawn_checkpoint	EQU	checkpoint
 next_life_score		EQU	nextLifeScore
+	if R6_LEGACY_PLAYER=0
 resetobjectstates	EQU	ResetSavedObjFlags
+	endif
 warp_direction		EQU	timeWarpDir
 warp_timer		EQU	timeWarpTimer
 control_locked		EQU	ctrlLocked
@@ -209,8 +211,10 @@ VDP_DATA		EQU	VDPDATA
 Z80_RAM		EQU	Z80RAM
 
 ; The level entry wrapper installs the recovered R5 interrupt routines below.
+	if R6_LEGACY_PLAYER=0
 HInterrupt		EQU	HBlank
 VInterrupt		EQU	VBlank
+	endif
 
 ; -------------------------------------------------------------------------
 ; R5-only RAM names
@@ -281,7 +285,11 @@ player_positions	EQU	sonicRecordBuf
 scroll_lines		EQU	hscroll
 object_draw_queue	EQU	objDrawQueue
 stage_started		EQU	levelStarted
+	if R6_LEGACY_PLAYER=0
 stage_start_flags	EQU	levelStarted
+	else
+stage_start_flags	EQU	plcLoadFlags
+	endif
 game_time_stones	EQU	timeStones
 special_stage		EQU	specialStage
 palette_clear_flags	EQU	palClearFlags
@@ -309,6 +317,7 @@ collide_angle_1		EQU	primaryAngle
 ; Object index aliases
 ; -------------------------------------------------------------------------
 
+	if R6_LEGACY_PLAYER=0
 PlayerObject		EQU	ObjSonic
 PowerupObject		EQU	ObjPowerup
 TestObject		EQU	ObjTestBadnik
@@ -330,16 +339,20 @@ FlowerObject		EQU	ObjFlower
 ResultsObject		EQU	ObjResults
 GameOverObject		EQU	ObjGameOver
 TitleCardObject		EQU	ObjTitleCard
+	endif
 
 ; The old object table has one null routine for unused IDs.
+	if R6_LEGACY_PLAYER=0
 ObjNull:
 	moveq	#0,d0
 	rts
+	endif
 
 ; -------------------------------------------------------------------------
 ; Shared service aliases
 ; -------------------------------------------------------------------------
 
+	if R6_LEGACY_PLAYER=0
 LevelStart		EQU	InitStage
 PlayLevelMusic		EQU	PlayStageMusic
 LoadCheckpoint		EQU	LoadCheckpointData
@@ -434,15 +447,18 @@ Spring45Sprites	EQU	MapSpr_Spring3
 MonitorTimeSprites	EQU	MapSpr_MonitorTime
 DebugItemIndex		EQU	DebugObjects
 LevelPaletteID		EQU	StageDataIndex+$E
+	endif
 
 ; The imported collision helpers retain their historical entry-point names.
 player_objcollide	EQU	PlayerObjectCollide
 
 ; Quartz Quadrant does not have the Palmtree Panic special-collision path.
+	if R6_LEGACY_PLAYER=0
 ObjSonic_SpecialCol:
 	rts
+	endif
 
-	if QQ_VARIANT>=8
+	if (R6_LEGACY_PLAYER=0)&(QQ_VARIANT>=8)
 ; The Act 3 graph has no background-swap source; the old main loop still
 ; visits the hook during its shared stage setup.
 CheckBackgroundSwap:
@@ -462,6 +478,14 @@ debugStart macro
 	endm
 
 r5DebugObject macro id, layer, sprites, tile, subtype, flags, subtype_2, frame
+	__debug_count_work: = __debug_count_work+1
+	dc.b	\id, \layer
+	dc.l	\sprites
+	dc.w	\tile
+	dc.b	\subtype, \flags, \subtype_2, \frame
+	endm
+
+r6DebugObject macro id, layer, sprites, tile, subtype, flags, subtype_2, frame
 	__debug_count_work: = __debug_count_work+1
 	dc.b	\id, \layer
 	dc.l	\sprites

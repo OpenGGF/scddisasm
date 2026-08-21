@@ -4,6 +4,7 @@
 ; -------------------------------------------------------------------------
 
 	include	"Level/Initialization.asm"
+R6_LEGACY_PLAYER	EQU	0
 	include	"Level/Quartz Quadrant/R5 Compatibility.asm"
 STANDALONE	EQU	0
 

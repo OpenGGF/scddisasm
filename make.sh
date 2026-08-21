@@ -174,6 +174,15 @@ assemble 'Level\Palmtree Panic\Act 1 Past.asm' '..\out\files\R11B__.MMD' 'Level\
 assemble 'Level\Palmtree Panic\Act 1 Good Future.asm' '..\out\files\R11C__.MMD' 'Level\Palmtree Panic\Act 1 Good Future.lst' /e DEMO=0
 assemble 'Level\Palmtree Panic\Act 1 Bad Future.asm' '..\out\files\R11D__.MMD' 'Level\Palmtree Panic\Act 1 Bad Future.lst' /e DEMO=0
 assemble 'Level\Wacky Workbench\Act 1 Present.asm' '..\out\files\R61A__.MMD' 'Level\Wacky Workbench\Act 1 Present.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 1 Past.asm' '..\out\files\R61B__.MMD' 'Level\Wacky Workbench\Act 1 Past.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 1 Good Future.asm' '..\out\files\R61C__.MMD' 'Level\Wacky Workbench\Act 1 Good Future.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 1 Bad Future.asm' '..\out\files\R61D__.MMD' 'Level\Wacky Workbench\Act 1 Bad Future.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 2 Present.asm' '..\out\files\R62A__.MMD' 'Level\Wacky Workbench\Act 2 Present.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 2 Past.asm' '..\out\files\R62B__.MMD' 'Level\Wacky Workbench\Act 2 Past.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 2 Good Future.asm' '..\out\files\R62C__.MMD' 'Level\Wacky Workbench\Act 2 Good Future.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 2 Bad Future.asm' '..\out\files\R62D__.MMD' 'Level\Wacky Workbench\Act 2 Bad Future.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 3 Good Future.asm' '..\out\files\R63C__.MMD' 'Level\Wacky Workbench\Act 3 Good Future.lst' /e DEMO=0
+assemble 'Level\Wacky Workbench\Act 3 Bad Future.asm' '..\out\files\R63D__.MMD' 'Level\Wacky Workbench\Act 3 Bad Future.lst' /e DEMO=0
 assemble 'Level\Collision Chaos\Act 1 Present.asm' '..\out\files\R31A__.MMD' 'Level\Collision Chaos\Act 1 Present.lst' /e DEMO=0
 assemble 'Level\Collision Chaos\Act 1 Past.asm' '..\out\files\R31B__.MMD' 'Level\Collision Chaos\Act 1 Past.lst' /e DEMO=0
 assemble 'Level\Collision Chaos\Act 1 Good Future.asm' '..\out\files\R31C__.MMD' 'Level\Collision Chaos\Act 1 Good Future.lst' /e DEMO=0
