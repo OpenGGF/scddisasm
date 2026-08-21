@@ -81,6 +81,7 @@ if exist "..\out\files\DUMMY5.MMD" (
 
 %ASM68K% "Time Attack\Sub.asm", "..\out\files\ATTACK.BIN", , "Time Attack\Sub.lst"
 %ASM68K% "Thank You\Sub.asm", "..\out\files\THANKS_S.BIN", , "Thank You\Sub.lst"
+if %REGION%==1 (%ASM68K% "Thank You\Data.asm", "..\out\files\THANKS_D.BIN", , "Thank You\Data.lst")
 
 %ASM68K% "FMV\Main (Opening).asm", "..\out\files\OPEN_M.MMD", , "FMV\Main (Opening).lst"
 %ASM68K% "FMV\Sub (Opening).asm", "..\out\files\OPEN_S.BIN", , "FMV\Sub (Opening).lst"

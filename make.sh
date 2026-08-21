@@ -153,6 +153,9 @@ assemble 'Title Screen\Secrets\Sound Test Image.asm' '..\out\files\DUMMY3.MMD' '
 
 assemble 'Time Attack\Sub.asm' '..\out\files\ATTACK.BIN' 'Time Attack\Sub.lst'
 assemble 'Thank You\Sub.asm' '..\out\files\THANKS_S.BIN' 'Thank You\Sub.lst'
+if [[ $REGION == 1 ]]; then
+	assemble 'Thank You\Data.asm' '..\out\files\THANKS_D.BIN' 'Thank You\Data.lst'
+fi
 
 assemble 'FMV\Main (Opening).asm' '..\out\files\OPEN_M.MMD' 'FMV\Main (Opening).lst'
 assemble 'FMV\Sub (Opening).asm' '..\out\files\OPEN_S.BIN' 'FMV\Sub (Opening).lst'
