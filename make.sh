@@ -198,9 +198,7 @@ fi
 # Wine keeps a server process alive after a console tool exits. Do not leave
 # one attached to the build prefix: it can retain runtime resources and, on
 # some desktop configurations, outlive the terminal that launched the build.
-cleanup_runtime() {
-	local status=$?
-	trap - EXIT
+stop_runtime() {
 	if [[ $RUNNER == proton ]]; then
 		if [[ -x $PROTON_ROOT/files/bin/wineserver ]]; then
 			timeout --kill-after=2s 5s \
@@ -212,6 +210,13 @@ cleanup_runtime() {
 		timeout --kill-after=2s 5s \
 			"${HEADLESS_ENV[@]}" "$WINE_SERVER_BIN" -k >/dev/null 2>&1 || true
 	fi
+	return 0
+}
+
+cleanup_runtime() {
+	local status=$?
+	trap - EXIT
+	stop_runtime
 	exit "$status"
 }
 trap cleanup_runtime EXIT
@@ -233,6 +238,10 @@ run_tool() {
 		timeout --kill-after=5s "${TOOL_TIMEOUT_SECONDS}s" \
 			"${HEADLESS_ENV[@]}" "$WINE_BIN" "$@" || status=$?
 	fi
+	# Stop the private server after every tool, not only when the complete build
+	# exits. A failed or GUI-capable child must not keep a Wine process alive
+	# while later build steps run or after a terminal closes.
+	stop_runtime
 	if (( status == 0 )); then
 		return 0
 	fi
