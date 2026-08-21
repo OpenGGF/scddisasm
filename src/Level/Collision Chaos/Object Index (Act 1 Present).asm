@@ -61,7 +61,7 @@ ObjectIndex:
 	dc.l	ObjNull			; $36 - Blank
 	dc.l	ObjRobotGenerator		; $37 - Robot generator
 	dc.l	ObjProjector			; $38 - Metal Sonic projector
-	dc.l	ObjNull			; $39 - Animal (pending port)
+	dc.l	ObjCCAnimal			; $39 - Animal
 	dc.l	ObjResults			; $3A - End of level results
 	dc.l	ObjGameOver			; $3B - Game over text
 	dc.l	ObjTitleCard			; $3C - Title card
