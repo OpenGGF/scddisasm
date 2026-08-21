@@ -10,6 +10,7 @@ HEADLESS_CONFIG_DIR="$ROOT_DIR/out/headless-config"
 HEADLESS_CACHE_DIR="$ROOT_DIR/out/headless-cache"
 HEADLESS_DATA_DIR="$ROOT_DIR/out/headless-data"
 HEADLESS_STATE_DIR="$ROOT_DIR/out/headless-state"
+HEADLESS_RUNTIME_DIR="$ROOT_DIR/out/headless-runtime"
 HEADLESS_GLX_DIR="$ROOT_DIR/out/headless-glx"
 HEADLESS_HOME_DIR="$ROOT_DIR/out/headless-home"
 HEADLESS_TEMP_DIR="$ROOT_DIR/out/headless-tmp"
@@ -80,7 +81,10 @@ else
 		exit 1
 	fi
 	PROTON_ROOT=$(CDPATH= cd -- "$(dirname -- "$PROTON_BIN")" && pwd)
-	PROTON_COMPAT_DATA_PATH=${PROTON_COMPAT_DATA_PATH:-"$ROOT_DIR/out/proton"}
+	# Keep Proton's prefix inside the ignored repository output tree. An
+	# externally supplied prefix may contain a desktop shell, VR configuration,
+	# or a wineserver shared with unrelated applications.
+	PROTON_COMPAT_DATA_PATH="$ROOT_DIR/out/proton"
 fi
 
 # A native Wine installation provides wineserver beside wine/wine64. Resolve
@@ -129,7 +133,7 @@ if [[ -z $MESA_GLX_LIBRARY || ! -r $MESA_GLX_LIBRARY ]]; then
 	exit 1
 fi
 mkdir -p "$HEADLESS_CONFIG_DIR" "$HEADLESS_CACHE_DIR" "$HEADLESS_DATA_DIR" \
-	"$HEADLESS_STATE_DIR" "$HEADLESS_GLX_DIR" "$HEADLESS_HOME_DIR" \
+	"$HEADLESS_STATE_DIR" "$HEADLESS_RUNTIME_DIR" "$HEADLESS_GLX_DIR" "$HEADLESS_HOME_DIR" \
 	"$HEADLESS_TEMP_DIR"
 cp -f -- "$MESA_GLX_LIBRARY" "$HEADLESS_GLX_LIBRARY"
 # Use an allow-list rather than subtracting a known set of desktop variables.
@@ -155,6 +159,7 @@ HEADLESS_ENV=(
 	XDG_CACHE_HOME="$HEADLESS_CACHE_DIR"
 	XDG_DATA_HOME="$HEADLESS_DATA_DIR"
 	XDG_STATE_HOME="$HEADLESS_STATE_DIR"
+	XDG_RUNTIME_DIR="$HEADLESS_RUNTIME_DIR"
 	LD_LIBRARY_PATH="$HEADLESS_GLX_DIR"
 	LIBGL_ALWAYS_SOFTWARE=1
 	MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
@@ -168,6 +173,7 @@ HEADLESS_ENV=(
 	WINE_DISABLE_VULKAN_OPWR=1
 	DXVK_ENABLE_NVAPI=0
 	WINEDLLOVERRIDES='winex11.drv=d;winewayland.drv=d'
+	NO_AT_BRIDGE=1
 	WINEDEBUG=-all
 	PROTON_LOG=0
 	SCDDISASM_HEADLESS=1
@@ -177,6 +183,7 @@ if [[ $RUNNER == proton ]]; then
 		"PROTON_BIN=$PROTON_BIN"
 		"STEAM_ROOT=$STEAM_ROOT"
 		"PROTON_COMPAT_DATA_PATH=$PROTON_COMPAT_DATA_PATH"
+		"WINEPREFIX=$PROTON_COMPAT_DATA_PATH/pfx"
 	)
 else
 	HEADLESS_ENV+=(
