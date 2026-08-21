@@ -40,6 +40,7 @@ fc /b original\%REGPATH%\DUMMY7.MMD out\files\DUMMY7.MMD
 fc /b original\%REGPATH%\DUMMY8.MMD out\files\DUMMY8.MMD
 fc /b original\%REGPATH%\DUMMY9.MMD out\files\DUMMY9.MMD
 fc /b original\%REGPATH%\SPEEND.MMD out\files\SPEEND.MMD
+fc /b original\%REGPATH%\ATTACK.BIN out\files\ATTACK.BIN
 fc /b original\%REGPATH%\OPEN_M.MMD out\files\OPEN_M.MMD
 fc /b original\%REGPATH%\OPEN_S.BIN out\files\OPEN_S.BIN
 fc /b original\%REGPATH%\OPN.STM out\files\OPN.STM

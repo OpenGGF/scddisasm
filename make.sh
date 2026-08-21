@@ -151,6 +151,8 @@ assemble 'Title Screen\Secrets\Sound Test Image.asm' '..\out\files\DUMMY1.MMD' '
 assemble 'Title Screen\Secrets\Sound Test Image.asm' '..\out\files\DUMMY2.MMD' 'Title Screen\Secrets\Sound Test Image (Batman).lst' /e PROTOTYPE=0 /e H32=0 /e EASTEREGG=3
 assemble 'Title Screen\Secrets\Sound Test Image.asm' '..\out\files\DUMMY3.MMD' 'Title Screen\Secrets\Sound Test Image (Cute Sonic).lst' /e PROTOTYPE=0 /e H32=0 /e EASTEREGG=4
 
+assemble 'Time Attack\Sub.asm' '..\out\files\ATTACK.BIN' 'Time Attack\Sub.lst'
+
 assemble 'FMV\Main (Opening).asm' '..\out\files\OPEN_M.MMD' 'FMV\Main (Opening).lst'
 assemble 'FMV\Sub (Opening).asm' '..\out\files\OPEN_S.BIN' 'FMV\Sub (Opening).lst'
 assemble 'FMV\Sub (Ending).asm' '..\out\files\GOODEND.BIN' 'FMV\Sub (Good Ending).lst' /e DATAFILE=0

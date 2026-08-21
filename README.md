@@ -104,6 +104,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Metallic Madness Act 3 Good/Bad Future (R83C, R83D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
+* Time attack Sub CPU program (ATTACK.BIN)
 * FMVs
     - Opening FMV (OPEN_M, OPEN_S, OPN.STM)
     - Good ending Sub CPU program (BADEND.BIN, not a typo)
