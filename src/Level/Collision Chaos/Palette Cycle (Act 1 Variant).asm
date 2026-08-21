@@ -1,103 +1,131 @@
 ; -------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
-; Collision Chaos Present palette cycle
+; Collision Chaos Act 1 time-variant palette cycles
 ; -------------------------------------------------------------------------
 
-	if CC_VARIANT<>0
-	include	"Level/Collision Chaos/Palette Cycle (Act 1 Variant).asm"
+	if CC_VARIANT=1
+
+PaletteCycle:
+	rts
+
 	else
 
 PaletteCycle:
 	lea	palCycleTimers.w,a5
 	lea	palCycleSteps.w,a4
-
 	lea	CCPalCycleScript1,a1
 	lea	CCPalCycleColors1,a2
 	bsr.w	CycleColor
 	lea	CCPalCycleScript2,a1
 	lea	CCPalCycleColors2,a2
 	bsr.w	CycleColor
+	if CC_VARIANT=3
 	lea	CCPalCycleScript3,a1
 	lea	CCPalCycleColors3,a2
 	bsr.w	CycleColor
-	lea	CCPalCycleScript4,a1
-	lea	CCPalCycleColors4,a2
-	bsr.w	CycleColor
+	endif
 	rts
-
-; -------------------------------------------------------------------------
 
 	include	"Level/Palette Cycle Script.asm"
 
 ; -------------------------------------------------------------------------
 
 CCPalCycleScript1:
-	dc.b	$2F, 3
+	if CC_VARIANT=2
+	dc.b	$2C, 3
 	dc.b	1, 0
+	dc.b	2, 1
+	dc.b	1, 2
+	else
+	dc.b	$2A, 3
+	dc.b	2, 0
 	dc.b	1, 1
 	dc.b	2, 2
+	endif
 
 CCPalCycleColors1:
-	dc.w	$EEE, $E, 0
+	if CC_VARIANT=2
+	dc.w	$EEE, $E0E, 0
+	else
+	dc.w	$EE0, $6C0, 0
+	endif
 
 ; -------------------------------------------------------------------------
 
 CCPalCycleScript2:
-	dc.b	$3C, $10
+	if CC_VARIANT=2
+	dc.b	$3D, $10
+	dc.b	$1E, 0
+	dc.b	5, 1
+	dc.b	$F, 0
+	dc.b	5, 1
 	dc.b	1, 0
-	dc.b	2, 1
+	dc.b	5, 1
 	dc.b	1, 0
-	dc.b	2, 1
-	dc.b	1, 0
-	dc.b	2, 1
-	dc.b	1, 0
-	dc.b	2, 1
-	dc.b	1, 0
-	dc.b	2, 1
-	dc.b	1, 0
-	dc.b	2, 1
-	dc.b	1, 0
-	dc.b	2, 1
+	dc.b	$3C, 1
 	dc.b	1, 0
 	dc.b	8, 1
+	dc.b	1, 0
+	dc.b	8, 1
+	dc.b	1, 0
+	dc.b	8, 1
+	dc.b	1, 0
+	dc.b	8, 1
+	else
+	dc.b	$3B, $11
+	dc.b	9, 0
+	dc.b	9, 1
+	dc.b	9, 2
+	dc.b	9, 3
+	dc.b	9, 4
+	dc.b	9, 5
+	dc.b	9, 6
+	dc.b	9, 7
+	dc.b	9, 8
+	dc.b	9, 7
+	dc.b	9, 6
+	dc.b	9, 5
+	dc.b	9, 4
+	dc.b	9, 3
+	dc.b	9, 2
+	dc.b	9, 1
+	dc.b	9, 0
+	endif
 
 CCPalCycleColors2:
-	dc.w	$EE, 0
+	if CC_VARIANT=2
+	dc.w	$AE, 0
+	else
+	dc.w	$E0E, $E08, $E80, $EE0, $8E0, $E0, $E8, $EE, $8EE
+	endif
+
+	if CC_VARIANT=3
 
 ; -------------------------------------------------------------------------
 
 CCPalCycleScript3:
-	dc.b	$3D, $F
-	dc.b	$16, 0
-	dc.b	2, 1
-	dc.b	2, 0
-	dc.b	2, 1
-	dc.b	2, 0
-	dc.b	2, 1
-	dc.b	2, 0
-	dc.b	2, 1
-	dc.b	2, 0
-	dc.b	1, 2
-	dc.b	2, 1
-	dc.b	1, 2
-	dc.b	2, 1
-	dc.b	1, 2
-	dc.b	2, 1
+	dc.b	$3D, $10
+	dc.b	$C, 0
+	dc.b	9, 1
+	dc.b	9, 2
+	dc.b	9, 3
+	dc.b	9, 4
+	dc.b	9, 5
+	dc.b	9, 6
+	dc.b	9, 7
+	dc.b	9, 8
+	dc.b	9, 7
+	dc.b	9, 6
+	dc.b	9, 5
+	dc.b	9, 4
+	dc.b	9, 3
+	dc.b	9, 2
+	dc.b	9, 1
 
 CCPalCycleColors3:
-	dc.w	0, $E0E, $EAE
+	dc.w	$EE, $AE, $8C, $6A, $48, $26, 4, 2, 0
 
-; -------------------------------------------------------------------------
-
-CCPalCycleScript4:
-	dc.b	$3F, 2
-	dc.b	1, 0
-	dc.b	2, 1
-
-CCPalCycleColors4:
-	dc.w	$EE0, 0
-
-; -------------------------------------------------------------------------
+	endif
 
 	endif

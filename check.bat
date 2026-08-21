@@ -63,6 +63,9 @@ fc /b original\%REGPATH%\R11C__.MMD out\files\R11C__.MMD
 fc /b original\%REGPATH%\R11D__.MMD out\files\R11D__.MMD
 fc /b original\%REGPATH%\R61A__.MMD out\files\R61A__.MMD
 fc /b original\%REGPATH%\R31A__.MMD out\files\R31A__.MMD
+fc /b original\%REGPATH%\R31B__.MMD out\files\R31B__.MMD
+fc /b original\%REGPATH%\R31C__.MMD out\files\R31C__.MMD
+fc /b original\%REGPATH%\R31D__.MMD out\files\R31D__.MMD
 fc /b original\%REGPATH%\SPMM__.MMD out\files\SPMM__.MMD
 fc /b original\%REGPATH%\SPSS__.BIN out\files\SPSS__.BIN
 

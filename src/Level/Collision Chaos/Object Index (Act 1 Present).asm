@@ -4,6 +4,10 @@
 ; Collision Chaos Act 1 Present object index
 ; -------------------------------------------------------------------------
 
+	if CC_VARIANT<>0
+	include	"Level/Collision Chaos/Object Index (Act 1 Variant).asm"
+	else
+
 ObjectIndex:
 	dc.l	ObjSonic			; $01 - Sonic
 	dc.l	ObjSonic			; $02 - Player 2 Sonic
@@ -71,3 +75,5 @@ ObjectIndex:
 ObjNull:
 	move.b	#0,(a0)
 	rts
+
+	endif

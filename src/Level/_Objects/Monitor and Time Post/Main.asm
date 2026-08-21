@@ -465,7 +465,15 @@ ObjMonitorItem_Init:
 ObjMonitorItem_Main:
 	tst.w	oYVel(a0)			; Are we moving up still?
 	bpl.w	.GiveItem			; If not, branch
-	bsr.w	ObjMove				; Move
+	if def(CC_VARIANT)
+		if CC_VARIANT<>0
+			jsr	ObjMove				; Move
+		else
+			bsr.w	ObjMove				; Move
+		endif
+	else
+		bsr.w	ObjMove				; Move
+	endif
 	addi.w	#$18,oYVel(a0)			; Slow down
 	rts
 
@@ -615,7 +623,18 @@ ObjMonitorItem_Main:
 
 ObjMonitorItem_Delete:
 	subq.w	#1,oMonItemDel(a0)		; Decrement timer
-	bmi.w	DeleteObject			; If it has run out, delete ourselves
+	if def(CC_VARIANT)
+		if CC_VARIANT<>0
+			bpl.s	.Keep				; If it has not run out, branch
+			jmp	DeleteObject			; Delete ourselves
+
+	.Keep:
+		else
+			bmi.w	DeleteObject			; If it has run out, delete ourselves
+		endif
+	else
+		bmi.w	DeleteObject			; If it has run out, delete ourselves
+	endif
 	rts
 
 ; -------------------------------------------------------------------------

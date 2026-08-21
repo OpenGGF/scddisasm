@@ -75,7 +75,10 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Palmtree Panic Act 3 Good Future (R13C)
     - Palmtree Panic Act 3 Bad Future (R13D)
     - Wacky Workbench Act 1 (R61A)
-    - Collision Chaos Act 1 (R31A)
+    - Collision Chaos Act 1 Present (R31A)
+    - Collision Chaos Act 1 Past (R31B)
+    - Collision Chaos Act 1 Good Future (R31C)
+    - Collision Chaos Act 1 Bad Future (R31D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
 * FMVs

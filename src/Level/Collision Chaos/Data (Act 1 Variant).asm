@@ -1,16 +1,21 @@
 ; -------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
-; Collision Chaos Act 1 Present data
+; Collision Chaos Act 1 time-variant data
 ; -------------------------------------------------------------------------
 
-	if CC_VARIANT<>0
-	include	"Level/Collision Chaos/Data (Act 1 Variant).asm"
+; -------------------------------------------------------------------------
+; Level data index and recovered stage data
+; -------------------------------------------------------------------------
+
+Padding1:
+	if CC_VARIANT=1
+	incbin	"../padding/r31b_e_1.bin"
+	elseif CC_VARIANT=2
+	incbin	"../padding/r31c_e_1.bin"
 	else
-
-; -------------------------------------------------------------------------
-; Level data index
-; -------------------------------------------------------------------------
+	incbin	"../padding/r31d_e_1.bin"
+	endif
 
 LevelDataIndex:
 	dc.l	$3000000|Art_LevelTiles
@@ -23,17 +28,17 @@ LevelPaletteID:
 	dc.b	4
 	dc.b	4
 
-; -------------------------------------------------------------------------
-; PLC lists
-; -------------------------------------------------------------------------
+	include	"Level/Collision Chaos/Graphics Lists (Act 1 Variant).asm"
 
-	include	"Level/Collision Chaos/Graphics Lists (Act 1 Present).asm"
-
-; -------------------------------------------------------------------------
-; Recovered Collision Chaos map data
-; -------------------------------------------------------------------------
-
-	include	"Level/Collision Chaos/Chunks (Act 1 Present).asm"
+LevelChunks:
+	if CC_VARIANT=1
+	incbin	"maps/r31b/chunks.bin"
+	elseif CC_VARIANT=2
+	incbin	"maps/r31c/chunks.bin"
+	else
+	incbin	"maps/r31d/chunks.bin"
+	endif
+	even
 
 ColAngleMap:
 	incbin	"Level/_Data/Collision Angles.bin"
@@ -48,11 +53,15 @@ ColWidthMap:
 	even
 
 LevelCollision:
-	incbin	"Level/Collision Chaos/Data/Collision (Act 1 Present).bin"
+	if CC_VARIANT=1
+	incbin	"maps/r31b/collision.bin"
+	elseif CC_VARIANT=2
+	incbin	"maps/r31c/collision.bin"
+	else
+	incbin	"maps/r31d/collision.bin"
+	endif
 	even
 
-; The original data keeps the 12-entry map group for each time period even
-; though this Present entry initially selects only foreground/background.
 LevelLayouts:
 	dc.w	.FG-LevelLayouts,    .BG-LevelLayouts,    .Null-LevelLayouts
 	dc.w	.GHZ2-LevelLayouts,  .Null-LevelLayouts, .Null-LevelLayouts
@@ -68,10 +77,22 @@ LevelLayouts:
 	dc.w	.Null-LevelLayouts,  .Null-LevelLayouts, .Null-LevelLayouts
 
 .FG:
-	incbin	"Level/Collision Chaos/Data/Foreground (Act 1 Present).bin"
+	if CC_VARIANT=1
+	incbin	"maps/r31b/foreground.bin"
+	elseif CC_VARIANT=2
+	incbin	"maps/r31c/foreground.bin"
+	else
+	incbin	"maps/r31d/foreground.bin"
+	endif
 	even
 .BG:
-	incbin	"Level/Collision Chaos/Data/Background (Act 1 Present).bin"
+	if CC_VARIANT=1
+	incbin	"maps/r31b/background.bin"
+	elseif CC_VARIANT=2
+	incbin	"maps/r31c/background.bin"
+	else
+	incbin	"maps/r31d/background.bin"
+	endif
 	even
 .Null:
 	incbin	"maps/empty.bin"
@@ -87,8 +108,36 @@ LevelLayouts:
 ; Stage and common art
 ; -------------------------------------------------------------------------
 
-	include	"Level/Collision Chaos/Graphics (Act 1 Present).asm"
-	include	"Level/Collision Chaos/Blocks (Act 1 Present).asm"
+Art_LevelTiles:
+StageGfx:
+	if CC_VARIANT=1
+	incbin	"maps/r31b/gfx.nem"
+	elseif CC_VARIANT=2
+	incbin	"maps/r31c/gfx.nem"
+	else
+	incbin	"maps/r31d/gfx.nem"
+	endif
+	even
+
+StageBlocks:
+LevelBlocks:
+	if CC_VARIANT=1
+	incbin	"maps/r31b/blocks.nem"
+	elseif CC_VARIANT=2
+	incbin	"maps/r31c/blocks.nem"
+	else
+	incbin	"maps/r31d/blocks.nem"
+	endif
+	even
+
+Padding2:
+	if CC_VARIANT=1
+	incbin	"../padding/r31b_e_2.bin"
+	elseif CC_VARIANT=2
+	incbin	"../padding/r31c_e_2.bin"
+	else
+	incbin	"../padding/r31d_e_2.bin"
+	endif
 
 Art_Sonic:
 	incbin	"Level/_Objects/Sonic/Data/Art.bin"
@@ -188,10 +237,6 @@ TitleCardTextGfx:
 	incbin	"gfx/r3/title_card_text.nem"
 	even
 
-; -------------------------------------------------------------------------
-; Collision Chaos-specific PLC art
-; -------------------------------------------------------------------------
-
 Art_Tentou:
 TentouGfx:
 	incbin	"gfx/r3/tentou.nem"
@@ -220,6 +265,15 @@ MetalPlatformGfx:
 Art_SpikesHV4:
 SpikesHV4Gfx:
 	incbin	"gfx/spikes_hv4.nem"
+	even
+
+Art_SpikesHV2:
+SpikesHV2Gfx:
+	incbin	"gfx/spikes_hv2.nem"
+	even
+
+Art_SpikesV2:
+	incbin	"gfx/spikes_v2.nem"
 	even
 
 Art_Block:
@@ -252,11 +306,6 @@ KamaKamaGfx:
 	incbin	"gfx/r3/kama_kama.nem"
 	even
 
-Art_SpikesHV2:
-SpikesHV2Gfx:
-	incbin	"gfx/spikes_hv2.nem"
-	even
-
 Art_Ga:
 GaGfx:
 	incbin	"gfx/r3/ga.nem"
@@ -267,9 +316,12 @@ TeleporterGfx:
 	incbin	"gfx/r3/teleporter.nem"
 	even
 
-Art_PocketA:
-PocketGfxA:
-	incbin	"gfx/r3/pocket_a.nem"
+Art_Pocket:
+	if CC_VARIANT=3
+	incbin	"gfx/r3/pocket_d.nem"
+	else
+	incbin	"gfx/r3/pocket_bc.nem"
+	endif
 	even
 
 Art_BossBarrier:
@@ -277,14 +329,24 @@ BossBarrierGfx:
 	incbin	"gfx/r3/boss_barrier.nem"
 	even
 
-Art_BouncePlatformAB:
-BouncePlatformGfxAB:
+Art_BouncePlatform:
+	if CC_VARIANT=1
 	incbin	"gfx/r3/bounce_platform_ab.nem"
+	elseif CC_VARIANT=2
+	incbin	"gfx/r3/bounce_platform_c.nem"
+	else
+	incbin	"gfx/r3/bounce_platform_d.nem"
+	endif
 	even
 
-Art_GlassBreakA:
-GlassBreakGfxA:
-	incbin	"gfx/r3/glass_break_a.nem"
+Art_GlassBreak:
+	if CC_VARIANT=1
+	incbin	"gfx/r3/glass_break_b.nem"
+	elseif CC_VARIANT=2
+	incbin	"gfx/r3/glass_break_c.nem"
+	else
+	incbin	"gfx/r3/glass_break_d.nem"
+	endif
 	even
 
 Art_SpikeChain:
@@ -292,25 +354,67 @@ SpikeChainGfx:
 	incbin	"gfx/spike_chain.nem"
 	even
 
-Art_RobotTransportA:
-RobotTransportGfxA:
-	incbin	"gfx/robot_transport_a.nem"
-	even
-
 Art_Animals:
 AnimalsGfx:
 	incbin	"gfx/r3/animals.nem"
 	even
 
-Art_AmyRose:
-AmyRoseGfx:
-	incbin	"gfx/r3/amy_rose.nem"
+	if CC_VARIANT=1
+Art_RobotTransportB:
+	incbin	"gfx/robot_transport_b.nem"
 	even
 
-Art_MetalSonic:
-MetalSonicGfx:
-	incbin	"gfx/r3/metal_sonic.nem"
+Art_HologramAnimals:
+	incbin	"gfx/r3/hologram_animals.nem"
 	even
+
+Art_Hologram:
+	incbin	"gfx/hologram.nem"
+	even
+	endif
+
+; These future-zone assets are part of the historical R31C/R31D data tail;
+; they are retained even though the current Act 1 object graph does not use
+; the corresponding boss routines yet.
+	if CC_VARIANT=2
+Art_BossDrainBlock:
+	incbin	"gfx/r3/boss_drain_block_c.nem"
+	even
+Art_BouncePlatformBoss:
+	incbin	"gfx/r3/bounce_platform_c.nem"
+	even
+Art_GlassBreakBoss:
+	incbin	"gfx/r3/glass_break_c.nem"
+	even
+Art_BossBombLaunch:
+	incbin	"gfx/r3/boss_bomb_launch.nem"
+	even
+Art_Eggman:
+	incbin	"gfx/r3/eggman.nem"
+	even
+Art_EggmanEscape:
+	incbin	"gfx/r3/eggman_escape.nem"
+	even
+	elseif CC_VARIANT=3
+Art_BossDrainBlock:
+	incbin	"gfx/r3/boss_drain_block_d.nem"
+	even
+Art_BouncePlatformBoss:
+	incbin	"gfx/r3/bounce_platform_d.nem"
+	even
+Art_GlassBreakBoss:
+	incbin	"gfx/r3/glass_break_d.nem"
+	even
+Art_BossBombLaunch:
+	incbin	"gfx/r3/boss_bomb_launch.nem"
+	even
+Art_Eggman:
+	incbin	"gfx/r3/eggman.nem"
+	even
+Art_EggmanEscape:
+	incbin	"gfx/r3/eggman_escape.nem"
+	even
+	endif
 
 CollisionChaosByteData:
 	incbin	"data/r3/byte_233A9A.bin"
@@ -401,4 +505,11 @@ MapSpr_FlowerCapsule:
 	include	"Level/_Objects/Level End/Data/Mappings (Flower Capsule).asm"
 	even
 
+Padding3:
+	if CC_VARIANT=1
+	incbin	"../padding/r31b_e_3.bin"
+	elseif CC_VARIANT=2
+	incbin	"../padding/r31c_e_3.bin"
+	else
+	incbin	"../padding/r31d_e_3.bin"
 	endif

@@ -4,6 +4,10 @@
 ; Collision Chaos Act 1 Present palette data
 ; -------------------------------------------------------------------------
 
+	if CC_VARIANT<>0
+	include	"Level/Collision Chaos/Palette Data (Act 1 Variant).asm"
+	else
+
 PaletteTable:
 	dc.l	Pal_S1SegaBG
 	dc.w	palette
@@ -61,3 +65,5 @@ Pal_LevelEnd:
 	dcb.b	3, 0
 	dc.b	$E0
 	even
+
+	endif
