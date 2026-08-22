@@ -240,11 +240,11 @@ stop_runtime
 # source-backed build step. Every reconstructed component must be regenerated
 # into a clean output directory instead of being inherited from the original.
 find "$ROOT_DIR/out/files" -mindepth 1 -maxdepth 1 -type f -delete
-for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM; do
+for file in ATTACK.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM; do
 	cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 done
 if [[ $REGION != 1 ]]; then
-	for file in COME__.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
+	for file in BRAMMAIN.MMD COME__.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
 		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 	done
 fi
@@ -310,6 +310,9 @@ assemble 'CD Initial Program\IPX.asm' '..\out\files\IPX___.MMD' 'CD Initial Prog
 assemble 'CD System Program\SP.asm' '..\out\misc\sp.bin' 'CD System Program\SP.lst'
 assemble 'CD System Program\SPX.asm' '..\out\files\SPX___.BIN' 'CD System Program\SPX.lst'
 assemble 'Backup RAM\Initialization\Main.asm' '..\out\files\BRAMINIT.MMD' 'Backup RAM\Initialization\Main.lst'
+if [[ $REGION == 1 ]]; then
+	assemble 'Backup RAM\Main.asm' '..\out\files\BRAMMAIN.MMD' 'Backup RAM\Main.lst'
+fi
 assemble 'Backup RAM\Sub.asm' '..\out\files\BRAMSUB.BIN' 'Backup RAM\Sub.lst'
 assemble 'Mega Drive Init\Main.asm' '..\out\files\MDINIT.MMD' 'Mega Drive Init\Main.lst'
 assemble 'Time Warp Cutscene\Main.asm' '..\out\files\WARP__.MMD' 'Time Warp Cutscene\Main.lst'

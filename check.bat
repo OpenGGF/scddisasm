@@ -12,6 +12,7 @@ fc /b original\sp.bin out\misc\sp.bin
 fc /b original\%REGPATH%\IPX___.MMD out\files\IPX___.MMD
 fc /b original\%REGPATH%\SPX___.BIN out\files\SPX___.BIN
 fc /b original\%REGPATH%\BRAMINIT.MMD out\files\BRAMINIT.MMD
+fc /b original\%REGPATH%\BRAMMAIN.MMD out\files\BRAMMAIN.MMD
 fc /b original\%REGPATH%\BRAMSUB.BIN out\files\BRAMSUB.BIN
 fc /b original\%REGPATH%\MDINIT.MMD out\files\MDINIT.MMD
 fc /b original\%REGPATH%\WARP__.MMD out\files\WARP__.MMD

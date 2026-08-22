@@ -10,9 +10,9 @@ del /q out\files\*.* > nul 2>&1
 if %REGION%==0 (set REGIONDIR=japan)
 if %REGION%==1 (set REGIONDIR=usa)
 if %REGION%==2 (set REGIONDIR=europe)
-for %%F in (ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+for %%F in (ATTACK.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
 if not "%REGION%"=="1" (
-    for %%F in (COME__.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+    for %%F in (BRAMMAIN.MMD COME__.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
 )
 
 cd src
@@ -48,6 +48,7 @@ if exist "DA Garden\Track Titles.sym" ( del "DA Garden\Track Titles.sym" > nul )
 %ASM68K% "CD System Program\SP.asm", "..\out\misc\sp.bin", , "CD System Program\SP.lst"
 %ASM68K% "CD System Program\SPX.asm", "..\out\files\SPX___.BIN", , "CD System Program\SPX.lst"
 %ASM68K% "Backup RAM\Initialization\Main.asm", "..\out\files\BRAMINIT.MMD", , "Backup RAM\Initialization\Main.lst"
+if "%REGION%"=="1" %ASM68K% "Backup RAM\Main.asm", "..\out\files\BRAMMAIN.MMD", , "Backup RAM\Main.lst"
 %ASM68K% "Backup RAM\Sub.asm", "..\out\files\BRAMSUB.BIN", , "Backup RAM\Sub.lst"
 %ASM68K% "Mega Drive Init\Main.asm", "..\out\files\MDINIT.MMD", , "Mega Drive Init\Main.lst"
 %ASM68K% "Time Warp Cutscene\Main.asm", "..\out\files\WARP__.MMD", , "Time Warp Cutscene\Main.lst"

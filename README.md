@@ -47,6 +47,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 * Main program file (IPX)
 * System program extension file (SPX)
 * Backup RAM initialization file (BRAMINIT)
+* Backup RAM manager main CPU program (BRAMMAIN, USA source only)
 * Sub CPU Backup RAM functions file (BRAMSUB)
 * Mega Drive initialization file (MDINIT)
 * FM sound driver (SMPS Z80)
