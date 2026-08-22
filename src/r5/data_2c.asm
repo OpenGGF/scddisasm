@@ -4,8 +4,16 @@
 ; Data (R52C)
 ; ------------------------------------------------------------------------------
 
+	if REGION=USA
+		include	"r5/usa_gfx_tail_2c.asm"
+	endif
+
 Padding1:
+	if REGION=USA
+		include	"r5/usa_pre_chunks_2c.asm"
+	else
 	incbin	"../padding/r52c_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r52c/chunks.bin"
