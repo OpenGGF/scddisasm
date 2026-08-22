@@ -443,6 +443,11 @@ loc_20F33E:
 	addq.b	#2,obj.anim_index(a0)
 
 locret_20F368:
+	if (REGION=USA)&(R7_VARIANT=10)
+		dc.w	$0001
+		move.b	1(a2),obj.anim_timer(a0)
+		addq.b	#2,obj.anim_index(a0)
+	endif
 	rts
 
 ; ------------------------------------------------------------------------------
