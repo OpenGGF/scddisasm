@@ -22,9 +22,6 @@ PLCLists:
 	dc.w	PLC_Section0-PLCLists
 	dc.w	PLC_Section0-PLCLists
 	dc.w	PLC_Results-PLCLists
-	dc.w	PLC_Section0-PLCLists
-	dc.w	PLC_Signpost-PLCLists
-	dc.w	PLC_GoalPost-PLCLists
 
 PLC_Stage:
 	dc.w	0
@@ -78,17 +75,3 @@ PLC_Results:
 	dc.w	0
 	dc.l	Art_Results
 	dc.w	$7880
-
-PLC_Signpost:
-	dc.w	2
-	dc.l	Art_Signpost
-	dc.w	$8780
-	dc.l	Art_BigRing
-	dc.w	$9100
-	dc.l	Art_BigRingFlash
-	dc.w	$7DE0
-
-PLC_GoalPost:
-	dc.w	0
-	dc.l	Art_GoalPost
-	dc.w	$9EE0

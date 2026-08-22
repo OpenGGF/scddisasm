@@ -142,7 +142,13 @@ MapSpr_FlowerCapsule:
 ; with a "align $20000"
 ; -------------------------------------------------------------------------
 
-	if ACT2_FUTURE_VARIANT=1
+	if STAGE_R13
+		if ACT2_FUTURE_VARIANT=1
+			incbin	"../padding/r13c_e_2.bin"
+		else
+			incbin	"../padding/r13d_e_2.bin"
+		endif
+	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"../padding/r12c_e_2.bin"
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"../padding/r12d_e_2.bin"
@@ -153,7 +159,11 @@ MapSpr_FlowerCapsule:
 ; -------------------------------------------------------------------------
 
 Art_Sonic:
-	incbin	"gfx/r1/player.unc"
+	if STAGE_R13
+		incbin	"gfx/player.unc"
+	else
+		incbin	"gfx/r1/player.unc"
+	endif
 	even
 MapSpr_Sonic:
 	include	"Level/_Objects/Sonic/Data/Mappings.asm"
