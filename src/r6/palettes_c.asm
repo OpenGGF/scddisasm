@@ -48,7 +48,7 @@ PaletteTable:
 	endif
 
 S1TitlePalette:
-	if R6_VARIANT<>2
+	if (R6_VARIANT<>2)&(R6_VARIANT<>8)
 	if STAGE_ACT<>1
 		dcb.b	5,0
 		dc.b	2, 0
