@@ -10,9 +10,9 @@ del /q out\files\*.* > nul 2>&1
 if %REGION%==0 (set REGIONDIR=japan)
 if %REGION%==1 (set REGIONDIR=usa)
 if %REGION%==2 (set REGIONDIR=europe)
-for %%F in (ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+for %%F in (ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
 if not "%REGION%"=="1" (
-    for %%F in (COME__.MMD PTEST.MMD THANKS_D.BIN) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+    for %%F in (COME__.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
 )
 
 cd src
@@ -86,6 +86,7 @@ if exist "..\out\files\DUMMY5.MMD" (
 %ASM68K% "Time Attack\Sub.asm", "..\out\files\ATTACK.BIN", , "Time Attack\Sub.lst"
 %ASM68K% "Thank You\Sub.asm", "..\out\files\THANKS_S.BIN", , "Thank You\Sub.lst"
 if %REGION%==1 (
+    %ASM68K% "Thank You\Main.asm", "..\out\files\THANKS_M.MMD", , "Thank You\Main.lst"
     %ASM68K% "Thank You\Data.asm", "..\out\files\THANKS_D.BIN", , "Thank You\Data.lst"
     %ASM68K% "Comin Soon\Main.asm", "..\out\files\COME__.MMD", , "Comin Soon\Main.lst"
     %ASM68K% "FMV\Main (Pencil Test).asm", "..\out\files\PTEST.MMD", , "FMV\Main (Pencil Test).lst"

@@ -240,11 +240,11 @@ stop_runtime
 # source-backed build step. Every reconstructed component must be regenerated
 # into a clean output directory instead of being inherited from the original.
 find "$ROOT_DIR/out/files" -mindepth 1 -maxdepth 1 -type f -delete
-for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM THANKS_M.MMD; do
+for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM; do
 	cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 done
 if [[ $REGION != 1 ]]; then
-	for file in COME__.MMD PTEST.MMD THANKS_D.BIN; do
+	for file in COME__.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
 		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 	done
 fi
@@ -346,6 +346,7 @@ assemble 'Title Screen\Secrets\Sound Test Image.asm' '..\out\files\DUMMY3.MMD' '
 assemble 'Time Attack\Sub.asm' '..\out\files\ATTACK.BIN' 'Time Attack\Sub.lst'
 assemble 'Thank You\Sub.asm' '..\out\files\THANKS_S.BIN' 'Thank You\Sub.lst'
 if [[ $REGION == 1 ]]; then
+	assemble 'Thank You\Main.asm' '..\out\files\THANKS_M.MMD' 'Thank You\Main.lst'
 	assemble 'Thank You\Data.asm' '..\out\files\THANKS_D.BIN' 'Thank You\Data.lst'
 	assemble 'Comin Soon\Main.asm' '..\out\files\COME__.MMD' 'Comin Soon\Main.lst'
 	assemble 'FMV\Main (Pencil Test).asm' '..\out\files\PTEST.MMD' 'FMV\Main (Pencil Test).lst'
