@@ -166,7 +166,11 @@ NullObject	EQU	ObjNull
 	include	"common/object_spawn.asm"
 	if QQ_VARIANT<8
 		if QQ_VARIANT<4
-			include	"r5/stage_object_maps_1.asm"
+			if (REGION=USA)&(QQ_VARIANT=0)
+				include	"r5/usa_stage_object_maps_1a.asm"
+			else
+				include	"r5/stage_object_maps_1.asm"
+			endif
 		else
 			include	"r5/stage_object_maps_2.asm"
 		endif
