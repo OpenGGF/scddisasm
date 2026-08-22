@@ -168,6 +168,7 @@ InitLevelScroll:
 	if ACT2_FUTURE_VARIANT=2
 		if ACT3_SCROLL_VARIANT
 			move.l	d0,d2
+			add.l	d2,d2
 			add.l	d2,d0
 		else
 		add.l	d0,d0
@@ -300,7 +301,13 @@ LevelScroll:
 	ext.l	d5
 	asl.l	#4,d5
 	if ACT2_FUTURE_VARIANT=2
+		if ACT3_SCROLL_VARIANT
+		move.l	d5,d3
 		add.l	d5,d5
+		add.l	d3,d5
+		else
+		add.l	d5,d5
+		endif
 	else
 	move.l	d5,d3
 	add.l	d5,d5

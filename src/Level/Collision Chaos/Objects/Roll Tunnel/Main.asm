@@ -72,9 +72,9 @@ ObjRollTunnel_Main:
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
 	cmpi.b	#$80,d0
-	bne.w	.Activate
+	bne.s	.Activate
 	neg.w	oPlayerGVel(a1)
-	bra.w	.Activate
+	bra.s	.Activate
 
 ; -------------------------------------------------------------------------
 
@@ -99,7 +99,17 @@ ObjRollTunnel_Main:
 	move.w	d0,oYVel(a1)
 	move.w	d0,oPlayerGVel(a1)
 	bset	#1,oFlags(a1)
-	bra.s	.Activate
+
+.Activate:
+	bset	#2,oFlags(a1)
+	bne.s	.End
+	move.b	#$E,oYRadius(a1)
+	move.b	#7,oWidth(a1)
+	addq.w	#5,oY(a1)
+	move.b	#2,oAnim(a1)
+
+.End:
+	rts
 
 ; -------------------------------------------------------------------------
 
@@ -127,7 +137,7 @@ ObjRollTunnel_Main:
 
 .SetControlledXSpeed:
 	cmpi.b	#2,oSubtype(a0)
-	bne.s	.SetControlledVelocity
+	beq.s	.SetControlledVelocity
 	bset	#1,oFlags(a1)
 
 .SetControlledVelocity:
@@ -139,26 +149,9 @@ ObjRollTunnel_Main:
 	tst.w	oXVel(a1)
 	bmi.s	.Activate
 	btst	#0,d1
-	beq.s	.Activate
+	beq.w	.Activate
 	move.w	#-$A00,d0
-	tst.w	oYVel(a1)
-	bpl.s	.SetReverseVelocity
-	neg.w	d0
-
-.SetReverseVelocity:
-	move.w	d0,oYVel(a1)
-	move.w	d0,oPlayerGVel(a1)
-
-.Activate:
-	bset	#2,oFlags(a1)
-	bne.s	.End
-	move.b	#$E,oYRadius(a1)
-	move.b	#7,oWidth(a1)
-	addq.w	#5,oY(a1)
-	move.b	#2,oAnim(a1)
-
-.End:
-	rts
+	bra.w	.SetVerticalGroundSpeed
 
 ; -------------------------------------------------------------------------
 
