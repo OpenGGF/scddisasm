@@ -6,9 +6,7 @@
 
 Padding1:
 	if REGION=USA
-		incbin	"../padding/r73c_e_1.bin",0,$9F2
-		include	"Level/USA Legacy Stage Tail B.asm"
-		incbin	"../padding/r73c_e_1.bin",$9F2,$16
+		include	"Level/USA Legacy R73C PreChunk Data.asm"
 	else
 		incbin	"../padding/r73c_e_1.bin"
 	endif
