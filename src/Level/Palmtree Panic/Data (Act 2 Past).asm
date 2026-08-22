@@ -54,7 +54,11 @@ LevelPaletteID:
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"../padding/r12d_e_1.bin"
 	else
-		incbin	"../padding/r12b_e_1.bin"
+		if REGION=USA
+			include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Past).asm"
+		else
+			incbin	"../padding/r12b_e_1.bin"
+		endif
 	endif
 
 ; -------------------------------------------------------------------------
@@ -194,6 +198,7 @@ Art_TimeStars:
 	incbin	"Level/_Objects/Powerup/Data/Art (Time Warp Stars).bin"
 	even
 Art_DiagonalSpring:
+Art_Spring45:
 	incbin	"Level/_Objects/Spring/Data/Art (Diagonal).nem"
 	even
 Art_Springs:
@@ -245,29 +250,11 @@ Art_Boulder:
 	incbin	"Level/_Objects/Boulder/Data/Art.nem"
 	even
 Art_FloatBlock:
+Art_Block:
 	incbin	"Level/_Objects/Floating Block/Data/Art.nem"
 	even
 Art_SpringWheel:
 	incbin	"Level/_Objects/Spring/Data/Art (Wheel).nem"
-	even
-Art_SpikesV2:
-	incbin	"gfx/spikes_v2.nem"
-	even
-Art_Block:
-	incbin	"gfx/r1/block.nem"
-	even
-Art_Swing:
-	incbin	"gfx/r1/swing.nem"
-	even
-Art_Spring45:
-	incbin	"gfx/spring_45.nem"
-	even
-Art_Splash:
-	incbin	"gfx/splash.nem"
-	even
-Art_RobotTransport:
-Art_RobotTransportB:
-	incbin	"gfx/robot_transport_b.nem"
 	even
 Art_SpinningDisc:
 	incbin	"Level/Palmtree Panic/Objects/Spinning Disc/Data/Art.nem"
@@ -281,6 +268,7 @@ Art_Waterfall:
 Art_TunnelDoor:
 	incbin	"Level/Palmtree Panic/Objects/Tunnel Door/Data/Art.nem"
 	even
+Art_Splash:
 Art_TunnelDoorSplash:
 	incbin	"Level/_Objects/Spin Tunnel/Data/Art (Door Splash).nem"
 	even
@@ -302,12 +290,15 @@ Art_Tamabboh:
 Art_Springboard:
 	incbin	"Level/Palmtree Panic/Objects/Springboard/Data/Art.nem"
 	even
+Art_Switch:
 Art_Button:
 	incbin	"Level/Palmtree Panic/Data/Unused/Art (Button).nem"
 	even
+Art_SpikesV2:
 Art_Spikes:
 	incbin	"Level/_Objects/Spikes/Data/Art.nem"
 	even
+Art_Swing:
 Art_SwingingPlatform:
 	incbin	"Level/Palmtree Panic/Data/Unused/Art (Swinging Platform).nem"
 	even
@@ -426,14 +417,14 @@ LevelLayoutNull:
 LevelLayoutUnk1:
 	incbin	"maps/ghz2_foreground.bin"
 	even
-LevelLayoutUnk2:
-	incbin	"maps/empty.bin"
-	even
 LevelLayoutUnk3:
 	incbin	"maps/empty.bin"
 	even
 LevelLayoutUnk4:
 	incbin	"maps/ghz3_foreground.bin"
+	even
+LevelLayoutUnk2:
+	incbin	"maps/empty.bin"
 	even
 LevelLayoutUnk5:
 	incbin	"maps/empty.bin"
@@ -441,9 +432,6 @@ LevelLayoutUnk5:
 
 ; -------------------------------------------------------------------------
 
-Art_SonicHole:
-	incbin	"Level/Palmtree Panic/Objects/Tunnel Path/Data/Art (Hole).nem"
-	even
 Art_Scenery:
 	if ACT2_FUTURE_VARIANT
 Art_SceneryCD:
@@ -489,6 +477,8 @@ StageGfx:
 		incbin	"maps/r12b/gfx.nem"
 	endif
 	even
+Art_RobotTransport:
+Art_RobotTransportB:
 Art_RobotGenerator:
 	incbin	"Level/_Objects/Robot Generator/Data/Art.nem"
 	even

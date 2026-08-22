@@ -194,7 +194,7 @@ InitLevelScroll:
 	move.w	d1,d2
 	add.w	d2,d2
 	add.w	d1,d2
-	move.w	d2,cameraBg2X.w
+	move.w	d1,cameraBg2X.w
 	lsr.w	#1,d1
 	move.w	d1,d2
 	add.w	d2,d2
@@ -206,8 +206,8 @@ InitLevelScroll:
 		lsr.w	#1,d1
 		move.w	d1,d2
 		add.w	d2,d2
-		add.w	d1,d2
-		move.w	d2,cameraBg2X.w
+		add.w	d2,d1
+		move.w	d1,cameraBg2X.w
 	endif
 
 	lea	deformBuffer.w,a2		; Clear cloud speeds
@@ -251,9 +251,15 @@ LevelScroll:
 	clr.w	scrollFlagsBg2.w
 	clr.w	scrollFlagsBg3.w
 
-	bsr.w	ScrollCamX			; Scroll camera horizontally
-	bsr.w	ScrollCamY			; Scroll camera vertically
-	bsr.w	RunLevelEvents			; Run level events
+	if ACT2_FUTURE_VARIANT
+		bsr.w	ScrollCamX			; Scroll camera horizontally
+		bsr.w	ScrollCamY			; Scroll camera vertically
+		bsr.w	RunLevelEvents			; Run level events
+	else
+		bsr.w	RunLevelEvents			; Run level events
+		bsr.w	ScrollCamX			; Scroll camera horizontally
+		bsr.w	ScrollCamY			; Scroll camera vertically
+	endif
 
 	move.w	cameraY.w,vscrollScreen.w	; Update VScroll values
 	move.w	cameraBgY.w,vscrollScreen+2.w
@@ -359,7 +365,7 @@ LevelScroll:
 	add.w	cameraBg3X.w,d1
 	neg.w	d1
 	moveq	#0,d5
-		lea	CloudLineCounts(pc),a3
+		lea	CloudLineCounts,a3
 	move.b	(a3,d6.w),d5
 
 .ScrollCloudsInner:
@@ -372,7 +378,7 @@ LevelScroll:
 	elseif ACT2_FUTURE_VARIANT=2
 		moveq	#7,d1				; Scroll mountains
 	else
-		moveq	#7,d1				; Scroll mountains
+		move.w	#7,d1				; Scroll mountains
 	endif
 	move.w	cameraBg3X.w,d0
 	neg.w	d0
@@ -402,7 +408,7 @@ LevelScroll:
 		move.w	d0,(a1)+
 		dbf	d1,.ScrollWaterfalls
 	else
-		moveq	#7,d1				; Scroll waterfalls
+		move.w	#7,d1				; Scroll waterfalls
 		move.w	cameraBg2X.w,d0
 		neg.w	d0
 
@@ -478,11 +484,13 @@ LevelScroll:
 	else
 		moveq	#$1D,d1
 		lea	(a2,d0.w),a2
-		bsr.w	FillHScroll
+		bra.w	FillHScroll
 	endif
 
+	if ACT2_FUTURE_VARIANT
 .End:
-	rts
+		rts
+	endif
 
 ; -------------------------------------------------------------------------
 ; Cloud-line repeat counts for each Act 2 time variant
@@ -885,7 +893,7 @@ DrawLevelBG1:
 	lea	BGCameraSectIDs,a0		; Prepare background section camera IDs
 	adda.w	#1,a0
 
-	move.w	#-$10,d4			; Prepare to draw a row at the top
+	moveq	#-16,d4				; Prepare to draw a row at the top
 
 	bclr	#0,(a2)				; Should we draw a row at the top?
 	bne.s	.GotRowPos			; If so, branch
@@ -1101,8 +1109,6 @@ InitLevelDrawBG:
 
 ; -------------------------------------------------------------------------
 
-	dc.w	0
-
 ; -------------------------------------------------------------------------
 ; Background camera sections
 ; -------------------------------------------------------------------------
@@ -1116,10 +1122,10 @@ InitLevelDrawBG:
 ; -------------------------------------------------------------------------
 
 BGCameraSectIDs:
-	BGSECT	112, BGSTATIC			; Offscreen row and clouds
-	BGSECT	160, BGDYNAMIC3			; Mountains
-	BGSECT	32,  BGDYNAMIC2			; Waterfalls
-	BGSECT	240, BGSTATIC			; Lower static background
+	BGSECT	144, BGSTATIC			; Offscreen row and clouds
+	BGSECT	64,  BGDYNAMIC3			; Mountains
+	BGSECT	64,  BGDYNAMIC2			; Waterfalls
+	BGSECT	272, BGSTATIC			; Lower static background
 
 ; -------------------------------------------------------------------------
 

@@ -166,7 +166,7 @@ PLC_Section3:
 	dc.w	$9200
 
 PLC_Section4:
-	dc.w	$A
+	dc.w	$9
 	dc.l	Art_SpikesV2
 	dc.w	$6600
 	dc.l	Art_Boulder
