@@ -6,7 +6,8 @@
 
 Padding1:
 	if REGION=USA
-		incbin	"../padding/r82c_e_1.bin",0,$6E
+		incbin	"../padding/r82c_e_1.bin",0,$9
+		include	"Level/USA Legacy R8 Animation Records.asm"
 		include	"Level/USA Legacy Stage Tail B.asm"
 		incbin	"../padding/r82c_e_1.bin",$6E,$16
 	else

@@ -6,7 +6,10 @@
 
 Padding1:
 	if REGION=USA
-		incbin	"../padding/r82b_e_1.bin",0,$1F4
+		incbin	"../padding/r82b_e_1.bin",0,$A3
+		dc.b	$3C
+		incbin	"../padding/r82b_e_1.bin",$A4,$EB
+		include	"Level/USA Legacy R8 Animation Records.asm"
 		include	"Level/USA Legacy Stage Tail B.asm"
 		incbin	"../padding/r82b_e_1.bin",$1F4,$16
 	else
