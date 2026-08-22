@@ -189,7 +189,11 @@ InitLevelScroll:
 
 	if ACT2_FUTURE_VARIANT
 		if ACT2_FUTURE_VARIANT=1
-			asr.w	#3,d1				; Get background X positions
+			if ACT3_SCROLL_VARIANT
+				asr.w	#3,d1				; Get background X positions
+			else
+				lsr.w	#3,d1				; Get background X positions
+			endif
 		else
 			lsr.w	#3,d1				; Get background X positions
 		endif
@@ -199,7 +203,11 @@ InitLevelScroll:
 	move.w	d1,cameraBgX.w
 	if ACT2_FUTURE_VARIANT
 	if ACT2_FUTURE_VARIANT=1
-		asr.w	#1,d1
+		if ACT3_SCROLL_VARIANT
+			asr.w	#1,d1
+		else
+			lsr.w	#1,d1
+		endif
 	else
 		lsr.w	#1,d1
 	endif
@@ -208,7 +216,11 @@ InitLevelScroll:
 	add.w	d1,d2
 	move.w	d2,cameraBg2X.w
 	if ACT2_FUTURE_VARIANT=1
-		asr.w	#1,d1
+		if ACT3_SCROLL_VARIANT
+			asr.w	#1,d1
+		else
+			lsr.w	#1,d1
+		endif
 	else
 		lsr.w	#1,d1
 	endif
