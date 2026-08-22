@@ -5,7 +5,12 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r71b_e_1.bin"
+	if REGION=USA
+		incbin	"../padding/r71b_e_1.bin"
+		include	"Level/USA Legacy Stage Tail A.asm"
+	else
+		incbin	"../padding/r71b_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r71b/chunks.bin"
