@@ -550,21 +550,33 @@ loc_2035DC:
 	moveq	#$F,d6
 
 loc_2035E0:
+	if REGION=USA
+	lea	unk_20361A,a0
+	else
 	movem.l	d4-d6/a0,-(sp)
 	lea	unk_20361A,a0
+	endif
 	btst	#0,r5_bg_change
 	beq.s	loc_2035FA
 	lea	unk_20365C,a0
 
 loc_2035FA:
 	adda.w	#1,a0
+	if REGION=USA
+loc_R5USA_InitStageDrawBg_Loop:
+	movem.l	d4-d6/a0,-(sp)
+	endif
 	move.w	scroll_bg_y,d0
 	add.w	d4,d0
 	andi.w	#$FFF0,d0
 	bsr.w	sub_20369E
 	movem.l	(sp)+,d4-d6/a0
 	addi.w	#$10,d4
+	if REGION=USA
+	dbf	d6,loc_R5USA_InitStageDrawBg_Loop
+	else
 	dbf	d6,loc_2035E0
+	endif
 	rts
 
 ; ------------------------------------------------------------------------------

@@ -1,5 +1,19 @@
 ; ------------------------------------------------------------------------------
 
+	if REGION=USA
+InitPlayerObjectPointer:
+		lea	player_object,a6
+		tst.b	use_player_2
+		beq.s	InitPlayerObjectPointer_Return
+		lea	player_object_2,a6
+
+InitPlayerObjectPointer_Return:
+		rts
+
+; ------------------------------------------------------------------------------
+
+	endif
+
 InitScroll:
 	lea	player_object,a6
 	moveq	#0,d0
@@ -42,6 +56,7 @@ unk_202A54:
 	dc.b	0
 	dc.b	$60
 
+	if REGION<>USA
 unk_202A60:
 	dc.b	0
 	dc.b	$50
@@ -75,6 +90,7 @@ unk_202A60:
 	dc.b	0
 	dc.b	2
 	dc.b	$AC
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -96,6 +112,14 @@ loc_202A9E:
 
 loc_202AA0:
 	lea	StagePlayerSpawn,a1
+	if REGION=USA
+		moveq	#0,d1
+		move.w	(a1)+,d1
+		move.w	d1,8(a6)
+		moveq	#0,d0
+		move.w	(a1),d0
+		move.w	d0,$C(a6)
+	else
 	tst.w	stage_demo
 	bpl.s	loc_202AC2
 	move.w	s1_credits_index,d0
@@ -119,6 +143,7 @@ loc_202ACC:
 	moveq	#0,d0
 	move.w	(a1),d0
 	move.w	d0,$C(a6)
+	endif
 
 loc_202ADC:
 	subi.w	#$A0,d1
@@ -209,9 +234,15 @@ loc_202B6E:
 	clr.w	scroll_flags_bg
 	clr.w	scroll_flags_bg2
 	clr.w	scroll_flags_bg3
+	if REGION=USA
+	bsr.w	StageEvents
+	bsr.w	ScrollFgX
+	bsr.w	ScrollFgY
+	else
 	bsr.w	ScrollFgX
 	bsr.w	ScrollFgY
 	bsr.w	StageEvents
+	endif
 	move.w	scroll_fg_y,scroll_y
 	move.w	scroll_bg_y,scroll_y+2
 	move.w	scroll_x_move,d4
