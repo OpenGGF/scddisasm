@@ -240,11 +240,11 @@ stop_runtime
 # source-backed build step. Every reconstructed component must be regenerated
 # into a clean output directory instead of being inherited from the original.
 find "$ROOT_DIR/out/files" -mindepth 1 -maxdepth 1 -type f -delete
-for file in ATTACK.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM; do
+for file in ATTACK.MMD BADEND.STM GOODEND.STM PTEST.STM; do
 	cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 done
 if [[ $REGION != 1 ]]; then
-	for file in BRAMMAIN.MMD COME__.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
+	for file in BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
 		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 	done
 fi
@@ -353,6 +353,7 @@ if [[ $REGION == 1 ]]; then
 	assemble 'Thank You\Data.asm' '..\out\files\THANKS_D.BIN' 'Thank You\Data.lst'
 	assemble 'Comin Soon\Main.asm' '..\out\files\COME__.MMD' 'Comin Soon\Main.lst'
 	assemble 'FMV\Main (Pencil Test).asm' '..\out\files\PTEST.MMD' 'FMV\Main (Pencil Test).lst'
+	assemble 'FMV\Main (Ending).asm' '..\out\files\ENDING.MMD' 'FMV\Main (Ending).lst'
 fi
 
 assemble 'FMV\Main (Opening).asm' '..\out\files\OPEN_M.MMD' 'FMV\Main (Opening).lst'

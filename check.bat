@@ -45,6 +45,7 @@ fc /b original\%REGPATH%\ATTACK.BIN out\files\ATTACK.BIN
 fc /b original\%REGPATH%\THANKS_S.BIN out\files\THANKS_S.BIN
 fc /b original\%REGPATH%\THANKS_D.BIN out\files\THANKS_D.BIN
 fc /b original\%REGPATH%\COME__.MMD out\files\COME__.MMD
+fc /b original\%REGPATH%\ENDING.MMD out\files\ENDING.MMD
 fc /b original\%REGPATH%\OPEN_M.MMD out\files\OPEN_M.MMD
 fc /b original\%REGPATH%\OPEN_S.BIN out\files\OPEN_S.BIN
 fc /b original\%REGPATH%\OPN.STM out\files\OPN.STM

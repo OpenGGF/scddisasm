@@ -114,6 +114,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 * "Thank You" screen Nemesis graphics data (THANKS_D.BIN, USA source only)
 * FMVs
     - Opening FMV (OPEN_M, OPEN_S, OPN.STM)
+    - Ending FMV main CPU program (ENDING.MMD, USA source only)
     - Good ending Sub CPU program (BADEND.BIN, not a typo)
     - Bad ending Sub CPU program (GOODEND.BIN, not a typo)
     - Pencil test main CPU program (PTEST.MMD, USA source only)
