@@ -23,9 +23,19 @@ LevelPaletteID:
 
 Padding1:
 	if ACT2_FUTURE_VARIANT=1
-		incbin	"../padding/r13c_e_1.bin"
+		if REGION=USA
+			incbin	"../padding/r13c_e_1.bin",0,$1A1E
+			include	"Level/USA Legacy Animation Tail.asm"
+		else
+			incbin	"../padding/r13c_e_1.bin"
+		endif
 	else
-		incbin	"../padding/r13d_e_1.bin"
+		if REGION=USA
+			incbin	"../padding/r13d_e_1.bin",0,$125A
+			include	"Level/USA Legacy Animation Tail.asm"
+		else
+			incbin	"../padding/r13d_e_1.bin"
+		endif
 	endif
 
 LevelChunks:

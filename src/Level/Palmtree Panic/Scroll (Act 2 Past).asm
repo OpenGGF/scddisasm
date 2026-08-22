@@ -142,7 +142,11 @@ LevelSizeLoad_StartPos:
 
 LevelStartLoc:
 	if ACT3_SCROLL_VARIANT
-		dc.w	$40, $A2
+		if REGION=USA
+			dc.w	$40, $2A2
+		else
+			dc.w	$40, $A2
+		endif
 	else
 		dc.w	$50, $185
 	endif
@@ -184,18 +188,30 @@ InitLevelScroll:
 	move.w	d0,cameraBg3Y.w
 
 	if ACT2_FUTURE_VARIANT
-		lsr.w	#3,d1				; Get background X positions
+		if ACT2_FUTURE_VARIANT=1
+			asr.w	#3,d1				; Get background X positions
+		else
+			lsr.w	#3,d1				; Get background X positions
+		endif
 	else
 		lsr.w	#1,d1				; Get background X positions
 	endif
 	move.w	d1,cameraBgX.w
 	if ACT2_FUTURE_VARIANT
-	lsr.w	#1,d1
+	if ACT2_FUTURE_VARIANT=1
+		asr.w	#1,d1
+	else
+		lsr.w	#1,d1
+	endif
 	move.w	d1,d2
 	add.w	d2,d2
 	add.w	d1,d2
 	move.w	d2,cameraBg2X.w
-	lsr.w	#1,d1
+	if ACT2_FUTURE_VARIANT=1
+		asr.w	#1,d1
+	else
+		lsr.w	#1,d1
+	endif
 	move.w	d1,d2
 	add.w	d2,d2
 	add.w	d1,d2

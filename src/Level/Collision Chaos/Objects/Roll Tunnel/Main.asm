@@ -100,13 +100,17 @@ ObjRollTunnel_Main:
 	move.w	d0,oPlayerGVel(a1)
 	bset	#1,oFlags(a1)
 
-.Activate:
-	bset	#2,oFlags(a1)
-	bne.s	.End
-	move.b	#$E,oYRadius(a1)
-	move.b	#7,oWidth(a1)
-	addq.w	#5,oY(a1)
-	move.b	#2,oAnim(a1)
+	.Activate:
+		bset	#2,oFlags(a1)
+		bne.s	.End
+		move.b	#$E,oYRadius(a1)
+		if REGION=USA
+			move.b	#7,oXRadius(a1)
+		else
+			move.b	#7,oWidth(a1)
+		endif
+		addq.w	#5,oY(a1)
+		move.b	#2,oAnim(a1)
 
 .End:
 	rts
@@ -156,7 +160,11 @@ ObjRollTunnel_Main:
 ; -------------------------------------------------------------------------
 
 ObjRollTunnel_CheckPlayer:
-	tst.w	debugMode
+	if REGION=USA
+		tst.b	debugMode
+	else
+		tst.w	debugMode
+	endif
 	bne.s	.NoCollision
 	move.w	oX(a1),d0
 	sub.w	oX(a0),d0

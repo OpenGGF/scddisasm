@@ -6,7 +6,11 @@
 
 DebugItemIndex:
 	DBSTART
-	DBGITEM	$1B, 1, MapSpr_Boulder,       $4FE, 0, 0, 0, 0
+	if REGION=USA
+		DBGITEM	$1B, 1, MapSpr_Boulder,       $4FE, 0, 0, 1, 0
+	else
+		DBGITEM	$1B, 1, MapSpr_Boulder,       $4FE, 0, 0, 0, 0
+	endif
 	DBGITEM	$0A, 1, MapSpr_Spring1,       $520, 0, 0, 0, 0
 	DBGITEM	$0A, 1, MapSpr_Spring1,       $520, 0, 2, 0, 0
 	DBGITEM	$0A, 1, MapSpr_Spring2,       $520, 4, 0, 0, 0

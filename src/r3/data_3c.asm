@@ -5,7 +5,18 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r33c_e_1.bin"
+	if REGION=USA
+		incbin	"../padding/r33c_e_1.bin",0,$38F
+		dc.b	$DE
+		incbin	"../padding/r33c_e_1.bin",$390,$223
+		dc.b	$D0
+		incbin	"../padding/r33c_e_1.bin",$5B4,$F5
+		dc.b	$3C
+		incbin	"../padding/r33c_e_1.bin",$6AA,2
+		include	"Level/USA Legacy Animation Tail.asm"
+	else
+		incbin	"../padding/r33c_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r33c/chunks.bin"
