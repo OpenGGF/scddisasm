@@ -509,6 +509,8 @@ InitStageDraw:
 	lea	stage_map,a4
 	move.w	#$4000,d2
 	bsr.s	InitStageDrawFg
+
+InitStageDrawBg:
 	lea	VDP_CTRL,a5
 	lea	VDP_DATA,a6
 	lea	scroll_bg_x,a3
