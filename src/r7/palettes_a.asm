@@ -39,7 +39,7 @@ S1TitlePalette:
 	dc.b	$CE, 0, $8A, 0, $44, 0, $22, 0, $EA, $E, $EE, 0, $E0
 
 S1LevelSelectPalette:
-	if STAGE_ACT=0
+	if (STAGE_ACT=0)&(REGION<>USA)
 		dcb.b	5,0
 		dc.b	2, 0
 		dcb.b	2,2
