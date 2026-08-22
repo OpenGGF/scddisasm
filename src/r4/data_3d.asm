@@ -6,6 +6,10 @@
 
 Padding1:
 	incbin	"../padding/r43d_e_1.bin"
+	if REGION=USA
+		; The USA table continues through the fixed $10000 boundary.
+		dc.w	$8BA0, 0, $23
+	endif
 
 StageChunks:
 	incbin	"maps/r43d/chunks.bin"
