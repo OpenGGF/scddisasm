@@ -6,9 +6,7 @@
 
 Padding1:
 	if REGION=USA
-		incbin	"../padding/r72a_e_1.bin",0,$60
-		include	"Level/USA Legacy Stage Tail B.asm"
-		incbin	"../padding/r72a_e_1.bin",$60,$16
+		include	"Level/USA Legacy R72A Prefix.asm"
 	else
 		incbin	"../padding/r72a_e_1.bin"
 	endif
@@ -17,7 +15,11 @@ StageChunks:
 	incbin	"maps/r72a/chunks.bin"
 
 Padding2:
-	incbin	"../padding/r72a_e_2.bin"
+	if REGION=USA
+		include	"Level/USA Legacy R72 Animation Tail.asm"
+	else
+		incbin	"../padding/r72a_e_2.bin"
+	endif
 
 PlayerGfx:
 	incbin	"gfx/player.unc"
@@ -405,6 +407,12 @@ KabasiraGfx:
 	incbin	"gfx/r7/kabasira.nem"
 
 Padding3:
-	incbin	"../padding/r72a_e_3.bin"
+	if REGION=USA
+		incbin	"../padding/r72a_e_3.bin",0,$3D2
+		include	"Level/USA Legacy R72 Graphics Tail Corrected.asm"
+		incbin	"../padding/r72a_e_3.bin",$225C,$14E
+	else
+		incbin	"../padding/r72a_e_3.bin"
+	endif
 
 ; ------------------------------------------------------------------------------
