@@ -1,197 +1,65 @@
 .Map:
-	dc.w	unk_20C5F8-.Map
-	dc.w	unk_20C5F8-.Map
-unk_20C5F8:
-	dc.b $12
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $D0 ; -
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $E0 ; a
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $F0 ; =
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b   0
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $10
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $20
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $D0 ; -
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $E0 ; a
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $F0 ; =
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b   0
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $10
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $20
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $D0 ; -
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $E0 ; a
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $F0 ; =
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b   0
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $10
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $20
-	dc.b $14
-	dc.b $D0 ; -
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $E0 ; a
-	dc.b $D0 ; -
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $F0 ; =
-	dc.b $D0 ; -
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b   0
-	dc.b $D0 ; -
-	dc.b   5
-	dc.b   0
-	dc.b  $D
-	dc.b $10
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $E0 ; a
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $F0 ; =
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b   0
-	dc.b $E0 ; a
-	dc.b   5
-	dc.b   0
-	dc.b $11
-	dc.b $10
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $E0 ; a
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $F0 ; =
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b   0
-	dc.b $F0 ; =
-	dc.b   5
-	dc.b   0
-	dc.b $15
-	dc.b $10
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $29 ; )
-	dc.b $E0 ; a
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $33 ; 3
-	dc.b $F0 ; =
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $33 ; 3
-	dc.b   0
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $33 ; 3
-	dc.b $10
-	dc.b $10
-	dc.b   5
-	dc.b   0
-	dc.b $31 ; 1
-	dc.b $E0 ; a
-	dc.b $10
-	dc.b   5
-	dc.b   0
-	dc.b $2B ; +
-	dc.b $F0 ; =
-	dc.b $10
-	dc.b   5
-	dc.b   0
-	dc.b $2B ; +
-	dc.b   0
-	dc.b $10
-	dc.b   5
-	dc.b   0
-	dc.b $2B ; +
-	dc.b $10
-	even
+	dc.w	.Frame0-.Map
+	dc.w	.Frame1-.Map
+
+.Frame0:
+	dc.b	$20
+	dc.b	$D8, 5, 0, $D, $C0
+	dc.b	$D8, 5, 0, $D, $D0
+	dc.b	$D8, 5, 0, $D, $E0
+	dc.b	$D8, 5, 0, $D, $F0
+	dc.b	$D8, 5, 0, $D, 0
+	dc.b	$D8, 5, 0, $D, $10
+	dc.b	$D8, 5, 0, $D, $20
+	dc.b	$D8, 5, 0, $D, $30
+	dc.b	$E8, 5, 0, $11, $C0
+	dc.b	$E8, 5, 0, $11, $D0
+	dc.b	$E8, 5, 0, $11, $E0
+	dc.b	$E8, 5, 0, $11, $F0
+	dc.b	$E8, 5, 0, $11, 0
+	dc.b	$E8, 5, 0, $11, $10
+	dc.b	$E8, 5, 0, $11, $20
+	dc.b	$E8, 5, 0, $11, $30
+	dc.b	$F8, 5, 0, $15, $C0
+	dc.b	$F8, 5, 0, $15, $D0
+	dc.b	$F8, 5, 0, $15, $E0
+	dc.b	$F8, 5, 0, $15, $F0
+	dc.b	$F8, 5, 0, $15, 0
+	dc.b	$F8, 5, 0, $15, $10
+	dc.b	$F8, 5, 0, $15, $20
+	dc.b	$F8, 5, 0, $15, $30
+	dc.b	8, 5, 0, $21, $C0
+	dc.b	8, 5, 0, $21, $D0
+	dc.b	8, 5, 0, $21, $E0
+	dc.b	8, 5, 0, $21, $F0
+	dc.b	8, 5, 0, $21, 0
+	dc.b	8, 5, 0, $21, $10
+	dc.b	8, 5, 0, $21, $20
+	dc.b	8, 5, 0, $21, $30
+
+.Frame1:
+	dc.b	$18
+	dc.b	$E0, 5, 0, $D, $C0
+	dc.b	$E0, 5, 0, $D, $D0
+	dc.b	$E0, 5, 0, $D, $E0
+	dc.b	$E0, 5, 0, $D, $F0
+	dc.b	$E0, 5, 0, $D, 0
+	dc.b	$E0, 5, 0, $D, $10
+	dc.b	$E0, 5, 0, $D, $20
+	dc.b	$E0, 5, 0, $D, $30
+	dc.b	$F0, 5, 0, $11, $C0
+	dc.b	$F0, 5, 0, $11, $D0
+	dc.b	$F0, 5, 0, $11, $E0
+	dc.b	$F0, 5, 0, $11, $F0
+	dc.b	$F0, 5, 0, $11, 0
+	dc.b	$F0, 5, 0, $11, $10
+	dc.b	$F0, 5, 0, $11, $20
+	dc.b	$F0, 5, 0, $11, $30
+	dc.b	0, 5, 0, $15, $C0
+	dc.b	0, 5, 0, $15, $D0
+	dc.b	0, 5, 0, $15, $E0
+	dc.b	0, 5, 0, $15, $F0
+	dc.b	0, 5, 0, $15, 0
+	dc.b	0, 5, 0, $15, $10
+	dc.b	0, 5, 0, $15, $20
+	dc.b	0, 5, 0, $15, $30

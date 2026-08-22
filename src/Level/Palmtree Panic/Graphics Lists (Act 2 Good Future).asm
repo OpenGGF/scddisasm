@@ -114,7 +114,7 @@ PLC_Section1:
 	dc.w	$8C20
 
 PLC_Section2:
-	dc.w	9
+	dc.w	8
 	dc.l	Art_SpikesV2
 	dc.w	$6400
 	dc.l	Art_SpringWheel
@@ -135,7 +135,7 @@ PLC_Section2:
 	dc.w	$8C20
 
 PLC_Section3:
-	dc.w	$A
+	dc.w	9
 	dc.l	Art_SpikesV2
 	dc.w	$6400
 	dc.l	Art_SpringWheel
@@ -158,7 +158,7 @@ PLC_Section3:
 	dc.w	$8C20
 
 PLC_Section4:
-	dc.w	$A
+	dc.w	9
 	dc.l	Art_SpikesV2
 	dc.w	$6400
 	dc.l	Art_SpringWheel
@@ -181,7 +181,7 @@ PLC_Section4:
 	dc.w	$8C20
 
 PLC_Section5:
-	dc.w	9
+	dc.w	8
 	dc.l	Art_SpikesV2
 	dc.w	$6400
 	dc.l	Art_SpringWheel

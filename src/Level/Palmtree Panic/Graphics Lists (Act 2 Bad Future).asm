@@ -110,7 +110,7 @@ PLC_Section1:
 	dc.w	$9EE0
 
 PLC_Section2:
-	dc.w	8
+	dc.w	7
 	dc.l	Art_Block
 	dc.w	$6B40
 	dc.l	Art_Boulder
@@ -129,7 +129,7 @@ PLC_Section2:
 	dc.w	$9EE0
 
 PLC_Section3:
-	dc.w	9
+	dc.w	8
 	dc.l	Art_Block
 	dc.w	$6B40
 	dc.l	Art_Boulder
@@ -150,7 +150,7 @@ PLC_Section3:
 	dc.w	$9EE0
 
 PLC_Section4:
-	dc.w	9
+	dc.w	8
 	dc.l	Art_Block
 	dc.w	$6B40
 	dc.l	Art_Boulder
@@ -171,7 +171,7 @@ PLC_Section4:
 	dc.w	$9EE0
 
 PLC_Section5:
-	dc.w	8
+	dc.w	7
 	dc.l	Art_Block
 	dc.w	$6B40
 	dc.l	Art_Boulder

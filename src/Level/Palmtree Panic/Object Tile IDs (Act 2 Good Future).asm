@@ -36,16 +36,16 @@ ObjectTileIDs:
 	dc.w	$2426
 .SpriteTilesA:
 	dc.w	$434A
-.SpriteTilesC:
-	dc.w	$370
-.SpriteTilesE:
-	dc.w	$3DC
-.SpriteTiles10:
-	dc.w	$4000
-.SpriteTiles12:
-	dc.w	$4000
 .SpriteTiles14:
 	dc.w	$320
+.SpriteTilesE:
+	dc.w	$3DC
+.SpriteTiles12:
+	dc.w	$4000
+.SpriteTiles10:
+	dc.w	$4000
+.SpriteTilesC:
+	dc.w	$370
 .SpriteTiles16:
 	dc.w	$35C
 .SpriteTiles18:

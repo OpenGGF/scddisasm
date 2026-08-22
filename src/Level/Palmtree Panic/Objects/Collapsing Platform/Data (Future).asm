@@ -31,13 +31,20 @@ MapSpr_CollapsePlatform2:
 	even
 
 ObjCollapsePlatform_Sizes2:
-	dc.w	byte_20C790-ObjCollapsePlatform_Sizes2
-	dc.w	byte_20C790-ObjCollapsePlatform_Sizes2
-byte_20C790:
-	dc.b	5, 1
+	dc.w	ObjCollapsePlatform_Size2_0-ObjCollapsePlatform_Sizes2
+	dc.w	ObjCollapsePlatform_Size2_1-ObjCollapsePlatform_Sizes2
+ObjCollapsePlatform_Size2_0:
+	dc.b	7, 2
 	dc.b	0, 0
 	dc.b	0, 0
 	dc.b	0, 0
+	dc.b	0, 0
+ObjCollapsePlatform_Size2_1:
+	dc.b	7, 1
+	dc.b	1, 1
+	dc.b	1, 1
+	dc.b	1, 1
+	dc.b	1, 1
 	even
 	
 MapSpr_CollapsePlatform4:

@@ -4,4 +4,4 @@
 ; Palmtree Panic Act 2 Bad Future data
 ; -------------------------------------------------------------------------
 
-	include	"Level/Palmtree Panic/Data (Act 2 Past).asm"
+	include	"Level/Palmtree Panic/Data (Act 2 Future).asm"

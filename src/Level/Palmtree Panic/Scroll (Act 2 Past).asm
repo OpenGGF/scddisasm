@@ -170,8 +170,7 @@ InitLevelScroll:
 			move.l	d0,d2
 			add.l	d2,d0
 		else
-		move.l	d0,d2
-		add.l	d2,d0
+		add.l	d0,d0
 		endif
 	else
 	move.l	d0,d2
@@ -194,7 +193,7 @@ InitLevelScroll:
 	move.w	d1,d2
 	add.w	d2,d2
 	add.w	d1,d2
-	move.w	d1,cameraBg2X.w
+	move.w	d2,cameraBg2X.w
 	lsr.w	#1,d1
 	move.w	d1,d2
 	add.w	d2,d2
@@ -251,15 +250,9 @@ LevelScroll:
 	clr.w	scrollFlagsBg2.w
 	clr.w	scrollFlagsBg3.w
 
-	if ACT2_FUTURE_VARIANT
-		bsr.w	ScrollCamX			; Scroll camera horizontally
-		bsr.w	ScrollCamY			; Scroll camera vertically
-		bsr.w	RunLevelEvents			; Run level events
-	else
-		bsr.w	RunLevelEvents			; Run level events
-		bsr.w	ScrollCamX			; Scroll camera horizontally
-		bsr.w	ScrollCamY			; Scroll camera vertically
-	endif
+	bsr.w	RunLevelEvents			; Run level events
+	bsr.w	ScrollCamX			; Scroll camera horizontally
+	bsr.w	ScrollCamY			; Scroll camera vertically
 
 	move.w	cameraY.w,vscrollScreen.w	; Update VScroll values
 	move.w	cameraBgY.w,vscrollScreen+2.w
@@ -374,9 +367,9 @@ LevelScroll:
 	dbf	d6,.ScrollCloudsOuter
 
 	if ACT2_FUTURE_VARIANT=1
-		moveq	#5,d1				; Scroll mountains
+		move.w	#5,d1				; Scroll mountains
 	elseif ACT2_FUTURE_VARIANT=2
-		moveq	#7,d1				; Scroll mountains
+		move.w	#7,d1				; Scroll mountains
 	else
 		move.w	#7,d1				; Scroll mountains
 	endif
@@ -388,7 +381,7 @@ LevelScroll:
 	dbf	d1,.ScrollMountains
 
 	if ACT2_FUTURE_VARIANT
-		moveq	#1,d1				; Scroll the middle background
+		move.w	#1,d1				; Scroll the middle background
 		move.w	cameraBgX.w,d0
 		neg.w	d0
 
@@ -397,9 +390,9 @@ LevelScroll:
 		dbf	d1,.ScrollBackground
 
 		if ACT2_FUTURE_VARIANT=1
-			moveq	#7,d1				; Scroll waterfalls
+			move.w	#7,d1				; Scroll waterfalls
 		else
-			moveq	#5,d1				; Scroll waterfalls
+			move.w	#5,d1				; Scroll waterfalls
 		endif
 		move.w	cameraBg2X.w,d0
 		neg.w	d0
@@ -444,7 +437,7 @@ LevelScroll:
 		moveq	#$1F,d1
 		moveq	#$1C,d5
 		sub.w	d3,d1
-		bcs.s	.InterpolateHScroll
+		bcs.s	.SkipFillHScrollC
 		cmpi.w	#$1B,d1
 		bcs.s	.FillHScrollC
 		moveq	#$1B,d1
@@ -454,7 +447,13 @@ LevelScroll:
 		lea	(a2,d0.w),a2
 		bsr.w	FillHScroll
 
-.InterpolateHScroll:
+.SkipFillHScrollC:
+		bra.w	LevelScroll_InterpolateHScroll
+
+CloudLineCounts:
+		dc.b	1, 3, 3, 3, 1, 0
+
+LevelScroll_InterpolateHScroll:
 		move.w	cameraBg2X.w,d0
 		move.w	cameraX.w,d2
 		sub.w	d0,d2
@@ -480,15 +479,18 @@ LevelScroll:
 	elseif ACT2_FUTURE_VARIANT=2
 		moveq	#$1C,d1
 		lea	(a2,d0.w),a2
-		bsr.w	FillHScroll
+		bra.w	FillHScroll
+
+CloudLineCounts:
+		dc.b	0, 4, 3, 3
 	else
 		moveq	#$1D,d1
 		lea	(a2,d0.w),a2
 		bra.w	FillHScroll
 	endif
 
-	if ACT2_FUTURE_VARIANT
-.End:
+	if ACT2_FUTURE_VARIANT=1
+	.End:
 		rts
 	endif
 
@@ -496,12 +498,8 @@ LevelScroll:
 ; Cloud-line repeat counts for each Act 2 time variant
 ; -------------------------------------------------------------------------
 
-CloudLineCounts:
-	if ACT2_FUTURE_VARIANT=1
-		dc.b	1, 3, 3, 3, 1, 0
-	elseif ACT2_FUTURE_VARIANT=2
-		dc.b	0, 4, 3, 3
-	else
+	if ACT2_FUTURE_VARIANT=0
+	CloudLineCounts:
 		dc.b	1, 1, 1, 1, 1, 1, 1, 1
 	endif
 
@@ -524,6 +522,19 @@ FillHScroll:
 	endr
 	dbf	d1,.FillHScrollLoop
 	rts
+
+	if ACT2_FUTURE_VARIANT
+		neg.w	d0
+		jmp	.FillHScrollBlock2(pc,d2.w)
+		neg.w	d0
+
+.FillHScrollBlock2:
+		rept	8
+			move.l	d0,(a1)+
+		endr
+		dbf	d1,.FillHScrollLoop
+		rts
+	endif
 
 ; -------------------------------------------------------------------------
 ; Scroll the camera horizontally
@@ -1122,10 +1133,27 @@ InitLevelDrawBG:
 ; -------------------------------------------------------------------------
 
 BGCameraSectIDs:
+	if ACT2_FUTURE_VARIANT=2
+	BGSECT	128, BGSTATIC			; Offscreen row and clouds
+	else
 	BGSECT	144, BGSTATIC			; Offscreen row and clouds
+	endif
+	if ACT2_FUTURE_VARIANT=1
+	BGSECT	48,  BGDYNAMIC3			; Mountains
+	BGSECT	16,  BGDYNAMIC1			; Bushes
+	BGSECT	64,  BGDYNAMIC2			; Waterfalls
+	elseif ACT2_FUTURE_VARIANT=2
+	BGSECT	64,  BGDYNAMIC3			; Mountains
+	BGSECT	16,  BGDYNAMIC1			; Bushes
+	BGSECT	48,  BGDYNAMIC2			; Waterfalls
+	else
 	BGSECT	64,  BGDYNAMIC3			; Mountains
 	BGSECT	64,  BGDYNAMIC2			; Waterfalls
+	endif
 	BGSECT	272, BGSTATIC			; Lower static background
+	if ACT2_FUTURE_VARIANT=2
+	dc.b	0				; R12D keeps the table on an even boundary
+	endif
 
 ; -------------------------------------------------------------------------
 
