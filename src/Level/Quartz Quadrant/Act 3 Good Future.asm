@@ -10,4 +10,4 @@ STAGE_ACT	EQU	2
 STAGE_TIME	EQU	2
 STAGE_GOOD_FUTURE	EQU	1
 
-	include	"Level/Quartz Quadrant/Act Shared.asm"
+	include	"Level/Quartz Quadrant/R5 Act 3 Shared.asm"

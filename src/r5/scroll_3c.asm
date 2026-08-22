@@ -1,5 +1,16 @@
 ; ------------------------------------------------------------------------------
 
+GetPlayerObject:
+	lea	player_object,a6
+	tst.b	use_player_2
+	beq.s	locret_20281E
+	lea	player_object_2,a6
+
+locret_20281E:
+	rts
+
+; ------------------------------------------------------------------------------
+
 InitScroll:
 	lea	player_object,a6
 	moveq	#0,d0
@@ -195,9 +206,9 @@ loc_20295A:
 	clr.w	scroll_flags_bg
 	clr.w	scroll_flags_bg2
 	clr.w	scroll_flags_bg3
+	bsr.w	StageEvents
 	bsr.w	ScrollFgX
 	bsr.w	ScrollFgY
-	bsr.w	StageEvents
 	move.w	scroll_fg_y,scroll_y
 	move.w	scroll_bg_y,scroll_y+2
 	move.w	scroll_x_move,d4

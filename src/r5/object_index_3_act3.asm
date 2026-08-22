@@ -1,0 +1,70 @@
+; ------------------------------------------------------------------------------
+
+ObjectIndex:
+	dc.l	PlayerObject
+	dc.l	PlayerObject
+	dc.l	PowerupObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	TestObject
+	dc.l	TunnelPathObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	SpringObject
+	dc.l	HDoorSplashObject
+	dc.l	HDoorSplashSetObject
+	dc.l	HDoorObject
+	dc.l	TunnelSplashObject
+	dc.l	MoveSpringObject
+	dc.l	RingObject
+	dc.l	LostRingObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	BigRingObject
+	dc.l	CapsuleObject
+	dc.l	GoalObject
+	dc.l	SignpostObject
+	dc.l	ExplosionObject
+	dc.l	MonitorTimeObject
+	dc.l	MonitorItemObject
+	dc.l	BoulderObject
+	dc.l	HudPointsObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	FlowerObject
+	dc.l	BossSparksObject
+	dc.l	SpikeWallObject
+	dc.l	BossBeltObject
+	dc.l	BossExplosionObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	CollapseFloorObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	NullObject
+	dc.l	PlatformObject
+	dc.l	NullObject
+	dc.l	EggmanObject
+	dc.l	BossTopObject
+	dc.l	BossBoothObject
+	dc.l	BossBoothBackObject
+	dc.l	BossPipesObject
+	dc.l	BombDropperObject
+	dc.l	LargeBombObject
+	dc.l	SmallBombObject
+	dc.l	ResultsObject
+	dc.l	GameOverObject
+	dc.l	TitleCardObject
+
+; ------------------------------------------------------------------------------
+
+; Null object routine used by unused object IDs.
+ObjNull:
+	move.b	#0,(a0)
+	rts
