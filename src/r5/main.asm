@@ -863,6 +863,8 @@ loc_201DBC:
 	movem.l	scroll_flags_fg,d0-d1
 	movem.l	d0-d1,scroll_flags_fg_work
 	if REGION=USA
+
+VBlankDrawStage:
 		bclr	#0,r5_usa_unknown_195c
 		beq.s	sub_201DDE
 		jmp	InitStageDrawBg
@@ -1102,7 +1104,11 @@ locret_2020EE:
 loc_2020F0:
 	clr.b	do_hblank_updates
 	movem.l	d0-d7/a0-a6,-(sp)
+	if REGION=USA
+	bsr.w	VBlankDrawStage
+	else
 	bsr.w	sub_201DDE
+	endif
 	movem.l	(sp)+,d0-d7/a0-a6
 	rte
 

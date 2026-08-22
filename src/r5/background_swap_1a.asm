@@ -3,7 +3,7 @@
 CheckBackgroundSwap:
 	if REGION=USA
 		tst.b	scroll_flags_fg
-		bne.s	loc_R5USA_CheckBackgroundSwap_Return
+		bne.s	loc_R5USA_CheckBackgroundSwap_DirectReturn
 		moveq	#0,d2
 		lea	word_R5USA_CheckBackgroundSwap_Thresholds,a0
 
@@ -18,6 +18,8 @@ loc_R5USA_CheckBackgroundSwap_Loop:
 loc_R5USA_CheckBackgroundSwap_Return:
 		cmp.b	r5_bg_change,d2
 		bne.s	loc_R5USA_CheckBackgroundSwap_Change
+
+loc_R5USA_CheckBackgroundSwap_DirectReturn:
 		rts
 
 loc_R5USA_CheckBackgroundSwap_Change:

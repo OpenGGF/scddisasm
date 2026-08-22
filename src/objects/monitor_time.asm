@@ -453,7 +453,7 @@ loc_2092E0:
 
 loc_2092E6:
 	move.b	#1,invincible
-	if (STAGE_ZONE=4)|((REGION=USA)&(STAGE_ZONE=2))
+	if (STAGE_ZONE=4)|((REGION=USA)&((STAGE_ZONE=2)|(STAGE_ZONE=3)))
 		move.w	#$528,player_object+obj.var_32
 	else
 	move.w	#$4B0,player_object+obj.var_32
@@ -487,7 +487,7 @@ loc_209342:
 
 loc_209348:
 	move.b	#1,speed_shoes
-	if (STAGE_ZONE=4)|((REGION=USA)&(STAGE_ZONE=2))
+	if (STAGE_ZONE=4)|((REGION=USA)&((STAGE_ZONE=2)|(STAGE_ZONE=3)))
 		move.w	#$528,player_object+obj.var_34
 	else
 	move.w	#$4B0,player_object+obj.var_34
