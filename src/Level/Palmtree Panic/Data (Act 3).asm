@@ -25,6 +25,7 @@ Padding1:
 	if ACT2_FUTURE_VARIANT=1
 		if REGION=USA
 			incbin	"../padding/r13c_e_1.bin",0,$1A1E
+			include	"Level/USA Legacy R13 Prefix.asm"
 			include	"Level/USA Legacy Animation Tail.asm"
 		else
 			incbin	"../padding/r13c_e_1.bin"
@@ -32,6 +33,7 @@ Padding1:
 	else
 		if REGION=USA
 			incbin	"../padding/r13d_e_1.bin",0,$125A
+			include	"Level/USA Legacy R13 Prefix.asm"
 			include	"Level/USA Legacy Animation Tail.asm"
 		else
 			incbin	"../padding/r13d_e_1.bin"
