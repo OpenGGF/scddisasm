@@ -118,6 +118,12 @@ MetalSonicObject_1_RoutineA:
 	addq.b	#1,obj.var_2d(a0)
 	move.w	#$3C,obj.var_2a(a0)
 	move.w	#$20,d0
+	if (REGION=USA)&(R7_VARIANT=10)
+		tst.b	$FF156A.l
+		beq.s	.NoLegacySubCpuCommand
+		move.w	#$1F,d0
+	.NoLegacySubCpuCommand:
+	endif
 	movem.l	a0-a2,-(sp)
 	jsr	SubCpuCommand
 	movem.l	(sp)+,a0-a2
