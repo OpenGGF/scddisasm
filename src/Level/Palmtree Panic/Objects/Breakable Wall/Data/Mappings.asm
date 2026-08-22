@@ -1,299 +1,117 @@
-.Map:
-	dc.w	unk_20FA0C-.Map
-	dc.w	unk_20FA2B-.Map
-	dc.w	unk_20FA4A-.Map
-	dc.w	unk_20FA69-.Map
-	dc.w	unk_20FA88-.Map
-	dc.w	unk_20FAA7-.Map
-	dc.w	unk_20FAC6-.Map
-	dc.w	unk_20FAE5-.Map
-	dc.w	unk_20FB04-.Map
-	dc.w	unk_20FB0A-.Map
-	dc.w	unk_20FB10-.Map
-	dc.w	unk_20FB16-.Map
-	dc.w	unk_20FB1C-.Map
-	dc.w	unk_20FB22-.Map
-unk_20FA0C:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$29 ; )
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$31 ; 1
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$29 ; )
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2D ; -
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$35 ; 5
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2D ; -
-	dc.b	  0
-unk_20FA2B:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$29 ; )
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$31 ; 1
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$29 ; )
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	  0
-unk_20FA4A:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	  0
-unk_20FA69:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2D ; -
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$35 ; 5
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2D ; -
-	dc.b	  0
-unk_20FA88:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$31 ; 1
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$29 ; )
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$31 ; 1
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$35 ; 5
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2D ; -
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$35 ; 5
-	dc.b	  0
-unk_20FAA7:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$31 ; 1
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$29 ; )
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$31 ; 1
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	  0
-unk_20FAC6:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	  0
-unk_20FAE5:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	$F0 ; ð
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  5
-	dc.b	  0
-	dc.b	$35 ; 5
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2D ; -
-	dc.b	  0
-	dc.b	  8
-	dc.b	  5
-	dc.b	  0
-	dc.b	$35 ; 5
-	dc.b	  0
-unk_20FB04:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$29 ; )
-	dc.b	$F8 ; ø
-unk_20FB0A:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$31 ; 1
-	dc.b	$F8 ; ø
-unk_20FB10:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$33 ; 3
-	dc.b	$F8 ; ø
-unk_20FB16:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2B ; +
-	dc.b	$F8 ; ø
-unk_20FB1C:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2D ; -
-	dc.b	$F8 ; ø
-unk_20FB22:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$35 ; 5
-	dc.b	$F8 ; ø
+; ------------------------------------------------------------------------------
+; Sonic CD Disassembly
+; ------------------------------------------------------------------------------
+
+.Sprites:
+	dc.w	.Sprite0-.Sprites
+	dc.w	.Sprite1-.Sprites
+	dc.w	.Sprite2-.Sprites
+	dc.w	.Sprite3-.Sprites
+	dc.w	.Sprite4-.Sprites
+	dc.w	.Sprite5-.Sprites
+	dc.w	.Sprite6-.Sprites
+	dc.w	.Sprite7-.Sprites
+	dc.w	.Sprite8-.Sprites
+	dc.w	.Sprite9-.Sprites
+	dc.w	.SpriteA-.Sprites
+	dc.w	.SpriteB-.Sprites
+	dc.w	.SpriteC-.Sprites
+	dc.w	.SpriteD-.Sprites
+
+.Sprite0:
+	dc.b	6
+	dc.b	$E8, 5, 0, $29, $F0
+	dc.b	$F8, 5, 0, $31, $F0
+	dc.b	8, 5, 0, $29, $F0
+	dc.b	$E8, 5, 0, $2D, 0
+	dc.b	$F8, 5, 0, $35, 0
+	dc.b	8, 5, 0, $2D, 0
+
+.Sprite1:
+	dc.b	6
+	dc.b	$E8, 5, 0, $29, $F0
+	dc.b	$F8, 5, 0, $31, $F0
+	dc.b	8, 5, 0, $29, $F0
+	dc.b	$E8, 5, 0, $33, 0
+	dc.b	$F8, 5, 0, $2B, 0
+	dc.b	8, 5, 0, $33, 0
+
+.Sprite2:
+	dc.b	6
+	dc.b	$E8, 5, 0, $33, $F0
+	dc.b	$F8, 5, 0, $2B, $F0
+	dc.b	8, 5, 0, $33, $F0
+	dc.b	$E8, 5, 0, $33, 0
+	dc.b	$F8, 5, 0, $2B, 0
+	dc.b	8, 5, 0, $33, 0
+
+.Sprite3:
+	dc.b	6
+	dc.b	$E8, 5, 0, $33, $F0
+	dc.b	$F8, 5, 0, $2B, $F0
+	dc.b	8, 5, 0, $33, $F0
+	dc.b	$E8, 5, 0, $2D, 0
+	dc.b	$F8, 5, 0, $35, 0
+	dc.b	8, 5, 0, $2D, 0
+
+.Sprite4:
+	dc.b	6
+	dc.b	$E8, 5, 0, $31, $F0
+	dc.b	$F8, 5, 0, $29, $F0
+	dc.b	8, 5, 0, $31, $F0
+	dc.b	$E8, 5, 0, $35, 0
+	dc.b	$F8, 5, 0, $2D, 0
+	dc.b	8, 5, 0, $35, 0
+
+.Sprite5:
+	dc.b	6
+	dc.b	$E8, 5, 0, $31, $F0
+	dc.b	$F8, 5, 0, $29, $F0
+	dc.b	8, 5, 0, $31, $F0
+	dc.b	$E8, 5, 0, $2B, 0
+	dc.b	$F8, 5, 0, $33, 0
+	dc.b	8, 5, 0, $2B, 0
+
+.Sprite6:
+	dc.b	6
+	dc.b	$E8, 5, 0, $2B, $F0
+	dc.b	$F8, 5, 0, $33, $F0
+	dc.b	8, 5, 0, $2B, $F0
+	dc.b	$E8, 5, 0, $2B, 0
+	dc.b	$F8, 5, 0, $33, 0
+	dc.b	8, 5, 0, $2B, 0
+
+.Sprite7:
+	dc.b	6
+	dc.b	$E8, 5, 0, $2B, $F0
+	dc.b	$F8, 5, 0, $33, $F0
+	dc.b	8, 5, 0, $2B, $F0
+	dc.b	$E8, 5, 0, $35, 0
+	dc.b	$F8, 5, 0, $2D, 0
+	dc.b	8, 5, 0, $35, 0
+
+.Sprite8:
+	dc.b	1
+	dc.b	$F8, 5, 0, $29, $F8
+
+.Sprite9:
+	dc.b	1
+	dc.b	$F8, 5, 0, $31, $F8
+
+.SpriteA:
+	dc.b	1
+	dc.b	$F8, 5, 0, $33, $F8
+
+.SpriteB:
+	dc.b	1
+	dc.b	$F8, 5, 0, $2B, $F8
+
+.SpriteC:
+	dc.b	1
+	dc.b	$F8, 5, 0, $2D, $F8
+
+.SpriteD:
+	dc.b	1
+	dc.b	$F8, 5, 0, $35, $F8
+
+; ------------------------------------------------------------------------------

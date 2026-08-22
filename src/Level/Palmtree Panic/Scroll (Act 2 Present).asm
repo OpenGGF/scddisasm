@@ -168,8 +168,8 @@ InitLevelScroll:
 	lsr.w	#1,d1
 	move.w	d1,d2
 	add.w	d2,d2
-	add.w	d1,d2
-	move.w	d2,cameraBg2X.w
+	add.w	d2,d1
+	move.w	d1,cameraBg2X.w
 
 	lea	deformBuffer.w,a2		; Clear cloud speeds
 	clr.l	(a2)+

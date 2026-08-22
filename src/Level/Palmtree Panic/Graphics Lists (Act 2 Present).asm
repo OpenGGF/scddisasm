@@ -27,14 +27,14 @@ PLCLists:
 
 PLC_Stage:
 	dc.w	1
-	dc.l	StageGfx
+	dc.l	Art_LevelTiles
 	dc.w	0
 	dc.l	Art_Checkpoint
 	dc.w	$D960
 
 PLC_Std:
-	dc.w	$E
-	dc.l	Art_SpikesV2
+	dc.w	$D
+	dc.l	Art_Spikes
 	dc.w	$6600
 	dc.l	Art_SpringWheel
 	dc.w	$6700
@@ -64,8 +64,8 @@ PLC_Std:
 	dc.w	$F5C0
 
 PLC_Section0:
-	dc.w	$B
-	dc.l	Art_Block
+	dc.w	$A
+	dc.l	Art_FloatBlock
 	dc.w	$6B40
 	dc.l	Art_Boulder
 	dc.w	$6D80
@@ -85,12 +85,12 @@ PLC_Section0:
 	dc.w	$8300
 	dc.l	Art_Tamabboh
 	dc.w	$8580
-	dc.l	Art_Spring45
+	dc.l	Art_DiagonalSpring
 	dc.w	$9200
 
 PLC_Section1:
-	dc.w	$A
-	dc.l	Art_Block
+	dc.w	9
+	dc.l	Art_FloatBlock
 	dc.w	$6B40
 	dc.l	Art_Boulder
 	dc.w	$6D80
@@ -108,12 +108,12 @@ PLC_Section1:
 	dc.w	$8300
 	dc.l	Art_Tamabboh
 	dc.w	$8580
-	dc.l	Art_Spring45
+	dc.l	Art_DiagonalSpring
 	dc.w	$9200
 
 PLC_Section2:
-	dc.w	9
-	dc.l	Art_Block
+	dc.w	8
+	dc.l	Art_FloatBlock
 	dc.w	$6B40
 	dc.l	Art_Boulder
 	dc.w	$6D80
@@ -121,20 +121,20 @@ PLC_Section2:
 	dc.w	$7000
 	dc.l	Art_Animals
 	dc.w	$71E0
-	dc.l	Art_Splash
+	dc.l	Art_TunnelDoorSplash
 	dc.w	$74E0
-	dc.l	Art_RobotTransport
+	dc.l	Art_RobotGenWithered
 	dc.w	$8000
 	dc.l	Art_Swing
 	dc.w	$8300
 	dc.l	Art_Tamabboh
 	dc.w	$8580
-	dc.l	Art_Spring45
+	dc.l	Art_DiagonalSpring
 	dc.w	$9200
 
 PLC_Section3:
-	dc.w	$A
-	dc.l	Art_Block
+	dc.w	9
+	dc.l	Art_FloatBlock
 	dc.w	$6B40
 	dc.l	Art_Boulder
 	dc.w	$6D80
@@ -146,18 +146,18 @@ PLC_Section3:
 	dc.w	$74E0
 	dc.l	Art_Anton
 	dc.w	$7B60
-	dc.l	Art_RobotTransport
+	dc.l	Art_RobotGenWithered
 	dc.w	$8000
 	dc.l	Art_Swing
 	dc.w	$8300
 	dc.l	Art_Tamabboh
 	dc.w	$8580
-	dc.l	Art_Spring45
+	dc.l	Art_DiagonalSpring
 	dc.w	$9200
 
 PLC_Section4:
-	dc.w	9
-	dc.l	Art_Block
+	dc.w	8
+	dc.l	Art_FloatBlock
 	dc.w	$6B40
 	dc.l	Art_Boulder
 	dc.w	$6D80
@@ -173,11 +173,11 @@ PLC_Section4:
 	dc.w	$8300
 	dc.l	Art_Tamabboh
 	dc.w	$8580
-	dc.l	Art_Spring45
+	dc.l	Art_DiagonalSpring
 	dc.w	$9200
 
 PLC_Update0:
-	dc.w	5
+	dc.w	4
 	dc.l	Art_SpinningDisc
 	dc.w	$7000
 	dc.l	Art_Animals
@@ -186,11 +186,11 @@ PLC_Update0:
 	dc.w	$74E0
 	dc.l	Art_Springboard
 	dc.w	$7B60
-	dc.l	Art_Spring45
+	dc.l	Art_DiagonalSpring
 	dc.w	$9200
 
 PLC_Update1:
-	dc.w	3
+	dc.w	2
 	dc.l	Art_Mosqui
 	dc.w	$74E0
 	dc.l	Art_LogShadow
@@ -199,23 +199,23 @@ PLC_Update1:
 	dc.w	$8000
 
 PLC_Update2:
-	dc.w	2
-	dc.l	Art_Splash
+	dc.w	1
+	dc.l	Art_TunnelDoorSplash
 	dc.w	$74E0
-	dc.l	Art_RobotTransport
+	dc.l	Art_RobotGenWithered
 	dc.w	$8000
 
 PLC_Update3:
-	dc.w	3
+	dc.w	2
 	dc.l	Art_PataBata
 	dc.w	$74E0
 	dc.l	Art_Anton
 	dc.w	$7B60
-	dc.l	Art_RobotTransport
+	dc.l	Art_RobotGenWithered
 	dc.w	$8000
 
 PLC_Update4:
-	dc.w	1
+	dc.w	0
 	dc.l	Art_TagaTaga
 	dc.w	$7B60
 

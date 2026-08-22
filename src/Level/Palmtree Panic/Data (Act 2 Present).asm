@@ -30,7 +30,14 @@ LevelPaletteID:
 ; with a "align $10000"
 ; -------------------------------------------------------------------------
 
-	incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 2 Present).bin"
+	if REGION=USA
+		; The USA image has fourteen bytes between the live PLC list and
+		; its region-specific legacy table.
+		dc.w	$68C0, $0023, $7328, $6E40, $0023, $8982, $7020
+		include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
+	else
+		incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 2 Present).bin"
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -94,7 +101,6 @@ Ani_FlowerCapsule:
 	even
 MapSpr_FlowerCapsule:
 	include	"Level/_Objects/Level End/Data/Mappings (Flower Capsule).asm"
-	even
 
 ; -------------------------------------------------------------------------
 ; Leftover data from other level files used as padding, can be replaced
@@ -106,7 +112,7 @@ MapSpr_FlowerCapsule:
 ; -------------------------------------------------------------------------
 
 Art_Sonic:
-	incbin	"Level/_Objects/Sonic/Data/Art.bin"
+	incbin	"gfx/r1/player.unc"
 	even
 MapSpr_Sonic:
 	include	"Level/_Objects/Sonic/Data/Mappings.asm"
@@ -115,67 +121,67 @@ DPLC_Sonic:
 	include	"Level/_Objects/Sonic/Data/DPLCs.asm"
 	even
 Art_Points:
-	incbin	"Level/_Objects/HUD and Points/Data/Art (Points).nem"
+	incbin	"gfx/points.nem"
 	even
 Art_FlowerCapsule:
-	incbin	"Level/_Objects/Level End/Data/Art (Flower Capsule).nem"
+	incbin	"gfx/capsule.nem"
 	even
 Art_BigRing:
-	incbin	"Level/_Objects/Level End/Data/Art (Big Ring).nem"
+	incbin	"gfx/big_ring.nem"
 	even
 Art_GoalPost:
-	incbin	"Level/_Objects/Level End/Data/Art (Goal Post).nem"
+	incbin	"gfx/goal.nem"
 	even
 Art_Signpost:
-	incbin	"Level/_Objects/Level End/Data/Art (Signpost).nem"
+	incbin	"gfx/signpost.nem"
 	even
 Art_Results:
-	incbin	"Level/_Objects/Results/Data/Art.nem"
+	incbin	"gfx/results.nem"
 	even
 Art_TimeOver:
-	incbin	"Level/_Objects/Game Over/Data/Art (Time Over).nem"
+	incbin	"gfx/time_over.unc"
 	even
 Art_GameOver:
-	incbin	"Level/_Objects/Game Over/Data/Art (Game Over).nem"
+	incbin	"gfx/game_over.unc"
 	even
 Art_TitleCard:
-	incbin	"Level/_Objects/Title Card/Data/Art.nem"
+	incbin	"gfx/title_card.nem"
 	even
 Art_Shield:
-	incbin	"Level/_Objects/Powerup/Data/Art (Shield).bin"
+	incbin	"gfx/shield.unc"
 	even
 Art_InvStars:
-	incbin	"Level/_Objects/Powerup/Data/Art (Invincibility Stars).bin"
+	incbin	"gfx/invincible.unc"
 	even
 Art_TimeStars:
-	incbin	"Level/_Objects/Powerup/Data/Art (Time Warp Stars).bin"
+	incbin	"gfx/warp.unc"
 	even
 Art_DiagonalSpring:
-	incbin	"Level/_Objects/Spring/Data/Art (Diagonal).nem"
+	incbin	"gfx/spring_45.nem"
 	even
 Art_Springs:
-	incbin	"Level/_Objects/Spring/Data/Art (Normal).nem"
+	incbin	"gfx/spring.nem"
 	even
 Art_MonitorTimePosts:
-	incbin	"Level/_Objects/Monitor and Time Post/Data/Art.nem"
+	incbin	"gfx/monitor_time.nem"
 	even
 Art_Explosions:
-	incbin	"Level/_Objects/Explosion/Data/Art.nem"
+	incbin	"gfx/explosion.nem"
 	even
 Art_Rings:
-	incbin	"Level/_Objects/Ring/Data/Art.nem"
+	incbin	"gfx/ring.nem"
 	even
 Art_LifeIcon:
-	incbin	"Level/_Objects/HUD and Points/Data/Art (Life Icon).bin"
+	incbin	"gfx/lives_icons.unc"
 	even
 Art_HUDNumbers:
-	incbin	"Level/_Objects/HUD and Points/Data/Art (Numbers).bin"
+	incbin	"gfx/hud_numbers.unc"
 	even
 Art_HUD:
-	incbin	"Level/_Objects/HUD and Points/Data/Art (HUD).nem"
+	incbin	"gfx/hud.nem"
 	even
 Art_Checkpoint:
-	incbin	"Level/_Objects/Checkpoint/Data/Art.Nem"
+	incbin	"gfx/checkpoint.nem"
 	even
 Art_LogShadowWithered:
 	incbin	"Level/Palmtree Panic/Objects/Log Shadow/Data/Art (Withered).nem"
@@ -190,7 +196,7 @@ MapSpr_Flower:
 	include	"Level/Palmtree Panic/Objects/Flower/Data/Mappings.asm"
 	even
 Art_Flower:
-	incbin	"Level/Palmtree Panic/Objects/Flower/Data/Art.nem"
+	incbin	"gfx/r1/flower.nem"
 	even
 Art_TitleCardText:
 	incbin	"Level/Palmtree Panic/Objects/Title Card/Art.nem"
@@ -202,28 +208,10 @@ Art_Boulder:
 	incbin	"Level/_Objects/Boulder/Data/Art.nem"
 	even
 Art_FloatBlock:
-	incbin	"Level/_Objects/Floating Block/Data/Art.nem"
-	even
-Art_SpringWheel:
-	incbin	"Level/_Objects/Spring/Data/Art (Wheel).nem"
-	even
-Art_SpikesV2:
-	incbin	"gfx/spikes_v2.nem"
-	even
-Art_Block:
 	incbin	"gfx/r1/block.nem"
 	even
-Art_Swing:
-	incbin	"gfx/r1/swing.nem"
-	even
-Art_Spring45:
-	incbin	"gfx/spring_45.nem"
-	even
-Art_Splash:
-	incbin	"gfx/splash.nem"
-	even
-Art_RobotTransport:
-	incbin	"gfx/robot_transport_a.nem"
+Art_SpringWheel:
+	incbin	"gfx/spring_wheel.nem"
 	even
 Art_SpinningDisc:
 	incbin	"Level/Palmtree Panic/Objects/Spinning Disc/Data/Art.nem"
@@ -232,13 +220,13 @@ Art_TunnelWaterfall:
 	incbin	"Level/_Objects/Spin Tunnel/Data/Art (Waterfall Splash).nem"
 	even
 Art_Waterfall:
-	incbin	"Level/Palmtree Panic/Objects/Effects/Data/Art (Waterfall).nem"
+	incbin	"gfx/r1/waterfall.nem"
 	even
 Art_TunnelDoor:
 	incbin	"Level/Palmtree Panic/Objects/Tunnel Door/Data/Art.nem"
 	even
 Art_TunnelDoorSplash:
-	incbin	"Level/_Objects/Spin Tunnel/Data/Art (Door Splash).nem"
+	incbin	"gfx/splash.nem"
 	even
 Art_Anton:
 	incbin	"Level/Palmtree Panic/Objects/Anton/Data/Art.nem"
@@ -253,7 +241,7 @@ Art_TagaTaga:
 	incbin	"Level/Palmtree Panic/Objects/Taga-Taga/Data/Art.nem"
 	even
 Art_Tamabboh:
-	incbin	"Level/Palmtree Panic/Objects/Tamabboh/Data/Art.nem"
+	incbin	"gfx/r1/tamabboh.nem"
 	even
 Art_Springboard:
 	incbin	"Level/Palmtree Panic/Objects/Springboard/Data/Art.nem"
@@ -262,10 +250,10 @@ Art_Button:
 	incbin	"Level/Palmtree Panic/Data/Unused/Art (Button).nem"
 	even
 Art_Spikes:
-	incbin	"Level/_Objects/Spikes/Data/Art.nem"
+	incbin	"gfx/spikes_v2.nem"
 	even
-Art_SwingingPlatform:
-	incbin	"Level/Palmtree Panic/Data/Unused/Art (Swinging Platform).nem"
+Art_Swing:
+	incbin	"gfx/r1/swing.nem"
 	even
 Art_Animals:
 	incbin	"Level/Palmtree Panic/Objects/Animal/Data/Art.nem"
@@ -274,7 +262,7 @@ Art_SpinningDiscDrill:
 	incbin	"Level/Palmtree Panic/Data/Unused/Art (Spinning Disc Drill).nem"
 	even
 Art_RobotGenWithered:
-	incbin	"Level/_Objects/Robot Generator/Data/Art (Withered).nem"
+	incbin	"gfx/robot_transport_a.nem"
 	even
 
 ; -------------------------------------------------------------------------
@@ -299,70 +287,50 @@ LevelCollision:
 ; -------------------------------------------------------------------------
 
 LevelLayouts:
-	dc.w	LevelLayoutForeground-LevelLayouts, LevelLayoutBackground-LevelLayouts, LevelLayoutNull-LevelLayouts
-	dc.w	LevelLayoutUnk1-LevelLayouts, LevelLayoutUnk2-LevelLayouts, LevelLayoutUnk3-LevelLayouts
-	dc.w	LevelLayoutUnk4-LevelLayouts, LevelLayoutUnk2-LevelLayouts, LevelLayoutUnk2-LevelLayouts
-	dc.w	LevelLayoutUnk5-LevelLayouts, LevelLayoutUnk5-LevelLayouts, LevelLayoutUnk5-LevelLayouts
-	dc.w	LevelLayoutForeground-LevelLayouts, LevelLayoutBackground-LevelLayouts, LevelLayoutNull-LevelLayouts
-	dc.w	LevelLayoutUnk1-LevelLayouts, LevelLayoutUnk2-LevelLayouts, LevelLayoutUnk3-LevelLayouts
-	dc.w	LevelLayoutUnk4-LevelLayouts, LevelLayoutUnk2-LevelLayouts, LevelLayoutUnk2-LevelLayouts
-	dc.w	LevelLayoutUnk5-LevelLayouts, LevelLayoutUnk5-LevelLayouts, LevelLayoutUnk5-LevelLayouts
-	dc.w	LevelLayoutForeground-LevelLayouts, LevelLayoutBackground-LevelLayouts, LevelLayoutNull-LevelLayouts
-	dc.w	LevelLayoutUnk1-LevelLayouts, LevelLayoutUnk2-LevelLayouts, LevelLayoutUnk3-LevelLayouts
-	dc.w	LevelLayoutUnk4-LevelLayouts, LevelLayoutUnk2-LevelLayouts, LevelLayoutUnk2-LevelLayouts
-	dc.w	LevelLayoutUnk5-LevelLayouts, LevelLayoutUnk5-LevelLayouts, LevelLayoutUnk5-LevelLayouts
+	dc.w	StageMapFg-LevelLayouts, StageMapBg-LevelLayouts, StageMapNull-LevelLayouts
+	dc.w	StageMapUnk1-LevelLayouts, StageMapUnk2-LevelLayouts, StageMapUnk3-LevelLayouts
+	dc.w	StageMapUnk4-LevelLayouts, StageMapUnk2-LevelLayouts, StageMapUnk2-LevelLayouts
+	dc.w	StageMapUnk5-LevelLayouts, StageMapUnk5-LevelLayouts, StageMapUnk5-LevelLayouts
+	dc.w	StageMapFg-LevelLayouts, StageMapBg-LevelLayouts, StageMapNull-LevelLayouts
+	dc.w	StageMapUnk1-LevelLayouts, StageMapUnk2-LevelLayouts, StageMapUnk3-LevelLayouts
+	dc.w	StageMapUnk4-LevelLayouts, StageMapUnk2-LevelLayouts, StageMapUnk2-LevelLayouts
+	dc.w	StageMapUnk5-LevelLayouts, StageMapUnk5-LevelLayouts, StageMapUnk5-LevelLayouts
+	dc.w	StageMapFg-LevelLayouts, StageMapBg-LevelLayouts, StageMapNull-LevelLayouts
+	dc.w	StageMapUnk1-LevelLayouts, StageMapUnk2-LevelLayouts, StageMapUnk3-LevelLayouts
+	dc.w	StageMapUnk4-LevelLayouts, StageMapUnk2-LevelLayouts, StageMapUnk2-LevelLayouts
+	dc.w	StageMapUnk5-LevelLayouts, StageMapUnk5-LevelLayouts, StageMapUnk5-LevelLayouts
 
-
-LevelLayoutForeground:
+StageMapFg:
 	incbin	"Level/Palmtree Panic/Data/Foreground (Act 2 Present).bin"
 	even
-LevelLayoutBackground:
+StageMapBg:
 	incbin	"Level/Palmtree Panic/Data/Background (Act 2 Present).bin"
 	even
-
-LevelLayoutNull:
+StageMapNull:
 	incbin	"maps/empty.bin"
 	even
-LevelLayoutUnk1:
+StageMapUnk1:
 	incbin	"maps/ghz2_foreground.bin"
 	even
-LevelLayoutUnk2:
+StageMapUnk3:
 	incbin	"maps/empty.bin"
 	even
-LevelLayoutUnk3:
-	incbin	"maps/empty.bin"
-	even
-LevelLayoutUnk4:
+StageMapUnk4:
 	incbin	"maps/ghz3_foreground.bin"
 	even
-LevelLayoutUnk5:
+StageMapUnk2:
 	incbin	"maps/empty.bin"
 	even
+StageMapUnk5:
+	incbin	"maps/empty.bin"
 
 ; -------------------------------------------------------------------------
 
-Art_SonicHole:
-	incbin	"Level/Palmtree Panic/Objects/Tunnel Path/Data/Art (Hole).nem"
-	even
-Art_Scenery:
-	incbin	"Level/Palmtree Panic/Objects/Scenery/Data/Art (Past).nem"
-	even
 LevelBlocks:
 	incbin	"Level/Palmtree Panic/Data/Blocks (Act 2 Present).nem"
 	even
 Art_LevelTiles:
-StageGfx:
 	incbin	"Level/Palmtree Panic/Data/Tiles (Act 2 Present).nem"
-	even
-Art_RobotGenerator:
-	incbin	"Level/_Objects/Robot Generator/Data/Art.nem"
-	even
-Art_ProjAnimals:
-	incbin	"Level/Palmtree Panic/Objects/Projector/Data/Art (Animals).nem"
-	even
-Art_Projector:
-	incbin	"Level/Palmtree Panic/Objects/Projector/Data/Art.nem"
-	even
 
 ; -------------------------------------------------------------------------
 ; Leftover data from other level files used as padding, can be replaced

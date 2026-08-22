@@ -11,11 +11,11 @@ ObjectTileIDs:
 	dc.w	ObjectTileID_03-ObjectTileIDs
 	dc.w	ObjectTileID_04-ObjectTileIDs
 	dc.w	ObjectTileID_05-ObjectTileIDs
-	dc.w	ObjectTileID_06-ObjectTileIDs
-	dc.w	ObjectTileID_07-ObjectTileIDs
-	dc.w	ObjectTileID_08-ObjectTileIDs
-	dc.w	ObjectTileID_09-ObjectTileIDs
 	dc.w	ObjectTileID_0A-ObjectTileIDs
+	dc.w	ObjectTileID_07-ObjectTileIDs
+	dc.w	ObjectTileID_09-ObjectTileIDs
+	dc.w	ObjectTileID_08-ObjectTileIDs
+	dc.w	ObjectTileID_06-ObjectTileIDs
 	dc.w	ObjectTileID_0B-ObjectTileIDs
 	dc.w	ObjectTileID_0C-ObjectTileIDs
 	dc.w	ObjectTileID_0D-ObjectTileIDs
@@ -37,7 +37,7 @@ ObjectTileID_04:
 ObjectTileID_05:
 	dc.w	$435A
 ObjectTileID_06:
-	dc.w	$380
+	dc.w	$330
 ObjectTileID_07:
 	dc.w	0
 ObjectTileID_08:
@@ -45,7 +45,7 @@ ObjectTileID_08:
 ObjectTileID_09:
 	dc.w	$4000
 ObjectTileID_0A:
-	dc.w	$330
+	dc.w	$380
 ObjectTileID_0B:
 	dc.w	$36C
 ObjectTileID_0C:

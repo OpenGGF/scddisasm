@@ -1,5 +1,9 @@
 # Disassembly Orchestration Ledger
 
+## 2026-08-22
+
+- **USA R12A byte-exact milestone:** Palmtree Panic Act 2 Present now rebuilds exactly to the 262,144-byte USA original. The current entry graph, R12A scroll/drawing code, object-tile ordering, Swing allocator/control flow, breakable-wall mappings, stage-object byte, and the 14-byte pre-chunk boundary are source-defined. The USA-specific 3,344-byte legacy table/code region is represented as assembly words behind `REGION=USA`, rather than copied from the proprietary tree; the non-USA path still uses the tracked European slice until those regional originals are recovered. The full headless USA build completed and `R12A__.MMD` is the first Palmtree Panic Act 2 component to report `MATCH`; the aggregate USA check still reports unresolved differences in other level families and the overall disassembly remains incomplete.
+
 ## 2026-08-21
 
 - **Scope clarification:** The entries below record source-graph and reconstruction milestones, not completion of the byte-exact disassembly. Level outputs still require binary reconciliation, seven USA runtime files remain copied from the regional original tree, and the tracked level padding remains opaque data pending regional recovery or source decomposition. `THANKS_D.BIN`, `COME__.MMD`, and `PTEST.MMD` are source-backed for USA only; Japanese and European equivalents remain pending. The ISO therefore is not yet reconstructable solely from the disassembled source and freely supplied assets.
