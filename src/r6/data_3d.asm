@@ -5,7 +5,23 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r63d_e_1.bin"
+	if REGION=USA
+		; The USA table keeps the shared graphics tail through the fixed $10000 boundary.
+		incbin	"../padding/r63d_e_1.bin",0,$1C6
+		dc.l	$0020BBBC
+		dc.w	$7DE0
+		dc.w	$7DE0
+		dc.l	$0023D59E
+		dc.w	$78C0
+		dc.l	$0023C440
+		dc.w	$7D20
+		dc.l	$0023D0C4
+		dc.w	$8BA0
+		dc.w	0
+		dc.w	$23
+	else
+		incbin	"../padding/r63d_e_1.bin"
+	endif
 
 StageChunks:
 	incbin	"maps/r63d/chunks.bin"
