@@ -154,7 +154,19 @@ STANDALONE	EQU	0
 	include	"Level/Object Spawner.asm"
 
 	if QQ_VARIANT<4
-		include	"r5/stage_object_maps_1.asm"
+		if REGION=USA
+			if QQ_VARIANT=0
+				include	"r5/usa_stage_object_maps_1a.asm"
+			elseif QQ_VARIANT=1
+				include	"r5/usa_stage_object_maps_1b.asm"
+			elseif QQ_VARIANT=2
+				include	"r5/usa_stage_object_maps_1c.asm"
+			else
+				include	"r5/usa_stage_object_maps_1d.asm"
+			endif
+		else
+			include	"r5/stage_object_maps_1.asm"
+		endif
 	elseif QQ_VARIANT<8
 		include	"r5/stage_object_maps_2.asm"
 	else
