@@ -108,8 +108,8 @@ target_water_y		EQU	destWaterHeight
 water_speed		EQU	waterMoveSpeed
 water_routine		EQU	waterRoutine
 water_full		EQU	waterFullscreen
-	if (REGION=USA)&(STAGE_ZONE=3)
-		; USA R5 keeps the current-water flag at the earlier R5 RAM address.
+	if (REGION=USA)&((STAGE_ZONE=2)|(STAGE_ZONE=3))
+		; USA R4/R5 keep the current-water flag at the earlier family-specific RAM address.
 water_current_flag	EQU	windTunnelFlag
 	else
 water_current_flag	EQU	waterSlideFlag
