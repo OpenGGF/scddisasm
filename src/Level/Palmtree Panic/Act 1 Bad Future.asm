@@ -66,7 +66,7 @@
 	include	"Level/Palmtree Panic/Objects/Springboard/Main.asm"
 	include	"Level/_Objects/Spikes/Main.asm"
 	include	"Level/Palmtree Panic/Objects/Collapsing Platform/Main.asm"
-	include	"Level/Palmtree Panic/Objects/Collapsing Platform/Data (Future).asm"
+	include	"Level/Palmtree Panic/Objects/Collapsing Platform/Data (Act 1 Future).asm"
 	include	"Level/Palmtree Panic/Objects/Platform/Main.asm"
 	include	"Level/Palmtree Panic/Objects/Tunnel Door/Main.asm"
 	include	"Level/Section Art Load.asm"
