@@ -35,8 +35,10 @@ REGION=2 ./make.sh
 REGION=2 ./check.sh
 ```
 
-Use a fresh `out/` directory after switching regions because the build overwrites
-outputs but does not remove stale files first. If the Wine or Proton executable has
+The build clears the generated `out/files/` entries before assembling and copies
+only runtime files that still lack source-backed build steps. It does not remove
+other stale files under `out/`, so use a fresh `out/` directory after switching
+regions. If the Wine or Proton executable has
 a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 
 ## Currently Contains

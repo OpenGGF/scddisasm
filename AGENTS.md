@@ -26,7 +26,7 @@ Do not hand-edit or commit them. A missing generated include can be a consequenc
 
 From a Windows command prompt at the repository root:
 
-- `make.bat` assembles all supported programs, copies the selected region's original files, and creates `out/scdbuilt.iso`.
+- `make.bat` assembles all supported programs, copies only the selected region's unresolved runtime inputs, and creates `out/scdbuilt.iso`.
 - `check.bat` compares each rebuilt binary byte-for-byte with its corresponding original using `fc /b`.
 
 On Linux from the repository root:
@@ -42,7 +42,7 @@ The Linux path was previously validated on Bazzite with Steam Proton Experimenta
 
 All build scripts default to USA (`REGION=1`). On Windows, change the local `REGION` value in both batch files to `0` for Japan or `2` for Europe. On Linux, prefer the environment variable and use the same value for both shell commands. A complete build requires the untracked/copyrighted source files described in `README.md` to be present under `original/<region>/`.
 
-Keep `REGION` identical between the matching build/check commands. The numeric constants are `JAPAN=0`, `USA=1`, and `EUROPE=2`, as defined in `src/_Include/Common.inc`. If region values are changed only in the tracked batch files for local testing, restore both before committing. Use a fresh `out/` when switching regions because the builds create and overwrite outputs but do not clean the directory first.
+Keep `REGION` identical between the matching build/check commands. The numeric constants are `JAPAN=0`, `USA=1`, and `EUROPE=2`, as defined in `src/_Include/Common.inc`. If region values are changed only in the tracked batch files for local testing, restore both before committing. The build clears `out/files/` regular files before copying unresolved runtime inputs, but use a fresh `out/` when switching regions so unrelated stale generated artifacts cannot affect the ISO.
 
 The repository only tracks the common IP/SP originals and placeholder region directories. If `original/<region>/` lacks the copyrighted game files, first check for a locally supplied image under ignored `original/disc-images/`. A CHD can be unpacked to a temporary directory with `chdman extractcd`, its MODE1/2352 data track converted to an ISO with `bchunk`, and the ISO filesystem extracted into the matching region directory with `7z`. Do not download or commit proprietary game data. Before extraction, confirm the destination and disc image are ignored with `git check-ignore`; afterward, `git ls-files --others --exclude-standard original` must print nothing. If no local image or originals are available, report the missing prerequisite rather than treating it as a source regression.
 

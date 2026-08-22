@@ -6,10 +6,14 @@ set OUTPUT=scdbuilt.iso
 if not exist out mkdir out
 if not exist out\files mkdir out\files
 if not exist out\misc mkdir out\misc
-if %REGION%==0 (copy original\japan\*.* out\files > nul)
-if %REGION%==1 (copy original\usa\*.* out\files > nul)
-if %REGION%==2 (copy original\europe\*.* out\files > nul)
-del out\files\.gitkeep > nul
+del /q out\files\*.* > nul 2>&1
+if %REGION%==0 (set REGIONDIR=japan)
+if %REGION%==1 (set REGIONDIR=usa)
+if %REGION%==2 (set REGIONDIR=europe)
+for %%F in (ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+if not "%REGION%"=="1" (
+    for %%F in (COME__.MMD PTEST.MMD THANKS_D.BIN) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+)
 
 cd src
 

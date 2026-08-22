@@ -236,8 +236,18 @@ trap cleanup_runtime EXIT
 # lock, clear any private server left behind by that earlier invocation.
 stop_runtime
 
-cp -a "$ORIGINAL_DIR"/. "$ROOT_DIR/out/files/"
-rm -f "$ROOT_DIR/out/files/.gitkeep"
+# Keep proprietary input limited to the runtime files that still have no
+# source-backed build step. Every reconstructed component must be regenerated
+# into a clean output directory instead of being inherited from the original.
+find "$ROOT_DIR/out/files" -mindepth 1 -maxdepth 1 -type f -delete
+for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD BADEND.STM GOODEND.STM PTEST.STM THANKS_M.MMD; do
+	cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
+done
+if [[ $REGION != 1 ]]; then
+	for file in COME__.MMD PTEST.MMD THANKS_D.BIN; do
+		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
+	done
+fi
 
 run_tool() {
 	local status=0
