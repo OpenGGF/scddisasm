@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-tail completion milestone:** The final 724 bytes at
+  shared offsets `$2A3E`-`$2D11` are now emitted from repository source and the
+  11,538-byte `padding/r43d_e_1.bin` file has been removed. Its 128-byte
+  compatibility helper is readable 68000 source with named control flow and
+  explicit historical call targets. The following 596 bytes are shared packed
+  legacy records moved from the pre-existing R51 non-USA source table, with no
+  data transcribed from an original disc; R43 and R51 now include one labeled
+  source fragment. The guarded USA build/check remains byte-exact for all 127
+  targets, including R43C, R43D, and DEMO43C. The tracked padding inventory is
+  now 27 files totalling 224,657 bytes. Field-level naming of the packed records,
+  other retained regions, three FMV streams, and full Japan/Europe validation
+  remain unfinished.
+
 - **R43C/R43D retained-BreakBlock milestone:** The complete 518-byte historical
   BreakBlockObject cluster at shared offsets `$2838`-`$2A3D` is now namespaced
   semantic source. It recovers solid collision and breakup triggering, four

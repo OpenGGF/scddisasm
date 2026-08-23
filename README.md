@@ -134,9 +134,12 @@ including switch-controlled solid collision, three cloned opening segments,
 alternating and timed segment motion, deletion, and mappings. The following
 518-byte BreakBlockObject cluster is namespaced source too, covering collision
 triggering, four debris spawns, impact-selected trajectories, gravity/deletion,
-mappings, piece offsets, and every trajectory table. The retained suffix now
-begins at the next routine boundary, `$2A3E`; later shared R43 object logic and
-data remain binary-backed pending the same boundary-driven recovery.
+mappings, piece offsets, and every trajectory table. The final 724-byte tail is
+source-emitted as well: its compatibility helper is readable namespaced 68000
+source, while its packed legacy records share the pre-existing R51 non-USA
+source table. The former `padding/r43d_e_1.bin` dependency has been removed, so
+the complete shared R43 retained pre-chunk body is now built without that binary
+blob. Field-level naming of the final packed records remains unfinished.
 
 ## Building
 
