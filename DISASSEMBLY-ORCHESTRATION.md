@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **Legacy Act 2 Present pre-chunk milestone:** The 3,344-byte regional Act 2
+  Present `Padding/1` binary is removed. It was the exact `$40`-offset suffix
+  of the existing R12B pre-chunk source, which now has a dedicated bounded
+  mode alongside its full and Act 1 Past modes; the final JE trampoline/table
+  area continues to use the shared named source. The USA ISO remains
+  byte-identical with all 133 comparisons passing, and a guarded Japan build
+  plus direct output checks validate the source-emitted regional suffix. This
+  leaves 13 tracked level `Data/Padding` binaries totalling 87,118 bytes.
+
 - **Legacy Act 1 Past pre-chunk milestone:** The 3,190-byte USA and 3,176-byte
   Japan/Europe Act 1 Past `Padding/1` binaries are removed. They were exact
   suffixes of the existing source-backed USA Act 2 Past and regional R12B

@@ -36,7 +36,8 @@ LevelPaletteID:
 		dc.w	$68C0, $0023, $7328, $6E40, $0023, $8982, $7020
 		include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
 	else
-		incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 2 Present).bin"
+PP_ACT2_PRESENT_SUFFIX_ONLY equ 1
+		include	"Level/Palmtree Panic/Data/R12B Pre-Chunks.asm"
 	endif
 
 ; -------------------------------------------------------------------------
