@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-PlatformChain milestone:** The complete 498-byte
+  historical PlatformChainObject cluster at shared offsets `$2304`-`$24F5` is
+  now namespaced semantic source. It recovers screen-range handling, top-solid
+  player correction, eight linked segment spawns, subtype-selected geometry,
+  switch-controlled direction reversal, circular movement with the historical
+  `$200700` sine/cosine entry, derived object velocity, and sprite mappings. The
+  retained suffix now begins at the next clean dispatcher boundary, `$24F6`.
+  The guarded USA build/check remains byte-exact for all 127 targets, including
+  R43C, R43D, and DEMO43C. The padding inventory remains 28 files totalling
+  236,195 bytes because the later 2,076-byte suffix still shares the same
+  retained file; later R43 logic/data, three FMV streams, and full Japan/Europe
+  validation remain unfinished.
+
 - **R43C/R43D retained-CollapseFloor milestone:** The complete 834-byte
   historical CollapseFloorObject cluster at shared offsets `$1FC2`-`$2303` is
   now namespaced semantic source. It recovers the parent platform dispatcher,

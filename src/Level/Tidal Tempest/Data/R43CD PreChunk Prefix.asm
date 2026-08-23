@@ -113,4 +113,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded collapsing-floor and fragment implementation follows.
 	include	"Level/Tidal Tempest/Data/R43 Retained Collapse Floor.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$2304
+	; The discarded linked rotating platform-chain implementation follows.
+	include	"Level/Tidal Tempest/Data/R43 Retained Platform Chain.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$24F6
