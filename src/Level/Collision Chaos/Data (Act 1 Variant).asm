@@ -134,7 +134,7 @@ Padding2:
 	if CC_VARIANT=1
 	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $139C, $264
 	elseif CC_VARIANT=2
-	incbin	"../padding/r31c_e_2.bin"
+	include	"Level/Collision Chaos/Data/R31C Padding 2.asm"
 	else
 	include	"Level/Collision Chaos/Data/R32D Padding 2.asm"
 	endif
