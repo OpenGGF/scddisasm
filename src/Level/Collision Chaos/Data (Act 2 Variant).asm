@@ -150,7 +150,7 @@ Padding2:
 	elseif CC2_VARIANT=1
 	include	"Level/Collision Chaos/Data/R32B Padding 2.asm"
 	elseif CC2_VARIANT=2
-	incbin	"../padding/r32c_e_2.bin"
+	include	"Level/Collision Chaos/Data/R32C Padding 2.asm"
 	else
 	include	"Level/Collision Chaos/Data/R32D Padding 2.asm"
 	endif
