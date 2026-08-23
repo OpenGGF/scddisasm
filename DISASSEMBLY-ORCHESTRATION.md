@@ -12,6 +12,21 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D logic-complete milestone:** The final identified executable island in
+  `r81d_e_1.bin`, a six-byte trampoline at offset `$F6C`, is now source-backed.
+  Combined with the earlier contiguous object routines, boss state machine,
+  overlay, and platform controller, boundary analysis now finds no identified
+  68000 logic remaining in the retained R81D slices. Those slices are still
+  required for bounded palette, animation, mapping, path, packed graphics, and
+  pointer/placement data, so this is explicitly a logic-complete milestone—not
+  removal of the blob or completion of all R81 data reconstruction. The
+  complete 4,312-byte mixed-region probe matched the former blob exactly, the
+  complete 262,148-byte REGION=2 R81D entry matched its prior output exactly,
+  and the guarded USA build/check matched all 127 comparison targets. The
+  tracked padding count remains 31 files totalling 257,607 bytes. Other R81
+  executable blobs, data-source replacement, the three FMV streams, remaining
+  padding slices, and full Japan/Europe validation remain unfinished.
+
 - **R81D overlay/platform disassembly milestone:** Another 522 bytes of
   executable logic and dispatch records between offsets `$C4C` and `$ED1` of
   the mixed R81D non-USA pre-chunk block are now source-backed. This recovers

@@ -49,7 +49,10 @@ intervening asset/data regions retained as explicitly bounded binary slices
 rather than misidentified as executable code. Another 522 bytes of executable
 logic and dispatch records between offsets `$C4C` and `$ED1` now cover the
 boss overlay and a platform controller; only their named mapping and motion
-record slices remain binary-backed within that range.
+record slices remain binary-backed within that range. The final executable
+trampoline at `$F6C` is also source-backed, so no identified 68000 logic remains
+inside `r81d_e_1.bin`; that file is still required for its bounded palette,
+animation, mapping, path, packed graphics, and pointer/placement data.
 
 ## Building
 
