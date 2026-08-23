@@ -9,7 +9,10 @@ Padding1:
 		include	"Level/USA Legacy Stage Prefix B.asm"
 		include	"Level/USA Legacy Stage Tail A.asm"
 	else
-		incbin	"../padding/r72b_e_1.bin"
+		; European/Japanese legacy graphics-table fragment.
+		dc.w	$78C0, $0023, $C924, $7D20, $0023, $D5A8, $8BA0, $0000
+		dc.w	$0023, $C7D8, $75C0, $0000, $0022, $F8FC, $75C0, $0000
+		dc.w	$0023, $0098, $7880, $0002, $0022, $FABC, $8780, $0022
 	endif
 
 StageChunks:

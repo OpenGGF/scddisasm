@@ -70,7 +70,21 @@ LegacyPLCSignpost:
 		dc.w	$7DE0
 	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, U).bin"
 	else
-	incbin	"../padding/r61c_e_1.bin"
+		; European/Japanese legacy graphics-table fragment.
+		dc.w	$7700, $0023, $B398, $7D00, $0023, $410C, $8000, $0023
+		dc.w	$B94E, $8200, $0023, $D932, $9D00, $0000, $0023, $D252
+		dc.w	$9A00, $0000, $0023, $D446, $9A00, $0000, $0023, $0098
+		dc.w	$7880, $0002, $0022, $FABC, $8780, $0022, $F4F2, $9100
+		dc.w	$0020, $BF98, $7DE0, $EE4A, $9020, $0000, $0023, $0098
+		dc.w	$7880, $0000, $0022, $EE4A, $9020, $FA3A, $6800, $0023
+		dc.w	$F9B6, $6B80, $0021, $EE4C, $6C80, $0021, $EB76, $6D00
+		dc.w	$0021, $EA6C, $6E00, $0021, $EC18, $7000, $0023, $F6F8
+		dc.w	$7400, $0021, $F7B6, $7600, $0021, $F362, $7A00, $0021
+		dc.w	$F4E0, $7E00, $0021, $FBC6, $8A00, $0023, $4C82, $9E40
+		dc.w	$0000, $0021, $FA62, $8A00, $0000, $0021, $FBC6, $8A00
+		dc.w	$0002, $0023, $4E42, $8780, $0023, $4878, $9100, $0020
+		dc.w	$B14A, $7DE0, $0098, $7880, $0002, $0022, $FABC, $8780
+		dc.w	$0022, $F4F2
 	endif
 
 StageChunks:
