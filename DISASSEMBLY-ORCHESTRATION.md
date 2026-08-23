@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R61B Padding2 completion milestone:** The retained 6,656-byte slice was an
+  exact concatenation of the final `$400` bytes of the named R61A chunk map and
+  the shared `$1600`-byte Act 1 Present Padding2 asset. R61B now references
+  those existing sources directly, removing `r61b_e_2.bin`. The tracked
+  padding inventory falls to 22 files totalling 199,873 bytes. The guarded
+  displayless USA build/check remains byte-exact for all 127 targets; no data
+  was obtained from an original disc.
+
 - **R42A Padding2 completion milestone:** The distinct `$1232`-byte packed
   graphics/mapping prefix is now source-emitted, while the final `$728` bytes
   reuse the byte-identical declarative R42B stage-data tail. The complete

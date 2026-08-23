@@ -50,7 +50,8 @@ StageChunks:
 	incbin	"maps/r61b/chunks.bin"
 
 Padding2:
-	incbin	"../padding/r61b_e_2.bin"
+	incbin	"maps/r61a/chunks.bin",$E600,$400
+	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin"
 
 PlayerGfx:
 	incbin	"gfx/player.unc"
