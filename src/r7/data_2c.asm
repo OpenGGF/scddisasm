@@ -15,11 +15,11 @@ StageChunks:
 	incbin	"maps/r72c/chunks.bin"
 
 Padding2:
+	include	"Level/Stardust Speedway/Data/R72C Padding 2 Prefix.asm"
 	if REGION=USA
-		incbin	"../padding/r72c_e_2.bin",0,$800
 		include	"Level/USA Legacy R72 Animation Tail.asm"
 	else
-		incbin	"../padding/r72c_e_2.bin"
+		include	"Level/Stardust Speedway/Data/R72C Padding 2 Tail.asm"
 	endif
 
 PlayerGfx:
