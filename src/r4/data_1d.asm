@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy R41D Padding1.asm"
 	else
-		incbin	"../padding/r41d_e_1.bin"
+		include	"Level/Tidal Tempest/Data/R41D Pre-Chunks (Non-USA).asm"
 	endif
 
 StageChunks:

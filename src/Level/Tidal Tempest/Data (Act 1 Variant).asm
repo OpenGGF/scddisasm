@@ -14,9 +14,9 @@ Padding1:
 	elseif TT_VARIANT=1
 	include	"Level/Tidal Tempest/Data/R41B Pre-Chunks (Non-USA).asm"
 	elseif TT_VARIANT=2
-	incbin	"../padding/r41c_e_1.bin"
+	include	"Level/Tidal Tempest/Data/R41C Pre-Chunks (Non-USA).asm"
 	else
-	incbin	"../padding/r41d_e_1.bin"
+	include	"Level/Tidal Tempest/Data/R41D Pre-Chunks (Non-USA).asm"
 	endif
 
 LevelDataIndex:
