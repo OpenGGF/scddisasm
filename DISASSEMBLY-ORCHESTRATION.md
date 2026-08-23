@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-BreakBlock milestone:** The complete 518-byte historical
+  BreakBlockObject cluster at shared offsets `$2838`-`$2A3D` is now namespaced
+  semantic source. It recovers solid collision and breakup triggering, four
+  debris-object spawns, impact-direction trajectory selection, debris gravity
+  and deletion, sprite mappings, piece offsets, and all trajectory tables. The
+  retained suffix now begins at the next routine boundary, `$2A3E`. The guarded
+  USA build/check remains byte-exact for all 127 targets, including R43C, R43D,
+  and DEMO43C. The padding inventory remains 28 files totalling 236,195 bytes
+  because the later 724-byte suffix still shares the same retained file; later
+  R43 logic/data, three FMV streams, and full Japan/Europe validation remain
+  unfinished.
+
 - **R43C/R43D retained-BigDoor milestone:** The complete 394-byte historical
   BigDoorObject cluster at shared offsets `$26AE`-`$2837` is now namespaced
   semantic source. It recovers switch lookup and closed-state solid collision,

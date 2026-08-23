@@ -122,4 +122,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded switch-controlled segmented big-door implementation follows.
 	include	"Level/Tidal Tempest/Data/R43 Retained Big Door.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$2838
+	; The discarded breakable block, debris, and trajectory data follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Break Block.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$2A3E

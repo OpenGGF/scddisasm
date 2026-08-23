@@ -131,10 +131,12 @@ source too, covering player-relative activation, capped descent, top-solid
 transfer and release, triggered ascent/reset, sound, and both mapping frames.
 The adjacent 394-byte BigDoorObject cluster is namespaced source as well,
 including switch-controlled solid collision, three cloned opening segments,
-alternating and timed segment motion, deletion, and mappings. The retained
-suffix now begins at the next clean dispatcher boundary, `$2838`; later shared
-R43 object logic and data remain binary-backed pending the same boundary-driven
-recovery.
+alternating and timed segment motion, deletion, and mappings. The following
+518-byte BreakBlockObject cluster is namespaced source too, covering collision
+triggering, four debris spawns, impact-selected trajectories, gravity/deletion,
+mappings, piece offsets, and every trajectory table. The retained suffix now
+begins at the next routine boundary, `$2A3E`; later shared R43 object logic and
+data remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 
