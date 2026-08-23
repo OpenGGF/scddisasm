@@ -261,7 +261,7 @@ from the regional comparison tree. The USA byte-exact filesystem additionally
 requires `ABS.TXT`, `BIB.TXT`, and `CPY.TXT`; these default to
 `original/usa/`, or can be supplied separately with `ISO_METADATA_DIR`. They
 are disc identification text, not executable game logic. Japan and Europe
-additionally require the four remaining executable/data files reported by the
+additionally require the three remaining executable/data files reported by the
 build because their regional source variants have not yet been reconstructed.
 Generated files are written to `out/`.
 

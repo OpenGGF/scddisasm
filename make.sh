@@ -128,7 +128,7 @@ if [[ $REGION == 1 ]]; then
 	done
 fi
 if [[ $REGION != 1 ]]; then
-	for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD THANKS_M.MMD; do
+	for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD; do
 		if [[ ! -f $ORIGINAL_DIR/$file ]]; then
 			echo "Missing regional executable input: $ORIGINAL_DIR/$file" >&2
 			echo 'See README.md for the remaining non-USA reconstruction requirements.' >&2
@@ -282,7 +282,7 @@ if [[ $REGION == 1 ]]; then
 	done
 fi
 if [[ $REGION != 1 ]]; then
-	for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD THANKS_M.MMD; do
+	for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD; do
 		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 	done
 fi
@@ -388,9 +388,9 @@ assemble 'Time Attack\Sub.asm' '..\out\files\ATTACK.BIN' 'Time Attack\Sub.lst'
 assemble 'Thank You\Sub.asm' '..\out\files\THANKS_S.BIN' 'Thank You\Sub.lst'
 if [[ $REGION == 1 ]]; then
 	assemble 'Time Attack\Main.asm' '..\out\files\ATTACK.MMD' 'Time Attack\Main.lst'
-	assemble 'Thank You\Main.asm' '..\out\files\THANKS_M.MMD' 'Thank You\Main.lst'
 	assemble 'FMV\Main (Ending).asm' '..\out\files\ENDING.MMD' 'FMV\Main (Ending).lst'
 fi
+assemble 'Thank You\Main.asm' '..\out\files\THANKS_M.MMD' 'Thank You\Main.lst'
 assemble 'Thank You\Data.asm' '..\out\files\THANKS_D.BIN' 'Thank You\Data.lst'
 assemble 'Comin Soon\Main.asm' '..\out\files\COME__.MMD' 'Comin Soon\Main.lst'
 assemble 'FMV\Main (Pencil Test).asm' '..\out\files\PTEST.MMD' 'FMV\Main (Pencil Test).lst'

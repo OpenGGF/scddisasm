@@ -2,6 +2,18 @@
 
 ## 2026-08-24
 
+- **Cross-region Thank You main-CPU milestone:** `THANKS_M.MMD` is now
+  assembled from `src/Thank You/Main.asm` for all three regions. Japan and
+  Europe omit the USA-only initial `$2A30` countdown and its V-blank
+  decrement/exit block; embedded legacy routine pointers are emitted as
+  regional source expressions, and the 63-entry object-handler dispatch is a
+  named table instead of fixed USA addresses. Fresh guarded displayless Japan,
+  Europe, and USA builds complete. The 20,126-byte Japan/Europe and 20,144-byte
+  USA outputs all compare exactly; USA retains all 133 matches, while each
+  non-USA check reports 63 matches, 67 known level differences, and 0 missing
+  targets. Three non-USA executable/data fallbacks remain: `ATTACK.MMD`,
+  `BRAMMAIN.MMD`, and `ENDING.MMD`.
+
 - **Cross-region shared-component milestone:** `COME__.MMD`, `PTEST.MMD`, and
   `THANKS_D.BIN` are identical in the Japan, USA, and Europe retail images, so
   both build frontends now assemble them from their existing source for every

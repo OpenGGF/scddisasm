@@ -1,12 +1,20 @@
 ; -------------------------------------------------------------------------
 ; Sonic CD Disassembly
-; "Thank You" screen main CPU program (USA)
+; "Thank You" screen main CPU program
 ; -------------------------------------------------------------------------
 
 	include	"_Include/Common.inc"
 	include	"_Include/Main CPU.inc"
 	include	"_Include/Main CPU Variables.inc"
 	include	"_Include/MMD.inc"
+
+	if REGION=USA
+ThankYouEarlyShift	equ	0
+ThankYouFullShift	equ	0
+	else
+ThankYouEarlyShift	equ	6
+ThankYouFullShift	equ	18
+	endif
 
 ; The original uses the standard work-RAM file origin and reserves a
 ; nominal $5500-byte load area in its MMD header.
@@ -49,7 +57,9 @@ L_FF2042:
 	move.w	#$1, $FFFFBA74.w
 	move.w	#$600, $FFFFBA78.w
 	move.w	#$1, $FFFFBA7E.w
+	if REGION=USA
 	move.w	#$2a30, $FFFFBA80.w
+	endif
 	lea.l	L_FF38CE(pc), a0
 	lea.l	$FFFFB680.w, a1
 	moveq	#$1f, d7
@@ -299,8 +309,14 @@ L_FF2408:
 L_FF240A:
 	dc.b	$00
 	dc.b	$12,$00,$24,$00,$30,$00,$4A,$00,$6C,$00,$90,$00,$AA,$00,$B0,$00
-	dc.b	$D6,$41,$F9,$00,$FF,$25,$02,$43,$F9,$00,$FF,$31,$82,$70,$00,$4E
-	dc.b	$F8,$FD,$AE,$70,$01,$22,$7C,$00,$FF,$31,$82,$4E,$F8,$FD,$AE,$20
+	dc.b	$D6,$41,$F9
+	dc.l	$00FF2502-ThankYouEarlyShift
+	dc.w	$43F9
+	dc.l	$00FF3182-ThankYouEarlyShift
+	dc.w	$7000,$4EF8,$FDAE,$7001,$227C
+	dc.l	$00FF3182-ThankYouEarlyShift
+	dc.w	$4EF8,$FDAE
+	dc.b	$20
 	dc.b	$7C,$00,$20,$00,$30,$11,$7C,$00,$00,$00,$0B,$21,$7C,$00,$00,$00
 	dc.b	$00,$00,$0C,$70,$02,$4E,$F8,$FD,$AE,$20,$7C,$00,$20,$00,$30,$11
 	dc.b	$7C,$00,$00,$00,$0B,$21,$7C,$00,$00,$00,$00,$00,$0C,$22,$7C,$00
@@ -372,15 +388,17 @@ L_FF346A:
 	dc.l	$600002E6
 L_FF347C:
 	bra.w	L_FF3734
-	dc.l	$4EB900FF
-	dc.l	$22EE41F9
-	dc.l	$00FF318E
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.w	$41F9
+	dc.l	$00FF318E-ThankYouEarlyShift
 	dc.l	$43F90020
 	dc.l	$0040303C
 	dc.l	$00A822D8
 	dc.l	$51C8FFFC
-	dc.l	$41F900FF
-	dc.l	$343243F9
+	dc.w	$41F9
+	dc.l	$00FF3432-ThankYouEarlyShift
+	dc.w	$43F9
 	dc.l	$002002E4
 	dc.l	$303C0005
 	dc.l	$22D851C8
@@ -534,20 +552,26 @@ L_FF36B4:
 	dc.b	$41,$4D,$5F,$43,$41,$52,$54,$52,$49,$44,$47
 L_FF36C0:
 	dc.b	$53
-	dc.b	$45,$47,$41,$5F,$43,$44,$5F,$52,$4F,$4D,$00,$2F,$00,$4E,$B9,$00
-	dc.b	$FF,$22,$EE,$20,$1F,$23,$C0,$00,$20,$00,$40,$41,$F9,$00,$FF,$36
-	dc.b	$F2,$61,$00,$FE,$04,$13,$FC,$00,$08,$00,$20,$00,$20,$60,$00,$FE
+	dc.b	$45,$47,$41,$5F,$43,$44,$5F,$52,$4F,$4D,$00,$2F,$00
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.w	$201F,$23C0
+	dc.l	$00200040
+	dc.w	$41F9
+	dc.l	$00FF36F2-ThankYouEarlyShift
+	dc.b	$61,$00,$FE,$04,$13,$FC,$00,$08,$00,$20,$00,$20,$60,$00,$FE
 	dc.b	$10,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$00
 L_FF36FE:
 	jsr	L_FF22EE.l
 	move.b	#$2, $200020.l
 	bra.w	L_FF3500
-	dc.l	$4EB900FF
-	dc.l	$22EE13FC
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.w	$13FC
 	dc.l	$00030020
 	dc.l	$00206000
-	dc.l	$FDE04EB9
-	dc.l	$00FF22EE
+	dc.w	$FDE0,$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
 	dc.l	$13FC0004
 	dc.l	$00200020
 	dc.l	$6000FDCE
@@ -555,12 +579,22 @@ L_FF3734:
 	jsr	L_FF22EE.l
 	move.b	#$a, $200020.l
 	bra.w	L_FF3500
-	dc.b	$4E,$B9,$00,$FF,$22,$EE,$13,$FC,$00,$05,$00,$20,$00,$20,$61,$00
-	dc.b	$FD,$AA,$66,$04,$61,$00,$00,$3C,$4E,$75,$4E,$B9,$00,$FF,$22,$EE
-	dc.b	$13,$FC,$00,$0B,$00,$20,$00,$20,$61,$00,$FD,$90,$4E,$75,$4E,$B9
-	dc.b	$00,$FF,$22,$EE,$13,$FC,$00,$06,$00,$20,$00,$20,$60,$00,$FD,$7C
-	dc.b	$4E,$B9,$00,$FF,$22,$EE,$13,$FC,$00,$07,$00,$20,$00,$20,$60,$00
-	dc.b	$FD,$6A,$4E,$B9,$00,$FF,$22,$EE,$13,$FC,$00,$09,$00,$20,$00,$20
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.b	$13,$FC,$00,$05,$00,$20,$00,$20,$61,$00,$FD,$AA,$66,$04,$61,$00
+	dc.b	$00,$3C,$4E,$75
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.b	$13,$FC,$00,$0B,$00,$20,$00,$20,$61,$00,$FD,$90,$4E,$75
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.b	$13,$FC,$00,$06,$00,$20,$00,$20,$60,$00,$FD,$7C
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.b	$13,$FC,$00,$07,$00,$20,$00,$20,$60,$00,$FD,$6A
+	dc.w	$4EB9
+	dc.l	$00FF22EE-ThankYouEarlyShift
+	dc.b	$13,$FC,$00,$09,$00,$20,$00,$20
 	dc.b	$60,$00,$FD,$58
 InitMD:
 	lea.l	L_FF394E(pc), a0
@@ -793,9 +827,11 @@ L_FF3B66:
 	beq.b	L_FF3BA8
 	subq.w	#$1, $FFFFBA4C.w
 L_FF3BA8:
+	if REGION=USA
 	subq.w	#$1, $FFFFBA80.w
 	bgt.b	L_FF3BB4
 	move.b	#$1, $FFFFBA40.w
+	endif
 L_FF3BB4:
 	addq.w	#$1, $FFFFBA4E.w
 	jsr	L_FF3988(pc)
@@ -1143,7 +1179,7 @@ NemesisDisplayDecode:
 	bra.b	L_FF3FCA
 	dc.l	$48E7FFDC
 	dc.l	$47F900FF
-	dc.b	$40,$8E
+	dc.w	$408E-ThankYouFullShift
 L_FF3FCA:
 	lea.l	$FFFFA600.w, a1
 	move.w	(a0)+, d2
@@ -1450,13 +1486,15 @@ L_FF438C:
 L_FF4396:
 	add.w	d0, d0
 	add.w	d0, d0
-	movea.l	$ff43aa(pc, d0.w), a1
+	movea.l	ObjectHandlerPointers-4(pc, d0.w), a1
 	jsr	(a1)
 	btst.b	#$4, $2e(a0)
 	beq.b	ObjectProcessEnd
 	bsr.w	ClearObject
 ObjectProcessEnd:
 	rts
+ObjectHandlerPointers:
+	if REGION=USA
 	dc.b	$00,$FF,$47,$00,$00,$FF,$4C,$3C,$00,$FF,$52,$9E,$00,$FF,$5A,$74
 	dc.b	$00,$FF,$58,$0E,$00,$FF,$59,$32,$00,$FF,$57,$8A,$00,$FF,$5A,$EA
 	dc.b	$00,$FF,$5B,$76,$00,$FF,$59,$C4,$00,$FF,$58,$A0,$00,$FF,$44,$AA
@@ -1473,6 +1511,21 @@ ObjectProcessEnd:
 	dc.b	$00,$FF,$44,$AA,$00,$FF,$44,$AA,$00,$FF,$44,$AA,$00,$FF,$44,$AA
 	dc.b	$00,$FF,$44,$AA,$00,$FF,$44,$AA,$00,$FF,$44,$AA,$00,$FF,$44,$AA
 	dc.b	$00,$FF,$44,$AA,$00,$FF,$44,$AA,$00,$FF,$44,$AA,$31,$7C,$00,$00
+	else
+	dc.l	$00FF4700-ThankYouFullShift
+	dc.l	$00FF4C3C-ThankYouFullShift
+	dc.l	$00FF529E-ThankYouFullShift
+	dc.l	$00FF5A74-ThankYouFullShift
+	dc.l	$00FF580E-ThankYouFullShift
+	dc.l	$00FF5932-ThankYouFullShift
+	dc.l	$00FF578A-ThankYouFullShift
+	dc.l	$00FF5AEA-ThankYouFullShift
+	dc.l	$00FF5B76-ThankYouFullShift
+	dc.l	$00FF59C4-ThankYouFullShift
+	dc.l	$00FF58A0-ThankYouFullShift
+	dcb.l	$34, $00FF44AA-ThankYouFullShift
+	dc.w	$317C,$0000
+	endif
 	dc.b	$00,$00,$4E,$75
 BuildSpriteQueue:
 	lea.l	$FFFFA300.w, a1
@@ -1661,9 +1714,10 @@ ObjectJumpTable:
 	dc.l	$4A38BA7B
 	dc.l	$670608E8
 	dc.l	$0002002E
-	dc.l	$43F900FF
-	dc.l	$47184EF9
-	dc.l	$00FF5C10
+	dc.w	$43F9
+	dc.l	$00FF4718-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
 	dc.l	$001C00BC
 	dc.l	$01380222
 	dc.l	$027202B8
@@ -1720,7 +1774,9 @@ ObjectJumpTable:
 	dc.b	$1C,$08,$A8,$00,$07,$00,$2E,$60,$0C,$31,$7C,$D8,$00,$00,$1C,$08
 	dc.b	$E8,$00,$07,$00,$2E,$43,$FA,$17,$66,$21,$49,$00,$2A,$31,$69,$00
 	dc.b	$02,$00,$24,$31,$7C,$00,$00,$00,$26,$61,$00,$14,$72,$66,$0A,$10
-	dc.b	$3C,$00,$90,$4E,$B9,$00,$FF,$39,$FE,$31,$7C,$00,$04,$00,$02,$4E
+	dc.b	$3C,$00,$90,$4E,$B9
+	dc.l	$00FF39FE-ThankYouEarlyShift
+	dc.b	$31,$7C,$00,$04,$00,$02,$4E
 	dc.b	$75,$61,$00,$13,$70,$0C,$68,$00,$05,$00,$26,$6D,$38,$4D,$F8,$92
 	dc.b	$80,$0C,$6E,$00,$02,$00,$02,$66,$08,$31,$7C,$00,$01,$00,$02,$60
 	dc.b	$24,$61,$00,$13,$A2,$4E,$71,$4E,$71,$4E,$71,$66,$0A,$61,$00,$13
@@ -1747,8 +1803,9 @@ ObjectJumpTable:
 	dcb.b	$4, 0
 	dc.b	$14,$31,$7C,$40,$00,$00,$1E,$21,$7C,$00,$00,$00,$00,$00,$18,$43
 	dc.b	$FA,$16,$52,$21,$49,$00,$2A,$31,$69,$00,$02,$00,$24,$31,$7C,$00
-	dc.b	$00,$00,$26,$61,$00,$12,$C4,$66,$0A,$10,$3C,$00,$92,$4E,$B9,$00
-	dc.b	$FF,$39,$FE,$31,$7C,$00,$0A,$00,$02,$4E,$75,$61,$00,$11,$C2,$0C
+	dc.b	$00,$00,$26,$61,$00,$12,$C4,$66,$0A,$10,$3C,$00,$92,$4E,$B9
+	dc.l	$00FF39FE-ThankYouEarlyShift
+	dc.b	$31,$7C,$00,$0A,$00,$02,$4E,$75,$61,$00,$11,$C2,$0C
 	dc.b	$68,$00,$8C,$00,$08,$6D,$0E,$21,$7C,$00,$00,$00,$00,$00,$18,$31
 	dc.b	$7C,$00,$01,$00,$02,$4E,$71,$4E,$75,$61,$00,$12,$A2,$4A,$38,$BA
 	dc.b	$7B,$67,$00,$00,$6E,$4B,$F8,$92,$40,$4D,$F8,$92,$80,$4A,$A8,$00
@@ -1766,7 +1823,12 @@ ObjectJumpTable:
 	dc.b	$A8,$00,$02,$00,$2E,$08,$AD,$00,$02,$00,$2E,$08,$AE,$00,$02,$00
 	dc.b	$2E,$11,$7C,$00,$01,$00,$35,$60,$04,$61,$00,$12,$1E,$4E,$75,$4D
 	dc.b	$F8,$92,$00,$4A,$38,$BA,$7B,$67,$06,$08,$E8,$00,$02,$00,$2E,$61
-	dc.b	$00,$00,$2E,$43,$F9,$00,$FF,$4C,$5C,$4E,$F9,$00,$FF,$5C,$10,$00
+	dc.b	$00,$00,$2E
+	dc.w	$43F9
+	dc.l	$00FF4C5C-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00
 	dc.b	$B2,$00,$FE,$01,$68,$01,$84,$02,$02,$02,$66,$03,$18,$03,$5E,$04
 	dc.b	$00,$04,$70,$04,$D8,$05,$04,$05,$9C,$05,$CA,$06,$0E,$06,$3C,$0C
 	dc.b	$68,$00,$02,$00,$02,$66,$00,$00,$88,$4A,$6E,$00,$00,$66,$0A,$31
@@ -1872,8 +1934,12 @@ ObjectJumpTable:
 	dc.b	$10,$D1,$A8,$00,$08,$4A,$AE,$00,$0C,$66,$16,$4B,$F8,$92,$80,$4A
 	dc.b	$AD,$00,$0C,$66,$0C,$61,$00,$0B,$1A,$67,$06,$31,$7C,$00,$09,$00
 	dc.b	$02,$4E,$75,$61,$00,$0B,$BC,$4E,$75,$4D,$F8,$92,$00,$4A,$38,$BA
-	dc.b	$7B,$67,$06,$08,$E8,$00,$02,$00,$2E,$43,$F9,$00,$FF,$52,$BA,$4E
-	dc.b	$F9,$00,$FF,$5C,$10,$00,$20,$00,$A0,$01,$2C,$01,$CA,$02,$14,$02
+	dc.b	$7B,$67,$06,$08,$E8,$00,$02,$00,$2E
+	dc.w	$43F9
+	dc.l	$00FF52BA-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00,$20,$00,$A0,$01,$2C,$01,$CA,$02,$14,$02
 	dc.b	$2A,$02,$90,$02,$BE,$03,$10,$03,$32,$03,$9E,$03,$EE,$04,$46,$04
 	dc.b	$7E,$04,$C4,$04,$CA,$31,$7C,$01,$50,$00,$04,$31,$7C,$00,$84,$00
 	dc.b	$08,$21,$7C,$FF,$FC,$60,$00,$00,$0C,$21,$7C,$00,$00,$00,$00,$00
@@ -1951,8 +2017,12 @@ ObjectJumpTable:
 	dc.b	$7C,$00,$03,$A0,$00,$00,$0C,$21,$7C,$00,$00,$00,$00,$00,$10,$08
 	dc.b	$A8,$00,$07,$00,$2E,$43,$FA,$0D,$F0,$21,$49,$00,$2A,$31,$69,$00
 	dc.b	$02,$00,$24,$31,$7C,$00,$00,$00,$26,$31,$7C,$00,$0F,$00,$02,$4E
-	dc.b	$75,$61,$00,$07,$1C,$4E,$75,$61,$00,$06,$D0,$4E,$75,$43,$F9,$00
-	dc.b	$FF,$57,$96,$4E,$F9,$00,$FF,$5C,$10,$00,$04,$00,$66,$43,$F8,$92
+	dc.b	$75,$61,$00,$07,$1C,$4E,$75,$61,$00,$06,$D0,$4E,$75
+	dc.w	$43F9
+	dc.l	$00FF5796-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00,$04,$00,$66,$43,$F8,$92
 	dc.b	$40,$31,$69,$00,$04,$00,$04,$31,$69,$00,$08,$00,$08,$21,$7C,$00
 	dcb.b	$4, 0
 	dc.b	$0C,$21,$7C,$FF,$FF,$80,$00,$00,$10,$31,$7C,$00,$20,$00,$30,$31
@@ -1960,8 +2030,12 @@ ObjectJumpTable:
 	dc.b	$1E,$30,$3C,$03,$C7,$31,$40,$00,$28,$11,$7C,$00,$03,$00,$34,$43
 	dc.b	$FA,$0C,$6A,$21,$49,$00,$2A,$31,$7C,$00,$00,$00,$26,$11,$7C,$00
 	dc.b	$20,$00,$36,$31,$7C,$00,$01,$00,$02,$4E,$75,$61,$00,$04,$A8,$0C
-	dc.b	$68,$00,$03,$00,$26,$6D,$04,$60,$00,$04,$12,$4E,$75,$43,$F9,$00
-	dc.b	$FF,$58,$1A,$4E,$F9,$00,$FF,$5C,$10,$00,$04,$02,$3C,$31,$7C,$FF
+	dc.b	$68,$00,$03,$00,$26,$6D,$04,$60,$00,$04,$12,$4E,$75
+	dc.w	$43F9
+	dc.l	$00FF581A-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00,$04,$02,$3C,$31,$7C,$FF
 	dc.b	$F6,$00,$04,$31,$7C,$00,$90,$00,$08,$21,$7C,$00,$00,$C0,$00,$00
 	dc.b	$0C,$4E,$BA,$E4,$C2,$02,$80,$00,$00,$7F,$FF,$81,$FC,$02,$00,$30
 	dc.b	$3C,$00,$00,$E0,$80,$D1,$A8,$00,$0C,$21,$7C,$FF,$FC,$80,$00,$00
@@ -1969,8 +2043,12 @@ ObjectJumpTable:
 	dc.b	$3C,$00,$00,$E0,$80,$D1,$A8,$00,$10,$31,$7C,$38,$00,$00,$1E,$21
 	dc.b	$7C,$00,$00,$00,$00,$00,$18,$31,$7C,$65,$85,$00,$28,$11,$7C,$00
 	dc.b	$03,$00,$34,$43,$FA,$0E,$B2,$21,$49,$00,$2A,$31,$69,$00,$02,$00
-	dc.b	$24,$31,$7C,$00,$00,$00,$26,$31,$7C,$00,$01,$00,$02,$4E,$75,$43
-	dc.b	$F9,$00,$FF,$58,$AC,$4E,$F9,$00,$FF,$5C,$10,$00,$04,$01,$AA,$31
+	dc.b	$24,$31,$7C,$00,$00,$00,$26,$31,$7C,$00,$01,$00,$02,$4E,$75
+	dc.w	$43F9
+	dc.l	$00FF58AC-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00,$04,$01,$AA,$31
 	dc.b	$7C,$FF,$F6,$00,$04,$31,$7C,$00,$90,$00,$08,$21,$7C,$00,$00,$C0
 	dc.b	$00,$00,$0C,$4E,$BA,$E4,$30,$02,$80,$00,$00,$7F,$FF,$81,$FC,$01
 	dc.b	$00,$30,$3C,$00,$00,$E0,$80,$D1,$A8,$00,$0C,$21,$7C,$FF,$FC,$80
@@ -1979,7 +2057,12 @@ ObjectJumpTable:
 	dc.b	$1E,$21,$7C,$00,$00,$00,$00,$00,$18,$31,$7C,$65,$85,$00,$28,$11
 	dc.b	$7C,$00,$03,$00,$34,$43,$FA,$0E,$92,$21,$49,$00,$2A,$31,$69,$00
 	dc.b	$02,$00,$24,$31,$7C,$00,$00,$00,$26,$31,$7C,$00,$01,$00,$02,$4E
-	dc.b	$75,$43,$F9,$00,$FF,$59,$3E,$4E,$F9,$00,$FF,$5C,$10,$00,$04,$01
+	dc.b	$75
+	dc.w	$43F9
+	dc.l	$00FF593E-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00,$04,$01
 	dc.b	$18,$31,$7C,$FF,$F6,$00,$04,$31,$7C,$00,$A4,$00,$08,$21,$7C,$00
 	dc.b	$00,$C0,$00,$00,$0C,$4E,$BA,$E3,$9E,$02,$80,$00,$00,$7F,$FF,$81
 	dc.b	$FC,$01,$00,$30,$3C,$00,$00,$E0,$80,$D1,$A8,$00,$0C,$21,$7C,$FF
@@ -1988,7 +2071,12 @@ ObjectJumpTable:
 	dc.b	$00,$00,$1E,$21,$7C,$00,$00,$00,$00,$00,$18,$31,$7C,$65,$85,$00
 	dc.b	$28,$11,$7C,$00,$03,$00,$34,$43,$FA,$0D,$B4,$21,$49,$00,$2A,$31
 	dc.b	$69,$00,$02,$00,$24,$31,$7C,$00,$00,$00,$26,$31,$7C,$00,$01,$00
-	dc.b	$02,$4E,$75,$43,$F9,$00,$FF,$59,$D0,$4E,$F9,$00,$FF,$5C,$10,$00
+	dc.b	$02,$4E,$75
+	dc.w	$43F9
+	dc.l	$00FF59D0-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00
 	dc.b	$04,$00,$86,$31,$7C,$FF,$F6,$00,$04,$31,$7C,$00,$A4,$00,$08,$21
 	dc.b	$7C,$00,$00,$C0,$00,$00,$0C,$4E,$BA,$E3,$0C,$02,$80,$00,$00,$7F
 	dc.b	$FF,$81,$FC,$02,$00,$30,$3C,$00,$00,$E0,$80,$D1,$A8,$00,$0C,$21
@@ -1999,15 +2087,24 @@ ObjectJumpTable:
 	dc.b	$2A,$31,$69,$00,$02,$00,$24,$31,$7C,$00,$00,$00,$26,$31,$7C,$00
 	dc.b	$01,$00,$02,$4E,$75,$61,$00,$01,$D0,$66,$00,$01,$C0,$61,$00,$02
 	dc.b	$9C,$0C,$68,$00,$A0,$00,$08,$6D,$08,$21,$7C,$00,$00,$00,$00,$00
-	dc.b	$18,$4E,$75,$43,$F9,$00,$FF,$5A,$80,$4E,$F9,$00,$FF,$5C,$10,$00
+	dc.b	$18,$4E,$75
+	dc.w	$43F9
+	dc.l	$00FF5A80-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00
 	dc.b	$04,$01,$82,$4E,$71,$31,$7C,$FF,$F6,$00,$04,$4E,$BA,$E2,$68,$02
 	dc.b	$80,$00,$00,$7F,$FF,$81,$FC,$00,$78,$48,$40,$31,$40,$00,$08,$21
 	dc.b	$7C,$00,$01,$00,$00,$00,$0C,$21,$7C,$00,$00,$00,$00,$00,$10,$31
 	dc.b	$7C,$00,$30,$00,$30,$31,$7C,$00,$04,$00,$32,$31,$7C,$00,$00,$00
 	dc.b	$1C,$31,$7C,$00,$00,$00,$1E,$31,$7C,$65,$85,$00,$28,$11,$7C,$00
 	dc.b	$03,$00,$34,$43,$FA,$0B,$F0,$21,$49,$00,$2A,$31,$7C,$00,$00,$00
-	dc.b	$26,$31,$7C,$00,$01,$00,$02,$4E,$75,$43,$F9,$00,$FF,$5A,$F6,$4E
-	dc.b	$F9,$00,$FF,$5C,$10,$00,$04,$01,$0C,$31,$7C,$FF,$F6,$00,$04,$4E
+	dc.b	$26,$31,$7C,$00,$01,$00,$02,$4E,$75
+	dc.w	$43F9
+	dc.l	$00FF5AF6-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00,$04,$01,$0C,$31,$7C,$FF,$F6,$00,$04,$4E
 	dc.b	$BA,$E1,$F4,$02,$80,$00,$00,$7F,$FF,$81,$FC,$00,$78,$48,$40,$31
 	dc.b	$40,$00,$08,$21,$7C,$00,$00,$80,$00,$00,$0C,$4E,$BA,$E1,$D8,$02
 	dc.b	$80,$00,$00,$7F,$FF,$81,$FC,$01,$00,$30,$3C,$00,$00,$E0,$80,$D1
@@ -2015,8 +2112,12 @@ ObjectJumpTable:
 	dc.b	$30,$31,$7C,$00,$04,$00,$32,$31,$7C,$00,$00,$00,$1C,$31,$7C,$00
 	dc.b	$00,$00,$1E,$31,$7C,$65,$85,$00,$28,$11,$7C,$00,$03,$00,$34,$43
 	dc.b	$FA,$0B,$B0,$21,$49,$00,$2A,$31,$7C,$00,$00,$00,$26,$31,$7C,$00
-	dc.b	$01,$00,$02,$4E,$75,$43,$F9,$00,$FF,$5B,$82,$4E,$F9,$00,$FF,$5C
-	dc.b	$10,$00,$04,$00,$80,$31,$7C,$FF,$F6,$00,$04,$4E,$BA,$E1,$68,$02
+	dc.b	$01,$00,$02,$4E,$75
+	dc.w	$43F9
+	dc.l	$00FF5B82-ThankYouFullShift
+	dc.w	$4EF9
+	dc.l	$00FF5C10-ThankYouFullShift
+	dc.b	$00,$04,$00,$80,$31,$7C,$FF,$F6,$00,$04,$4E,$BA,$E1,$68,$02
 	dc.b	$80,$00,$00,$7F,$FF,$81,$FC,$00,$78,$48,$40,$31,$40,$00,$08,$21
 	dc.b	$7C,$00,$00,$80,$00,$00,$0C,$4E,$BA,$E1,$4C,$02,$80,$00,$00,$7F
 	dc.b	$FF,$81,$FC,$01,$00,$30,$3C,$00,$00,$E0,$80,$D1,$A8,$00,$0C,$21
