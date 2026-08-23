@@ -582,9 +582,14 @@ Padding3:
 	if TT_VARIANT=0
 	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", $2A, $164
 	elseif TT_VARIANT=1
-	incbin	"../padding/r41b_e_3.bin"
+	include	"r4/nonusa_padding_1b_3.asm"
 	elseif TT_VARIANT=2
-	incbin	"../padding/r41c_e_3.bin"
+	dc.w	$0000, $0608, $0D00, $44E0, $080D, $004C, $0018, $0C00
+	dc.w	$20E0, $180C, $0820, $0020, $0700, $54F0, $2007, $0854
+	dc.w	$0000, $01F8, $0500, $5CF8, $01F8, $0500, $60F8, $01F8
+	dc.w	$0500, $64F8, $01F8, $0508, $64F8, $01F8, $0508, $60F8
+	dc.w	$01F8, $0508, $5CF8
+	include	"r4/nonusa_padding_1b_3.asm"
 	else
 	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $26F8, $106
 	endif

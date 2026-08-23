@@ -407,6 +407,6 @@ CapsuleSprites:
 	include	"sprites/capsule.asm"
 
 Padding3:
-	incbin	"../padding/r41b_e_3.bin"
+	include	"r4/nonusa_padding_1b_3.asm"
 
 ; ------------------------------------------------------------------------------
