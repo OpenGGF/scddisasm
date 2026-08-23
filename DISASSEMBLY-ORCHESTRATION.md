@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **R62 Padding3 completion milestone:** R62A now source-emits a packed head
+  and the continuation shared with USA R62B. Non-USA R62B emits its distinct
+  prefix before the regional mapping suffix. R62C is split at its true
+  regional divergence, preserving the USA legacy tail and the distinct
+  non-USA continuation. All three complete retained blobs, totalling 28,090
+  bytes, are removed. The tracked padding inventory falls to 2 files totalling
+  12,800 bytes. The guarded displayless USA build/check remains byte-exact for
+  all 127 targets; no data was obtained from an original disc.
+
 - **R33 Padding3 completion milestone:** The distinct packed
   mapping/animation prefixes for R33C and R33D are now source-emitted before
   the existing shared mapping and rotation-vector tails. Both complete

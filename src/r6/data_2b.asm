@@ -524,9 +524,9 @@ HologramGfx:
 Padding3:
 	if REGION=USA
 		; USA retains the suffix shared with the R62A graphics tail.
-		incbin	"../padding/r62a_e_3.bin",$5B0,$1F3A
+		include	"Level/Wacky Workbench/Data/R62A Padding3 USA Shared Continuation.asm"
 	else
-		incbin	"../padding/r62b_e_3.bin",0,$1EFA
+		include	"Level/Wacky Workbench/Data/R62B Padding3 Non-USA Packed Prefix.asm"
 		include	"Level/Shared Non-USA Padding3 Mapping Suffix.asm"
 	endif
 	include	"Level/Shared Padding3 Mapping Tail.asm"
