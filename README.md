@@ -72,8 +72,10 @@ source too, covering player collision transfer, velocity integration,
 animation stepping, child spawning, player lookup/facing, and direction flags.
 The following 348-byte island at `$566`-`$6C1` is source-backed as well,
 covering palette loading/data, child-object and overlay logic, mappings, and an
-external trampoline. Later mixed code/data remains binary-backed pending
-boundary-driven recovery.
+external trampoline. The byte-identical 658-byte boss state machine at `$97E`
+is semantic source too, while its animation and mapping assets remain bounded
+binary data. Later mixed code/data remains binary-backed pending boundary-driven
+recovery.
 
 ## Building
 

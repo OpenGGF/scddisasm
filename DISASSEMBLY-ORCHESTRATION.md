@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R81ABC boss-state milestone:** The complete 658-byte boss state machine at
+  offsets `$97E`-`$C0F` is now semantic 68000 source. Boundary comparison
+  established that this island is byte-identical to the previously recovered
+  R81D boss logic, including its 15-entry dispatcher, movement/path states,
+  player-launch attack, reset logic, and collision-aware motion helper. Its
+  four animation/mapping asset blocks remain explicitly bounded at
+  `$C10`-`$D6B`; the next executable island starts at `$D6C`. The isolated
+  4,600-byte shared tail and all three complete 262,148-byte REGION=2
+  R81A/R81B/R81C entries remained exact, and the guarded USA build/check
+  matched all 127 comparison targets. The tracked padding count remains 31
+  files totalling 257,607 bytes; later shared logic/data, three FMV streams,
+  other padding slices, and full Japan/Europe validation remain unfinished.
+
 - **R81ABC palette/child/overlay milestone:** The complete 348-byte logic/data
   island at offsets `$566`-`$6C1` is now source-backed. It recovers the palette
   loader and palette words, including the meaningful `$56A` alternate entry
