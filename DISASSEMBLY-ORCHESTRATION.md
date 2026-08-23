@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **R81 retained-data completion milestone:** The last identical 698-byte R81
+  binary slice is now a named, source-emitted Enigma tilemap stream with its
+  header fields separated from the compressed command words. R81A/B/C's
+  historical following zero word is explicit. With all logic, mappings,
+  animations, paths, record tables, and compressed data now source-backed,
+  `r81a_e_1.bin` and `r81d_e_1.bin` have been removed. The guarded displayless
+  USA build/check remains byte-exact for all 127 targets. The tracked padding
+  inventory falls to 25 files totalling 215,745 bytes; no data was obtained
+  from an original disc.
+
 - **R81A/R81B/R81C/R81D platform-mapping milestone:** The identical final
   154-byte retained slice is now a shared declarative four-frame sprite-mapping
   table. It names two seven-piece frames, one fourteen-piece frame, an empty

@@ -36,27 +36,25 @@ R32B/R32C/R32D Padding1, R61A/R61C/R61D/R63D Padding3,
 R81A/R81B/R81C Padding2, R82C/R83C/R83D Padding2,
 R81A/R81B/R81C/R81D and R82A/R82B/R82C/R83C Padding3, and
 R82A/R82B/R82C/R82D/R83C, and the four shared R81 platform paths, were exact
-references or declarative source data; 27 opaque padding files totalling
-224,657 bytes remain.
+references or declarative source data; 25 opaque padding files totalling
+215,745 bytes remain.
 
-Instruction-level recovery has also begun for the remaining executable R81
+Instruction-level recovery has completed for the retained executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and
 movement/state handlers, shared helpers, palette loading, child/overlay object
-logic, and their inline tables, are now real 68000 source; the unresolved
-remainder of that mixed code/data block is still included from its tracked
-padding file and is not counted as complete. A further 658-byte boss-object
+logic, and their inline tables, are now real 68000 source. A further 658-byte boss-object
 logic block at offsets `$85E`-`$AEF` is also semantic source, with the
 intervening asset/data regions retained as explicitly bounded binary slices
 rather than misidentified as executable code. Another 522 bytes of executable
 logic and dispatch records between offsets `$C4C` and `$ED1` now cover the
 boss overlay and a platform controller; its four motion datasets and both boss
 sprite-mapping sets are now shared declarative records. The final executable
-trampoline at `$F6C` is also source-backed, so no identified 68000 logic remains
-inside `r81d_e_1.bin`; its two boss animation tables and twelve named scripts
-are shared declarative source as well. Its two boss mapping tables now resolve
+trampoline at `$F6C` is also source-backed. Its two boss animation tables and
+twelve named scripts are shared declarative source as well. Its two boss mapping tables now resolve
 twelve frames into 45 source-backed sprite pieces, including three deliberate
-cross-table references. The file is still required for its bounded palette,
-other mappings, packed graphics, and pointer/placement data.
+cross-table references. The final shared compressed asset is identified as an
+Enigma tilemap stream and emitted from named source, so `r81d_e_1.bin` is no
+longer required.
 
 R81A's 4,600-byte non-USA pre-chunk region is also the exact shared tail of
 R81B from offset `$214` and R81C from offset `$7A`. Those three variants now
@@ -77,8 +75,8 @@ animation stepping, child spawning, player lookup/facing, and direction flags.
 The following 348-byte island at `$566`-`$6C1` is source-backed as well,
 covering palette loading/data, child-object and overlay logic, mappings, and an
 external trampoline. The byte-identical 658-byte boss state machine at `$97E`
-is semantic source too, while its animation and mapping assets remain bounded
-binary data. The 646-byte boss-overlay/platform island at `$D6C` is also
+is semantic source too, with its animation and mapping assets now declarative
+source. The 646-byte boss-overlay/platform island at `$D6C` is also
 source-backed, including its mappings and four path-record tables. The final
 six-byte trampoline at `$108C` is source-backed too. The retained 56-byte
 `$28`-`$5F` slice is now source as well, including four mapping records and its
@@ -86,9 +84,7 @@ blink/display helper. The unique R81B/R81C prefixes are declarative source
 records, including the USA one-byte variant. The shared tail's retained slices
 now emit the complete 100-byte `$110`-`$173` main state as source too, covering
 player distance, child/effect spawning, sound, player reversal, timer/routine
-advancement, and its animation transition. The remaining bounded palette,
-animation, mapping, pointer, placement, path, and packed asset data still
-require field-level source decomposition. The identical final 358-byte
+advancement, and its animation transition. The identical final 358-byte
 pointer/placement/attribute record block is now shared declarative source for
 R81A/B/C/D, with R81A/B/C's additional alignment word emitted explicitly. The
 small retained `$7A`-`$89` R81A/B/C marker mapping is labeled source as well.
@@ -101,9 +97,10 @@ including all twelve frames and 45 piece records.
 The adjacent 16-byte boss-overlay mapping is shared source as well, with named
 empty and visible frames replacing its final retained mapping slice.
 The final 154-byte R81A/B/C/D platform mapping is shared declarative source,
-covering its four frames, 28 sprite pieces, and historical alignment. Only the
-shared 698-byte packed-record region remains binary-backed in these two R81
-retained files.
+covering its four frames, 28 sprite pieces, and historical alignment. The last
+shared 698-byte region is now identified and source-emitted as an Enigma
+tilemap stream, with R81A/B/C's following zero alignment word explicit. Both
+former R81 retained binary files have therefore been removed.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are

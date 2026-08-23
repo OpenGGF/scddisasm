@@ -538,7 +538,8 @@ R81ABC_OverlayMappings:
 R81ABC_ExternalTrampoline:
 	jmp	$206358
 
-	incbin	"../padding/r81a_e_1.bin",$6C2,$2BC
+	include	"Level/Metallic Madness/Data/R8 Retained Enigma Tilemap.asm"
+	dc.w	0
 
 R81ABC_BossObject:
 	jsr	$20EC94
