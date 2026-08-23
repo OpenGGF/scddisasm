@@ -12,6 +12,19 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D falling-state disassembly milestone:** The first 156 bytes of the
+  mixed R81D non-USA pre-chunk region are now real 68000 source. In addition
+  to the opening object-spawn routine, this recovers its common-state
+  trampoline and falling-state handler, with named labels at the unresolved
+  subroutine targets so the original branch displacements remain exact. The
+  complete 4,312-byte mixed-region probe matched the former blob exactly, the
+  complete 262,148-byte REGION=2 R81D entry matched its prior output exactly,
+  and the guarded USA build/check matched all 129 comparison targets. The
+  unresolved remainder is still included from `r81d_e_1.bin`, so the tracked
+  padding count remains 31 files totalling 257,607 bytes. Further R81
+  instruction/data recovery, the three FMV streams, other padding slices, and
+  full Japan/Europe validation remain unfinished.
+
 - **R81D opening-routine disassembly milestone:** The first 74 bytes of the
   mixed R81D non-USA pre-chunk region are now real 68000 instructions with
   named control-flow labels rather than bytes read from the blob. The source

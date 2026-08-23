@@ -39,9 +39,10 @@ R82A/R82B/R82C/R82D/R83C, were exact references or declarative source data;
 31 opaque padding slices totalling 257,607 bytes remain.
 
 Instruction-level recovery has also begun for the remaining executable R81
-pre-chunk regions. R81D's opening 74-byte object-spawn routine is now real
-68000 source; the unresolved remainder of that mixed code/data block is still
-included from its tracked padding file and is not counted as complete.
+pre-chunk regions. R81D's first 156 bytes, covering its object-spawn routine
+and falling-state handler, are now real 68000 source; the unresolved remainder
+of that mixed code/data block is still included from its tracked padding file
+and is not counted as complete.
 
 ## Building
 
