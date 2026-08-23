@@ -580,11 +580,11 @@ MapSpr_FlowerCapsule:
 
 Padding3:
 	if CC2_VARIANT=0
-	incbin	"../padding/r32a_e_3.bin"
+	include	"Level/Collision Chaos/Data/R32A Padding 3.asm"
 	elseif CC2_VARIANT=1
-	incbin	"../padding/r32b_e_3.bin"
+	include	"Level/Collision Chaos/Data/R32B Padding 3.asm"
 	elseif CC2_VARIANT=2
-	incbin	"../padding/r32c_e_3.bin"
+	include	"Level/Collision Chaos/Data/R32C Padding 3.asm"
 	else
-	incbin	"../padding/r32d_e_3.bin"
+	include	"Level/Collision Chaos/Data/R32D Padding 3.asm"
 	endif
