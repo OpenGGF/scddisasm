@@ -145,7 +145,7 @@ ObjResults_Move:
 		cmpi.w	#352,oResultsTimer(a0)
 	endif
 	bcc.s	.End				; If not, branch
-	jmp	DrawObject			; Draw sprite
+	jmp	R43LegacyDrawObject			; Draw sprite
 
 .End:
 	rts
@@ -186,10 +186,10 @@ ObjResults_Bonus:
 	tst.b	specialStage			; Is the special stage flag set?
 	beq.s	.Draw				; If not, branch
 	move.w	#FM_SSWARP,d0			; Play special stage warp sound
-	jsr	PlayFMSound
+	jsr	R43LegacyPlayFMSound
 
 .Draw:
-	jmp	DrawObject			; Draw sprite
+	jmp	R43LegacyDrawObject			; Draw sprite
 
 .TimeBonus:
 	addi.w	#10,d0				; Add time bonus points
@@ -210,9 +210,9 @@ ObjResults_Bonus:
 	bne.s	.HaveBonus			; If so, branch
 
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
-		jsr	StopZ80			; Play "ka-ching" sound
+		jsr	R43LegacyStopZ80			; Play "ka-ching" sound
 		move.b	#FM_KACHING,FMDrvQueue1
-		jsr	StartZ80
+		jsr	R43LegacyStartZ80
 
 		cmpi.w	#45,oResultsTimer(a0)
 		bcc.s	.AddPoints
@@ -221,7 +221,7 @@ ObjResults_Bonus:
 
 	else
 		move.w	#FM_KACHING,d0		; Play "ka-ching" sound
-		jsr	PlayFMSound
+		jsr	R43LegacyPlayFMSound
 		bra.s	.AddPoints
 	endif
 
@@ -234,12 +234,12 @@ ObjResults_Bonus:
 	btst	#0,oResultsTimer(a0)		; Is this an even frame?
 	bne.s	.AddPoints			; If not, branch
 	move.w	#FM_TALLY,d0			; Play tally sound
-	jsr	PlayFMSound
+	jsr	R43LegacyPlayFMSound
 
 .AddPoints:
 	move.l	d1,d0				; Add points
-	jsr	AddPoints
-	jmp	DrawObject			; Draw sprite
+	jsr	R43LegacyAddPoints
+	jmp	R43LegacyDrawObject			; Draw sprite
 
 ; -------------------------------------------------------------------------
 ; Set next level
@@ -281,9 +281,9 @@ ObjResults_NextLevel:
 	move.w	d0,zoneAct			; Set level ID
 
 	jsr	ResetSavedObjFlags		; Reset saved object flags
-	jsr	FadeOutMusic			; Fade music out
+	jsr	R43LegacyFadeOutMusic			; Fade music out
 
-	jsr	DrawObject			; Draw sprite
+	jsr	R43LegacyDrawObject			; Draw sprite
 	move.b	act,d0				; Were we in act 3?
 	subq.b	#1,d0
 	bpl.s	.CheckGoodFuture		; If not, branch

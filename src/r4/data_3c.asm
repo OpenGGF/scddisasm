@@ -4,19 +4,36 @@
 ; Data (R43C)
 ; ------------------------------------------------------------------------------
 
-Padding1:
-	incbin	"../padding/r43c_e_1.bin"
-	if REGION=USA
 R43_USA_ADJUST	EQU	0
-		include	"r4/usa_padding_3.asm"
-	endif
-	if REGION=USA
-		; The USA table continues through the fixed $10000 boundary.
-		dc.w	$8BA0, 0, $23
+
+Padding1:
+	if (REGION=USA)&(DEMO<>0)
+		include	"Level/USA Legacy R43 Demo Padding1.asm"
+		; The R43 demo overlays the legacy tail with two capsule records.
+		org	Padding1
+		dc.l	CapsuleGfx
+		dc.w	$9020, 0
+		dc.l	CapsuleGfx
+		dc.w	$9020
+		org	Padding1+$2CF0
+	else
+		incbin	"../padding/r43c_e_1.bin"
+		if REGION=USA
+			include	"r4/usa_padding_3.asm"
+		endif
+		if REGION=USA
+			; The USA table continues through the fixed $10000 boundary.
+			dc.w	$8BA0, 0, $23
+		endif
 	endif
 
 StageChunks:
 	incbin	"maps/r43c/chunks.bin"
+	if (REGION=USA)&(DEMO<>0)
+		org	StageChunks+$3600
+		include	"Level/USA Legacy R43 Demo Chunks.asm"
+		org	StageChunks+filesize("maps/r43c/chunks.bin")
+	endif
 	even
 
 StageCollisionAngles:
@@ -106,6 +123,12 @@ StageMapUnk5:
 
 Padding2:
 	incbin	"../padding/r43c_e_2.bin"
+	if (REGION=USA)&(DEMO<>0)
+R43_LEGACY_SONIC_TAIL EQU 1
+		org	Padding2
+		include	"Level/_Objects/Sonic/Data/Mappings.asm"
+		org	Padding2+filesize("../padding/r43c_e_2.bin")
+	endif
 
 PlayerGfx:
 	incbin	"gfx/r4/player.unc"
@@ -360,5 +383,14 @@ BossBubbleGfx:
 
 Padding3:
 	incbin	"../padding/r43c_e_3.bin"
+	if (REGION=USA)&(DEMO<>0)
+R43_LEGACY_AMY_TAIL EQU 1
+R43LegacyAmyMapBase EQU $23FD1C
+		org	Padding3
+		include	"Level/Palmtree Panic/Objects/Amy Rose/Data/Mappings.asm"
+		include	"Level/Palmtree Panic/Objects/Amy Rose/Data/Animations.asm"
+		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", 0, $40
+		org	Padding3+filesize("../padding/r43c_e_3.bin")
+	endif
 
 ; ------------------------------------------------------------------------------

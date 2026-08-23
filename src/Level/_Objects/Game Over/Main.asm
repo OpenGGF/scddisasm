@@ -54,7 +54,7 @@ ObjGameOver_Init:
 	beq.s	.SpawnOverText
 
 .Destroy:
-	jmp	DeleteObject			; Delete ourselves
+	jmp	R43LegacyDeleteObject			; Delete ourselves
 
 .SpawnOverText:
 	move.b	#$3B,oID(a1)			; "OVER" text
@@ -85,7 +85,7 @@ ObjGameOver_Main:
 	add.w	d0,oX(a0)			; Move
 
 .Draw:
-	jmp	DrawObject			; Draw sprite
+	jmp	R43LegacyDrawObject			; Draw sprite
 
 ; -------------------------------------------------------------------------
 ; Data

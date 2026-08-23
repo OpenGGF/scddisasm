@@ -10,7 +10,7 @@ Obj3DPlant:
 	move.b	oRoutine(a0),d0
 	move.w	Obj3DPlant_Index(pc,d0.w),d0
 	jsr	Obj3DPlant_Index(pc,d0.w)
-	jsr	DrawObject
+	jsr	R43LegacyDrawObject
 	move.w	oVar2A(a0),d0
 	bra.w	CheckObjDespawn2
 ; End of function Obj3DPlant
@@ -199,7 +199,7 @@ Obj3DRamp:
 	bne.w	Obj3DFall
 	move.w	Obj3DRamp_Index(pc,d0.w),d0
 	jsr	Obj3DRamp_Index(pc,d0.w)
-	jsr	DrawObject
+	jsr	R43LegacyDrawObject
 	move.w	oVar2A(a0),d0
 	bra.w	CheckObjDespawn2
 ; End of function Obj3DRamp
@@ -236,7 +236,7 @@ Obj3DRamp_Main:
 
 .Animate:
 	lea	Ani_3DRamp,a1
-	jsr	AnimateObject
+	jsr	R43LegacyAnimateObject
 	bra.s	.GetChunkPos
 
 ; -------------------------------------------------------------------------

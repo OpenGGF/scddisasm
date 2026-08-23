@@ -321,7 +321,11 @@ loc_201898:
 	bsr.w	PauseMusic
 	if DEMO<>0
 		tst.w	stage_demo
-		bne.s	loc_2018FC
+		if R4_VARIANT=8
+			bne.s	R43DemoPauseSkipInput
+		else
+			bne.s	loc_2018FC
+		endif
 	endif
 	move.b	p1_joy_tap,d0
 	tst.b	time_attack
@@ -348,6 +352,9 @@ loc_2018CA:
 loc_2018FC:
 	andi.b	#$70,d0
 	beq.w	loc_20187A
+	if (DEMO<>0)&(R4_VARIANT=8)
+R43DemoPauseSkipInput:
+	endif
 	clr.b	lives
 
 loc_20190A:

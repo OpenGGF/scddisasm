@@ -12,7 +12,7 @@ ObjAmyRose:
 	move.w	ObjAmyRose_Index(pc,d0.w),d0
 	jsr	ObjAmyRose_Index(pc,d0.w)
 	bsr.w	ObjAmyRose_MakeHearts
-	jsr	DrawObject
+	jsr	R43LegacyDrawObject
 	jsr	CheckObjDespawn
 	cmpi.b	#$2F,oID(a0)
 	beq.s	.End
@@ -672,7 +672,7 @@ ObjAmyHeart:
 	move.b	oRoutine(a0),d0
 	move.w	ObjAmyHeart_Index(pc,d0.w),d0
 	jsr	ObjAmyHeart_Index(pc,d0.w)
-	jsr	DrawObject
+	jsr	R43LegacyDrawObject
 	jmp	CheckObjDespawn
 ; End of function ObjAmyHeart
 
@@ -723,7 +723,7 @@ ObjAmyHeart_Main:
 .ChkDel:
 	cmpi.b	#$78,d0
 	bne.s	.End
-	jmp	DeleteObject
+	jmp	R43LegacyDeleteObject
 
 ; -------------------------------------------------------------------------
 

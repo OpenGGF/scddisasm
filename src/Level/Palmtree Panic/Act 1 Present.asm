@@ -6,6 +6,8 @@
 
 	include	"Level/_Definitions.inc"
 
+R43_LEGACY_DATA_PREFIX	EQU	0
+
 ; -------------------------------------------------------------------------
 
 	include	"Level/Initialization.asm"

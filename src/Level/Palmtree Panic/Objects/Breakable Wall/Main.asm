@@ -47,15 +47,15 @@ ObjBreakableWall_Main:
 
 .Solid:
 	lea	objPlayerSlot.w,a1
-	jsr	SolidObject
-	jsr	DrawObject
+	jsr	R43LegacySolidObject
+	jsr	R43LegacyDrawObject
 	jmp	CheckObjDespawn
 
 ; -------------------------------------------------------------------------
 
 .BreakUp:
 	move.w	#FM_B0,d0
-	jsr	PlayFMSound
+	jsr	R43LegacyPlayFMSound
 	lea	objPlayerSlot.w,a6
 	asr	oXVel(a6)
 	lea	ObjBreakableWall_PieceFrames(pc),a5
@@ -116,12 +116,12 @@ ObjBreakableWall_Fall:
 	sub.w	oY(a0),d0
 	cmpi.w	#-$E0,d0
 	ble.s	.Destroy
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 
 ; -------------------------------------------------------------------------
 
 .Destroy:
-	jmp	DeleteObject
+	jmp	R43LegacyDeleteObject
 ; End of function ObjBreakableWall_Fall
 
 ; -------------------------------------------------------------------------

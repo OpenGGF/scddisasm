@@ -4,6 +4,49 @@
 ; Level end objects
 ; -------------------------------------------------------------------------
 
+; The USA DEMO43C file retains this object graph from the earlier Palmtree
+; Panic layout.  Its calls must link against the historical helper addresses
+; while the surrounding R4 code keeps its own newer entry points.
+	if def(R43_LEGACY_DATA_PREFIX)
+	if R43_LEGACY_DATA_PREFIX=1
+R43LegacyPlayFMSound	EQU	$2023AA
+R43LegacyLoadPalette	EQU	$20058C
+R43LegacyAnimateObject	EQU	$205D2E
+R43LegacyDrawObject	EQU	$203B42
+R43LegacyDeleteObject	EQU	$203BEE
+R43LegacySolidObject	EQU	$209036
+R43LegacyGetOffObject	EQU	$208EE8
+R43LegacyAddPoints	EQU	$20AE42
+R43LegacyStopZ80	EQU	$202342
+R43LegacyStartZ80	EQU	$20235E
+R43LegacyFadeOutMusic	EQU	$205CEA
+	else
+R43LegacyPlayFMSound	EQU	PlayFMSound
+R43LegacyLoadPalette	EQU	LoadPalette
+R43LegacyAnimateObject	EQU	AnimateObject
+R43LegacyDrawObject	EQU	DrawObject
+R43LegacyDeleteObject	EQU	DeleteObject
+R43LegacySolidObject	EQU	SolidObject
+R43LegacyGetOffObject	EQU	GetOffObject
+R43LegacyAddPoints	EQU	AddPoints
+R43LegacyStopZ80	EQU	StopZ80
+R43LegacyStartZ80	EQU	StartZ80
+R43LegacyFadeOutMusic	EQU	FadeOutMusic
+	endif
+	else
+R43LegacyPlayFMSound	EQU	PlayFMSound
+R43LegacyLoadPalette	EQU	LoadPalette
+R43LegacyAnimateObject	EQU	AnimateObject
+R43LegacyDrawObject	EQU	DrawObject
+R43LegacyDeleteObject	EQU	DeleteObject
+R43LegacySolidObject	EQU	SolidObject
+R43LegacyGetOffObject	EQU	GetOffObject
+R43LegacyAddPoints	EQU	AddPoints
+R43LegacyStopZ80	EQU	StopZ80
+R43LegacyStartZ80	EQU	StartZ80
+R43LegacyFadeOutMusic	EQU	FadeOutMusic
+	endif
+
 oLvlEndTimer	EQU	oVar2A			; Timer
 
 ; -------------------------------------------------------------------------
@@ -24,7 +67,7 @@ ObjCapsule:
 	bcc.s	.End				; If so, branch
 
 .Draw:
-	jmp	DrawObject			; Draw sprite
+	jmp	R43LegacyDrawObject			; Draw sprite
 
 .End:
 	rts
@@ -35,8 +78,18 @@ ObjCapsule:
 	dc.w	ObjCapsule_Init-.Index
 	dc.w	ObjCapsule_Main-.Index
 	dc.w	ObjCapsule_Explode-.Index
-	dc.w	StartResults-.Index
-	dc.w	ResultsActive-.Index
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX=1
+			dc.w	R43DemoStartResults-.Index
+			dc.w	R43DemoResultsActive-.Index
+		else
+			dc.w	StartResults-.Index
+			dc.w	ResultsActive-.Index
+		endif
+	else
+		dc.w	StartResults-.Index
+		dc.w	ResultsActive-.Index
+	endif
 	dc.w	ObjCapsule_Seed-.Index
 
 ; -------------------------------------------------------------------------
@@ -59,7 +112,7 @@ ObjCapsule_Init:
 
 ObjCapsule_Main:
 	lea	Ani_FlowerCapsule,a1		; Animate sprite
-	jsr	AnimateObject
+	jsr	R43LegacyAnimateObject
 
 	lea	objPlayerSlot.w,a6		; Check if we have been hit
 	bsr.w	ObjCapsule_CheckHit
@@ -118,7 +171,7 @@ ObjCapsule_Explode:
 	jsr	FindObjSlot			; Spawn explosion
 	bne.s	.End
 	move.w	#FM_EXPLODE,d0
-	jsr	PlayFMSound
+	jsr	R43LegacyPlayFMSound
 	move.b	#$18,oID(a1)
 	move.b	#1,oRoutine2(a1)
 	move.w	oX(a0),oX(a1)
@@ -160,7 +213,7 @@ ObjCapsule_SpawnSeeds:
 	moveq	#0,d0				; Restore level palette
 	move.b	LevelPaletteID,d0
 	move.l	d7,d6
-	jsr	LoadPalette
+	jsr	R43LegacyLoadPalette
 	move.l	d6,d7
 
 	moveq	#7-1,d6				; Number of seeds
@@ -208,7 +261,7 @@ ObjCapsule_SpawnSeeds:
 
 ObjCapsule_Seed:
 	lea	Ani_FlowerCapsule,a1		; Animate sprite
-	jsr	AnimateObject
+	jsr	R43LegacyAnimateObject
 
 	jsr	ObjMoveGrv			; Move
 	jsr	ObjGetFloorDist			; Check floor collision
@@ -275,7 +328,7 @@ ObjBigRingFlash:
 	move.w	.Index(pc,d0.w),d0
 	jsr	.Index(pc,d0.w)
 
-	jmp	DrawObject			; Draw sprite
+	jmp	R43LegacyDrawObject			; Draw sprite
 
 ; -------------------------------------------------------------------------
 
@@ -300,14 +353,14 @@ ObjBigRingFlash_Init:
 
 ObjBigRingFlash_Animate:
 	lea	Ani_BigRingFlash,a1		; Animate sprite
-	jmp	AnimateObject
+	jmp	R43LegacyAnimateObject
 
 ; -------------------------------------------------------------------------
 ; Delete
 ; -------------------------------------------------------------------------
 
 ObjBigRingFlash_Delete:
-	jmp	DeleteObject			; Delete ourselves
+	jmp	R43LegacyDeleteObject			; Delete ourselves
 
 ; -------------------------------------------------------------------------
 ; Big ring object
@@ -322,7 +375,7 @@ ObjBigRing:
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 		jmp	CheckObjDespawn		; Check despawn
 	else
-		jmp	DeleteObject		; Delete ourselves
+		jmp	R43LegacyDeleteObject		; Delete ourselves
 	endif
 
 .Proceed:
@@ -333,7 +386,7 @@ ObjBigRing:
 
 	cmpi.b	#4,oRoutine(a0)			; Has the big ring been touched?
 	beq.s	.End				; If so, branch
-	jmp	DrawObject			; If not, draw sprite
+	jmp	R43LegacyDrawObject			; If not, draw sprite
 
 .End:
 	rts
@@ -352,12 +405,12 @@ ObjBigRing:
 ObjBigRing_Init:
 	cmpi.b	#%1111111,timeStones		; Have all the time stones been collected?
 	bne.s	.TimeStonesLeft			; If not, branch
-	jmp	DeleteObject			; If so, delete object
+	jmp	R43LegacyDeleteObject			; If so, delete object
 
 .TimeStonesLeft:
 	tst.b	timeAttackMode			; Are we in time attack mode?
 	beq.s	.Init				; If not, branch
-	jmp	DeleteObject			; If so, delete object
+	jmp	R43LegacyDeleteObject			; If so, delete object
 
 .Init:
 	addq.b	#2,oRoutine(a0)			; Next routine
@@ -391,7 +444,7 @@ ObjBigRing_Main:
 	move.b	#1,scrollLock.w			; Lock camera
 
 	move.w	#FM_BIGRING,d0			; Play sound
-	jsr	PlayFMSound
+	jsr	R43LegacyPlayFMSound
 
 	jsr	FindObjSlot			; Spawn flash
 	bne.s	ObjBigRing_Main
@@ -406,7 +459,7 @@ ObjBigRing_Main:
 
 ObjBigRing_Animate:
 	lea	Ani_BigRing,a1			; Animate sprite
-	jmp	AnimateObject
+	jmp	R43LegacyAnimateObject
 
 ; -------------------------------------------------------------------------
 ; Check if the player has touched the big ring
@@ -462,7 +515,7 @@ ObjGoalPost:
 
 	cmpi.b	#2,act				; Are we in act 3?
 	beq.s	.CheckDespawn			; If so, branch
-	jsr	DrawObject			; Draw sprite
+	jsr	R43LegacyDrawObject			; Draw sprite
 
 .CheckDespawn:
 	jmp	CheckObjDespawn			; Check despawn
@@ -598,7 +651,7 @@ ObjSignpost:
 	move.w	.Index(pc,d0.w),d0
 	jsr	.Index(pc,d0.w)
 
-	jmp	DrawObject			; Draw sprite
+	jmp	R43LegacyDrawObject			; Draw sprite
 
 ; -------------------------------------------------------------------------
 
@@ -606,8 +659,18 @@ ObjSignpost:
 	dc.w	ObjSignpost_Init-.Index
 	dc.w	ObjSignpost_Main-.Index
 	dc.w	ObjSignpost_Spin-.Index
-	dc.w	StartResults-.Index
-	dc.w	ResultsActive-.Index
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX=1
+			dc.w	R43DemoStartResults-.Index
+			dc.w	R43DemoResultsActive-.Index
+		else
+			dc.w	StartResults-.Index
+			dc.w	ResultsActive-.Index
+		endif
+	else
+		dc.w	StartResults-.Index
+		dc.w	ResultsActive-.Index
+	endif
 
 ; -------------------------------------------------------------------------
 ; Initialization
@@ -657,7 +720,7 @@ ObjSignpost_Main:
 	clr.b	invincible			; Disable invincibility
 
 	move.w	#FM_SIGNPOST,d0			; Play signpost sound
-	jmp	PlayFMSound
+	jmp	R43LegacyPlayFMSound
 
 .End:
 	rts
@@ -668,7 +731,7 @@ ObjSignpost_Main:
 
 ObjSignpost_Spin:
 	lea	Ani_Signpost,a1			; Animate sprite
-	jsr	AnimateObject
+	jsr	R43LegacyAnimateObject
 
 	subq.b	#1,oLvlEndTimer(a0)		; Decrement timer
 	bne.s	.End				; If it hasn't run out, branch
@@ -683,7 +746,15 @@ ObjSignpost_Spin:
 ; Start results
 ; -------------------------------------------------------------------------
 
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX=1
+R43DemoStartResults:
+		else
 StartResults:
+		endif
+	else
+StartResults:
+	endif
 	subq.b	#1,oLvlEndTimer(a0)		; Decrement timer
 	bne.w	.End				; If it hasn't run out, branch
 
@@ -764,7 +835,15 @@ StartResults:
 ; Results active
 ; -------------------------------------------------------------------------
 
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX=1
+R43DemoResultsActive:
+		else
 ResultsActive:
+		endif
+	else
+ResultsActive:
+	endif
 	rts
 
 ; -------------------------------------------------------------------------

@@ -71,13 +71,13 @@ ObjTitleCard_SlideInVert:
 
 .DoYSlide:
 	add.w	d0,oYScr(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 
 ; -------------------------------------------------------------------------
 
 .DidSlide:
 	addq.b	#4,oRoutine(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 ; End of function ObjTitleCard_SlideInVert
 
 ; -------------------------------------------------------------------------
@@ -92,13 +92,13 @@ ObjTitleCard_SlideInHoriz:
 
 .DoXSlide:
 	add.w	d0,oX(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 
 ; -------------------------------------------------------------------------
 
 .DidSlide:
 	addq.b	#4,oRoutine(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 ; End of function ObjTitleCard_SlideInHoriz
 
 ; -------------------------------------------------------------------------
@@ -107,7 +107,7 @@ ObjTitleCard_SlideOutVert:
 	tst.b	oAnimTime(a0)
 	beq.s	.SlideOut
 	subq.b	#1,oAnimTime(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 
 ; -------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ ObjTitleCard_SlideOutVert:
 
 .DoYSlide:
 	add.w	d0,oYScr(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 
 ; -------------------------------------------------------------------------
 
@@ -138,7 +138,7 @@ ObjTitleCard_SlideOutHoriz:
 	tst.b	oAnimTime(a0)
 	beq.s	.SlideOut
 	subq.b	#1,oAnimTime(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 
 ; -------------------------------------------------------------------------
 
@@ -152,12 +152,12 @@ ObjTitleCard_SlideOutHoriz:
 
 .DoXSlide:
 	add.w	d0,oX(a0)
-	jmp	DrawObject
+	jmp	R43LegacyDrawObject
 
 ; -------------------------------------------------------------------------
 
 .DidSlide:
-	jmp	DeleteObject
+	jmp	R43LegacyDeleteObject
 ; End of function ObjTitleCard_SlideOutHoriz
 
 ; -------------------------------------------------------------------------
@@ -167,7 +167,7 @@ ObjTitleCard_WaitPLC:
 	bne.s	.End
 	clr.b	scrollLock.w
 	clr.b	ctrlLocked.w
-	jmp	DeleteObject
+	jmp	R43LegacyDeleteObject
 
 ; -------------------------------------------------------------------------
 

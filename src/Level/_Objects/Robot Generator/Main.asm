@@ -9,7 +9,7 @@ ObjRobotGenerator:
 	move.b	oRoutine(a0),d0
 	move.w	ObjRobotGenerator_Index(pc,d0.w),d0
 	jsr	ObjRobotGenerator_Index(pc,d0.w)
-	jsr	DrawObject
+	jsr	R43LegacyDrawObject
 	cmpi.b	#2,oRoutine(a0)
 	bgt.s	.End
 	jmp	CheckObjDespawn
@@ -83,11 +83,11 @@ ObjRobotGenerator_Main:
 	addq.b	#2,oRoutine(a0)
 	move.b	#1,goodFuture
 	move.l	#$96,d0
-	jsr	AddPoints
+	jsr	R43LegacyAddPoints
 	lea	objPlayerSlot.w,a1
-	jsr	SolidObject
+	jsr	R43LegacySolidObject
 	beq.s	.End
-	jsr	GetOffObject
+	jsr	R43LegacyGetOffObject
 
 .End:
 	rts
@@ -96,9 +96,9 @@ ObjRobotGenerator_Main:
 
 .Solid:
 	lea	objPlayerSlot.w,a1
-	jsr	SolidObject
+	jsr	R43LegacySolidObject
 	lea	Ani_RobotGenerator(pc),a1
-	jmp	AnimateObject
+	jmp	R43LegacyAnimateObject
 
 ; -------------------------------------------------------------------------
 
@@ -129,7 +129,7 @@ ObjRobotGenerator_Exploding:
 	add.w	d5,oX(a1)
 	add.w	d6,oY(a1)
 	move.w	#FM_EXPLODE,d0
-	jsr	PlayFMSound
+	jsr	R43LegacyPlayFMSound
 
 .End:
 	rts
@@ -150,7 +150,7 @@ ObjRobotGenerator_BreakDown:
 	subq.b	#6,oRoutine(a0)
 	move.w	oVar30(a0),oY(a0)
 	move.w	#FM_D9,d0
-	jmp	PlayFMSound
+	jmp	R43LegacyPlayFMSound
 
 ; -------------------------------------------------------------------------
 

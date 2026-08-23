@@ -263,6 +263,7 @@ PLC_Signpost:
 
 ; -------------------------------------------------------------------------
 
+	if R43_LEGACY_DATA_PREFIX=0
 LevelChunks:
 	if DEMO=0
 		incbin	"Level/Palmtree Panic/Data/Chunks (Act 1 Present).bin"
@@ -437,7 +438,6 @@ Art_RobotGenWithered:
 	incbin	"Level/_Objects/Robot Generator/Data/Art (Withered).nem"
 	even
 
-; -------------------------------------------------------------------------
 ; Collision data
 ; -------------------------------------------------------------------------
 
@@ -572,3 +572,5 @@ Ani_AmyRose:
 	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin"
 
 ; -------------------------------------------------------------------------
+
+	endif

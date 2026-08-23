@@ -1,4 +1,21 @@
+	if def(R43_LEGACY_AMY_TAIL)
+	else
+R43_LEGACY_AMY_TAIL EQU 0
+	endif
+
 .Map:
+	if R43_LEGACY_AMY_TAIL=1
+		dc.w unk_23FDB4-R43LegacyAmyMapBase
+		dc.w unk_23FDC0-R43LegacyAmyMapBase
+		dc.w unk_23FDC6-R43LegacyAmyMapBase
+		dc.w unk_23FDCC-R43LegacyAmyMapBase
+		dc.w unk_23FDD2-R43LegacyAmyMapBase
+		dc.w unk_23FDE2-R43LegacyAmyMapBase
+		dc.w unk_23FDEE-R43LegacyAmyMapBase
+		dc.w unk_23FE08-R43LegacyAmyMapBase
+		dc.w unk_23FE18-R43LegacyAmyMapBase
+		dc.w unk_23FE28-R43LegacyAmyMapBase
+	else
 	dc.w unk_23FD3E-.Map
 	dc.w unk_23FD54-.Map
 	dc.w unk_23FD60-.Map
@@ -16,6 +33,7 @@
 	dc.w unk_23FE08-.Map
 	dc.w unk_23FE18-.Map
 	dc.w unk_23FE28-.Map
+	endif
 unk_23FD3E:	dc.b   4
 		dc.b $E8 ; è
 		dc.b  $D

@@ -11,7 +11,7 @@ ObjProjector:
 	move.b	oRoutine(a0),d0
 	move.w	ObjProjector_Index(pc,d0.w),d0
 	jsr	ObjProjector_Index(pc,d0.w)
-	jsr	DrawObject
+	jsr	R43LegacyDrawObject
 	cmpi.b	#2,oRoutine(a0)
 	bgt.s	.End
 	jsr	CheckObjDespawn
@@ -37,7 +37,7 @@ ObjProjector_Index:dc.w	ObjProjector_Init-ObjProjector_Index
 ; START	OF FUNCTION CHUNK FOR ObjProjector
 
 ObjProjector_Destroy:
-	jmp	DeleteObject
+	jmp	R43LegacyDeleteObject
 ; END OF FUNCTION CHUNK	FOR ObjProjector
 ; -------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ ObjProjector_Main:
 
 .Solid:
 	lea	objPlayerSlot.w,a1
-	jmp	SolidObject
+	jmp	R43LegacySolidObject
 ; End of function ObjProjector_Init
 
 ; -------------------------------------------------------------------------
@@ -119,9 +119,9 @@ ObjProjector_StartExploding:
 	move.w	#4,d0
 	jsr	LoadPLC
 	lea	objPlayerSlot.w,a1
-	jsr	SolidObject
+	jsr	R43LegacySolidObject
 	beq.s	ObjProjector_Exploding
-	jsr	GetOffObject
+	jsr	R43LegacyGetOffObject
 
 ObjProjector_Exploding:
 	movea.l	oVar2C(a0),a6
@@ -144,7 +144,7 @@ ObjProjector_Exploding:
 	add.w	d5,oX(a1)
 	add.w	d6,oY(a1)
 	move.w	#FM_EXPLODE,d0
-	jsr	PlayFMSound
+	jsr	R43LegacyPlayFMSound
 
 .End:
 	rts
@@ -210,8 +210,8 @@ ObjMetalSonicHologram:
 
 .Animate:
 	lea	Ani_MetalSonicHologram(pc),a1
-	jsr	AnimateObject
-	jmp	DrawObject
+	jsr	R43LegacyAnimateObject
+	jmp	R43LegacyDrawObject
 ; END OF FUNCTION CHUNK	FOR ObjProjector
 
 ; -------------------------------------------------------------------------

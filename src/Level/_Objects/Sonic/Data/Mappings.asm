@@ -1,3 +1,9 @@
+	if def(R43_LEGACY_SONIC_TAIL)
+	else
+R43_LEGACY_SONIC_TAIL EQU 0
+	endif
+
+	if R43_LEGACY_SONIC_TAIL=0
 .Map:
 		dc.w unk_21F38C-.Map
 		dc.w unk_21F38E-.Map
@@ -2201,8 +2207,14 @@ unk_21FB46:	dc.b   5
 		dc.b   0
 		dc.b $14
 		dc.b  $C
+	endif
+
+	if R43_LEGACY_SONIC_TAIL=0
 unk_21FB60:	dc.b   4
 		dc.b $EC ; ì
+	else
+unk_21FB60:
+	endif
 		dc.b   9
 		dc.b   0
 		dc.b   0
@@ -2772,6 +2784,7 @@ unk_21FD8E:	dc.b   4
 		dc.b $EC ; ì
 		dc.b $FC ; ü
 		dc.b  $A
+	if R43_LEGACY_SONIC_TAIL=0
 		dc.b   0
 		dc.b   8
 		dc.b $F4 ; ô
@@ -2806,3 +2819,4 @@ unk_21FDB0:	dc.b   2
 		dc.b $E8 ; è
 		dc.b   0
 		even
+	endif
