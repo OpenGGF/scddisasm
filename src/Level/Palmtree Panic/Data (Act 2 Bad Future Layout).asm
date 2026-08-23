@@ -433,7 +433,7 @@ MapSpr_FlowerCapsule:
 	include	"sprites/capsule.asm"
 
 Padding3:
-	incbin	"../padding/r12d_e_3.bin"
+	include	"Level/Palmtree Panic/Data/R12D Padding 3.asm"
 
 ; These aliases keep the future-stage graphics names available to shared object code.
 Art_HologramAnimals	EQU	Art_Animals

@@ -508,9 +508,9 @@ Art_Projector:
 		endif
 		include	"Level/Palmtree Panic/Data/R13 Padding 3 Base.asm"
 	elseif ACT2_FUTURE_VARIANT=1
-		incbin	"../padding/r12c_e_3.bin"
+		include	"Level/Palmtree Panic/Data/R12C Padding 3.asm"
 	elseif ACT2_FUTURE_VARIANT=2
-		incbin	"../padding/r12d_e_3.bin"
+		include	"Level/Palmtree Panic/Data/R12D Padding 3.asm"
 	else
 		incbin	"Level/Palmtree Panic/Data/Padding/3 (Act 2 Present).bin", $862, $2CA
 	endif
