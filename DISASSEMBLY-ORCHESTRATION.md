@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R71 Padding3 completion milestone:** The four distinct packed
+  mapping/animation prefixes for R71A, R71B, R71C, and R71D are now
+  source-emitted before the existing shared mapping and rotation-vector tails.
+  The four complete retained blobs, totalling 36,962 bytes, are removed. The
+  tracked padding inventory falls to 11 files totalling 101,052 bytes. The
+  guarded displayless USA build/check remains byte-exact for all 127 targets;
+  no data was obtained from an original disc.
+
 - **R62D Padding3 completion milestone:** The distinct `$206C`-byte packed
   mapping/animation prefix is now source-emitted before the existing shared
   mapping and rotation-vector tails. The complete 8,634-byte
