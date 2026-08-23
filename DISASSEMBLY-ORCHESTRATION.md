@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **Legacy R12A/R12B tail milestone:** The 2,860-byte R12A `Padding/3` parent
+  binary is removed. Its full form is composed from a named Palmtree Panic tile
+  suffix, projector art, and the recovered Amy Rose tail. R12B's historical
+  `$862` slice now uses an explicit Amy mapping-tail mode that omits 13 pointer
+  words while preserving offsets relative to the original table base. The USA
+  ISO remains byte-identical with all 133 comparisons passing, and a guarded
+  Japan build validates the shared non-USA path. This leaves 20 tracked level
+  `Data/Padding` binaries totalling 98,960 bytes.
+
 - **Legacy Amy Rose tail milestone:** Three identical 1,520-byte R11B/R11C/R11D
   `Padding/3` binaries are removed. Their retained content is now assembled from
   the existing named Amy Rose art, mappings, animations, and recovered legacy

@@ -16,6 +16,14 @@ R43_LEGACY_AMY_TAIL EQU 0
 		dc.w .Frame15-R43LegacyAmyMapBase
 		dc.w .Frame16-R43LegacyAmyMapBase
 	else
+	if def(LEGACY_AMY_MAPPING_TAIL)
+		; The retained table omits its first 13 pointers but preserves offsets
+		; relative to the original full mapping-table base.
+		dc.w .Frame13-.Map+$1A
+		dc.w .Frame14-.Map+$1A
+		dc.w .Frame15-.Map+$1A
+		dc.w .Frame16-.Map+$1A
+	else
 	dc.w .Frame0-.Map
 	dc.w .Frame1-.Map
 	dc.w .Frame2-.Map
@@ -33,6 +41,7 @@ R43_LEGACY_AMY_TAIL EQU 0
 	dc.w .Frame14-.Map
 	dc.w .Frame15-.Map
 	dc.w .Frame16-.Map
+	endif
 	endif
 .Frame0:	dc.b   4
 		dc.b $E8 ; è

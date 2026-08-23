@@ -513,7 +513,7 @@ Art_Projector:
 	elseif ACT2_FUTURE_VARIANT=2
 		include	"Level/Palmtree Panic/Data/R12D Padding 3.asm"
 	else
-		incbin	"Level/Palmtree Panic/Data/Padding/3 (Act 2 Present).bin", $862, $2CA
+		include	"Level/Palmtree Panic/Data/Legacy Amy Rose Mapping Tail.asm"
 	endif
 
 ; -------------------------------------------------------------------------
