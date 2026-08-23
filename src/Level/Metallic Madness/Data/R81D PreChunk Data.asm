@@ -466,4 +466,229 @@ R81D_OverlayMappings:
 R81D_ExternalTrampoline:
 	jmp	$206358
 
-	incbin	"../padding/r81d_e_1.bin",$5A2
+	incbin	"../padding/r81d_e_1.bin",$5A2,$2BA
+	dc.w	0
+
+R81D_BossObject:
+	jsr	$20EC94
+	moveq	#0,d0
+	move.b	$24(a0),d0
+	move.w	.Index(pc,d0.w),d0
+	jsr	.Index(pc,d0.w)
+	jsr	$2038CC
+	jmp	$207928
+
+.Index:
+	dc.w	R81D_Boss_Init-.Index
+	dc.w	R81D_Boss_Fall-.Index
+	dc.w	R81D_Boss_BeginSlowMove-.Index
+	dc.w	R81D_Boss_UpdatePath-.Index
+	dc.w	R81D_Boss_AdvanceFrame-.Index
+	dc.w	R81D_Boss_FollowPath-.Index
+	dc.w	R81D_Boss_Lower-.Index
+	dc.w	R81D_Boss_FollowPath-.Index
+	dc.w	R81D_Boss_Raise-.Index
+	dc.w	R81D_Boss_Attack-.Index
+	dc.w	R81D_Boss_BeginFastMove-.Index
+	dc.w	R81D_Boss_Attack-.Index
+	dc.w	R81D_Boss_LowerAfterAttack-.Index
+	dc.w	R81D_Boss_FollowPath-.Index
+	dc.w	R81D_Boss_Reset-.Index
+
+R81D_Boss_Init:
+	addq.b	#2,$24(a0)
+	ori.b	#4,$1(a0)
+	move.b	#3,$18(a0)
+	move.b	#$E,$17(a0)
+	move.b	#$E,$19(a0)
+	move.b	#9,$16(a0)
+	move.b	#$2C,$20(a0)
+	move.w	#$245D,d0
+	tst.b	$FF152E
+	bne.s	.SetTile
+	move.w	#$23E9,d0
+.SetTile:
+	move.w	d0,$2(a0)
+	lea	R81D_BossMappingsA(pc),a1
+	lea	R81D_BossAnimationA(pc),a2
+	tst.b	$28(a0)
+	beq.s	.StoreData
+	lea	R81D_BossMappingsB(pc),a1
+	lea	R81D_BossAnimationB(pc),a2
+.StoreData:
+	move.l	a1,$4(a0)
+	move.l	a2,$2E(a0)
+	rts
+
+R81D_Boss_Fall:
+	addi.l	#$10000,$C(a0)
+	jsr	$2069FC
+	tst.w	d1
+	bpl.s	.Done
+	add.w	d1,$C(a0)
+	addq.b	#2,$24(a0)
+.Done:
+	rts
+
+R81D_Boss_BeginSlowMove:
+	addq.b	#2,$24(a0)
+	move.l	#$6000,d0
+	move.l	#$1000,d1
+	bra.w	R81D_Boss_SetMovement
+
+R81D_Boss_UpdatePath:
+	bsr.w	R81D_Boss_Move
+	beq.s	R81D_Boss_Reverse
+	move.w	($FFFFD008).w,d0
+	sub.w	$8(a0),d0
+	spl.b	d1
+	subi.w	#$FF80,d0
+	subi.w	#$100,d0
+	bcc.s	R81D_Boss_FollowPath
+	move.w	($FFFFD00C).w,d0
+	sub.w	$C(a0),d0
+	subi.w	#$FF80,d0
+	subi.w	#$100,d0
+	bcc.s	R81D_Boss_FollowPath
+	btst	#0,$1(a0)
+	sne.b	d0
+	eor.b	d1,d0
+	bne.s	R81D_Boss_FollowPath
+	addq.b	#2,$24(a0)
+R81D_Boss_FollowPath:
+	movea.l	$2E(a0),a1
+	jmp	$205AD6
+R81D_Boss_Reverse:
+	neg.l	$2A(a0)
+	bchg	#0,$1(a0)
+	bchg	#0,$22(a0)
+	rts
+
+R81D_Boss_AdvanceFrame:
+	addq.b	#2,$24(a0)
+	addq.b	#1,$1C(a0)
+	rts
+
+R81D_Boss_Lower:
+	addq.b	#2,$24(a0)
+	addq.b	#1,$1C(a0)
+	subq.w	#6,$C(a0)
+	move.b	#$10,$16(a0)
+	rts
+
+R81D_Boss_Raise:
+	addq.b	#2,$24(a0)
+	addq.b	#1,$1C(a0)
+	addq.w	#3,$C(a0)
+	move.b	#$D,$16(a0)
+	move.b	#$ED,$20(a0)
+	move.l	#0,$2A(a0)
+	rts
+
+R81D_Boss_BeginFastMove:
+	addq.b	#2,$24(a0)
+	addq.b	#1,$1C(a0)
+	move.l	#$40000,d0
+	move.l	#$10000,d1
+	bra.w	R81D_Boss_SetMovement
+
+R81D_Boss_Attack:
+	tst.b	$21(a0)
+	bne.s	.LaunchPlayer
+	bsr.w	R81D_Boss_Move
+	beq.s	.Advance
+	movea.l	$2E(a0),a1
+	jmp	$205AD6
+.Advance:
+	addq.b	#2,$24(a0)
+	rts
+.LaunchPlayer:
+	lea	($FFFFD000).w,a1
+	move.w	$8(a0),d1
+	move.w	$C(a0),d2
+	sub.w	$8(a1),d1
+	sub.w	$C(a1),d2
+	jsr	$200A60
+	jsr	$2007C8
+	muls.w	#$F900,d1
+	asr.l	#8,d1
+	move.w	d1,$10(a1)
+	muls.w	#$F900,d0
+	asr.l	#8,d0
+	move.w	d0,$12(a1)
+	bset	#1,$22(a1)
+	bclr	#4,$22(a1)
+	bclr	#5,$22(a1)
+	clr.b	$3C(a1)
+	clr.b	$21(a0)
+	neg.w	d1
+	ext.l	d1
+	asl.l	#8,d1
+	move.l	d1,$2A(a0)
+	move.b	#4,$1C(a0)
+	move.b	#$16,$24(a0)
+	rts
+
+R81D_Boss_LowerAfterAttack:
+	addq.b	#2,$24(a0)
+	addq.b	#1,$1C(a0)
+	subq.w	#3,$C(a0)
+	move.b	#$10,$16(a0)
+	move.b	#$2C,$20(a0)
+	rts
+
+R81D_Boss_Reset:
+	move.b	#4,$24(a0)
+	move.b	#0,$1C(a0)
+	addq.w	#6,$C(a0)
+	move.b	#9,$16(a0)
+	rts
+
+R81D_Boss_SetMovement:
+	tst.b	$28(a0)
+	beq.s	.CheckDirection
+	move.l	d1,d0
+.CheckDirection:
+	btst	#0,$1(a0)
+	bne.s	.Store
+	neg.l	d0
+.Store:
+	move.l	d0,$2A(a0)
+	rts
+
+R81D_Boss_Move:
+	move.l	$2A(a0),d0
+	add.l	d0,$8(a0)
+	moveq	#0,d3
+	move.b	$17(a0),d3
+	lea	$206AC6,a1
+	tst.w	$2A(a0)
+	bpl.s	.CheckWall
+	neg.w	d3
+	lea	$206C68,a1
+.CheckWall:
+	jsr	(a1)
+	tst.w	d1
+	bmi.s	.Blocked
+	jsr	$2069FC
+	move.w	d1,d0
+	addq.w	#7,d0
+	subi.w	#$E,d0
+	bcc.s	.Blocked
+	add.w	d1,$C(a0)
+	moveq	#$FF,d0
+	rts
+.Blocked:
+	move.l	$2A(a0),d0
+	sub.l	d0,$8(a0)
+	moveq	#0,d0
+	rts
+
+R81D_BossAnimationA:
+	incbin	"../padding/r81d_e_1.bin",$AF0,$2A
+R81D_BossAnimationB:
+	incbin	"../padding/r81d_e_1.bin",$B1A,$30
+R81D_BossMappingsA:
+	incbin	"../padding/r81d_e_1.bin",$B4A,$6E
+R81D_BossMappingsB:
+	incbin	"../padding/r81d_e_1.bin",$BB8

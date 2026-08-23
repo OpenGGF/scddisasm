@@ -43,7 +43,10 @@ pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and
 movement/state handlers, shared helpers, palette loading, child/overlay object
 logic, and their inline tables, are now real 68000 source; the unresolved
 remainder of that mixed code/data block is still included from its tracked
-padding file and is not counted as complete.
+padding file and is not counted as complete. A further 658-byte boss-object
+logic block at offsets `$85E`-`$AEF` is also semantic source, with the
+intervening and following asset/data regions retained as explicitly bounded
+binary slices rather than misidentified as executable code.
 
 ## Building
 

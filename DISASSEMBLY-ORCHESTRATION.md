@@ -12,6 +12,22 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D boss-state disassembly milestone:** The 658-byte executable region at
+  offsets `$85E`-`$AEF` of the mixed R81D non-USA pre-chunk block is now real
+  68000 source. It contains a 15-state dispatcher, boss initialization,
+  falling and path-following states, slow/fast movement setup, player-launch
+  logic, state transitions, and shared collision-aware movement helpers. Its
+  PC-relative animation/mapping pointers now target four named, bounded binary
+  data slices; the preceding `$5A2`-`$85B` region was classified as data and
+  deliberately not presented as disassembled logic. The complete 4,312-byte
+  mixed-region probe matched the former blob exactly, the complete
+  262,148-byte REGION=2 R81D entry matched its prior output exactly, and the
+  guarded USA build/check matched all 127 comparison targets. The first 1,442
+  bytes remain continuously source-backed, but the retained data means
+  `r81d_e_1.bin` and the overall count of 31 files totalling 257,607 bytes are
+  unchanged. Further R81 logic/data recovery, the three FMV streams, other
+  padding slices, and full Japan/Europe validation remain unfinished.
+
 - **R81D palette/child-object disassembly milestone:** The first 1,442 bytes
   of the mixed R81D non-USA pre-chunk region are now real 68000 source. The
   newly recovered 348-byte span contains a palette-transfer routine and its
