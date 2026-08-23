@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-Yago milestone:** The complete 1,260-byte historical
+  cluster at shared offsets `$FC0`-`$14AB` is now namespaced semantic source.
+  It recovers both subtype dispatchers and their nine-state movement graphs,
+  floor/wall collision, turnaround, jumping and falling behavior, two animation
+  sets, and two sprite mapping sets. The following animal-presence call remains
+  source-emitted by the USA legacy overlay; the retained suffix is aligned at
+  `$14AE` so that overlay and the following opcode meet without duplicated
+  bytes. The guarded USA build/check remains byte-exact for all 127 targets,
+  including R43C, R43D, and DEMO43C. The padding inventory remains 28 files
+  totalling 236,195 bytes because the later 6,244-byte suffix still shares the
+  same retained file; later R43 logic/data, three FMV streams, and full
+  Japan/Europe validation remain unfinished.
+
 - **R43C/R43D retained-TagaTaga milestone:** The complete 1,054-byte historical
   cluster at shared offsets `$BA2`-`$FBF` is now namespaced semantic source. It
   recovers the discarded five-state TagaTaga object, its three linked body

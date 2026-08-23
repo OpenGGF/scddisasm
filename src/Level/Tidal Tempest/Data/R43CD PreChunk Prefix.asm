@@ -86,4 +86,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded TagaTaga body and missile implementations follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained TagaTaga.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$FC0
+	; Both discarded Yago subtype implementations and their assets follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Yago.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$14AE
