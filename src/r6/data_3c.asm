@@ -705,6 +705,6 @@ BossPiecesGfxC:
 	incbin	"gfx/r6/boss_pieces_c.nem"
 
 Padding3:
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $259A, $264
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 259A.asm"
 
 ; ------------------------------------------------------------------------------

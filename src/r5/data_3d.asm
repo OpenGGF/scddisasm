@@ -355,6 +355,6 @@ CollapseFloorGfxD:
 	incbin	"gfx/r5/collapse_floor_d.nem"
 
 Padding3:
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $8BA, $1F44
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 08BA.asm"
 
 ; ------------------------------------------------------------------------------

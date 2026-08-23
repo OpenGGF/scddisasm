@@ -609,6 +609,6 @@ BuzzsawSprites:
 	include	"sprites/r8/buzzsaw_cd.asm"
 
 Padding3:
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $26B0, $14E
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 26B0.asm"
 
 ; ------------------------------------------------------------------------------

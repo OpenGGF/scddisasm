@@ -1,5 +1,18 @@
 # Disassembly Orchestration Ledger
 
+## 2026-08-24
+
+- **Legacy Wacky Workbench compressed-art milestone:** The 10,238-byte Act 1
+  Present `Padding/3` binary is removed. Its full form and ten historical
+  suffixes are assembled from named Palmtree Panic, Quartz Quadrant, Robot
+  Generator, and Tidal Tempest compressed-art assets plus explicit retained
+  Amy mapping/animation records. The USA R43 demo retains its source-level Amy
+  overwrite. The guarded USA ISO remains byte-identical with all 133
+  comparisons passing; a guarded Japan build and direct checks against all
+  eleven former suffix forms validate the non-USA paths. This leaves one
+  tracked level `Data/Padding` binary: Wacky Workbench `Padding/2`, at 5,632
+  bytes.
+
 ## 2026-08-23
 
 - **Legacy Act 2 Present post-data milestone:** The final 9,416-byte Palmtree

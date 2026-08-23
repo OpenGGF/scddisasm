@@ -383,7 +383,7 @@ BossBubbleGfx:
 	incbin	"gfx/r4/boss_bubble.nem"
 
 Padding3:
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $2528, $2D6
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 2528.asm"
 	if (REGION=USA)&(DEMO<>0)
 R43_LEGACY_AMY_TAIL EQU 1
 R43LegacyAmyMapBase EQU $23FD1C

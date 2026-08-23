@@ -592,5 +592,5 @@ LEGACY_R11A_TABLE_MODE = 2
 	dc.w	$01F8, $0508, $5CF8
 	include	"r4/nonusa_padding_1b_3.asm"
 	else
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $26F8, $106
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 26F8.asm"
 	endif

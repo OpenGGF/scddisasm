@@ -360,6 +360,6 @@ BossBubbleGfx:
 	incbin	"gfx/r4/boss_bubble.nem"
 
 Padding3:
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $235A, $4A4
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 235A.asm"
 
 ; ------------------------------------------------------------------------------

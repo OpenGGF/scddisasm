@@ -499,6 +499,6 @@ HologramGfx:
 	incbin	"gfx/hologram.nem"
 
 Padding3:
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $530, $22CE
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 0530.asm"
 
 ; ------------------------------------------------------------------------------

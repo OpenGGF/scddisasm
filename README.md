@@ -246,8 +246,8 @@ source table. The former `padding/r43d_e_1.bin` dependency has been removed, so
 the complete shared R43 retained pre-chunk body is now built without that binary
 blob. Field-level naming of the final packed records remains unfinished.
 The older level `Data/Padding` directories are a separate retained-data set:
-2 tracked binaries (15,870 bytes), both in Wacky Workbench, remain after
-replacing the regional R61A
+one tracked binary remains: the 5,632-byte Wacky Workbench `Padding/2`, after
+replacing its compressed-art `Padding/3`, the regional R61A
 legacy PLC tails, the Palmtree Panic Act 1 Past/Future and Act 2 Present
 pre-chunk regions, the Act 1 and Act 2 post-data mapping/art/chunk suffixes, the
 R11A retail/demo PLC and graphics records and leftover object tables, and the

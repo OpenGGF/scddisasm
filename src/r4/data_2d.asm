@@ -428,6 +428,6 @@ CapsuleSprites:
 	include	"sprites/capsule.asm"
 
 Padding3:
-	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $2592, $26C
+	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 2592.asm"
 
 ; ------------------------------------------------------------------------------
