@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R33 Padding3 completion milestone:** The distinct packed
+  mapping/animation prefixes for R33C and R33D are now source-emitted before
+  the existing shared mapping and rotation-vector tails. Both complete
+  retained blobs, totalling 21,652 bytes, are removed. The tracked padding
+  inventory falls to 5 files totalling 40,890 bytes. The guarded displayless
+  USA build/check remains byte-exact for all 127 targets; no data was obtained
+  from an original disc.
+
 - **R72 Padding3 completion milestone:** The four variants now source-emit
   their packed prefixes before the existing mapping and rotation-vector tails.
   R72A and R72C are split at their true regional divergence points: USA uses

@@ -421,7 +421,7 @@ CapsuleSprites:
 	include	"sprites/capsule.asm"
 
 Padding3:
-	incbin	"../padding/r33c_e_3.bin",0,$28A4
+	include	"Level/Collision Chaos/Data/R33C Padding3 Packed Prefix.asm"
 	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
