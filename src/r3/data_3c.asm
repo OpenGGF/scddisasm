@@ -5,17 +5,16 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
+	include	"Level/Collision Chaos/Data/R33C Pre-Chunks.asm"
 	if REGION=USA
-		incbin	"../padding/r33c_e_1.bin",0,$38F
+		org	Padding1+$38F
 		dc.b	$DE
-		incbin	"../padding/r33c_e_1.bin",$390,$223
+		org	Padding1+$5B3
 		dc.b	$D0
-		incbin	"../padding/r33c_e_1.bin",$5B4,$F5
+		org	Padding1+$6A9
 		dc.b	$3C
-		incbin	"../padding/r33c_e_1.bin",$6AA,2
+		org	Padding1+$6AC
 		include	"Level/USA Legacy Animation Tail.asm"
-	else
-		incbin	"../padding/r33c_e_1.bin"
 	endif
 
 StageChunks:
