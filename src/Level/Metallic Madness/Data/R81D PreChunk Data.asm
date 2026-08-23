@@ -141,9 +141,91 @@ R81D_UpdateActive:
 	move.b	#1,$2A(a0)
 	jmp	$20A0EC
 
-	incbin	"../padding/r81d_e_1.bin",$1B6,$FE
+R81D_StartJump:
+	move.b	#6,$1A(a0)
+	move.w	#$80,d0
+	btst	#0,$22(a0)
+	bne.s	.SetHorizontalSpeed
+	neg.w	d0
+.SetHorizontalSpeed:
+	move.w	d0,$10(a0)
+	move.w	$8(a0),d0
+	sub.w	$36(a0),d0
+	bcc.s	.CheckHorizontalDistance
+	neg.w	d0
+.CheckHorizontalDistance:
+	cmpi.w	#$80,d0
+	bcs.s	.SetVerticalSpeed
+	clr.w	$10(a0)
+.SetVerticalSpeed:
+	move.w	#$FD00,$12(a0)
+	addq.b	#2,$24(a0)
+
+R81D_UpdateJump:
+	bsr.w	R81D_ApplyVelocity
+	addi.w	#$40,$12(a0)
+	tst.w	$12(a0)
+	bmi.s	.CheckFloor
+	move.b	#7,$1A(a0)
+.CheckFloor:
+	move.w	$C(a0),d0
+	cmpi.w	#$1D0,d0
+	bcs.s	.Done
+	move.w	#$1D0,$C(a0)
+	clr.w	$10(a0)
+	clr.w	$12(a0)
+	addi.b	#$10,$3A(a0)
+	bcc.s	.Done
+	move.b	#4,$24(a0)
+.Done:
+	rts
+
+R81D_SyncWithPlayer:
+	bsr.w	R81D_Sub_3D0
+	lea	($FFFFD000).w,a1
+	bset	#0,($FFFFF7CC).w
+	move.w	#0,($FFFFF602).w
+	move.b	#5,$1C(a1)
+	bsr.w	R81D_Sub_41A
+	moveq	#$C,d0
+	btst	#0,$22(a1)
+	bne.s	.Position
+	neg.w	d0
+.Position:
+	add.w	$8(a1),d0
+	move.w	d0,$8(a0)
+	move.w	$C(a1),$C(a0)
+	move.b	#$E,$1A(a0)
+	tst.b	$38(a0)
+	bne.s	.Done
+	clr.b	$FF1510
+	move.b	#1,$2A(a0)
+	jmp	$20A0EC
+.Done:
+	rts
+
+R81D_SyncPlayerX:
+	bsr.w	R81D_Sub_3D0
+	lea	($FFFFD000).w,a1
+	bsr.w	R81D_Sub_41A
+	moveq	#$C,d0
+	btst	#0,$22(a1)
+	bne.s	.Position
+	neg.w	d0
+.Position:
+	add.w	$8(a1),d0
+	nop
+	nop
+	nop
+	nop
+	move.w	d0,$8(a0)
+	move.b	#$E,$1A(a0)
+	rts
+
 R81D_Sub_2B4:
-	incbin	"../padding/r81d_e_1.bin",$2B4,$9E
+	incbin	"../padding/r81d_e_1.bin",$2B4,$9C
+R81D_ApplyVelocity:
+	incbin	"../padding/r81d_e_1.bin",$350,$2
 R81D_Sub_352:
 	incbin	"../padding/r81d_e_1.bin",$352,$E
 R81D_Sub_360:
