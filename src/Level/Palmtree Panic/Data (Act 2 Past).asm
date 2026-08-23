@@ -504,10 +504,9 @@ Art_Projector:
 
 	if STAGE_R13
 		if ACT2_FUTURE_VARIANT=1
-			incbin	"../padding/r13c_e_3.bin"
-		else
-			incbin	"../padding/r13d_e_3.bin"
+			include	"Level/Palmtree Panic/Data/R13C Padding 3 Prefix.asm"
 		endif
+		include	"Level/Palmtree Panic/Data/R13 Padding 3 Base.asm"
 	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"../padding/r12c_e_3.bin"
 	elseif ACT2_FUTURE_VARIANT=2
