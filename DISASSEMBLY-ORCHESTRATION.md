@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C/R81D boss-mapping milestone:** Both byte-identical
+  retained boss sprite-mapping sets are now shared declarative source. Twelve
+  frame entries describe 45 source-backed sprite pieces, including the original
+  Mapping A pointers that intentionally select three frames in Mapping B. This
+  replaces 258 binary-included bytes in each R81 layout. The guarded
+  displayless USA build/check remains byte-exact for all 127 targets. The
+  padding inventory remains 27 files totalling 224,657 bytes because other
+  bounded R81 assets still share the retained files; no data was obtained from
+  an original disc.
+
 - **R81A/R81B/R81C/R81D boss-animation milestone:** The two byte-identical
   retained boss animation sets are now shared declarative source. Their twelve
   table entries resolve to named idle, hold, activation, movement, step, and

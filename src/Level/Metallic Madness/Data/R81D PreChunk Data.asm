@@ -689,9 +689,9 @@ R81D_BossAnimationA:
 R81D_BossAnimationB:
 	include	"Level/Metallic Madness/Data/R8 Retained Boss Animation B.asm"
 R81D_BossMappingsA:
-	incbin	"../padding/r81d_e_1.bin",$B4A,$6E
+	include	"Level/Metallic Madness/Data/R8 Retained Boss Mappings A.asm"
 R81D_BossMappingsB:
-	incbin	"../padding/r81d_e_1.bin",$BB8,$94
+	include	"Level/Metallic Madness/Data/R8 Retained Boss Mappings B.asm"
 
 R81D_BossOverlay:
 	tst.b	$24(a0)

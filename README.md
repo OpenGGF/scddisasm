@@ -49,13 +49,14 @@ logic block at offsets `$85E`-`$AEF` is also semantic source, with the
 intervening asset/data regions retained as explicitly bounded binary slices
 rather than misidentified as executable code. Another 522 bytes of executable
 logic and dispatch records between offsets `$C4C` and `$ED1` now cover the
-boss overlay and a platform controller; its four motion datasets are now
-shared declarative records, while named mapping slices remain binary-backed
-within that range. The final executable
+boss overlay and a platform controller; its four motion datasets and both boss
+sprite-mapping sets are now shared declarative records. The final executable
 trampoline at `$F6C` is also source-backed, so no identified 68000 logic remains
 inside `r81d_e_1.bin`; its two boss animation tables and twelve named scripts
-are shared declarative source as well. That file is still required for its
-bounded palette, mapping, packed graphics, and pointer/placement data.
+are shared declarative source as well. Its two boss mapping tables now resolve
+twelve frames into 45 source-backed sprite pieces, including three deliberate
+cross-table references. The file is still required for its bounded palette,
+other mappings, packed graphics, and pointer/placement data.
 
 R81A's 4,600-byte non-USA pre-chunk region is also the exact shared tail of
 R81B from offset `$214` and R81C from offset `$7A`. Those three variants now
@@ -95,6 +96,8 @@ The four byte-identical R81A/B/C/D platform paths are shared declarative
 records with named frame, duration, direction, and signed X-offset fields.
 The two byte-identical R81A/B/C/D boss animation sets are also shared source,
 with their offset tables resolved to twelve named animation scripts.
+Their two byte-identical boss sprite-mapping sets are shared source too,
+including all twelve frames and 45 piece records.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are
