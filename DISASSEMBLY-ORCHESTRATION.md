@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R62D Padding3 completion milestone:** The distinct `$206C`-byte packed
+  mapping/animation prefix is now source-emitted before the existing shared
+  mapping and rotation-vector tails. The complete 8,634-byte
+  `r62d_e_3.bin` dependency is removed. The tracked padding inventory falls to
+  15 files totalling 138,014 bytes. The guarded displayless USA build/check
+  remains byte-exact for all 127 targets; no data was obtained from an original
+  disc.
+
 - **R53C Padding3 completion milestone:** The distinct `$2056`-byte packed
   mapping/animation prefix is now source-emitted before the existing shared
   mapping and rotation-vector tails. The complete 8,612-byte

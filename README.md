@@ -36,8 +36,8 @@ R32B/R32C/R32D Padding1, R61A/R61C/R61D/R63D Padding3,
 R81A/R81B/R81C Padding2, R82C/R83C/R83D Padding2,
 R81A/R81B/R81C/R81D and R82A/R82B/R82C/R83C Padding3, and
 R82A/R82B/R82C/R82D/R83C, and the four shared R81 platform paths, were exact
-references or declarative source data; 16 opaque padding files totalling
-146,648 bytes remain.
+references or declarative source data; 15 opaque padding files totalling
+138,014 bytes remain.
 
 All sixteen remaining Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused
@@ -88,6 +88,11 @@ R53C's Padding3 region now emits its distinct `$2056`-byte packed
 mapping/animation prefix from source before the shared mapping and
 rotation-vector tails. This removes the complete 8,612-byte
 `r53c_e_3.bin` dependency.
+
+R62D's Padding3 region now emits its distinct `$206C`-byte packed
+mapping/animation prefix from source before the shared mapping and
+rotation-vector tails. This removes the complete 8,634-byte
+`r62d_e_3.bin` dependency.
 
 Instruction-level recovery has completed for the retained executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and
