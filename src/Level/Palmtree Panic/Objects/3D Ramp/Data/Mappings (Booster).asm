@@ -1,15 +1,15 @@
 .Map:
-		dc.w unk_21FDD0-.Map
-		dc.w unk_21FDFA-.Map
-		dc.w unk_21FE28-.Map
-		dc.w unk_21FE56-.Map
-		dc.w unk_21FE84-.Map
-		dc.w unk_21FEA8-.Map
-		dc.w unk_21FEC8-.Map
-		dc.w unk_21FF1A-.Map
-		dc.w unk_21FF66-.Map
-		dc.w unk_21FFAE-.Map
-unk_21FDD0:	dc.b   8
+		dc.w .unk_21FDD0-.Map
+		dc.w .unk_21FDFA-.Map
+		dc.w .unk_21FE28-.Map
+		dc.w .unk_21FE56-.Map
+		dc.w .unk_21FE84-.Map
+		dc.w .unk_21FEA8-.Map
+		dc.w .unk_21FEC8-.Map
+		dc.w .unk_21FF1A-.Map
+		dc.w .unk_21FF66-.Map
+		dc.w .unk_21FFAE-.Map
+.unk_21FDD0:	dc.b   8
 		dc.b $E8 ; è
 		dc.b   1
 		dc.b   0
@@ -51,7 +51,7 @@ unk_21FDD0:	dc.b   8
 		dc.b   0
 		dc.b   0
 		dc.b   0
-unk_21FDFA:	dc.b   9
+.unk_21FDFA:	dc.b   9
 		dc.b $E8 ; è
 		dc.b   9
 		dc.b   0
@@ -97,7 +97,7 @@ unk_21FDFA:	dc.b   9
 		dc.b $10
 		dc.b $37 ; 7
 		dc.b $ED ; í
-unk_21FE28:	dc.b   9
+.unk_21FE28:	dc.b   9
 		dc.b $E8 ; è
 		dc.b   9
 		dc.b   0
@@ -143,7 +143,7 @@ unk_21FE28:	dc.b   9
 		dc.b $10
 		dc.b $37 ; 7
 		dc.b $E6 ; æ
-unk_21FE56:	dc.b   9
+.unk_21FE56:	dc.b   9
 		dc.b $E8 ; è
 		dc.b   9
 		dc.b   0
@@ -189,7 +189,7 @@ unk_21FE56:	dc.b   9
 		dc.b $10
 		dc.b $37 ; 7
 		dc.b $E2 ; â
-unk_21FE84:	dc.b   7
+.unk_21FE84:	dc.b   7
 		dc.b $E8 ; è
 		dc.b   3
 		dc.b   0
@@ -225,7 +225,7 @@ unk_21FE84:	dc.b   7
 		dc.b $18
 		dc.b $2B ; +
 		dc.b   0
-unk_21FEA8:	dc.b   6
+.unk_21FEA8:	dc.b   6
 		dc.b $F8 ; ø
 		dc.b   3
 		dc.b $10
@@ -257,7 +257,7 @@ unk_21FEA8:	dc.b   6
 		dc.b $31 ; 1
 		dc.b   0
 		dc.b   0
-unk_21FEC8:	dc.b $10
+.unk_21FEC8:	dc.b $10
 		dc.b $E8 ; è
 		dc.b   9
 		dc.b   0
@@ -339,7 +339,7 @@ unk_21FEC8:	dc.b $10
 		dc.b $37 ; 7
 		dc.b $E6 ; æ
 		dc.b   0
-unk_21FF1A:	dc.b  $F
+.unk_21FF1A:	dc.b  $F
 		dc.b $E8 ; è
 		dc.b   9
 		dc.b   0
@@ -415,7 +415,7 @@ unk_21FF1A:	dc.b  $F
 		dc.b   0
 		dc.b $37 ; 7
 		dc.b $E2 ; â
-unk_21FF66:	dc.b  $C
+.unk_21FF66:	dc.b  $C
 		dc.b $E8 ; è
 		dc.b   1
 		dc.b   0
@@ -487,7 +487,7 @@ unk_21FF66:	dc.b  $C
 		dc.b $27 ; '
 		dc.b $14
 		dc.b   0
-unk_21FFAE:	dc.b  $C
+.unk_21FFAE:	dc.b  $C
 		dc.b $E8 ; è
 		dc.b   1
 		dc.b   0

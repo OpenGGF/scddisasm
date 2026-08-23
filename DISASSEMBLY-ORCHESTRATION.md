@@ -2,6 +2,17 @@
 
 ## 2026-08-23
 
+- **Legacy Act 1 post-chunk mapping milestone:** All six regional Act 1 Past
+  and Good/Bad Future `Padding/2` binaries, totalling 44,376 bytes, are
+  removed. Each retained area is now assembled from the exact suffix of the
+  tracked Act 1 Present chunk map followed by the existing Sonic and 3D-ramp
+  mapping sources. Their internal mapping labels are local so the same named
+  sources can safely represent both the original post-chunk layout and its
+  retained copies. The guarded USA ISO remains byte-identical with all 133
+  comparisons passing; a guarded Japan build and direct checks against all
+  three former JE forms validate the non-USA paths. This leaves 3 tracked
+  level `Data/Padding` binaries totalling 25,286 bytes.
+
 - **Legacy Act 1 Future pre-chunk milestone:** All four regional Good/Bad
   Future `Padding/1` binaries, totalling 17,456 bytes, are removed. Good Future
   now composes a single instruction-level legacy object-spawn/motion routine,

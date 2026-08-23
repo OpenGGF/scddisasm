@@ -347,15 +347,11 @@ Art_TunnelDoorSplash:
 	even
 	
 ; -------------------------------------------------------------------------
-; Leftover data from other level files used as padding, can be replaced
-; with a "align $20000"
+; Retained suffix of the Act 1 Present chunk and mapping layout
 ; -------------------------------------------------------------------------
 
-	if REGION=USA
-	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Bad Future, U).bin"
-	else
-	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Bad Future, JE).bin"
-	endif
+	incbin	"Level/Palmtree Panic/Data/Chunks (Act 1 Present).bin", $EEE4
+	include	"Level/Palmtree Panic/Data/Legacy Post-Chunk Mappings.asm"
 
 ; -------------------------------------------------------------------------
 	
