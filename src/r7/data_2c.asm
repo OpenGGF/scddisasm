@@ -412,7 +412,8 @@ Padding3:
 		incbin	"../padding/r72c_e_3.bin",0,$8B6
 		include	"Level/USA Legacy R72 Graphics Tail Corrected.asm"
 	else
-		incbin	"../padding/r72c_e_3.bin",0,$2740
+		incbin	"../padding/r72c_e_3.bin",0,$2700
+		include	"Level/Shared Non-USA Padding3 Mapping Suffix.asm"
 	endif
 	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"

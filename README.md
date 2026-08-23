@@ -46,6 +46,10 @@ across R33C/R33D, R51A/R53C, R62A-D, and R71A-D/R72A-D while their distinct
 prefixes remain to be decomposed. The preceding identical 76-byte mapping and
 animation tail is shared source as well, including its historical alignment;
 that replaces another 1,216 binary-included bytes across the same consumers.
+R62B/R62C/R72A/R72C also share a preceding 64-byte non-USA mapping suffix,
+now emitted once from source. Japan and Europe retail comparison trees remain
+unavailable, so that regional-only path has exact tracked-slice evidence but
+not a retail binary comparison.
 
 Instruction-level recovery has completed for the retained executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and

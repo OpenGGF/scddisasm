@@ -2,6 +2,17 @@
 
 ## 2026-08-23
 
+- **Non-USA Padding3 mapping-suffix milestone:** R62B, R62C, R72A, and R72C
+  share another 64-byte non-USA mapping suffix before the all-layout tail. It
+  is now one declarative source fragment, replacing 256 binary-included bytes.
+  The R62C non-USA blob bound was also corrected from an unexercised oversized
+  value to its actual `$256C` prefix boundary. The guarded displayless USA
+  build/check remains byte-exact for all 127 targets; Japan/Europe comparison
+  originals remain unavailable, so this branch is verified from the four
+  byte-identical tracked slices but not regional retail binaries. The physical
+  padding inventory remains 25 files totalling 215,745 bytes; no data was
+  obtained from an original disc.
+
 - **Shared Padding3 mapping-tail milestone:** The additional identical 76-byte
   suffix immediately before the rotation vectors in all sixteen Padding3
   files is now one source fragment. It preserves the trailing mapping records,

@@ -526,7 +526,8 @@ Padding3:
 		; USA retains the suffix shared with the R62A graphics tail.
 		incbin	"../padding/r62a_e_3.bin",$5B0,$1F3A
 	else
-		incbin	"../padding/r62b_e_3.bin",0,$1F3A
+		incbin	"../padding/r62b_e_3.bin",0,$1EFA
+		include	"Level/Shared Non-USA Padding3 Mapping Suffix.asm"
 	endif
 	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"
