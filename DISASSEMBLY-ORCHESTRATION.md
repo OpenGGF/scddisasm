@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-TagaTaga milestone:** The complete 1,054-byte historical
+  cluster at shared offsets `$BA2`-`$FBF` is now namespaced semantic source. It
+  recovers the discarded five-state TagaTaga object, its three linked body
+  parts, player-distance and trajectory helpers, missile object and delete
+  path, animation records, two body mapping sets, and missile mappings.
+  Namespacing keeps the retained copy distinct from the live Act 3 object. The
+  binary suffix now begins at the next clean object boundary, `$FC0`. The
+  guarded USA build/check remains byte-exact for all 127 targets, including
+  R43C, R43D, and DEMO43C. The padding inventory remains 28 files totalling
+  236,195 bytes because the later 7,506-byte suffix still shares the same
+  retained file; later R43 logic/data, three FMV streams, and full Japan/Europe
+  validation remain unfinished.
+
 - **R43C/R43D retained-Amenbo milestone:** The complete 820-byte historical
   object cluster at shared offsets `$86E`-`$BA1` is now namespaced semantic
   source. It recovers the discarded Amenbo dispatcher and five states,

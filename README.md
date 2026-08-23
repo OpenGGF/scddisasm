@@ -97,9 +97,12 @@ including its legacy sine/cosine call, movement and animation logic, animation
 records, and both sprite mapping sets. The adjacent 820-byte discarded Amenbo
 copy is namespaced source too, including its movement states, water-relative
 motion, projectile spawning and checks, child-projectile behavior, animation
-records, and both sprite mapping sets. The retained suffix now begins at the
-next object boundary, `$BA2`; later shared R43 object logic and data remain
-binary-backed pending the same boundary-driven recovery.
+records, and both sprite mapping sets. The following 1,054-byte discarded
+TagaTaga cluster is namespaced source as well, covering the main object, linked
+body parts, movement helpers, missile object, animation records, and all three
+mapping sets. The retained suffix now begins at the next object boundary,
+`$FC0`; later shared R43 object logic and data remain binary-backed pending the
+same boundary-driven recovery.
 
 ## Building
 

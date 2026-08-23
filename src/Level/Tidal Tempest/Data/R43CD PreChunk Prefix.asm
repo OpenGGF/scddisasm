@@ -83,4 +83,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded Amenbo implementation and its animation/mapping data follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained Amenbo.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$BA2
+	; The discarded TagaTaga body and missile implementations follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained TagaTaga.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$FC0
