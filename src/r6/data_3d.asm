@@ -528,6 +528,6 @@ BossPiecesGfxD:
 	incbin	"gfx/r6/boss_pieces_d.nem"
 
 Padding3:
-	incbin	"../padding/r63d_e_3.bin"
+	include	"Level/Wacky Workbench/Data/R63D Compressed Tail.asm"
 
 ; ------------------------------------------------------------------------------
