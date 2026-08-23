@@ -422,6 +422,6 @@ CrackFloorGfxC:
 	incbin	"gfx/r5/crack_floor_c.nem"
 
 Padding3:
-	incbin	"../padding/r51c_e_3.bin"
+	include	"r5/nonusa_padding_1c_3.asm"
 
 ; ------------------------------------------------------------------------------
