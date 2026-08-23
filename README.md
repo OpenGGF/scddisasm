@@ -45,8 +45,11 @@ logic, and their inline tables, are now real 68000 source; the unresolved
 remainder of that mixed code/data block is still included from its tracked
 padding file and is not counted as complete. A further 658-byte boss-object
 logic block at offsets `$85E`-`$AEF` is also semantic source, with the
-intervening and following asset/data regions retained as explicitly bounded
-binary slices rather than misidentified as executable code.
+intervening asset/data regions retained as explicitly bounded binary slices
+rather than misidentified as executable code. Another 522 bytes of executable
+logic and dispatch records between offsets `$C4C` and `$ED1` now cover the
+boss overlay and a platform controller; only their named mapping and motion
+record slices remain binary-backed within that range.
 
 ## Building
 

@@ -12,6 +12,23 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D overlay/platform disassembly milestone:** Another 522 bytes of
+  executable logic and dispatch records between offsets `$C4C` and `$ED1` of
+  the mixed R81D non-USA pre-chunk block are now source-backed. This recovers
+  the boss overlay handler and a two-state platform controller with nine
+  submodes, camera-relative positioning, visibility gating, frame selection,
+  and shared motion-record playback. The second controller state is expressed
+  as an intentional entry at the camera-position refresh label, preserving a
+  subtle behavior previously hidden in its numeric dispatch offset. Mapping
+  and motion records remain as named, tightly bounded data slices. The
+  complete 4,312-byte mixed-region probe matched the former blob exactly, the
+  complete 262,148-byte REGION=2 R81D entry matched its prior output exactly,
+  and the guarded USA build/check matched all 127 comparison targets. The
+  retained data means `r81d_e_1.bin` and the overall count of 31 files
+  totalling 257,607 bytes are unchanged. Further R81 logic/data recovery, the
+  three FMV streams, other padding slices, and full Japan/Europe validation
+  remain unfinished.
+
 - **R81D boss-state disassembly milestone:** The 658-byte executable region at
   offsets `$85E`-`$AEF` of the mixed R81D non-USA pre-chunk block is now real
   68000 source. It contains a 15-state dispatcher, boss initialization,
