@@ -107,4 +107,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded standalone spike-ball implementation and mapping follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained Spike Ball.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$1E36
+	; The discarded linked circular spike-ball implementation follows.
+	include	"Level/Tidal Tempest/Data/R43 Retained Circle Spike Ball.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$1FC2

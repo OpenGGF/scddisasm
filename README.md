@@ -116,9 +116,12 @@ adjacent 738-byte Mace cluster is namespaced source as well, recovering its six
 linked chain/ball children, circular positioning, historical sine/cosine call,
 child lifetime handling, and three mapping sets. The following 80-byte
 SpikeBallObject initializer, collision setup, draw/despawn tail, and mapping are
-semantic source too. The retained suffix now begins at the next clean object
-boundary, `$1E36`; later shared R43 object logic and data remain binary-backed
-pending the same boundary-driven recovery.
+semantic source too. The adjacent 396-byte CircleSpikeBallObject cluster is
+namespaced source as well, including its parent check, three linked children,
+four-object initialization, subtype-selected direction and radius, historical
+sine/cosine call, circular movement, and mapping. The retained suffix now begins
+at the next clean object boundary, `$1FC2`; later shared R43 object logic and
+data remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 
