@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-SpikeBall milestone:** The complete 80-byte historical
+  SpikeBallObject cluster at shared offsets `$1DE6`-`$1E35` is now namespaced
+  semantic source. It recovers initialization, collision dimensions, drawing,
+  despawning, and the sprite mapping frame. The retained suffix now begins at
+  the next clean object boundary, `$1E36`. The guarded USA build/check remains
+  byte-exact for all 127 targets, including R43C, R43D, and DEMO43C. The padding
+  inventory remains 28 files totalling 236,195 bytes because the later
+  3,804-byte suffix still shares the same retained file; later R43 logic/data,
+  three FMV streams, and full Japan/Europe validation remain unfinished.
+
 - **R43C/R43D retained-Mace milestone:** The complete 738-byte historical Mace
   cluster at shared offsets `$1B04`-`$1DE5` is now namespaced semantic source.
   It recovers the parent object, six linked chain/ball children, circular
