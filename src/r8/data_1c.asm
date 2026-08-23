@@ -6,12 +6,14 @@
 
 Padding1:
 	if REGION=USA
-		incbin	"../padding/r81c_e_1.bin",0,$77
-		dc.b	$64
-		incbin	"../padding/r81c_e_1.bin",$78,$2
+R81_INCLUDE_FULL_PREFIX equ 0
+R81_PREFIX_LAST_WORD equ $A564
+		include	"Level/Metallic Madness/Data/R81BC Unique Prefix Data.asm"
 		include	"Level/USA Legacy R8 R81ABC Data.asm"
 	else
-		incbin	"../padding/r81c_e_1.bin",0,$7A
+R81_INCLUDE_FULL_PREFIX equ 0
+R81_PREFIX_LAST_WORD equ $A572
+		include	"Level/Metallic Madness/Data/R81BC Unique Prefix Data.asm"
 		include	"Level/Metallic Madness/Data/R81ABC PreChunk Data.asm"
 	endif
 

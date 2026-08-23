@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R81B/R81C unique-prefix source milestone:** R81B's complete 532-byte
+  pre-shared-tail prefix is now declarative `dc.w` source, and comparison proves
+  that R81C's complete 122-byte prefix is its exact suffix beginning at `$19A`.
+  One conditional include emits either layout and expresses the USA-specific
+  `$A572` to `$A564` word change directly, eliminating all regional reads of
+  `r81b_e_1.bin` and `r81c_e_1.bin`. The two obsolete tracked blobs were removed,
+  reducing the padding inventory by 9,854 bytes to 29 files totalling 247,753
+  bytes. Complete REGION=2 R81B/R81C entries remained exactly 262,148 bytes,
+  and the guarded USA build/check matched all 127 targets, including exact
+  R81B/R81C outputs. The shared R81A data slices, three FMV streams, other
+  padding files, and full Japan/Europe validation remain unfinished.
+
 - **R81ABC shared-tail logic-complete milestone:** The final identified
   executable island in the 4,600-byte shared R81A/R81B/R81C tail, a six-byte
   trampoline at offset `$108C`, is now semantic source. The retained suffix is

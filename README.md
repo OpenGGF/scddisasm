@@ -36,7 +36,7 @@ R32B/R32C/R32D Padding1, R61A/R61C/R61D/R63D Padding3,
 R81A/R81B/R81C Padding2, R82C/R83C/R83D Padding2,
 R81A/R81B/R81C/R81D and R82A/R82B/R82C/R83C Padding3, and
 R82A/R82B/R82C/R82D/R83C, were exact references or declarative source data;
-31 opaque padding slices totalling 257,607 bytes remain.
+29 opaque padding slices totalling 247,753 bytes remain.
 
 Instruction-level recovery has also begun for the remaining executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and
@@ -77,9 +77,11 @@ is semantic source too, while its animation and mapping assets remain bounded
 binary data. The 646-byte boss-overlay/platform island at `$D6C` is also
 source-backed, including its mappings and four path-record tables. The final
 six-byte trampoline at `$108C` is source-backed too, leaving no identified
-68000 logic in the shared tail's retained slices. Those slices and the unique
-R81B/R81C prefixes still contain bounded palette, animation, mapping, pointer,
-placement, path, and packed asset data requiring source decomposition.
+68000 logic in the shared tail's retained slices. The unique R81B/R81C prefixes
+are now declarative source records, including the USA one-byte variant. The
+shared tail's retained slices still contain bounded
+palette, animation, mapping, pointer, placement, path, and packed asset data
+requiring source decomposition.
 
 ## Building
 
