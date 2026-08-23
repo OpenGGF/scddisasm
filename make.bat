@@ -33,7 +33,7 @@ if "%REGION%"=="1" (
     )
 )
 if not "%REGION%"=="1" (
-    for %%F in (ATTACK.MMD BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+    for %%F in (ATTACK.MMD BRAMMAIN.MMD ENDING.MMD THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
 )
 
 cd src
@@ -110,11 +110,11 @@ if exist "..\out\files\DUMMY5.MMD" (
 if %REGION%==1 (
 	%ASM68K% "Time Attack\Main.asm", "..\out\files\ATTACK.MMD", , "Time Attack\Main.lst"
 	%ASM68K% "Thank You\Main.asm", "..\out\files\THANKS_M.MMD", , "Thank You\Main.lst"
-    %ASM68K% "Thank You\Data.asm", "..\out\files\THANKS_D.BIN", , "Thank You\Data.lst"
-    %ASM68K% "Comin Soon\Main.asm", "..\out\files\COME__.MMD", , "Comin Soon\Main.lst"
-    %ASM68K% "FMV\Main (Pencil Test).asm", "..\out\files\PTEST.MMD", , "FMV\Main (Pencil Test).lst"
-    %ASM68K% "FMV\Main (Ending).asm", "..\out\files\ENDING.MMD", , "FMV\Main (Ending).lst"
+	%ASM68K% "FMV\Main (Ending).asm", "..\out\files\ENDING.MMD", , "FMV\Main (Ending).lst"
 )
+%ASM68K% "Thank You\Data.asm", "..\out\files\THANKS_D.BIN", , "Thank You\Data.lst"
+%ASM68K% "Comin Soon\Main.asm", "..\out\files\COME__.MMD", , "Comin Soon\Main.lst"
+%ASM68K% "FMV\Main (Pencil Test).asm", "..\out\files\PTEST.MMD", , "FMV\Main (Pencil Test).lst"
 
 %ASM68K% "FMV\Main (Opening).asm", "..\out\files\OPEN_M.MMD", , "FMV\Main (Opening).lst"
 %ASM68K% "FMV\Sub (Opening).asm", "..\out\files\OPEN_S.BIN", , "FMV\Sub (Opening).lst"

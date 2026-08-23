@@ -2,6 +2,16 @@
 
 ## 2026-08-24
 
+- **Cross-region shared-component milestone:** `COME__.MMD`, `PTEST.MMD`, and
+  `THANKS_D.BIN` are identical in the Japan, USA, and Europe retail images, so
+  both build frontends now assemble them from their existing source for every
+  region instead of copying the non-USA files. Fresh guarded displayless Japan
+  and Europe builds complete, and all three promoted outputs compare exactly
+  in both regions. Each regional check now covers 130 files and reports 63
+  matches, 67 known level differences, and 0 missing targets. Four non-USA
+  executable/data fallbacks remain: `ATTACK.MMD`, `BRAMMAIN.MMD`, `ENDING.MMD`,
+  and `THANKS_M.MMD`.
+
 - **Japan/Europe reference-media milestone:** Locally supplied retail CHDs are
   now available for all three regions without entering source control. The
   European image identifies as `MK-4407-00` and has CHD SHA-1
