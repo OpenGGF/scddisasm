@@ -70,7 +70,10 @@ source-backed as well; the complete dispatcher state graph is therefore
 semantic source. The 402-byte helper cluster at `$3D4`-`$565` is semantic
 source too, covering player collision transfer, velocity integration,
 animation stepping, child spawning, player lookup/facing, and direction flags.
-Later mixed code/data remains binary-backed pending boundary-driven recovery.
+The following 348-byte island at `$566`-`$6C1` is source-backed as well,
+covering palette loading/data, child-object and overlay logic, mappings, and an
+external trampoline. Later mixed code/data remains binary-backed pending
+boundary-driven recovery.
 
 ## Building
 

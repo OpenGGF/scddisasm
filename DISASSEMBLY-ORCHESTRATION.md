@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R81ABC palette/child/overlay milestone:** The complete 348-byte logic/data
+  island at offsets `$566`-`$6C1` is now source-backed. It recovers the palette
+  loader and palette words, including the meaningful `$56A` alternate entry
+  used when a caller supplies `a3`; a child-object dispatcher and motion state;
+  overlay acquisition/release behavior and mappings; and an external
+  trampoline. The retained slice now begins at the verified table/pointer-data
+  boundary `$6C2`. The isolated 4,600-byte shared tail and all three complete
+  262,148-byte REGION=2 R81A/R81B/R81C entries remained exact, while the
+  guarded USA build/check matched all 127 comparison targets. The tracked
+  padding count remains 31 files totalling 257,607 bytes; later shared
+  logic/data, three FMV streams, other padding slices, and full Japan/Europe
+  validation remain unfinished.
+
 - **R81ABC shared-helper milestone:** The contiguous 402-byte helper cluster at
   offsets `$3D4`-`$565` is now semantic 68000 source. It recovers player
   collision/state transfer, horizontal and vertical velocity integration,

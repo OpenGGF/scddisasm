@@ -43,7 +43,7 @@ R81ABC_Object:
 	cmpi.b	#$33,$0(a0)
 	beq.s	.Done
 	lea	$200716,a3
-	bsr.w	R81ABC_Sub_56A
+	bsr.w	R81ABC_LoadPaletteFromA3
 .Done:
 	rts
 
@@ -411,6 +411,102 @@ R81ABC_SetDirection:
 	bset	#0,$1(a0)
 	rts
 
-	incbin	"../padding/r81a_e_1.bin",$566,4
-R81ABC_Sub_56A:
-	incbin	"../padding/r81a_e_1.bin",$56A
+R81ABC_LoadPalette:
+	lea	R81ABC_Palette(pc),a3
+R81ABC_LoadPaletteFromA3:
+	lea	($FFFFFB20).w,a4
+	movem.l	(a3)+,d0-d3
+	movem.l	d0-d3,(a4)
+	movem.l	(a3)+,d0-d3
+	movem.l	d0-d3,$10(a4)
+	rts
+
+R81ABC_Palette:
+	dc.w	0, 0, $628, $84A, $E6E, $EAE, $EEE, $AAA
+	dc.w	$888, $444, $8AE, $6C, $C2, $80, $806, $E
+
+R81ABC_ChildObject:
+	moveq	#0,d0
+	move.b	$24(a0),d0
+	move.w	.Index(pc,d0.w),d0
+	jsr	.Index(pc,d0.w)
+	jsr	$2038DA
+	jmp	$2077DA
+
+.Index:
+	dc.w	.Init-.Index
+	dc.w	.Update-.Index
+
+.Init:
+	addq.b	#2,$24(a0)
+	ori.b	#4,$1(a0)
+	move.w	#$3CB,$2(a0)
+	move.l	#$21E278,$4(a0)
+	move.b	#8,$1A(a0)
+	move.w	#$FFA0,$12(a0)
+	move.b	#3,$18(a0)
+.Update:
+	tst.b	$3C(a0)
+	bne.s	.Move
+	moveq	#0,d0
+	move.b	$3A(a0),d0
+	add.b	d0,d0
+	add.b	$3A(a0),d0
+	jsr	$2007C8
+	asr.w	#2,d0
+	move.w	d0,$10(a0)
+.Move:
+	bsr.w	R81ABC_ApplyVelocity
+	addq.b	#1,$3A(a0)
+	move.b	$3A(a0),d0
+	cmpi.b	#$14,d0
+	bne.s	.CheckStop
+	addq.b	#1,$1A(a0)
+.CheckStop:
+	cmpi.b	#$6E,d0
+	bne.s	.CheckDelete
+	addq.b	#1,$1A(a0)
+	clr.w	$12(a0)
+	clr.w	$10(a0)
+	st.b	$3C(a0)
+.CheckDelete:
+	cmpi.b	#$78,d0
+	bne.s	.Done
+	jmp	$203986
+.Done:
+	rts
+
+R81ABC_OverlayObject:
+	tst.b	$24(a0)
+	bne.s	.Update
+	addq.b	#2,$24(a0)
+	ori.b	#4,$1(a0)
+	move.b	#$20,$17(a0)
+	move.b	#$20,$19(a0)
+	move.b	#$11,$16(a0)
+	move.l	#$20F4B4,$4(a0)
+.Update:
+	move.b	$FF1588,$1A(a0)
+	tst.b	$FF1956
+	beq.s	.CheckRelease
+	lea	($FFFFD000).w,a1
+	jsr	$207C36
+	sne.b	$2A(a0)
+	bra.s	.Display
+.CheckRelease:
+	tst.b	$2A(a0)
+	beq.s	.Display
+	clr.b	$2A(a0)
+	lea	($FFFFD000).w,a1
+	jsr	$207AE8
+.Display:
+	jsr	$2038DA
+	jmp	$2077DA
+
+R81ABC_OverlayMappings:
+	dc.w	$0004, $0005, $0002, $F00F, $0000, $E0F0, $0F00, $0000
+
+R81ABC_ExternalTrampoline:
+	jmp	$206358
+
+	incbin	"../padding/r81a_e_1.bin",$6C2
