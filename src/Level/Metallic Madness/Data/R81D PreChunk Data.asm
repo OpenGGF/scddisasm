@@ -47,10 +47,110 @@ R81D_UpdateFalling:
 	lea	$21E3CE,a1
 	bra.w	R81D_CommonState
 
-	incbin	"../padding/r81d_e_1.bin",$9C,$2B6
+R81D_UpdateActive:
+	bsr.w	R81D_Sub_3D0
+	lea	($FFFFD000).w,a1
+	bsr.w	R81D_Sub_41A
+	tst.w	$30(a0)
+	beq.s	.CheckTurnDelay
+	subq.w	#1,$30(a0)
+	beq.w	.Finish
+.CheckTurnDelay:
+	tst.b	$3F(a0)
+	beq.s	.CheckPlayer
+	subq.b	#1,$3F(a0)
+	bne.s	.Accelerate
+.CheckPlayer:
+	bsr.w	R81D_Sub_2B4
+	btst	#2,$3E(a0)
+	bne.w	.CheckDetach
+	tst.w	$10(a1)
+	bne.s	.Accelerate
+	move.w	$8(a1),d0
+	sub.w	$8(a0),d0
+	bcc.s	.CheckAttachDistance
+	neg.w	d0
+.CheckAttachDistance:
+	cmpi.w	#$A,d0
+	bcc.s	.Accelerate
+.Attach:
+	bset	#2,$3E(a0)
+	clr.w	$10(a0)
+	bra.w	.SetIdleAnimation
+.CheckDetach:
+	move.w	$8(a1),d0
+	sub.w	$8(a0),d0
+	bcc.s	.CheckDetachDistance
+	neg.w	d0
+.CheckDetachDistance:
+	cmpi.w	#$20,d0
+	bcs.s	.Attach
+	bclr	#2,$3E(a0)
+.Accelerate:
+	move.w	#$FFE0,d0
+	btst	#0,$22(a0)
+	bne.s	.ApplyAcceleration
+	neg.w	d0
+.ApplyAcceleration:
+	add.w	$10(a0),d0
+	move.w	d0,d1
+	move.w	#$280,d2
+	tst.w	d1
+	bpl.s	.CheckMaximumSpeed
+	neg.w	d1
+	neg.w	d2
+.CheckMaximumSpeed:
+	cmpi.w	#$280,d1
+	bcs.s	.StoreSpeed
+	move.w	d2,d0
+.StoreSpeed:
+	move.w	d0,$10(a0)
+	tst.w	$10(a0)
+	bpl.s	.Move
+	move.w	#$60,d1
+	tst.b	$FF156A
+	bne.s	.CheckLeftBoundary
+	move.w	#$80,d1
+.CheckLeftBoundary:
+	move.w	$36(a0),d0
+	sub.w	d1,d0
+	cmp.w	$8(a0),d0
+	bcs.s	.Move
+	bra.w	.Stop
+.Move:
+	jsr	$206A0A
+	cmpi.w	#7,d1
+	bpl.s	.UpdateAnimation
+	cmpi.w	#$FFF9,d1
+	bmi.s	.UpdateAnimation
+	add.w	d1,$C(a0)
+.UpdateAnimation:
+	bsr.w	R81D_Sub_360
+	move.b	#2,$1C(a0)
+	lea	$21E3CE,a1
+	bra.w	R81D_CommonState
+.Stop:
+	clr.w	$10(a0)
+.SetIdleAnimation:
+	move.b	#1,$1C(a0)
+	lea	$21E3CE,a1
+	bra.w	R81D_CommonState
+.Finish:
+	move.b	#$FF,$38(a0)
+	clr.b	$FF1510
+	move.b	#1,$2A(a0)
+	jmp	$20A0EC
+
+	incbin	"../padding/r81d_e_1.bin",$1B6,$FE
+R81D_Sub_2B4:
+	incbin	"../padding/r81d_e_1.bin",$2B4,$9E
 R81D_Sub_352:
-	incbin	"../padding/r81d_e_1.bin",$352,$1C
+	incbin	"../padding/r81d_e_1.bin",$352,$E
+R81D_Sub_360:
+	incbin	"../padding/r81d_e_1.bin",$360,$E
 R81D_CommonState:
-	incbin	"../padding/r81d_e_1.bin",$36E,$AC
+	incbin	"../padding/r81d_e_1.bin",$36E,$62
+R81D_Sub_3D0:
+	incbin	"../padding/r81d_e_1.bin",$3D0,$4A
 R81D_Sub_41A:
 	incbin	"../padding/r81d_e_1.bin",$41A

@@ -12,6 +12,21 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D active-state disassembly milestone:** The first 438 bytes of the
+  mixed R81D non-USA pre-chunk region are now real 68000 source. The newly
+  recovered 282-byte routine covers its state timer, player attachment and
+  detachment checks, horizontal acceleration, boundary handling, movement,
+  animation selection, and terminal state transition. Calls into the
+  unresolved remainder now use labels at their exact binary offsets. The
+  complete 4,312-byte mixed-region probe matched the former blob exactly, the
+  complete 262,148-byte REGION=2 R81D entry matched its prior output exactly,
+  and the guarded USA build/check matched all 127 comparison targets. This
+  also corrects the previous milestone's erroneous count of 129 targets. The
+  unresolved remainder is still included from `r81d_e_1.bin`, so the tracked
+  padding count remains 31 files totalling 257,607 bytes. Further R81
+  instruction/data recovery, the three FMV streams, other padding slices, and
+  full Japan/Europe validation remain unfinished.
+
 - **R81D falling-state disassembly milestone:** The first 156 bytes of the
   mixed R81D non-USA pre-chunk region are now real 68000 source. In addition
   to the opening object-spawn routine, this recovers its common-state
@@ -19,7 +34,7 @@
   subroutine targets so the original branch displacements remain exact. The
   complete 4,312-byte mixed-region probe matched the former blob exactly, the
   complete 262,148-byte REGION=2 R81D entry matched its prior output exactly,
-  and the guarded USA build/check matched all 129 comparison targets. The
+  and the guarded USA build/check matched all 127 comparison targets. The
   unresolved remainder is still included from `r81d_e_1.bin`, so the tracked
   padding count remains 31 files totalling 257,607 bytes. Further R81
   instruction/data recovery, the three FMV streams, other padding slices, and
