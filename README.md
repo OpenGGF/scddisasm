@@ -60,8 +60,10 @@ use one shared source include after their unique prefixes. The first 64
 instruction bytes in that shared tail—record-copy completion and marker-table
 search routines—are semantic 68000 source. The 134-byte region at offsets
 `$8A`-`$10F` is source-backed as well, recovering the object dispatcher, its
-state table, and the object initializer. The dispatched states and later mixed
-code/data remain binary-backed pending the same boundary-driven recovery.
+state table, and the object initializer. The first 72-byte dispatched state at
+`$174` is now source-backed too, covering its acceleration, position clamp,
+falling transition, and next-state setup. The other dispatched states and later
+mixed code/data remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 

@@ -75,7 +75,25 @@ R81ABC_Init:
 R81ABC_Main:
 	incbin	"../padding/r81a_e_1.bin",$110,$64
 R81ABC_State_174:
-	incbin	"../padding/r81a_e_1.bin",$174,$48
+	tst.b	$3C(a0)
+	bmi.s	.Falling
+	addi.w	#$10,$12(a0)
+	bsr.w	R81ABC_Sub_472
+	move.w	$C(a0),d0
+	cmpi.w	#$1D0,d0
+	bcs.s	.Done
+	move.w	#$1D0,$C(a0)
+	clr.w	$12(a0)
+	move.b	#$FF,$3C(a0)
+.Done:
+	rts
+.Falling:
+	lea	($FFFFD000).w,a1
+	bsr.w	R81ABC_Sub_53A
+	move.b	#$3C,$3F(a0)
+	addq.b	#2,$24(a0)
+	lea	$21E3CE,a1
+	bra.w	R81ABC_Sub_48E
 R81ABC_State_1BC:
 	incbin	"../padding/r81a_e_1.bin",$1BC,$11A
 R81ABC_State_2D6:
@@ -85,7 +103,13 @@ R81ABC_State_30E:
 R81ABC_State_34C:
 	incbin	"../padding/r81a_e_1.bin",$34C,$58
 R81ABC_State_3A4:
-	incbin	"../padding/r81a_e_1.bin",$3A4,$1C4
+	incbin	"../padding/r81a_e_1.bin",$3A4,$CE
+R81ABC_Sub_472:
+	incbin	"../padding/r81a_e_1.bin",$472,$1C
+R81ABC_Sub_48E:
+	incbin	"../padding/r81a_e_1.bin",$48E,$AC
+R81ABC_Sub_53A:
+	incbin	"../padding/r81a_e_1.bin",$53A,$2E
 	incbin	"../padding/r81a_e_1.bin",$568,2
 R81ABC_Sub_56A:
 	incbin	"../padding/r81a_e_1.bin",$56A

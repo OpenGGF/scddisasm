@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R81ABC first-state milestone:** The 72-byte shared object state at offsets
+  `$174`-`$1BB` is now semantic 68000 source, including its acceleration and
+  position clamp, falling transition, and setup for the following state. Calls
+  into the retained helper area now use labels at the exact `$472`, `$48E`, and
+  `$53A` boundaries, ready for later helper recovery. The complete 4,600-byte
+  shared tail remained byte-exact, all three complete 262,148-byte REGION=2
+  R81A/R81B/R81C entries matched their prior outputs, and the guarded USA
+  build/check matched all 127 comparison targets. The tracked padding count
+  remains 31 files totalling 257,607 bytes; the other shared states and helpers,
+  three FMV streams, other padding slices, and full Japan/Europe validation
+  remain unfinished.
+
 - **R81ABC object-dispatch milestone:** The 134-byte shared region at offsets
   `$8A`-`$10F` now expresses the R81A/R81B/R81C non-USA object dispatcher,
   nine-entry state table, and object initializer as semantic 68000 source.
