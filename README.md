@@ -105,8 +105,11 @@ including their movement/collision states, two animation sets, and two mapping
 sets. The complete discarded Animal object is namespaced source as well,
 preserving its regional presence-check target, historical sine/cosine calls,
 movement states, animations, mappings, and tile table. The retained suffix now
-begins at the CrushBlocks boundary, `$1702`; later shared R43 object logic and
-data remain binary-backed pending the same boundary-driven recovery.
+continues with a namespaced 576-byte CrushBlocks implementation, including its
+linked children, packed pointers, layouts, synchronized movement, timing data,
+collision, and mappings. It now begins at the BlockObject boundary, `$1942`;
+later shared R43 object logic and data remain binary-backed pending the same
+boundary-driven recovery.
 
 ## Building
 

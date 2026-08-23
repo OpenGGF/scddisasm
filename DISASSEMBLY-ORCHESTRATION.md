@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-CrushBlocks milestone:** The complete 576-byte
+  historical cluster at shared offsets `$1702`-`$1941` is now namespaced
+  semantic source. It recovers parent and child modes, eight linked block
+  spawns with packed pointers, subtype layout records, solid collision,
+  synchronized horizontal movement, timing/velocity records, despawning, and
+  sprite mappings. The retained suffix now begins at the clean BlockObject
+  boundary, `$1942`. The guarded USA build/check remains byte-exact for all 127
+  targets, including R43C, R43D, and DEMO43C. The padding inventory remains 28
+  files totalling 236,195 bytes because the later 5,072-byte suffix still shares
+  the same retained file; later R43 logic/data, three FMV streams, and full
+  Japan/Europe validation remain unfinished.
+
 - **R43C/R43D retained-Animal milestone:** The complete 598-byte historical
   cluster at shared offsets `$14AC`-`$1701` is now namespaced semantic source.
   It recovers released and parent-linked animal states, two sine-driven movement

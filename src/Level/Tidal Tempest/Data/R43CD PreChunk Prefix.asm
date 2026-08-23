@@ -92,4 +92,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded animal states, animations, mappings, and tile table follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained Animal.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$1702
+	; The discarded linked crushing-block implementation and its data follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained CrushBlocks.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$1942
