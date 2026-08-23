@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy R41 Padding1.asm"
 	else
-		incbin	"../padding/r41a_e_1.bin"
+		incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $AC, $10
 	endif
 
 StageChunks:
@@ -431,6 +431,6 @@ GeyserGfx:
 	incbin	"gfx/r4/geyser.nem"
 
 Padding3:
-	incbin	"../padding/r41a_e_3.bin"
+	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", $2A, $164
 
 ; ------------------------------------------------------------------------------

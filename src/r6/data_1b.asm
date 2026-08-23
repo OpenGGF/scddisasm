@@ -43,7 +43,7 @@ LegacyPLCSignpost:
 		dc.w	$7DE0
 	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, U).bin"
 	else
-	incbin	"../padding/r61b_e_1.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $2E, $8E
 	endif
 
 StageChunks:

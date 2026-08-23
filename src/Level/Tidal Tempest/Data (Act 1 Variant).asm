@@ -10,7 +10,7 @@
 
 Padding1:
 	if TT_VARIANT=0
-	incbin	"../padding/r41a_e_1.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $AC, $10
 	elseif TT_VARIANT=1
 	incbin	"../padding/r41b_e_1.bin"
 	elseif TT_VARIANT=2
@@ -580,11 +580,11 @@ MapSpr_FlowerCapsule:
 
 Padding3:
 	if TT_VARIANT=0
-	incbin	"../padding/r41a_e_3.bin"
+	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", $2A, $164
 	elseif TT_VARIANT=1
 	incbin	"../padding/r41b_e_3.bin"
 	elseif TT_VARIANT=2
 	incbin	"../padding/r41c_e_3.bin"
 	else
-	incbin	"../padding/r41d_e_3.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $26F8, $106
 	endif

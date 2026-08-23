@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy R72C Prefix.asm"
 	else
-		incbin	"../padding/r72c_e_1.bin"
+		incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Present Demo, JE).bin", $15A, $68
 	endif
 
 StageChunks:
