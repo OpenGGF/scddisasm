@@ -132,7 +132,7 @@ LevelBlocks:
 
 Padding2:
 	if CC_VARIANT=1
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $139C, $264
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 139C.asm"
 	elseif CC_VARIANT=2
 	include	"Level/Collision Chaos/Data/R31C Padding 2.asm"
 	else

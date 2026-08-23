@@ -1,0 +1,3 @@
+; Padding 2 suffix beginning at $1312.
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/1312-139C.asm"
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/139C-1600.asm"

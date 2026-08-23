@@ -71,7 +71,7 @@ Padding2:
 	if REGION=USA
 		; USA uses the final map fragment and animation table shared with R62A.
 		incbin	"maps/r62a/chunks.bin",$E600,$400
-		incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin"
+		include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 0000.asm"
 	else
 		include	"Level/Wacky Workbench/Data/R62B Padding2 Non-USA Packed Data.asm"
 	endif

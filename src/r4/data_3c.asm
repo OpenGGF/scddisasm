@@ -123,7 +123,7 @@ StageMapUnk5:
 	incbin	"maps/empty.bin"
 
 Padding2:
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $1162, $49E
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 1162.asm"
 	if (REGION=USA)&(DEMO<>0)
 R43_LEGACY_SONIC_TAIL EQU 1
 		org	Padding2

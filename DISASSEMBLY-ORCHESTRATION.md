@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **Legacy Wacky Workbench collision/layout milestone:** The final 5,632-byte
+  level `Data/Padding` binary is removed. Its complete form and seven bounded
+  suffixes are assembled from the shared collision-width table, level
+  collision/layout assets, Robot Generator art, and explicit retained mapping
+  records. The guarded USA ISO remains byte-identical with all 133 comparisons
+  passing; a guarded Japan build and direct checks against all eight former
+  forms validate the non-USA paths. No tracked binaries or build references
+  remain under level `Data/Padding` directories.
+
 - **Legacy Wacky Workbench compressed-art milestone:** The 10,238-byte Act 1
   Present `Padding/3` binary is removed. Its full form and ten historical
   suffixes are assembled from named Palmtree Panic, Quartz Quadrant, Robot

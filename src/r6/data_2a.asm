@@ -27,7 +27,7 @@ StageChunks:
 	incbin	"maps/r62a/chunks.bin"
 
 Padding2:
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin"
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 0000.asm"
 
 PlayerGfx:
 	incbin	"gfx/player.unc"

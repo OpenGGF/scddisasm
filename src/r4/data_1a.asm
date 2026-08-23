@@ -171,7 +171,7 @@ RobotTransportGfxA:
 	incbin	"gfx/robot_transport_a.nem"
 
 Padding2:
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $1312, $2EE
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 1312.asm"
 
 PlayerGfx:
 	incbin	"gfx/r4/player.unc"

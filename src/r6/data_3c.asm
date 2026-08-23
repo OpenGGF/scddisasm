@@ -249,7 +249,7 @@ StageChunks:
 	endif
 
 Padding2:
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $200, $1400
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 0200.asm"
 
 PlayerGfx:
 	incbin	"gfx/player.unc"

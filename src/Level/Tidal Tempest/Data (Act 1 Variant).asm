@@ -146,11 +146,11 @@ LevelBlocks:
 
 Padding2:
 	if TT_VARIANT=0
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $1312, $2EE
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 1312.asm"
 	elseif TT_VARIANT=1
 	include	"Level/Tidal Tempest/Data/R41B Compressed Tail.asm"
 	elseif TT_VARIANT=2
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $11D6, $42A
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 11D6.asm"
 	else
 	include	"r4/nonusa_padding_1d_2d_2.asm"
 	endif

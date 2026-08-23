@@ -245,14 +245,12 @@ source, while its packed legacy records share the pre-existing R51 non-USA
 source table. The former `padding/r43d_e_1.bin` dependency has been removed, so
 the complete shared R43 retained pre-chunk body is now built without that binary
 blob. Field-level naming of the final packed records remains unfinished.
-The older level `Data/Padding` directories are a separate retained-data set:
-one tracked binary remains: the 5,632-byte Wacky Workbench `Padding/2`, after
-replacing its compressed-art `Padding/3`, the regional R61A
-legacy PLC tails, the Palmtree Panic Act 1 Past/Future and Act 2 Present
-pre-chunk regions, the Act 1 and Act 2 post-data mapping/art/chunk suffixes, the
-R11A retail/demo PLC and graphics records and leftover object tables, and the
-duplicated R11/R12 Amy Rose tails with named assembly/assets. They must not be
-mistaken for alignment fill merely because of their directory name.
+The older retained level `Data/Padding` set is now fully source-emitted. No
+tracked binaries or build references remain in those directories: the former
+collision, layout, compressed-art, PLC, object-table, mapping, animation, and
+chunk suffixes are represented by named assembly fragments and assets. These
+regions remain part of the byte-exact link layout and must not be replaced by
+alignment fill.
 
 ## Building
 

@@ -106,7 +106,7 @@ StageMapUnk5:
 	incbin	"maps/empty.bin"
 
 Padding2:
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $109A, $566
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 109A.asm"
 
 PlayerGfx:
 	incbin	"gfx/r4/player.unc"

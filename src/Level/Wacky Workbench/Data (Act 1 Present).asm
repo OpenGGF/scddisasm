@@ -150,7 +150,7 @@ LevelChunks:
 ; with a "align $20000"
 ; -------------------------------------------------------------------------
 
-	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin"
+	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 0000.asm"
 
 ; -------------------------------------------------------------------------
 
