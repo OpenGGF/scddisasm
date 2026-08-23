@@ -201,7 +201,7 @@ byte_21F516:
 	incbin	"data/r8/byte_21FC96.bin"
 
 Padding2:
-	incbin	"../padding/r83c_e_2.bin"
+	include	"Level/Metallic Madness/Data/R83C Pattern Data.asm"
 
 PlayerGfx:
 	incbin	"gfx/r8/player.unc"

@@ -171,7 +171,7 @@ CapsuleSprites:
 CapsuleAnims:
 
 Padding2:
-	incbin	"../padding/r82c_e_2.bin"
+	include	"Level/Metallic Madness/Data/R82C Pattern Data.asm"
 
 PlayerGfx:
 	incbin	"gfx/r8/player.unc"
