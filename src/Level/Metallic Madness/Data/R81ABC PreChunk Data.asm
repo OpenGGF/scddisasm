@@ -95,7 +95,98 @@ R81ABC_State_174:
 	lea	$21E3CE,a1
 	bra.w	R81ABC_Sub_48E
 R81ABC_State_1BC:
-	incbin	"../padding/r81a_e_1.bin",$1BC,$11A
+	bsr.w	R81ABC_Sub_4F0
+	lea	($FFFFD000).w,a1
+	bsr.w	R81ABC_Sub_53A
+	tst.w	$30(a0)
+	beq.s	.CheckDelay
+	subq.w	#1,$30(a0)
+	beq.w	.Delete
+.CheckDelay:
+	tst.b	$3F(a0)
+	beq.s	.CheckCollision
+	subq.b	#1,$3F(a0)
+	bne.s	.Move
+.CheckCollision:
+	bsr.w	R81ABC_Sub_3D4
+	btst	#2,$3E(a0)
+	bne.w	.WideRange
+	tst.w	$10(a1)
+	bne.s	.Move
+	move.w	$8(a1),d0
+	sub.w	$8(a0),d0
+	bcc.s	.PositiveDistance
+	neg.w	d0
+.PositiveDistance:
+	cmpi.w	#$A,d0
+	bcc.s	.Move
+.SetContact:
+	bset	#2,$3E(a0)
+	clr.w	$10(a0)
+	bra.w	.SetStoppedAnimation
+.WideRange:
+	move.w	$8(a1),d0
+	sub.w	$8(a0),d0
+	bcc.s	.PositiveWideDistance
+	neg.w	d0
+.PositiveWideDistance:
+	cmpi.w	#$20,d0
+	bcs.s	.SetContact
+	bclr	#2,$3E(a0)
+.Move:
+	move.w	#$FFE0,d0
+	btst	#0,$22(a0)
+	bne.s	.FacingLeft
+	neg.w	d0
+.FacingLeft:
+	add.w	$10(a0),d0
+	move.w	d0,d1
+	move.w	#$280,d2
+	tst.w	d1
+	bpl.s	.PositiveSpeed
+	neg.w	d1
+	neg.w	d2
+.PositiveSpeed:
+	cmpi.w	#$280,d1
+	bcs.s	.StoreSpeed
+	move.w	d2,d0
+.StoreSpeed:
+	move.w	d0,$10(a0)
+	tst.w	$10(a0)
+	bpl.s	.CheckPlayer
+	move.w	#$60,d1
+	tst.b	$FF156A
+	bne.s	.GotStopDistance
+	move.w	#$80,d1
+.GotStopDistance:
+	move.w	$36(a0),d0
+	sub.w	d1,d0
+	cmp.w	$8(a0),d0
+	bcs.s	.CheckPlayer
+	bra.w	.Stop
+.CheckPlayer:
+	jsr	$206A0A
+	cmpi.w	#7,d1
+	bpl.s	.SetMovingAnimation
+	cmpi.w	#-7,d1
+	bmi.s	.SetMovingAnimation
+	add.w	d1,$C(a0)
+.SetMovingAnimation:
+	bsr.w	R81ABC_Sub_480
+	move.b	#2,$1C(a0)
+	lea	$21E3CE,a1
+	bra.w	R81ABC_Sub_48E
+.Stop:
+	clr.w	$10(a0)
+.SetStoppedAnimation:
+	move.b	#1,$1C(a0)
+	lea	$21E3CE,a1
+	bra.w	R81ABC_Sub_48E
+.Delete:
+	move.b	#$FF,$38(a0)
+	clr.b	$FF1510
+	move.b	#1,$2A(a0)
+	jmp	$20A0EC
 R81ABC_State_2D6:
 	incbin	"../padding/r81a_e_1.bin",$2D6,$38
 R81ABC_State_30E:
@@ -103,11 +194,17 @@ R81ABC_State_30E:
 R81ABC_State_34C:
 	incbin	"../padding/r81a_e_1.bin",$34C,$58
 R81ABC_State_3A4:
-	incbin	"../padding/r81a_e_1.bin",$3A4,$CE
+	incbin	"../padding/r81a_e_1.bin",$3A4,$30
+R81ABC_Sub_3D4:
+	incbin	"../padding/r81a_e_1.bin",$3D4,$9E
 R81ABC_Sub_472:
-	incbin	"../padding/r81a_e_1.bin",$472,$1C
+	incbin	"../padding/r81a_e_1.bin",$472,$E
+R81ABC_Sub_480:
+	incbin	"../padding/r81a_e_1.bin",$480,$E
 R81ABC_Sub_48E:
-	incbin	"../padding/r81a_e_1.bin",$48E,$AC
+	incbin	"../padding/r81a_e_1.bin",$48E,$62
+R81ABC_Sub_4F0:
+	incbin	"../padding/r81a_e_1.bin",$4F0,$4A
 R81ABC_Sub_53A:
 	incbin	"../padding/r81a_e_1.bin",$53A,$2E
 	incbin	"../padding/r81a_e_1.bin",$568,2

@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R81ABC movement-state milestone:** The complete 282-byte shared state at
+  offsets `$1BC`-`$2D5` is now semantic 68000 source. It recovers contact and
+  collision checks, acceleration and signed speed limiting, player-relative
+  movement, animation selection, stopping, and deletion paths. Calls into the
+  retained helper area now use exact labels at `$3D4`, `$480`, `$48E`, `$4F0`,
+  and `$53A`, preserving the original branch encodings and preparing those
+  helpers for subsequent recovery. The isolated 4,600-byte shared tail and all
+  three complete 262,148-byte REGION=2 R81A/R81B/R81C entries remained exact;
+  the guarded USA build/check matched all 127 comparison targets. The tracked
+  padding count remains 31 files totalling 257,607 bytes; the other shared
+  states and helpers, three FMV streams, other padding slices, and full
+  Japan/Europe validation remain unfinished.
+
 - **R81ABC first-state milestone:** The 72-byte shared object state at offsets
   `$174`-`$1BB` is now semantic 68000 source, including its acceleration and
   position clamp, falling transition, and setup for the following state. Calls

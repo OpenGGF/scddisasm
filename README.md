@@ -62,8 +62,11 @@ search routines—are semantic 68000 source. The 134-byte region at offsets
 `$8A`-`$10F` is source-backed as well, recovering the object dispatcher, its
 state table, and the object initializer. The first 72-byte dispatched state at
 `$174` is now source-backed too, covering its acceleration, position clamp,
-falling transition, and next-state setup. The other dispatched states and later
-mixed code/data remain binary-backed pending the same boundary-driven recovery.
+falling transition, and next-state setup. The 282-byte state at `$1BC` is also
+semantic source, recovering its collision/contact handling, speed limiting,
+player-relative movement, animation selection, stopping, and deletion paths.
+The other dispatched states, shared helpers, and later mixed code/data remain
+binary-backed pending the same boundary-driven recovery.
 
 ## Building
 
