@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-Fan milestone:** The complete 234-byte historical future
+  FanObject cluster at shared offsets `$1A1A`-`$1B03` is now namespaced semantic
+  source. It recovers parent-lifetime checking, horizontal/vertical setup,
+  switch-controlled activation, orientation flags, drawing/deletion, and both
+  mapping sets. The following retained cursor is aligned at `$1B02` to preserve
+  the historical overlay boundary without dropping the next dispatcher word.
+  The guarded USA build/check remains byte-exact for all 127 targets, including
+  R43C, R43D, and DEMO43C. The padding inventory remains 28 files totalling
+  236,195 bytes because the later 4,624-byte suffix still shares the same
+  retained file; later R43 logic/data, three FMV streams, and full Japan/Europe
+  validation remain unfinished.
+
 - **R43C/R43D retained-Block milestone:** The complete 216-byte historical
   cluster at shared offsets `$1942`-`$1A19` is now namespaced semantic source.
   It recovers initialization, subtype-to-size selection, solid collision,

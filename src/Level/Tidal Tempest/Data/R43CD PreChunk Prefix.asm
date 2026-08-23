@@ -98,4 +98,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded solid block implementation and its mappings follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained Block.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$1A1A
+	; The discarded future fan implementation and its mappings follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Fan.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$1B02
