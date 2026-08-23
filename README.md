@@ -53,8 +53,9 @@ boss overlay and a platform controller; its four motion datasets are now
 shared declarative records, while named mapping slices remain binary-backed
 within that range. The final executable
 trampoline at `$F6C` is also source-backed, so no identified 68000 logic remains
-inside `r81d_e_1.bin`; that file is still required for its bounded palette,
-animation, mapping, packed graphics, and pointer/placement data.
+inside `r81d_e_1.bin`; its two boss animation tables and twelve named scripts
+are shared declarative source as well. That file is still required for its
+bounded palette, mapping, packed graphics, and pointer/placement data.
 
 R81A's 4,600-byte non-USA pre-chunk region is also the exact shared tail of
 R81B from offset `$214` and R81C from offset `$7A`. Those three variants now
@@ -92,6 +93,8 @@ R81A/B/C/D, with R81A/B/C's additional alignment word emitted explicitly. The
 small retained `$7A`-`$89` R81A/B/C marker mapping is labeled source as well.
 The four byte-identical R81A/B/C/D platform paths are shared declarative
 records with named frame, duration, direction, and signed X-offset fields.
+The two byte-identical R81A/B/C/D boss animation sets are also shared source,
+with their offset tables resolved to twelve named animation scripts.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are

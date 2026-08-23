@@ -685,9 +685,9 @@ R81D_Boss_Move:
 	rts
 
 R81D_BossAnimationA:
-	incbin	"../padding/r81d_e_1.bin",$AF0,$2A
+	include	"Level/Metallic Madness/Data/R8 Retained Boss Animation A.asm"
 R81D_BossAnimationB:
-	incbin	"../padding/r81d_e_1.bin",$B1A,$30
+	include	"Level/Metallic Madness/Data/R8 Retained Boss Animation B.asm"
 R81D_BossMappingsA:
 	incbin	"../padding/r81d_e_1.bin",$B4A,$6E
 R81D_BossMappingsB:

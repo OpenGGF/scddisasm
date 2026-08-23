@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C/R81D boss-animation milestone:** The two byte-identical
+  retained boss animation sets are now shared declarative source. Their twelve
+  table entries resolve to named idle, hold, activation, movement, step, and
+  stop scripts, replacing 90 binary-included bytes in each R81 layout. The
+  guarded displayless USA build/check remains byte-exact for all 127 targets.
+  The padding inventory remains 27 files totalling 224,657 bytes because the
+  adjacent mappings and other bounded R81 assets still share the retained
+  files; no data was obtained from an original disc.
+
 - **R81A/R81B/R81C/R81D platform-path milestone:** The four byte-identical
   retained motion datasets are now shared declarative assembly records with
   named frame, duration, direction, and signed X-offset fields. This replaces
