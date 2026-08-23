@@ -43,7 +43,9 @@ All sixteen remaining Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused
 after bounded per-level prefixes. This replaces 4,128 binary-included bytes
 across R33C/R33D, R51A/R53C, R62A-D, and R71A-D/R72A-D while their distinct
-prefixes remain to be decomposed.
+prefixes remain to be decomposed. The preceding identical 76-byte mapping and
+animation tail is shared source as well, including its historical alignment;
+that replaces another 1,216 binary-included bytes across the same consumers.
 
 Instruction-level recovery has completed for the retained executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and

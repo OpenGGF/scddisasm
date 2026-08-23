@@ -411,10 +411,10 @@ Padding3:
 	if REGION=USA
 		incbin	"../padding/r72c_e_3.bin",0,$8B6
 		include	"Level/USA Legacy R72 Graphics Tail Corrected.asm"
-		incbin	"../padding/r72c_e_3.bin",$2740,$4C
 	else
-		incbin	"../padding/r72c_e_3.bin",0,$278C
+		incbin	"../padding/r72c_e_3.bin",0,$2740
 	endif
+	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------

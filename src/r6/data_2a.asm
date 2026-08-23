@@ -467,7 +467,8 @@ RobotTransportGfxA:
 	incbin	"gfx/robot_transport_a.nem"
 
 Padding3:
-	incbin	"../padding/r62a_e_3.bin",0,$2536
+	incbin	"../padding/r62a_e_3.bin",0,$24EA
+	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------

@@ -413,7 +413,8 @@ DangoGfx:
 	incbin	"gfx/r7/dango.nem"
 
 Padding3:
-	incbin	"../padding/r71b_e_3.bin",0,$244A
+	incbin	"../padding/r71b_e_3.bin",0,$23FE
+	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------
