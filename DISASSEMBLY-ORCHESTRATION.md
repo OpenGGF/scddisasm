@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C retained-blink milestone:** The 56-byte retained slice at
+  R81A shared offsets `$28`-`$5F` is now semantic source. It recovers four
+  mapping records and a blink/display helper with its historical `$20CE2E`
+  relative call, frame toggle, conditional draw, and display dispatch. The
+  guarded USA build/check remains byte-exact for all 127 targets, including all
+  three consumers R81A, R81B, and R81C. The padding inventory remains 27 files
+  totalling 224,657 bytes because other bounded data and executable slices still
+  share `r81a_e_1.bin`; the `$110`-`$173` R81ABC main-state slice is the next
+  identified logic target.
+
 - **R43C/R43D retained-tail completion milestone:** The final 724 bytes at
   shared offsets `$2A3E`-`$2D11` are now emitted from repository source and the
   11,538-byte `padding/r43d_e_1.bin` file has been removed. Its 128-byte

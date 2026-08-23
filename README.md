@@ -76,10 +76,11 @@ external trampoline. The byte-identical 658-byte boss state machine at `$97E`
 is semantic source too, while its animation and mapping assets remain bounded
 binary data. The 646-byte boss-overlay/platform island at `$D6C` is also
 source-backed, including its mappings and four path-record tables. The final
-six-byte trampoline at `$108C` is source-backed too, leaving no identified
-68000 logic in the shared tail's retained slices. The unique R81B/R81C prefixes
-are now declarative source records, including the USA one-byte variant. The
-shared tail's retained slices still contain bounded
+six-byte trampoline at `$108C` is source-backed too. The retained 56-byte
+`$28`-`$5F` slice is now source as well, including four mapping records and its
+blink/display helper. The unique R81B/R81C prefixes are declarative source
+records, including the USA one-byte variant. The shared tail's retained slices
+still contain identified executable logic at `$110`-`$173` plus bounded
 palette, animation, mapping, pointer, placement, path, and packed asset data
 requiring source decomposition.
 

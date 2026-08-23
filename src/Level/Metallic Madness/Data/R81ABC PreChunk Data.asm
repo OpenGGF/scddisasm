@@ -16,7 +16,7 @@ R81ABC_CopyLoopBack equ *-$62
 .Done:
 	jmp	$203986
 
-	incbin	"../padding/r81a_e_1.bin",$28,$38
+	include	"Level/Metallic Madness/Data/R81ABC Retained Blink Display.asm"
 
 R81ABC_FindMarker:
 	lea	($FFFFD080).w,a1
