@@ -152,7 +152,7 @@ Padding2:
 	elseif TT_VARIANT=2
 	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $11D6, $42A
 	else
-	incbin	"../padding/r41d_e_2.bin"
+	include	"r4/nonusa_padding_1d_2d_2.asm"
 	endif
 
 Art_Sonic:

@@ -111,7 +111,7 @@ AnimalsGfx:
 	incbin	"gfx/r4/animals.nem"
 
 Padding2:
-	incbin	"../padding/r41d_e_2.bin"
+	include	"r4/nonusa_padding_1d_2d_2.asm"
 
 PlayerGfx:
 	incbin	"gfx/r4/player.unc"
