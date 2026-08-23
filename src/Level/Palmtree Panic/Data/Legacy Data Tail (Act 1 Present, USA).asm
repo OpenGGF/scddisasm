@@ -4,7 +4,7 @@
 
 	dc.w	$FE60			; Tail word from the preceding legacy routine
 	move.w	#$1F,d6
-	bsr.w	LegacyUpdateAnimatedPLC
+	bsr.w	.UpdateAnimatedPLC
 	bne.b	.LegacyReturn
 	lea	$C00004,a5
 	move.l	#$94009340,(a5)
@@ -16,16 +16,16 @@
 .LegacyReturn:
 	rts
 
-LegacyUpdateAnimatedPLC:
+.UpdateAnimatedPLC:
 	subq.b	#1,(a2)
-	bpl.b	.Advance
+	bpl.b	.AdvanceAnimated
 	moveq	#0,d0
 	move.b	(a4),d0
 	addq.b	#1,d0
 	cmp.b	(a1),d0
-	bcs.b	.FrameReady
+	bcs.b	.FrameReadyAnimated
 	moveq	#0,d0
-.FrameReady:
+.FrameReadyAnimated:
 	move.b	d0,(a4)
 	add.w	d0,d0
 	move.b	2(a1,d0.w),(a2)
@@ -39,53 +39,53 @@ LegacyUpdateAnimatedPLC:
 	add.w	d1,d0
 	movea.l	2(a1,d0.w),a1
 	lea	$FF1980,a3
-.Copy:
+.CopyAnimated:
 	move.l	(a1)+,(a3)+
-	dbra	d6,.Copy
+	dbra	d6,.CopyAnimated
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#0,d0
 	rts
-.Advance:
+.AdvanceAnimated:
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#1,d0
 	rts
 
-LegacyAnimatedPLCMetadata:
+.AnimatedPLCMetadata:
 	dc.w	$0400, $0400, $0901, $0402, $0F03, $0023, $3F0C
 	dc.w	$0023, $3F8C, $0023, $400C, $0023, $408C
 
-LegacyUpdateStaticPLC:
+.UpdateStaticPLC:
 	subq.b	#1,(a2)
-	bpl.w	.Advance
+	bpl.w	.AdvanceStatic
 	move.b	(a1),(a2)
 	moveq	#0,d0
 	move.b	(a4),d0
 	addq.b	#1,d0
 	cmp.b	1(a1),d0
-	bcs.b	.FrameReady
+	bcs.b	.FrameReadyStatic
 	moveq	#0,d0
-.FrameReady:
+.FrameReadyStatic:
 	move.b	d0,(a4)
 	add.w	d0,d0
 	add.w	d0,d0
 	movea.l	2(a1,d0.w),a1
 	lea	$FF1980,a3
-.Copy:
+.CopyStatic:
 	move.l	(a1)+,(a3)+
-	dbra	d6,.Copy
+	dbra	d6,.CopyStatic
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#0,d0
 	rts
-.Advance:
+.AdvanceStatic:
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#1,d0
 	rts
 
-LegacyR11ATables:
+.R11ATables:
 	dc.w	$0403, $0023, $3C0C, $0023, $3D0C, $0023, $3E0C, $0302
 	dc.w	$0023, $3B0C, $0023, $3B8C, $0323, $81DC, $0223, $6F30
 	dc.w	$0021, $0000, $0081, $0404, $0026, $002E, $008A, $0026

@@ -236,9 +236,11 @@ PLC_Signpost:
 ; -------------------------------------------------------------------------
 
 	if REGION=USA
-	incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Past, U).bin"
+PP_ACT1_PAST_SUFFIX_ONLY equ 1
+	include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Past).asm"
 	else
-	incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Past, JE).bin"
+PP_ACT1_PAST_SUFFIX_ONLY equ 1
+	include	"Level/Palmtree Panic/Data/R12B Pre-Chunks.asm"
 	endif
 
 ; -------------------------------------------------------------------------

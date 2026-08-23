@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **Legacy Act 1 Past pre-chunk milestone:** The 3,190-byte USA and 3,176-byte
+  Japan/Europe Act 1 Past `Padding/1` binaries are removed. They were exact
+  suffixes of the existing source-backed USA Act 2 Past and regional R12B
+  pre-chunk areas, which now expose explicit suffix-only modes. Their duplicated
+  final loader/table regions reuse the readable USA and JE R11A tail sources
+  instead of repeating raw words. The USA ISO remains byte-identical with all
+  133 comparisons passing, and a guarded Japan build validates the non-USA
+  suffix and its compatibility consumers. This leaves 14 tracked level
+  `Data/Padding` binaries totalling 90,462 bytes.
+
 - **Legacy R11A regional/demo table milestone:** The remaining three Act 1
   Present `Padding/1` binaries (USA demo plus Japan/Europe retail and demo),
   totalling 1,584 bytes, are removed. Their retained graphics-load, PLC,
