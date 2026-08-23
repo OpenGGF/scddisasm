@@ -12,7 +12,7 @@ Padding1:
 	if REGION=USA
 		include	"r5/usa_pre_chunks_2a.asm"
 	else
-	incbin	"../padding/r52a_e_1.bin"
+		include	"Level/Quartz Quadrant/Data/R52A Pre-Chunks (Non-USA).asm"
 	endif
 
 StageChunks:
