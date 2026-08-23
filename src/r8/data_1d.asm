@@ -477,6 +477,6 @@ RobotTransportSprites:
 	include	"sprites/robot_transport.asm"
 
 Padding3:
-	incbin	"../padding/r81d_e_3.bin"
+	include	"Level/Metallic Madness/Data/R81D Compressed Tail.asm"
 
 ; ------------------------------------------------------------------------------

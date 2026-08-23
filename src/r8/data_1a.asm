@@ -490,6 +490,6 @@ RobotTransportSprites:
 	include	"sprites/robot_transport.asm"
 
 Padding3:
-	incbin	"../padding/r81a_e_3.bin"
+	include	"Level/Metallic Madness/Data/R81A Stage Data Tail.asm"
 
 ; ------------------------------------------------------------------------------
