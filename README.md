@@ -67,8 +67,10 @@ semantic source, recovering its collision/contact handling, speed limiting,
 player-relative movement, animation selection, stopping, and deletion paths.
 The remaining four states from `$2D6` through `$3D3`, another 254 bytes, are
 source-backed as well; the complete dispatcher state graph is therefore
-semantic source. Shared helpers and later mixed code/data remain binary-backed
-pending the same boundary-driven recovery.
+semantic source. The 402-byte helper cluster at `$3D4`-`$565` is semantic
+source too, covering player collision transfer, velocity integration,
+animation stepping, child spawning, player lookup/facing, and direction flags.
+Later mixed code/data remains binary-backed pending boundary-driven recovery.
 
 ## Building
 

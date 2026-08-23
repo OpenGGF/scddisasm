@@ -78,7 +78,7 @@ R81ABC_State_174:
 	tst.b	$3C(a0)
 	bmi.s	.Falling
 	addi.w	#$10,$12(a0)
-	bsr.w	R81ABC_Sub_472
+	bsr.w	R81ABC_ApplyVerticalVelocity
 	move.w	$C(a0),d0
 	cmpi.w	#$1D0,d0
 	bcs.s	.Done
@@ -89,15 +89,15 @@ R81ABC_State_174:
 	rts
 .Falling:
 	lea	($FFFFD000).w,a1
-	bsr.w	R81ABC_Sub_53A
+	bsr.w	R81ABC_FacePlayer
 	move.b	#$3C,$3F(a0)
 	addq.b	#2,$24(a0)
 	lea	$21E3CE,a1
-	bra.w	R81ABC_Sub_48E
+	bra.w	R81ABC_Animate
 R81ABC_State_1BC:
-	bsr.w	R81ABC_Sub_4F0
+	bsr.w	R81ABC_SpawnChild
 	lea	($FFFFD000).w,a1
-	bsr.w	R81ABC_Sub_53A
+	bsr.w	R81ABC_FacePlayer
 	tst.w	$30(a0)
 	beq.s	.CheckDelay
 	subq.w	#1,$30(a0)
@@ -108,7 +108,7 @@ R81ABC_State_1BC:
 	subq.b	#1,$3F(a0)
 	bne.s	.Move
 .CheckCollision:
-	bsr.w	R81ABC_Sub_3D4
+	bsr.w	R81ABC_CheckPlayerCollision
 	btst	#2,$3E(a0)
 	bne.w	.WideRange
 	tst.w	$10(a1)
@@ -172,16 +172,16 @@ R81ABC_State_1BC:
 	bmi.s	.SetMovingAnimation
 	add.w	d1,$C(a0)
 .SetMovingAnimation:
-	bsr.w	R81ABC_Sub_480
+	bsr.w	R81ABC_ApplyHorizontalVelocity
 	move.b	#2,$1C(a0)
 	lea	$21E3CE,a1
-	bra.w	R81ABC_Sub_48E
+	bra.w	R81ABC_Animate
 .Stop:
 	clr.w	$10(a0)
 .SetStoppedAnimation:
 	move.b	#1,$1C(a0)
 	lea	$21E3CE,a1
-	bra.w	R81ABC_Sub_48E
+	bra.w	R81ABC_Animate
 .Delete:
 	move.b	#$FF,$38(a0)
 	clr.b	$FF1510
@@ -207,7 +207,7 @@ R81ABC_State_2D6:
 	move.w	#$FD00,$12(a0)
 	addq.b	#2,$24(a0)
 R81ABC_State_30E:
-	bsr.w	R81ABC_Sub_470
+	bsr.w	R81ABC_ApplyVelocity
 	addi.w	#$40,$12(a0)
 	tst.w	$12(a0)
 	bmi.s	.CheckPosition
@@ -225,12 +225,12 @@ R81ABC_State_30E:
 .Done:
 	rts
 R81ABC_State_34C:
-	bsr.w	R81ABC_Sub_4F0
+	bsr.w	R81ABC_SpawnChild
 	lea	($FFFFD000).w,a1
 	bset	#0,($FFFFF7CC).w
 	move.w	#0,($FFFFF602).w
 	move.b	#5,$1C(a1)
-	bsr.w	R81ABC_Sub_53A
+	bsr.w	R81ABC_FacePlayer
 	moveq	#$C,d0
 	btst	#0,$22(a1)
 	bne.s	.FacingLeft
@@ -248,9 +248,9 @@ R81ABC_State_34C:
 .Done:
 	rts
 R81ABC_State_3A4:
-	bsr.w	R81ABC_Sub_4F0
+	bsr.w	R81ABC_SpawnChild
 	lea	($FFFFD000).w,a1
-	bsr.w	R81ABC_Sub_53A
+	bsr.w	R81ABC_FacePlayer
 	moveq	#$C,d0
 	btst	#0,$22(a1)
 	bne.s	.FacingLeft
@@ -264,20 +264,153 @@ R81ABC_State_3A4:
 	move.w	d0,$8(a0)
 	move.b	#$E,$1A(a0)
 	rts
-R81ABC_Sub_3D4:
-	incbin	"../padding/r81a_e_1.bin",$3D4,$9C
-R81ABC_Sub_470:
-	incbin	"../padding/r81a_e_1.bin",$470,2
-R81ABC_Sub_472:
-	incbin	"../padding/r81a_e_1.bin",$472,$E
-R81ABC_Sub_480:
-	incbin	"../padding/r81a_e_1.bin",$480,$E
-R81ABC_Sub_48E:
-	incbin	"../padding/r81a_e_1.bin",$48E,$62
-R81ABC_Sub_4F0:
-	incbin	"../padding/r81a_e_1.bin",$4F0,$4A
-R81ABC_Sub_53A:
-	incbin	"../padding/r81a_e_1.bin",$53A,$2E
-	incbin	"../padding/r81a_e_1.bin",$568,2
+R81ABC_CheckPlayerCollision:
+	lea	($FFFFD000).w,a1
+	tst.b	$FF1906
+	bne.w	.Done
+	btst	#0,$22(a1)
+	bne.s	.PlayerFacingLeft
+	move.w	$8(a1),d0
+	sub.w	$8(a0),d0
+	bra.s	.CheckHorizontalDistance
+.PlayerFacingLeft:
+	move.w	$8(a0),d0
+	sub.w	$8(a1),d0
+.CheckHorizontalDistance:
+	bcs.w	.Done
+	cmpi.w	#8,d0
+	bcs.w	.Done
+	cmpi.w	#$1C,d0
+	bcc.s	.Done
+	moveq	#8,d1
+	move.w	$C(a1),d0
+	sub.w	$C(a0),d0
+	add.w	d1,d0
+	bmi.s	.Done
+	move.w	d1,d2
+	add.w	d2,d2
+	cmp.w	d2,d0
+	bcc.s	.Done
+	move.w	$10(a1),d0
+	bpl.s	.PositiveSpeed
+	neg.w	d0
+.PositiveSpeed:
+	btst	#1,$22(a1)
+	bne.s	.SetAlternateState
+	btst	#2,$22(a1)
+	bne.s	.SetAlternateState
+	bclr	#2,$22(a1)
+	ori.b	#$81,$3E(a0)
+	clr.w	$12(a0)
+	clr.w	$10(a0)
+	move.b	#7,$1A(a0)
+	move.b	#$A,$24(a0)
+	move.w	#$7C,d0
+	jsr	$205AA4
+.Done:
+	rts
+.SetAlternateState:
+	move.b	#$E,$24(a0)
+	rts
+
+R81ABC_ApplyVelocity:
+	bsr.s	R81ABC_ApplyHorizontalVelocity
+R81ABC_ApplyVerticalVelocity:
+	move.w	$12(a0),d0
+	ext.l	d0
+	asl.l	#8,d0
+	add.l	d0,$C(a0)
+	rts
+
+R81ABC_ApplyHorizontalVelocity:
+	move.w	$10(a0),d0
+	ext.l	d0
+	asl.l	#8,d0
+	add.l	d0,$8(a0)
+	rts
+
+R81ABC_Animate:
+	moveq	#0,d0
+	move.b	$1C(a0),d0
+	cmp.b	$1D(a0),d0
+	beq.s	.Advance
+	move.b	d0,$1D(a0)
+	clr.b	$1B(a0)
+	clr.b	$1E(a0)
+.Advance:
+	subq.b	#1,$1E(a0)
+	bpl.s	.Done
+	add.w	d0,d0
+	adda.w	(a1,d0.w),a1
+.ReadFrame:
+	move.b	$1B(a0),d0
+	lea	(a1,d0.w),a2
+	move.b	(a2),d0
+	bpl.s	.SetFrame
+	clr.b	$1B(a0)
+	bra.s	.ReadFrame
+.SetFrame:
+	move.b	d0,d1
+	andi.b	#$1F,d0
+	move.b	d0,$1A(a0)
+	move.b	$22(a0),d0
+	rol.b	#3,d1
+	eor.b	d0,d1
+	andi.b	#3,d1
+	andi.b	#$FC,$1(a0)
+	or.b	d1,$1(a0)
+	move.b	$1(a2),$1E(a0)
+	addq.b	#2,$1B(a0)
+.Done:
+	rts
+
+R81ABC_SpawnChild:
+	addq.b	#6,$3B(a0)
+	bcc.s	.Done
+	jsr	$2077A4
+	bne.s	.Done
+	move.b	#$34,$0(a1)
+	moveq	#8,d1
+	btst	#0,$22(a0)
+	beq.s	.CheckAlternateDirection
+	move.w	#$FFF6,d1
+.CheckAlternateDirection:
+	btst	#0,$3E(a0)
+	beq.s	.Position
+	neg.w	d1
+.Position:
+	move.w	$8(a0),d0
+	add.w	d1,d0
+	move.w	d0,$8(a1)
+	move.w	$C(a0),d0
+	subi.w	#$C,d0
+	move.w	d0,$C(a1)
+.Done:
+	rts
+
+R81ABC_LoadPlayer:
+	lea	($FFFFD000).w,a1
+	rts
+
+R81ABC_FacePlayer:
+	bsr.s	R81ABC_ClearDirection
+	move.w	$8(a0),d0
+	sub.w	$8(a1),d0
+	bcs.s	.Done
+	bsr.s	R81ABC_SetDirection
+.Done:
+	rts
+
+R81ABC_ClearDirection:
+	bclr	#0,$22(a0)
+	bclr	#0,$1(a0)
+	rts
+
+R81ABC_SetDirection:
+	bset	#0,$22(a0)
+	bset	#0,$1(a0)
+	rts
+
+	incbin	"../padding/r81a_e_1.bin",$566,4
 R81ABC_Sub_56A:
 	incbin	"../padding/r81a_e_1.bin",$56A

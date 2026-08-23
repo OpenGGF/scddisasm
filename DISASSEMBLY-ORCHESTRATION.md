@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R81ABC shared-helper milestone:** The contiguous 402-byte helper cluster at
+  offsets `$3D4`-`$565` is now semantic 68000 source. It recovers player
+  collision/state transfer, horizontal and vertical velocity integration,
+  animation stepping, child-object spawning, player lookup/facing, and paired
+  direction-bit updates. The following PC-relative `lea` is retained at its
+  exact `$566` boundary because the known caller deliberately enters at the
+  next instruction, `$56A`; its enclosing routine remains to be mapped. The
+  isolated 4,600-byte shared tail and all three complete 262,148-byte REGION=2
+  R81A/R81B/R81C entries remained exact, and the guarded USA build/check
+  matched all 127 comparison targets. The tracked padding count remains 31
+  files totalling 257,607 bytes; later shared logic/data, three FMV streams,
+  other padding slices, and full Japan/Europe validation remain unfinished.
+
 - **R81ABC complete-state-graph milestone:** The four remaining shared states
   at offsets `$2D6`-`$3D3`, totalling 254 bytes, are now semantic 68000 source.
   They recover horizontal launch and stopping behavior, vertical acceleration
