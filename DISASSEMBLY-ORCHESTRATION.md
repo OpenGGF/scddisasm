@@ -12,6 +12,20 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D helper-block disassembly milestone:** The first 1,094 bytes of the
+  mixed R81D non-USA pre-chunk region are now real 68000 source. The newly
+  recovered 402-byte helper block implements player collision and attachment,
+  horizontal/vertical velocity integration, animation stepping, child-object
+  spawning, player loading, and facing-direction updates. This removes every
+  opaque gap before the next routine boundary at offset `$446`. The complete
+  4,312-byte mixed-region probe matched the former blob exactly, the complete
+  262,148-byte REGION=2 R81D entry matched its prior output exactly, and the
+  guarded USA build/check matched all 127 comparison targets. The unresolved
+  remainder is still included from `r81d_e_1.bin`, so the tracked padding
+  count remains 31 files totalling 257,607 bytes. Further R81 instruction/data
+  recovery, the three FMV streams, other padding slices, and full Japan/Europe
+  validation remain unfinished.
+
 - **R81D jump/synchronization disassembly milestone:** The first 692 bytes of
   the mixed R81D non-USA pre-chunk region are now real 68000 source. The newly
   recovered 254-byte span contains jump initialization and movement plus two
