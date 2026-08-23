@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 132
-  tracked padding slices totalling 833,024 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 129
+  tracked padding slices totalling 828,994 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -47,6 +47,15 @@
   fully byte-exact. The blob was removed, reducing the tracked padding set to
   132 files totalling 833,024 bytes. The three FMV streams, remaining padding
   slices, and Japan/Europe validation remain unfinished.
+
+- **R51B/R51C/R51D shared-fragment milestone:** Their non-USA `Padding1`
+  regions are now emitted from exact declarative prefixes followed by the
+  shared source-backed R51A table. The three former fragments match exactly;
+  isolated non-USA probes assembled all three affected entries, and the
+  guarded USA build/check remained fully byte-exact. The three blobs were
+  removed, reducing the tracked padding set to 129 files totalling 828,994
+  bytes. The three FMV streams, remaining padding slices, and Japan/Europe
+  validation remain unfinished.
 
 - **R31B padding source-asset milestone:** The 612-byte R31B `Padding2` slice
   is now emitted from the exact `$139C` through `$1600` range of the existing

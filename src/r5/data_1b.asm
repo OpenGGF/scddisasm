@@ -12,7 +12,16 @@ Padding1:
 	if REGION=USA
 		include	"r5/usa_pre_chunks_1b.asm"
 	else
-		incbin	"../padding/r51b_e_1.bin"
+		dc.w	$DAE0, $0023, $2E48, $F5C0, $000D, $0022, $F8FC, $5980
+		dc.w	$0023, $E1B0, $6840, $0023, $DFB8, $6A00, $0023, $DF16
+		dc.w	$6B00, $0023, $ED9C, $7200, $0023, $E906, $76C0, $0023
+		dc.w	$E750, $7FC0, $0023, $E3B6, $8280, $0023, $E03E, $8960
+		dc.w	$0023, $DD8A, $8D60, $0023, $F1FC, $90E0, $0023, $F460
+		dc.w	$94E0, $0023, $D61A, $9740, $0023, $F0B0, $9A40, $0000
+		dc.w	$0023, $0098, $7880, $0000, $0023, $C520, $4B40, $0000
+		dc.w	$0023, $CB92, $4B40, $0002, $0022, $FABC, $8780, $0022
+		dc.w	$F4F2, $9100, $0020, $BA40, $7DE0
+		include	"r5/nonusa_padding_1a.asm"
 	endif
 
 StageChunks:
