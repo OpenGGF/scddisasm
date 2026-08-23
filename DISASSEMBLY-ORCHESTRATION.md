@@ -2,6 +2,17 @@
 
 ## 2026-08-23
 
+- **R43C/R43D switch-object milestone:** The complete 384-byte object cluster
+  at shared offsets `$CE`-`$24D` now reuses the semantic R4 switch source,
+  including initialization, parent-relative positioning, solid collision,
+  switch-state updates, despawning, its player-position helper, and both sprite
+  mappings. The retained binary range now begins at the next clean object
+  boundary, `$24E`. The guarded USA build/check remained byte-exact for all
+  127 targets, including R43C, R43D, and DEMO43C. The padding inventory remains
+  28 files totalling 236,195 bytes because the later 10,948-byte suffix still
+  shares the same retained file; later R43 logic/data, three FMV streams, and
+  full Japan/Europe validation remain unfinished.
+
 - **R43C/R43D first-logic milestone:** The first complete executable cluster in
   the retained common body, shared offsets `$2`-`$CD` (204 bytes), is now
   semantic 68000 source. It recovers the remainder of the vertical moving-block

@@ -86,8 +86,11 @@ requiring source decomposition.
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are
 also semantic source, covering the vertical moving-block setup, child spawns,
-horizontal movement, and position wrapping. Later shared R43 object logic and
-data remain binary-backed pending the same boundary-driven recovery.
+horizontal movement, and position wrapping. The following 384-byte switch
+object, collision helper, and sprite mappings also reuse their semantic R4
+source. The retained suffix now begins at the next object boundary, `$24E`;
+later shared R43 object logic and data remain binary-backed pending the same
+boundary-driven recovery.
 
 ## Building
 

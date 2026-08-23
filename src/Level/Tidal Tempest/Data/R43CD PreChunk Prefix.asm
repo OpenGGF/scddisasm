@@ -66,4 +66,8 @@ R43_VMoveBlock_UpdatePosition:
 	move.w	d1,$8(a0)
 	rts
 
-	incbin	"../padding/r43d_e_1.bin",$CE
+	; The discarded Act 2 switch implementation is retained here in the retail
+	; layout even though the Act 3 object index does not reference it.
+	include	"objects/r4/switch.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$24E
