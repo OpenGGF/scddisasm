@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy R8 R81ABC Data.asm"
 	else
-		incbin	"../padding/r81a_e_1.bin"
+		include	"Level/Metallic Madness/Data/R81ABC PreChunk Data.asm"
 	endif
 
 StageChunks:

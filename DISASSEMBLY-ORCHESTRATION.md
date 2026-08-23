@@ -12,6 +12,22 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81ABC shared-tail/first-routines milestone:** R81A's complete 4,600-byte
+  non-USA pre-chunk block is byte-identical to R81B from offset `$214` onward
+  and R81C from offset `$7A` onward. The three entries now consume one shared
+  source include after R81B/R81C's unique prefixes instead of independently
+  embedding three copies of the same tail. The first 64 instruction bytes in
+  that shared tail are now semantic 68000 source: the completion of a
+  record-copy loop and a marker-table search. The latter explicitly preserves
+  its historical zero-displacement compare encoding. The isolated shared tail
+  matched all 4,600 bytes of `r81a_e_1.bin`, all three complete 262,148-byte
+  REGION=2 R81A/R81B/R81C entries matched their prior outputs exactly, and the
+  guarded USA build/check matched all 127 comparison targets. The unique
+  prefixes and later shared mixed code/data remain binary-backed, so the
+  tracked padding count stays 31 files totalling 257,607 bytes. Further R81
+  logic/data recovery, the three FMV streams, other padding slices, and full
+  Japan/Europe validation remain unfinished.
+
 - **R81D logic-complete milestone:** The final identified executable island in
   `r81d_e_1.bin`, a six-byte trampoline at offset `$F6C`, is now source-backed.
   Combined with the earlier contiguous object routines, boss state machine,

@@ -54,6 +54,13 @@ trampoline at `$F6C` is also source-backed, so no identified 68000 logic remains
 inside `r81d_e_1.bin`; that file is still required for its bounded palette,
 animation, mapping, path, packed graphics, and pointer/placement data.
 
+R81A's 4,600-byte non-USA pre-chunk region is also the exact shared tail of
+R81B from offset `$214` and R81C from offset `$7A`. Those three variants now
+use one shared source include after their unique prefixes. The first 64
+instruction bytes in that shared tail—record-copy completion and marker-table
+search routines—are semantic 68000 source; later mixed code/data remains
+binary-backed pending the same boundary-driven recovery.
+
 ## Building
 
 The remaining original game files must be placed in `original/japan/`,

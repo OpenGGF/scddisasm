@@ -11,7 +11,8 @@ Padding1:
 		incbin	"../padding/r81b_e_1.bin",$212,$2
 		include	"Level/USA Legacy R8 R81ABC Data.asm"
 	else
-		incbin	"../padding/r81b_e_1.bin"
+		incbin	"../padding/r81b_e_1.bin",0,$214
+		include	"Level/Metallic Madness/Data/R81ABC PreChunk Data.asm"
 	endif
 
 StageChunks:
