@@ -6,11 +6,21 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 191
-  tracked padding slices totalling 916,420 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 189
+  tracked padding slices totalling 914,928 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
+
+- **R8 padding decomposition milestone:** `r82a_e_2.bin` and `r82d_e_2.bin`
+  were exact concatenations of existing source-owned R8 data assets. The R82A
+  source now emits five complete 128-byte tables plus the 0x6A-byte tail of a
+  sixth table; R82D emits three complete tables plus its existing 362-byte
+  combined table. The two unused opaque padding blobs were removed, reducing
+  the tracked padding set from 191 files/916,420 bytes to 189 files/914,928
+  bytes. The guarded USA build completed and `REGION=1 ./check.sh` reported a
+  match for every target. The three FMV streams, remaining padding slices, and
+  Japan/Europe validation remain unfinished.
 
 ## 2026-08-23
 

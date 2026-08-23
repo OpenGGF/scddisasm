@@ -140,7 +140,11 @@ byte_21FC96:
 	incbin	"data/r8/byte_21FC96.bin"
 
 Padding2:
-	incbin	"../padding/r82d_e_2.bin"
+	; This tile data is already split into the source-owned 128-byte tables.
+	incbin	"data/r8/byte_21FB16.bin"
+	incbin	"data/r8/byte_21FB96.bin"
+	incbin	"data/r8/byte_21FC16.bin"
+	incbin	"data/r8/byte_21FE96_2b.bin"
 
 PlayerGfx:
 	incbin	"gfx/r8/player.unc"

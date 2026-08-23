@@ -171,7 +171,13 @@ Padding2:
 	if (REGION=USA)&(DEMO<>0)
 		include	"Level/USA Legacy Demo Mapping Tail.asm"
 	else
-		incbin	"../padding/r82a_e_2.bin"
+		; This tile data is already split into the source-owned 128-byte tables.
+		incbin	"data/r8/byte_235F4A.bin"
+		incbin	"data/r8/byte_21FD96.bin"
+		incbin	"data/r8/byte_21FA16.bin"
+		incbin	"data/r8/byte_21FA96.bin"
+		incbin	"data/r8/byte_21FB16.bin"
+		incbin	"data/r8/byte_21FB96.bin", 0, $6A
 	endif
 
 PlayerGfx:
