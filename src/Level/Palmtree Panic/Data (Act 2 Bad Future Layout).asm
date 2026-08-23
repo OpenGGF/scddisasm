@@ -128,7 +128,7 @@ LevelLayoutUnk5:
 	even
 
 ; The original uses the complete recovered second data slice before Art_Sonic.
-	incbin	"../padding/r12d_e_2.bin"
+	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
 
 Art_Sonic:
 	incbin	"gfx/r1/player.unc"

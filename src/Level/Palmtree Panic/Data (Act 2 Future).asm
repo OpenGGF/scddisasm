@@ -70,7 +70,7 @@ Padding2:
 	if ACT2_FUTURE_VARIANT=1
 		incbin	"../padding/r12c_e_2.bin"
 	else
-		incbin	"../padding/r12d_e_2.bin"
+		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
 	endif
 
 Art_Sonic:

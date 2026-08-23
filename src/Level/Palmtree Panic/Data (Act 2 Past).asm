@@ -151,9 +151,9 @@ MapSpr_FlowerCapsule:
 	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"../padding/r12c_e_2.bin"
 	elseif ACT2_FUTURE_VARIANT=2
-		incbin	"../padding/r12d_e_2.bin"
+		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
 	else
-		incbin	"../padding/r12b_e_2.bin"
+		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin"
 	endif
 
 ; -------------------------------------------------------------------------
@@ -517,7 +517,7 @@ Art_Projector:
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"../padding/r12d_e_3.bin"
 	else
-		incbin	"../padding/r12b_e_3.bin"
+		incbin	"Level/Palmtree Panic/Data/Padding/3 (Act 2 Present).bin", $862, $2CA
 	endif
 
 ; -------------------------------------------------------------------------

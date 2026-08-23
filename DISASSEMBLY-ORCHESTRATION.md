@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 182
-  tracked padding slices totalling 888,962 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 179
+  tracked padding slices totalling 877,686 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -39,6 +39,15 @@
   totalling 888,962 bytes. The guarded USA build and full component check both
   passed; the three FMV streams, remaining padding slices, and Japan/Europe
   validation remain unfinished.
+
+- **R12B/R12D padding decomposition milestone:** The R12B second slice now
+  uses the complete source-owned `Data/Padding/2 (Act 2 Present).bin` asset;
+  R12B's third slice uses its `$862`/`$2CA` range; and R12D's second slice
+  uses its `$204E`/`$47A` range. The conditional Act 2 Past, Act 2 Future, and
+  Bad Future data paths all retain byte-exact USA output. Three unused padding
+  blobs were removed, reducing the tracked padding set to 179 files totalling
+  877,686 bytes. The three FMV streams, remaining padding slices, and
+  Japan/Europe validation remain unfinished.
 
 ## 2026-08-23
 
