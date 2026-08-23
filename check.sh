@@ -63,6 +63,10 @@ files=(
 	SPMM__.MMD SPSS__.BIN
 )
 
+if [[ $REGION == 1 ]]; then
+	files+=(ABS.TXT BIB.TXT CPY.TXT)
+fi
+
 for file in "${files[@]}"; do
 	compare "$ROOT_DIR/original/$REGION_DIR/$file" "$ROOT_DIR/out/files/$file"
 done

@@ -16,7 +16,10 @@ that every level data slice is disassembled, or that the ISO is independent of
 the regional original tree. The current build still requires three externally
 supplied encoded media streams (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`),
 but these can be supplied independently through `FMV_STREAM_DIR`; they are not
-executable game logic. The padding slices
+executable game logic. A byte-exact USA filesystem also needs the three retail
+ISO identification text files (`ABS.TXT`, `BIB.TXT`, and `CPY.TXT`), supplied
+through `ISO_METADATA_DIR`; the deterministic builder does not read a reference
+ISO. The padding slices
 replaced so far cover R8/R81D, R6, R12B/R12C/R12D, R4, R31B, R5, R7,
 R73D/R83D, all R73D opaque regions, regional graphics tables, R41B/R41C,
 R42/R42A/R42B/R42C,
@@ -248,7 +251,10 @@ blob. Field-level naming of the final packed records remains unfinished.
 Every region still requires externally supplied `BADEND.STM`, `GOODEND.STM`,
 and `PTEST.STM` encoded media. By default they are read from
 `original/<region>/`; set `FMV_STREAM_DIR` to keep those media inputs separate
-from the regional comparison tree. Japan and Europe additionally require the
+from the regional comparison tree. The USA byte-exact filesystem additionally
+requires `ABS.TXT`, `BIB.TXT`, and `CPY.TXT`; these default to
+`original/usa/`, or can be supplied separately with `ISO_METADATA_DIR`. They
+are disc identification text, not executable game logic. Japan and Europe additionally require the
 remaining executable/data files reported by the build because their regional
 source variants have not yet been reconstructed. Generated files are written
 to `out/`.
@@ -271,12 +277,18 @@ populating `original/usa/` for compilation:
 FMV_STREAM_DIR=/path/to/user-supplied/usa-media ./make.sh
 ```
 
+To keep both external input classes outside the comparison tree:
+
+```sh
+FMV_STREAM_DIR=/path/to/usa-media ISO_METADATA_DIR=/path/to/usa-iso-text ./make.sh
+```
+
 The comparison command still requires the corresponding originals under
 `original/<region>/`. The checked-in `MakeSTM` currently supports only the
 opening stream format, so the ending and pencil-test streams cannot yet be
 regenerated from source media. Both comparison frontends verify all three
 externally supplied streams; a successful USA check covers 127 reconstructed
-components and three media inputs.
+components, three media inputs, and three ISO identification files.
 
 The Linux build uses Wine (or an automatically detected Steam Proton installation)
 to run the checked-in, byte-exact Windows toolchain; the comparison script itself

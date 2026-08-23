@@ -11,12 +11,26 @@ if %REGION%==0 (set REGIONDIR=japan)
 if %REGION%==1 (set REGIONDIR=usa)
 if %REGION%==2 (set REGIONDIR=europe)
 if "%FMV_STREAM_DIR%"=="" set "FMV_STREAM_DIR=original\%REGIONDIR%"
+if "%ISO_METADATA_DIR%"=="" set "ISO_METADATA_DIR=original\%REGIONDIR%"
 for %%F in (BADEND.STM GOODEND.STM PTEST.STM) do (
     if not exist "%FMV_STREAM_DIR%\%%F" (
         echo Missing externally supplied FMV stream: %FMV_STREAM_DIR%\%%F
         exit /b 1
     )
     copy "%FMV_STREAM_DIR%\%%F" "out\files\%%F" > nul
+)
+if "%REGION%"=="1" (
+    where py > nul 2>&1 || (
+        echo Python 3 is required to construct the byte-exact USA ISO filesystem.
+        exit /b 1
+    )
+    for %%F in (ABS.TXT BIB.TXT CPY.TXT) do (
+        if not exist "%ISO_METADATA_DIR%\%%F" (
+            echo Missing externally supplied ISO metadata file: %ISO_METADATA_DIR%\%%F
+            exit /b 1
+        )
+        copy "%ISO_METADATA_DIR%\%%F" "out\files\%%F" > nul
+    )
 )
 if not "%REGION%"=="1" (
     for %%F in (ATTACK.MMD BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
@@ -196,7 +210,12 @@ if exist "Special Stage\Stage Data.sym" ( del "Special Stage\Stage Data.sym" > n
 
 echo.
 echo Compiling filesystem...
-..\bin\mkisofs.exe -quiet -abstract ABS.TXT -biblio BIB.TXT -copyright CPY.TXT -A "SEGA ENTERPRISES" -V "SONIC_CD___" -publisher "SEGA ENTERPRISES" -p "SEGA ENTERPRISES" -sysid "MEGA_CD" -iso-level 1 -o ..\out\misc\files.bin ..\out\files
+if "%REGION%"=="1" (
+    py -3 ..\tools\build_retail_iso.py ..\out\files ..\out\misc\files.bin
+) else (
+    ..\bin\mkisofs.exe -quiet -abstract ABS.TXT -biblio BIB.TXT -copyright CPY.TXT -A "SEGA ENTERPRISES" -V "SONIC_CD___" -publisher "SEGA ENTERPRISES" -p "SEGA ENTERPRISES" -sysid "MEGA_CD" -iso-level 1 -o ..\out\misc\files.bin ..\out\files
+)
+if errorlevel 1 exit /b 1
 
 %ASM68K% main.asm, ..\out\%OUTPUT%
 del ..\out\misc\files.bin > nul

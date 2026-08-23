@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **USA ISO filesystem reconstruction milestone:** The retail filesystem layout
+  is now generated deterministically from staged files without reading a
+  reference ISO. `tools/build_retail_iso.py` reproduces the USA primary volume
+  descriptor, path tables, three-sector root directory, file extent order, and
+  physical trailing sectors. Its generated filesystem matches the locally
+  owned USA image from sector 16 onward. The three identification text files
+  are explicit external inputs accepted through `ISO_METADATA_DIR`; none of
+  their contents are embedded in source control. Japan and Europe continue to
+  use the pinned `mkisofs` path until their retail layouts can be validated.
+  Both comparison frontends include the three USA identification files, raising
+  the USA validation surface to 133 staged files.
+
 - **External-media validation milestone:** `check.sh` and `check.bat` now compare
   `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM` instead of trusting the files
   copied into the ISO staging tree. The Windows comparison also gains the

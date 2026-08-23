@@ -103,6 +103,10 @@ FMV_STREAM_DIR=${FMV_STREAM_DIR:-$ORIGINAL_DIR}
 if [[ $FMV_STREAM_DIR != /* ]]; then
 	FMV_STREAM_DIR="$ROOT_DIR/$FMV_STREAM_DIR"
 fi
+ISO_METADATA_DIR=${ISO_METADATA_DIR:-$ORIGINAL_DIR}
+if [[ $ISO_METADATA_DIR != /* ]]; then
+	ISO_METADATA_DIR="$ROOT_DIR/$ISO_METADATA_DIR"
+fi
 for file in BADEND.STM GOODEND.STM PTEST.STM; do
 	if [[ ! -f $FMV_STREAM_DIR/$file ]]; then
 		echo "Missing externally supplied FMV stream: $FMV_STREAM_DIR/$file" >&2
@@ -110,6 +114,19 @@ for file in BADEND.STM GOODEND.STM PTEST.STM; do
 		exit 1
 	fi
 done
+if [[ $REGION == 1 ]]; then
+	if ! command -v python3 >/dev/null 2>&1; then
+		echo 'Python 3 is required to construct the byte-exact USA ISO filesystem.' >&2
+		exit 1
+	fi
+	for file in ABS.TXT BIB.TXT CPY.TXT; do
+		if [[ ! -f $ISO_METADATA_DIR/$file ]]; then
+			echo "Missing externally supplied ISO metadata file: $ISO_METADATA_DIR/$file" >&2
+			echo 'See README.md for the required ISO inputs.' >&2
+			exit 1
+		fi
+	done
+fi
 if [[ $REGION != 1 ]]; then
 	for file in ATTACK.MMD BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
 		if [[ ! -f $ORIGINAL_DIR/$file ]]; then
@@ -259,6 +276,11 @@ find "$ROOT_DIR/out/files" -mindepth 1 -maxdepth 1 -type f -delete
 for file in BADEND.STM GOODEND.STM PTEST.STM; do
 	cp "$FMV_STREAM_DIR/$file" "$ROOT_DIR/out/files/$file"
 done
+if [[ $REGION == 1 ]]; then
+	for file in ABS.TXT BIB.TXT CPY.TXT; do
+		cp "$ISO_METADATA_DIR/$file" "$ROOT_DIR/out/files/$file"
+	done
+fi
 if [[ $REGION != 1 ]]; then
 	for file in ATTACK.MMD BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
 		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
@@ -465,9 +487,13 @@ assemble 'Special Stage\Main.asm' '..\out\files\SPMM__.MMD' 'Special Stage\Main.
 assemble 'Special Stage\Sub.asm' '..\out\files\SPSS__.BIN' 'Special Stage\Sub.lst'
 
 echo 'Compiling filesystem...'
-run_tool "$ROOT_DIR/bin/mkisofs.exe" -quiet -abstract ABS.TXT -biblio BIB.TXT -copyright CPY.TXT \
-	-A 'SEGA ENTERPRISES' -V SONIC_CD___ -publisher 'SEGA ENTERPRISES' -p 'SEGA ENTERPRISES' \
-	-sysid MEGA_CD -iso-level 1 -o '..\out\misc\files.bin' '..\out\files'
+if [[ $REGION == 1 ]]; then
+	python3 "$ROOT_DIR/tools/build_retail_iso.py" "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc/files.bin"
+else
+	run_tool "$ROOT_DIR/bin/mkisofs.exe" -quiet -abstract ABS.TXT -biblio BIB.TXT -copyright CPY.TXT \
+		-A 'SEGA ENTERPRISES' -V SONIC_CD___ -publisher 'SEGA ENTERPRISES' -p 'SEGA ENTERPRISES' \
+		-sysid MEGA_CD -iso-level 1 -o '..\out\misc\files.bin' '..\out\files'
+fi
 
 run_tool "$ROOT_DIR/bin/asm68k.exe" /q /p /o 'ae-,l.,ow+' /e "REGION=$REGION" \
 	'Main.asm,' "..\\out\\$OUTPUT"
