@@ -5,10 +5,14 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"padding/r41a_e_1.bin"
+	if REGION=USA
+		include	"Level/USA Legacy R41 Padding1.asm"
+	else
+		incbin	"../padding/r41a_e_1.bin"
+	endif
 
 StageChunks:
-	incbin	"src/maps/r41a/chunks.bin"
+	incbin	"maps/r41a/chunks.bin"
 	even
 
 PowerupAnims:
@@ -52,7 +56,7 @@ ExplosionSprites:
 	even
 
 WobbleTable:
-	incbin	"src/data/wobble.bin"
+	incbin	"data/wobble.bin"
 	even
 
 CheckpointAnims:
@@ -88,7 +92,7 @@ CapsuleSprites:
 	even
 
 WaterSurfaceGfx:
-	incbin	"src/gfx/r4/water_surface.nem"
+	incbin	"gfx/r4/water_surface.nem"
 	even
 
 FlowerAnims:
@@ -100,15 +104,15 @@ FlowerSprites:
 	even
 
 FlowerGfx:
-	incbin	"src/gfx/r4/flower.nem"
+	incbin	"gfx/r4/flower.nem"
 	even
 
 TitleCardTextGfx:
-	incbin	"src/gfx/r4/title_card_text.nem"
+	incbin	"gfx/r4/title_card_text.nem"
 	even
 
 BubbleNumbersGfx:
-	incbin	"src/gfx/r4/bubble_numbers.nem"
+	incbin	"gfx/r4/bubble_numbers.nem"
 	even
 
 BubbleSprites:
@@ -116,61 +120,61 @@ BubbleSprites:
 	even
 
 SpikeBallGfx:
-	incbin	"src/gfx/r4/spike_ball.nem"
+	incbin	"gfx/r4/spike_ball.nem"
 	even
 
 ChainGfx:
-	incbin	"src/gfx/chain.nem"
+	incbin	"gfx/chain.nem"
 	even
 
 TurbineGfxA:
-	incbin	"src/gfx/r4/turbine_a.nem"
+	incbin	"gfx/r4/turbine_a.nem"
 	even
 
 CollapseFloorGfxA:
-	incbin	"src/gfx/r4/collapse_floor_a.nem"
+	incbin	"gfx/r4/collapse_floor_a.nem"
 	even
 
 ElectricBeamGfxA:
-	incbin	"src/gfx/r4/electric_beam_a.nem"
+	incbin	"gfx/r4/electric_beam_a.nem"
 	even
 
 ShootGfx:
-	incbin	"src/gfx/r4/shoot.nem"
+	incbin	"gfx/r4/shoot.nem"
 	even
 
 TonboGfx:
-	incbin	"src/gfx/r4/tonbo.nem"
+	incbin	"gfx/r4/tonbo.nem"
 	even
 
 TagaTagaGfx:
-	incbin	"src/gfx/r4/taga_taga.nem"
+	incbin	"gfx/r4/taga_taga.nem"
 	even
 
 YagoGfx:
-	incbin	"src/gfx/r4/yago.nem"
+	incbin	"gfx/r4/yago.nem"
 	even
 
 AmenboGfx:
-	incbin	"src/gfx/r4/amenbo.nem"
+	incbin	"gfx/r4/amenbo.nem"
 	even
 
 WoodBlockGfx:
-	incbin	"src/gfx/r4/wood_block.nem"
+	incbin	"gfx/r4/wood_block.nem"
 	even
 
 AnimalsGfx:
-	incbin	"src/gfx/r4/animals.nem"
+	incbin	"gfx/r4/animals.nem"
 	even
 
 RobotTransportGfxA:
-	incbin	"src/gfx/robot_transport_a.nem"
+	incbin	"gfx/robot_transport_a.nem"
 
 Padding2:
-	incbin	"padding/r41a_e_2.bin"
+	incbin	"../padding/r41a_e_2.bin"
 
 PlayerGfx:
-	incbin	"src/gfx/r4/player.unc"
+	incbin	"gfx/r4/player.unc"
 	even
 
 PlayerSprites:
@@ -182,135 +186,135 @@ PlayerGfxScript:
 	even
 
 PointsGfx:
-	incbin	"src/gfx/points.nem"
+	incbin	"gfx/points.nem"
 	even
 
 CapsuleGfx:
-	incbin	"src/gfx/capsule.nem"
+	incbin	"gfx/capsule.nem"
 	even
 
 BigRingGfx:
-	incbin	"src/gfx/big_ring.nem"
+	incbin	"gfx/big_ring.nem"
 	even
 
 GoalGfx:
-	incbin	"src/gfx/goal.nem"
+	incbin	"gfx/goal.nem"
 	even
 
 SignpostGfx:
-	incbin	"src/gfx/signpost.nem"
+	incbin	"gfx/signpost.nem"
 	even
 
 ResultsGfx:
-	incbin	"src/gfx/results.nem"
+	incbin	"gfx/results.nem"
 	even
 
 TimeOverGfx:
-	incbin	"src/gfx/time_over.unc"
+	incbin	"gfx/time_over.unc"
 	even
 
 GameOverGfx:
-	incbin	"src/gfx/game_over.unc"
+	incbin	"gfx/game_over.unc"
 	even
 
 TitleCardGfx:
-	incbin	"src/gfx/title_card.nem"
+	incbin	"gfx/title_card.nem"
 	even
 
 ShieldGfx:
-	incbin	"src/gfx/shield.unc"
+	incbin	"gfx/shield.unc"
 	even
 
 InvincibleGfx:
-	incbin	"src/gfx/invincible.unc"
+	incbin	"gfx/invincible.unc"
 	even
 
 WarpGfx:
-	incbin	"src/gfx/warp.unc"
+	incbin	"gfx/warp.unc"
 	even
 
 Spring45Gfx:
-	incbin	"src/gfx/spring_45.nem"
+	incbin	"gfx/spring_45.nem"
 	even
 
 SpringGfx:
-	incbin	"src/gfx/spring.nem"
+	incbin	"gfx/spring.nem"
 	even
 
 MonitorTimeGfx:
-	incbin	"src/gfx/monitor_time.nem"
+	incbin	"gfx/monitor_time.nem"
 	even
 
 ExplosionGfx:
-	incbin	"src/gfx/explosion.nem"
+	incbin	"gfx/explosion.nem"
 	even
 
 RingGfx:
-	incbin	"src/gfx/ring.nem"
+	incbin	"gfx/ring.nem"
 	even
 
 LivesIconsGfx:
-	incbin	"src/gfx/lives_icons.unc"
+	incbin	"gfx/lives_icons.unc"
 	even
 
 HudNumbersGfx:
-	incbin	"src/gfx/hud_numbers.unc"
+	incbin	"gfx/hud_numbers.unc"
 	even
 
 HudGfx:
-	incbin	"src/gfx/hud.nem"
+	incbin	"gfx/hud.nem"
 	even
 
 CheckpointGfx:
-	incbin	"src/gfx/checkpoint.nem"
+	incbin	"gfx/checkpoint.nem"
 	even
 
 byte_238A42:
-	incbin	"src/data/r4/byte_238A42_1a.bin"
+	incbin	"data/r4/byte_238A42_1a.bin"
 	even
 
 byte_238C42:
-	incbin	"src/data/r4/byte_238C42_1a.bin"
+	incbin	"data/r4/byte_238C42_1a.bin"
 	even
 
 byte_238E42:
-	incbin	"src/data/r4/byte_238E42_1a.bin"
+	incbin	"data/r4/byte_238E42_1a.bin"
 	even
 
 byte_239042:
-	incbin	"src/data/r4/byte_239042_1a.bin"
+	incbin	"data/r4/byte_239042_1a.bin"
 	even
 
 byte_239242:
-	incbin	"src/data/r4/byte_239242_1a.bin"
+	incbin	"data/r4/byte_239242_1a.bin"
 	even
 
 byte_239442:
-	incbin	"src/data/r4/byte_239442_1a.bin"
+	incbin	"data/r4/byte_239442_1a.bin"
 	even
 
 byte_239642:
-	incbin	"src/data/r4/byte_239642_1a.bin"
+	incbin	"data/r4/byte_239642_1a.bin"
 	even
 
 byte_239842:
-	incbin	"src/data/r4/byte_239842_1a.bin"
+	incbin	"data/r4/byte_239842_1a.bin"
 	even
 
 StageCollisionAngles:
-	incbin	"src/maps/collision_angles.bin"
+	incbin	"maps/collision_angles.bin"
 	even
 
 StageCollisionColumns:
-	incbin	"src/maps/collision_columns.bin"
+	incbin	"maps/collision_columns.bin"
 	even
 
 StageCollisionRows:
-	incbin	"src/maps/collision_rows.bin"
+	incbin	"maps/collision_rows.bin"
 	even
 
 StageCollision:
-	incbin	"src/maps/r41a/collision.bin"
+	incbin	"maps/r41a/collision.bin"
 	even
 
 StageMaps:
@@ -352,81 +356,81 @@ StageMaps:
 	dc.w	StageMapUnk5-StageMaps
 
 StageMapFg:
-	incbin	"src/maps/r41a/foreground.bin"
+	incbin	"maps/r41a/foreground.bin"
 	even
 
 StageMapBg:
-	incbin	"src/maps/r41a/background.bin"
+	incbin	"maps/r41a/background.bin"
 	even
 
 StageMapNull:
-	incbin	"src/maps/empty.bin"
+	incbin	"maps/empty.bin"
 	even
 
 StageMapUnk1:
-	incbin	"src/maps/ghz2_foreground.bin"
+	incbin	"maps/ghz2_foreground.bin"
 	even
 
 StageMapUnk3:
-	incbin	"src/maps/empty.bin"
+	incbin	"maps/empty.bin"
 	even
 
 StageMapUnk4:
-	incbin	"src/maps/ghz3_foreground.bin"
+	incbin	"maps/ghz3_foreground.bin"
 	even
 
 StageMapUnk2:
-	incbin	"src/maps/empty.bin"
+	incbin	"maps/empty.bin"
 	even
 
 StageMapUnk5:
-	incbin	"src/maps/empty.bin"
+	incbin	"maps/empty.bin"
 	even
 
 StageBlocks:
-	incbin	"src/maps/r41a/blocks.nem"
+	incbin	"maps/r41a/blocks.nem"
 	even
 
 StageGfx:
-	incbin	"src/maps/r41a/gfx.nem"
+	incbin	"maps/r41a/gfx.nem"
 	even
 
 BreakPoleGfxAB:
-	incbin	"src/gfx/r4/break_pole_ab.nem"
+	incbin	"gfx/r4/break_pole_ab.nem"
 	even
 
 SpikesV4Gfx:
-	incbin	"src/gfx/spikes_v4.nem"
+	incbin	"gfx/spikes_v4.nem"
 	even
 
 BlockGfxA:
-	incbin	"src/gfx/r4/block_a.nem"
+	incbin	"gfx/r4/block_a.nem"
 	even
 
 SwitchGfx:
-	incbin	"src/gfx/switch.nem"
+	incbin	"gfx/switch.nem"
 	even
 
 SlopeElevatorGfxA:
-	incbin	"src/gfx/r4/slope_elevator_a.nem"
+	incbin	"gfx/r4/slope_elevator_a.nem"
 	even
 
 SwingGfxAB:
-	incbin	"src/gfx/r4/swing_ab.nem"
+	incbin	"gfx/r4/swing_ab.nem"
 	even
 
 PrizePointsGfx:
-	incbin	"src/gfx/r4/prize_points.nem"
+	incbin	"gfx/r4/prize_points.nem"
 	even
 
 DoorGfxA:
-	incbin	"src/gfx/r4/door_a.nem"
+	incbin	"gfx/r4/door_a.nem"
 	even
 
 GeyserGfx:
-	incbin	"src/gfx/r4/geyser.nem"
+	incbin	"gfx/r4/geyser.nem"
 
 Padding3:
-	incbin	"padding/r41a_e_3.bin"
+	incbin	"../padding/r41a_e_3.bin"
 
 ; ------------------------------------------------------------------------------
