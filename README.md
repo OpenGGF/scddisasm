@@ -38,6 +38,11 @@ R81A/R81B/R81C/R81D and R82A/R82B/R82C/R83C Padding3, and
 R82A/R82B/R82C/R82D/R83C, were exact references or declarative source data;
 31 opaque padding slices totalling 257,607 bytes remain.
 
+Instruction-level recovery has also begun for the remaining executable R81
+pre-chunk regions. R81D's opening 74-byte object-spawn routine is now real
+68000 source; the unresolved remainder of that mixed code/data block is still
+included from its tracked padding file and is not counted as complete.
+
 ## Building
 
 The remaining original game files must be placed in `original/japan/`,

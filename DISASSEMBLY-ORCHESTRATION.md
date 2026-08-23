@@ -12,6 +12,18 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D opening-routine disassembly milestone:** The first 74 bytes of the
+  mixed R81D non-USA pre-chunk region are now real 68000 instructions with
+  named control-flow labels rather than bytes read from the blob. The source
+  preserves the original zero-displacement `move.b` encoding explicitly. Its
+  complete 4,312-byte mixed-region probe matched the former blob exactly, the
+  complete REGION=2 R81D entry matched its prior output exactly, and the
+  guarded USA build/check remained fully byte-exact. The unresolved remainder
+  is still included from `r81d_e_1.bin`, so the tracked padding count remains
+  31 files totalling 257,607 bytes. Further R81 instruction/data boundary
+  recovery, the three FMV streams, other padding slices, and full Japan/Europe
+  validation remain unfinished.
+
 - **R63D Padding3 source milestone:** The 2,040-byte Wacky Workbench Act 3
   Bad Future compressed tail is now a named declarative source instead of an
   opaque padding include. Its isolated REGION=2 assembly matched every former
