@@ -146,9 +146,9 @@ LevelBlocks:
 
 Padding2:
 	if CC2_VARIANT=0
-	incbin	"../padding/r32a_e_2.bin"
+	include	"Level/Collision Chaos/Data/R32A Padding 2.asm"
 	elseif CC2_VARIANT=1
-	incbin	"../padding/r32b_e_2.bin"
+	include	"Level/Collision Chaos/Data/R32B Padding 2.asm"
 	elseif CC2_VARIANT=2
 	incbin	"../padding/r32c_e_2.bin"
 	else
