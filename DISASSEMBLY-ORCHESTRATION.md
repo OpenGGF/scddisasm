@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-PressureElevator milestone:** The complete 440-byte
+  historical PressureElevatorObject cluster at shared offsets `$24F6`-`$26AD`
+  is now namespaced semantic source. It recovers the six-state dispatcher,
+  player-relative activation, acceleration and capped descent, top-solid
+  transfer and release, triggered ascent and reset, sound, drawing/despawning,
+  and both sprite mapping frames. The retained suffix now begins at the next
+  clean object boundary, `$26AE`. The guarded USA build/check remains byte-exact
+  for all 127 targets, including R43C, R43D, and DEMO43C. The padding inventory
+  remains 28 files totalling 236,195 bytes because the later 1,636-byte suffix
+  still shares the same retained file; later R43 logic/data, three FMV streams,
+  and full Japan/Europe validation remain unfinished.
+
 - **R43C/R43D retained-PlatformChain milestone:** The complete 498-byte
   historical PlatformChainObject cluster at shared offsets `$2304`-`$24F5` is
   now namespaced semantic source. It recovers screen-range handling, top-solid

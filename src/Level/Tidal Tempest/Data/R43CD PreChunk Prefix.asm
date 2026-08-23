@@ -116,4 +116,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded linked rotating platform-chain implementation follows.
 	include	"Level/Tidal Tempest/Data/R43 Retained Platform Chain.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$24F6
+	; The discarded pressure-triggered elevator implementation follows.
+	include	"Level/Tidal Tempest/Data/R43 Retained Pressure Elevator.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$26AE

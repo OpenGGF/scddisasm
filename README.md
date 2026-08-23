@@ -126,9 +126,12 @@ player-release states, sound, and the full mapping set. The following 498-byte
 PlatformChainObject cluster is namespaced source as well, including top-solid
 correction, eight linked segments, subtype geometry, switch-controlled
 direction, historical sine/cosine call, circular motion, derived velocity, and
-mappings. The retained suffix now begins at the next clean dispatcher boundary,
-`$24F6`; later shared R43 object logic and data remain binary-backed pending the
-same boundary-driven recovery.
+mappings. The adjacent 440-byte PressureElevatorObject cluster is namespaced
+source too, covering player-relative activation, capped descent, top-solid
+transfer and release, triggered ascent/reset, sound, and both mapping frames.
+The retained suffix now begins at the next clean object boundary, `$26AE`;
+later shared R43 object logic and data remain binary-backed pending the same
+boundary-driven recovery.
 
 ## Building
 
