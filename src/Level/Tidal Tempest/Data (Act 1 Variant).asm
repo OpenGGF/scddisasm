@@ -148,7 +148,7 @@ Padding2:
 	if TT_VARIANT=0
 	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $1312, $2EE
 	elseif TT_VARIANT=1
-	incbin	"../padding/r41b_e_2.bin"
+	include	"Level/Tidal Tempest/Data/R41B Compressed Tail.asm"
 	elseif TT_VARIANT=2
 	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $11D6, $42A
 	else

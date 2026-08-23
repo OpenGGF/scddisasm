@@ -130,7 +130,7 @@ HologramGfx:
 	incbin	"gfx/hologram.nem"
 
 Padding2:
-	incbin	"../padding/r42b_e_2.bin"
+	include	"Level/Tidal Tempest/Data/R42B Stage Data Tail.asm"
 
 PlayerGfx:
 	incbin	"gfx/r4/player.unc"
