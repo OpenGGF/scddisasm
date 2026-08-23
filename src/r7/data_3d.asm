@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy R73D PreChunk Data.asm"
 	else
-		incbin	"../padding/r73d_e_1.bin"
+		include	"Level/Stardust Speedway/Data/R73D PreChunk Data.asm"
 	endif
 
 StageChunks:
@@ -111,7 +111,7 @@ CapsuleSprites:
 	include	"sprites/capsule.asm"
 
 Padding2:
-	incbin	"../padding/r73d_e_2.bin"
+	include	"Level/Stardust Speedway/Data/R73D Compressed Data.asm"
 
 PlayerGfx:
 	incbin	"gfx/player.unc"

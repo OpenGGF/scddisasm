@@ -6,11 +6,22 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 46
-  tracked padding slices totalling 313,341 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 44
+  tracked padding slices totalling 306,017 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
+
+- **Complete R73D data-source milestone:** The remaining 2,682-byte non-USA
+  pre-chunk mapping region and 4,642-byte compressed stage-data tail are now
+  named declarative sources. R73D's third tail was already declarative, and
+  USA continues to use its reconstructed pre-chunk source. Both isolated
+  REGION=2 fragments matched every former byte exactly, the complete REGION=2
+  Act 3 Bad Future entry assembled successfully, and the guarded USA
+  build/check remained fully byte-exact. The two blobs were removed, reducing
+  the tracked padding set to 44 files totalling 306,017 bytes. The three FMV
+  streams, remaining padding slices, and full Japan/Europe validation remain
+  unfinished.
 
 - **Complete R73C data-source milestone:** The 2,568-byte non-USA pre-chunk
   mapping region, 2,229-byte stage-data tail, and 2,342-byte compressed
