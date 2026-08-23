@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R53C Padding3 completion milestone:** The distinct `$2056`-byte packed
+  mapping/animation prefix is now source-emitted before the existing shared
+  mapping and rotation-vector tails. The complete 8,612-byte
+  `r53c_e_3.bin` dependency is removed. The tracked padding inventory falls to
+  16 files totalling 146,648 bytes. The guarded displayless USA build/check
+  remains byte-exact for all 127 targets; no data was obtained from an original
+  disc.
+
 - **R12C Padding2 completion milestone:** The distinct `$1BCB`-byte packed
   mapping/animation prefix is now source-emitted, while the final `$47A` bytes
   reuse the named Act 2 Present Padding2 asset at `$204E`. Both R12C consumers

@@ -377,7 +377,7 @@ CollapseFloorGfxC:
 	incbin	"gfx/r5/collapse_floor_c.nem"
 
 Padding3:
-	incbin	"../padding/r53c_e_3.bin",0,$2056
+	include	"Level/Quartz Quadrant/Data/R53C Padding3 Packed Prefix.asm"
 	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
