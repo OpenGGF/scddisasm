@@ -33,25 +33,27 @@ LevelPaletteID:
 
 Padding1:
 	if ACT2_FUTURE_VARIANT=1
+		include	"Level/Palmtree Panic/Data/R12C Pre-Chunks.asm"
 		; The USA future image shares the recovered Act 2 Present legacy
 		; table at $20F2F0. The surrounding prefix is the region's
 		; word-aligned table with its relocated pointers corrected below.
-		incbin	"../padding/r12c_e_1.bin", 0, $8A
+		org	Padding1+$8A
 		dc.w	$D7F2
-		incbin	"../padding/r12c_e_1.bin", $8C, $3E
+		org	Padding1+$CA
 		dc.w	$D866
-		incbin	"../padding/r12c_e_1.bin", $CC, $10
+		org	Padding1+$DC
 		include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
 	else
+		include	"Level/Palmtree Panic/Data/R12D Pre-Chunks.asm"
 		; The bad-future prefix reaches the same USA legacy table at
 		; $20F2F0, but has a different live-table lead-in.
-		incbin	"../padding/r12d_e_1.bin", 0, $28
+		org	Padding1+$28
 		dc.w	$D740
-		incbin	"../padding/r12d_e_1.bin", $2A, $8C
+		org	Padding1+$B6
 		dc.w	$D7F2
-		incbin	"../padding/r12d_e_1.bin", $B8, $3E
+		org	Padding1+$F6
 		dc.w	$D866
-		incbin	"../padding/r12d_e_1.bin", $F8, $10
+		org	Padding1+$108
 		include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
 	endif
 

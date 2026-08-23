@@ -50,14 +50,14 @@ LevelPaletteID:
 			incbin	"../padding/r13d_e_1.bin"
 		endif
 	elseif ACT2_FUTURE_VARIANT=1
-		incbin	"../padding/r12c_e_1.bin"
+		include	"Level/Palmtree Panic/Data/R12C Pre-Chunks.asm"
 	elseif ACT2_FUTURE_VARIANT=2
-		incbin	"../padding/r12d_e_1.bin"
+		include	"Level/Palmtree Panic/Data/R12D Pre-Chunks.asm"
 	else
 		if REGION=USA
 			include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Past).asm"
 		else
-			incbin	"../padding/r12b_e_1.bin"
+			include	"Level/Palmtree Panic/Data/R12B Pre-Chunks.asm"
 		endif
 	endif
 

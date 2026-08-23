@@ -22,13 +22,14 @@ LevelPaletteID:
 ; -------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r12d_e_1.bin", 0, $28
+	include	"Level/Palmtree Panic/Data/R12D Pre-Chunks.asm"
+	org	Padding1+$28
 	dc.w	$D740
-	incbin	"../padding/r12d_e_1.bin", $2A, $8C
+	org	Padding1+$B6
 	dc.w	$D7F2
-	incbin	"../padding/r12d_e_1.bin", $B8, $3E
+	org	Padding1+$F6
 	dc.w	$D866
-	incbin	"../padding/r12d_e_1.bin", $F8, $10
+	org	Padding1+$108
 	include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
 
 ; -------------------------------------------------------------------------
