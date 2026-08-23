@@ -2,6 +2,13 @@
 
 ## 2026-08-23
 
+- **Legacy R11A PLC loader milestone:** The 548-byte USA Act 1 Present
+  `Padding/1` binary is removed. Its executable region is now readable 68000
+  source for the retained animated/static PLC frame loaders, followed by
+  explicitly source-emitted legacy metadata and tables. The USA ISO remains
+  byte-identical with all 133 comparisons passing. This leaves 19 tracked level
+  `Data/Padding` binaries totalling 98,412 bytes.
+
 - **Legacy R12A/R12B tail milestone:** The 2,860-byte R12A `Padding/3` parent
   binary is removed. Its full form is composed from a named Palmtree Panic tile
   suffix, projector art, and the recovered Amy Rose tail. R12B's historical

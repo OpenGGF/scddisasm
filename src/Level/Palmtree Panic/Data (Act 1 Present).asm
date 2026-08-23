@@ -249,7 +249,7 @@ PLC_Signpost:
 
 	if DEMO=0
 		if REGION=USA
-		incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Present, U).bin"
+		include	"Level/Palmtree Panic/Data/Legacy Data Tail (Act 1 Present, USA).asm"
 		else
 		incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Present, JE).bin"
 		endif
