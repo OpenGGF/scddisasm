@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **Retained padding elimination milestone:** The final two blobs were distinct
+  non-USA R62B/R62C packed mapping/animation tables. They are now emitted from
+  explicitly regional source fragments, removing the last 12,800 bytes under
+  `padding/`. Direct byte reconstruction checks passed for both fragments, and
+  the true European R62B/R62C entry points assembled successfully through the
+  guarded displayless Proton toolchain, and the full USA build/check remains
+  byte-exact for all 127 targets. No retained padding blobs remain. This
+  establishes source coverage, not semantic decoding of every packed byte;
+  no data was obtained from an original disc.
+
 - **R62 Padding3 completion milestone:** R62A now source-emits a packed head
   and the continuation shared with USA R62B. Non-USA R62B emits its distinct
   prefix before the regional mapping suffix. R62C is split at its true

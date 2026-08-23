@@ -36,8 +36,10 @@ R32B/R32C/R32D Padding1, R61A/R61C/R61D/R63D Padding3,
 R81A/R81B/R81C Padding2, R82C/R83C/R83D Padding2,
 R81A/R81B/R81C/R81D and R82A/R82B/R82C/R83C Padding3, and
 R82A/R82B/R82C/R82D/R83C, and the four shared R81 platform paths, were exact
-references or declarative source data; 2 opaque padding files totalling 12,800
-bytes remain.
+references or declarative source data. No opaque files remain under `padding/`.
+Some packed-data fragments are deliberately source-emitted as bytes and remain
+to be semantically classified; eliminating the retained containers does not by
+itself mean every packed datum has been decoded.
 
 All sixteen remaining Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused
@@ -113,6 +115,11 @@ R62B. Non-USA R62B emits its distinct prefix and regional mapping suffix. R62C
 is split at its true regional divergence, preserving the USA legacy tail and
 the distinct non-USA continuation. This removes all three retained R62
 Padding3 blobs, totalling 28,090 bytes.
+
+The final non-USA R62B/R62C Padding2 tables are now explicitly regional
+source-emitted packed data. Their true European entry points assemble
+successfully without the retained files, leaving no opaque blobs under
+`padding/`.
 
 Instruction-level recovery has completed for the retained executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and

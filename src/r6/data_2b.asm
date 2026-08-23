@@ -73,7 +73,7 @@ Padding2:
 		incbin	"maps/r62a/chunks.bin",$E600,$400
 		incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin"
 	else
-		incbin	"../padding/r62b_e_2.bin"
+		include	"Level/Wacky Workbench/Data/R62B Padding2 Non-USA Packed Data.asm"
 	endif
 
 PlayerGfx:
