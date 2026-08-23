@@ -41,6 +41,7 @@ locret_203B26:
 ; ------------------------------------------------------------------------------
 
 PlayerObject:
+	if (REGION<>USA)|((REGION=USA)&(DEMO=0))
 	tst.b	time_attack
 	bne.s	loc_203B44
 	cmpa.w	#player_object_2,a0
@@ -48,6 +49,7 @@ PlayerObject:
 	tst.b	debug_mode
 	beq.s	loc_203B44
 	jmp	DebugModeLegacy
+	endif
 
 ; ------------------------------------------------------------------------------
 

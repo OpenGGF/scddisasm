@@ -5,7 +5,9 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	if REGION=USA
+	if (REGION=USA)&(DEMO<>0)
+		include	"Level/USA Legacy R8 Demo Gfx Lists.asm"
+	elseif REGION=USA
 		incbin	"../padding/r82a_e_1.bin",0,$13
 		dc.b	$D0
 		incbin	"../padding/r82a_e_1.bin",$14,$11
@@ -21,7 +23,13 @@ Padding1:
 	endif
 
 StageChunks:
-	incbin	"maps/r82a/chunks.bin"
+	if (REGION=USA)&(DEMO<>0)
+		incbin	"maps/r82a/chunks.bin",0,$4000
+		include	"Level/USA Legacy R8 Demo Data.asm"
+		incbin	"maps/r82a/chunks.bin",$5000
+	else
+		incbin	"maps/r82a/chunks.bin"
+	endif
 	even
 
 LaserAnims:
@@ -160,7 +168,11 @@ byte_21FC96:
 	incbin	"data/r8/byte_21FC96.bin"
 
 Padding2:
-	incbin	"../padding/r82a_e_2.bin"
+	if (REGION=USA)&(DEMO<>0)
+		include	"Level/USA Legacy Demo Mapping Tail.asm"
+	else
+		incbin	"../padding/r82a_e_2.bin"
+	endif
 
 PlayerGfx:
 	incbin	"gfx/r8/player.unc"
@@ -430,6 +442,11 @@ RevolveDoorGfx:
 	incbin	"gfx/r8/revolve_door.nem"
 
 Padding3:
-	incbin	"../padding/r82a_e_3.bin"
+	if (REGION=USA)&(DEMO<>0)
+		incbin	"../padding/r82a_e_3.bin",0,$31E6
+		include	"Level/USA Legacy Demo Padding3 Tail.asm"
+	else
+		incbin	"../padding/r82a_e_3.bin"
+	endif
 
 ; ------------------------------------------------------------------------------

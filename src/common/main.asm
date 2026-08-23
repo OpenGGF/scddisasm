@@ -24,6 +24,10 @@ loc_201512:
 	move.b	#0,stage_started
 	clr.b	vblank_routine
 	clr.b	use_player_2
+	if DEMO<>0
+		move.b	#0,respawn_checkpoint
+		bset	#1,stage_start_flags
+	endif
 	move.b	#0,paused
 	bset	#0,stage_start_flags
 	bne.s	loc_201578
@@ -194,7 +198,14 @@ loc_201726:
 	move.l	d0,(a1)+
 	dbf	d1,loc_201726
 	move	#$2700,sr
-	move.l	#(StageChunks+$6C00),demo_data
+	if (DEMO<>0)&(STAGE_ZONE=6)&(STAGE_ACT=1)&(STAGE_TIME=1)
+		move.l	#(StageChunks+$4000),demo_data
+	else
+		move.l	#(StageChunks+$6C00),demo_data
+	endif
+	if DEMO<>0
+		move.w	#1,stage_demo
+	endif
 	move.w	#0,demo_index
 	bsr.w	ClearScreen
 	lea	VDP_CTRL,a6
@@ -310,6 +321,10 @@ loc_201916:
 	btst	#0,paused
 	beq.w	loc_201988
 	bsr.w	PauseMusic
+	if DEMO<>0
+		tst.w	stage_demo
+		bne.s	loc_201970
+	endif
 	move.b	p1_joy_tap,d0
 	tst.b	time_attack
 	bne.s	loc_201966
@@ -332,12 +347,17 @@ loc_201948:
 loc_201966:
 	andi.b	#$70,d0
 	beq.w	loc_2018F8
+
+loc_201970:
 	clr.b	lives
 
 loc_201974:
 	clr.b	paused
 	clr.w	stage_demo
 	clr.b	respawn_checkpoint
+	if DEMO<>0
+		move.w	#$800,demo_index
+	endif
 	bra.w	InitStage
 
 ; ------------------------------------------------------------------------------
