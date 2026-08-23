@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **R72 Padding3 completion milestone:** The four variants now source-emit
+  their packed prefixes before the existing mapping and rotation-vector tails.
+  R72A and R72C are split at their true regional divergence points: USA uses
+  the corrected graphics tail, while non-USA emits its distinct continuation
+  and mapping suffix. The four complete retained blobs, totalling 38,510
+  bytes, are removed. The tracked padding inventory falls to 7 files totalling
+  62,542 bytes. The guarded displayless USA build/check remains byte-exact for
+  all 127 targets; no data was obtained from an original disc.
+
 - **R71 Padding3 completion milestone:** The four distinct packed
   mapping/animation prefixes for R71A, R71B, R71C, and R71D are now
   source-emitted before the existing shared mapping and rotation-vector tails.

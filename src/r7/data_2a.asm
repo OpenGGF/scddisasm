@@ -407,11 +407,11 @@ KabasiraGfx:
 	incbin	"gfx/r7/kabasira.nem"
 
 Padding3:
+	include	"Level/Stardust Speedway/Data/R72A Padding3 Shared Prefix.asm"
 	if REGION=USA
-		incbin	"../padding/r72a_e_3.bin",0,$3D2
 		include	"Level/USA Legacy R72 Graphics Tail Corrected.asm"
 	else
-		incbin	"../padding/r72a_e_3.bin",0,$221C
+		include	"Level/Stardust Speedway/Data/R72A Padding3 Non-USA Continuation.asm"
 		include	"Level/Shared Non-USA Padding3 Mapping Suffix.asm"
 	endif
 	include	"Level/Shared Padding3 Mapping Tail.asm"

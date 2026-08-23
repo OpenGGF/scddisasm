@@ -407,7 +407,7 @@ KabasiraGfx:
 	incbin	"gfx/r7/kabasira.nem"
 
 Padding3:
-	incbin	"../padding/r72b_e_3.bin",0,$2770
+	include	"Level/Stardust Speedway/Data/R72B Padding3 Packed Prefix.asm"
 	include	"Level/Shared Padding3 Mapping Tail.asm"
 	include	"Level/Shared Padding3 Rotation Vectors.asm"
 

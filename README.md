@@ -36,8 +36,8 @@ R32B/R32C/R32D Padding1, R61A/R61C/R61D/R63D Padding3,
 R81A/R81B/R81C Padding2, R82C/R83C/R83D Padding2,
 R81A/R81B/R81C/R81D and R82A/R82B/R82C/R83C Padding3, and
 R82A/R82B/R82C/R82D/R83C, and the four shared R81 platform paths, were exact
-references or declarative source data; 11 opaque padding files totalling
-101,052 bytes remain.
+references or declarative source data; 7 opaque padding files totalling 62,542
+bytes remain.
 
 All sixteen remaining Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused
@@ -98,6 +98,11 @@ The four R71 Padding3 regions now emit their distinct packed
 mapping/animation prefixes from source before the shared mapping and
 rotation-vector tails. This removes the complete R71A, R71B, R71C, and R71D
 retained blobs, totalling 36,962 bytes.
+
+The four R72 Padding3 regions now source their packed prefixes directly. R72A
+and R72C preserve their true regional split: USA uses the corrected graphics
+tail, while non-USA emits its distinct continuation and mapping suffix. This
+removes all four retained R72 blobs, totalling 38,510 bytes.
 
 Instruction-level recovery has completed for the retained executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and
