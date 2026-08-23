@@ -395,6 +395,6 @@ CrackFloorGfxA:
 	incbin	"gfx/r5/crack_floor_a.nem"
 
 Padding3:
-	incbin	"../padding/r52a_e_3.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $1D56, $AA8
 
 ; ------------------------------------------------------------------------------

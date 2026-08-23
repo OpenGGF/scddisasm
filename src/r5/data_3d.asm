@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"r5/usa_pre_chunks_3d.asm"
 	else
-		incbin	"../padding/r53d_e_1.bin"
+		incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $42, $7A
 	endif
 
 StageChunks:
@@ -355,6 +355,6 @@ CollapseFloorGfxD:
 	incbin	"gfx/r5/collapse_floor_d.nem"
 
 Padding3:
-	incbin	"../padding/r53d_e_3.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $8BA, $1F44
 
 ; ------------------------------------------------------------------------------
