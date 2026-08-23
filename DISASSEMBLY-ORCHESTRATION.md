@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **Legacy Amy Rose tail milestone:** Three identical 1,520-byte R11B/R11C/R11D
+  `Padding/3` binaries are removed. Their retained content is now assembled from
+  the existing named Amy Rose art, mappings, animations, and recovered legacy
+  object tables. Amy's internal mapping/animation labels are local so those
+  sources can be included safely wherever the retail layout retained a copy;
+  the R43 compatibility mode remains intact. The USA ISO is still byte-identical
+  with all 133 comparisons passing, and a guarded Japan build validates the
+  shared non-USA paths. This leaves 21 tracked level `Data/Padding` binaries
+  totalling 101,820 bytes.
+
 - **Legacy Palmtree Panic object-table milestone:** The 398-byte R11A
   `Padding/2` binary was structured leftover object mapping/coordinate data,
   not alignment fill. It is now emitted by one assembly source with explicit

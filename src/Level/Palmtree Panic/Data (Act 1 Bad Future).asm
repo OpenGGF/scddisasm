@@ -542,6 +542,6 @@ Art_Projector:
 ; with a "align $40000"
 ; -------------------------------------------------------------------------
 
-	incbin	"Level/Palmtree Panic/Data/Padding/3 (Act 1 Bad Future).bin"
+	include	"Level/Palmtree Panic/Data/Legacy Amy Rose Tail.asm"
 
 ; -------------------------------------------------------------------------
