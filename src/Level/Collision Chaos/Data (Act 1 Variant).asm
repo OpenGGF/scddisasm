@@ -132,7 +132,7 @@ LevelBlocks:
 
 Padding2:
 	if CC_VARIANT=1
-	incbin	"../padding/r31b_e_2.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $139C, $264
 	elseif CC_VARIANT=2
 	incbin	"../padding/r31c_e_2.bin"
 	else
