@@ -15,8 +15,8 @@ reconstruction is still incomplete. The comparison covers the files listed in
 that every level data slice is disassembled, or that the ISO is independent of
 the regional original tree. The current build still copies three FMV streams
 (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`) and retains tracked level padding
-data pending source decomposition and regional validation. The 160 padding
-slices replaced so far, covering R8/R81D, R6, R12B/R12C/R12D, R4, R31B, R5, R7,
+data pending source decomposition and regional validation. The padding slices
+replaced so far cover R8/R81D, R6, R12B/R12C/R12D, R4, R31B, R5, R7,
 R73D/R83D, all R73D opaque regions, regional graphics tables, R41B/R41C,
 R42/R42A/R42B/R42C,
 R51A-D, R71A/R71B/R71C/R71D, R41D/R42D, R51C/R52C/R51D/R52D,
@@ -35,8 +35,9 @@ and R71D/R72D Padding2,
 R32B/R32C/R32D Padding1, R61A/R61C/R61D/R63D Padding3,
 R81A/R81B/R81C Padding2, R82C/R83C/R83D Padding2,
 R81A/R81B/R81C/R81D and R82A/R82B/R82C/R83C Padding3, and
-R82A/R82B/R82C/R82D/R83C, were exact references or declarative source data;
-28 opaque padding slices totalling 236,195 bytes remain.
+R82A/R82B/R82C/R82D/R83C, and the four shared R81 platform paths, were exact
+references or declarative source data; 27 opaque padding files totalling
+224,657 bytes remain.
 
 Instruction-level recovery has also begun for the remaining executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and
@@ -48,11 +49,12 @@ logic block at offsets `$85E`-`$AEF` is also semantic source, with the
 intervening asset/data regions retained as explicitly bounded binary slices
 rather than misidentified as executable code. Another 522 bytes of executable
 logic and dispatch records between offsets `$C4C` and `$ED1` now cover the
-boss overlay and a platform controller; only their named mapping and motion
-record slices remain binary-backed within that range. The final executable
+boss overlay and a platform controller; its four motion datasets are now
+shared declarative records, while named mapping slices remain binary-backed
+within that range. The final executable
 trampoline at `$F6C` is also source-backed, so no identified 68000 logic remains
 inside `r81d_e_1.bin`; that file is still required for its bounded palette,
-animation, mapping, path, packed graphics, and pointer/placement data.
+animation, mapping, packed graphics, and pointer/placement data.
 
 R81A's 4,600-byte non-USA pre-chunk region is also the exact shared tail of
 R81B from offset `$214` and R81C from offset `$7A`. Those three variants now
@@ -88,6 +90,8 @@ require field-level source decomposition. The identical final 358-byte
 pointer/placement/attribute record block is now shared declarative source for
 R81A/B/C/D, with R81A/B/C's additional alignment word emitted explicitly. The
 small retained `$7A`-`$89` R81A/B/C marker mapping is labeled source as well.
+The four byte-identical R81A/B/C/D platform paths are shared declarative
+records with named frame, duration, direction, and signed X-offset fields.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are

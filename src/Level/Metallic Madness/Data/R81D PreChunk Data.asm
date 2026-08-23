@@ -797,7 +797,7 @@ R81D_Platform_PathA:
 	move.b	#$B,$3D(a0)
 	bra.w	R81D_Platform_UpdatePath
 .Path:
-	incbin	"../padding/r81d_e_1.bin",$DB0,$2C
+	include	"Level/Metallic Madness/Data/R8 Retained Platform Path A.asm"
 
 R81D_Platform_UpdatePath:
 	tst.b	$3A(a0)
@@ -836,21 +836,21 @@ R81D_Platform_PathB:
 	move.b	#8,$3D(a0)
 	bra.w	R81D_Platform_UpdatePath
 .Path:
-	incbin	"../padding/r81d_e_1.bin",$E4A,$20
+	include	"Level/Metallic Madness/Data/R8 Retained Platform Path B.asm"
 
 R81D_Platform_PathC:
 	lea	.Path(pc),a2
 	move.b	#4,$3D(a0)
 	bra.w	R81D_Platform_UpdatePath
 .Path:
-	incbin	"../padding/r81d_e_1.bin",$E78,$10
+	include	"Level/Metallic Madness/Data/R8 Retained Platform Path C.asm"
 
 R81D_Platform_PathD:
 	lea	.Path(pc),a2
 	move.b	#4,$3D(a0)
 	bra.w	R81D_Platform_UpdatePath
 .Path:
-	incbin	"../padding/r81d_e_1.bin",$E96,$10
+	include	"Level/Metallic Madness/Data/R8 Retained Platform Path D.asm"
 
 R81D_Platform_FrameA:
 	move.b	$28(a0),d0

@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C/R81D platform-path milestone:** The four byte-identical
+  retained motion datasets are now shared declarative assembly records with
+  named frame, duration, direction, and signed X-offset fields. This replaces
+  108 binary-included bytes in each R81 layout while preserving the historical
+  interleaved placement of the tables. The guarded displayless USA build/check
+  remains byte-exact for all 127 targets. The padding inventory remains 27
+  files totalling 224,657 bytes because other bounded R81 records still share
+  `r81a_e_1.bin` and `r81d_e_1.bin`; no data was obtained from an original
+  disc.
+
 - **R81A/R81B/R81C marker-mapping milestone:** The 16-byte retained slice at
   R81A shared offsets `$7A`-`$89` is now a labeled two-frame sprite mapping
   table. The guarded USA build/check remains byte-exact for all 127 targets,
