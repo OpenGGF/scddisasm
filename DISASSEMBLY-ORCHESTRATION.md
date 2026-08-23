@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-CollapseFloor milestone:** The complete 834-byte
+  historical CollapseFloorObject cluster at shared offsets `$1FC2`-`$2303` is
+  now namespaced semantic source. It recovers the parent platform dispatcher,
+  top-solid collision and trigger timing, progressive two-fragment spawning,
+  fragment fall states, player-release handling, sound trigger, and the full
+  collapse-floor sprite mapping set. The retained suffix now begins at the next
+  clean dispatcher boundary, `$2304`. The guarded USA build/check remains
+  byte-exact for all 127 targets, including R43C, R43D, and DEMO43C. The padding
+  inventory remains 28 files totalling 236,195 bytes because the later
+  2,574-byte suffix still shares the same retained file; later R43 logic/data,
+  three FMV streams, and full Japan/Europe validation remain unfinished.
+
 - **R43C/R43D retained-CircleSpikeBall milestone:** The complete 396-byte
   historical CircleSpikeBallObject cluster at shared offsets `$1E36`-`$1FC1`
   is now namespaced semantic source. It recovers parent-lifetime checking,

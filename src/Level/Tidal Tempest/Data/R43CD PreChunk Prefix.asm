@@ -110,4 +110,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded linked circular spike-ball implementation follows.
 	include	"Level/Tidal Tempest/Data/R43 Retained Circle Spike Ball.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$1FC2
+	; The discarded collapsing-floor and fragment implementation follows.
+	include	"Level/Tidal Tempest/Data/R43 Retained Collapse Floor.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$2304

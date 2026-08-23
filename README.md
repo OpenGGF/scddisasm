@@ -119,9 +119,12 @@ SpikeBallObject initializer, collision setup, draw/despawn tail, and mapping are
 semantic source too. The adjacent 396-byte CircleSpikeBallObject cluster is
 namespaced source as well, including its parent check, three linked children,
 four-object initialization, subtype-selected direction and radius, historical
-sine/cosine call, circular movement, and mapping. The retained suffix now begins
-at the next clean object boundary, `$1FC2`; later shared R43 object logic and
-data remain binary-backed pending the same boundary-driven recovery.
+sine/cosine call, circular movement, and mapping. The adjacent 834-byte
+CollapseFloorObject cluster is namespaced source too, covering top-solid
+collision, trigger timing, progressive fragment spawning, fragment fall and
+player-release states, sound, and the full mapping set. The retained suffix now
+begins at the next clean dispatcher boundary, `$2304`; later shared R43 object
+logic and data remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 
