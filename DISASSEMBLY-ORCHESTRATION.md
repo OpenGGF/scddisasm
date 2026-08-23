@@ -2,6 +2,17 @@
 
 ## 2026-08-23
 
+- **R43C/R43D door-object milestone:** The complete 646-byte object cluster at
+  shared offsets `$24E`-`$4D3` now reuses the semantic R4 door source. This
+  recovers its dispatcher, initialization and subtype tables, switch-controlled
+  states, player collision, horizontal/vertical opening helpers, movement
+  clamping, and all three sprite mappings. The retained binary range now begins
+  at the next clean object boundary, `$4D4`. The guarded USA build/check remains
+  byte-exact for all 127 targets, including R43C, R43D, and DEMO43C. The padding
+  inventory remains 28 files totalling 236,195 bytes because the later
+  10,302-byte suffix still shares the same retained file; later R43 logic/data,
+  three FMV streams, and full Japan/Europe validation remain unfinished.
+
 - **R43C/R43D switch-object milestone:** The complete 384-byte object cluster
   at shared offsets `$CE`-`$24D` now reuses the semantic R4 switch source,
   including initialization, parent-relative positioning, solid collision,

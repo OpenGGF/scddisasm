@@ -70,4 +70,8 @@ R43_VMoveBlock_UpdatePosition:
 	; layout even though the Act 3 object index does not reference it.
 	include	"objects/r4/switch.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$24E
+	; The adjacent discarded door implementation is retained for the same
+	; historical layout reason.
+	include	"objects/r4/door.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$4D4
