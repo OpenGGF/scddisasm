@@ -98,7 +98,8 @@ RobotTransportGfxA:
 	incbin	"gfx/robot_transport_a.nem"
 
 Padding2:
-	incbin	"../padding/r42a_e_2.bin"
+	include	"Level/Tidal Tempest/Data/R42A Padding2 Packed Prefix.asm"
+	include	"Level/Tidal Tempest/Data/R42B Stage Data Tail.asm"
 
 PlayerGfx:
 	incbin	"gfx/r4/player.unc"

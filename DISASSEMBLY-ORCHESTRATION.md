@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R42A Padding2 completion milestone:** The distinct `$1232`-byte packed
+  graphics/mapping prefix is now source-emitted, while the final `$728` bytes
+  reuse the byte-identical declarative R42B stage-data tail. The complete
+  6,490-byte `r42a_e_2.bin` dependency has therefore been removed. The guarded
+  displayless USA build/check remains byte-exact for all 127 targets, including
+  R42A. The tracked padding inventory falls to 23 files totalling 206,529
+  bytes; no data was obtained from an original disc.
+
 - **R51A Padding3 completion milestone:** The distinct 2,392-byte packed
   graphics/mapping prefix is now emitted from a named source fragment, followed
   by the shared mapping and rotation-vector tails. The complete 2,726-byte
