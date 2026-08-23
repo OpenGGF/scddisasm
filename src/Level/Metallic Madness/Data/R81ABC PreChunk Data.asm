@@ -188,15 +188,86 @@ R81ABC_State_1BC:
 	move.b	#1,$2A(a0)
 	jmp	$20A0EC
 R81ABC_State_2D6:
-	incbin	"../padding/r81a_e_1.bin",$2D6,$38
+	move.b	#6,$1A(a0)
+	move.w	#$80,d0
+	btst	#0,$22(a0)
+	bne.s	.FacingLeft
+	neg.w	d0
+.FacingLeft:
+	move.w	d0,$10(a0)
+	move.w	$8(a0),d0
+	sub.w	$36(a0),d0
+	bcc.s	.PositiveDistance
+	neg.w	d0
+.PositiveDistance:
+	cmpi.w	#$80,d0
+	bcs.s	.Accelerate
+	clr.w	$10(a0)
+.Accelerate:
+	move.w	#$FD00,$12(a0)
+	addq.b	#2,$24(a0)
 R81ABC_State_30E:
-	incbin	"../padding/r81a_e_1.bin",$30E,$3E
+	bsr.w	R81ABC_Sub_470
+	addi.w	#$40,$12(a0)
+	tst.w	$12(a0)
+	bmi.s	.CheckPosition
+	move.b	#7,$1A(a0)
+.CheckPosition:
+	move.w	$C(a0),d0
+	cmpi.w	#$1D0,d0
+	bcs.s	.Done
+	move.w	#$1D0,$C(a0)
+	clr.w	$10(a0)
+	clr.w	$12(a0)
+	addi.b	#$10,$3A(a0)
+	bcc.s	.Done
+	move.b	#4,$24(a0)
+.Done:
+	rts
 R81ABC_State_34C:
-	incbin	"../padding/r81a_e_1.bin",$34C,$58
+	bsr.w	R81ABC_Sub_4F0
+	lea	($FFFFD000).w,a1
+	bset	#0,($FFFFF7CC).w
+	move.w	#0,($FFFFF602).w
+	move.b	#5,$1C(a1)
+	bsr.w	R81ABC_Sub_53A
+	moveq	#$C,d0
+	btst	#0,$22(a1)
+	bne.s	.FacingLeft
+	neg.w	d0
+.FacingLeft:
+	add.w	$8(a1),d0
+	move.w	d0,$8(a0)
+	move.w	$C(a1),$C(a0)
+	move.b	#$E,$1A(a0)
+	tst.b	$38(a0)
+	bne.s	.Done
+	clr.b	$FF1510
+	move.b	#1,$2A(a0)
+	jmp	$20A0EC
+.Done:
+	rts
 R81ABC_State_3A4:
-	incbin	"../padding/r81a_e_1.bin",$3A4,$30
+	bsr.w	R81ABC_Sub_4F0
+	lea	($FFFFD000).w,a1
+	bsr.w	R81ABC_Sub_53A
+	moveq	#$C,d0
+	btst	#0,$22(a1)
+	bne.s	.FacingLeft
+	neg.w	d0
+.FacingLeft:
+	add.w	$8(a1),d0
+	nop
+	nop
+	nop
+	nop
+	move.w	d0,$8(a0)
+	move.b	#$E,$1A(a0)
+	rts
 R81ABC_Sub_3D4:
-	incbin	"../padding/r81a_e_1.bin",$3D4,$9E
+	incbin	"../padding/r81a_e_1.bin",$3D4,$9C
+R81ABC_Sub_470:
+	incbin	"../padding/r81a_e_1.bin",$470,2
 R81ABC_Sub_472:
 	incbin	"../padding/r81a_e_1.bin",$472,$E
 R81ABC_Sub_480:

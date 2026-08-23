@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R81ABC complete-state-graph milestone:** The four remaining shared states
+  at offsets `$2D6`-`$3D3`, totalling 254 bytes, are now semantic 68000 source.
+  They recover horizontal launch and stopping behavior, vertical acceleration
+  and landing transitions, player-object synchronization/deletion, and a
+  second synchronized-position state whose four historical `nop` instructions
+  are preserved explicitly. Together with the dispatcher and earlier states,
+  every entry in the nine-word state table is now source-backed. The isolated
+  4,600-byte shared tail and all three complete 262,148-byte REGION=2
+  R81A/R81B/R81C entries remained exact; the guarded USA build/check matched
+  all 127 comparison targets. The tracked padding count remains 31 files
+  totalling 257,607 bytes; shared helpers and mixed data, three FMV streams,
+  other padding slices, and full Japan/Europe validation remain unfinished.
+
 - **R81ABC movement-state milestone:** The complete 282-byte shared state at
   offsets `$1BC`-`$2D5` is now semantic 68000 source. It recovers contact and
   collision checks, acceleration and signed speed limiting, player-relative

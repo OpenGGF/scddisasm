@@ -65,8 +65,10 @@ state table, and the object initializer. The first 72-byte dispatched state at
 falling transition, and next-state setup. The 282-byte state at `$1BC` is also
 semantic source, recovering its collision/contact handling, speed limiting,
 player-relative movement, animation selection, stopping, and deletion paths.
-The other dispatched states, shared helpers, and later mixed code/data remain
-binary-backed pending the same boundary-driven recovery.
+The remaining four states from `$2D6` through `$3D3`, another 254 bytes, are
+source-backed as well; the complete dispatcher state graph is therefore
+semantic source. Shared helpers and later mixed code/data remain binary-backed
+pending the same boundary-driven recovery.
 
 ## Building
 
