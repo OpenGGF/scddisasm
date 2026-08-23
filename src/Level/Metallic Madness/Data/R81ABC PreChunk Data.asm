@@ -735,4 +735,183 @@ R81ABC_BossMappingsA:
 R81ABC_BossMappingsB:
 	incbin	"../padding/r81a_e_1.bin",$CD8,$94
 
-	incbin	"../padding/r81a_e_1.bin",$D6C
+R81ABC_BossOverlay:
+	tst.b	$24(a0)
+	bne.s	.Update
+	addq.b	#2,$24(a0)
+	ori.b	#4,$1(a0)
+	move.b	#$20,$17(a0)
+	move.b	#$20,$19(a0)
+	move.b	#$11,$16(a0)
+	move.l	#$20FBDE,$4(a0)
+.Update:
+	move.b	$FF1588,$1A(a0)
+	tst.b	$FF1956
+	beq.s	.CheckRelease
+	lea	($FFFFD000).w,a1
+	jsr	$2094BC
+	sne.b	$2A(a0)
+	bra.s	.Display
+.CheckRelease:
+	tst.b	$2A(a0)
+	beq.s	.Display
+	clr.b	$2A(a0)
+	lea	($FFFFD000).w,a1
+	jsr	$20936E
+.Display:
+	jsr	$2038CC
+	jmp	$207928
+
+R81ABC_BossOverlayMappings:
+	incbin	"../padding/r81a_e_1.bin",$DD6,$10
+
+R81ABC_PlatformObject:
+	moveq	#0,d0
+	move.b	$24(a0),d0
+	move.w	.Index(pc,d0.w),d0
+	jsr	.Index(pc,d0.w)
+	move.w	$36(a0),d0
+	jmp	$20792C
+
+.Index:
+	dc.w	.Init-.Index
+	dc.w	.SetPosition-.Index
+
+.Init:
+	addq.b	#2,$24(a0)
+	ori.b	#4,$1(a0)
+	move.l	#$20FDFA,$4(a0)
+	move.b	#$7F,$19(a0)
+	move.b	#$7F,$16(a0)
+	move.w	$8(a0),$36(a0)
+	move.b	$29(a0),d0
+	andi.b	#3,d0
+	move.b	d0,$30(a0)
+	move.b	#1,$18(a0)
+	move.w	#$A4AF,$2(a0)
+	btst	#3,$29(a0)
+	beq.s	.SetPosition
+	move.b	#3,$18(a0)
+	move.w	#$24AF,$2(a0)
+	cmpi.b	#1,$FF152E
+	beq.s	.SetPosition
+	addi.w	#$2000,$2(a0)
+.SetPosition:
+	move.w	($FFFFF704).w,d0
+	addi.w	#$70,d0
+	move.w	d0,$C(a0)
+.Update:
+	moveq	#0,d0
+	move.b	$28(a0),d0
+	add.w	d0,d0
+	move.w	.Modes(pc,d0.w),d0
+	jsr	.Modes(pc,d0.w)
+	move.w	$FF1504,d0
+	andi.b	#3,d0
+	btst	#2,$29(a0)
+	beq.s	.CheckPair
+	cmp.b	$30(a0),d0
+	bne.s	.Done
+	jsr	$2038CC
+.Done:
+	rts
+.CheckPair:
+	andi.b	#1,d0
+	cmp.b	$30(a0),d0
+	bne.s	.DonePair
+	jsr	$2038CC
+.DonePair:
+	rts
+
+.Modes:
+	dc.w	R81ABC_Platform_PathA-.Modes
+	dc.w	R81ABC_Platform_PathB-.Modes
+	dc.w	R81ABC_Platform_PathC-.Modes
+	dc.w	R81ABC_Platform_PathD-.Modes
+	dc.w	R81ABC_Platform_FrameA-.Modes
+	dc.w	R81ABC_Platform_FrameA-.Modes
+	dc.w	R81ABC_Platform_FrameA-.Modes
+	dc.w	R81ABC_Platform_FrameB-.Modes
+	dc.w	R81ABC_Platform_FrameB-.Modes
+
+R81ABC_Platform_PathA:
+	lea	.Path(pc),a2
+	move.b	#$B,$3D(a0)
+	bra.w	R81ABC_Platform_UpdatePath
+.Path:
+	incbin	"../padding/r81a_e_1.bin",$ED0,$2C
+
+R81ABC_Platform_UpdatePath:
+	tst.b	$3A(a0)
+	bne.s	.Countdown
+	moveq	#0,d0
+	move.b	$3C(a0),d0
+	add.b	d0,d0
+	add.b	d0,d0
+	lea	(a2,d0.w),a2
+	move.b	(a2)+,$1A(a0)
+	move.b	(a2)+,$3A(a0)
+	move.b	(a2)+,d1
+	move.b	(a2)+,d0
+	ext.w	d0
+	add.w	$36(a0),d0
+	move.w	d0,$8(a0)
+	bclr	#0,$1(a0)
+	bclr	#0,$22(a0)
+	tst.b	d1
+	beq.s	.Countdown
+	bset	#0,$1(a0)
+	bset	#0,$22(a0)
+.Countdown:
+	subq.b	#1,$3A(a0)
+	bne.s	.Done
+	addq.b	#1,$3C(a0)
+	move.b	$3C(a0),d0
+	cmp.b	$3D(a0),d0
+	bcs.s	.Done
+	clr.b	$3C(a0)
+.Done:
+	rts
+
+R81ABC_Platform_PathB:
+	lea	.Path(pc),a2
+	move.b	#8,$3D(a0)
+	bra.w	R81ABC_Platform_UpdatePath
+.Path:
+	incbin	"../padding/r81a_e_1.bin",$F6A,$20
+
+R81ABC_Platform_PathC:
+	lea	.Path(pc),a2
+	move.b	#4,$3D(a0)
+	bra.w	R81ABC_Platform_UpdatePath
+.Path:
+	incbin	"../padding/r81a_e_1.bin",$F98,$10
+
+R81ABC_Platform_PathD:
+	lea	.Path(pc),a2
+	move.b	#4,$3D(a0)
+	bra.w	R81ABC_Platform_UpdatePath
+.Path:
+	incbin	"../padding/r81a_e_1.bin",$FB6,$10
+
+R81ABC_Platform_FrameA:
+	move.b	$28(a0),d0
+	subq.b	#4,d0
+	bcc.s	.Store
+	moveq	#0,d0
+.Store:
+	move.b	d0,$1A(a0)
+	rts
+
+R81ABC_Platform_FrameB:
+	move.b	$28(a0),d0
+	subq.b	#6,d0
+	bcc.s	.Store
+	moveq	#0,d0
+.Store:
+	move.b	d0,$1A(a0)
+	bset	#0,$1(a0)
+	bset	#0,$22(a0)
+	rts
+
+	incbin	"../padding/r81a_e_1.bin",$FF2

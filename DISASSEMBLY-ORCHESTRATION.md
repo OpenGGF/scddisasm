@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R81ABC boss-overlay/platform milestone:** The complete 646-byte island at
+  offsets `$D6C`-`$FF1` is now source-backed. Boundary comparison established
+  that it is byte-identical to R81D's recovered boss-overlay/platform block:
+  522 bytes of executable overlay acquisition/release and platform dispatcher,
+  positioning, mode, path-following, and frame-selection logic, plus 124 bytes
+  of explicitly bounded mappings and four path-record tables. The retained
+  slice now resumes at `$FF2`. The isolated 4,600-byte shared tail and all three
+  complete 262,148-byte REGION=2 R81A/R81B/R81C entries remained exact, and
+  the guarded USA build/check matched all 127 comparison targets. The tracked
+  padding count remains 31 files totalling 257,607 bytes; later shared
+  logic/data, three FMV streams, other padding slices, and full Japan/Europe
+  validation remain unfinished.
+
 - **R81ABC boss-state milestone:** The complete 658-byte boss state machine at
   offsets `$97E`-`$C0F` is now semantic 68000 source. Boundary comparison
   established that this island is byte-identical to the previously recovered
