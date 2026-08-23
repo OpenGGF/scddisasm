@@ -58,8 +58,10 @@ R81A's 4,600-byte non-USA pre-chunk region is also the exact shared tail of
 R81B from offset `$214` and R81C from offset `$7A`. Those three variants now
 use one shared source include after their unique prefixes. The first 64
 instruction bytes in that shared tail—record-copy completion and marker-table
-search routines—are semantic 68000 source; later mixed code/data remains
-binary-backed pending the same boundary-driven recovery.
+search routines—are semantic 68000 source. The 134-byte region at offsets
+`$8A`-`$10F` is source-backed as well, recovering the object dispatcher, its
+state table, and the object initializer. The dispatched states and later mixed
+code/data remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 

@@ -31,4 +31,61 @@ R81ABC_FindMarker:
 	moveq	#$FF,d1
 	rts
 
-	incbin	"../padding/r81a_e_1.bin",$7A
+	incbin	"../padding/r81a_e_1.bin",$7A,$10
+
+R81ABC_Object:
+	moveq	#0,d0
+	move.b	$24(a0),d0
+	move.w	.Index(pc,d0.w),d0
+	jsr	.Index(pc,d0.w)
+	jsr	$2038DA
+	jsr	$2077DA
+	cmpi.b	#$33,$0(a0)
+	beq.s	.Done
+	lea	$200716,a3
+	bsr.w	R81ABC_Sub_56A
+.Done:
+	rts
+
+.Index:
+	dc.w	R81ABC_Init-.Index
+	dc.w	R81ABC_State_174-.Index
+	dc.w	R81ABC_State_1BC-.Index
+	dc.w	R81ABC_State_1BC-.Index
+	dc.w	R81ABC_State_30E-.Index
+	dc.w	R81ABC_State_34C-.Index
+	dc.w	R81ABC_State_3A4-.Index
+	dc.w	R81ABC_State_2D6-.Index
+	dc.w	R81ABC_State_30E-.Index
+
+R81ABC_Init:
+	ori.b	#4,$1(a0)
+	move.w	#$A3CB,$2(a0)
+	move.b	#1,$18(a0)
+	move.l	#$21E278,$4(a0)
+	move.b	#$C,$19(a0)
+	move.b	#$10,$16(a0)
+	move.w	$8(a0),$36(a0)
+	move.b	#$F5,$20(a0)
+	tst.b	$FF156A
+	bne.s	R81ABC_Main
+	move.w	#$3F43,$8(a0)
+	move.w	#$1AB,$C(a0)
+
+R81ABC_Main:
+	incbin	"../padding/r81a_e_1.bin",$110,$64
+R81ABC_State_174:
+	incbin	"../padding/r81a_e_1.bin",$174,$48
+R81ABC_State_1BC:
+	incbin	"../padding/r81a_e_1.bin",$1BC,$11A
+R81ABC_State_2D6:
+	incbin	"../padding/r81a_e_1.bin",$2D6,$38
+R81ABC_State_30E:
+	incbin	"../padding/r81a_e_1.bin",$30E,$3E
+R81ABC_State_34C:
+	incbin	"../padding/r81a_e_1.bin",$34C,$58
+R81ABC_State_3A4:
+	incbin	"../padding/r81a_e_1.bin",$3A4,$1C4
+	incbin	"../padding/r81a_e_1.bin",$568,2
+R81ABC_Sub_56A:
+	incbin	"../padding/r81a_e_1.bin",$56A

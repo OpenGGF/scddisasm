@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R81ABC object-dispatch milestone:** The 134-byte shared region at offsets
+  `$8A`-`$10F` now expresses the R81A/R81B/R81C non-USA object dispatcher,
+  nine-entry state table, and object initializer as semantic 68000 source.
+  The historical branch target at `$56A` is labeled explicitly, while the
+  dispatched state implementations remain bounded slices for subsequent
+  recovery. The isolated 4,600-byte shared tail matched `r81a_e_1.bin`
+  exactly, all three complete 262,148-byte REGION=2 R81A/R81B/R81C entries
+  matched their prior outputs exactly, and the guarded USA build/check matched
+  all 127 comparison targets. The tracked padding count remains 31 files
+  totalling 257,607 bytes; the shared state handlers, three FMV streams, other
+  padding slices, and full Japan/Europe validation remain unfinished.
+
 - **Status clarification after the USA DEMO43C milestone:** The USA
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
