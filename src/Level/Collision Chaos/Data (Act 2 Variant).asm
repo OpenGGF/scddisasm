@@ -12,11 +12,11 @@ Padding1:
 	if CC2_VARIANT=0
 	include	"Level/Collision Chaos/Data/R32A Padding 1.asm"
 	elseif CC2_VARIANT=1
-	incbin	"../padding/r32b_e_1.bin"
+	include	"Level/Collision Chaos/Data/R32B Padding 1.asm"
 	elseif CC2_VARIANT=2
-	incbin	"../padding/r32c_e_1.bin"
+	include	"Level/Collision Chaos/Data/R32C Padding 1.asm"
 	else
-	incbin	"../padding/r32d_e_1.bin"
+	include	"Level/Collision Chaos/Data/R32D Padding 1.asm"
 	endif
 
 LevelDataIndex:
