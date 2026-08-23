@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C/R81D platform-mapping milestone:** The identical final
+  154-byte retained slice is now a shared declarative four-frame sprite-mapping
+  table. It names two seven-piece frames, one fourteen-piece frame, an empty
+  frame, and the historical alignment byte. The guarded displayless USA
+  build/check remains byte-exact for all 127 targets. The padding inventory
+  remains 27 files totalling 224,657 bytes because the final 698-byte shared
+  R81 packed-record region still references both retained files; no data was
+  obtained from an original disc.
+
 - **R81A/R81B/R81C/R81D boss-overlay-mapping milestone:** The final
   byte-identical 16-byte retained mapping slice around the R81 boss/platform
   logic is now shared declarative source. Its two-entry pointer table names an

@@ -100,6 +100,10 @@ Their two byte-identical boss sprite-mapping sets are shared source too,
 including all twelve frames and 45 piece records.
 The adjacent 16-byte boss-overlay mapping is shared source as well, with named
 empty and visible frames replacing its final retained mapping slice.
+The final 154-byte R81A/B/C/D platform mapping is shared declarative source,
+covering its four frames, 28 sprite pieces, and historical alignment. Only the
+shared 698-byte packed-record region remains binary-backed in these two R81
+retained files.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are

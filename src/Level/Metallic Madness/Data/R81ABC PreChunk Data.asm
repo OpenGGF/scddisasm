@@ -943,7 +943,7 @@ R81ABC_Platform_FrameB:
 	bset	#0,$22(a0)
 	rts
 
-	incbin	"../padding/r81a_e_1.bin",$FF2,$9A
+	include	"Level/Metallic Madness/Data/R8 Retained Platform Mappings.asm"
 
 R81ABC_FinalTrampoline:
 	jmp	$20634A
