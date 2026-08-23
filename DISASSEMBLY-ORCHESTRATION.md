@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R52B Padding2 completion milestone:** The retained 10,240-byte slice was an
+  exact concatenation of the named R51A chunk-map fragment at `$D800` and the
+  final `$2600` bytes of the declarative R52 Padding2 table. That table now
+  exposes its `$200` entry boundary, and R52B references both sources directly,
+  removing `r52b_e_2.bin`. The tracked padding inventory falls to 18 files
+  totalling 163,521 bytes. The guarded displayless USA build/check remains
+  byte-exact for all 127 targets; no data was obtained from an original disc.
+
 - **R51B Padding2 completion milestone:** The retained 10,240-byte slice was an
   exact concatenation of `$200` bytes from the named R51A chunk map at `$D800`
   and the complete `$2600`-byte declarative R51 Padding2 table. R51B now
