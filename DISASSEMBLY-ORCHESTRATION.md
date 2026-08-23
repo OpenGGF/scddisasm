@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 104
-  tracked padding slices totalling 722,322 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 101
+  tracked padding slices totalling 691,602 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -104,6 +104,17 @@
   two blobs were removed, reducing the tracked padding set to 104 files
   totalling 722,322 bytes. The three FMV streams, remaining padding slices,
   and Japan/Europe validation remain unfinished.
+
+- **R52C/R52D/R53C shared Padding2 milestone:** The identical R52C/R52D/R53C
+  `Padding2` regions are now emitted from one exact 10,240-byte declarative
+  source table under Quartz Quadrant. The prior R51 shared table was also
+  relocated from the incorrectly named Metallic Madness directory into the
+  same owning subsystem without changing its bytes. Isolated table assembly
+  matched all three former R52/R53 blobs exactly; all three affected non-USA
+  entries assembled successfully, and the guarded USA build/check remained
+  fully byte-exact. The three blobs were removed, reducing the tracked padding
+  set to 101 files totalling 691,602 bytes. The three FMV streams, remaining
+  padding slices, and Japan/Europe validation remain unfinished.
 
 - **R82B/R83C animation-table source milestone:** The R82B and R83C
   `Padding1` regions are now declarative source tables, including their USA

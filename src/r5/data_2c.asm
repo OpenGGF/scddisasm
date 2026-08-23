@@ -19,7 +19,7 @@ StageChunks:
 	incbin	"maps/r52c/chunks.bin"
 
 Padding2:
-	incbin	"../padding/r52c_e_2.bin"
+	include	"Level/Quartz Quadrant/Data/R52 Padding 2.asm"
 
 PlayerGfx:
 	incbin	"gfx/player.unc"
