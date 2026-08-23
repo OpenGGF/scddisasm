@@ -15,7 +15,7 @@ StageChunks:
 	incbin	"maps/r81a/chunks.bin"
 
 Padding2:
-	incbin	"../padding/r81a_e_2.bin"
+	include	"Level/Metallic Madness/Data/R81 Padding 2.asm"
 
 PlayerGfx:
 	incbin	"gfx/r8/player.unc"
