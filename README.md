@@ -53,9 +53,9 @@ prefixes remain to be decomposed. The preceding identical 76-byte mapping and
 animation tail is shared source as well, including its historical alignment;
 that replaces another 1,216 binary-included bytes across the same consumers.
 R62B/R62C/R72A/R72C also share a preceding 64-byte non-USA mapping suffix,
-now emitted once from source. Japan and Europe retail comparison trees remain
-unavailable, so that regional-only path has exact tracked-slice evidence but
-not a retail binary comparison.
+now emitted once from source. Local, ignored Japan and Europe retail comparison
+trees are now available for direct regional validation; earlier milestones
+that report only tracked-slice or assembly evidence predate their extraction.
 
 R51A's remaining distinct 2,392-byte packed graphics/mapping prefix is now a
 named source-emitted fragment. Together with the shared tails, this removes
@@ -264,6 +264,13 @@ are disc identification text, not executable game logic. Japan and Europe additi
 remaining executable/data files reported by the build because their regional
 source variants have not yet been reconstructed. Generated files are written
 to `out/`.
+
+Locally owned disc images may be kept under the ignored
+`original/disc-images/<region>/` directories and extracted into the matching
+ignored `original/<region>/` comparison tree. Never add either the images or
+their extracted proprietary files to a commit. The current local validation
+set includes USA, Japan, and Europe; this is a workstation prerequisite, not
+content distributed by the repository.
 
 On Windows, run `make.bat`, followed by `check.bat` to compare every rebuilt binary
 with the originals.

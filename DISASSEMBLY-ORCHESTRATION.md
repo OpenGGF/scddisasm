@@ -2,6 +2,17 @@
 
 ## 2026-08-24
 
+- **Japan/Europe reference-media milestone:** Locally supplied retail CHDs are
+  now available for all three regions without entering source control. The
+  European image identifies as `MK-4407-00` and has CHD SHA-1
+  `df8962ca5ac51befe40c21025fbde51f14c45f73`; the Japanese image identifies as
+  `G-6021-00` and has CHD SHA-1
+  `87102e7bf70981d33ae2aa4b04e2e7fe2bcab17b`. Their MODE1/2352 data tracks were
+  converted to 2,048-byte-sector ISO images and each 131-file filesystem was
+  extracted into the ignored regional comparison tree. This establishes the
+  missing byte-comparison prerequisites; it does not make the proprietary
+  images or extracted files build inputs that may be committed.
+
 - **Legacy Wacky Workbench collision/layout milestone:** The final 5,632-byte
   level `Data/Padding` binary is removed. Its complete form and seven bounded
   suffixes are assembled from the shared collision-width table, level
