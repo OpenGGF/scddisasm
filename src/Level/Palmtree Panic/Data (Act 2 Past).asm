@@ -45,9 +45,9 @@ LevelPaletteID:
 
 	if STAGE_R13
 		if ACT2_FUTURE_VARIANT=1
-			incbin	"../padding/r13c_e_1.bin"
+			include	"Level/Palmtree Panic/Data/R13C Pre-Chunks.asm"
 		else
-			incbin	"../padding/r13d_e_1.bin"
+			include	"Level/Palmtree Panic/Data/R13D Pre-Chunks.asm"
 		endif
 	elseif ACT2_FUTURE_VARIANT=1
 		include	"Level/Palmtree Panic/Data/R12C Pre-Chunks.asm"
