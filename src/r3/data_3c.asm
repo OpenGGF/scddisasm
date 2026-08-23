@@ -66,7 +66,7 @@ KamaKamaSprites2:
 	include	"sprites/r3/kama_kama_2.asm"
 
 Padding2:
-	incbin	"../padding/r33c_e_2.bin"
+	include	"Level/Collision Chaos/Data/R33 Padding 2.asm"
 
 PlayerGfx:
 	incbin	"gfx/player.unc"
