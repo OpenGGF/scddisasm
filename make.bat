@@ -10,7 +10,14 @@ del /q out\files\*.* > nul 2>&1
 if %REGION%==0 (set REGIONDIR=japan)
 if %REGION%==1 (set REGIONDIR=usa)
 if %REGION%==2 (set REGIONDIR=europe)
-for %%F in (BADEND.STM GOODEND.STM PTEST.STM) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+if "%FMV_STREAM_DIR%"=="" set "FMV_STREAM_DIR=original\%REGIONDIR%"
+for %%F in (BADEND.STM GOODEND.STM PTEST.STM) do (
+    if not exist "%FMV_STREAM_DIR%\%%F" (
+        echo Missing externally supplied FMV stream: %FMV_STREAM_DIR%\%%F
+        exit /b 1
+    )
+    copy "%FMV_STREAM_DIR%\%%F" "out\files\%%F" > nul
+)
 if not "%REGION%"=="1" (
     for %%F in (ATTACK.MMD BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
 )

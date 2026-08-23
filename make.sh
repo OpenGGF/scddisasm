@@ -99,10 +99,25 @@ if [[ $RUNNER == wine ]]; then
 fi
 
 ORIGINAL_DIR="$ROOT_DIR/original/$REGION_DIR"
-if ! find "$ORIGINAL_DIR" -maxdepth 1 -type f ! -name .gitkeep -print -quit | grep -q .; then
-	echo "Missing proprietary game files in $ORIGINAL_DIR." >&2
-	echo 'See README.md for the required original files.' >&2
-	exit 1
+FMV_STREAM_DIR=${FMV_STREAM_DIR:-$ORIGINAL_DIR}
+if [[ $FMV_STREAM_DIR != /* ]]; then
+	FMV_STREAM_DIR="$ROOT_DIR/$FMV_STREAM_DIR"
+fi
+for file in BADEND.STM GOODEND.STM PTEST.STM; do
+	if [[ ! -f $FMV_STREAM_DIR/$file ]]; then
+		echo "Missing externally supplied FMV stream: $FMV_STREAM_DIR/$file" >&2
+		echo 'See README.md for the required media inputs.' >&2
+		exit 1
+	fi
+done
+if [[ $REGION != 1 ]]; then
+	for file in ATTACK.MMD BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do
+		if [[ ! -f $ORIGINAL_DIR/$file ]]; then
+			echo "Missing regional executable input: $ORIGINAL_DIR/$file" >&2
+			echo 'See README.md for the remaining non-USA reconstruction requirements.' >&2
+			exit 1
+		fi
+	done
 fi
 
 # The checked-in Windows tools are console programs, but asm68k can create a
@@ -158,6 +173,7 @@ HEADLESS_ENV=(
 	"TEMP=$HEADLESS_TEMP_DIR"
 	"REGION=$REGION"
 	"OUTPUT=$OUTPUT"
+	"FMV_STREAM_DIR=$FMV_STREAM_DIR"
 	"SCDDISASM_TOOL_TIMEOUT_SECONDS=$TOOL_TIMEOUT_SECONDS"
 	"HEADLESS_DESKTOP=1"
 	XDG_CONFIG_HOME="$HEADLESS_CONFIG_DIR"
@@ -241,7 +257,7 @@ stop_runtime
 # into a clean output directory instead of being inherited from the original.
 find "$ROOT_DIR/out/files" -mindepth 1 -maxdepth 1 -type f -delete
 for file in BADEND.STM GOODEND.STM PTEST.STM; do
-	cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
+	cp "$FMV_STREAM_DIR/$file" "$ROOT_DIR/out/files/$file"
 done
 if [[ $REGION != 1 ]]; then
 	for file in ATTACK.MMD BRAMMAIN.MMD COME__.MMD ENDING.MMD PTEST.MMD THANKS_D.BIN THANKS_M.MMD; do

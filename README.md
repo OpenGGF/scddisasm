@@ -13,9 +13,10 @@ The USA component comparison can reach a complete match while the disc
 reconstruction is still incomplete. The comparison covers the files listed in
 `check.sh`; it does not certify that every ISO file is assembled from source,
 that every level data slice is disassembled, or that the ISO is independent of
-the regional original tree. The current build still copies three FMV streams
-(`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`) and retains tracked level padding
-data pending source decomposition and regional validation. The padding slices
+the regional original tree. The current build still requires three externally
+supplied encoded media streams (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`),
+but these can be supplied independently through `FMV_STREAM_DIR`; they are not
+executable game logic. The padding slices
 replaced so far cover R8/R81D, R6, R12B/R12C/R12D, R4, R31B, R5, R7,
 R73D/R83D, all R73D opaque regions, regional graphics tables, R41B/R41C,
 R42/R42A/R42B/R42C,
@@ -41,7 +42,7 @@ Some packed-data fragments are deliberately source-emitted as bytes and remain
 to be semantically classified; eliminating the retained containers does not by
 itself mean every packed datum has been decoded.
 
-All sixteen remaining Padding3 files share an identical 258-byte suffix. That
+The sixteen former Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused
 after bounded per-level prefixes. This replaces 4,128 binary-included bytes
 across R33C/R33D, R51A/R53C, R62A-D, and R71A-D/R72A-D while their distinct
@@ -244,9 +245,13 @@ blob. Field-level naming of the final packed records remains unfinished.
 
 ## Building
 
-The remaining original game files must be placed in `original/japan/`,
-`original/usa/`, or `original/europe/` before building. Generated files are
-written to `out/`.
+Every region still requires externally supplied `BADEND.STM`, `GOODEND.STM`,
+and `PTEST.STM` encoded media. By default they are read from
+`original/<region>/`; set `FMV_STREAM_DIR` to keep those media inputs separate
+from the regional comparison tree. Japan and Europe additionally require the
+remaining executable/data files reported by the build because their regional
+source variants have not yet been reconstructed. Generated files are written
+to `out/`.
 
 On Windows, run `make.bat`, followed by `check.bat` to compare every rebuilt binary
 with the originals.
@@ -259,6 +264,18 @@ then run:
 ./check.sh
 ```
 
+For example, a USA build can use media supplied outside the repository without
+populating `original/usa/` for compilation:
+
+```sh
+FMV_STREAM_DIR=/path/to/user-supplied/usa-media ./make.sh
+```
+
+The comparison command still requires the corresponding originals under
+`original/<region>/`. The checked-in `MakeSTM` currently supports only the
+opening stream format, so the ending and pencil-test streams cannot yet be
+regenerated from source media.
+
 The Linux build uses Wine (or an automatically detected Steam Proton installation)
 to run the checked-in, byte-exact Windows toolchain; the comparison script itself
 uses the native `cmp` utility. Both scripts default to the USA release. Set
@@ -270,10 +287,10 @@ REGION=2 ./make.sh
 REGION=2 ./check.sh
 ```
 
-The build clears the generated `out/files/` entries before assembling and copies
-only runtime files that still lack source-backed build steps. It does not remove
-other stale files under `out/`, so use a fresh `out/` directory after switching
-regions. If the Wine or Proton executable has
+The build clears the generated `out/files/` entries before assembling and
+copies only externally supplied media plus non-USA files that still lack
+source-backed build steps. It does not remove other stale files under `out/`,
+so use a fresh `out/` directory after switching regions. If the Wine or Proton executable has
 a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 
 ## Currently Contains

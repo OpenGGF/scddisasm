@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **Media/input boundary milestone:** The three copy-only USA runtime files are
+  confirmed encoded audiovisual streams rather than executable logic:
+  `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`. Both build frontends now accept
+  them through `FMV_STREAM_DIR`, independently of the regional original tree,
+  and fail with a media-specific diagnostic when one is absent. USA compilation
+  therefore has no copy-only executable input. A guarded USA build using a
+  separate temporary media directory completed and remained byte-exact for all
+  127 targets. Japan and Europe still require seven regional executable/data
+  fallbacks. The linked MakeSTM implementation supports only the opening
+  format, so source generation of the ending and pencil-test streams remains
+  unfinished.
+
 - **Retained padding elimination milestone:** The final two blobs were distinct
   non-USA R62B/R62C packed mapping/animation tables. They are now emitted from
   explicitly regional source fragments, removing the last 12,800 bytes under
