@@ -230,9 +230,11 @@ PLC_Signpost:
 ; -------------------------------------------------------------------------
 
 	if REGION=USA
-	incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Bad Future, U).bin"
+	include	"Level/Palmtree Panic/Data/Legacy Bad Future Prefix.asm"
+	include	"Level/Palmtree Panic/Data/Legacy Data (Act 1 Future).asm"
 	else
-	incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Bad Future, JE).bin"
+	include	"Level/Palmtree Panic/Data/Legacy Bad Future Prefix.asm"
+	include	"Level/Palmtree Panic/Data/Legacy Data (Act 1 Future).asm"
 	endif
 
 ; -------------------------------------------------------------------------

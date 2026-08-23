@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **Legacy Act 1 Future pre-chunk milestone:** All four regional Good/Bad
+  Future `Padding/1` binaries, totalling 17,456 bytes, are removed. Good Future
+  now composes a single instruction-level legacy object-spawn/motion routine,
+  named animation/offset and PLC record regions, and the regional Act 1 Past
+  source; Bad Future adds only its distinct 14-byte PLC prefix. Eighteen word
+  differences select the USA or Japan/Europe past body without duplicating it.
+  The USA ISO remains byte-identical with all 133 comparisons passing, and a
+  guarded Japan build plus direct output checks validate both JE forms. This
+  leaves 9 tracked level `Data/Padding` binaries totalling 69,662 bytes.
+
 - **Legacy Act 2 Present pre-chunk milestone:** The 3,344-byte regional Act 2
   Present `Padding/1` binary is removed. It was the exact `$40`-offset suffix
   of the existing R12B pre-chunk source, which now has a dedicated bounded
