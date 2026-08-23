@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 79
-  tracked padding slices totalling 474,272 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 76
+  tracked padding slices totalling 441,362 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -224,6 +224,19 @@
   remained fully byte-exact. The blob was removed, reducing the tracked
   padding set to 79 files totalling 474,272 bytes. The three FMV streams,
   remaining padding slices, and Japan/Europe validation remain unfinished.
+
+- **R61A/R61C/R61D shared Padding3 milestone:** The three Wacky Workbench
+  Act 1 `Padding3` regions are now emitted from exact shared declarative
+  segments: an R61C/R61D prefix, an R61A/R61C suffix prefix, a final
+  7,028-byte table common to all three, and their minimal unique pieces. The
+  R62C compatibility slice now reuses the exact 665-byte shared-prefix tail
+  followed by that common final table instead of slicing R61D's blob. Isolated
+  compositions matched all three former blobs and the historical R62C slice
+  exactly; all four affected non-USA entries assembled successfully, and the
+  guarded USA build/check remained fully byte-exact. The three blobs were
+  removed, reducing the tracked padding set to 76 files totalling 441,362
+  bytes. The three FMV streams, remaining padding slices, and Japan/Europe
+  validation remain unfinished.
 
 - **R82B/R83C animation-table source milestone:** The R82B and R83C
   `Padding1` regions are now declarative source tables, including their USA

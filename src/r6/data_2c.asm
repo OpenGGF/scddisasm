@@ -494,7 +494,8 @@ Padding3:
 		; USA switches to the shared tail after the regional graphics fragment.
 		incbin	"../padding/r62c_e_3.bin",0,$8EC
 		dc.b	$AA
-		incbin	"../padding/r61d_e_3.bin",$653,$1E0D
+		include	"Level/Wacky Workbench/Data/R61CD Padding 3 Prefix Tail.asm"
+		include	"Level/Wacky Workbench/Data/R61 Padding 3 Final.asm"
 	else
 		incbin	"../padding/r62c_e_3.bin"
 	endif

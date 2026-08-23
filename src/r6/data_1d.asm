@@ -486,6 +486,8 @@ AnimalsGfx:
 	incbin	"gfx/r6/animals.nem"
 
 Padding3:
-	incbin	"../padding/r61d_e_3.bin"
+	include	"Level/Wacky Workbench/Data/R61CD Padding 3 Prefix Head.asm"
+	include	"Level/Wacky Workbench/Data/R61CD Padding 3 Prefix Tail.asm"
+	include	"Level/Wacky Workbench/Data/R61 Padding 3 Final.asm"
 
 ; ------------------------------------------------------------------------------

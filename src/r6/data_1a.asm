@@ -451,6 +451,8 @@ RobotTransportGfxA:
 	incbin	"gfx/robot_transport_a.nem"
 
 Padding3:
-	incbin	"../padding/r61a_e_3.bin"
+	include	"Level/Wacky Workbench/Data/R61A Padding 3 Prefix.asm"
+	include	"Level/Wacky Workbench/Data/R61AC Padding 3 Suffix Prefix.asm"
+	include	"Level/Wacky Workbench/Data/R61 Padding 3 Final.asm"
 
 ; ------------------------------------------------------------------------------
