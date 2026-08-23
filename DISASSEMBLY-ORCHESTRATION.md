@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **Legacy Palmtree Panic object-table milestone:** The 398-byte R11A
+  `Padding/2` binary was structured leftover object mapping/coordinate data,
+  not alignment fill. It is now emitted by one assembly source with explicit
+  complete, `$40`-byte prefix, and `$2A`-offset modes for its R11A/R4 consumers.
+  The USA ISO remains fully byte-identical and all 133 staged comparisons pass;
+  a guarded Japan build validates the shared non-USA paths. This leaves 24
+  tracked level `Data/Padding` binaries totalling 106,380 bytes.
+
 - **Legacy Wacky Workbench PLC source milestone:** The two regional R61A
   `Padding/1` binaries are removed. Their contents are now named legacy PLC
   table source, with explicit source fragments for the historical R4/R5/R6

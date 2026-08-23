@@ -580,7 +580,8 @@ MapSpr_FlowerCapsule:
 
 Padding3:
 	if TT_VARIANT=0
-	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", $2A, $164
+LEGACY_R11A_TABLE_MODE = 2
+	include	"Level/Palmtree Panic/Data/Legacy Object Tables (Act 1 Present).asm"
 	elseif TT_VARIANT=1
 	include	"r4/nonusa_padding_1b_3.asm"
 	elseif TT_VARIANT=2

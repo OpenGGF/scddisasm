@@ -569,7 +569,8 @@ Ani_AmyRose:
 ; with a "align $40000"
 ; -------------------------------------------------------------------------
 
-	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin"
+LEGACY_R11A_TABLE_MODE = 0
+	include	"Level/Palmtree Panic/Data/Legacy Object Tables (Act 1 Present).asm"
 
 ; -------------------------------------------------------------------------
 

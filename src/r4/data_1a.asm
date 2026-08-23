@@ -431,6 +431,7 @@ GeyserGfx:
 	incbin	"gfx/r4/geyser.nem"
 
 Padding3:
-	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", $2A, $164
+LEGACY_R11A_TABLE_MODE = 2
+	include	"Level/Palmtree Panic/Data/Legacy Object Tables (Act 1 Present).asm"
 
 ; ------------------------------------------------------------------------------

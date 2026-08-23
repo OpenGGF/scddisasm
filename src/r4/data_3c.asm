@@ -390,7 +390,8 @@ R43LegacyAmyMapBase EQU $23FD1C
 		org	Padding3
 		include	"Level/Palmtree Panic/Objects/Amy Rose/Data/Mappings.asm"
 		include	"Level/Palmtree Panic/Objects/Amy Rose/Data/Animations.asm"
-		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", 0, $40
+LEGACY_R11A_TABLE_MODE = 1
+		include	"Level/Palmtree Panic/Data/Legacy Object Tables (Act 1 Present).asm"
 		org	Padding3+$2D6
 	endif
 
