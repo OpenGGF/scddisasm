@@ -12,6 +12,21 @@
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
 
+- **R81D palette/child-object disassembly milestone:** The first 1,442 bytes
+  of the mixed R81D non-USA pre-chunk region are now real 68000 source. The
+  newly recovered 348-byte span contains a palette-transfer routine and its
+  32-byte declarative palette, a dispatched child-object state machine, an
+  overlay object handler, its mapping records, and an external trampoline.
+  Code and inline data are separated at their actual boundaries rather than
+  treating the whole span as instructions. The complete 4,312-byte
+  mixed-region probe matched the former blob exactly, the complete
+  262,148-byte REGION=2 R81D entry matched its prior output exactly, and the
+  guarded USA build/check matched all 127 comparison targets. The unresolved
+  remainder is still included from `r81d_e_1.bin`, so the tracked padding
+  count remains 31 files totalling 257,607 bytes. Further R81 instruction/data
+  recovery, the three FMV streams, other padding slices, and full Japan/Europe
+  validation remain unfinished.
+
 - **R81D helper-block disassembly milestone:** The first 1,094 bytes of the
   mixed R81D non-USA pre-chunk region are now real 68000 source. The newly
   recovered 402-byte helper block implements player collision and attachment,
