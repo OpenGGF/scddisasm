@@ -95,4 +95,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded linked crushing-block implementation and its data follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained CrushBlocks.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$1942
+	; The discarded solid block implementation and its mappings follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Block.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$1A1A

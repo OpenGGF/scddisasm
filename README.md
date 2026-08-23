@@ -107,9 +107,10 @@ preserving its regional presence-check target, historical sine/cosine calls,
 movement states, animations, mappings, and tile table. The retained suffix now
 continues with a namespaced 576-byte CrushBlocks implementation, including its
 linked children, packed pointers, layouts, synchronized movement, timing data,
-collision, and mappings. It now begins at the BlockObject boundary, `$1942`;
-later shared R43 object logic and data remain binary-backed pending the same
-boundary-driven recovery.
+collision, and mappings. The adjacent 216-byte BlockObject, size records, and
+seven mapping variants are namespaced source too. The retained suffix now begins
+at the future FanObject boundary, `$1A1A`; later shared R43 object logic and data
+remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 

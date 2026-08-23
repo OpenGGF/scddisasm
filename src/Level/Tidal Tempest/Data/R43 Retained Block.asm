@@ -1,0 +1,45 @@
+; -------------------------------------------------------------------------
+; Discarded Block object retained in the R43 historical data layout
+; -------------------------------------------------------------------------
+
+R43RetainedBlock_BlockObject:
+	tst.b	obj.routine(a0)
+	bne.s	R43RetainedBlock_loc_20EDAC
+	addq.b	#2,obj.routine(a0)
+	ori.b	#4,obj.sprite_flags(a0)
+	move.b	#1,obj.sprite_layer(a0)
+	move.w	#$446A,obj.sprite_tile(a0)
+	move.l	#R43RetainedBlock_BlockSprites,obj.sprite_data(a0)
+	moveq	#0,d0
+	move.b	obj.subtype(a0),d0
+	move.b	d0,obj.sprite_frame(a0)
+	add.w	d0,d0
+	lea	R43RetainedBlock_byte_20EDC2(pc,d0.w),a1
+	move.b	(a1)+,d0
+	move.b	(a1),d1
+	move.b	d0,obj.width(a0)
+	move.b	d0,obj.width_2(a0)
+	move.b	d1,obj.height(a0)
+
+R43RetainedBlock_loc_20EDAC:
+	lea	player_object,a1
+	jsr	SolidObject
+	jsr	DrawObject
+	jmp	CheckObjectDespawn
+
+; -------------------------------------------------------------------------
+
+R43RetainedBlock_byte_20EDC2:
+	dc.b	$10, $10
+	dc.b	$10, $10
+	dc.b	$20, $10
+	dc.b	$10, $20
+	dc.b	$20, $20
+	dc.b	$40, $10
+	dc.b	$10, $40
+
+R43RetainedBlock_BlockSprites:
+	include	"sprites/r4/block.asm"
+	even
+
+; ------------------------------------------------------------------------------
