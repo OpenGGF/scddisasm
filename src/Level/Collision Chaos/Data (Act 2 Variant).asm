@@ -10,7 +10,7 @@
 
 Padding1:
 	if CC2_VARIANT=0
-	incbin	"../padding/r32a_e_1.bin"
+	include	"Level/Collision Chaos/Data/R32A Padding 1.asm"
 	elseif CC2_VARIANT=1
 	incbin	"../padding/r32b_e_1.bin"
 	elseif CC2_VARIANT=2
