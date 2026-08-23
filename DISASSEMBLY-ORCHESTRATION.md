@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C/R81D boss-overlay-mapping milestone:** The final
+  byte-identical 16-byte retained mapping slice around the R81 boss/platform
+  logic is now shared declarative source. Its two-entry pointer table names an
+  empty frame and a visible two-piece overlay frame. The guarded displayless
+  USA build/check remains byte-exact for all 127 targets. The padding inventory
+  remains 27 files totalling 224,657 bytes because unrelated bounded R81 data
+  still shares both retained files; no data was obtained from an original disc.
+
 - **R81A/R81B/R81C/R81D boss-mapping milestone:** Both byte-identical
   retained boss sprite-mapping sets are now shared declarative source. Twelve
   frame entries describe 45 source-backed sprite pieces, including the original

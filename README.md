@@ -98,6 +98,8 @@ The two byte-identical R81A/B/C/D boss animation sets are also shared source,
 with their offset tables resolved to twelve named animation scripts.
 Their two byte-identical boss sprite-mapping sets are shared source too,
 including all twelve frames and 45 piece records.
+The adjacent 16-byte boss-overlay mapping is shared source as well, with named
+empty and visible frames replacing its final retained mapping slice.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are

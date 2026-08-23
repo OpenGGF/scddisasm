@@ -721,7 +721,7 @@ R81D_BossOverlay:
 	jmp	$207928
 
 R81D_BossOverlayMappings:
-	incbin	"../padding/r81d_e_1.bin",$CB6,$10
+	include	"Level/Metallic Madness/Data/R8 Retained Boss Overlay Mappings.asm"
 
 R81D_PlatformObject:
 	moveq	#0,d0
