@@ -526,6 +526,6 @@ LaserSprites1		equ .Sprites1
 LaserSprites2		equ .Sprites2
 
 Padding3:
-	incbin	"../padding/r82b_e_3.bin"
+	include	"Level/Metallic Madness/Data/R82B Compressed Tail.asm"
 
 ; ------------------------------------------------------------------------------
