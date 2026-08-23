@@ -2,6 +2,20 @@
 
 ## 2026-08-23
 
+- **R43C/R43D shared-body milestone:** R43D's complete 11,538-byte non-USA
+  pre-chunk slice is byte-identical to R43C from offset `$14` onward. A shared
+  include now emits R43C's 20-byte unique prefix as bounded words plus its
+  source-backed object initializer, emits R43D's leading `$0002` word, and
+  consumes one retained common body from offset `$2`. The redundant
+  `r43c_e_1.bin` was removed, reducing the padding inventory by 11,558 bytes to
+  28 files totalling 236,195 bytes. Both isolated fragments matched their
+  former blobs exactly, complete REGION=2 R43C/R43D entries assembled at
+  262,148 bytes, and the guarded USA build/check matched all 127 targets,
+  including R43C, R43D, and DEMO43C after their extensive USA source overlays.
+  The retained R43D common body still contains executable logic and data that
+  require boundary-driven recovery; three FMV streams and full Japan/Europe
+  validation also remain unfinished.
+
 - **R81B/R81C unique-prefix source milestone:** R81B's complete 532-byte
   pre-shared-tail prefix is now declarative `dc.w` source, and comparison proves
   that R81C's complete 122-byte prefix is its exact suffix beginning at `$19A`.

@@ -17,7 +17,8 @@ Padding1:
 		dc.w	$9020
 		org	Padding1+$2CF0
 	else
-		incbin	"../padding/r43c_e_1.bin"
+R43_VARIANT equ 0
+		include	"Level/Tidal Tempest/Data/R43CD PreChunk Prefix.asm"
 		if REGION=USA
 			include	"r4/usa_padding_3.asm"
 		endif

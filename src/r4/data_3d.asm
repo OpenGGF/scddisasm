@@ -5,7 +5,8 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"../padding/r43d_e_1.bin"
+R43_VARIANT equ 1
+	include	"Level/Tidal Tempest/Data/R43CD PreChunk Prefix.asm"
 	if REGION=USA
 R43_USA_ADJUST	EQU	-$14
 		include	"r4/usa_padding_3.asm"
