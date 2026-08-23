@@ -75,8 +75,11 @@ covering palette loading/data, child-object and overlay logic, mappings, and an
 external trampoline. The byte-identical 658-byte boss state machine at `$97E`
 is semantic source too, while its animation and mapping assets remain bounded
 binary data. The 646-byte boss-overlay/platform island at `$D6C` is also
-source-backed, including its mappings and four path-record tables. Later mixed
-code/data remains binary-backed pending boundary-driven recovery.
+source-backed, including its mappings and four path-record tables. The final
+six-byte trampoline at `$108C` is source-backed too, leaving no identified
+68000 logic in the shared tail's retained slices. Those slices and the unique
+R81B/R81C prefixes still contain bounded palette, animation, mapping, pointer,
+placement, path, and packed asset data requiring source decomposition.
 
 ## Building
 

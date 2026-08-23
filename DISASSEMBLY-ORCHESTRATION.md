@@ -2,6 +2,21 @@
 
 ## 2026-08-23
 
+- **R81ABC shared-tail logic-complete milestone:** The final identified
+  executable island in the 4,600-byte shared R81A/R81B/R81C tail, a six-byte
+  trampoline at offset `$108C`, is now semantic source. The retained suffix is
+  an exact shifted copy of R81D's already classified data-only suffix, and the
+  earlier bounded gaps likewise align with palette, animation, mapping,
+  pointer, placement, path, and packed asset regions. No identified 68000 logic
+  therefore remains in the shared tail's retained slices. This does not remove
+  `r81a_e_1.bin`, decompose those data regions, or classify R81B/R81C's unique
+  prefixes. The isolated shared tail and all three complete 262,148-byte
+  REGION=2 entries remained exact, and the guarded USA build/check matched all
+  127 comparison targets. The tracked padding count remains 31 files totalling
+  257,607 bytes; data-source decomposition, unique-prefix analysis, three FMV
+  streams, other padding slices, and full Japan/Europe validation remain
+  unfinished.
+
 - **R81ABC boss-overlay/platform milestone:** The complete 646-byte island at
   offsets `$D6C`-`$FF1` is now source-backed. Boundary comparison established
   that it is byte-identical to R81D's recovered boss-overlay/platform block:

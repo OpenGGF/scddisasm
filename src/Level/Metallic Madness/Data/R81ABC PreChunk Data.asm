@@ -914,4 +914,9 @@ R81ABC_Platform_FrameB:
 	bset	#0,$22(a0)
 	rts
 
-	incbin	"../padding/r81a_e_1.bin",$FF2
+	incbin	"../padding/r81a_e_1.bin",$FF2,$9A
+
+R81ABC_FinalTrampoline:
+	jmp	$20634A
+
+	incbin	"../padding/r81a_e_1.bin",$1092
