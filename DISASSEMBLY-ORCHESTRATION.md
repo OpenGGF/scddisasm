@@ -6,11 +6,20 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 53
-  tracked padding slices totalling 347,104 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 51
+  tracked padding slices totalling 335,840 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
+
+- **R71A/R72A Padding2 source milestone:** The two 5,632-byte Stardust
+  Speedway Present stage-data tails are now emitted from named declarative
+  source fragments instead of opaque padding includes. Both isolated
+  assemblies matched every former byte exactly, both complete REGION=2
+  entries assembled successfully, and the guarded USA build/check remained
+  fully byte-exact. The two blobs were removed, reducing the tracked padding
+  set to 51 files totalling 335,840 bytes. The three FMV streams, remaining
+  padding slices, and full Japan/Europe validation remain unfinished.
 
 - **R71D/R72D Padding2 source milestone:** The two 10,752-byte Stardust
   Speedway Bad Future chunk-table tails are now emitted from named declarative

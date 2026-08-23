@@ -18,7 +18,7 @@ Padding2:
 	if REGION=USA
 		include	"Level/USA Legacy R72 Animation Tail.asm"
 	else
-		incbin	"../padding/r72a_e_2.bin"
+		include	"Level/Stardust Speedway/Data/R72A Padding 2.asm"
 	endif
 
 PlayerGfx:

@@ -18,7 +18,7 @@ StageChunks:
 	incbin	"maps/r71a/chunks.bin"
 
 Padding2:
-	incbin	"../padding/r71a_e_2.bin"
+	include	"Level/Stardust Speedway/Data/R71A Padding 2.asm"
 
 PlayerGfx:
 	incbin	"gfx/player.unc"
