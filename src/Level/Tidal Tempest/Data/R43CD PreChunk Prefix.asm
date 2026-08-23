@@ -101,4 +101,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded future fan implementation and its mappings follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained Fan.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$1B02
+	; The discarded linked mace/chain implementation and its mappings follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Mace.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$1DE6

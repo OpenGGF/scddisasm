@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-Mace milestone:** The complete 738-byte historical Mace
+  cluster at shared offsets `$1B04`-`$1DE5` is now namespaced semantic source.
+  It recovers the parent object, six linked chain/ball children, circular
+  positioning with the historical `$200700` sine/cosine entry, child lifetime
+  handling, and all three sprite mapping sets. The retained suffix now begins
+  at the clean SpikeBallObject boundary, `$1DE6`. The guarded USA build/check
+  remains byte-exact for all 127 targets, including R43C, R43D, and DEMO43C.
+  The padding inventory remains 28 files totalling 236,195 bytes because the
+  later 3,884-byte suffix still shares the same retained file; later R43
+  logic/data, three FMV streams, and full Japan/Europe validation remain
+  unfinished.
+
 - **R43C/R43D retained-Fan milestone:** The complete 234-byte historical future
   FanObject cluster at shared offsets `$1A1A`-`$1B03` is now namespaced semantic
   source. It recovers parent-lifetime checking, horizontal/vertical setup,

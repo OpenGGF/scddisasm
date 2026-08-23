@@ -108,12 +108,15 @@ movement states, animations, mappings, and tile table. The retained suffix now
 continues with a namespaced 576-byte CrushBlocks implementation, including its
 linked children, packed pointers, layouts, synchronized movement, timing data,
 collision, and mappings. The adjacent 216-byte BlockObject, size records, and
-seven mapping variants are namespaced source too. The retained suffix now begins
-with a namespaced 234-byte future FanObject, covering parent lifetime, switch
+seven mapping variants are namespaced source too. The following namespaced
+234-byte future FanObject covers parent lifetime, switch
 activation, orientation setup, drawing/deletion, and both mapping sets. Its
-post-object cursor is aligned at `$1B02` for the historical overlay; later
-shared R43 object logic and data remain binary-backed pending the same
-boundary-driven recovery.
+post-object cursor is aligned at `$1B02` for the historical overlay. The
+adjacent 738-byte Mace cluster is namespaced source as well, recovering its six
+linked chain/ball children, circular positioning, historical sine/cosine call,
+child lifetime handling, and three mapping sets. The retained suffix now begins
+at the clean SpikeBallObject boundary, `$1DE6`; later shared R43 object logic
+and data remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 
