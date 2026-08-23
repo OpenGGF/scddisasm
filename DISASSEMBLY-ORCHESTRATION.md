@@ -2,6 +2,17 @@
 
 ## 2026-08-23
 
+- **Shared Padding3 rotation-vector milestone:** The identical 258-byte suffix
+  in all sixteen remaining Padding3 level blobs is now one declarative table of
+  signed rotation-vector pairs. R33C/R33D, R51A/R53C, R62A/R62B/R62C/R62D,
+  and R71A-D/R72A-D now include that source table after bounded blob prefixes,
+  replacing 4,128 binary-included bytes across the graph. Conditional USA
+  layouts retain their established corrected source paths. The guarded
+  displayless USA build/check remains byte-exact for all 127 targets. The
+  physical padding inventory remains 25 files totalling 215,745 bytes until
+  their remaining prefixes are decomposed; no data was obtained from an
+  original disc.
+
 - **R81 retained-data completion milestone:** The last identical 698-byte R81
   binary slice is now a named, source-emitted Enigma tilemap stream with its
   header fields separated from the compressed command words. R81A/B/C's

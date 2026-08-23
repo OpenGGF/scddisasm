@@ -377,6 +377,7 @@ CollapseFloorGfxC:
 	incbin	"gfx/r5/collapse_floor_c.nem"
 
 Padding3:
-	incbin	"../padding/r53c_e_3.bin"
+	incbin	"../padding/r53c_e_3.bin",0,$20A2
+	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------

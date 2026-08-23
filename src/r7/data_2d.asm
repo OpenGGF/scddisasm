@@ -405,6 +405,7 @@ KabasiraGfx:
 	incbin	"gfx/r7/kabasira.nem"
 
 Padding3:
-	incbin	"../padding/r72d_e_3.bin"
+	incbin	"../padding/r72d_e_3.bin",0,$2076
+	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------

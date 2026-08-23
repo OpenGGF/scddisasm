@@ -456,6 +456,7 @@ AnimalsGfx:
 	incbin	"gfx/r6/animals.nem"
 
 Padding3:
-	incbin	"../padding/r62d_e_3.bin"
+	incbin	"../padding/r62d_e_3.bin",0,$20B8
+	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------

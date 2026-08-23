@@ -524,9 +524,10 @@ HologramGfx:
 Padding3:
 	if REGION=USA
 		; USA retains the suffix shared with the R62A graphics tail.
-		incbin	"../padding/r62a_e_3.bin",$5B0,$2088
+		incbin	"../padding/r62a_e_3.bin",$5B0,$1F86
 	else
-		incbin	"../padding/r62b_e_3.bin"
+		incbin	"../padding/r62b_e_3.bin",0,$1F86
 	endif
+	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------

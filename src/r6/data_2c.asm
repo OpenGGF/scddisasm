@@ -497,7 +497,8 @@ Padding3:
 		include	"Level/Wacky Workbench/Data/R61CD Padding 3 Prefix Tail.asm"
 		include	"Level/Wacky Workbench/Data/R61 Padding 3 Final.asm"
 	else
-		incbin	"../padding/r62c_e_3.bin"
+		incbin	"../padding/r62c_e_3.bin",0,$27F0
+		include	"Level/Shared Padding3 Rotation Vectors.asm"
 	endif
 
 ; ------------------------------------------------------------------------------

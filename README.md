@@ -39,6 +39,12 @@ R82A/R82B/R82C/R82D/R83C, and the four shared R81 platform paths, were exact
 references or declarative source data; 25 opaque padding files totalling
 215,745 bytes remain.
 
+All sixteen remaining Padding3 files share an identical 258-byte suffix. That
+suffix is now one source-backed table of signed rotation-vector pairs, reused
+after bounded per-level prefixes. This replaces 4,128 binary-included bytes
+across R33C/R33D, R51A/R53C, R62A-D, and R71A-D/R72A-D while their distinct
+prefixes remain to be decomposed.
+
 Instruction-level recovery has completed for the retained executable R81
 pre-chunk regions. R81D's first 1,442 bytes, covering its object-spawn and
 movement/state handlers, shared helpers, palette loading, child/overlay object

@@ -391,6 +391,7 @@ CrackFloorGfxA:
 	incbin	"gfx/r5/crack_floor_a.nem"
 
 Padding3:
-	incbin	"../padding/r51a_e_3.bin"
+	incbin	"../padding/r51a_e_3.bin",0,$9A4
+	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------

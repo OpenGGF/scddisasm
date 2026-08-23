@@ -421,6 +421,7 @@ CapsuleSprites:
 	include	"sprites/capsule.asm"
 
 Padding3:
-	incbin	"../padding/r33d_e_3.bin"
+	incbin	"../padding/r33d_e_3.bin",0,$29A0
+	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------
