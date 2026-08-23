@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C/R81D retained-tail-record milestone:** The identical
+  358-byte final pointer/placement/attribute record block is now one shared
+  declarative source fragment, reused from the pre-existing R82A source table.
+  R81ABC emits its historical additional zero alignment word explicitly, so
+  this replaces 360 retained bytes in each R81A/B/C consumer and 358 bytes in
+  R81D. The guarded USA build/check remains byte-exact for all 127 targets. The
+  padding inventory remains 27 files totalling 224,657 bytes because earlier
+  bounded palette, animation, mapping, path, and packed-record slices still
+  reference the two R81 files; no data was transcribed from an original disc.
+
 - **R81A/R81B/R81C retained-main milestone:** The complete 100-byte main-state
   slice at R81A shared offsets `$110`-`$173` is now semantic source. It recovers
   player-distance calculation, effect-child spawning, sound, player vertical

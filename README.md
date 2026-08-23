@@ -84,7 +84,9 @@ now emit the complete 100-byte `$110`-`$173` main state as source too, covering
 player distance, child/effect spawning, sound, player reversal, timer/routine
 advancement, and its animation transition. The remaining bounded palette,
 animation, mapping, pointer, placement, path, and packed asset data still
-require field-level source decomposition.
+require field-level source decomposition. The identical final 358-byte
+pointer/placement/attribute record block is now shared declarative source for
+R81A/B/C/D, with R81A/B/C's additional alignment word emitted explicitly.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are

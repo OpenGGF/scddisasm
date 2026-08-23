@@ -875,4 +875,4 @@ R81D_Platform_FrameB:
 	incbin	"../padding/r81d_e_1.bin",$ED2,$9A
 R81D_FinalTrampoline:
 	jmp	$20634A
-	incbin	"../padding/r81d_e_1.bin",$F72
+	include	"Level/Metallic Madness/Data/R8 Retained Stage Tail Records.asm"
