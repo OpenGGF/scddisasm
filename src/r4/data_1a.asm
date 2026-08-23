@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy R41 Padding1.asm"
 	else
-		incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $AC, $10
+		include	"Level/Wacky Workbench/Data/Legacy PLC Fragment AC (JE).asm"
 	endif
 
 StageChunks:

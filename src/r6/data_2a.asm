@@ -20,7 +20,7 @@ Padding1:
 		dc.w	0
 		dc.w	$23
 	else
-	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $A0, $1C
+	include	"Level/Wacky Workbench/Data/Legacy PLC Fragment A0 (JE).asm"
 	endif
 
 StageChunks:

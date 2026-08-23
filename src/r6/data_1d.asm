@@ -29,7 +29,7 @@ LegacyPLCSignpost:
 		dc.w	$9100
 		dc.l	$0020BF74
 		dc.w	$7DE0
-	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, U).bin"
+	include	"Level/Wacky Workbench/Data/Legacy PLC Tail (Act 1 Present, USA).asm"
 	else
 		; European/Japanese legacy graphics-table fragment.
 		dc.w	$7880, $0002, $0022, $FABC, $8780, $0022, $F4F2, $9100

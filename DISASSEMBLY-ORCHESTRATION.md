@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **Legacy Wacky Workbench PLC source milestone:** The two regional R61A
+  `Padding/1` binaries are removed. Their contents are now named legacy PLC
+  table source, with explicit source fragments for the historical R4/R5/R6
+  consumers that began at offsets `$2E`, `$42`, `$A0`, or `$AC`. A guarded USA
+  build remains identical to the complete retail ISO and all 133 staged-file
+  comparisons pass. Guarded Japan and Europe assembly passes also complete;
+  retail comparison remains unavailable for those regions. This leaves 25
+  tracked files under level `Data/Padding` directories, totalling 106,778 bytes.
+
 - **USA ISO filesystem reconstruction milestone:** The retail filesystem layout
   is now generated deterministically from staged files without reading a
   reference ISO. `tools/build_retail_iso.py` reproduces the USA primary volume

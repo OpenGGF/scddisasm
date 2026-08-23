@@ -5,7 +5,7 @@
 ; ------------------------------------------------------------------------------
 
 Padding1:
-	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin"
+	include	"Level/Wacky Workbench/Data/Legacy PLC Tail (Act 1 Present, JE).asm"
 
 StageChunks:
 	incbin	"maps/r61a/chunks.bin"

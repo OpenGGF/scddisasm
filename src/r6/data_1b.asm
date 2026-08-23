@@ -41,9 +41,9 @@ LegacyPLCSignpost:
 		dc.w	$9100
 		dc.l	$0020BF74
 		dc.w	$7DE0
-	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, U).bin"
+	include	"Level/Wacky Workbench/Data/Legacy PLC Tail (Act 1 Present, USA).asm"
 	else
-	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $2E, $8E
+	include	"Level/Wacky Workbench/Data/Legacy PLC Fragment 2E (JE).asm"
 	endif
 
 StageChunks:

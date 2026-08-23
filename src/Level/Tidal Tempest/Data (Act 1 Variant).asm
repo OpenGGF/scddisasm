@@ -10,7 +10,7 @@
 
 Padding1:
 	if TT_VARIANT=0
-	incbin	"Level/Wacky Workbench/Data/Padding/1 (Act 1 Present, JE).bin", $AC, $10
+	include	"Level/Wacky Workbench/Data/Legacy PLC Fragment AC (JE).asm"
 	elseif TT_VARIANT=1
 	include	"Level/Tidal Tempest/Data/R41B Pre-Chunks (Non-USA).asm"
 	elseif TT_VARIANT=2
