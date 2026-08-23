@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-Tonbo milestone:** The complete 618-byte historical
+  object cluster at shared offsets `$604`-`$86D` is now namespaced semantic
+  source. It recovers the discarded Tonbo dispatcher, two movement variants,
+  sinusoidal flight and direction reversal, animation records, and both sprite
+  mapping sets while preserving its legacy `$200700` sine/cosine call target.
+  Namespacing keeps this retained copy distinct from the live Act 3 Tonbo
+  object. The binary suffix now begins at the next clean object boundary,
+  `$86E`. The guarded USA build/check remains byte-exact for all 127 targets,
+  including R43C, R43D, and DEMO43C. The padding inventory remains 28 files
+  totalling 236,195 bytes because the later 9,380-byte suffix still shares the
+  same retained file; later R43 logic/data, three FMV streams, and full
+  Japan/Europe validation remain unfinished.
+
 - **R43C/R43D twin-block milestone:** The complete 304-byte object cluster at
   shared offsets `$4D4`-`$603` now reuses the semantic R4 twin moving-block
   source. This recovers parent/child setup, linked-object lifetime handling,

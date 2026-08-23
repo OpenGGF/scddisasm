@@ -77,4 +77,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The adjacent discarded twin moving-block implementation follows.
 	include	"objects/r4/twin_move_block.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$604
+	; The discarded Tonbo implementation and its animation/mapping data follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Tonbo.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$86E
