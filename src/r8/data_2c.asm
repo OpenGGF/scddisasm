@@ -6,12 +6,22 @@
 
 Padding1:
 	if REGION=USA
-		incbin	"../padding/r82c_e_1.bin",0,$9
+		dc.w	$0022, $F4F2, $9100, $0020
+		dc.b	$BC
 		include	"Level/USA Legacy R8 Animation Records.asm"
 		include	"Level/USA Legacy Stage Tail B.asm"
-		incbin	"../padding/r82c_e_1.bin",$6E,$16
+		dc.w	$0023, $D59E, $78C0, $0023, $C440, $7D20, $0023, $D0C4
+		dc.w	$8BA0, $0000, $0023
 	else
-		incbin	"../padding/r82c_e_1.bin"
+		dc.w	$0022, $F4F2, $9100, $0020, $BC1C, $7DE0, $0023, $213A
+		dc.w	$A400, $0023, $34BC, $AD00, $0023, $235C, $B500, $0023
+		dc.w	$2960, $D000, $0022, $EDE6, $D8C0, $0023, $3732, $DAE0
+		dc.w	$0023, $2E48, $F5C0, $000B, $0023, $3B22, $6000, $0023
+		dc.w	$3F3E, $6700, $0023, $40E2, $69A0, $0023, $B626, $6CC0
+		dc.w	$0023, $CDC8, $6EC0, $0023, $D004, $70C0, $0023, $CADC
+		dc.w	$71C0, $0023, $B9E6, $72C0, $0022, $F8FC, $75C0, $0023
+		dc.w	$D59E, $78C0, $0023, $C440, $7D20, $0023, $D0C4, $8BA0
+		dc.w	$0000, $0023
 	endif
 
 StageChunks:

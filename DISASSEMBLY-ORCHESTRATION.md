@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 145
-  tracked padding slices totalling 841,554 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 142
+  tracked padding slices totalling 840,588 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -56,6 +56,16 @@
   byte-exact. The eight blobs were removed, reducing the tracked padding set
   to 145 files totalling 841,554 bytes. The three FMV streams, remaining
   padding slices, and Japan/Europe validation remain unfinished.
+
+- **R8 animation-table source milestone:** The R82C, R82D, and R83D `Padding1`
+  regions are now declarative source tables, including their USA split points
+  and intentional `$BA`/`$E8` overlay bytes around the shared animation-record
+  includes. Their non-USA tables and USA overlay segments match the former
+  blobs exactly; isolated non-USA probes assembled all three affected entries,
+  and the guarded USA build/check remained fully byte-exact. The three blobs
+  were removed, reducing the tracked padding set to 142 files totalling
+  840,588 bytes. The three FMV streams, remaining padding slices, and
+  Japan/Europe validation remain unfinished.
 
 - **R8 padding decomposition milestone:** `r82a_e_2.bin` and `r82d_e_2.bin`
   were exact concatenations of existing source-owned R8 data assets. The R82A
