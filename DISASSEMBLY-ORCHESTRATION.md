@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R51A Padding2 completion milestone:** The retained 8,192-byte slice is the
+  exact final `$2000` bytes of the existing declarative R51 Padding2 table.
+  That table now exposes its `$600` boundary so R51A can source the shared
+  suffix directly, removing `r51a_e_2.bin`. The tracked padding inventory
+  falls to 20 files totalling 184,001 bytes. The guarded displayless USA
+  build/check remains byte-exact for all 127 targets; no data was obtained
+  from an original disc.
+
 - **R52A Padding2 completion milestone:** The retained 7,680-byte slice is the
   exact final `$1E00` bytes of the existing declarative R52 Padding2 table.
   That table now exposes its natural `$A00` boundary so R52A can source the
