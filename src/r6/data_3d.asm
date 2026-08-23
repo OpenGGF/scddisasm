@@ -103,7 +103,7 @@ CapsuleSprites:
 	include	"sprites/capsule.asm"
 
 Padding2:
-	incbin	"../padding/r63d_e_2.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $938, $CC8
 
 PlayerGfx:
 	incbin	"gfx/player.unc"
