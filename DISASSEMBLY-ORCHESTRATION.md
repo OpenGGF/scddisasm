@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-Amenbo milestone:** The complete 820-byte historical
+  object cluster at shared offsets `$86E`-`$BA1` is now namespaced semantic
+  source. It recovers the discarded Amenbo dispatcher and five states,
+  acceleration and turnaround logic, water-relative movement, projectile
+  spawning and player-facing checks, child-projectile handling, two animation
+  sets, and two sprite mapping sets. Namespacing keeps this retained copy
+  distinct from the live Act 3 Amenbo object. The binary suffix now begins at
+  the next clean object boundary, `$BA2`. The guarded USA build/check remains
+  byte-exact for all 127 targets, including R43C, R43D, and DEMO43C. The padding
+  inventory remains 28 files totalling 236,195 bytes because the later
+  8,560-byte suffix still shares the same retained file; later R43 logic/data,
+  three FMV streams, and full Japan/Europe validation remain unfinished.
+
 - **R43C/R43D retained-Tonbo milestone:** The complete 618-byte historical
   object cluster at shared offsets `$604`-`$86D` is now namespaced semantic
   source. It recovers the discarded Tonbo dispatcher, two movement variants,

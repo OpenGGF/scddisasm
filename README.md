@@ -94,8 +94,11 @@ following 304-byte twin moving-block object also reuses source for its linked
 parent/child lifetime, collision and movement states, motion records, and sprite
 mapping. The following 618-byte discarded Tonbo copy is namespaced source,
 including its legacy sine/cosine call, movement and animation logic, animation
+records, and both sprite mapping sets. The adjacent 820-byte discarded Amenbo
+copy is namespaced source too, including its movement states, water-relative
+motion, projectile spawning and checks, child-projectile behavior, animation
 records, and both sprite mapping sets. The retained suffix now begins at the
-next object boundary, `$86E`; later shared R43 object logic and data remain
+next object boundary, `$BA2`; later shared R43 object logic and data remain
 binary-backed pending the same boundary-driven recovery.
 
 ## Building

@@ -80,4 +80,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded Tonbo implementation and its animation/mapping data follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained Tonbo.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$86E
+	; The discarded Amenbo implementation and its animation/mapping data follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Amenbo.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$BA2
