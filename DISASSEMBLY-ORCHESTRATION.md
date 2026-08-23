@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D first-logic milestone:** The first complete executable cluster in
+  the retained common body, shared offsets `$2`-`$CD` (204 bytes), is now
+  semantic 68000 source. It recovers the remainder of the vertical moving-block
+  initializer, two child-object spawns, horizontal velocity integration, and
+  a position-wrap helper, while retaining the next object's clean `$CE`
+  boundary. Both isolated R43C/R43D fragments remained byte-exact at 11,558 and
+  11,538 bytes respectively, complete REGION=2 entries assembled at 262,148
+  bytes, and the guarded USA build/check matched all 127 targets including
+  R43C, R43D, and DEMO43C. The retained shared body still contains later object
+  logic and data; the padding inventory remains 28 files totalling 236,195
+  bytes, and three FMV streams plus full Japan/Europe validation remain
+  unfinished.
+
 - **R43C/R43D shared-body milestone:** R43D's complete 11,538-byte non-USA
   pre-chunk slice is byte-identical to R43C from offset `$14` onward. A shared
   include now emits R43C's 20-byte unique prefix as bounded words plus its

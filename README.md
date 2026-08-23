@@ -83,6 +83,12 @@ shared tail's retained slices still contain bounded
 palette, animation, mapping, pointer, placement, path, and packed asset data
 requiring source decomposition.
 
+R43C and R43D now share one retained pre-chunk body after R43C's unique
+source-backed initializer. The first 204 bytes of shared executable logic are
+also semantic source, covering the vertical moving-block setup, child spawns,
+horizontal movement, and position wrapping. Later shared R43 object logic and
+data remain binary-backed pending the same boundary-driven recovery.
+
 ## Building
 
 The remaining original game files must be placed in `original/japan/`,
