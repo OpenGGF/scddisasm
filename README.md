@@ -246,10 +246,11 @@ source table. The former `padding/r43d_e_1.bin` dependency has been removed, so
 the complete shared R43 retained pre-chunk body is now built without that binary
 blob. Field-level naming of the final packed records remains unfinished.
 The older level `Data/Padding` directories are a separate retained-data set:
-19 tracked binaries (98,412 bytes) remain after replacing the regional R61A
-legacy PLC tails, the R11A PLC loader and leftover object tables, and the
-duplicated R11/R12 Amy Rose tails with named assembly/assets. They must not be
-mistaken for alignment fill merely because of their directory name.
+16 tracked binaries (96,828 bytes) remain after replacing the regional R61A
+legacy PLC tails, the R11A retail/demo PLC and graphics records and leftover
+object tables, and the duplicated R11/R12 Amy Rose tails with named
+assembly/assets. They must not be mistaken for alignment fill merely because
+of their directory name.
 
 ## Building
 

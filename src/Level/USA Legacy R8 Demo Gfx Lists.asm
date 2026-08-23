@@ -93,4 +93,4 @@
 	gfxEntry	$0020DB70, $7DE0
 	gfxEnd
 
-	incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Present Demo, U).bin"
+	include	"Level/Palmtree Panic/Data/Legacy Data Tail (Act 1 Present Demo, USA).asm"

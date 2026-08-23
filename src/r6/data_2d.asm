@@ -17,7 +17,8 @@ Padding1:
 		dc.w	0
 		dc.w	$23
 	else
-	incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Present Demo, JE).bin", $134, $12
+R11A_DEMO_JE_SLICE equ 5
+	include	"Level/Palmtree Panic/Data/Legacy Data Slices (Act 1 Present Demo, JE).asm"
 	endif
 
 StageChunks:

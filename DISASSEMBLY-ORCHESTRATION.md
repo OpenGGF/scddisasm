@@ -2,6 +2,15 @@
 
 ## 2026-08-23
 
+- **Legacy R11A regional/demo table milestone:** The remaining three Act 1
+  Present `Padding/1` binaries (USA demo plus Japan/Europe retail and demo),
+  totalling 1,584 bytes, are removed. Their retained graphics-load, PLC,
+  animation, coordinate, and stage-tail records are now named declarative
+  source; all three legacy absolute jump entries are explicit instructions.
+  The USA ISO remains byte-identical with all 133 comparisons passing, and a
+  guarded Japan build validates both non-USA paths. This leaves 16 tracked
+  level `Data/Padding` binaries totalling 96,828 bytes.
+
 - **Legacy R11A PLC loader milestone:** The 548-byte USA Act 1 Present
   `Padding/1` binary is removed. Its executable region is now readable 68000
   source for the retained animated/static PLC frame loaders, followed by

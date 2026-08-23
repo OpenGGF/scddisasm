@@ -8,9 +8,11 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy Stage Prefix C.asm"
 		include	"Level/USA Legacy Stage Tail B.asm"
-		incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Present Demo, JE).bin", $1AC, $16
+R11A_DEMO_JE_SLICE equ 3
+		include	"Level/Palmtree Panic/Data/Legacy Data Slices (Act 1 Present Demo, JE).asm"
 	else
-		incbin	"Level/Palmtree Panic/Data/Padding/1 (Act 1 Present Demo, JE).bin", $14A, $78
+R11A_DEMO_JE_SLICE equ 4
+		include	"Level/Palmtree Panic/Data/Legacy Data Slices (Act 1 Present Demo, JE).asm"
 	endif
 
 StageChunks:
