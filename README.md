@@ -15,7 +15,7 @@ reconstruction is still incomplete. The comparison covers the files listed in
 that every level data slice is disassembled, or that the ISO is independent of
 the regional original tree. The current build still copies three FMV streams
 (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`) and retains tracked level padding
-data pending source decomposition and regional validation. The 153 padding
+data pending source decomposition and regional validation. The 155 padding
 slices replaced so far, covering R8/R81D, R6, R12B/R12C/R12D, R4, R31B, R5, R7,
 R73D/R83D, all R73D opaque regions, regional graphics tables, R41B/R41C,
 R42/R42A/R42B/R42C,
@@ -33,9 +33,10 @@ R51C/R51D Padding2, R52A/R52B/R52C/R52D pre-chunk data,
 R52C/R52D/R53C/R53D Padding2, R71A/R72A, R71B/R72B, R71C/R72C,
 and R71D/R72D Padding2,
 R32B/R32C/R32D Padding1, R61A/R61C/R61D Padding3,
-R81A/R81B/R81C Padding2, R82C/R83C Padding2, R82A/R82B/R82C Padding3, and
+R81A/R81B/R81C Padding2, R82C/R83C/R83D Padding2,
+R82A/R82B/R82C/R83C Padding3, and
 R82A/R82B/R82C/R82D/R83C, were exact references or declarative source data;
-38 opaque padding slices totalling 293,325 bytes remain.
+36 opaque padding slices totalling 282,103 bytes remain.
 
 ## Building
 

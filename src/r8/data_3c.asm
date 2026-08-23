@@ -617,6 +617,6 @@ BuzzsawSprites:
 	include	"sprites/r8/buzzsaw_cd.asm"
 
 Padding3:
-	incbin	"../padding/r83c_e_3.bin"
+	include	"Level/Metallic Madness/Data/R83C Compressed Tail.asm"
 
 ; ------------------------------------------------------------------------------

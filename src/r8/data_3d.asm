@@ -153,7 +153,7 @@ PlayerGfxScript:
 	include	"sprites/r8/player_gfx.asm"
 
 Padding2:
-	incbin	"../padding/r83d_e_2.bin"
+	include	"Level/Metallic Madness/Data/R83D Pattern Data.asm"
 
 PlayerGfx:
 	incbin	"gfx/r8/player.unc"
