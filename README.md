@@ -7,6 +7,16 @@ Special thanks to flamewing and TheStoneBanana for helping out and contributing,
 Devon  
 July 27, 2025
 
+## Reconstruction status
+
+The USA component comparison can reach a complete match while the disc
+reconstruction is still incomplete. The comparison covers the files listed in
+`check.sh`; it does not certify that every ISO file is assembled from source,
+that every level data slice is disassembled, or that the ISO is independent of
+the regional original tree. The current build still copies three FMV streams
+(`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`) and retains tracked level padding
+data pending source decomposition and regional validation.
+
 ## Building
 
 The remaining original game files must be placed in `original/japan/`,

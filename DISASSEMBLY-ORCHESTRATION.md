@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **Status clarification after the USA DEMO43C milestone:** The USA
+  `check.sh` comparison now passes for every listed component, including all
+  retail level binaries and the reconstructed DEMO files. This is byte-exact
+  coverage for the comparison set, not completion of the entire disc: the
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 191
+  tracked padding slices totalling 916,420 bytes, and has no Japan/Europe
+  original trees available for regional validation. The ledger therefore
+  distinguishes component byte equality, source-only ISO reconstruction, and
+  full regional validation as separate milestones.
+
+## 2026-08-23
+
 - **USA R31D byte-exact source milestone:** Collision Chaos Act 1 Bad Future now uses the historical R3 D-variant entry graph, with its three recovered legacy data sections emitted from assembly source and its USA-specific pre-`StageChunks` region selected conditionally. The USA scroll dispatch order is restored, and `R31D__.MMD` is exactly 262,144 bytes and matches the local USA original. The hardened USA build/check now reports 117 exact targets, 10 remaining differences, and 0 missing comparison targets. R32A–R32D, the other unresolved binaries, Japanese/European validation, and source-only reconstruction of the entire ISO remain unfinished.
 - **USA R31C byte-exact source milestone:** Collision Chaos Act 1 Good Future now uses the historical R3 C-variant entry graph, with its three recovered legacy data sections emitted from assembly source and its USA-specific pre-`StageChunks` region selected conditionally. The USA scroll dispatch order is restored, and `R31C__.MMD` is exactly 262,144 bytes and matches the local USA original. The hardened USA build/check now reports 116 exact targets, 11 remaining differences, and 0 missing comparison targets. R31D, the other unresolved binaries, Japanese/European validation, and source-only reconstruction of the entire ISO remain unfinished.
 - **USA R31B byte-exact source milestone:** Collision Chaos Act 1 Past now uses the historical R3 B-variant entry graph, with its three recovered legacy data sections emitted from assembly source and its USA-specific pre-`StageChunks` region selected conditionally. The USA scroll dispatch order is restored, and `R31B__.MMD` is exactly 262,144 bytes and matches the local USA original. The hardened USA build/check now reports 115 exact targets, 12 remaining differences, and 0 missing comparison targets. R31C/R31D, the other unresolved binaries, Japanese/European validation, and source-only reconstruction of the entire ISO remain unfinished.
