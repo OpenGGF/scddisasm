@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 140
-  tracked padding slices totalling 839,560 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 138
+  tracked padding slices totalling 838,016 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -75,6 +75,16 @@
   remained fully byte-exact. The two blobs were removed, reducing the tracked
   padding set to 140 files totalling 839,560 bytes. The three FMV streams,
   remaining padding slices, and Japan/Europe validation remain unfinished.
+
+- **R42A/R42B legacy-fragment source milestone:** The Tidal Tempest Act 2
+  R42A and R42B `Padding1` regions are now declarative source data, retaining
+  their legacy graphics/routine tables and shared animation records without
+  opaque includes. Each emitted fragment matches its former blob exactly;
+  isolated non-USA probes assembled both entries, and the guarded USA
+  build/check remained fully byte-exact. The two blobs were removed, reducing
+  the tracked padding set to 138 files totalling 838,016 bytes. The three FMV
+  streams, remaining padding slices, and Japan/Europe validation remain
+  unfinished.
 
 - **R8 padding decomposition milestone:** `r82a_e_2.bin` and `r82d_e_2.bin`
   were exact concatenations of existing source-owned R8 data assets. The R82A
