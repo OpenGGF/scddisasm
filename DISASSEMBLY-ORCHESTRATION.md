@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R51A Padding3 completion milestone:** The distinct 2,392-byte packed
+  graphics/mapping prefix is now emitted from a named source fragment, followed
+  by the shared mapping and rotation-vector tails. The complete 2,726-byte
+  `r51a_e_3.bin` dependency has therefore been removed. The guarded displayless
+  USA build/check remains byte-exact for all 127 targets, including R51A. The
+  tracked padding inventory falls to 24 files totalling 213,019 bytes; no data
+  was obtained from an original disc.
+
 - **Non-USA Padding3 mapping-suffix milestone:** R62B, R62C, R72A, and R72C
   share another 64-byte non-USA mapping suffix before the all-layout tail. It
   is now one declarative source fragment, replacing 256 binary-included bytes.
