@@ -145,7 +145,8 @@ MapSpr_FlowerCapsule:
 	if STAGE_R13
 		include	"Level/Palmtree Panic/Data/R13 Padding 2.asm"
 	elseif ACT2_FUTURE_VARIANT=1
-		incbin	"../padding/r12c_e_2.bin"
+		include	"Level/Palmtree Panic/Data/R12C Padding2 Packed Prefix.asm"
+		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
 	elseif ACT2_FUTURE_VARIANT=2
 		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
 	else

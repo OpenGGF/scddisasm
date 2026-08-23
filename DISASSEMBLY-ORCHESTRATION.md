@@ -2,6 +2,14 @@
 
 ## 2026-08-23
 
+- **R12C Padding2 completion milestone:** The distinct `$1BCB`-byte packed
+  mapping/animation prefix is now source-emitted, while the final `$47A` bytes
+  reuse the named Act 2 Present Padding2 asset at `$204E`. Both R12C consumers
+  now use those sources directly, removing `r12c_e_2.bin`. The tracked padding
+  inventory falls to 17 files totalling 155,260 bytes. The guarded displayless
+  USA build/check remains byte-exact for all 127 targets; no data was obtained
+  from an original disc.
+
 - **R52B Padding2 completion milestone:** The retained 10,240-byte slice was an
   exact concatenation of the named R51A chunk-map fragment at `$D800` and the
   final `$2600` bytes of the declarative R52 Padding2 table. That table now
