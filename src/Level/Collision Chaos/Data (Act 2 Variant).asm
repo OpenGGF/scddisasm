@@ -152,7 +152,7 @@ Padding2:
 	elseif CC2_VARIANT=2
 	incbin	"../padding/r32c_e_2.bin"
 	else
-	incbin	"../padding/r32d_e_2.bin"
+	include	"Level/Collision Chaos/Data/R32D Padding 2.asm"
 	endif
 
 Art_Sonic:

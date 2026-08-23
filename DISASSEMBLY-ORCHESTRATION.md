@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 94
-  tracked padding slices totalling 636,430 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 92
+  tracked padding slices totalling 622,994 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -140,6 +140,16 @@
   former blobs exactly; both affected non-USA entries assembled successfully,
   and the guarded USA build/check remained fully byte-exact. The two blobs
   were removed, reducing the tracked padding set to 94 files totalling 636,430
+  bytes. The three FMV streams, remaining padding slices, and Japan/Europe
+  validation remain unfinished.
+
+- **R31D/R32D compatibility-source reuse milestone:** The otherwise unwired
+  Collision Chaos Act 1 and Act 2 Bad Future compatibility branches now reuse
+  the existing exact R32D declarative `Padding2` source instead of duplicate
+  blobs. Isolated assembly matched both former 6,718-byte blobs exactly; both
+  complete non-USA compatibility graphs assembled successfully, and the
+  guarded USA build/check remained fully byte-exact. The two blobs were
+  removed, reducing the tracked padding set to 92 files totalling 622,994
   bytes. The three FMV streams, remaining padding slices, and Japan/Europe
   validation remain unfinished.
 
