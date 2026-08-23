@@ -552,11 +552,11 @@ RevolveDoorGfx:
 	incbin	"gfx/r8/revolve_door.nem"
 
 Padding3:
+	include	"Level/Metallic Madness/Data/R82A Padding 3 Base.asm"
 	if (REGION=USA)&(DEMO<>0)
-		incbin	"../padding/r82a_e_3.bin",0,$31E6
 		include	"Level/USA Legacy Demo Padding3 Tail.asm"
 	else
-		incbin	"../padding/r82a_e_3.bin"
+		include	"Level/Metallic Madness/Data/R82A Padding 3 Retail Tail.asm"
 	endif
 
 ; ------------------------------------------------------------------------------
