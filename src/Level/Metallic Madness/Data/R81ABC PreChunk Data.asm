@@ -73,7 +73,33 @@ R81ABC_Init:
 	move.w	#$1AB,$C(a0)
 
 R81ABC_Main:
-	incbin	"../padding/r81a_e_1.bin",$110,$64
+	lea	($FFFFD000).w,a1
+	move.w	$8(a1),d0
+	sub.w	$8(a0),d0
+	bcc.s	.DistanceReady
+	neg.w	d0
+.DistanceReady:
+	move.b	#6,$1C(a0)
+	tst.b	$21(a0)
+	beq.s	.NoSpawn
+	jsr	$2077A4
+	bne.s	.Done
+	move.b	#$18,$0(a1)
+	move.b	#1,$25(a1)
+	move.w	$8(a0),$8(a1)
+	move.w	$C(a0),$C(a1)
+	move.w	#$9E,d0
+	jsr	$2022C4
+.Done:
+	lea	($FFFFD000).w,a1
+	neg.w	$12(a1)
+	addq.b	#2,$24(a0)
+	move.w	#$258,$30(a0)
+	rts
+
+.NoSpawn:
+	lea	$21E3CE,a1
+	bra.w	R81ABC_Animate
 R81ABC_State_174:
 	tst.b	$3C(a0)
 	bmi.s	.Falling

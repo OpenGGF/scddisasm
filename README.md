@@ -80,9 +80,11 @@ six-byte trampoline at `$108C` is source-backed too. The retained 56-byte
 `$28`-`$5F` slice is now source as well, including four mapping records and its
 blink/display helper. The unique R81B/R81C prefixes are declarative source
 records, including the USA one-byte variant. The shared tail's retained slices
-still contain identified executable logic at `$110`-`$173` plus bounded
-palette, animation, mapping, pointer, placement, path, and packed asset data
-requiring source decomposition.
+now emit the complete 100-byte `$110`-`$173` main state as source too, covering
+player distance, child/effect spawning, sound, player reversal, timer/routine
+advancement, and its animation transition. The remaining bounded palette,
+animation, mapping, pointer, placement, path, and packed asset data still
+require field-level source decomposition.
 
 R43C and R43D now share one retained pre-chunk body after R43C's unique
 source-backed initializer. The first 204 bytes of shared executable logic are

@@ -2,6 +2,16 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C retained-main milestone:** The complete 100-byte main-state
+  slice at R81A shared offsets `$110`-`$173` is now semantic source. It recovers
+  player-distance calculation, effect-child spawning, sound, player vertical
+  reversal, routine/timer advancement, and the no-spawn transition into the
+  existing animation helper. The guarded USA build/check remains byte-exact for
+  all 127 targets, including R81A, R81B, and R81C. The padding inventory remains
+  27 files totalling 224,657 bytes because the remaining bounded R81 palette,
+  animation, mapping, pointer, path, and packed-record slices still share the
+  same retained files and require field-level decomposition.
+
 - **R81A/R81B/R81C retained-blink milestone:** The 56-byte retained slice at
   R81A shared offsets `$28`-`$5F` is now semantic source. It recovers four
   mapping records and a blink/display helper with its historical `$20CE2E`
