@@ -143,11 +143,7 @@ MapSpr_FlowerCapsule:
 ; -------------------------------------------------------------------------
 
 	if STAGE_R13
-		if ACT2_FUTURE_VARIANT=1
-			incbin	"../padding/r13c_e_2.bin"
-		else
-			incbin	"../padding/r13d_e_2.bin"
-		endif
+		include	"Level/Palmtree Panic/Data/R13 Padding 2.asm"
 	elseif ACT2_FUTURE_VARIANT=1
 		incbin	"../padding/r12c_e_2.bin"
 	elseif ACT2_FUTURE_VARIANT=2
