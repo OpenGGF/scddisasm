@@ -90,9 +90,11 @@ horizontal movement, and position wrapping. The following 384-byte switch
 object, collision helper, and sprite mappings also reuse their semantic R4
 source. The adjacent 646-byte door object, subtype and dispatch tables,
 movement/collision helpers, and sprite mappings are source-backed as well. The
-retained suffix now begins at the next object boundary, `$4D4`; later shared
-R43 object logic and data remain binary-backed pending the same boundary-driven
-recovery.
+following 304-byte twin moving-block object also reuses source for its linked
+parent/child lifetime, collision and movement states, motion records, and sprite
+mapping. The retained suffix now begins at the next object boundary, `$604`;
+later shared R43 object logic and data remain binary-backed pending the same
+boundary-driven recovery.
 
 ## Building
 

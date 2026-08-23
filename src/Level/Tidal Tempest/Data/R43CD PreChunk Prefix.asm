@@ -74,4 +74,7 @@ R43_VMoveBlock_UpdatePosition:
 	; historical layout reason.
 	include	"objects/r4/door.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$4D4
+	; The adjacent discarded twin moving-block implementation follows.
+	include	"objects/r4/twin_move_block.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$604
