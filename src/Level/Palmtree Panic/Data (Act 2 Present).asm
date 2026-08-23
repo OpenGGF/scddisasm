@@ -108,7 +108,7 @@ MapSpr_FlowerCapsule:
 ; with a "align $20000"
 ; -------------------------------------------------------------------------
 
-	incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin"
+	include	"Level/Palmtree Panic/Data/Legacy Act 2 Present Post-Data.asm"
 
 ; -------------------------------------------------------------------------
 

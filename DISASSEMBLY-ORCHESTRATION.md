@@ -2,6 +2,17 @@
 
 ## 2026-08-23
 
+- **Legacy Act 2 Present post-data milestone:** The final 9,416-byte Palmtree
+  Panic `Padding/2` binary is removed. Its full form is assembled from a named
+  explosion-mapping tail, reusable object mappings, existing art assets, and
+  the Act 1 chunk/mapping suffix. Historical `$204E` consumers use a dedicated
+  declarative Sonic mapping suffix followed by the shared 3D-ramp mappings.
+  Internal labels in the reused animation and mapping sources are local. The
+  guarded USA ISO remains byte-identical with all 133 comparisons passing; a
+  guarded Japan build and direct checks against the former full and `$204E`
+  forms validate the non-USA paths. This leaves 2 tracked level `Data/Padding`
+  binaries totalling 15,870 bytes, both in Wacky Workbench.
+
 - **Legacy Act 1 post-chunk mapping milestone:** All six regional Act 1 Past
   and Good/Bad Future `Padding/2` binaries, totalling 44,376 bytes, are
   removed. Each retained area is now assembled from the exact suffix of the

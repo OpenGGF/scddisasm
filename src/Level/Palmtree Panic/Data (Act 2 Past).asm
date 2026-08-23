@@ -146,11 +146,11 @@ MapSpr_FlowerCapsule:
 		include	"Level/Palmtree Panic/Data/R13 Padding 2.asm"
 	elseif ACT2_FUTURE_VARIANT=1
 		include	"Level/Palmtree Panic/Data/R12C Padding2 Packed Prefix.asm"
-		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
+		include	"Level/Palmtree Panic/Data/Legacy Sonic Mapping Suffix.asm"
 	elseif ACT2_FUTURE_VARIANT=2
-		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
+		include	"Level/Palmtree Panic/Data/Legacy Sonic Mapping Suffix.asm"
 	else
-		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin"
+		include	"Level/Palmtree Panic/Data/Legacy Act 2 Present Post-Data.asm"
 	endif
 
 ; -------------------------------------------------------------------------

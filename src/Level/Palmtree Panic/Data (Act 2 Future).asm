@@ -71,9 +71,9 @@ MapSpr_Sonic:
 Padding2:
 	if ACT2_FUTURE_VARIANT=1
 		include	"Level/Palmtree Panic/Data/R12C Padding2 Packed Prefix.asm"
-		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
+		include	"Level/Palmtree Panic/Data/Legacy Sonic Mapping Suffix.asm"
 	else
-		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 2 Present).bin", $204E, $47A
+		include	"Level/Palmtree Panic/Data/Legacy Sonic Mapping Suffix.asm"
 	endif
 
 Art_Sonic:

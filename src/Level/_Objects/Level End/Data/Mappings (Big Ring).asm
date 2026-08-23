@@ -1,9 +1,9 @@
 .Map:
-	dc.w unk_23F172-.Map
-	dc.w unk_23F1A6-.Map
-	dc.w unk_23F1DA-.Map
-	dc.w unk_23F1E6-.Map
-unk_23F172:	dc.b  $A
+	dc.w .unk_23F172-.Map
+	dc.w .unk_23F1A6-.Map
+	dc.w .unk_23F1DA-.Map
+	dc.w .unk_23F1E6-.Map
+.unk_23F172:	dc.b  $A
 		dc.b $E0 ; à
 		dc.b   9
 		dc.b   0
@@ -55,7 +55,7 @@ unk_23F172:	dc.b  $A
 		dc.b $24 ; $
 		dc.b $10
 		dc.b   0
-unk_23F1A6:	dc.b  $A
+.unk_23F1A6:	dc.b  $A
 		dc.b $E0 ; à
 		dc.b  $D
 		dc.b   0
@@ -107,7 +107,7 @@ unk_23F1A6:	dc.b  $A
 		dc.b $51 ; Q
 		dc.b $10
 		dc.b   0
-unk_23F1DA:	dc.b   2
+.unk_23F1DA:	dc.b   2
 		dc.b $E0 ; à
 		dc.b  $B
 		dc.b   0
@@ -119,7 +119,7 @@ unk_23F1DA:	dc.b   2
 		dc.b $5E ; ^
 		dc.b $F4 ; ô
 		dc.b   0
-unk_23F1E6:	dc.b  $A
+.unk_23F1E6:	dc.b  $A
 		dc.b $E0 ; à
 		dc.b  $D
 		dc.b   8

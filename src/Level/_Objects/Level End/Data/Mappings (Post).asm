@@ -1,11 +1,11 @@
 .Map:
-	dc.w unk_23F234-.Map
-	dc.w unk_23F24A-.Map
-	dc.w unk_23F25A-.Map
-	dc.w unk_23F26A-.Map
-	dc.w unk_23F280-.Map
-	dc.w unk_23F290-.Map
-unk_23F234:	dc.b   4
+	dc.w .unk_23F234-.Map
+	dc.w .unk_23F24A-.Map
+	dc.w .unk_23F25A-.Map
+	dc.w .unk_23F26A-.Map
+	dc.w .unk_23F280-.Map
+	dc.w .unk_23F290-.Map
+.unk_23F234:	dc.b   4
 		dc.b $D4 ; Ô
 		dc.b  $B
 		dc.b   0
@@ -27,7 +27,7 @@ unk_23F234:	dc.b   4
 		dc.b $48 ; H
 		dc.b $F0 ; ð
 		dc.b   0
-unk_23F24A:	dc.b   3
+.unk_23F24A:	dc.b   3
 		dc.b $D4 ; Ô
 		dc.b  $F
 		dc.b   0
@@ -43,7 +43,7 @@ unk_23F24A:	dc.b   3
 		dc.b   0
 		dc.b $48 ; H
 		dc.b $F0 ; ð
-unk_23F25A:	dc.b   3
+.unk_23F25A:	dc.b   3
 		dc.b $D4 ; Ô
 		dc.b   3
 		dc.b   0
@@ -59,7 +59,7 @@ unk_23F25A:	dc.b   3
 		dc.b   0
 		dc.b $48 ; H
 		dc.b $F0 ; ð
-unk_23F26A:	dc.b   4
+.unk_23F26A:	dc.b   4
 		dc.b $D4 ; Ô
 		dc.b  $B
 		dc.b   0
@@ -81,7 +81,7 @@ unk_23F26A:	dc.b   4
 		dc.b $48 ; H
 		dc.b $F0 ; ð
 		dc.b   0
-unk_23F280:	dc.b   3
+.unk_23F280:	dc.b   3
 		dc.b $D4 ; Ô
 		dc.b  $F
 		dc.b   8
@@ -97,7 +97,7 @@ unk_23F280:	dc.b   3
 		dc.b   0
 		dc.b $48 ; H
 		dc.b $F0 ; ð
-unk_23F290:	dc.b   4
+.unk_23F290:	dc.b   4
 		dc.b $E4 ; ä
 		dc.b   2
 		dc.b   0
