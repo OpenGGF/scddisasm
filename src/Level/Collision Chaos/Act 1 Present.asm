@@ -4,12 +4,6 @@
 ; Collision Chaos Act 1 Present
 ; -------------------------------------------------------------------------
 
-	include	"Level/_Definitions.inc"
-CC_VARIANT	EQU	0
-STAGE_TIME	EQU	1
-
-; -------------------------------------------------------------------------
-
-	include	"Level/Collision Chaos/Act 1 Shared.asm"
+	include	"Level/Collision Chaos/R31A Legacy.asm"
 
 ; -------------------------------------------------------------------------
