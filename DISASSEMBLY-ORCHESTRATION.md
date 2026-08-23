@@ -2,6 +2,13 @@
 
 ## 2026-08-23
 
+- **R81A/R81B/R81C marker-mapping milestone:** The 16-byte retained slice at
+  R81A shared offsets `$7A`-`$89` is now a labeled two-frame sprite mapping
+  table. The guarded USA build/check remains byte-exact for all 127 targets,
+  including all three consumers. The padding inventory remains 27 files
+  totalling 224,657 bytes because other bounded R81 records still share
+  `r81a_e_1.bin`.
+
 - **R81A/R81B/R81C/R81D retained-tail-record milestone:** The identical
   358-byte final pointer/placement/attribute record block is now one shared
   declarative source fragment, reused from the pre-existing R82A source table.

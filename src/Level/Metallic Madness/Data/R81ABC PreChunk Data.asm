@@ -31,7 +31,10 @@ R81ABC_FindMarker:
 	moveq	#$FF,d1
 	rts
 
-	incbin	"../padding/r81a_e_1.bin",$7A,$10
+R81ABC_RetainedMarkerMappings:
+	dc.w	$0004, $000A
+	dc.w	$01F0, $0F00, $00F0
+	dc.w	$01F0, $0300, $00FC
 
 R81ABC_Object:
 	moveq	#0,d0
