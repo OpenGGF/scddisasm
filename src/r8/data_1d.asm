@@ -111,7 +111,9 @@ byte_21FD96:
 	incbin	"data/r8/byte_21FD96.bin"
 
 Padding2:
-	incbin	"../padding/r81d_e_2.bin"
+	; This table is the 0x1EA-byte slice at offset $80 in the source-owned
+	; byte_235FCA data block.
+	incbin	"data/r8/byte_235FCA_1a.bin", $80, $1EA
 
 PlayerGfx:
 	incbin	"gfx/r8/player.unc"

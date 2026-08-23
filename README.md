@@ -17,7 +17,9 @@ the regional original tree. The current build still copies three FMV streams
 (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`) and retains tracked level padding
 data pending source decomposition and regional validation. Two R8 padding slices
 have been replaced by exact references to existing source-owned data assets; 189
-opaque padding slices totalling 914,928 bytes remain.
+opaque padding slices totalling 914,928 bytes remain. The R81D table has also
+been replaced by an exact source-owned slice; 188 opaque padding slices
+totalling 914,438 bytes remain.
 
 ## Building
 
