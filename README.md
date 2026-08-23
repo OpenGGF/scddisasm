@@ -102,10 +102,11 @@ TagaTaga cluster is namespaced source as well, covering the main object, linked
 body parts, movement helpers, missile object, animation records, and all three
 mapping sets. Both discarded Yago subtype graphs are now namespaced source too,
 including their movement/collision states, two animation sets, and two mapping
-sets. The following animal-presence call remains source-emitted by the USA
-legacy overlay, and the retained suffix is aligned after it at `$14AE`; later
-shared R43 object logic and data remain binary-backed pending the same
-boundary-driven recovery.
+sets. The complete discarded Animal object is namespaced source as well,
+preserving its regional presence-check target, historical sine/cosine calls,
+movement states, animations, mappings, and tile table. The retained suffix now
+begins at the CrushBlocks boundary, `$1702`; later shared R43 object logic and
+data remain binary-backed pending the same boundary-driven recovery.
 
 ## Building
 

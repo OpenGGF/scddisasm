@@ -2,6 +2,19 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-Animal milestone:** The complete 598-byte historical
+  cluster at shared offsets `$14AC`-`$1701` is now namespaced semantic source.
+  It recovers released and parent-linked animal states, two sine-driven movement
+  paths, direction and layer updates, animation, two sprite mapping sets, and
+  the regional tile table. The source preserves the USA animal-presence entry
+  at `$20FD6E`, the non-USA symbolic entry, and both historical `$200700`
+  sine/cosine calls. The retained suffix now begins at the clean CrushBlocks
+  boundary, `$1702`. The guarded USA build/check remains byte-exact for all 127
+  targets, including R43C, R43D, and DEMO43C. The padding inventory remains 28
+  files totalling 236,195 bytes because the later 5,648-byte suffix still shares
+  the same retained file; later R43 logic/data, three FMV streams, and full
+  Japan/Europe validation remain unfinished.
+
 - **R43C/R43D retained-Yago milestone:** The complete 1,260-byte historical
   cluster at shared offsets `$FC0`-`$14AB` is now namespaced semantic source.
   It recovers both subtype dispatchers and their nine-state movement graphs,

@@ -89,4 +89,7 @@ R43_VMoveBlock_UpdatePosition:
 	; Both discarded Yago subtype implementations and their assets follow.
 	include	"Level/Tidal Tempest/Data/R43 Retained Yago.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$14AE
+	; The discarded animal states, animations, mappings, and tile table follow.
+	include	"Level/Tidal Tempest/Data/R43 Retained Animal.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$1702
