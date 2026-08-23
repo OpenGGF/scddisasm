@@ -6,8 +6,8 @@
   `check.sh` comparison now passes for every listed component, including all
   retail level binaries and the reconstructed DEMO files. This is byte-exact
   coverage for the comparison set, not completion of the entire disc: the
-  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 179
-  tracked padding slices totalling 877,686 bytes, and has no Japan/Europe
+  build still copies `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`, retains 171
+  tracked padding slices totalling 869,706 bytes, and has no Japan/Europe
   original trees available for regional validation. The ledger therefore
   distinguishes component byte equality, source-only ISO reconstruction, and
   full regional validation as separate milestones.
@@ -48,6 +48,16 @@
   blobs were removed, reducing the tracked padding set to 179 files totalling
   877,686 bytes. The three FMV streams, remaining padding slices, and
   Japan/Europe validation remain unfinished.
+
+- **R4 padding source-asset milestone:** Eight R4 slices now use exact bounded
+  ranges of the existing Wacky Workbench `Padding/2` and `Padding/3` assets.
+  The four `Padding/2` ranges end at `$1600`; the four `Padding/3` ranges end
+  at `$27FE`. The R43C demo overlays now restore their cursors with explicit
+  source lengths rather than deleted padding-file sizes. The guarded USA build
+  and full component check passed, and the eight unused blobs were removed,
+  reducing the tracked padding set to 171 files totalling 869,706 bytes. The
+  three FMV streams, remaining padding slices, and Japan/Europe validation
+  remain unfinished.
 
 ## 2026-08-23
 

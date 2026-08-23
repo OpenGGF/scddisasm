@@ -146,11 +146,11 @@ LevelBlocks:
 
 Padding2:
 	if TT_VARIANT=0
-	incbin	"../padding/r41a_e_2.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $1312, $2EE
 	elseif TT_VARIANT=1
 	incbin	"../padding/r41b_e_2.bin"
 	elseif TT_VARIANT=2
-	incbin	"../padding/r41c_e_2.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $11D6, $42A
 	else
 	incbin	"../padding/r41d_e_2.bin"
 	endif

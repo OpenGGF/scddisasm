@@ -407,6 +407,6 @@ CapsuleSprites:
 	include	"sprites/capsule.asm"
 
 Padding3:
-	incbin	"../padding/r42d_e_3.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $2592, $26C
 
 ; ------------------------------------------------------------------------------

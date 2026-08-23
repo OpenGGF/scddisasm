@@ -105,7 +105,7 @@ StageMapUnk5:
 	incbin	"maps/empty.bin"
 
 Padding2:
-	incbin	"../padding/r43d_e_2.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $109A, $566
 
 PlayerGfx:
 	incbin	"gfx/r4/player.unc"
@@ -359,6 +359,6 @@ BossBubbleGfx:
 	incbin	"gfx/r4/boss_bubble.nem"
 
 Padding3:
-	incbin	"../padding/r43d_e_3.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $235A, $4A4
 
 ; ------------------------------------------------------------------------------

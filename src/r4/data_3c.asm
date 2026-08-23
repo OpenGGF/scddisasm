@@ -122,12 +122,12 @@ StageMapUnk5:
 	incbin	"maps/empty.bin"
 
 Padding2:
-	incbin	"../padding/r43c_e_2.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/2 (Act 1 Present).bin", $1162, $49E
 	if (REGION=USA)&(DEMO<>0)
 R43_LEGACY_SONIC_TAIL EQU 1
 		org	Padding2
 		include	"Level/_Objects/Sonic/Data/Mappings.asm"
-		org	Padding2+filesize("../padding/r43c_e_2.bin")
+		org	Padding2+$49E
 	endif
 
 PlayerGfx:
@@ -382,7 +382,7 @@ BossBubbleGfx:
 	incbin	"gfx/r4/boss_bubble.nem"
 
 Padding3:
-	incbin	"../padding/r43c_e_3.bin"
+	incbin	"Level/Wacky Workbench/Data/Padding/3 (Act 1 Present).bin", $2528, $2D6
 	if (REGION=USA)&(DEMO<>0)
 R43_LEGACY_AMY_TAIL EQU 1
 R43LegacyAmyMapBase EQU $23FD1C
@@ -390,7 +390,7 @@ R43LegacyAmyMapBase EQU $23FD1C
 		include	"Level/Palmtree Panic/Objects/Amy Rose/Data/Mappings.asm"
 		include	"Level/Palmtree Panic/Objects/Amy Rose/Data/Animations.asm"
 		incbin	"Level/Palmtree Panic/Data/Padding/2 (Act 1 Present).bin", 0, $40
-		org	Padding3+filesize("../padding/r43c_e_3.bin")
+		org	Padding3+$2D6
 	endif
 
 ; ------------------------------------------------------------------------------
