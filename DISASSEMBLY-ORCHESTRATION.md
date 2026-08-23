@@ -2,6 +2,18 @@
 
 ## 2026-08-23
 
+- **R43C/R43D retained-BigDoor milestone:** The complete 394-byte historical
+  BigDoorObject cluster at shared offsets `$26AE`-`$2837` is now namespaced
+  semantic source. It recovers switch lookup and closed-state solid collision,
+  three cloned opening segments, alternating segment motion, timed movement,
+  drawing/despawning/deletion, and sprite mappings. The retained suffix now
+  begins at the next clean dispatcher boundary, `$2838`. The guarded USA
+  build/check remains byte-exact for all 127 targets, including R43C, R43D, and
+  DEMO43C. The padding inventory remains 28 files totalling 236,195 bytes
+  because the later 1,242-byte suffix still shares the same retained file;
+  later R43 logic/data, three FMV streams, and full Japan/Europe validation
+  remain unfinished.
+
 - **R43C/R43D retained-PressureElevator milestone:** The complete 440-byte
   historical PressureElevatorObject cluster at shared offsets `$24F6`-`$26AD`
   is now namespaced semantic source. It recovers the six-state dispatcher,

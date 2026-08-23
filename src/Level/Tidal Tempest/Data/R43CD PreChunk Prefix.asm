@@ -119,4 +119,7 @@ R43_VMoveBlock_UpdatePosition:
 	; The discarded pressure-triggered elevator implementation follows.
 	include	"Level/Tidal Tempest/Data/R43 Retained Pressure Elevator.asm"
 
-	incbin	"../padding/r43d_e_1.bin",$26AE
+	; The discarded switch-controlled segmented big-door implementation follows.
+	include	"Level/Tidal Tempest/Data/R43 Retained Big Door.asm"
+
+	incbin	"../padding/r43d_e_1.bin",$2838
