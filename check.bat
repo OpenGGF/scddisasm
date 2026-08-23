@@ -43,6 +43,7 @@ fc /b original\%REGPATH%\DUMMY9.MMD out\files\DUMMY9.MMD
 fc /b original\%REGPATH%\SPEEND.MMD out\files\SPEEND.MMD
 fc /b original\%REGPATH%\ATTACK.MMD out\files\ATTACK.MMD
 fc /b original\%REGPATH%\ATTACK.BIN out\files\ATTACK.BIN
+fc /b original\%REGPATH%\THANKS_M.MMD out\files\THANKS_M.MMD
 fc /b original\%REGPATH%\THANKS_S.BIN out\files\THANKS_S.BIN
 fc /b original\%REGPATH%\THANKS_D.BIN out\files\THANKS_D.BIN
 fc /b original\%REGPATH%\COME__.MMD out\files\COME__.MMD
@@ -50,6 +51,9 @@ fc /b original\%REGPATH%\ENDING.MMD out\files\ENDING.MMD
 fc /b original\%REGPATH%\OPEN_M.MMD out\files\OPEN_M.MMD
 fc /b original\%REGPATH%\OPEN_S.BIN out\files\OPEN_S.BIN
 fc /b original\%REGPATH%\OPN.STM out\files\OPN.STM
+fc /b original\%REGPATH%\BADEND.STM out\files\BADEND.STM
+fc /b original\%REGPATH%\GOODEND.STM out\files\GOODEND.STM
+fc /b original\%REGPATH%\PTEST.STM out\files\PTEST.STM
 fc /b original\%REGPATH%\GOODEND.BIN out\files\GOODEND.BIN
 fc /b original\%REGPATH%\BADEND.BIN out\files\BADEND.BIN
 fc /b original\%REGPATH%\PTEST.MMD out\files\PTEST.MMD

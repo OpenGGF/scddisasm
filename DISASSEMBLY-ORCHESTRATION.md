@@ -2,6 +2,13 @@
 
 ## 2026-08-23
 
+- **External-media validation milestone:** `check.sh` and `check.bat` now compare
+  `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM` instead of trusting the files
+  copied into the ISO staging tree. The Windows comparison also gains the
+  previously omitted `THANKS_M.MMD`. The USA validation surface is therefore
+  130 files: 127 reconstructed components plus three externally supplied media
+  streams. The expanded USA check reports all 130 matches.
+
 - **Media/input boundary milestone:** The three copy-only USA runtime files are
   confirmed encoded audiovisual streams rather than executable logic:
   `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`. Both build frontends now accept

@@ -274,7 +274,9 @@ FMV_STREAM_DIR=/path/to/user-supplied/usa-media ./make.sh
 The comparison command still requires the corresponding originals under
 `original/<region>/`. The checked-in `MakeSTM` currently supports only the
 opening stream format, so the ending and pencil-test streams cannot yet be
-regenerated from source media.
+regenerated from source media. Both comparison frontends verify all three
+externally supplied streams; a successful USA check covers 127 reconstructed
+components and three media inputs.
 
 The Linux build uses Wine (or an automatically detected Steam Proton installation)
 to run the checked-in, byte-exact Windows toolchain; the comparison script itself
