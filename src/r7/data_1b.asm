@@ -9,7 +9,12 @@ Padding1:
 		include	"Level/USA Legacy R71 Animation Data.asm"
 		include	"Level/USA Legacy Stage Tail A.asm"
 	else
-		incbin	"../padding/r71b_e_1.bin"
+	dc.w	$75C0, $0023, $DA22, $78C0, $0023, $C8C4, $7D20, $0023
+	dc.w	$DBF6, $8BA0, $0000, $0023, $C778, $75C0, $0000, $0022
+	dc.w	$F8FC, $75C0, $0000, $0023, $0098, $7880, $0002, $0022
+	dc.w	$FABC, $8780, $0022, $F4F2, $9100, $0020, $B63A, $7DE0
+	dc.w	$00A6, $00C0, $00DA, $00F0
+		include	"r7/nonusa_padding_1c_1.asm"
 	endif
 
 StageChunks:
