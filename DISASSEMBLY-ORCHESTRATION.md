@@ -2,6 +2,16 @@
 
 ## 2026-08-24
 
+- **Palmtree Panic future pre-chunk milestone:** The R12C/R12D future-data
+  paths no longer unconditionally overlay the USA-only Act 2 Present legacy
+  table onto Japan/Europe pre-chunk data. The overlay and its relocated words
+  are now guarded by `REGION=USA`, so the regional pre-chunk sources retain
+  their original fixed layout. Fresh guarded displayless Japan and Europe
+  builds now match `R12C__.MMD` and `R12D__.MMD` exactly; USA remains 133/0/0
+  (matches/differences/missing). The remaining non-USA failures are other
+  known level families. No original bytes or generated outputs were added to
+  source control.
+
 - **Palmtree Panic regional reconciliation milestone:** The source now emits
   the regional object-map byte, Act 2/Act 3 scroll order and start position,
   R13 roll-tunnel operand forms, Act 3 debug-object flag, and R13 boss

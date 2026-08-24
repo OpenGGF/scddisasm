@@ -37,12 +37,14 @@ Padding1:
 		; The USA future image shares the recovered Act 2 Present legacy
 		; table at $20F2F0. The surrounding prefix is the region's
 		; word-aligned table with its relocated pointers corrected below.
-		org	Padding1+$8A
-		dc.w	$D7F2
-		org	Padding1+$CA
-		dc.w	$D866
-		org	Padding1+$DC
-		include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
+		if REGION=USA
+			org	Padding1+$8A
+			dc.w	$D7F2
+			org	Padding1+$CA
+			dc.w	$D866
+			org	Padding1+$DC
+			include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
+		endif
 	else
 		include	"Level/Palmtree Panic/Data/R12D Pre-Chunks.asm"
 		; The bad-future prefix reaches the same USA legacy table at

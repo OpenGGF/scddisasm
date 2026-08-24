@@ -23,14 +23,16 @@ LevelPaletteID:
 
 Padding1:
 	include	"Level/Palmtree Panic/Data/R12D Pre-Chunks.asm"
-	org	Padding1+$28
-	dc.w	$D740
-	org	Padding1+$B6
-	dc.w	$D7F2
-	org	Padding1+$F6
-	dc.w	$D866
-	org	Padding1+$108
-	include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
+	if REGION=USA
+		org	Padding1+$28
+		dc.w	$D740
+		org	Padding1+$B6
+		dc.w	$D7F2
+		org	Padding1+$F6
+		dc.w	$D866
+		org	Padding1+$108
+		include	"Level/Palmtree Panic/Data/USA Padding 1 (Act 2 Present).asm"
+	endif
 
 ; -------------------------------------------------------------------------
 
