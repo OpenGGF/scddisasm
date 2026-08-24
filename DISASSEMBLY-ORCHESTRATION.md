@@ -2,21 +2,21 @@
 
 ## 2026-08-24
 
-- **Ending primary-program regional-layout milestone:** The USA primary
-  `ENDING.MMD` program remains source-emitted and byte-exact after making its
-  vectors, dispatch table, controller handlers, V-blank tables, packed data
-  pointers, and regional halfword targets symbolic. The Europe primary and
-  secondary paths now also emit an exact 44,036-byte `ENDING.MMD` from explicit
-  assembly data, including its regional event stream and tile tables; the
-  rebuilt Europe file has SHA-256
+- **Ending primary-program regional-layout milestone:** The USA, Japan, and
+  Europe primary `ENDING.MMD` paths now emit their complete regional files from
+  source, including the explicit event streams and tile tables. The rebuilt
+  USA file is 44,052 bytes with SHA-256
+  `a2de839be879145da035af6e1080a5264e849ff4ecd7813a83273ce60aaeb3e6`; the
+  Japan file is 44,036 bytes with SHA-256
+  `e6250e055d2f2f9f5774afac3ca9b4f75b1bfb11e0caf7c8905513155fb9d44c`; and the
+  Europe file is 44,036 bytes with SHA-256
   `7e4082d0c4e1df119c0939852bdf1f6d10403d8f49083e3e56ba5d7bf7c05925`.
-  Diagnostic Japan assembly remains 44,036 bytes and matches through file
-  offset `$22E9`; its first remaining difference at `$22EA` is regional
-  animation/graphics data, not primary executable code. The production
-  frontend continues to assemble `ENDING.MMD` only for USA while that Japan
-  difference remains unresolved; Europe exactness was validated through the
-  isolated regional source assembly. No proprietary regional bytes were added
-  to source control.
+  Both build frontends now assemble `ENDING.MMD` for every region instead of
+  copying the non-USA executable. Fresh guarded displayless builds complete
+  against the locally supplied regional originals: USA remains 133/0/0
+  (matches/differences/missing), while Japan and Europe remain 63/67/0 because
+  of the known level reconstruction differences. No proprietary regional bytes
+  were added to source control.
 
 - **Cross-region Ending secondary-program milestone:** The complete secondary
   executable/data block at `$FFC100` through the end of `ENDING.MMD` is now
@@ -24,8 +24,8 @@
   and Europe omit the two USA-only delay sections and emit their two shorter
   Sub-CPU handshake routines. A diagnostic Japanese assembly matches every
   byte from file offset `$A200` to EOF, and the corresponding European retail
-  span is identical. The production frontend retains its non-USA whole-file
-  fallback until the primary `$FF2000` program is recovered. A fresh guarded
+  span is identical. The production frontend now uses the regional primary and
+  secondary source paths together. A fresh guarded
   displayless USA build still produces SHA-256
   `a2de839be879145da035af6e1080a5264e849ff4ecd7813a83273ce60aaeb3e6`,
   with all 133 comparison targets exact. No regional binary data was added to
@@ -72,7 +72,7 @@
   131,072-byte outputs compare exactly. USA retains all 133 matches; each
   non-USA check remains at 63 matches, 67 known level differences, and 0
   missing targets. Only two complete non-USA executable/data fallbacks remain:
-  `BRAMMAIN.MMD` and `ENDING.MMD`.
+  `BRAMMAIN.MMD`; `ENDING.MMD` is now source-built for every region.
 
 - **Cross-region Thank You main-CPU milestone:** `THANKS_M.MMD` is now
   assembled from `src/Thank You/Main.asm` for all three regions. Japan and

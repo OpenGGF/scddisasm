@@ -33,7 +33,7 @@ if "%REGION%"=="1" (
     )
 )
 if not "%REGION%"=="1" (
-    for %%F in (BRAMMAIN.MMD ENDING.MMD) do copy "original\%REGIONDIR%\%%F" "out\files\%%F" > nul
+    copy "original\%REGIONDIR%\BRAMMAIN.MMD" "out\files\BRAMMAIN.MMD" > nul
 )
 
 cd src
@@ -108,9 +108,7 @@ if exist "..\out\files\DUMMY5.MMD" (
 %ASM68K% "Time Attack\Sub.asm", "..\out\files\ATTACK.BIN", , "Time Attack\Sub.lst"
 %ASM68K% "Thank You\Sub.asm", "..\out\files\THANKS_S.BIN", , "Thank You\Sub.lst"
 %ASM68K% "Time Attack\Main.asm", "..\out\files\ATTACK.MMD", , "Time Attack\Main.lst"
-if %REGION%==1 (
-	%ASM68K% "FMV\Main (Ending).asm", "..\out\files\ENDING.MMD", , "FMV\Main (Ending).lst"
-)
+%ASM68K% "FMV\Main (Ending).asm", "..\out\files\ENDING.MMD", , "FMV\Main (Ending).lst"
 %ASM68K% "Thank You\Main.asm", "..\out\files\THANKS_M.MMD", , "Thank You\Main.lst"
 %ASM68K% "Thank You\Data.asm", "..\out\files\THANKS_D.BIN", , "Thank You\Data.lst"
 %ASM68K% "Comin Soon\Main.asm", "..\out\files\COME__.MMD", , "Comin Soon\Main.lst"

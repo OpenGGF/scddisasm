@@ -303,7 +303,7 @@ The comparison command still requires the corresponding originals under
 `original/<region>/`. The checked-in `MakeSTM` currently supports only the
 opening stream format, so the ending and pencil-test streams cannot yet be
 regenerated from source media. Both comparison frontends verify all three
-externally supplied streams; a successful USA check covers 127 reconstructed
+externally supplied streams; a successful USA check covers 133 reconstructed
 components, three media inputs, and three ISO identification files.
 
 The Linux build uses Wine (or an automatically detected Steam Proton installation)
@@ -389,18 +389,18 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Metallic Madness Act 3 Good/Bad Future (R83C, R83D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
-* Time attack main CPU program (ATTACK.MMD, USA source only)
+* Time attack main CPU program (ATTACK.MMD, source plus a bounded regional data suffix)
 * Time attack Sub CPU program (ATTACK.BIN)
-* "Thank You" screen main CPU program (THANKS_M.MMD, USA source only)
-* "Comin' Soon" screen main CPU program (COME__.MMD, USA source only)
+* "Thank You" screen main CPU program (THANKS_M.MMD)
+* "Comin' Soon" screen main CPU program (COME__.MMD)
 * "Thank You" screen Sub CPU program (THANKS_S.BIN)
-* "Thank You" screen Nemesis graphics data (THANKS_D.BIN, USA source only)
+* "Thank You" screen Nemesis graphics data (THANKS_D.BIN)
 * FMVs
     - Opening FMV (OPEN_M, OPEN_S, OPN.STM)
-    - Ending FMV main CPU program (ENDING.MMD, USA source only)
+    - Ending FMV main CPU program (ENDING.MMD)
     - Good ending Sub CPU program (BADEND.BIN, not a typo)
     - Bad ending Sub CPU program (GOODEND.BIN, not a typo)
-    - Pencil test main CPU program (PTEST.MMD, USA source only)
+    - Pencil test main CPU program (PTEST.MMD)
     - Pencil test Sub CPU program (PTEST.BIN)
 * DA Garden (PLANET_M, PLANET_S, PLANET_D)
 * Visual Mode menu (VM)
