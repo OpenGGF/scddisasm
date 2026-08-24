@@ -251,3 +251,25 @@
 	jsr	$203AA6.L
 	org	Padding1+$1E3C+R43_NON_USA_ADJUST
 	jmp	$2078A4.L
+
+; R43RetainedCircleSpikeBall_CircleSpikeBallObject and its chain links.
+	org	Padding1+$1E5C+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1E7A+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1E82+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1E9A+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1EA2+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1EBA+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1EC2+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1F66+R43_NON_USA_ADJUST
+	move.l	#$20F2A8,$4(A6)
+	org	Padding1+$1FBA+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$1FC6+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
