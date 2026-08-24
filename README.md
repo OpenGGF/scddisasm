@@ -45,6 +45,11 @@ Some packed-data fragments are deliberately source-emitted as bytes and remain
 to be semantically classified; eliminating the retained containers does not by
 itself mean every packed datum has been decoded.
 
+`BRAMMAIN.MMD` is now emitted from source for Japan, USA, and Europe. Its
+regional path still contains explicit `dc.b` spans pending semantic
+decomposition, so source-only generation is not being presented as a fully
+readable disassembly of every routine and data table.
+
 The sixteen former Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused
 after bounded per-level prefixes. This replaces 4,128 binary-included bytes
@@ -318,8 +323,9 @@ REGION=2 ./check.sh
 ```
 
 The build clears the generated `out/files/` entries before assembling and
-copies only externally supplied media plus non-USA files that still lack
-source-backed build steps. It does not remove other stale files under `out/`,
+copies only externally supplied media plus USA ISO metadata. Non-USA Time Attack
+assembly still reads its bounded packed-data suffix from the local regional
+original. The build does not remove other stale files under `out/`,
 so use a fresh `out/` directory after switching regions. If the Wine or Proton executable has
 a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 
@@ -329,7 +335,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 * Main program file (IPX)
 * System program extension file (SPX)
 * Backup RAM initialization file (BRAMINIT)
-* Backup RAM manager main CPU program (BRAMMAIN, USA source only)
+* Backup RAM manager main CPU program (BRAMMAIN)
 * Sub CPU Backup RAM functions file (BRAMSUB)
 * Mega Drive initialization file (MDINIT)
 * FM sound driver (SMPS Z80)

@@ -32,10 +32,6 @@ if "%REGION%"=="1" (
         copy "%ISO_METADATA_DIR%\%%F" "out\files\%%F" > nul
     )
 )
-if not "%REGION%"=="1" (
-    copy "original\%REGIONDIR%\BRAMMAIN.MMD" "out\files\BRAMMAIN.MMD" > nul
-)
-
 cd src
 
 set ASM68K=..\bin\asm68k.exe /q /p /o ae-,l.,ow+ /e REGION=%REGION%
@@ -69,7 +65,7 @@ if exist "DA Garden\Track Titles.sym" ( del "DA Garden\Track Titles.sym" > nul )
 %ASM68K% "CD System Program\SP.asm", "..\out\misc\sp.bin", , "CD System Program\SP.lst"
 %ASM68K% "CD System Program\SPX.asm", "..\out\files\SPX___.BIN", , "CD System Program\SPX.lst"
 %ASM68K% "Backup RAM\Initialization\Main.asm", "..\out\files\BRAMINIT.MMD", , "Backup RAM\Initialization\Main.lst"
-if "%REGION%"=="1" %ASM68K% "Backup RAM\Main.asm", "..\out\files\BRAMMAIN.MMD", , "Backup RAM\Main.lst"
+%ASM68K% "Backup RAM\Main.asm", "..\out\files\BRAMMAIN.MMD", , "Backup RAM\Main.lst"
 %ASM68K% "Backup RAM\Sub.asm", "..\out\files\BRAMSUB.BIN", , "Backup RAM\Sub.lst"
 %ASM68K% "Mega Drive Init\Main.asm", "..\out\files\MDINIT.MMD", , "Mega Drive Init\Main.lst"
 %ASM68K% "Time Warp Cutscene\Main.asm", "..\out\files\WARP__.MMD", , "Time Warp Cutscene\Main.lst"

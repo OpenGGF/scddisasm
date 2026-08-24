@@ -133,13 +133,6 @@ if [[ $REGION != 1 ]]; then
 		echo 'Only the packed-data suffix is read; all executable logic is assembled from source.' >&2
 		exit 1
 	fi
-	for file in BRAMMAIN.MMD; do
-		if [[ ! -f $ORIGINAL_DIR/$file ]]; then
-			echo "Missing regional executable input: $ORIGINAL_DIR/$file" >&2
-			echo 'See README.md for the remaining non-USA reconstruction requirements.' >&2
-			exit 1
-		fi
-	done
 fi
 
 # The checked-in Windows tools are console programs, but asm68k can create a
@@ -286,12 +279,6 @@ if [[ $REGION == 1 ]]; then
 		cp "$ISO_METADATA_DIR/$file" "$ROOT_DIR/out/files/$file"
 	done
 fi
-if [[ $REGION != 1 ]]; then
-	for file in BRAMMAIN.MMD; do
-		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
-	done
-fi
-
 run_tool() {
 	local status=0
 	if [[ $RUNNER == proton ]]; then
@@ -353,9 +340,7 @@ assemble 'CD Initial Program\IPX.asm' '..\out\files\IPX___.MMD' 'CD Initial Prog
 assemble 'CD System Program\SP.asm' '..\out\misc\sp.bin' 'CD System Program\SP.lst'
 assemble 'CD System Program\SPX.asm' '..\out\files\SPX___.BIN' 'CD System Program\SPX.lst'
 assemble 'Backup RAM\Initialization\Main.asm' '..\out\files\BRAMINIT.MMD' 'Backup RAM\Initialization\Main.lst'
-if [[ $REGION == 1 ]]; then
-	assemble 'Backup RAM\Main.asm' '..\out\files\BRAMMAIN.MMD' 'Backup RAM\Main.lst'
-fi
+assemble 'Backup RAM\Main.asm' '..\out\files\BRAMMAIN.MMD' 'Backup RAM\Main.lst'
 assemble 'Backup RAM\Sub.asm' '..\out\files\BRAMSUB.BIN' 'Backup RAM\Sub.lst'
 assemble 'Mega Drive Init\Main.asm' '..\out\files\MDINIT.MMD' 'Mega Drive Init\Main.lst'
 assemble 'Time Warp Cutscene\Main.asm' '..\out\files\WARP__.MMD' 'Time Warp Cutscene\Main.lst'

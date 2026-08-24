@@ -2,6 +2,22 @@
 
 ## 2026-08-24
 
+- **Cross-region Backup RAM manager milestone:** `BRAMMAIN.MMD` is now
+  source-emitted for all three retail regions instead of being copied into
+  non-USA builds. Japan produces 30,320 bytes with SHA-256
+  `c677ea995d85712ee5a0d9952490fad729406402b40c128dbb6a2d167544d255`, Europe
+  produces 30,370 bytes with SHA-256
+  `578964dd827626146ad13980dbbe049e8a4f05a4bfbbcf633364d7a2770bca43`, and
+  USA remains the exact 31,328-byte output with SHA-256
+  `ed4a0bfbb4d6f1f18d191bc34780228c57641d7f2a0d6dd354da2f98e5072f65`.
+  Fresh guarded displayless builds compare USA at 133/0/0 and Japan/Europe at
+  63/67/0 (matches/differences/missing); the remaining non-USA differences are
+  the known level binaries. The regional branch uses explicit source `dc.b`
+  spans pending semantic decomposition, so this removes the copy-only runtime
+  fallback without claiming that every BRAMMAIN routine and data table is yet a
+  fully readable disassembly. No original files or disc images were added to
+  source control.
+
 - **Ending primary-program regional-layout milestone:** The USA, Japan, and
   Europe primary `ENDING.MMD` paths now emit their complete regional files from
   source, including the explicit event streams and tile tables. The rebuilt
