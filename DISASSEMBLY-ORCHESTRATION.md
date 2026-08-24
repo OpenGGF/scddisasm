@@ -2,6 +2,17 @@
 
 ## 2026-08-24
 
+- **Palmtree Panic regional reconciliation milestone:** The source now emits
+  the regional object-map byte, Act 2/Act 3 scroll order and start position,
+  R13 roll-tunnel operand forms, Act 3 debug-object flag, and R13 boss
+  allocator calls needed by `R12A__.MMD`, `R12B__.MMD`, `R13C__.MMD`, and
+  `R13D__.MMD`. Fresh guarded displayless Japan and Europe builds compare all
+  four targets byte-for-byte; the remaining non-USA failures are the other
+  known incomplete level families. A fresh USA regression build still
+  reports 133/0/0 (matches/differences/missing). The CHDs and extracted
+  regional files remain ignored local verification inputs, and no original
+  bytes were added to source control.
+
 - **Cross-region Backup RAM manager milestone:** `BRAMMAIN.MMD` is now
   source-emitted for all three retail regions instead of being copied into
   non-USA builds. Japan produces 30,320 bytes with SHA-256

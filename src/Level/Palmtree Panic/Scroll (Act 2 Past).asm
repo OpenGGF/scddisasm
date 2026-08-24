@@ -142,11 +142,7 @@ LevelSizeLoad_StartPos:
 
 LevelStartLoc:
 	if ACT3_SCROLL_VARIANT
-		if REGION=USA
-			dc.w	$40, $2A2
-		else
-			dc.w	$40, $A2
-		endif
+		dc.w	$40, $2A2
 	else
 		dc.w	$50, $185
 	endif
@@ -279,9 +275,15 @@ LevelScroll:
 	clr.w	scrollFlagsBg2.w
 	clr.w	scrollFlagsBg3.w
 
-	bsr.w	RunLevelEvents			; Run level events
-	bsr.w	ScrollCamX			; Scroll camera horizontally
-	bsr.w	ScrollCamY			; Scroll camera vertically
+	if REGION=USA
+		bsr.w	RunLevelEvents			; Run level events
+		bsr.w	ScrollCamX			; Scroll camera horizontally
+		bsr.w	ScrollCamY			; Scroll camera vertically
+	else
+		bsr.w	ScrollCamX			; Scroll camera horizontally
+		bsr.w	ScrollCamY			; Scroll camera vertically
+		bsr.w	RunLevelEvents			; Run level events
+	endif
 
 	move.w	cameraY.w,vscrollScreen.w	; Update VScroll values
 	move.w	cameraBgY.w,vscrollScreen+2.w

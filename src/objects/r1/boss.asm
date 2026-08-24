@@ -332,11 +332,7 @@ EggmanObject_0_Routine0:
 ; ------------------------------------------------------------------------------
 
 sub_20BD1C:
-	if REGION=USA
-		jsr	FindObjSlot
-	else
-		jsr	SpawnObject
-	endif
+	jsr	FindObjSlot
 	bne.w	locret_20BD34
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -1327,11 +1323,7 @@ sub_20C93C:
 ; ------------------------------------------------------------------------------
 
 sub_20C960:
-	if REGION=USA
-		jsr	FindObjSlot
-	else
-		jsr	SpawnObject
-	endif
+	jsr	FindObjSlot
 	bne.s	locret_20C988
 	st	obj.routine_2(a1)
 	move.b	#$18,obj.id(a1)
@@ -2707,11 +2699,7 @@ sub_20D72A:
 	swap	d2
 	add.w	d2,d2
 	add.w	d2,d2
-	if REGION=USA
-		jsr	FindObjSlot
-	else
-		jsr	SpawnObject
-	endif
+	jsr	FindObjSlot
 	bne.s	locret_20D784
 	st	obj.routine_2(a1)
 	lea	word_20D786,a2

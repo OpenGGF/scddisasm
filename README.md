@@ -50,6 +50,15 @@ regional path still contains explicit `dc.b` spans pending semantic
 decomposition, so source-only generation is not being presented as a fully
 readable disassembly of every routine and data table.
 
+The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
+`R12B__.MMD`, `R13C__.MMD`, and `R13D__.MMD` byte-exact for both Japan and
+Europe. The source preserves USA's existing exact output while selecting the
+regional object-map byte, scroll order and R13 start position, roll-tunnel
+operands, debug-object flag, and R13 boss allocator calls. `R12C__.MMD` and
+`R12D__.MMD`, along with the other still-differing regional level binaries,
+remain unfinished; this milestone does not complete the level graph or the
+disc reconstruction.
+
 The sixteen former Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused
 after bounded per-level prefixes. This replaces 4,128 binary-included bytes

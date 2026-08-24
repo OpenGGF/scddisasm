@@ -104,7 +104,7 @@ ObjRollTunnel_Main:
 		bset	#2,oFlags(a1)
 		bne.s	.End
 		move.b	#$E,oYRadius(a1)
-		if REGION=USA
+		if (REGION=USA)|(STAGE_R13)
 			move.b	#7,oXRadius(a1)
 		else
 			move.b	#7,oWidth(a1)
@@ -160,7 +160,7 @@ ObjRollTunnel_Main:
 ; -------------------------------------------------------------------------
 
 ObjRollTunnel_CheckPlayer:
-	if REGION=USA
+	if (REGION=USA)|(STAGE_R13)
 		tst.b	debugMode
 	else
 		tst.w	debugMode
