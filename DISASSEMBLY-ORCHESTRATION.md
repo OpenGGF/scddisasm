@@ -2,6 +2,14 @@
 
 ## 2026-08-24
 
+- **R43 retained Animal milestone:** The non-USA R43 source now restores the
+  retained Animal object’s presence, movement, animation, drawing, and
+  despawn links. Fresh guarded displayless Japan and Europe builds/checks
+  compare the entire Animal body exactly; the next R43C and R43D differences
+  both begin at byte 60020 in the following retained CrushBlocks body. USA
+  remains 133/0/0 (matches/differences/missing). No proprietary bytes were
+  added, and the ignored CHD-derived comparison trees remain untracked.
+
 - **R43 retained Yago milestone:** The non-USA R43 source now restores both
   Yago subtype implementations, including their collision, animation,
   drawing, despawn, and relocated asset links. Fresh guarded displayless

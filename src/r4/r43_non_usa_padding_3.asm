@@ -157,3 +157,19 @@
 	jsr	$206DBC.L
 	org	Padding1+$146C+R43_NON_USA_ADJUST
 	jsr	$206DBC.L
+
+; R43RetainedAnimal_AnimalObject and its movement paths.
+	org	Padding1+$14C2+R43_NON_USA_ADJUST
+	jsr	$20FD74.L
+	org	Padding1+$15A8+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$161A+R43_NON_USA_ADJUST
+	jsr	$205D00.L
+	org	Padding1+$1620+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$1678+R43_NON_USA_ADJUST
+	jsr	$205D00.L
+	org	Padding1+$167E+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$1684+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
