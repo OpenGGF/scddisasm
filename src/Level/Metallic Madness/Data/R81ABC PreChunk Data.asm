@@ -951,3 +951,4 @@ R81ABC_FinalTrampoline:
 
 	include	"Level/Metallic Madness/Data/R8 Retained Stage Tail Records.asm"
 	dc.w	0
+	dc.w	$23

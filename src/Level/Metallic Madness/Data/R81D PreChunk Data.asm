@@ -876,3 +876,4 @@ R81D_Platform_FrameB:
 R81D_FinalTrampoline:
 	jmp	$20634A
 	include	"Level/Metallic Madness/Data/R8 Retained Stage Tail Records.asm"
+	dc.w	0, $23
