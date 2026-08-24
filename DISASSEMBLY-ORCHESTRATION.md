@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **R43 retained Yago milestone:** The non-USA R43 source now restores both
+  Yago subtype implementations, including their collision, animation,
+  drawing, despawn, and relocated asset links. Fresh guarded displayless
+  Japan and Europe builds/checks compare the entire Yago body exactly; the
+  next R43C and R43D differences both begin at byte 59297 in the following
+  retained Animal body. USA remains 133/0/0 (matches/differences/missing).
+  No proprietary bytes were added, and the ignored CHD-derived comparison
+  trees remain untracked.
+
 - **R43 retained TagaTaga milestone:** The non-USA R43 source now restores
   the TagaTaga body, its three child spawns, and the retained missile body
   with the historical regional helper links and sprite pointers. Fresh

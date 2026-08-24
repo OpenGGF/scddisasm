@@ -99,3 +99,61 @@
 	jmp	$203AA6.L
 	org	Padding1+$0FC6+R43_NON_USA_ADJUST
 	jmp	$203B52.L
+
+; R43RetainedYago_YagoObject and both subtype implementations.
+	org	Padding1+$0FDE+R43_NON_USA_ADJUST
+	jsr	$20FD2C.L
+	org	Padding1+$1032+R43_NON_USA_ADJUST
+	move.l	#$20E4F8,$4(A0)
+	org	Padding1+$1042+R43_NON_USA_ADJUST
+	jsr	$206DBC.L
+	org	Padding1+$104E+R43_NON_USA_ADJUST
+	lea.l	$20E4F2.L,A1
+	org	Padding1+$1054+R43_NON_USA_ADJUST
+	jsr	$205D00.L
+	org	Padding1+$105A+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$1064+R43_NON_USA_ADJUST
+	jmp	$2078A8.L
+	org	Padding1+$1092+R43_NON_USA_ADJUST
+	jsr	$206DBC.L
+	org	Padding1+$10A4+R43_NON_USA_ADJUST
+	lea.l	$206E86.L,A1
+	org	Padding1+$10B2+R43_NON_USA_ADJUST
+	lea.l	$207028.L,A1
+	org	Padding1+$11A4+R43_NON_USA_ADJUST
+	lea.l	$206E86.L,A1
+	org	Padding1+$11B2+R43_NON_USA_ADJUST
+	lea.l	$207028.L,A1
+	org	Padding1+$11D6+R43_NON_USA_ADJUST
+	jsr	$2078A4.L
+	org	Padding1+$11F2+R43_NON_USA_ADJUST
+	jsr	$206DBC.L
+	org	Padding1+$1248+R43_NON_USA_ADJUST
+	jsr	$20FD2C.L
+	org	Padding1+$129C+R43_NON_USA_ADJUST
+	move.l	#$20E772,$4(A0)
+	org	Padding1+$12AC+R43_NON_USA_ADJUST
+	jsr	$206DBC.L
+	org	Padding1+$12B8+R43_NON_USA_ADJUST
+	lea.l	$20E76C.L,A1
+	org	Padding1+$12BE+R43_NON_USA_ADJUST
+	jsr	$205D00.L
+	org	Padding1+$12C4+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$12CE+R43_NON_USA_ADJUST
+	jmp	$2078A8.L
+	org	Padding1+$1302+R43_NON_USA_ADJUST
+	jsr	$206DBC.L
+	org	Padding1+$1314+R43_NON_USA_ADJUST
+	lea.l	$206E86.L,A1
+	org	Padding1+$1322+R43_NON_USA_ADJUST
+	lea.l	$207028.L,A1
+	org	Padding1+$1414+R43_NON_USA_ADJUST
+	lea.l	$206E86.L,A1
+	org	Padding1+$1422+R43_NON_USA_ADJUST
+	lea.l	$207028.L,A1
+	org	Padding1+$1442+R43_NON_USA_ADJUST
+	jsr	$206DBC.L
+	org	Padding1+$146C+R43_NON_USA_ADJUST
+	jsr	$206DBC.L
