@@ -108,8 +108,9 @@ target_water_y		EQU	destWaterHeight
 water_speed		EQU	waterMoveSpeed
 water_routine		EQU	waterRoutine
 water_full		EQU	waterFullscreen
-	if (STAGE_ZONE=1)|(STAGE_ZONE=2)|((REGION=USA)&((STAGE_ZONE=3)|(STAGE_ZONE=5)|(STAGE_ZONE=6)))
-		; Collision Chaos and Tidal Tempest retain the earlier current-water flag address in every region. USA also retains it for Quartz Quadrant, Stardust Speedway, and Metallic Madness.
+	if (STAGE_ZONE=1)|(STAGE_ZONE=2)|(STAGE_ZONE=3)|(STAGE_ZONE=5)|(STAGE_ZONE=6)
+		; Collision Chaos, Tidal Tempest, Quartz Quadrant, Stardust Speedway,
+		; and Metallic Madness retain the earlier current-water flag address.
 water_current_flag	EQU	windTunnelFlag
 	else
 water_current_flag	EQU	waterSlideFlag

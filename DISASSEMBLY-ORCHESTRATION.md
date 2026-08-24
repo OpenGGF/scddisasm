@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **Non-USA R7/R8 water-flag milestone:** The shared R5 compatibility aliases
+  now select the retained `$F7C7` current-water flag for Quartz Quadrant,
+  Stardust Speedway, and Metallic Madness in all regions. Fresh guarded
+  displayless Japan and Europe builds/checks compare R71A–R73D and R82A–R83D
+  exactly (16 additional retail level binaries); USA remains 133/0/0
+  (matches/differences/missing). The remaining non-USA differences are still
+  documented below; no proprietary bytes were added, and the ignored CHD-
+  derived comparison trees remain untracked.
+
 - **R43 retained Big Door/Break Block milestone:** The non-USA R43 source
   now restores the retained Big Door and Break Block pointers and helper
   links. Fresh guarded displayless Japan and Europe builds/checks compare the
