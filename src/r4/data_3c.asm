@@ -5,6 +5,7 @@
 ; ------------------------------------------------------------------------------
 
 R43_USA_ADJUST	EQU	0
+R43_NON_USA_ADJUST	EQU	0
 
 Padding1:
 	if (REGION=USA)&(DEMO<>0)
@@ -19,6 +20,11 @@ Padding1:
 	else
 R43_VARIANT equ 0
 		include	"Level/Tidal Tempest/Data/R43CD PreChunk Prefix.asm"
+		R43PrefixEnd:
+		if REGION<>USA
+			include	"r4/r43_non_usa_padding_3.asm"
+			org	R43PrefixEnd
+		endif
 		if REGION=USA
 			include	"r4/usa_padding_3.asm"
 		endif

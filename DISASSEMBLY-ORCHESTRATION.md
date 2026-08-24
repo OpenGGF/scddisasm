@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **R43 retained switch/door link milestone:** The non-USA R43 source now
+  restores the historical helper links for the discarded Act 2 switch and
+  door body with source `org`/instruction directives, including the R43D
+  0x14-byte prefix adjustment. Fresh guarded displayless Japan and Europe
+  builds/checks now compare the R43 switch/door region exactly; the next
+  R43C and R43D differences begin at bytes 55254 and 55279. USA remains
+  133/0/0 (matches/differences/missing). No proprietary bytes were added,
+  and the ignored CHD-derived comparison trees remain untracked.
+
 - **R3/R4 current-water alias milestone:** The shared
   `Quartz Quadrant/R5 Compatibility.asm` alias now selects `windTunnelFlag`
   for Collision Chaos and Tidal Tempest in every region, while retaining the
