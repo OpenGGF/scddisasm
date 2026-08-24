@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **R43 retained CrushBlocks milestone:** The non-USA R43 source now restores
+  the retained CrushBlocks sprite pointer, child-spawn, despawn, collision,
+  SolidObject, and draw links. Fresh guarded displayless Japan and Europe
+  builds/checks compare the entire CrushBlocks body exactly; the next R43C
+  and R43D differences both begin at byte 60541 in the following retained
+  Block body. USA remains 133/0/0 (matches/differences/missing). No
+  proprietary bytes were added, and the ignored CHD-derived comparison
+  trees remain untracked.
+
 - **R43 retained Animal milestone:** The non-USA R43 source now restores the
   retained Animal object’s presence, movement, animation, drawing, and
   despawn links. Fresh guarded displayless Japan and Europe builds/checks

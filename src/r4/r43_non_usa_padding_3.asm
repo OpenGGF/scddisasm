@@ -173,3 +173,19 @@
 	jsr	$203AA6.L
 	org	Padding1+$1684+R43_NON_USA_ADJUST
 	jmp	$2078A4.L
+
+; R43RetainedCrush_CrushBlocksObject and its subtype path.
+	org	Padding1+$175A+R43_NON_USA_ADJUST
+	move.l	#$20EB86,$4(A0)
+	org	Padding1+$1794+R43_NON_USA_ADJUST
+	jsr	$207884.L
+	org	Padding1+$179C+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1886+R43_NON_USA_ADJUST
+	jmp	$2078A8.L
+	org	Padding1+$1898+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$18A2+R43_NON_USA_ADJUST
+	bsr.w	$2087D8
+	org	Padding1+$18A6+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
