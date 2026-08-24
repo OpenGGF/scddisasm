@@ -17,6 +17,13 @@ Padding1:
 		dc.l	CapsuleGfx
 		dc.w	$9020
 		org	Padding1+$2CF0
+	elseif (REGION<>USA)&(DEMO<>0)
+		include	"Level/Tidal Tempest/Data/Legacy R43 Demo Prefix (JE).asm"
+		; The historical graph's first six bytes are a capsule graphics record.
+		org	Padding1
+		dc.l	CapsuleGfx
+		dc.w	$9020
+		org	LegacyR43DemoJEPrefixEnd
 	else
 R43_VARIANT equ 0
 		include	"Level/Tidal Tempest/Data/R43CD PreChunk Prefix.asm"
@@ -36,7 +43,11 @@ R43_VARIANT equ 0
 
 StageChunks:
 	incbin	"maps/r43c/chunks.bin"
-	if (REGION=USA)&(DEMO<>0)
+	if (REGION<>USA)&(DEMO<>0)
+		org	StageChunks+$3600
+		include	"Level/Tidal Tempest/Data/Legacy R43 Demo Chunks (JE).asm"
+		org	StageChunks+filesize("maps/r43c/chunks.bin")
+	elseif (REGION=USA)&(DEMO<>0)
 		org	StageChunks+$3600
 		include	"Level/USA Legacy R43 Demo Chunks.asm"
 		org	StageChunks+filesize("maps/r43c/chunks.bin")
@@ -130,7 +141,7 @@ StageMapUnk5:
 
 Padding2:
 	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 1162.asm"
-	if (REGION=USA)&(DEMO<>0)
+	if DEMO<>0
 R43_LEGACY_SONIC_TAIL EQU 1
 		org	Padding2
 		include	"Level/_Objects/Sonic/Data/Mappings.asm"
@@ -390,7 +401,7 @@ BossBubbleGfx:
 
 Padding3:
 	include	"Level/Wacky Workbench/Data/Legacy Padding 3/Suffix 2528.asm"
-	if (REGION=USA)&(DEMO<>0)
+	if DEMO<>0
 R43_LEGACY_AMY_TAIL EQU 1
 R43LegacyAmyMapBase EQU $23FD1C
 		org	Padding3

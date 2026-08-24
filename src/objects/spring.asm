@@ -198,12 +198,16 @@ SpringInit:
 
 ; ------------------------------------------------------------------------------
 
-loc_20844C:
+	loc_20844C:
 	btst	#3,d0
 	beq.s	loc_20847A
 	move.b	#$14,obj.routine(a0)
+	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 	move.b	#$18,obj.width_2(a0)
 	move.b	#$C,obj.height(a0)
+	else
+	move.b	#$10,obj.height(a0)
+	endif
 	move.l	#Spring45Sprites,obj.sprite_data(a0)
 	move.l	d0,-(sp)
 	moveq	#$F,d0

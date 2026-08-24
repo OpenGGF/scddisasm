@@ -241,7 +241,15 @@ R53Events:
 	bne.s	locret_203696
 	tst.b	boss_flags
 	bne.s	loc_203698
+	if def(R4_VARIANT)
+		if (REGION<>USA)&(DEMO<>0)&(R4_VARIANT=8)
+			move.w	#$310,target_bottom_bound
+		else
 	move.w	#$320,target_bottom_bound
+		endif
+	else
+	move.w	#$320,target_bottom_bound
+	endif
 
 locret_203696:
 	rts

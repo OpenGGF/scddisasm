@@ -12,17 +12,25 @@ DestroyOnGoodFuture:
 	tst.b	oSubtype(a0)
 	beq.s	.End
 
-.Destroy:
+	.Destroy:
 	move.w	oX(a0),d5
 	move.w	oY(a0),d6
+	if def(R43_LEGACY_DATA_PREFIX)
+		jsr	R43LegacyDeleteObject
+	else
 	jsr	DeleteObject
+	endif
 	move.w	d5,oX(a0)
 	move.w	d6,oY(a0)
 	move.b	#$18,oID(a0)
 	tst.b	oSprFlags(a0)
 	bpl.s	.NoReturn
 	move.w	#FM_EXPLODE,d0
+	if def(R43_LEGACY_DATA_PREFIX)
+		jsr	R43LegacyPlayFMSound
+	else
 	jsr	PlayFMSound
+	endif
 
 .NoReturn:
 	addq.l	#4,sp
@@ -32,7 +40,15 @@ DestroyOnGoodFuture:
 
 ; -------------------------------------------------------------------------
 
+	if def(R43_LEGACY_DATA_PREFIX)
+	if R43_LEGACY_DATA_PREFIX<>0
+R43DemoCheckAnimalPrescence:
+		else
 CheckAnimalPrescence:
+		endif
+	else
+CheckAnimalPrescence:
+	endif
 	tst.b	oSubtype(a0)
 	bmi.s	.End
 	cmpi.b	#2,timeZone
@@ -46,7 +62,11 @@ CheckAnimalPrescence:
 	tst.b	goodFuture
 	bne.s	.End
 	addq.l	#4,sp
+	if def(R43_LEGACY_DATA_PREFIX)
+		jmp	R43LegacyDeleteObject
+	else
 	jmp	DeleteObject
+	endif
 
 .End:
 	rts

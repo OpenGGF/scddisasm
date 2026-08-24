@@ -5,7 +5,15 @@
 ; -------------------------------------------------------------------------
 
 ObjAnimal:
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX<>0
+		jsr	R43DemoCheckAnimalPrescence
+		else
+		jsr	CheckAnimalPrescence
+		endif
+	else
 	jsr	CheckAnimalPrescence
+	endif
 	move.b	oSubtype(a0),d0
 	andi.b	#$7F,d0
 	bne.w	ObjGroundAnimal

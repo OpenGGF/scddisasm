@@ -46,6 +46,12 @@ PlayerObject:
 	bne.s	loc_203B44
 	cmpa.w	#player_object_2,a0
 	beq.s	loc_203B44
+	if (REGION<>USA)&(DEMO<>0)
+		btst	#7,$FFFFF607.w
+		beq.s	.skipDemoPlayerState
+		eori.b	#1,$FF1588
+	.skipDemoPlayerState:
+	endif
 	tst.b	debug_mode
 	beq.s	loc_203B44
 	jmp	DebugModeLegacy

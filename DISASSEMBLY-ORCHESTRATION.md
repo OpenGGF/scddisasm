@@ -2,6 +2,16 @@
 
 ## 2026-08-24
 
+- **Non-USA DEMO43C byte-exact milestone:** The Japanese and European demo
+  path now emits the historical R43 pre-chunk source graph, the eight source
+  records at the legacy `StageChunks+$3600` overlay, and the source-defined
+  Sonic and Amy mapping tails at their historical boundaries. Guarded
+  displayless Japan and Europe builds/checks now compare `DEMO43C.MMD` exactly
+  at 262,144 bytes; their aggregate results are each 129/1/0
+  (matches/differences/missing), with only `DEMO82A.MMD` still differing. The
+  USA build/check remains 133/0/0. No original or CHD-derived files were
+  added; the regional chunk overlay is emitted as labeled assembly records.
+
 - **R53 non-USA Act 3 milestone:** The Act 3 legacy wrapper now reuses the
   inline `ObjNull` entry instead of emitting a duplicate six-byte routine.
   The R53C/R53D non-USA scroll paths also restore the historical

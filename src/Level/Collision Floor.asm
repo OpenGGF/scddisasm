@@ -4,6 +4,22 @@
 ; Floor collision functions
 ; -------------------------------------------------------------------------
 
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX<>0
+LegacyCollisionAngleMap	EQU	R43DemoColAngleMap
+LegacyCollisionHeightMap	EQU	R43DemoColHeightMap
+LegacyCollisionWidthMap	EQU	R43DemoColWidthMap
+		else
+LegacyCollisionAngleMap	EQU	ColAngleMap
+LegacyCollisionHeightMap	EQU	ColHeightMap
+LegacyCollisionWidthMap	EQU	ColWidthMap
+		endif
+	else
+LegacyCollisionAngleMap	EQU	ColAngleMap
+LegacyCollisionHeightMap	EQU	ColHeightMap
+LegacyCollisionWidthMap	EQU	ColWidthMap
+	endif
+
 ; -------------------------------------------------------------------------
 ; Handle the player's collision on the ground
 ; -------------------------------------------------------------------------
@@ -691,7 +707,7 @@ FindLevelFloor:
 	andi.w	#$FF,d0
 	beq.s	.IsBlank			; If it's blank, branch
 
-	lea	ColAngleMap,a2			; Get collision angle
+	lea	LegacyCollisionAngleMap,a2		; Get collision angle
 	move.b	(a2,d0.w),(a4)
 
 	lsl.w	#4,d0				; Get base collision block height map index
@@ -711,7 +727,7 @@ FindLevelFloor:
 .NoYFlip:
 	andi.w	#$F,d1				; Get block column height
 	add.w	d0,d1
-	lea	ColHeightMap,a2
+	lea	LegacyCollisionHeightMap,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 
@@ -782,7 +798,7 @@ FindLevelFloor2:
 	andi.w	#$FF,d0
 	beq.s	.IsBlank			; If it's blank, branch
 
-	lea	ColAngleMap,a2			; Get collision angle
+	lea	LegacyCollisionAngleMap,a2		; Get collision angle
 	move.b	(a2,d0.w),(a4)
 
 	lsl.w	#4,d0				; Get base collision block height map index
@@ -802,7 +818,7 @@ FindLevelFloor2:
 .NoYFlip:
 	andi.w	#$F,d1				; Get block column height
 	add.w	d0,d1
-	lea	ColHeightMap,a2
+	lea	LegacyCollisionHeightMap,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 
@@ -880,7 +896,7 @@ FindLevelWall:
 	andi.w	#$FF,d0
 	beq.s	.IsBlank			; If it's blank, branch
 
-	lea	ColAngleMap,a2			; Get collision angle
+	lea	LegacyCollisionAngleMap,a2		; Get collision angle
 	move.b	(a2,d0.w),(a4)
 
 	lsl.w	#4,d0				; Get base collision block width map index
@@ -900,7 +916,7 @@ FindLevelWall:
 .NoXFlip:
 	andi.w	#$F,d1				; Get block row width
 	add.w	d0,d1
-	lea	ColWidthMap,a2
+	lea	LegacyCollisionWidthMap,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 
@@ -962,7 +978,7 @@ FindLevelWall2:
 	andi.w	#$FF,d0
 	beq.s	.IsBlank			; If it's blank, branch
 
-	lea	ColAngleMap,a2			; Get collision angle
+	lea	LegacyCollisionAngleMap,a2		; Get collision angle
 	move.b	(a2,d0.w),(a4)
 
 	lsl.w	#4,d0				; Get base collision block width map index
@@ -982,7 +998,7 @@ FindLevelWall2:
 .NoXFlip:
 	andi.w	#$F,d1				; Get block row width
 	add.w	d0,d1
-	lea	ColWidthMap,a2
+	lea	LegacyCollisionWidthMap,a2
 	move.b	(a2,d1.w),d0
 	ext.w	d0
 
@@ -1016,8 +1032,8 @@ FindLevelWall2:
 ; are dummied out.
 ; -------------------------------------------------------------------------
 
-RawColBlocks		EQU	ColHeightMap
-ConvRowColBlocks	EQU	ColHeightMap
+RawColBlocks		EQU	LegacyCollisionHeightMap
+ConvRowColBlocks	EQU	LegacyCollisionHeightMap
 
 ConvColArray:
 	rts
@@ -1050,10 +1066,10 @@ ConvColArray:
 	dbf	d3,.BlockLoop			; Loop for each block in the collision array
 
 	lea	ConvRowColBlocks,a1		; Convert widths
-	lea	ColWidthMap,a2
+	lea	LegacyCollisionWidthMap,a2
 	bsr.s	.ConvToColBlocks
 	lea	RawColBlocks,a1			; Convert heights
-	lea	ColHeightMap,a2
+	lea	LegacyCollisionHeightMap,a2
 
 ; -------------------------------------------------------------------------
 

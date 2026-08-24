@@ -155,12 +155,17 @@ ResultsBonus:
 	tst.w	ring_bonus
 	bne.s	loc_20AC4E
 	subq.w	#1,obj.var_32(a0)
+	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 	bpl.s	loc_20AC1E
 	addq.b	#2,obj.routine(a0)
 
 loc_20AC1E:
 	cmpi.w	#$1E,obj.var_32(a0)
 	bne.s	loc_20AC38
+	else
+	bpl.s	loc_20AC38
+	addq.b	#2,obj.routine(a0)
+	endif
 	tst.b	enter_special_stage
 	beq.s	loc_20AC38
 	move.w	#$C8,d0
@@ -187,6 +192,11 @@ loc_20AC58:
 	bne.s	loc_20AC8A
 	tst.w	ring_bonus
 	bne.s	loc_20AC8A
+	if (REGION<>USA)&(DEMO<>0)
+	move.w	#$9A,d0
+	jsr	PlayFmSound
+	bra.s	loc_20ACA6
+	else
 	jsr	StopZ80
 	move.b	#$9A,Z80_RAM+$1C09
 	jsr	StartZ80
@@ -194,6 +204,7 @@ loc_20AC58:
 	bcc.s	loc_20ACA6
 	move.w	#$2D,obj.var_32(a0)
 	bra.s	loc_20ACA6
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -257,10 +268,12 @@ loc_20AD2A:
 ; ------------------------------------------------------------------------------
 
 loc_20AD54:
+	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 	tst.b	time_attack
 	bne.s	locret_20AD8C
 	cmpi.b	#$7F,game_time_stones
 	beq.s	loc_20AD84
+	endif
 	tst.b	good_future
 	beq.s	locret_20AD8C
 	clr.b	good_future

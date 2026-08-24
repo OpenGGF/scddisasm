@@ -20,6 +20,18 @@ R43LegacyAddPoints	EQU	$20AE42
 R43LegacyStopZ80	EQU	$202342
 R43LegacyStartZ80	EQU	$20235E
 R43LegacyFadeOutMusic	EQU	$205CEA
+	elseif R43_LEGACY_DATA_PREFIX=2
+R43LegacyPlayFMSound	EQU	$2023A6
+R43LegacyLoadPalette	EQU	$20058C
+R43LegacyAnimateObject	EQU	$205D36
+R43LegacyDrawObject	EQU	$203B0C
+R43LegacyDeleteObject	EQU	$203BB8
+R43LegacySolidObject	EQU	$20903E
+R43LegacyGetOffObject	EQU	$208EF0
+R43LegacyAddPoints	EQU	$20AE44
+R43LegacyStopZ80	EQU	$20233E
+R43LegacyStartZ80	EQU	$20235A
+R43LegacyFadeOutMusic	EQU	$205CF2
 	else
 R43LegacyPlayFMSound	EQU	PlayFMSound
 R43LegacyLoadPalette	EQU	LoadPalette
@@ -45,6 +57,16 @@ R43LegacyAddPoints	EQU	AddPoints
 R43LegacyStopZ80	EQU	StopZ80
 R43LegacyStartZ80	EQU	StartZ80
 R43LegacyFadeOutMusic	EQU	FadeOutMusic
+	endif
+
+	if def(R43_LEGACY_DATA_PREFIX)
+	if R43_LEGACY_DATA_PREFIX=2
+R43_LEGACY_CAPSULE_SKIP	EQU	1
+	else
+R43_LEGACY_CAPSULE_SKIP	EQU	0
+	endif
+	else
+R43_LEGACY_CAPSULE_SKIP	EQU	0
 	endif
 
 oLvlEndTimer	EQU	oVar2A			; Timer
@@ -54,6 +76,7 @@ oLvlEndTimer	EQU	oVar2A			; Timer
 ; -------------------------------------------------------------------------
 
 ObjCapsule:
+	if R43_LEGACY_CAPSULE_SKIP=0
 	moveq	#0,d0				; Run routine
 	move.b	oRoutine(a0),d0
 	move.w	.Index(pc,d0.w),d0
@@ -79,7 +102,7 @@ ObjCapsule:
 	dc.w	ObjCapsule_Main-.Index
 	dc.w	ObjCapsule_Explode-.Index
 	if def(R43_LEGACY_DATA_PREFIX)
-		if R43_LEGACY_DATA_PREFIX=1
+		if R43_LEGACY_DATA_PREFIX<>0
 			dc.w	R43DemoStartResults-.Index
 			dc.w	R43DemoResultsActive-.Index
 		else
@@ -91,6 +114,16 @@ ObjCapsule:
 		dc.w	ResultsActive-.Index
 	endif
 	dc.w	ObjCapsule_Seed-.Index
+	else
+		org	Padding1+$4
+R43DemoCapsuleIndex:
+		org	Padding1+$6
+		dc.w	ObjCapsule_Main-R43DemoCapsuleIndex
+		dc.w	ObjCapsule_Explode-R43DemoCapsuleIndex
+		dc.w	R43DemoStartResults-R43DemoCapsuleIndex
+		dc.w	R43DemoResultsActive-R43DemoCapsuleIndex
+		dc.w	ObjCapsule_Seed-R43DemoCapsuleIndex
+	endif
 
 ; -------------------------------------------------------------------------
 ; Initialization
@@ -660,7 +693,7 @@ ObjSignpost:
 	dc.w	ObjSignpost_Main-.Index
 	dc.w	ObjSignpost_Spin-.Index
 	if def(R43_LEGACY_DATA_PREFIX)
-		if R43_LEGACY_DATA_PREFIX=1
+		if R43_LEGACY_DATA_PREFIX<>0
 			dc.w	R43DemoStartResults-.Index
 			dc.w	R43DemoResultsActive-.Index
 		else
@@ -747,7 +780,7 @@ ObjSignpost_Spin:
 ; -------------------------------------------------------------------------
 
 	if def(R43_LEGACY_DATA_PREFIX)
-		if R43_LEGACY_DATA_PREFIX=1
+		if R43_LEGACY_DATA_PREFIX<>0
 R43DemoStartResults:
 		else
 StartResults:
@@ -836,7 +869,7 @@ StartResults:
 ; -------------------------------------------------------------------------
 
 	if def(R43_LEGACY_DATA_PREFIX)
-		if R43_LEGACY_DATA_PREFIX=1
+		if R43_LEGACY_DATA_PREFIX<>0
 R43DemoResultsActive:
 		else
 ResultsActive:

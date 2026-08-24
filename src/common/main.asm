@@ -16,7 +16,9 @@ InitStage:
 	clr.w	stage_demo
 	cmpi.b	#$7F,game_time_stones
 	bne.s	loc_201512
+	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 	tst.b	time_attack
+	endif
 	bne.s	loc_201512
 	move.b	#1,good_future
 

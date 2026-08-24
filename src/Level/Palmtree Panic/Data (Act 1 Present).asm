@@ -441,13 +441,37 @@ Art_RobotGenWithered:
 ; Collision data
 ; -------------------------------------------------------------------------
 
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX<>0
+R43DemoColAngleMap:
+		else
 ColAngleMap:
+		endif
+	else
+ColAngleMap:
+	endif
 	incbin	"Level/_Data/Collision Angles.bin"
 	even
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX<>0
+R43DemoColHeightMap:
+		else
 ColHeightMap:
+		endif
+	else
+ColHeightMap:
+	endif
 	incbin	"Level/_Data/Collision Height Map.bin"
 	even
+	if def(R43_LEGACY_DATA_PREFIX)
+		if R43_LEGACY_DATA_PREFIX<>0
+R43DemoColWidthMap:
+		else
 ColWidthMap:
+		endif
+	else
+ColWidthMap:
+	endif
 	incbin	"Level/_Data/Collision Width Map.bin"
 	even
 LevelCollision:

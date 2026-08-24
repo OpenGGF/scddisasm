@@ -265,7 +265,15 @@ BigRingObject:
 	bne.s	BigRingFlashObject
 	cmpi.w	#50,rings
 	bcc.s	loc_209F44
-	jmp	CheckObjectDespawn
+	if def(R4_VARIANT)
+		if (REGION<>USA)&(DEMO<>0)&(R4_VARIANT=8)
+			jmp	DeleteObject
+		else
+			jmp	CheckObjectDespawn
+		endif
+	else
+		jmp	CheckObjectDespawn
+	endif
 
 ; ------------------------------------------------------------------------------
 

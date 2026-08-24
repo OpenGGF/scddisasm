@@ -371,7 +371,7 @@ off_2091EC:
 
 ; ------------------------------------------------------------------------------
 
-MonitorItemInit:
+	MonitorItemInit:
 	addq.b	#2,obj.routine(a0)
 	move.w	#$85A8,obj.sprite_tile(a0)
 	tst.b	obj.subtype_2(a0)
