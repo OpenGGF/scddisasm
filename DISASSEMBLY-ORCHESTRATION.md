@@ -11,15 +11,13 @@
   documented below; no proprietary bytes were added, and the ignored CHD-
   derived comparison trees remain untracked.
 
-- **R81 fixed-boundary milestone:** The non-USA R81A/R81B/R81C shared tail now
-  emits its historical final `$0023` record, and R81D emits the corresponding
-  `$0000,$0023` boundary before `StageChunks`. Fresh guarded displayless Japan
-  and Europe builds now produce all four R81 binaries at the exact retail
-  size of 262,144 bytes; each still has 1,323 known differing bytes, with the
-  first remaining difference at byte 63,492 in the retained boss/mapping
-  region. USA remains 133/0/0 (matches/differences/missing). No proprietary
-  bytes were added, and the ignored CHD-derived comparison trees remain
-  untracked.
+- **R81 byte-exact milestone:** The non-USA R81A/R81B/R81C/R81D sources now
+  restore the historical odd-length boss-table alignments, tile-word byte
+  order, platform-mapping end offset, and final stage-tail boundary. Fresh
+  guarded displayless Japan and Europe builds/checks compare all four R81
+  binaries exactly at the retail size of 262,144 bytes. Other non-USA
+  comparison targets remain unresolved; no proprietary bytes were added, and
+  the ignored CHD-derived comparison trees remain untracked.
 
 - **R43 retained Big Door/Break Block milestone:** The non-USA R43 source
   now restores the retained Big Door and Break Block pointers and helper

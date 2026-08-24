@@ -758,8 +758,10 @@ R81ABC_Boss_Move:
 
 R81ABC_BossAnimationA:
 	include	"Level/Metallic Madness/Data/R8 Retained Boss Animation A.asm"
+	even
 R81ABC_BossAnimationB:
 	include	"Level/Metallic Madness/Data/R8 Retained Boss Animation B.asm"
+	even
 R81ABC_BossMappingsA:
 	include	"Level/Metallic Madness/Data/R8 Retained Boss Mappings A.asm"
 R81ABC_BossMappingsB:
@@ -946,9 +948,8 @@ R81ABC_Platform_FrameB:
 
 	include	"Level/Metallic Madness/Data/R8 Retained Platform Mappings.asm"
 
+	dc.w	0
 R81ABC_FinalTrampoline:
 	jmp	$20634A
 
 	include	"Level/Metallic Madness/Data/R8 Retained Stage Tail Records.asm"
-	dc.w	0
-	dc.w	$23

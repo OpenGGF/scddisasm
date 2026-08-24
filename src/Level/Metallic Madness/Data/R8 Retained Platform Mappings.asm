@@ -2,7 +2,7 @@
 	dc.w	.Frame0-.MappingsStart
 	dc.w	.Frame1-.MappingsStart
 	dc.w	.Frame2-.MappingsStart
-	dc.w	.Empty-.MappingsStart
+	dc.w	.End-.MappingsStart
 .Frame0:
 	dc.b	7
 ; Y, size, tile word, X
@@ -41,3 +41,4 @@
 .Empty:
 	dc.b	0
 	even
+.End:
