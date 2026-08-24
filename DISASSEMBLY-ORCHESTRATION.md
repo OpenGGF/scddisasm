@@ -2,6 +2,19 @@
 
 ## 2026-08-24
 
+- **R6 non-USA scroll-order milestone:** The nine R6 scroll fragments that
+  previously emitted the USA call order now select the retail order by
+  region: Japan and Europe call `ScrollFgX`, `ScrollFgY`, then `StageEvents`,
+  while USA retains `StageEvents`, `ScrollFgX`, then `ScrollFgY`. The existing
+  `scroll_1a` order was already correct and is unchanged. Fresh guarded
+  displayless Japan and Europe builds/checks advance the first R6 differences
+  to R61B byte 44311, R61C byte 44329, R61D byte 44241, R62A byte 33821,
+  R62B byte 33795, R62C byte 33729, R62D byte 33769, R63C byte 37349, and
+  R63D byte 37261. Japan and Europe each remain at 69 matches, 61 known
+  level differences, and 0 missing targets; USA remains 133/0/0. No
+  proprietary bytes were added, and the ignored CHD-derived comparison
+  trees remain untracked.
+
 - **R6 non-USA roll-entry sound milestone:** The shared
   `objects/r6/player.asm` source now emits the Japan/Europe
   `move.w #$9C,d0` and `jsr PlayFmSound` sequence at the roll-entry path

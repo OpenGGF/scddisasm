@@ -206,9 +206,15 @@ loc_202A50:
 	clr.w	scroll_flags_bg
 	clr.w	scroll_flags_bg2
 	clr.w	scroll_flags_bg3
-	bsr.w	StageEvents
-	bsr.w	ScrollFgX
-	bsr.w	ScrollFgY
+	if REGION=USA
+		bsr.w	StageEvents
+		bsr.w	ScrollFgX
+		bsr.w	ScrollFgY
+	else
+		bsr.w	ScrollFgX
+		bsr.w	ScrollFgY
+		bsr.w	StageEvents
+	endif
 	move.w	scroll_fg_y,scroll_y
 	move.w	scroll_bg_y,scroll_y+2
 	move.w	scroll_x_move,d4
