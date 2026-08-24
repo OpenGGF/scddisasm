@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **R43 retained TagaTaga milestone:** The non-USA R43 source now restores
+  the TagaTaga body, its three child spawns, and the retained missile body
+  with the historical regional helper links and sprite pointers. Fresh
+  guarded displayless Japan and Europe builds/checks compare that entire
+  body exactly; the next R43C and R43D differences both begin at byte 58045
+  in the following retained Yago body. USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **R43 retained Amenbo milestone:** The non-USA R43 source now restores the
   nine historical helper links in the retained Amenbo body and its child /
   subtype paths. Fresh guarded displayless Japan and Europe builds/checks
