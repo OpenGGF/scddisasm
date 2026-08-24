@@ -343,3 +343,43 @@
 	jsr	$203AA6.L
 	org	Padding1+$2666+R43_NON_USA_ADJUST
 	jmp	$2078A4.L
+
+; R43RetainedBigDoor_BigDoorObject and its debris links.
+	org	Padding1+$26FC+R43_NON_USA_ADJUST
+	move.l	#$20FAA4,$4(A0)
+	org	Padding1+$2718+R43_NON_USA_ADJUST
+	jsr	$2087D8.L
+	org	Padding1+$271E+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$2724+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$275A+R43_NON_USA_ADJUST
+	jsr	$207884.L
+	org	Padding1+$27B8+R43_NON_USA_ADJUST
+	jsr	$2087D8.L
+	org	Padding1+$27BE+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$27C4+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+
+; R43RetainedBreakBlock_BreakBlockObject and its debris links.
+	org	Padding1+$288E+R43_NON_USA_ADJUST
+	move.l	#$20FC9C,$4(A0)
+	org	Padding1+$28B4+R43_NON_USA_ADJUST
+	jsr	$2087D8.L
+	org	Padding1+$28BC+R43_NON_USA_ADJUST
+	jsr	$20868A.L
+	org	Padding1+$28C8+R43_NON_USA_ADJUST
+	jsr	$2087D8.L
+	org	Padding1+$28CE+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$28D4+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$28DE+R43_NON_USA_ADJUST
+	jsr	$202598.L
+	org	Padding1+$2924+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$29B6+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$29BC+R43_NON_USA_ADJUST
+	jmp	$203B52.L

@@ -2,6 +2,13 @@
 
 ## 2026-08-24
 
+- **R43 retained Big Door/Break Block milestone:** The non-USA R43 source
+  now restores the retained Big Door and Break Block pointers and helper
+  links. Fresh guarded displayless Japan and Europe builds/checks compare the
+  complete R43C/R43D binaries exactly; USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **R43 retained CollapseFloor/PlatformChain/Pressure Elevator milestone:**
   The non-USA R43 source now restores the retained collapsing-floor,
   platform-chain, and pressure-elevator pointers and helper links. Fresh
