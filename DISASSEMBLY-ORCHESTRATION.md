@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **Regional results-state milestone:** The shared `objects/results.asm`
+  source now uses the `$1E0` timer and `$1D8` completion threshold only for
+  USA, and the retail `$168`/`$160` values for Japan and Europe. Fresh guarded
+  displayless Japan and Europe builds/checks now compare R61B, R61C, R61D,
+  R63C, and R63D exactly; their remaining R6 differences begin in the R62
+  family at bytes 33821, 33795, 33729, and 33769. USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **Regional monitor-timer milestone:** The shared `objects/monitor_time.asm`
   source now emits the retail `$528` monitor timers only for USA and `$4B0`
   for Japan and Europe; the former `STAGE_ZONE=4` override was not present in
