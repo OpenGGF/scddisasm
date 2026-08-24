@@ -243,3 +243,11 @@
 	move.l	#$20F0C4,$4(A0)
 	org	Padding1+$1DC8+R43_NON_USA_ADJUST
 	move.l	#$20F0CC,$4(A0)
+
+; R43RetainedSpikeBall_SpikeBallObject and its sprite/drawing links.
+	org	Padding1+$1E2E+R43_NON_USA_ADJUST
+	move.l	#$20F11C,$4(A0)
+	org	Padding1+$1E36+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$1E3C+R43_NON_USA_ADJUST
+	jmp	$2078A4.L

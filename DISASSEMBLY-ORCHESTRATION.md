@@ -2,6 +2,14 @@
 
 ## 2026-08-24
 
+- **R43 retained SpikeBall milestone:** The non-USA R43 source now restores
+  the retained SpikeBall sprite pointer, draw, and despawn links. Fresh
+  guarded displayless Japan and Europe builds/checks compare the entire
+  SpikeBall body exactly; the next differences are in the following retained
+  CircleSpikeBall body, at byte 61756 in R43C and byte 61786 in R43D. USA
+  remains 133/0/0 (matches/differences/missing). No proprietary bytes were
+  added, and the ignored CHD-derived comparison trees remain untracked.
+
 - **R43 retained Mace milestone:** The non-USA R43 source now restores the
   retained Mace draw, despawn, linked-chain spawn/delete, and relocated sprite
   pointer links. Fresh guarded displayless Japan and Europe builds/checks
