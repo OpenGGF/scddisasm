@@ -39,3 +39,13 @@
 	jsr	$2087D8.L
 	org	Padding1+$055C+R43_NON_USA_ADJUST
 	jsr	$20786E.L
+
+; R43RetainedTonboObject and its animation path.
+	org	Padding1+$0618+R43_NON_USA_ADJUST
+	jsr	$20FD2C.L
+	org	Padding1+$062C+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$0636+R43_NON_USA_ADJUST
+	jmp	$2078A8.L
+	org	Padding1+$0704+R43_NON_USA_ADJUST
+	jmp	$205D00.L
