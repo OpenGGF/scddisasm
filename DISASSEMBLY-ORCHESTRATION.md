@@ -3,20 +3,20 @@
 ## 2026-08-24
 
 - **Ending primary-program regional-layout milestone:** The USA primary
-  `ENDING.MMD` program now remains source-emitted and byte-exact after making
-  its vectors, dispatch table, controller handlers, V-blank tables, packed
-  data pointers, and regional halfword targets symbolic. A fresh guarded
-  displayless USA build still matches the complete 44,052-byte file. With the
-  production non-USA fallback temporarily disabled for diagnosis, the Japan
-  source path matches its original from the MMD load offset `$100` through
-  `$22E9`; the first remaining Japan difference at `$22EA` is regional
-  animation/graphics data, not primary executable code. The Japan secondary
-  entry remains fixed at runtime `$FFC100` and its full suffix was already
-  exact. Europe is not complete: its diagnostic primary output is 54 bytes too
-  short and diverges in the early dispatch/program region. The production
-  frontend therefore still assembles `ENDING.MMD` only for USA while the
-  regional primary source and data are recovered. No proprietary regional
-  bytes were added to source control.
+  `ENDING.MMD` program remains source-emitted and byte-exact after making its
+  vectors, dispatch table, controller handlers, V-blank tables, packed data
+  pointers, and regional halfword targets symbolic. The Europe primary and
+  secondary paths now also emit an exact 44,036-byte `ENDING.MMD` from explicit
+  assembly data, including its regional event stream and tile tables; the
+  rebuilt Europe file has SHA-256
+  `7e4082d0c4e1df119c0939852bdf1f6d10403d8f49083e3e56ba5d7bf7c05925`.
+  Diagnostic Japan assembly remains 44,036 bytes and matches through file
+  offset `$22E9`; its first remaining difference at `$22EA` is regional
+  animation/graphics data, not primary executable code. The production
+  frontend continues to assemble `ENDING.MMD` only for USA while that Japan
+  difference remains unresolved; Europe exactness was validated through the
+  isolated regional source assembly. No proprietary regional bytes were added
+  to source control.
 
 - **Cross-region Ending secondary-program milestone:** The complete secondary
   executable/data block at `$FFC100` through the end of `ENDING.MMD` is now
