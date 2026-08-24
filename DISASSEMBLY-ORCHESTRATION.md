@@ -2,6 +2,17 @@
 
 ## 2026-08-24
 
+- **R6 non-USA roll-entry sound milestone:** The shared
+  `objects/r6/player.asm` source now emits the Japan/Europe
+  `move.w #$9C,d0` and `jsr PlayFmSound` sequence at the roll-entry path
+  before `PlayerStartRoll`; USA remains unchanged. Fresh guarded displayless
+  Japan and Europe builds/checks advance the first R6 differences to R61B
+  byte 10717, R61C/R63C byte 10851, R61D/R63D byte 10763, and the
+  corresponding later R6 offsets. Japan and Europe each remain at 69
+  matches, 61 known level differences, and 0 missing targets; USA remains
+  133/0/0. No proprietary bytes were added, and the ignored CHD-derived
+  comparison trees remain untracked.
+
 - **R6 non-USA palette-pointer milestone:** The R6 variant-2 palette table now
   points its first three Japan/Europe entries at the existing
   `S1TitlePalette` table, matching the retail R61C/R63C layout while leaving
