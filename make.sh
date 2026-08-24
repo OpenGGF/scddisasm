@@ -128,7 +128,12 @@ if [[ $REGION == 1 ]]; then
 	done
 fi
 if [[ $REGION != 1 ]]; then
-	for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD; do
+	if [[ ! -f $ORIGINAL_DIR/ATTACK.MMD ]]; then
+		echo "Missing regional Time Attack asset input: $ORIGINAL_DIR/ATTACK.MMD" >&2
+		echo 'Only the packed-data suffix is read; all executable logic is assembled from source.' >&2
+		exit 1
+	fi
+	for file in BRAMMAIN.MMD ENDING.MMD; do
 		if [[ ! -f $ORIGINAL_DIR/$file ]]; then
 			echo "Missing regional executable input: $ORIGINAL_DIR/$file" >&2
 			echo 'See README.md for the remaining non-USA reconstruction requirements.' >&2
@@ -282,7 +287,7 @@ if [[ $REGION == 1 ]]; then
 	done
 fi
 if [[ $REGION != 1 ]]; then
-	for file in ATTACK.MMD BRAMMAIN.MMD ENDING.MMD; do
+	for file in BRAMMAIN.MMD ENDING.MMD; do
 		cp "$ORIGINAL_DIR/$file" "$ROOT_DIR/out/files/$file"
 	done
 fi
@@ -386,8 +391,8 @@ assemble 'Title Screen\Secrets\Sound Test Image.asm' '..\out\files\DUMMY3.MMD' '
 
 assemble 'Time Attack\Sub.asm' '..\out\files\ATTACK.BIN' 'Time Attack\Sub.lst'
 assemble 'Thank You\Sub.asm' '..\out\files\THANKS_S.BIN' 'Thank You\Sub.lst'
+assemble 'Time Attack\Main.asm' '..\out\files\ATTACK.MMD' 'Time Attack\Main.lst'
 if [[ $REGION == 1 ]]; then
-	assemble 'Time Attack\Main.asm' '..\out\files\ATTACK.MMD' 'Time Attack\Main.lst'
 	assemble 'FMV\Main (Ending).asm' '..\out\files\ENDING.MMD' 'FMV\Main (Ending).lst'
 fi
 assemble 'Thank You\Main.asm' '..\out\files\THANKS_M.MMD' 'Thank You\Main.lst'

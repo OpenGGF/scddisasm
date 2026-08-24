@@ -2,6 +2,18 @@
 
 ## 2026-08-24
 
+- **Cross-region Time Attack logic milestone:** `ATTACK.MMD` is now assembled
+  through `src/Time Attack/Main.asm` for all three regions instead of copying
+  the complete non-USA executable. Japan and Europe select their two
+  region-adjusted packed-data pointers and read only the bounded asset suffix
+  at file offsets `$5674`-`$1FFFF` from the ignored regional original; the MMD
+  header and every byte before that asset boundary are source-emitted. Fresh
+  guarded displayless Japan, Europe, and USA builds complete, and all three
+  131,072-byte outputs compare exactly. USA retains all 133 matches; each
+  non-USA check remains at 63 matches, 67 known level differences, and 0
+  missing targets. Only two complete non-USA executable/data fallbacks remain:
+  `BRAMMAIN.MMD` and `ENDING.MMD`.
+
 - **Cross-region Thank You main-CPU milestone:** `THANKS_M.MMD` is now
   assembled from `src/Thank You/Main.asm` for all three regions. Japan and
   Europe omit the USA-only initial `$2A30` countdown and its V-blank
