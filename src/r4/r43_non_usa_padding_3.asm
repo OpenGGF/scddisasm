@@ -49,3 +49,23 @@
 	jmp	$2078A8.L
 	org	Padding1+$0704+R43_NON_USA_ADJUST
 	jmp	$205D00.L
+
+; R43RetainedAmenbo_AmenboObject and its child/subtype paths.
+	org	Padding1+$088A+R43_NON_USA_ADJUST
+	jsr	$20FD2C.L
+	org	Padding1+$089E+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$08A4+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$0972+R43_NON_USA_ADJUST
+	jsr	$205D00.L
+	org	Padding1+$0A2E+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$0AB2+R43_NON_USA_ADJUST
+	jsr	$202598.L
+	org	Padding1+$0AFE+R43_NON_USA_ADJUST
+	jsr	$205D00.L
+	org	Padding1+$0B04+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$0B0A+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
