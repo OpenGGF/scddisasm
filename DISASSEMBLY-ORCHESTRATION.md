@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **R6 stage-object-table milestone:** The shared
+  `r6/stage_object_maps_2.asm` source now selects the retail regional tuple in
+  the `StageObjects` table: USA keeps `0,4,$80,$21,0,$40`, while Japan and
+  Europe emit `0,3,$80,$21,0,$C0`. Fresh guarded displayless Japan and Europe
+  builds/checks now compare R62A, R62B, R62C, and R62D exactly; their next
+  remaining differences begin at R31A byte 16752. USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **Regional results-state milestone:** The shared `objects/results.asm`
   source now uses the `$1E0` timer and `$1D8` completion threshold only for
   USA, and the retail `$168`/`$160` values for Japan and Europe. Fresh guarded
