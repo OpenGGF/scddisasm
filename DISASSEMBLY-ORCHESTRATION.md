@@ -2,6 +2,19 @@
 
 ## 2026-08-24
 
+- **Regional CHD verification baseline:** The locally supplied Europe and Japan
+  CHDs are present at `original/disc-images/europe/` and
+  `original/disc-images/japan/`, where they remain ignored. The current Europe
+  image is 338,666,574 bytes with SHA-1
+  `eb4fc8879c4b6bf06831f16bb24db41597fb6b20`; the Japan image is 338,810,474
+  bytes with SHA-1 `6cbd62c14119c45265baede9e261d19dd4087960`. Their ignored
+  extracted comparison trees were used for fresh displayless `REGION=2` and
+  `REGION=0` builds and checks; each reports 63 matches, 67 known level
+  differences, and 0 missing targets. USA remains 133/0/0. `/var/home/james/Downloads`
+  currently contains no remaining CHD files. No CHD, extracted original, or
+  generated build output is tracked; this records the verification inputs and
+  baseline, not completion of the regional reconstruction.
+
 - **Palmtree Panic future pre-chunk milestone:** The R12C/R12D future-data
   paths no longer unconditionally overlay the USA-only Act 2 Present legacy
   table onto Japan/Europe pre-chunk data. The overlay and its relocated words
@@ -135,13 +148,14 @@
 
 - **Japan/Europe reference-media milestone:** Locally supplied retail CHDs are
   now available for all three regions without entering source control. The
-  European image identifies as `MK-4407-00` and has CHD SHA-1
-  `df8962ca5ac51befe40c21025fbde51f14c45f73`; the Japanese image identifies as
-  `G-6021-00` and has CHD SHA-1
-  `87102e7bf70981d33ae2aa4b04e2e7fe2bcab17b`. Their MODE1/2352 data tracks were
-  converted to 2,048-byte-sector ISO images and each 131-file filesystem was
-  extracted into the ignored regional comparison tree. This establishes the
-  missing byte-comparison prerequisites; it does not make the proprietary
+  The European image identifies as `MK-4407-00`; the current local copy is
+  338,666,574 bytes with CHD SHA-1
+  `eb4fc8879c4b6bf06831f16bb24db41597fb6b20`. The Japanese image identifies as
+  `G-6021-00`; the current local copy is 338,810,474 bytes with CHD SHA-1
+  `6cbd62c14119c45265baede9e261d19dd4087960`. Their MODE1/2352 data tracks
+  were converted to 2,048-byte-sector ISO images and each 131-file filesystem
+  was extracted into the ignored regional comparison tree. This establishes
+  the missing byte-comparison prerequisites; it does not make the proprietary
   images or extracted files build inputs that may be committed.
 
 - **Legacy Wacky Workbench collision/layout milestone:** The final 5,632-byte
