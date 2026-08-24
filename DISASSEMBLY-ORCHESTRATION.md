@@ -2,6 +2,16 @@
 
 ## 2026-08-24
 
+- **R3/R4 current-water alias milestone:** The shared
+  `Quartz Quadrant/R5 Compatibility.asm` alias now selects `windTunnelFlag`
+  for Collision Chaos and Tidal Tempest in every region, while retaining the
+  existing USA-only selection for Quartz Quadrant, Stardust Speedway, and
+  Metallic Madness. Fresh guarded displayless Japan and Europe
+  builds/checks now compare R31A–R33D and R41A–R42D exactly; the next R43
+  differences begin at byte 54349. USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **R6 stage-object-table milestone:** The shared
   `r6/stage_object_maps_2.asm` source now selects the retail regional tuple in
   the `StageObjects` table: USA keeps `0,4,$80,$21,0,$40`, while Japan and
