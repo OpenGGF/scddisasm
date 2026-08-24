@@ -1,6 +1,6 @@
 ; -------------------------------------------------------------------------
 ; Sonic CD Disassembly
-; Ending FMV main CPU program (USA)
+; Ending FMV main CPU program
 ; -------------------------------------------------------------------------
 
 	include	"_Include/Common.inc"
@@ -10873,7 +10873,7 @@ L_FFC100:
 L_FFC108:
 	bsr.w	L_FFC2D6
 L_FFC10C:
-	lea.l	$ffc242(pc), a0
+	lea.l	EndingVDPRegisters(pc), a0
 L_FFC110:
 	bsr.w	L_FFC4C8
 L_FFC114:
@@ -10883,11 +10883,11 @@ L_FFC11E:
 L_FFC128:
 	move.l	#$40000000, $c00004.l
 L_FFC132:
-	lea.l	$ffc8aa(pc), a0
+	lea.l	EndingArt(pc), a0
 L_FFC136:
 	bsr.w	L_FFC542
 L_FFC13A:
-	lea.l	$ffca9c(pc), a1
+	lea.l	EndingMap(pc), a1
 L_FFC13E:
 	move.l	#$45940003, d0
 L_FFC144:
@@ -10897,7 +10897,7 @@ L_FFC146:
 L_FFC148:
 	bsr.w	L_FFC196
 L_FFC14C:
-	lea.l	$ffc256(pc), a0
+	lea.l	EndingVDPState(pc), a0
 L_FFC150:
 	lea.l	$FFFFb200.w, a1
 L_FFC154:
@@ -10914,14 +10914,18 @@ L_FFC168:
 	bsr.w	L_FFC862
 L_FFC16C:
 	bsr.w	L_FFC35A
+	if REGION=USA
 L_FFC170:
-	move.w	#$258, $ffc240.l
+	move.w	#$258, EndingDelay
+	endif
 L_FFC178:
 	bsr.w	L_FFC862
+	if REGION=USA
 L_FFC17C:
-	tst.w	$ffc240.l
+	tst.w	EndingDelay
 L_FFC182:
 	beq.b	L_FFC190
+	endif
 L_FFC184:
 	btst.b	#$7, $a1201e.l
 L_FFC18C:
@@ -10973,19 +10977,25 @@ EndingVInterrupt:
 .SkipVDP:
 	jsr	ReadControllers(pc)
 	bsr.w	L_FFC81C
+	if REGION=USA
 	tst.w	EndingDelay
 	beq.b	.End
 	subq.w	#$1, EndingDelay
+	endif
 .End:
 	movem.l	(a7)+, d0-d7/a0-a6
 	rte
+	if REGION=USA
 EndingDelay:
 	dc.w	$0000
+	endif
+EndingVDPRegisters:
 	dc.l	$04343000
 	dc.l	$06700000
 	dc.l	$00000000
 	dc.l	$81390002
 	dc.l	$01000000
+EndingVDPState:
 	dc.l	$00000000
 	dc.l	$00000E00
 	dc.l	$0E660E88
@@ -11310,14 +11320,14 @@ L_FFC540:
 L_FFC542:
 	movem.l	d0-d7/a0-a1/a3-a5, -(a7)
 L_FFC546:
-	lea.l	$ffc604.l, a3
+	lea.l	L_FFC604.l, a3
 L_FFC54C:
 	lea.l	$c00000.l, a4
 L_FFC552:
 	bra.b	L_FFC55E
-	dc.l	$48E7FFDC
-	dc.l	$47F900FF
-	dc.b	$C6,$1A
+L_FFC554:
+	movem.l	d0-d7/a0-a1/a3-a5, -(a7)
+	lea.l	L_FFC61A.l, a3
 L_FFC55E:
 	lea.l	$FFFFb000.w, a1
 L_FFC562:
@@ -11339,7 +11349,7 @@ L_FFC572:
 L_FFC574:
 	moveq	#$0, d4
 L_FFC576:
-	jsr	$ffc630(pc)
+	jsr	BuildDecodeTable(pc)
 L_FFC57A:
 	move.b	(a0)+, d5
 L_FFC57C:
@@ -11750,6 +11760,7 @@ L_FFC876:
 L_FFC878:
 	rts
 SendSubCommand:
+	if REGION=USA
 	move.w	d0, $a12010.l
 .WaitForStart:
 	move.w	$a12020.l, d0
@@ -11763,6 +11774,28 @@ SendSubCommand:
 	move.w	$a12020.l, d0
 	bne.b	.WaitForFinish
 	rts
+	else
+	move.w	d0, $a12010.l
+.WaitForStart:
+	tst.w	$a12020.l
+	beq.b	.WaitForStart
+	move.w	#$0, $a12010.l
+.WaitForFinish:
+	tst.w	$a12020.l
+	bne.b	.WaitForFinish
+	rts
+SendSubCommand2:
+	move.w	d0, $a12012.l
+.WaitForStart:
+	tst.w	$a12022.l
+	beq.b	.WaitForStart
+	move.w	#$0, $a12012.l
+.WaitForFinish:
+	tst.w	$a12022.l
+	bne.b	.WaitForFinish
+	rts
+	endif
+EndingArt:
 	dc.l	$80268003
 	dc.l	$01140825
 	dc.l	$13351446
@@ -11887,7 +11920,9 @@ SendSubCommand:
 	dc.l	$FDA9DBBB
 	dc.l	$6DA6073D
 	dc.l	$5B6D30D7
-	dc.l	$9A000000
+	dc.w	$9A00
+EndingMap:
+	dc.w	$0000
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000

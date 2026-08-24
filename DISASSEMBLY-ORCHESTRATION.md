@@ -2,6 +2,19 @@
 
 ## 2026-08-24
 
+- **Cross-region Ending secondary-program milestone:** The complete secondary
+  executable/data block at `$FFC100` through the end of `ENDING.MMD` is now
+  region-aware source. Symbolic pointers replace fixed USA addresses; Japan
+  and Europe omit the two USA-only delay sections and emit their two shorter
+  Sub-CPU handshake routines. A diagnostic Japanese assembly matches every
+  byte from file offset `$A200` to EOF, and the corresponding European retail
+  span is identical. The production frontend retains its non-USA whole-file
+  fallback until the primary `$FF2000` program is recovered. A fresh guarded
+  displayless USA build still produces SHA-256
+  `a2de839be879145da035af6e1080a5264e849ff4ecd7813a83273ce60aaeb3e6`,
+  with all 133 comparison targets exact. No regional binary data was added to
+  source control.
+
 - **Ending decompressor disassembly milestone:** The 506-byte executable span
   at `$FFC606`-`$FFC7FF` in USA `ENDING.MMD` is now structured 68000 source
   instead of 126 opaque longword declarations. It identifies the decode-table
