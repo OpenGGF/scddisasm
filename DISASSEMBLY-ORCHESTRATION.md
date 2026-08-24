@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **Ending I/O routine disassembly milestone:** Two more executable spans in
+  USA `ENDING.MMD` are now labelled 68000 source instead of opaque longwords:
+  controller sampling at `$FFC82A`-`$FFC861` and the Sub-CPU command handshake
+  at `$FFC87A`-`$FFC8A9`. A fresh guarded displayless USA build completes, the
+  ENDING output retains SHA-256
+  `a2de839be879145da035af6e1080a5264e849ff4ecd7813a83273ce60aaeb3e6`,
+  and all 133 comparison targets remain exact. No regional original bytes were
+  added to source control.
+
 - **Ending interrupt disassembly milestone:** The USA `ENDING.MMD` secondary
   V-blank handler at `$FFC1BA`-`$FFC23F` is now emitted as labelled 68000
   instructions instead of 34 opaque longword declarations. Its installed

@@ -10971,7 +10971,7 @@ EndingVInterrupt:
 	move.l	#$C0000000, (a6)
 	move.w	$FFFFb200.w, $c00000.l
 .SkipVDP:
-	jsr	L_FFC82A(pc)
+	jsr	ReadControllers(pc)
 	bsr.w	L_FFC81C
 	tst.w	EndingDelay
 	beq.b	.End
@@ -11592,21 +11592,27 @@ L_FFC824:
 	move.w	$FFFFb346.w, sr
 L_FFC828:
 	rts
-L_FFC82A:
-	dc.l	$4BF900A1
-	dc.l	$201E4DF9
-	dc.l	$00A10003
-	dc.l	$1CBC0000
-	dc.l	$4A551016
-	dc.l	$E5080200
-	dc.l	$00C01CBC
-	dc.l	$00404A55
-	dc.l	$12160201
-	dc.l	$003F8001
-	dc.l	$46001200
-	dc.l	$1415B500
-	dc.l	$1AC1C001
-	dc.l	$1AC04E75
+ReadControllers:
+	lea.l	$a1201e.l, a5
+	lea.l	$a10003.l, a6
+	move.b	#$0, (a6)
+	tst.w	(a5)
+	move.b	(a6), d0
+	lsl.b	#$2, d0
+	andi.b	#$C0, d0
+	move.b	#$40, (a6)
+	tst.w	(a5)
+	move.b	(a6), d1
+	andi.b	#$3F, d1
+	or.b	d1, d0
+	not.b	d0
+	move.b	d0, d1
+	move.b	(a5), d2
+	eor.b	d2, d0
+	move.b	d1, (a5)+
+	and.b	d1, d0
+	move.b	d0, (a5)+
+	rts
 L_FFC862:
 	bset.b	#$0, $ff0f00.l
 L_FFC86A:
@@ -11617,18 +11623,20 @@ L_FFC876:
 	bne.b	L_FFC86E
 L_FFC878:
 	rts
-	dc.l	$33C000A1
-	dc.l	$20103039
-	dc.l	$00A12020
-	dc.l	$67F8B079
-	dc.l	$00A12020
-	dc.l	$66F033FC
-	dc.l	$000000A1
-	dc.l	$20103039
-	dc.l	$00A12020
-	dc.l	$66F83039
-	dc.l	$00A12020
-	dc.l	$66F04E75
+SendSubCommand:
+	move.w	d0, $a12010.l
+.WaitForStart:
+	move.w	$a12020.l, d0
+	beq.b	.WaitForStart
+	cmp.w	$a12020.l, d0
+	bne.b	.WaitForStart
+	move.w	#$0, $a12010.l
+.WaitForFinish:
+	move.w	$a12020.l, d0
+	bne.b	.WaitForFinish
+	move.w	$a12020.l, d0
+	bne.b	.WaitForFinish
+	rts
 	dc.l	$80268003
 	dc.l	$01140825
 	dc.l	$13351446
