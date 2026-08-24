@@ -197,3 +197,9 @@
 	jsr	$203AA6.L
 	org	Padding1+$19AA+R43_NON_USA_ADJUST
 	jmp	$2078A4.L
+
+; R43RetainedFan_FanObject draw and deletion links.
+	org	Padding1+$1AD6+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$1ADC+R43_NON_USA_ADJUST
+	jmp	$203B52.L

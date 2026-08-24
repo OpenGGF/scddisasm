@@ -2,6 +2,14 @@
 
 ## 2026-08-24
 
+- **R43 retained Fan milestone:** The non-USA R43 source now restores the
+  retained Fan draw and deletion links. Fresh guarded displayless Japan and
+  Europe builds/checks compare the entire Fan body exactly; the next
+  differences are in the following retained Mace body, at byte 60942 in
+  R43C and byte 60947 in R43D. USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **R43 retained Block milestone:** The non-USA R43 source now restores the
   retained Block collision, drawing, and despawn helper links. Fresh guarded
   displayless Japan and Europe builds/checks compare the entire Block body
