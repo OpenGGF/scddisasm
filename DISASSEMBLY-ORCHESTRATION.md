@@ -15,6 +15,19 @@
   generated build output is tracked; this records the verification inputs and
   baseline, not completion of the regional reconstruction.
 
+- **Legacy Quartz Quadrant regional layout milestone:** The R51A-R51D and
+  R52A-R52D non-USA scroll sources now emit the 18-byte
+  `InitPlayerObjectPointer` routine present in the Japan and Europe originals.
+  Their signpost graphics lists also omit the six-byte `BigRingFlashGfx`
+  entry in non-USA builds while retaining it for USA. Fresh guarded,
+  displayless Japan and Europe builds now report 69 matches, 61 known level
+  differences, and 0 missing targets; the eight corrected R5 outputs are all
+  exactly 262,144 bytes. USA remains 133/0/0 (matches/differences/missing).
+  The remaining differences are later non-USA entry-point and source-order
+  regions, so this is a layout/parity milestone rather than a claim of
+  byte-exact completion. The downloaded CHDs and extracted files remain
+  ignored local verification inputs.
+
 - **Palmtree Panic future pre-chunk milestone:** The R12C/R12D future-data
   paths no longer unconditionally overlay the USA-only Act 2 Present legacy
   table onto Japan/Europe pre-chunk data. The overlay and its relocated words

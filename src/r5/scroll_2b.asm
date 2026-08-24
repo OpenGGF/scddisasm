@@ -1,6 +1,5 @@
 ; ------------------------------------------------------------------------------
 
-	if REGION=USA
 InitPlayerObjectPointer:
 		lea	player_object,a6
 		tst.b	use_player_2
@@ -12,7 +11,6 @@ InitPlayerObjectPointer_Return:
 
 ; ------------------------------------------------------------------------------
 
-	endif
 
 InitScroll:
 	lea	player_object,a6

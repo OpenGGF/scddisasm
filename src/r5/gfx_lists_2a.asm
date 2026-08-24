@@ -86,7 +86,9 @@ SignpostGfxList:
 	gfxStart
 	gfxEntry SignpostGfx, $8780
 	gfxEntry BigRingGfx, $9100
+	if REGION=USA
 	gfxEntry BigRingFlashGfx, $7DE0
+	endif
 	gfxEnd
 
 ; ------------------------------------------------------------------------------
