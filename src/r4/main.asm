@@ -307,8 +307,10 @@ loc_20186C:
 loc_20187A:
 	move.b	#8,vblank_routine
 	bsr.w	VSync
+	if REGION=USA
 	cmpi.b	#6,player_object+obj.routine
 	bcc.s	loc_201898
+	endif
 	tst.b	control_locked
 	bne.s	loc_201898
 	btst	#7,p1_joy_tap
@@ -331,7 +333,12 @@ loc_201898:
 	tst.b	time_attack
 	bne.s	loc_2018FC
 	andi.b	#$70,d0
+	if REGION=USA
 	beq.s	loc_20187A
+	else
+	cmpi.b	#$70,d0
+	bne.s	loc_20187A
+	endif
 	subq.b	#1,lives
 	bpl.s	loc_2018CA
 	clr.b	lives

@@ -2,15 +2,29 @@
 
 ## 2026-08-24
 
-- **Regional CHD verification baseline:** The locally supplied Europe and Japan
+- **Regional pause-path layout milestone:** The shared `common/main.asm` and
+  duplicated `r4/main.asm` entry paths now select the retail pause-input
+  instruction sequence by region. Japan and Europe omit the USA-only
+  eight-byte player-routine gate and emit the four-byte `cmpi.b #$70,d0`
+  check present in their originals; USA retains its exact existing sequence.
+  Fresh guarded displayless Japan and Europe builds/checks report 69 matches,
+  61 known level differences, and 0 missing targets, with the R3/R4/R7/R8
+  header/layout drift moved past the shared entry code into later level data.
+  USA remains 133/0/0 (matches/differences/missing). This is a verified
+  regional layout correction, not a claim that those level binaries are yet
+  byte-exact. The three local CHD-derived comparison trees remain ignored and
+  no proprietary bytes were added to source control.
+
+- **Initial regional CHD verification baseline:** The locally supplied Europe and Japan
   CHDs are present at `original/disc-images/europe/` and
   `original/disc-images/japan/`, where they remain ignored. The current Europe
   image is 338,666,574 bytes with SHA-1
   `eb4fc8879c4b6bf06831f16bb24db41597fb6b20`; the Japan image is 338,810,474
   bytes with SHA-1 `6cbd62c14119c45265baede9e261d19dd4087960`. Their ignored
-  extracted comparison trees were used for fresh displayless `REGION=2` and
-  `REGION=0` builds and checks; each reports 63 matches, 67 known level
-  differences, and 0 missing targets. USA remains 133/0/0. `/var/home/james/Downloads`
+  extracted comparison trees were used for the initial displayless `REGION=2`
+  and `REGION=0` builds and checks; each reported 63 matches, 67 known level
+  differences, and 0 missing targets before the later regional layout
+  corrections. USA remains 133/0/0. `/var/home/james/Downloads`
   currently contains no remaining CHD files. No CHD, extracted original, or
   generated build output is tracked; this records the verification inputs and
   baseline, not completion of the regional reconstruction.
