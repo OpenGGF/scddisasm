@@ -2,6 +2,14 @@
 
 ## 2026-08-24
 
+- **R43 retained twin-moving-block milestone:** The non-USA R43 source now
+  restores the five historical helper links used by the discarded twin
+  moving-block body. Fresh guarded displayless Japan and Europe builds/checks
+  compare that body exactly; the next R43C and R43D differences both begin
+  at byte 55543 in the following retained Tonbo body. USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **R43 retained switch/door link milestone:** The non-USA R43 source now
   restores the historical helper links for the discarded Act 2 switch and
   door body with source `org`/instruction directives, including the R43D

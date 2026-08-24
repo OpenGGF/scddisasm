@@ -27,3 +27,15 @@
 	jmp	$2078A4.L
 	org	Padding1+$0288+R43_NON_USA_ADJUST
 	jmp	$2087D8.L
+
+; TwinMoveBlockObject and its child-spawn path.
+	org	Padding1+$04F6+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$0510+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$0516+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$0524+R43_NON_USA_ADJUST
+	jsr	$2087D8.L
+	org	Padding1+$055C+R43_NON_USA_ADJUST
+	jsr	$20786E.L
