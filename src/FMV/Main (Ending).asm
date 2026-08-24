@@ -18,7 +18,7 @@
 Start:
 	jmp	L_FF2020.l
 VInterrupt:
-	jmp	L_FF27F8.l
+	jmp	PrimaryVInterrupt.l
 	dc.l	$0000C040
 	dc.l	$456E6469
 	dc.l	$6E672041
@@ -29,7 +29,7 @@ L_FF2020:
 L_FF2024:
 	bclr.b	#$1, $a1200e.l
 L_FF202C:
-	move.l	#$ff27f8, $fffd08.l
+	move.l	#PrimaryVInterrupt, $fffd08.l
 L_FF2036:
 	move.b	#$0, $a1200e.l
 L_FF203E:
@@ -97,7 +97,7 @@ L_FF20DC:
 L_FF20DE:
 	move.w	$FFFFc086.w, d0
 L_FF20E2:
-	lea.l	$ff2194(pc), a1
+	lea.l	MainDispatchTable(pc), a1
 L_FF20E6:
 	adda.w	(a1, d0.w), a1
 L_FF20EA:
@@ -181,6 +181,7 @@ L_FF2190:
 L_FF2192:
 	rts
 MainDispatchTable:
+	if REGION=USA
 	dc.l	$019C019C
 	dc.l	$003E0076
 	dc.l	$00C00114
@@ -197,6 +198,24 @@ MainDispatchTable:
 	dc.l	$02A402C6
 	dc.l	$02E802F0
 	dc.b	$02,$F8
+	else
+	dc.l	$019C019C
+	dc.l	$003E0076
+	dc.l	$00C00114
+	dc.l	$0140014E
+	dc.l	$00EC0100
+	dc.l	$0154015A
+	dc.l	$0186018E
+	dc.l	$0196019C
+	dc.l	$019C0368
+	dc.l	$019E01D4
+	dc.l	$020C022A
+	dc.l	$0232023A
+	dc.l	$025C0284
+	dc.l	$02A602C8
+	dc.l	$02EA030C
+	dc.w	$032E
+	endif
 L_FF21D2:
 	lea.l	$200000.l, a0
 L_FF21D8:
@@ -376,7 +395,7 @@ L_FF2338:
 L_FF233C:
 	cmpi.w	#$3135, (a0)
 L_FF2340:
-	beq.b	L_FF2362
+	beq.b	BeginTimeAttack
 L_FF2342:
 	cmpi.w	#$3038, (a0)
 L_FF2346:
@@ -394,6 +413,10 @@ L_FF235A:
 L_FF235E:
 	beq.w	L_FF24B8
 L_FF2362:
+	if REGION=JAPAN
+	bra.b	L_FF2362
+	endif
+BeginTimeAttack:
 	lea.l	$10(a0), a0
 L_FF2366:
 	lea.l	$FFFFc000.w, a1
@@ -452,7 +475,7 @@ L_FF23CC:
 L_FF23D0:
 	lea.l	$FFFFc000.w, a1
 L_FF23D4:
-	lea.l	$ff2e86(pc), a2
+	lea.l	EndingTimeAttackData(pc), a2
 L_FF23D8:
 	moveq	#$7, d7
 L_FF23DA:
@@ -540,10 +563,28 @@ L_FF2474:
 L_FF247A:
 	rts
 L_FF247C:
+	if REGION=JAPAN
+	lea.l	$FFFF8000.w, a2
+	move.w	#$1, (a2)+
+	move.l	#$6EC00001, d0
+	move.l	d0, (a2)+
+	move.l	a0, (a2)+
+	move.w	#$B40, (a2)+
+	lea.l	$1680(a0), a0
+	endif
 	move.w	#$3a, $FFFFc086.w
 L_FF2482:
 	rts
 L_FF2484:
+	if REGION=JAPAN
+	lea.l	$FFFF8000.w, a2
+	move.w	#$1, (a2)+
+	move.l	#$45400002, d0
+	move.l	d0, (a2)+
+	move.l	a0, (a2)+
+	move.w	#$5A0, (a2)+
+	lea.l	$B40(a0), a0
+	endif
 	move.w	#$3c, $FFFFc086.w
 L_FF248A:
 	rts
@@ -560,7 +601,7 @@ L_FF24A4:
 L_FF24A8:
 	clr.w	$FFFFc08e.w
 L_FF24AC:
-	lea.l	$ff4166(pc), a2
+	lea.l	EndingEventData(pc), a2
 L_FF24B0:
 	move.l	a2, $FFFFc090.w
 L_FF24B4:
@@ -573,8 +614,12 @@ L_FF24C2:
 	bra.w	L_FF274E
 L_FF24C6:
 	move.l	$FFFFc08a.w, d0
+	if REGION=JAPAN
+	addi.l	#$A000, d0
+	else
 L_FF24CA:
 	addi.l	#$9100, d0
+	endif
 L_FF24D0:
 	move.l	d0, $FFFFc08a.w
 L_FF24D4:
@@ -728,7 +773,7 @@ L_FF25B2:
 L_FF25BA:
 	rts
 L_FF25BC:
-	lea.l	$ff26ea(pc), a1
+	lea.l	EndingPaletteData(pc), a1
 L_FF25C0:
 	jsr	$2b0.w
 L_FF25C4:
@@ -770,7 +815,7 @@ L_FF2628:
 L_FF262C:
 	move.l	#$c0000000, $c00004.l
 L_FF2636:
-	lea.l	$ff266a(pc), a0
+	lea.l	EndingFontData(pc), a0
 L_FF263A:
 	moveq	#$1f, d7
 L_FF263C:
@@ -787,6 +832,7 @@ L_FF2662:
 	move.w	#$8134, $FFFFfa46.w
 L_FF2668:
 	rts
+EndingFontData:
 	dc.l	$00000000
 	dc.l	$0C220E44
 	dc.l	$0E660E88
@@ -819,6 +865,7 @@ L_FF2668:
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$002E0000
+EndingPaletteData:
 	dc.l	$80048134
 	dc.l	$82308300
 	dc.l	$84058570
@@ -827,23 +874,32 @@ L_FF2668:
 	dc.l	$8C818D39
 	dc.l	$8F029003
 	dc.l	$91009200
-	dc.l	$000041F8
-	dc.l	$FA4A43F9
-	dc.l	$00A10003
-	dc.l	$610A41F8
-	dc.l	$FA4C43F9
-	dc.l	$00A10005
-	dc.l	$12BC0000
-	dc.l	$4A501011
-	dc.l	$E5080200
-	dc.l	$00C012BC
-	dc.l	$00404A50
-	dc.l	$12110201
-	dc.l	$003F8001
-	dc.l	$46001200
-	dc.l	$1410B500
-	dc.l	$10C1C001
-	dc.l	$10C04E75
+	dc.w	$0000
+ReadJoypad:
+	lea.l	$FFFFFA4A.w, a0
+	lea.l	$A10003.l, a1
+	bsr.b	.ReadPort
+	lea.l	$FFFFFA4C.w, a0
+	lea.l	$A10005.l, a1
+.ReadPort:
+	move.b	#$0, (a1)
+	tst.w	(a0)
+	move.b	(a1), d0
+	lsl.b	#$2, d0
+	andi.b	#$C0, d0
+	move.b	#$40, (a1)
+	tst.w	(a0)
+	move.b	(a1), d1
+	andi.b	#$3F, d1
+	or.b	d1, d0
+	not.b	d0
+	move.b	d0, d1
+	move.b	(a0), d2
+	eor.b	d2, d0
+	move.b	d1, (a0)+
+	and.b	d1, d0
+	move.b	d0, (a0)+
+	rts
 L_FF274E:
 	btst.b	#$1, $a1200f.l
 L_FF2756:
@@ -917,6 +973,7 @@ L_FF27F2:
 L_FF27F6:
 	rts
 L_FF27F8:
+	PrimaryVInterrupt:
 	movem.l	d0-d7/a0-a6, -(a7)
 L_FF27FC:
 	move.b	#$1, $a12000.l
@@ -937,7 +994,7 @@ L_FF281C:
 L_FF2820:
 	add.w	d0, d0
 L_FF2822:
-	move.w	$ff282a(pc, d0.w), d0
+	move.w	VBlankDispatchTable(pc, d0.w), d0
 L_FF2826:
 	jmp	VBlankDispatchTable(pc, d0.w)
 VBlankDispatchTable:
@@ -994,7 +1051,7 @@ L_FF2898:
 L_FF289E:
 	move.w	$FFFFfa46.w, $c00004.l
 L_FF28A6:
-	jsr	$ff270c(pc)
+	jsr	ReadJoypad(pc)
 L_FF28AA:
 	addq.w	#$1, $FFFFfa44.w
 L_FF28AE:
@@ -1022,7 +1079,7 @@ L_FF28DA:
 L_FF28DE:
 	add.w	d0, d0
 L_FF28E0:
-	movem.w	$ff292A(pc, d0.w), d0-d1
+	movem.w	VBlankTableData(pc, d0.w), d0-d1
 L_FF28E6:
 	tst.w	d0
 L_FF28E8:
@@ -1055,6 +1112,7 @@ L_FF2924:
 	movem.l	(a7)+, d0-d7/a0-a6
 L_FF2928:
 	rte
+VBlankTableData:
 	dc.l	$00000000
 	dc.l	$00000022
 	dc.l	$00000044
@@ -1108,7 +1166,11 @@ L_FF2996:
 L_FF299A:
 	move.w	#$9409, (a4)
 L_FF299E:
+	if REGION=JAPAN
+	move.w	#$956E, (a4)
+	else
 	move.w	#$9553, (a4)
+	endif
 L_FF29A2:
 	move.w	#$9697, (a4)
 L_FF29A6:
@@ -1128,7 +1190,7 @@ L_FF29BE:
 L_FF29C2:
 	move.w	#$d, d2
 L_FF29C6:
-	lea.l	$ff2b06(pc), a3
+	lea.l	EndingAnimationData(pc), a3
 L_FF29CA:
 	move.l	d0, (a4)
 L_FF29CC:
@@ -1186,7 +1248,11 @@ L_FF2A46:
 L_FF2A48:
 	move.l	#$750a0002, $c00004.l
 L_FF2A52:
+	if REGION=JAPAN
+	lea.l	EndingJapanTilesA(pc), a1
+	else
 	lea.l	$ff73f0(pc), a1
+	endif
 L_FF2A56:
 	moveq	#$1d, d7
 L_FF2A58:
@@ -1230,7 +1296,11 @@ L_FF2AA6:
 L_FF2AA8:
 	move.l	#$75180002, $c00004.l
 L_FF2AB2:
+	if REGION=JAPAN
+	lea.l	EndingJapanTilesB(pc), a1
+	else
 	lea.l	$ff787c(pc), a1
+	endif
 L_FF2AB6:
 	moveq	#$f, d7
 L_FF2AB8:
@@ -1248,7 +1318,11 @@ L_FF2ACC:
 L_FF2AD0:
 	move.l	#$76c00001, $c00004.l
 L_FF2ADA:
+	if REGION=JAPAN
+	lea.l	EndingJapanTilesC(pc), a1
+	else
 	lea.l	$ff78bc(pc), a1
+	endif
 L_FF2ADE:
 	move.w	#$12f, d7
 L_FF2AE2:
@@ -1256,7 +1330,11 @@ L_FF2AE2:
 L_FF2AEA:
 	beq.b	L_FF2AF4
 L_FF2AEC:
+	if REGION=JAPAN
+	lea.l	EndingJapanTilesD(pc), a1
+	else
 	lea.l	$ff751c(pc), a1
+	endif
 L_FF2AF0:
 	move.w	#$1af, d7
 L_FF2AF4:
@@ -1269,6 +1347,7 @@ L_FF2AFE:
 	clr.w	$FFFFfa44.w
 L_FF2B02:
 	bra.w	L_FF2898
+EndingAnimationData:
 	dc.l	$00100011
 	dc.l	$00120013
 	dc.l	$00140015
@@ -1493,6 +1572,7 @@ L_FF2B02:
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000
+EndingTimeAttackData:
 	dc.l	$00000EC8
 	dc.l	$0EEA0AEC
 	dc.l	$06EC04CA
@@ -2701,6 +2781,7 @@ L_FF2B02:
 	dc.l	$DDCCCCCC
 	dc.l	$DDDDFFFF
 	dc.l	$77777777
+EndingEventData:
 	dc.l	$00000027
 	dc.l	$FFFF0000
 	dc.l	$0027FFFF
@@ -5768,7 +5849,9 @@ L_FF2B02:
 	dc.l	$40CBFFFF
 	dc.l	$00000013
 	dc.l	$40D040BB
-	dc.l	$40BF40D1
+	dc.w	$40BF
+EndingJapanTilesA:
+	dc.w	$40D1
 	dc.l	$40BF40BD
 	dc.l	$40B6412B
 	dc.l	$40D44122
@@ -5843,7 +5926,9 @@ L_FF2B02:
 	dc.l	$40FA40D2
 	dc.l	$40E140B6
 	dc.l	$41474202
-	dc.l	$412B4202
+	dc.w	$412B
+EndingJapanTilesD:
+	dc.w	$4202
 	dc.l	$4217FFFF
 	dc.l	$00000013
 	dc.l	$40B640B6
@@ -6059,7 +6144,9 @@ L_FF2B02:
 	dc.l	$1110FF10
 	dc.l	$0000FF10
 	dc.l	$000000FF
-	dc.l	$100000FF
+	dc.w	$1000
+EndingJapanTilesB:
+	dc.w	$00FF
 	dc.l	$100000FF
 	dc.l	$100000FF
 	dc.l	$100000FF
@@ -6075,7 +6162,9 @@ L_FF2B02:
 	dc.l	$FF10FFFF
 	dc.l	$FF10FFBF
 	dc.l	$FF1000FF
-	dc.l	$100000FF
+	dc.w	$1000
+EndingJapanTilesC:
+	dc.w	$00FF
 	dc.l	$100000FF
 	dc.l	$100000FF
 	dc.l	$100000FF
@@ -10854,6 +10943,7 @@ L_FF2B02:
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000
+	if REGION=USA
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000
@@ -10868,6 +10958,7 @@ L_FF2B02:
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.b	$00,$00
+	endif
 L_FFC100:
 	move.l	#EndingVInterrupt, $FFFFfd08.w
 L_FFC108:

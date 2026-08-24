@@ -2,6 +2,22 @@
 
 ## 2026-08-24
 
+- **Ending primary-program regional-layout milestone:** The USA primary
+  `ENDING.MMD` program now remains source-emitted and byte-exact after making
+  its vectors, dispatch table, controller handlers, V-blank tables, packed
+  data pointers, and regional halfword targets symbolic. A fresh guarded
+  displayless USA build still matches the complete 44,052-byte file. With the
+  production non-USA fallback temporarily disabled for diagnosis, the Japan
+  source path matches its original from the MMD load offset `$100` through
+  `$22E9`; the first remaining Japan difference at `$22EA` is regional
+  animation/graphics data, not primary executable code. The Japan secondary
+  entry remains fixed at runtime `$FFC100` and its full suffix was already
+  exact. Europe is not complete: its diagnostic primary output is 54 bytes too
+  short and diverges in the early dispatch/program region. The production
+  frontend therefore still assembles `ENDING.MMD` only for USA while the
+  regional primary source and data are recovered. No proprietary regional
+  bytes were added to source control.
+
 - **Cross-region Ending secondary-program milestone:** The complete secondary
   executable/data block at `$FFC100` through the end of `ENDING.MMD` is now
   region-aware source. Symbolic pointers replace fixed USA addresses; Japan
