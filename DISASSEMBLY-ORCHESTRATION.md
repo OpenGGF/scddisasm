@@ -2,6 +2,18 @@
 
 ## 2026-08-24
 
+- **Ending decompressor disassembly milestone:** The 506-byte executable span
+  at `$FFC606`-`$FFC7FF` in USA `ENDING.MMD` is now structured 68000 source
+  instead of 126 opaque longword declarations. It identifies the decode-table
+  builder, tilemap token dispatcher, four output helpers, value decoder,
+  bit-refill path, eight-way handler table, and 16-word bit-mask table. The
+  source preserves the original mid-routine loop entries and the mask-table
+  base that intentionally aliases a branch opcode. A fresh guarded displayless
+  USA build completes, ENDING retains SHA-256
+  `a2de839be879145da035af6e1080a5264e849ff4ecd7813a83273ce60aaeb3e6`,
+  and all 133 comparison targets remain exact. No original binary content was
+  added to source control.
+
 - **Ending I/O routine disassembly milestone:** Two more executable spans in
   USA `ENDING.MMD` are now labelled 68000 source instead of opaque longwords:
   controller sampling at `$FFC82A`-`$FFC861` and the Sub-CPU command handshake

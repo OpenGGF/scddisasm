@@ -11406,7 +11406,10 @@ L_FFC5CA:
 	bne.b	L_FFC5D2
 L_FFC5CC:
 	jmp	(a3)
-	dc.l	$78007608
+L_FFC5CE:
+	moveq	#$0, d4
+L_FFC5D0:
+	moveq	#$8, d3
 L_FFC5D2:
 	dbra	d0, L_FFC5C4
 L_FFC5D6:
@@ -11447,133 +11450,256 @@ L_FFC600:
 	move.b	(a0)+, d5
 L_FFC602:
 	bra.b	L_FFC5C2
-	dc.l	$2884534D
-	dc.l	$380D66C2
-	dc.l	$4E75B982
-	dc.l	$2882534D
-	dc.l	$380D66B6
-	dc.l	$4E7528C4
-	dc.l	$534D380D
-	dc.l	$66AC4E75
-	dc.l	$B98228C2
-	dc.l	$534D380D
-	dc.l	$66A04E75
-	dc.l	$10180C00
-	dc.l	$00FF6602
-	dc.l	$4E753E00
-	dc.l	$10180C00
-	dc.l	$008064EE
-	dc.l	$12000247
-	dc.l	$000F0241
-	dc.l	$00708E41
-	dc.l	$0240000F
-	dc.l	$1200E149
-	dc.l	$8E417208
-	dc.l	$9240660A
-	dc.l	$1018D040
-	dc.l	$33870000
-	dc.l	$60D21018
-	dc.l	$E368D040
-	dc.l	$7A01E36D
-	dc.l	$53453387
-	dc.l	$00005440
-	dc.l	$51CDFFF8
-	dc.l	$60BA48E7
-	dc.l	$FF7C3640
-	dc.l	$10184880
-	dc.l	$3A401818
-	dc.l	$E70C3458
-	dc.l	$D4CB3858
-	dc.l	$D8CB1A18
-	dc.l	$E1451A18
-	dc.l	$7C107007
-	dc.l	$3E069E40
-	dc.l	$3205EE69
-	dc.l	$0241007F
-	dc.l	$34010C41
-	dc.l	$00406404
-	dc.l	$7006E24A
-	dc.l	$61000132
-	dc.l	$0242000F
-	dc.l	$E849D241
-	dc.l	$4EFB104E
-	dc.l	$32CA524A
-	dc.l	$51CAFFFA
-	dc.l	$60CC32CC
-	dc.l	$51CAFFFC
-	dc.l	$60C46100
-	dc.l	$006032C1
-	dc.l	$51CAFFFC
-	dc.l	$60B86100
-	dc.l	$005432C1
-	dc.l	$524151CA
-	dc.l	$FFFA60AA
-	dc.l	$61000046
-	dc.l	$32C15341
-	dc.l	$51CAFFFA
-	dc.l	$609C0C42
-	dc.l	$000F671C
-	dc.l	$61000032
-	dc.l	$32C151CA
-	dc.l	$FFF8608A
-	dc.l	$60B260B0
-	dc.l	$60B860B6
-	dc.l	$60BC60C6
-	dc.l	$60D260DE
-	dc.l	$53480C46
-	dc.l	$00106602
-	dc.l	$53483008
-	dc.l	$E2486402
-	dc.l	$52484CDF
-	dc.l	$3EFF4E75
-	dc.l	$360B1204
-	dc.l	$D201640A
-	dc.l	$53460D05
-	dc.l	$67040043
-	dc.l	$8000D201
-	dc.l	$640A5346
-	dc.l	$0D056704
-	dc.l	$06434000
-	dc.l	$D201640A
-	dc.l	$53460D05
-	dc.l	$67040643
-	dc.l	$2000D201
-	dc.l	$640A5346
-	dc.l	$0D056704
-	dc.l	$00431000
-	dc.l	$D201640A
-	dc.l	$53460D05
-	dc.l	$67040043
-	dc.l	$08003205
-	dc.l	$3E069E4D
-	dc.l	$64283C07
-	dc.l	$06460010
-	dc.l	$4447EF69
-	dc.l	$1A10EF3D
-	dc.l	$DE47CA7B
-	dc.l	$702AD245
-	dc.l	$300DD040
-	dc.l	$C27B0020
-	dc.l	$D2431A18
-	dc.l	$E14D1A18
-	dc.l	$4E756710
-	dc.l	$EE69300D
-	dc.l	$D040C27B
-	dc.l	$000AD243
-	dc.l	$300D6024
-	dc.l	$7C1060D8
-	dc.l	$00010003
-	dc.l	$0007000F
-	dc.l	$001F003F
-	dc.l	$007F00FF
-	dc.l	$01FF03FF
-	dc.l	$07FF0FFF
-	dc.l	$1FFF3FFF
-	dc.l	$7FFFFFFF
-	dc.l	$9C400C46
-	dc.l	$00096406
-	dc.l	$5046E145
-	dc.l	$1A184E75
+L_FFC604:
+	move.l	d4, (a4)
+L_FFC606:
+	subq.w	#$1, a5
+	move.w	a5, d4
+	bne.b	L_FFC5CE
+	rts
+L_FFC60E:
+	eor.l	d4, d2
+	move.l	d2, (a4)
+	subq.w	#$1, a5
+	move.w	a5, d4
+	bne.b	L_FFC5CE
+	rts
+L_FFC61A:
+	move.l	d4, (a4)+
+	subq.w	#$1, a5
+	move.w	a5, d4
+	bne.b	L_FFC5CE
+	rts
+L_FFC624:
+	eor.l	d4, d2
+	move.l	d2, (a4)+
+	subq.w	#$1, a5
+	move.w	a5, d4
+	bne.b	L_FFC5CE
+	rts
+
+BuildDecodeTable:
+	move.b	(a0)+, d0
+.NextCode:
+	cmpi.b	#$FF, d0
+	bne.b	.Code
+	rts
+.Code:
+	move.w	d0, d7
+.NextByte:
+	move.b	(a0)+, d0
+	cmpi.b	#$80, d0
+	bcc.b	.NextCode
+	move.b	d0, d1
+	andi.w	#$F, d7
+	andi.w	#$70, d1
+	or.w	d1, d7
+	andi.w	#$F, d0
+	move.b	d0, d1
+	lsl.w	#$8, d1
+	or.w	d1, d7
+	moveq	#$8, d1
+	sub.w	d0, d1
+	bne.b	.FillRange
+	move.b	(a0)+, d0
+	add.w	d0, d0
+	move.w	d7, (a1,d0.w)
+	bra.b	.NextByte
+.FillRange:
+	move.b	(a0)+, d0
+	lsl.w	d1, d0
+	add.w	d0, d0
+	moveq	#$1, d5
+	lsl.w	d1, d5
+	subq.w	#$1, d5
+.FillLoop:
+	move.w	d7, (a1,d0.w)
+	addq.w	#$2, d0
+	dbra	d5, .FillLoop
+	bra.b	.NextByte
+
+DecompressTilemap:
+	movem.l	d0-d7/a1-a5, -(a7)
+	movea.w	d0, a3
+	move.b	(a0)+, d0
+	ext.w	d0
+	movea.w	d0, a5
+	move.b	(a0)+, d4
+	lsl.b	#$3, d4
+	movea.w	(a0)+, a2
+	adda.w	a3, a2
+	movea.w	(a0)+, a4
+	adda.w	a3, a4
+	move.b	(a0)+, d5
+	asl.w	#$8, d5
+	move.b	(a0)+, d5
+	moveq	#$10, d6
+.NextToken:
+	moveq	#$7, d0
+	move.w	d6, d7
+	sub.w	d0, d7
+	move.w	d5, d1
+	lsr.w	d7, d1
+	andi.w	#$7F, d1
+	move.w	d1, d2
+	cmpi.w	#$40, d1
+	bcc.b	.Dispatch
+	moveq	#$6, d0
+	lsr.w	#$1, d2
+.Dispatch:
+	bsr.w	RefillBits
+	andi.w	#$F, d2
+	lsr.w	#$4, d1
+	add.w	d1, d1
+	jmp	.HandlerTable(pc,d1.w)
+.AscendingA2:
+	move.w	a2, (a1)+
+	addq.w	#$1, a2
+	dbra	d2, .AscendingA2
+	bra.b	.NextToken
+.RepeatA4:
+	move.w	a4, (a1)+
+	dbra	d2, .RepeatA4
+	bra.b	.NextToken
+.RepeatValue:
+	bsr.w	GetValue
+.RepeatValueLoop:
+	move.w	d1, (a1)+
+	dbra	d2, .RepeatValueLoop
+	bra.b	.NextToken
+.AscendingValue:
+	bsr.w	GetValue
+.AscendingValueLoop:
+	move.w	d1, (a1)+
+	addq.w	#$1, d1
+	dbra	d2, .AscendingValueLoop
+	bra.b	.NextToken
+.DescendingValue:
+	bsr.w	GetValue
+.DescendingValueLoop:
+	move.w	d1, (a1)+
+	subq.w	#$1, d1
+	dbra	d2, .DescendingValueLoop
+	bra.b	.NextToken
+.RawValues:
+	cmpi.w	#$F, d2
+	beq.b	.Done
+.RawLoop:
+	bsr.w	GetValue
+	move.w	d1, (a1)+
+	dbra	d2, .RawLoop
+	bra.b	.NextToken
+.HandlerTable:
+	bra.b	.AscendingA2
+	bra.b	.AscendingA2
+	bra.b	.RepeatA4
+	bra.b	.RepeatA4
+	bra.b	.RepeatValue
+	bra.b	.AscendingValue
+	bra.b	.DescendingValue
+	bra.b	.RawValues
+.Done:
+	subq.w	#$1, a0
+	cmpi.w	#$10, d6
+	bne.b	.EvenSource
+	subq.w	#$1, a0
+.EvenSource:
+	move.w	a0, d0
+	lsr.w	#$1, d0
+	bcc.b	.Restore
+	addq.w	#$1, a0
+.Restore:
+	movem.l	(a7)+, d0-d7/a1-a5
+	rts
+
+GetValue:
+	move.w	a3, d3
+	move.b	d4, d1
+	add.b	d1, d1
+	bcc.b	.Bit14
+	subq.w	#$1, d6
+	btst.l	d6, d5
+	beq.b	.Bit14
+	ori.w	#$8000, d3
+.Bit14:
+	add.b	d1, d1
+	bcc.b	.Bit13
+	subq.w	#$1, d6
+	btst.l	d6, d5
+	beq.b	.Bit13
+	addi.w	#$4000, d3
+.Bit13:
+	add.b	d1, d1
+	bcc.b	.Bit12
+	subq.w	#$1, d6
+	btst.l	d6, d5
+	beq.b	.Bit12
+	addi.w	#$2000, d3
+.Bit12:
+	add.b	d1, d1
+	bcc.b	.Bit11
+	subq.w	#$1, d6
+	btst.l	d6, d5
+	beq.b	.Bit11
+	ori.w	#$1000, d3
+.Bit11:
+	add.b	d1, d1
+	bcc.b	.ReadValue
+	subq.w	#$1, d6
+	btst.l	d6, d5
+	beq.b	.ReadValue
+	ori.w	#$800, d3
+.ReadValue:
+	move.w	d5, d1
+	move.w	d6, d7
+	sub.w	a5, d7
+	bcc.b	.InBuffer
+	move.w	d7, d6
+	addi.w	#$10, d6
+	neg.w	d7
+	lsl.w	d7, d1
+	move.b	(a0), d5
+	rol.b	d7, d5
+	add.w	d7, d7
+	and.w	.MaskBase(pc,d7.w), d5
+	add.w	d5, d1
+.MaskValue:
+	move.w	a5, d0
+	add.w	d0, d0
+	and.w	.MaskBase(pc,d0.w), d1
+	add.w	d3, d1
+	move.b	(a0)+, d5
+	lsl.w	#$8, d5
+	move.b	(a0)+, d5
+	rts
+.InBuffer:
+	beq.b	.EmptyBuffer
+	lsr.w	d7, d1
+	move.w	a5, d0
+	add.w	d0, d0
+	and.w	.MaskBase(pc,d0.w), d1
+	add.w	d3, d1
+	move.w	a5, d0
+	bra.b	RefillBits
+.EmptyBuffer:
+	moveq	#$10, d6
+
+.MaskBase:
+	bra.b	.MaskValue
+
+BitMasks:
+	dc.w	$0001,$0003,$0007,$000F,$001F,$003F,$007F,$00FF
+	dc.w	$01FF,$03FF,$07FF,$0FFF,$1FFF,$3FFF,$7FFF,$FFFF
+
+RefillBits:
+	sub.w	d0, d6
+	cmpi.w	#$9, d6
+	bcc.b	.Done
+	addq.w	#$8, d6
+	asl.w	#$8, d5
+	move.b	(a0)+, d5
+.Done:
+	rts
 L_FFC800:
 	move.w	sr, $FFFFb346.w
 L_FFC804:
