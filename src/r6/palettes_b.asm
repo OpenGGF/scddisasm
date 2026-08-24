@@ -36,7 +36,7 @@ S1TitlePalette:
 	dc.b	$6C, 0, $CE
 
 S1LevelSelectPalette:
-	if R6_VARIANT<>1
+	if (R6_VARIANT<>1)|(REGION<>USA)
 		if STAGE_ACT<>1
 		dcb.b	5,0
 		dc.b	2, 0

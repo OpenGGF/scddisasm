@@ -2,6 +2,18 @@
 
 ## 2026-08-24
 
+- **R6 non-USA palette-layout milestone:** The R6 variant-1 source now emits
+  its existing `S1LevelSelectPalette` table for Japan and Europe, and the R6
+  variant-2/8 source now emits the corresponding existing `S1TitlePalette`
+  table for those regions. This restores the retail 0x80-byte layout present
+  in R61B, R61C, and R63C without retaining any original bytes. Fresh guarded
+  displayless Japan and Europe builds/checks remain at 69 matches, 61 known
+  level differences, and 0 missing targets, but the first differences move
+  from the former vector/layout gap to later offsets: R61B byte 3938, R61C
+  byte 1627, and R63C byte 4072. USA remains 133/0/0. The CHD-derived
+  comparison trees remain ignored and no proprietary bytes were added to
+  source control.
+
 - **Regional pause-path layout milestone:** The shared `common/main.asm` and
   duplicated `r4/main.asm` entry paths now select the retail pause-input
   instruction sequence by region. Japan and Europe omit the USA-only
