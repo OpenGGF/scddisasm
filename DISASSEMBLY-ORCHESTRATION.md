@@ -2,6 +2,16 @@
 
 ## 2026-08-24
 
+- **R53 non-USA Act 3 milestone:** The Act 3 legacy wrapper now reuses the
+  inline `ObjNull` entry instead of emitting a duplicate six-byte routine.
+  The R53C/R53D non-USA scroll paths also restore the historical
+  `ScrollFgX`, `ScrollFgY`, then `StageEvents` call order. Fresh guarded
+  displayless builds/checks compare both R53C and R53D exactly at 262,144
+  bytes in Japan and Europe; USA remains 133/0/0
+  (matches/differences/missing). Japan and Europe now each report 128/2/0,
+  with only DEMO43C and DEMO82A still differing. No proprietary bytes were
+  added, and the ignored CHD-derived comparison trees remain untracked.
+
 - **R51/R52 non-USA alignment milestone:** The shared R5 legacy object
   wrapper no longer emits the duplicate six-byte null-object routine when the
   regional object index already provides `ObjNull`. The R51A scroll and stage-
