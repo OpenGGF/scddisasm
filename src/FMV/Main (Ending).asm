@@ -10869,7 +10869,7 @@ L_FF2B02:
 	dc.l	$00000000
 	dc.b	$00,$00
 L_FFC100:
-	move.l	#$ffc1ba, $FFFFfd08.w
+	move.l	#EndingVInterrupt, $FFFFfd08.w
 L_FFC108:
 	bsr.w	L_FFC2D6
 L_FFC10C:
@@ -10950,40 +10950,37 @@ L_FFC1B4:
 	dbra	d2, L_FFC1A8
 L_FFC1B8:
 	rts
-	dc.l	$48E7FFFE
-	dc.l	$13FC0001
-	dc.l	$00A12000
-	dc.l	$08B90000
-	dc.l	$00FF0F00
-	dc.l	$676A08F9
-	dc.l	$000600FF
-	dc.l	$0F1733F9
-	dc.l	$00FF0F16
-	dc.l	$00C00004
-	dc.l	$6100061C
-	dc.l	$303900C0
-	dc.l	$000408B9
-	dc.l	$000100FF
-	dc.l	$0F00672E
-	dc.l	$4DF900C0
-	dc.l	$00042CBC
-	dc.l	$93409400
-	dc.l	$2CBC9500
-	dc.l	$96D93CBC
-	dc.l	$977F3CBC
-	dc.l	$C0003F3C
-	dc.l	$00803C9F
-	dc.l	$2CBCC000
-	dc.l	$000033F8
-	dc.l	$B20000C0
-	dc.l	$00004EBA
-	dc.l	$06046100
-	dc.l	$05F24A79
-	dc.l	$00FFC240
-	dc.l	$67065379
-	dc.l	$00FFC240
-	dc.l	$4CDF7FFF
-	dc.l	$4E730000
+EndingVInterrupt:
+	movem.l	d0-d7/a0-a6, -(a7)
+	move.b	#$1, $a12000.l
+	bclr.b	#$0, $ff0f00.l
+	beq.b	.End
+	bset.b	#$6, $ff0f17.l
+	move.w	$ff0f16.l, $c00004.l
+	bsr.w	L_FFC800
+	move.w	$c00004.l, d0
+	bclr.b	#$1, $ff0f00.l
+	beq.b	.SkipVDP
+	lea.l	$c00004.l, a6
+	move.l	#$93409400, (a6)
+	move.l	#$950096D9, (a6)
+	move.w	#$977F, (a6)
+	move.w	#$C000, (a6)
+	move.w	#$80, -(a7)
+	move.w	(a7)+, (a6)
+	move.l	#$C0000000, (a6)
+	move.w	$FFFFb200.w, $c00000.l
+.SkipVDP:
+	jsr	L_FFC82A(pc)
+	bsr.w	L_FFC81C
+	tst.w	EndingDelay
+	beq.b	.End
+	subq.w	#$1, EndingDelay
+.End:
+	movem.l	(a7)+, d0-d7/a0-a6
+	rte
+EndingDelay:
+	dc.w	$0000
 	dc.l	$04343000
 	dc.l	$06700000
 	dc.l	$00000000
@@ -11595,6 +11592,7 @@ L_FFC824:
 	move.w	$FFFFb346.w, sr
 L_FFC828:
 	rts
+L_FFC82A:
 	dc.l	$4BF900A1
 	dc.l	$201E4DF9
 	dc.l	$00A10003

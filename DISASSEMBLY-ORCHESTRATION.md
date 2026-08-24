@@ -2,6 +2,16 @@
 
 ## 2026-08-24
 
+- **Ending interrupt disassembly milestone:** The USA `ENDING.MMD` secondary
+  V-blank handler at `$FFC1BA`-`$FFC23F` is now emitted as labelled 68000
+  instructions instead of 34 opaque longword declarations. Its installed
+  vector, delay counter, VDP path, and Z80 synchronization calls are symbolic.
+  A fresh guarded displayless USA build completes, the 44,052-byte output has
+  SHA-256 `a2de839be879145da035af6e1080a5264e849ff4ecd7813a83273ce60aaeb3e6`,
+  and all 133 comparison targets remain exact. Regional ENDING reconstruction
+  is still in progress; this milestone removes logic opacity without importing
+  any Japanese or European bytes into source control.
+
 - **Cross-region Time Attack logic milestone:** `ATTACK.MMD` is now assembled
   through `src/Time Attack/Main.asm` for all three regions instead of copying
   the complete non-USA executable. Japan and Europe select their two
