@@ -189,3 +189,11 @@
 	bsr.w	$2087D8
 	org	Padding1+$18A6+R43_NON_USA_ADJUST
 	jmp	$203AA6.L
+
+; R43RetainedBlock_BlockObject and its collision/draw/despawn helpers.
+	org	Padding1+$199E+R43_NON_USA_ADJUST
+	jsr	$2087D8.L
+	org	Padding1+$19A4+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$19AA+R43_NON_USA_ADJUST
+	jmp	$2078A4.L

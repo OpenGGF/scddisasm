@@ -2,6 +2,14 @@
 
 ## 2026-08-24
 
+- **R43 retained Block milestone:** The non-USA R43 source now restores the
+  retained Block collision, drawing, and despawn helper links. Fresh guarded
+  displayless Japan and Europe builds/checks compare the entire Block body
+  exactly; the next differences are in the following retained Fan body, at
+  byte 60854 in R43C and byte 60947 in R43D. USA remains 133/0/0
+  (matches/differences/missing). No proprietary bytes were added, and the
+  ignored CHD-derived comparison trees remain untracked.
+
 - **R43 retained CrushBlocks milestone:** The non-USA R43 source now restores
   the retained CrushBlocks sprite pointer, child-spawn, despawn, collision,
   SolidObject, and draw links. Fresh guarded displayless Japan and Europe
