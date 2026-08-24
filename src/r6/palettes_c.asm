@@ -2,13 +2,25 @@
 
 PaletteTable:
 	if R6_VARIANT=2
-		dc.l	PlayerPalette
+		if REGION=USA
+			dc.l	PlayerPalette
+		else
+			dc.l	S1TitlePalette
+		endif
 		dc.w	$FB00
 		dc.w	$1F
-		dc.l	PlayerPalette
+		if REGION=USA
+			dc.l	PlayerPalette
+		else
+			dc.l	S1TitlePalette
+		endif
 		dc.w	$FB00
 		dc.w	$1F
-		dc.l	PlayerPalette
+		if REGION=USA
+			dc.l	PlayerPalette
+		else
+			dc.l	S1TitlePalette
+		endif
 		dc.w	$FB00
 		dc.w	$1F
 		dc.l	PlayerPalette

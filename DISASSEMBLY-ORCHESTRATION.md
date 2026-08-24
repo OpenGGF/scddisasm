@@ -2,6 +2,16 @@
 
 ## 2026-08-24
 
+- **R6 non-USA palette-pointer milestone:** The R6 variant-2 palette table now
+  points its first three Japan/Europe entries at the existing
+  `S1TitlePalette` table, matching the retail R61C/R63C layout while leaving
+  the USA table unchanged. Fresh guarded displayless builds/checks confirm
+  USA at 133 matches, 0 differences, and 0 missing targets; Japan and Europe
+  remain at 69 matches, 61 differences, and 0 missing targets, with R61C's
+  first mismatch advanced from byte 1627 to byte 4072. No proprietary bytes
+  were added to source control, and the CHD-derived comparison trees remain
+  ignored.
+
 - **R6 non-USA palette-layout milestone:** The R6 variant-1 source now emits
   its existing `S1LevelSelectPalette` table for Japan and Europe, and the R6
   variant-2/8 source now emits the corresponding existing `S1TitlePalette`
