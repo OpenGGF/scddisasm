@@ -2,6 +2,18 @@
 
 ## 2026-08-24
 
+- **R51/R52 non-USA alignment milestone:** The shared R5 legacy object
+  wrapper no longer emits the duplicate six-byte null-object routine when the
+  regional object index already provides `ObjNull`. The R51A scroll and stage-
+  draw variants now preserve the Japanese/European call and register-save
+  order, and all R51/R52 signpost graphics lists retain the Big Ring flash
+  entry in every region. Fresh guarded displayless builds/checks compare all
+  R51A–R52D binaries exactly in Japan and Europe; USA remains 133/0/0
+  (matches/differences/missing). Japan and Europe now each report 126/4/0;
+  the four remaining differences are DEMO43C, R53C, R53D, and DEMO82A. No
+  proprietary bytes were added, and the ignored CHD-derived comparison trees
+  remain untracked.
+
 - **Non-USA R7/R8 water-flag milestone:** The shared R5 compatibility aliases
   now select the retained `$F7C7` current-water flag for Quartz Quadrant,
   Stardust Speedway, and Metallic Madness in all regions. Fresh guarded

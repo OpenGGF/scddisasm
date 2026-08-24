@@ -133,14 +133,10 @@ R6_LEGACY_PLAYER	EQU	1
 		include	"r5/object_index_3.asm"
 	endif
 
-	if REGION=USA
-		; The USA R5 object index provides the null routine inline as ObjNull.
-		; Keep the NullObject references in the shared table pointed at it without
-		; emitting a second six-byte routine before the player object.
+	; The R5 object index provides the null routine inline as ObjNull.
+	; Keep the NullObject references in the shared table pointed at it without
+	; emitting a second six-byte routine before the player object.
 NullObject	EQU	ObjNull
-	else
-		include	"objects/null.asm"
-	endif
 	include	"objects/player.asm"
 	include	"common/sub_cpu.asm"
 	include	"common/object_animate.asm"

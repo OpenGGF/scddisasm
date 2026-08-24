@@ -552,6 +552,9 @@ loc_2035C6:
 	moveq	#$F,d6
 
 loc_2035CA:
+	if REGION<>USA
+		movem.l	d4-d6/a0,-(sp)
+	endif
 		lea	unk_203604,a0
 		btst	#0,r5_bg_change
 		beq.s	loc2_2035E4
@@ -562,7 +565,9 @@ loc2_2035E4:
 	if REGION=USA
 loc_R5USA_InitStageDrawBg_Loop:
 	endif
+	if REGION=USA
 		movem.l	d4-d6/a0,-(sp)
+	endif
 		move.w	scroll_bg_y,d0
 	add.w	d4,d0
 	andi.w	#$FFF0,d0
