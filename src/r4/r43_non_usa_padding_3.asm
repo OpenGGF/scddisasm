@@ -273,3 +273,73 @@
 	jsr	$203AA6.L
 	org	Padding1+$1FC6+R43_NON_USA_ADJUST
 	jmp	$2078A4.L
+
+; R43RetainedCollapseFloor_CollapseFloorObject and its fragment links.
+	org	Padding1+$2004+R43_NON_USA_ADJUST
+	move.l	#$20F46A,$4(A0)
+	org	Padding1+$2032+R43_NON_USA_ADJUST
+	jsr	$2087D2.L
+	org	Padding1+$205A+R43_NON_USA_ADJUST
+	jsr	$202598.L
+	org	Padding1+$2060+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$2066+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$2070+R43_NON_USA_ADJUST
+	jsr	$2087D2.L
+	org	Padding1+$2080+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$20A0+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$20C0+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$20DE+R43_NON_USA_ADJUST
+	jsr	$2087D2.L
+	org	Padding1+$20E6+R43_NON_USA_ADJUST
+	jsr	$20868A.L
+	org	Padding1+$2116+R43_NON_USA_ADJUST
+	jsr	$2087D2.L
+	org	Padding1+$211C+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$2148+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$2158+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$2184+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$218A+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+
+; R43RetainedPlatformChain_PlatformChainObject and its child links.
+	org	Padding1+$2326+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$234A+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$2360+R43_NON_USA_ADJUST
+	jsr	$2087D2.L
+	org	Padding1+$23A4+R43_NON_USA_ADJUST
+	move.l	#$20F7C8,$4(A0)
+	org	Padding1+$23CE+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+
+; R43RetainedPressureElevator_PressureElevatorObject and its helper links.
+	org	Padding1+$2546+R43_NON_USA_ADJUST
+	move.l	#$20F946,$4(A0)
+	org	Padding1+$2572+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$25D6+R43_NON_USA_ADJUST
+	jsr	$2087D2.L
+	org	Padding1+$25E8+R43_NON_USA_ADJUST
+	jsr	$20868A.L
+	org	Padding1+$2600+R43_NON_USA_ADJUST
+	jsr	$202598.L
+	org	Padding1+$2606+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$260C+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$263E+R43_NON_USA_ADJUST
+	jsr	$2087D2.L
+	org	Padding1+$2658+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$2666+R43_NON_USA_ADJUST
+	jmp	$2078A4.L

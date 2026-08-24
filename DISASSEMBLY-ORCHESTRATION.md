@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **R43 retained CollapseFloor/PlatformChain/Pressure Elevator milestone:**
+  The non-USA R43 source now restores the retained collapsing-floor,
+  platform-chain, and pressure-elevator pointers and helper links. Fresh
+  guarded displayless Japan and Europe builds/checks compare all three bodies
+  exactly; the next R43C and R43D differences both begin at byte 63991 in the
+  following retained body. USA remains 133/0/0 (matches/differences/missing).
+  No proprietary bytes were added, and the ignored CHD-derived comparison
+  trees remain untracked.
+
 - **R43 retained CircleSpikeBall milestone:** The non-USA R43 source now
   restores the retained CircleSpikeBall chain links, relocated sprite pointer,
   draw, and despawn links. Fresh guarded displayless Japan and Europe
