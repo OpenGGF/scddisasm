@@ -2,6 +2,17 @@
 
 ## 2026-08-24
 
+- **Regional monitor-timer milestone:** The shared `objects/monitor_time.asm`
+  source now emits the retail `$528` monitor timers only for USA and `$4B0`
+  for Japan and Europe; the former `STAGE_ZONE=4` override was not present in
+  the non-USA level binaries. Fresh guarded displayless Japan and Europe
+  builds/checks advance the first R6 differences to R61B byte 50202, R61C byte
+  50220, R61D byte 50132, R63C byte 43240, and R63D byte 43152. The earlier
+  R62 boundaries remain before this shared object. Japan and Europe each
+  remain at 69 matches, 61 known level differences, and 0 missing targets;
+  USA remains 133/0/0. No proprietary bytes were added, and the ignored
+  CHD-derived comparison trees remain untracked.
+
 - **R6 non-USA scroll-order milestone:** The nine R6 scroll fragments that
   previously emitted the USA call order now select the retail order by
   region: Japan and Europe call `ScrollFgX`, `ScrollFgY`, then `StageEvents`,
