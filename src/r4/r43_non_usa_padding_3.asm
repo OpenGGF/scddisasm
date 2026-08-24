@@ -203,3 +203,43 @@
 	jmp	$203AA6.L
 	org	Padding1+$1ADC+R43_NON_USA_ADJUST
 	jmp	$203B52.L
+
+; R43RetainedMace_MaceObject and its linked chain paths.
+	org	Padding1+$1B2E+R43_NON_USA_ADJUST
+	jsr	$203AA6.L
+	org	Padding1+$1B34+R43_NON_USA_ADJUST
+	jmp	$2078A4.L
+	org	Padding1+$1B5A+R43_NON_USA_ADJUST
+	move.l	#$20F040,$4(A0)
+	org	Padding1+$1B78+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1B80+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1BA6+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1BAE+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1BD4+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1BDC+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1C02+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1C0A+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1C30+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1C38+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1C5E+R43_NON_USA_ADJUST
+	jsr	$20786E.L
+	org	Padding1+$1C66+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1D88+R43_NON_USA_ADJUST
+	jmp	$203AA6.L
+	org	Padding1+$1D8E+R43_NON_USA_ADJUST
+	jmp	$203B52.L
+	org	Padding1+$1DB2+R43_NON_USA_ADJUST
+	move.l	#$20F0C4,$4(A0)
+	org	Padding1+$1DC8+R43_NON_USA_ADJUST
+	move.l	#$20F0CC,$4(A0)

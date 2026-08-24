@@ -2,6 +2,15 @@
 
 ## 2026-08-24
 
+- **R43 retained Mace milestone:** The non-USA R43 source now restores the
+  retained Mace draw, despawn, linked-chain spawn/delete, and relocated sprite
+  pointer links. Fresh guarded displayless Japan and Europe builds/checks
+  compare the entire Mace body exactly; the next differences are in the
+  following retained SpikeBall body, at byte 61718 in R43C and byte 61723 in
+  R43D. USA remains 133/0/0 (matches/differences/missing). No proprietary
+  bytes were added, and the ignored CHD-derived comparison trees remain
+  untracked.
+
 - **R43 retained Fan milestone:** The non-USA R43 source now restores the
   retained Fan draw and deletion links. Fresh guarded displayless Japan and
   Europe builds/checks compare the entire Fan body exactly; the next
