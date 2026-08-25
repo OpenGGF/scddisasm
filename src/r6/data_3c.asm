@@ -215,13 +215,87 @@ R63C_USA_AnimationTableB:
 	else
 	; European/Japanese legacy graphics and routine fragment.
 		dc.w	$3AB8, $F640, $43F9, $0020, $FE66, $3C3C, $001F, $6100, $002A, $6624, $4BF9, $00C0, $0004, $2ABC, $9400, $9340
-		dc.w	$2ABC, $968C, $95C0, $3ABC, $977F, $3ABC, $5540, $31FC, $0081, $F640, $3AB8, $F640, $4E75, $5312, $6A42, $7000
-		dc.w	$1014, $5200, $B011, $6502, $7000, $1880, $D040, $14B1, $0002, $1031, $0003, $4880, $D040, $D040, $7200, $1211
-		dc.w	$D241, $D041, $2271, $0002, $47F9, $00FF, $1980, $26D9, $51CE, $FFFC, $D4FC, $0001, $D8FC, $0001, $7000, $4E75
-		dc.w	$D4FC, $0001, $D8FC, $0001, $7001, $4E75, $0400, $0400, $0901, $0402, $0F03, $0023, $3F0C, $0023, $3F8C, $0023
-		dc.w	$400C, $0023, $408C, $5312, $6A00, $0034, $1491, $7000, $1014, $5200, $B029, $0001, $6502, $7000, $1880, $D040
-		dc.w	$D040, $2271, $0002, $47F9, $00FF, $1980, $26D9, $51CE, $FFFC, $D4FC, $0001, $D8FC, $0001, $7000, $4E75, $D4FC
-		dc.w	$0001, $D8FC, $0001, $7001, $4E75, $0403, $0023, $3C0C, $0023, $3D0C, $0023, $3E0C, $0302, $0023, $3B0C, $0023
+		dc.w	$2ABC, $968C, $95C0, $3ABC, $977F, $3ABC, $5540, $31FC, $0081, $F640, $3AB8, $F640, $4E75
+
+		; Non-USA R63C animated-art routine. Its fixed branch words remain
+		; explicit because this legacy block is linked at a historical offset.
+	R63C_NonUSA_AnimateTiles:
+		subq.b	#$1,(a2)
+		dc.w	$6A42		; bpl.s R63C_NonUSA_AnimateTiles_NoUpdate
+		moveq	#$0,d0
+		move.b	(a4),d0
+		addq.b	#$1,d0
+		dc.w	$B011		; cmp.b (a1),d0
+		dc.w	$6502		; bcs.s R63C_NonUSA_AnimateTiles_IndexZero
+		moveq	#$0,d0
+
+R63C_NonUSA_AnimateTiles_IndexZero:
+		move.b	d0,(a4)
+		add.w	d0,d0
+		move.b	$2(a1,d0.w),(a2)
+		move.b	$3(a1,d0.w),d0
+		ext.w	d0
+		add.w	d0,d0
+		add.w	d0,d0
+		moveq	#$0,d1
+		move.b	(a1),d1
+		add.w	d1,d1
+		add.w	d1,d0
+		movea.l	$2(a1,d0.w),a1
+		lea.l	$FF1980.l,a3
+
+R63C_NonUSA_AnimateTiles_Copy:
+		move.l	(a1)+,(a3)+
+		dbra	d6,R63C_NonUSA_AnimateTiles_Copy
+		adda.w	#$1,a2
+		adda.w	#$1,a4
+		moveq	#$0,d0
+		rts
+
+R63C_NonUSA_AnimateTiles_NoUpdate:
+		adda.w	#$1,a2
+		adda.w	#$1,a4
+		moveq	#$1,d0
+		rts
+
+		dc.w	$0400
+		dc.w	$0400, $0901, $0402, $0F03, $0023, $3F0C, $0023, $3F8C
+		dc.w	$0023, $400C, $0023, $408C
+
+R63C_NonUSA_AnimateTiles_Alt:
+		subq.b	#$1,(a2)
+		dc.w	$6A00,$0034	; bpl.w R63C_NonUSA_AnimateTiles_Alt_NoUpdate
+		move.b	(a1),(a2)
+		moveq	#$0,d0
+		move.b	(a4),d0
+		addq.b	#$1,d0
+		dc.w	$B029,$0001	; cmp.b $1(a1),d0
+		dc.w	$6502		; bcs.s R63C_NonUSA_AnimateTiles_Alt_IndexZero
+		moveq	#$0,d0
+
+R63C_NonUSA_AnimateTiles_Alt_IndexZero:
+		move.b	d0,(a4)
+		add.w	d0,d0
+		add.w	d0,d0
+		movea.l	$2(a1,d0.w),a1
+		lea.l	$FF1980.l,a3
+
+R63C_NonUSA_AnimateTiles_Alt_Copy:
+		move.l	(a1)+,(a3)+
+		dbra	d6,R63C_NonUSA_AnimateTiles_Alt_Copy
+		adda.w	#$1,a2
+		adda.w	#$1,a4
+		moveq	#$0,d0
+		rts
+
+	; The alternate no-update entry is reached by the fixed branch above.
+R63C_NonUSA_AnimateTiles_Alt_NoUpdate:
+		adda.w	#$1,a2
+		adda.w	#$1,a4
+		moveq	#$1,d0
+		rts
+
+		dc.w	$0403, $0023, $3C0C, $0023, $3D0C, $0023, $3E0C, $0302, $0023, $3B0C, $0023
 		dc.w	$3B8C, $0323, $81DC, $0223, $6F30, $0021, $0000, $0081, $0404, $0026, $002E, $008A, $0026, $008A, $008A, $008A
 		dc.w	$008A, $008A, $008A, $008A, $008A, $008A, $008A, $008A, $008A, $00E6, $008A, $00EE, $0000, $0023, $81DC, $0000
 		dc.w	$000E, $0023, $0DA2, $6C00, $0023, $39BC, $7A00, $0023, $CA20, $8700, $0023, $CC94, $8AE0, $0023, $CFF4, $9100
