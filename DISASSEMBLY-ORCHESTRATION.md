@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN next post-table routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4870` through `$FF4881` (18 bytes), the next
+  nonzero target selected by the post-table offset table, is now labeled source.
+  It sets command state A, calls the shared handler at `$FF5716`, loads
+  `d0 = 1`, and branches to `$FF4B7A`; the next table-selected routine begins
+  at `$FF4882`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN ninth post-table routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF4858` through `$FF486F` (24 bytes), the next
   nonzero target selected by the post-table offset table, is now labeled source.
