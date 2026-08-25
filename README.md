@@ -94,6 +94,12 @@ the duplicated retained suffix from seven source fragments while preserving
 their historical offsets. Fresh Japan, USA, and Europe builds and component
 comparisons remain byte-exact.
 
+The USA R51A pre-chunk fragment now reuses the same shared source with its
+historical six-byte leading record omitted. Its remaining `$486` bytes use the
+labeled retained helper and compatibility routines, while the packed graphics
+and mapping records remain declarative data. Fresh Japan, USA, and Europe
+builds and component comparisons remain byte-exact.
+
 The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 `R12B__.MMD`, `R12C__.MMD`, `R12D__.MMD`, `R13C__.MMD`, and `R13D__.MMD`
 byte-exact for both Japan and Europe. The source preserves USA's existing

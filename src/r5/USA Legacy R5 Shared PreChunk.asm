@@ -2,12 +2,20 @@
 ; Shared USA R5 legacy pre-chunk suffix.
 ;
 ; R51B/R51C/R51D and R52A/R52B/R52C/R52D all carry this exact 0x48C-byte
-; suffix at different Padding1 offsets. The retained 68000 routines are now
-; labeled below; their graphics and mapping tables remain declarative data.
+; suffix at different Padding1 offsets. R51A carries the same suffix after
+; its leading six-byte record. The retained 68000 routines are now labeled
+; below; their graphics and mapping tables remain declarative data.
 ; ------------------------------------------------------------------------------
 
+	if def(USA_R5_SHARED_PRECHUNK_OMIT_RECORD)
+	else
+USA_R5_SHARED_PRECHUNK_OMIT_RECORD equ 0
+	endif
+
+	if USA_R5_SHARED_PRECHUNK_OMIT_RECORD=0
 USA_R5_LegacySharedRecord:
 	dc.w	$0020, $B9DE, $7DE0
+	endif
 
 ; Retained object/helper code preceding the shared graphics table.
 USA_R5_LegacyObjectHelper:

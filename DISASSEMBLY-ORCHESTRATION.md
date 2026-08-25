@@ -2,6 +2,16 @@
 
 ## 2026-08-25
 
+- **USA R51A pre-chunk sharing milestone:** The USA R51A pre-chunk source now
+  reuses `src/r5/USA Legacy R5 Shared PreChunk.asm` with its historical
+  six-byte leading record omitted. Its remaining `$486` bytes are therefore
+  emitted by the same labeled break-block/object-helper and compatibility
+  source already shared by R51B/R51C/R51D and R52A/R52B/R52C/R52D, while the
+  packed graphics and mapping records remain declarative data. Fresh guarded
+  displayless Japan, USA, and Europe builds/checks compare every listed target
+  exactly, with zero differences and zero missing targets. No proprietary
+  bytes were added.
+
 - **USA R5 shared pre-chunk milestone:** The R51B/R51C/R51D and
   R52A/R52B/R52C/R52D Padding1 sources now retain only their distinct prefixes
   and include the exact shared `$48C`-byte suffix from
