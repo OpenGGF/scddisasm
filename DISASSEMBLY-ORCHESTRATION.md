@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-6/5 handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` command-6 and command-5 handlers from `$FF403E` through
+  `$FF4085` (72 bytes) are now labeled source. They initialize their operation
+  state, invoke the shared `$FF5480` path, and return; the next raw handler
+  begins at `$FF4086`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN buffer/status-dispatch milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF4008` through `$FF403D` (54 bytes) is now
   labeled source. It selects the regional buffer, runs the status path, and
