@@ -142,6 +142,11 @@ is now labeled source. It scans the 54-entry object area, selects a routine
 through the `$FF2748` pointer table, invokes it, and advances to the next
 entry; the following routine begins at `$FF2834`.
 
+The next non-USA `BRAMMAIN.MMD` camera/position gate from `$FF2834` through
+`$FF28B1` (126 bytes) is now labeled source. It checks the object's horizontal
+and vertical bounds, selects a `$C000` table slot from the object angle, and
+writes the current object address; the following data begins at `$FF28B2`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

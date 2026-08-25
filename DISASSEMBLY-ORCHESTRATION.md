@@ -10,6 +10,14 @@
   and Europe builds/checks report every listed target as an exact match, with
   zero differences and zero missing targets. No proprietary bytes were added.
 
+- **Non-USA BRAMMAIN camera/position-gate milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF2834` through `$FF28B1` (126 bytes) is now
+  labeled source. It checks horizontal and vertical bounds, selects a `$C000`
+  table slot from the object angle, and writes the current object address; the
+  following data begins at `$FF28B2`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state/animation-routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF2760` through `$FF280B` (172 bytes) is now
   labeled source. It updates sequence state from indexed animation data,
