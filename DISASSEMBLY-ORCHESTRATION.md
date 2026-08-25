@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN status/result milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF40BA` through `$FF413B` (132 bytes) is now
+  labeled source. It checks the command-6 path, selects the regional result
+  buffer, routes status outcomes for operations 1 and 3, and retains its
+  three-word tail table; the next raw routine begins at `$FF413C`. Fresh
+  guarded displayless Japan, USA, and Europe builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN operation-dispatch milestone:** The Japan/Europe
   `BRAMMAIN.MMD` operation dispatcher and code-2 handler from `$FF4086` through
   `$FF40B9` (52 bytes) are now labeled source. They select operation codes 1

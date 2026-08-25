@@ -272,6 +272,12 @@ The non-USA `BRAMMAIN.MMD` operation dispatcher and code-2 handler from
 operation codes 1 and 2, loop code 1 through the initialization routine, and
 submit code 2 through `$FF5014`; the next raw handler begins at `$FF40BA`.
 
+The non-USA `BRAMMAIN.MMD` status/result routine from `$FF40BA` through
+`$FF413B` (132 bytes) is now labeled source. It checks the command-6 path,
+selects the regional result buffer, routes status outcomes for operations 1 and
+3, and retains its three-word tail table; the next raw routine begins at
+`$FF413C`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
