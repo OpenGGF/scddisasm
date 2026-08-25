@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-table milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` command-offset table at `$FF2B94-$FF2BA5` (18 bytes) is now a
+  labeled source-level `dc.w` table containing all nine dispatch offsets. The
+  following command routine begins at `$FF2BA6`. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
+
 - **Non-USA BRAMMAIN command-dispatch milestone:** The Japan/Europe
   `BRAMMAIN.MMD` command dispatcher from `$FF2B48` through `$FF2B93` (76 bytes)
   is now labeled source. It reads a command byte from `$200020`, dispatches

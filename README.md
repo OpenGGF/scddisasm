@@ -179,6 +179,10 @@ The non-USA `BRAMMAIN.MMD` command dispatcher from `$FF2B48` through
 and status at `$200021-$200024`, and clears the command byte; the routine table
 remains explicit data.
 
+The non-USA command-offset table at `$FF2B94-$FF2BA5` (18 bytes) is now a
+labeled source-level `dc.w` table with all nine dispatch offsets explicit. The
+following command routine begins at `$FF2BA6`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
