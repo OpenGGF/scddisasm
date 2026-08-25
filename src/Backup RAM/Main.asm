@@ -12415,10 +12415,24 @@ L_NonUSA_FF3FB2:
 L_NonUSA_FF3FBC:
 	rts
 L_NonUSA_FF3FBE:
-	dc.b	$70,$00
-	dc.b	$10,$38,$CD,$15,$D0,$40
-	dc.b	$30,$3B,$00,$08,$4E,$BB,$00,$04,$4E,$75,$00,$38,$01,$A6,$00,$EA
-	dc.b	$03,$36,$07,$62,$0B,$D4,$0C,$7A,$0A,$D4,$00,$32,$0A,$B8,$70,$1E
+	moveq	#$0, d0
+L_NonUSA_FF3FC0:
+	move.b	$FFFFCD15.w, d0
+L_NonUSA_FF3FC4:
+	add.w	d0, d0
+L_NonUSA_FF3FC6:
+	move.w	L_NonUSA_FF3FD0(pc, d0.w), d0
+L_NonUSA_FF3FCA:
+	jsr	L_NonUSA_FF3FD0(pc, d0.w)
+L_NonUSA_FF3FCE:
+	rts
+L_NonUSA_FF3FD0:
+	dc.l	$003801A6
+	dc.l	$00EA0336
+	dc.l	$07620BD4
+	dc.l	$0C7A0AD4
+	dc.l	$00320AB8
+	dc.b	$70,$1E
 	dc.b	$48,$E7,$80,$00,$11,$FC,$00,$FF,$CD,$20,$61,$00,$E0,$F2,$4C,$DF
 	dc.b	$00,$01,$51,$C8,$FF,$EC,$50,$8F,$60,$00,$E0,$8E,$50,$8F,$60,$00
 	dc.b	$E0,$28,$41,$F9,$00,$FF,$4D,$56,$4A,$39,$00,$FF,$0F,$1F,$67,$06

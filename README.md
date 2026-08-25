@@ -246,6 +246,12 @@ The non-USA `BRAMMAIN.MMD` hardware-setup routine from `$FF3F3A` through
 initializes cartridge and controller data, and restores the status flag before
 returning; the next raw routine begins at `$FF3FBE`.
 
+The non-USA `BRAMMAIN.MMD` indexed dispatch helper from `$FF3FBE` through
+`$FF3FCE` (18 bytes) and its five-entry offset table from `$FF3FD0` through
+`$FF3FE3` (20 bytes) are now labeled source. The helper reads the `$CD15`
+selector, doubles it, and dispatches through the table; the next raw routine
+begins at `$FF3FE4`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

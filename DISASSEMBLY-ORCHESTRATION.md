@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN indexed-dispatch milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF3FBE` through `$FF3FCE` (18 bytes) and its
+  five-entry offset table from `$FF3FD0` through `$FF3FE3` (20 bytes) are now
+  labeled source. The helper reads the `$CD15` selector, doubles it, and
+  dispatches through the table; the next raw routine begins at `$FF3FE4`.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN hardware-setup milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF3F3A` through `$FF3FBD` (132 bytes) is now
   labeled source. It clears and configures VDP state, initializes cartridge and
