@@ -414,6 +414,11 @@ the direct `$CD50` completion path, and otherwise runs the shared handler before
 dispatching with command state C; the next table-selected routine begins at
 `$FF48B0`.
 
+The following non-USA post-table `BRAMMAIN.MMD` routine from `$FF48B0` through
+`$FF48D7` (40 bytes) is now labeled source. It clears and checks the
+`$CD50/$CD51` command-result state, runs the completion handlers, and restores
+the command/result state; the next raw routine begins at `$FF48D8`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
