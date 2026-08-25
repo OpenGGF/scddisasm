@@ -386,6 +386,12 @@ The third non-USA post-table `BRAMMAIN.MMD` routine from `$FF47A2` through
 shared handler at `$FF5716`, loads `d0 = 1`, and branches to `$FF4B7A`; the next
 table-selected routine begins at `$FF47B4`.
 
+The fourth non-USA post-table `BRAMMAIN.MMD` routine from `$FF47B4` through
+`$FF482F` (124 bytes) is now labeled source. It checks the Backup RAM command
+flag and status byte, runs the shared handlers, resets the result state, and
+includes helper entry points at `$FF4808`, `$FF480C`, and `$FF481E`; the next
+table-selected routine begins at `$FF4830`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
