@@ -13382,8 +13382,19 @@ L_NonUSA_FF4782:
 L_NonUSA_FF4788:
 	rts
 L_NonUSA_FF478A:
-	dc.b	$42,$38,$CD,$2D,$0C,$38,$00,$0B,$CD,$2E,$66,$0A
-	dc.b	$42,$38,$CD,$2E,$11,$FC,$00,$02,$CD,$14,$4E,$75,$11,$FC,$00,$03
+	clr.b	$FFFFCD2D.w
+L_NonUSA_FF478E:
+	cmpi.b	#$B, $FFFFCD2E.w
+L_NonUSA_FF4794:
+	bne.b	L_NonUSA_FF47A0
+L_NonUSA_FF4796:
+	clr.b	$FFFFCD2E.w
+L_NonUSA_FF479A:
+	move.b	#$2, $FFFFCD14.w
+L_NonUSA_FF47A0:
+	rts
+L_NonUSA_FF47A2:
+	dc.b	$11,$FC,$00,$03
 	dc.b	$CD,$14,$61,$00,$0F,$6C,$30,$3C,$00,$01,$60,$00,$03,$C8,$4A,$38
 	dc.b	$CD,$2B,$67,$64,$61,$00,$01,$6E,$4A,$39,$00,$FF,$0F,$1F,$67,$00
 	dc.b	$00,$46,$61,$00,$F4,$8A,$61,$00,$07,$5C,$0C,$69,$00,$0C,$00,$00

@@ -376,6 +376,11 @@ The first non-USA post-table `BRAMMAIN.MMD` routine from `$FF475C` through
 the command and result state, and calls the shared handlers; the next
 table-selected routine begins at `$FF478A`.
 
+The second non-USA post-table `BRAMMAIN.MMD` routine from `$FF478A` through
+`$FF47A1` (24 bytes) is now labeled source. It checks and clears the
+command-result flag, sets command state 2, and returns; the next table-selected
+routine begins at `$FF47A2`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
