@@ -366,6 +366,11 @@ through `$FF4731` (104 bytes) is now labeled source. It clears and updates the
 Backup RAM state, handles the completion paths, tests the result, invokes the
 cleanup handlers, and returns; the independent dispatcher begins at `$FF4732`.
 
+The non-USA `BRAMMAIN.MMD` post-table dispatcher and 13-word offset table from
+`$FF4732` through `$FF475B` (42 bytes) are now labeled source. The dispatcher
+selects a routine offset from the Backup RAM command-state byte; the next raw
+routine begins at `$FF475C`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

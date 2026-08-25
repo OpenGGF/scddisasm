@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN post-table dispatcher milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` dispatcher and 13-word offset table from `$FF4732` through
+  `$FF475B` (42 bytes) are now labeled source. The dispatcher selects a
+  routine offset from the Backup RAM command-state byte; the next raw routine
+  begins at `$FF475C`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN final indexed-table target milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF46CA` through `$FF4731` (104 bytes), the
   twelfth and final target selected by the indexed table, is now labeled
