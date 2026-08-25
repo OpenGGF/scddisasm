@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN fourth table-target milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4468` through `$FF4493` (44 bytes), the
+  fourth target selected by the indexed table, is now labeled source. It checks
+  the status byte, handles the clear/status path, and sets up the command-6
+  path; the next table target begins at `$FF4494`. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
+
 - **Non-USA BRAMMAIN third table-target milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF4454` through `$FF4467` (20 bytes), the
   third target selected by the indexed table, is now labeled source. It checks
