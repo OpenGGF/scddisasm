@@ -13394,8 +13394,15 @@ L_NonUSA_FF479A:
 L_NonUSA_FF47A0:
 	rts
 L_NonUSA_FF47A2:
-	dc.b	$11,$FC,$00,$03
-	dc.b	$CD,$14,$61,$00,$0F,$6C,$30,$3C,$00,$01,$60,$00,$03,$C8,$4A,$38
+	move.b	#$3, $FFFFCD14.w
+L_NonUSA_FF47A8:
+	bsr.w	$FF5716
+L_NonUSA_FF47AC:
+	move.w	#$1, d0
+L_NonUSA_FF47B0:
+	bra.w	$FF4B7A
+L_NonUSA_FF47B4:
+	dc.b	$4A,$38
 	dc.b	$CD,$2B,$67,$64,$61,$00,$01,$6E,$4A,$39,$00,$FF,$0F,$1F,$67,$00
 	dc.b	$00,$46,$61,$00,$F4,$8A,$61,$00,$07,$5C,$0C,$69,$00,$0C,$00,$00
 	dc.b	$6D,$34,$61,$00,$F4,$32,$61,$00,$F4,$76,$61,$00,$F6,$F4,$66,$22
