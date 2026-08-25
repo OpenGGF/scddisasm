@@ -11683,21 +11683,101 @@ L_NonUSA_FF2B92:
 	rts
 L_NonUSA_CommandRoutineTable:
 	dc.w	$0012,$0024,$0030,$004A,$006C,$0090,$00AA,$00B0,$00D6
-	dc.b	$41,$F9,$00,$FF,$2C,$8C,$43,$F9,$00,$FF,$39,$0C,$70,$00,$4E,$F8
-	dc.b	$FD,$AE,$70,$01,$22,$7C,$00,$FF,$39,$0C,$4E,$F8,$FD,$AE,$20,$7C
-	dc.b	$00,$20,$00,$30,$11,$7C,$00,$00,$00,$0B,$21,$7C,$00,$00,$00,$00
-	dc.b	$00,$0C,$70,$02,$4E,$F8,$FD,$AE,$20,$7C,$00,$20,$00,$30,$11,$7C
-	dc.b	$00,$00,$00,$0B,$21,$7C,$00,$00,$00,$00,$00,$0C,$22,$7C,$00,$20
-	dc.b	$00,$40,$70,$03,$4E,$B8,$FD,$AE,$4E,$75,$20,$7C,$00,$20,$00,$30
-	dc.b	$11,$79,$00,$20,$00,$29,$00,$0B,$31,$79,$00,$20,$00,$2A,$00,$0C
-	dc.b	$22,$7C,$00,$20,$00,$40,$70,$04,$4E,$B8,$FD,$AE,$4E,$75,$20,$7C
-	dc.b	$00,$20,$00,$30,$11,$7C,$00,$00,$00,$0B,$21,$7C,$00,$00,$00,$00
-	dc.b	$00,$0C,$70,$05,$4E,$F8,$FD,$AE,$70,$06,$4E,$F8,$FD,$AE,$20,$7C
-	dc.b	$00,$20,$00,$30,$11,$7C,$00,$00,$00,$0B,$21,$7C,$00,$00,$00,$00
-	dc.b	$00,$0C,$22,$7C,$00,$20,$00,$44,$22,$39,$00,$20,$00,$40,$70,$07
-	dc.b	$4E,$F8,$FD,$AE,$20,$7C,$00,$20,$00,$30,$11,$79,$00,$20,$00,$29
-	dc.b	$00,$0B,$31,$79,$00,$20,$00,$2A,$00,$0C,$22,$7C,$00,$20,$00,$40
-	dc.b	$70,$08,$4E,$F8,$FD,$AE,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+
+L_NonUSA_FF2BA6:
+	lea.l	$FF2C8C.l, a0
+L_NonUSA_FF2BAC:
+	lea.l	$FF390C.l, a1
+L_NonUSA_FF2BB2:
+	moveq	#$0, d0
+L_NonUSA_FF2BB4:
+	jmp	$FFFFfdae.w
+L_NonUSA_FF2BB8:
+	moveq	#$1, d0
+L_NonUSA_FF2BBA:
+	movea.l	#$FF390C, a1
+L_NonUSA_FF2BC0:
+	jmp	$FFFFfdae.w
+L_NonUSA_FF2BC4:
+	movea.l	#$200030, a0
+L_NonUSA_FF2BCA:
+	move.b	#$0, $B(a0)
+L_NonUSA_FF2BD0:
+	move.l	#$0, $C(a0)
+L_NonUSA_FF2BD8:
+	moveq	#$2, d0
+L_NonUSA_FF2BDA:
+	jmp	$FFFFfdae.w
+L_NonUSA_FF2BDE:
+	movea.l	#$200030, a0
+L_NonUSA_FF2BE4:
+	move.b	#$0, $B(a0)
+L_NonUSA_FF2BEA:
+	move.l	#$0, $C(a0)
+L_NonUSA_FF2BF2:
+	movea.l	#$200040, a1
+L_NonUSA_FF2BF8:
+	moveq	#$3, d0
+L_NonUSA_FF2BFA:
+	jsr	$FFFFfdae.w
+L_NonUSA_FF2BFE:
+	rts
+L_NonUSA_FF2C00:
+	movea.l	#$200030, a0
+L_NonUSA_FF2C06:
+	move.b	$200029.l, $B(a0)
+L_NonUSA_FF2C0E:
+	move.w	$20002A.l, $C(a0)
+L_NonUSA_FF2C16:
+	movea.l	#$200040, a1
+L_NonUSA_FF2C1C:
+	moveq	#$4, d0
+L_NonUSA_FF2C1E:
+	jsr	$FFFFfdae.w
+L_NonUSA_FF2C22:
+	rts
+L_NonUSA_FF2C24:
+	movea.l	#$200030, a0
+L_NonUSA_FF2C2A:
+	move.b	#$0, $B(a0)
+L_NonUSA_FF2C30:
+	move.l	#$0, $C(a0)
+L_NonUSA_FF2C38:
+	moveq	#$5, d0
+L_NonUSA_FF2C3A:
+	jmp	$FFFFfdae.w
+L_NonUSA_FF2C3E:
+	moveq	#$6, d0
+L_NonUSA_FF2C40:
+	jmp	$FFFFfdae.w
+L_NonUSA_FF2C44:
+	movea.l	#$200030, a0
+L_NonUSA_FF2C4A:
+	move.b	#$0, $B(a0)
+L_NonUSA_FF2C50:
+	move.l	#$0, $C(a0)
+L_NonUSA_FF2C58:
+	movea.l	#$200044, a1
+L_NonUSA_FF2C5E:
+	move.l	$200040.l, d1
+L_NonUSA_FF2C64:
+	moveq	#$7, d0
+L_NonUSA_FF2C66:
+	jmp	$FFFFfdae.w
+L_NonUSA_FF2C6A:
+	movea.l	#$200030, a0
+L_NonUSA_FF2C70:
+	move.b	$200029.l, $B(a0)
+L_NonUSA_FF2C78:
+	move.w	$20002A.l, $C(a0)
+L_NonUSA_FF2C80:
+	movea.l	#$200040, a1
+L_NonUSA_FF2C86:
+	moveq	#$8, d0
+L_NonUSA_FF2C88:
+	jmp	$FFFFfdae.w
+L_NonUSA_CommandData:
+	dc.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 	dc.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 	dc.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 	dc.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00

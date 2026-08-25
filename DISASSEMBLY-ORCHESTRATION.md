@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` command handlers from `$FF2BA6` through `$FF2C8B` (230 bytes)
+  are now labeled source. They initialize the command-specific buffers and
+  dispatch the nine Backup RAM operations through the common helper; the
+  following zero-filled data begins at `$FF2C8C`. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
+
 - **Non-USA BRAMMAIN command-table milestone:** The Japan/Europe
   `BRAMMAIN.MMD` command-offset table at `$FF2B94-$FF2BA5` (18 bytes) is now a
   labeled source-level `dc.w` table containing all nine dispatch offsets. The
