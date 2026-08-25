@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN result-handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` handler from `$FF4176` through `$FF422D` (184 bytes) is now
+  labeled source. It dispatches the result bits, updates command/status state,
+  and handles the failure path; the next raw helper begins at `$FF422E`. Fresh
+  guarded displayless Japan, USA, and Europe builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state-finalization milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF413C` through `$FF4175` (58 bytes) is now
   labeled source. It records the resulting command state, clears the status
