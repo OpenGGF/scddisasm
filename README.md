@@ -153,6 +153,11 @@ object slots, derives viewport-relative coordinates, follows object mapping
 data, and emits active-object records to `$B000`; its embedded 24-byte table is
 still explicit data, and the called helper begins at `$FF29BE`.
 
+The called non-USA `BRAMMAIN.MMD` object-record helper from `$FF29BE` through
+`$FF2A03` (70 bytes) is now labeled source. It handles the default record format
+and writes transformed position and mapping fields into the `$B000` output
+stream; bit-selected variants begin at `$FF2A04` and `$FF2A52`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
