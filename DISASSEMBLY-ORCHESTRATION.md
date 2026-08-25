@@ -2,6 +2,16 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN ninth post-table routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4858` through `$FF486F` (24 bytes), the next
+  nonzero target selected by the post-table offset table, is now labeled source.
+  It clears and checks the `$CD50/$CD51` command-result state, then clears the
+  result byte and sets command state 9 on the completion path; the next
+  table-selected routine begins at `$FF4870`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN fifth post-table routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF4830` through `$FF4857` (40 bytes), the
   fifth target selected by the post-table offset table, is now labeled source.
