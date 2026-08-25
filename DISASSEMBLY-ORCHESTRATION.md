@@ -2,13 +2,24 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN VDP-setup milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` setup routine from `$FF2396` through `$FF2487` (242 bytes) is
+  now labeled source. It initializes the VDP and controller ports, clears and
+  fills VRAM, uploads the table-backed block, and returns; the following table
+  begins at `$FF2488` and remains declarative data. Later manager routines
+  remain explicit source-emitted bytes pending semantic decomposition. Fresh
+  guarded displayless Japan, USA, and Europe builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN hardware-polling milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routines from `$FF235E` through `$FF2395` (56 bytes) are now
   labeled source. They cover the `$A12003` bit-set/test waits and both
-  `$A1200F` bit-7 wait directions; the larger routine beginning at `$FF2396`
-  remains explicit bytes. Fresh guarded displayless Japan, USA, and Europe
-  builds/checks report every listed target as an exact match, with zero
-  differences and zero missing targets. No proprietary bytes were added.
+  `$A1200F` bit-7 wait directions; the setup routine beginning at `$FF2396`
+  is covered by the subsequent VDP-setup milestone. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
 
 - **Non-USA BRAMMAIN polling-routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine at `$FF233C-$FF235D` (34 bytes) is now labeled source.

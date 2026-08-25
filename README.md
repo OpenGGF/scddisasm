@@ -77,15 +77,21 @@ The following non-USA `BRAMMAIN.MMD` routine is now labeled from `$FF233C`
 through `$FF235D` (34 bytes). It writes `$A12012`, polls `$A12022` in both
 directions, and returns. The four short hardware-polling routines from
 `$FF235E` through `$FF2395` (56 bytes) are also now labeled; the larger
-routine beginning at `$FF2396` remains explicit bytes. This is a bounded
-source-recovery milestone, not a claim that the remaining `BRAMMAIN` routines
-and data tables are fully disassembled. Japan, USA, and Europe still produce
-byte-exact component outputs.
+routine beginning at `$FF2396` is covered by the following paragraph. This is
+a bounded source-recovery milestone, not a claim that the remaining
+`BRAMMAIN` routines and data tables are fully disassembled. Japan, USA, and
+Europe still produce byte-exact component outputs.
 
 The non-USA `BRAMMAIN.MMD` polling span at `$FF235E-$FF2395` covers the
-`$A12003` bit-set/test waits and both `$A1200F` bit-7 wait directions. Its
-following routine begins at `$FF2396` and remains source-emitted bytes pending
-semantic decomposition.
+`$A12003` bit-set/test waits and both `$A1200F` bit-7 wait directions. The
+following setup routine begins at `$FF2396` and is covered below.
+
+The non-USA `BRAMMAIN.MMD` setup routine from `$FF2396` through `$FF2487`
+(242 bytes) is now labeled source. It initializes the VDP and controller
+ports, clears and fills VRAM, uploads the table-backed block, and returns;
+numeric calls retain the regional ABI. The following table begins at `$FF2488`
+and remains declarative data, while later manager routines remain explicit
+source-emitted bytes pending semantic decomposition.
 
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
