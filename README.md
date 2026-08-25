@@ -107,8 +107,13 @@ The non-USA `BRAMMAIN.MMD` latch and event-handler routines from `$FF25B8`
 through `$FF25F9` (66 bytes) are now labeled source. They update the input
 latches, dispatch the pending `$F00B`/`$F00C` event, and restore the handoff
 state; the preceding `$FF2542-$FF25B7` span remains explicit bytes. The
-following pattern data begins at `$FF25FA` and remains pending semantic
-classification.
+following pattern data begins at `$FF25FA` and is covered by the following
+paragraph.
+
+The non-USA `BRAMMAIN.MMD` pattern-data block from `$FF25FA` through `$FF2701`
+(264 bytes) is now emitted as 66 explicit `dc.l` declarations, preserving its
+repeated 68000 instruction-pattern words and exact layout. The next raw routine
+begins at `$FF2702`; later manager spans remain pending semantic decomposition.
 
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.

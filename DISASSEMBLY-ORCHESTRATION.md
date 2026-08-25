@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN pattern-data milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` block from `$FF25FA` through `$FF2701` (264 bytes) is now
+  emitted as 66 explicit `dc.l` declarations, preserving its repeated 68000
+  instruction-pattern words and exact layout. The next raw routine begins at
+  `$FF2702`; later manager spans remain pending semantic decomposition. Fresh
+  guarded displayless Japan, USA, and Europe builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN latch/event milestone:** The Japan/Europe
   `BRAMMAIN.MMD` latch and event-handler routines from `$FF25B8` through
   `$FF25F9` (66 bytes) are now labeled source. They update the input latches,
