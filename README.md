@@ -214,6 +214,11 @@ cartridge signature and both data banks, tests RAM writability when needed, and
 returns a zero/nonzero status; the cartridge identifier data begins at
 `$FF3E44`.
 
+The non-USA `BRAMMAIN.MMD` command-submission helper from `$FF3E5C` through
+`$FF3E81` (38 bytes) is now labeled source. It saves the command value,
+submits it through the regional buffer/status path, and enters the command
+completion state; the following marker data begins at `$FF3E82`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

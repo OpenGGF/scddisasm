@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-submission milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF3E5C` through `$FF3E81` (38 bytes) is now
+  labeled source. It saves the command value, submits it through the regional
+  buffer/status path, and enters the command completion state; the following
+  marker data begins at `$FF3E82`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN cartridge-verification milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF3D44` through `$FF3E43` (256 bytes) is now
   labeled source. It validates the cartridge signature and both data banks,
