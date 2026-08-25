@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN status-helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helpers from `$FF3BDA` through `$FF3BF9` (32 bytes) are now
+  labeled source. They run the status check, normalize its result into
+  `$200026`, and expose the `$200026/$200027` state tests; the following
+  regional data begins at `$FF3BFA`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN command-handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` command handlers from `$FF2BA6` through `$FF2C8B` (230 bytes)
   are now labeled source. They initialize the command-specific buffers and

@@ -188,6 +188,11 @@ The non-USA `BRAMMAIN.MMD` command handlers from `$FF2BA6` through `$FF2C8B`
 buffers and dispatch the nine Backup RAM operations through the common helper;
 the following zero-filled data begins at `$FF2C8C`.
 
+The non-USA `BRAMMAIN.MMD` status helpers from `$FF3BDA` through `$FF3BF9`
+(32 bytes) are now labeled source. They run the status check, normalize its
+result into `$200026`, and expose the `$200026/$200027` state tests; the
+following regional data begins at `$FF3BFA`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
