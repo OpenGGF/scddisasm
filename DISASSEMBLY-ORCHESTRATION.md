@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **USA R31 animation-tail sharing milestone:** The USA R31B/R31C/R31D
+  Padding1 sources now reuse the labeled 548-byte legacy animation tail in
+  `src/Level/USA Legacy Animation Tail.asm`, retaining only each level's
+  distinct six-byte prefix. The shared tail occupies the historical
+  `$20FDDC-$20FFFF` range and was proven identical across R31A, R31B, R31C,
+  and R31D before conversion. Fresh guarded displayless Proton builds and
+  checks remain exact for Japan, USA, and Europe, with zero differences and
+  zero missing targets; no proprietary bytes were added.
+
 - **R42A non-USA retained-code milestone:** The Japanese/European R42A
   Padding1 source now labels and emits 246 bytes of retained 68000 code before
   the previously converted animated-art routine: the animal-removal

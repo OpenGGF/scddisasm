@@ -1,5 +1,5 @@
 ; -------------------------------------------------------------------------
-; USA legacy animation tail shared by R13C/R13D/R33C/R33D
+; USA legacy animation tail shared by R13C/R13D/R31B/R31C/R31D/R33C/R33D
 ; -------------------------------------------------------------------------
 ; This block occupies $20FDDC-$20FFFF in the USA images.
 

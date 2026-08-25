@@ -78,6 +78,13 @@ entries are labeled 68000 source. The surrounding wrapper and animation tables
 remain declarative source data, and `R63C__.MMD` remains byte-exact in Japan,
 USA, and Europe.
 
+The USA R31B/R31C/R31D Padding1 fragments now reuse the labeled 548-byte
+animation tail in `src/Level/USA Legacy Animation Tail.asm`, preserving only
+their distinct six-byte prefixes locally. This removes the duplicated raw
+68000 tail from all three source files while preserving the historical
+`$20FDDC-$20FFFF` layout. Fresh Japan, USA, and Europe builds and component
+comparisons remain byte-exact.
+
 The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 `R12B__.MMD`, `R12C__.MMD`, `R12D__.MMD`, `R13C__.MMD`, and `R13D__.MMD`
 byte-exact for both Japan and Europe. The source preserves USA's existing
