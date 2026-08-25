@@ -127,14 +127,6 @@ if [[ $REGION == 1 ]]; then
 		fi
 	done
 fi
-if [[ $REGION != 1 ]]; then
-	if [[ ! -f $ORIGINAL_DIR/ATTACK.MMD ]]; then
-		echo "Missing regional Time Attack asset input: $ORIGINAL_DIR/ATTACK.MMD" >&2
-		echo 'Only the packed-data suffix is read; all executable logic is assembled from source.' >&2
-		exit 1
-	fi
-fi
-
 # The checked-in Windows tools are console programs, but asm68k can create a
 # Win32 information window. Never let a build attach to the user's desktop.
 if [[ ${HEADLESS_DESKTOP:-1} != 1 ]]; then

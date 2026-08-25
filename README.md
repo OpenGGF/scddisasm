@@ -276,13 +276,14 @@ and `PTEST.STM` encoded media. By default they are read from
 from the regional comparison tree. The USA byte-exact filesystem additionally
 requires `ABS.TXT`, `BIB.TXT`, and `CPY.TXT`; these default to
 `original/usa/`, or can be supplied separately with `ISO_METADATA_DIR`. They
-are disc identification text, not executable game logic. Japan and Europe
-additionally require the two remaining executable/data files reported by the
-build because their regional source variants have not yet been reconstructed.
-Their regional `ATTACK.MMD` is also required as a packed presentation-asset
-container: the build reads only its bounded file suffix from offset `$5674`,
-while assembling the MMD header and all executable logic from source. Generated
-files are written to `out/`.
+are disc identification text, not executable game logic. The configured
+Japan, USA, and Europe executable/data outputs are now source-emitted; the
+regional comparison trees remain local prerequisites for byte checks, not build
+inputs. The Time Attack main image is now source-emitted for every region. Its common
+packed suffix is represented by the existing source table, with the shared
+Japan/Europe presentation-table differences in `src/Time Attack/Regional Data.asm`;
+no regional `ATTACK.MMD` is read during compilation. Generated files are written
+to `out/`.
 
 Locally owned disc images may be kept under the ignored
 `original/disc-images/<region>/` directories and extracted into the matching
@@ -334,9 +335,8 @@ REGION=2 ./check.sh
 ```
 
 The build clears the generated `out/files/` entries before assembling and
-copies only externally supplied media plus USA ISO metadata. Non-USA Time Attack
-assembly still reads its bounded packed-data suffix from the local regional
-original. The build does not remove other stale files under `out/`,
+copies only externally supplied media plus USA ISO metadata. The build does not
+remove other stale files under `out/`,
 so use a fresh `out/` directory after switching regions. If the Wine or Proton executable has
 a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
 
@@ -406,7 +406,7 @@ a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.
     - Metallic Madness Act 3 Good/Bad Future (R83C, R83D)
 * Special Stage (SPMM and SPSS)
 * Time warp cutscene (WARP)
-* Time attack main CPU program (ATTACK.MMD, source plus a bounded regional data suffix)
+* Time attack main CPU program (ATTACK.MMD, source plus regional packed-data tables)
 * Time attack Sub CPU program (ATTACK.BIN)
 * "Thank You" screen main CPU program (THANKS_M.MMD)
 * "Comin' Soon" screen main CPU program (COME__.MMD)

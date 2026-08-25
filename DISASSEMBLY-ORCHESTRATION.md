@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Cross-region Time Attack data milestone:** The common source-defined
+  `ATTACK.MMD` suffix is now used for every region, with the 3,327-byte
+  Japan/Europe packed presentation delta emitted by
+  `src/Time Attack/Regional Data.asm`. The Linux build no longer checks for or
+  reads a regional `ATTACK.MMD`; fresh byte comparisons remain exact for USA,
+  Japan, and Europe. The packed tables are still data directives rather than a
+  semantic font/asset disassembly, and the three external FMV streams plus USA
+  ISO identification text remain explicit build inputs.
+
 - **DEMO82A byte-exact milestone:** The Japan/Europe R8 demo path now emits
   source-defined StageChunks demo data, its seven regional chunk corrections,
   the non-USA mapping tail, the Japan/Europe foreground-map byte, and the
