@@ -193,6 +193,11 @@ The non-USA `BRAMMAIN.MMD` status helpers from `$FF3BDA` through `$FF3BF9`
 result into `$200026`, and expose the `$200026/$200027` state tests; the
 following regional data begins at `$FF3BFA`.
 
+The non-USA `BRAMMAIN.MMD` buffer-copy helper from `$FF3C78` through `$FF3C8F`
+(24 bytes) is now labeled source. It copies the command buffer from `a0` into
+the `$200030` state area and restores the caller registers; the following data
+begins at `$FF3C90`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
