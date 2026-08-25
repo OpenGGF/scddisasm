@@ -2,6 +2,13 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN state-code dispatcher milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` dispatcher from `$FF42AC` through `$FF4305` (90 bytes) is now
+  labeled source. It maps state codes 1 through 6 to their status-byte flags
+  and returns for unrecognized states. Fresh guarded displayless Japan, USA,
+  and Europe builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN status-clear helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF4274` through `$FF42AB` (56 bytes) is now
   labeled source. It clears the status bytes for the normal and alternate
