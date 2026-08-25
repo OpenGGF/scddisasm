@@ -2,6 +2,16 @@
 
 ## 2026-08-25
 
+- **USA R5 shared pre-chunk milestone:** The R51B/R51C/R51D and
+  R52A/R52B/R52C/R52D Padding1 sources now retain only their distinct prefixes
+  and include the exact shared `$48C`-byte suffix from
+  `src/r5/USA Legacy R5 Shared PreChunk.asm`. The retained break-block helper,
+  object helper, and compatibility routines in that suffix are labeled 68000
+  source; its packed graphics and mapping records remain declarative data.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks compare every
+  listed target exactly, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **USA R31 animation-tail sharing milestone:** The USA R31B/R31C/R31D
   Padding1 sources now reuse the labeled 548-byte legacy animation tail in
   `src/Level/USA Legacy Animation Tail.asm`, retaining only each level's

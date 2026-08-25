@@ -85,6 +85,15 @@ their distinct six-byte prefixes locally. This removes the duplicated raw
 `$20FDDC-$20FFFF` layout. Fresh Japan, USA, and Europe builds and component
 comparisons remain byte-exact.
 
+The USA R51B/R51C/R51D and R52A/R52B/R52C/R52D Padding1 fragments now reuse
+one exact `$48C`-byte suffix in `src/r5/USA Legacy R5 Shared PreChunk.asm` and
+retain only their distinct prefixes locally. The retained break-block/object
+helpers and compatibility routines in that suffix are labeled 68000 source;
+the packed graphics and mapping records remain declarative data. This removes
+the duplicated retained suffix from seven source fragments while preserving
+their historical offsets. Fresh Japan, USA, and Europe builds and component
+comparisons remain byte-exact.
+
 The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 `R12B__.MMD`, `R12C__.MMD`, `R12D__.MMD`, `R13C__.MMD`, and `R13D__.MMD`
 byte-exact for both Japan and Europe. The source preserves USA's existing
