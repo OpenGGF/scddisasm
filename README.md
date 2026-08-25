@@ -472,6 +472,11 @@ conditionally runs the `$009B` status action, updates the `$CD2A`, `$CD26`, and
 `$CD27` state bytes, and provides both return paths; the following raw routine
 begins at `$FF4C14`.
 
+The next non-USA raw `BRAMMAIN.MMD` routine from `$FF4C14` through `$FF4C37`
+(36 bytes) is now labeled source. It selects the `$CD2B` state from `$CD2A`,
+joins through the alignment path, calls `$FF4C86`, restores `$CD14` from
+`$CD1A`, and returns; the following raw routine begins at `$FF4C38`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
