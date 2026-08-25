@@ -208,6 +208,12 @@ The non-USA `BRAMMAIN.MMD` command-result helper from `$FF3CBA` through
 command state, performs the two status paths, and returns result/error values
 in `d0/d1`; the following regional helper begins at `$FF3D44`.
 
+The non-USA `BRAMMAIN.MMD` RAM-cartridge verification helper from `$FF3D44`
+through `$FF3E43` (256 bytes) is now labeled source. It validates the
+cartridge signature and both data banks, tests RAM writability when needed, and
+returns a zero/nonzero status; the cartridge identifier data begins at
+`$FF3E44`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

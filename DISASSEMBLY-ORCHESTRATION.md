@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN cartridge-verification milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF3D44` through `$FF3E43` (256 bytes) is now
+  labeled source. It validates the cartridge signature and both data banks,
+  tests RAM writability when needed, and returns a zero/nonzero status; the
+  cartridge identifier data begins at `$FF3E44`. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
+
 - **Non-USA BRAMMAIN command-result milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF3CBA` through `$FF3D43` (138 bytes) is now
   labeled source. It initializes and submits the command state, performs the
