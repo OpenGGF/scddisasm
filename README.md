@@ -58,6 +58,13 @@ their later routine spans are decomposed. The `VInterrupt` and following data
 spans remain explicit source bytes pending further decomposition. Japan, USA,
 and Europe still produce byte-exact component outputs.
 
+The non-USA `BRAMMAIN.MMD` V-interrupt dispatch and VDP setup path now adds 354
+bytes of labeled 68000 source from `$FF2186` through `$FF22E6`, including its
+state dispatch word, two VDP update paths, and both interrupt exits. The next
+helper at `$FF22E8` and later V-interrupt/data spans remain explicit source
+bytes pending decomposition; this is not a claim that the whole manager is
+fully disassembled.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

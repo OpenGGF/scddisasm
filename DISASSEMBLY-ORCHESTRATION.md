@@ -2,6 +2,16 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN V-interrupt milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` V-interrupt dispatch and VDP setup path from `$FF2186` through
+  `$FF22E6` (354 bytes) is now labeled 68000 source. It includes the VDP
+  register update loops, state dispatch word, common frame-update path, and
+  both interrupt exits. The following helper begins at the explicitly labeled
+  `$FF22E8` boundary and remains source-emitted bytes, as do the later
+  V-interrupt/data spans. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN `Start` disassembly milestone:** The remaining 250-byte
   Japan/Europe entry span at `$FF2000-$FF20F9` is now labeled 68000 source,
   including startup, RAM clearing, regional manager calls, controller
