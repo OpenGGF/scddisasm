@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN handoff-poll milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF2702` through `$FF2713` (18 bytes) is now
+  labeled source. It requests the sub-CPU handoff via `$CD00`, raises the
+  interrupt mask to `$2500`, polls until the request clears, and returns; the
+  following `$FF2714` span remains explicit source bytes pending decomposition.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN pattern-data milestone:** The Japan/Europe
   `BRAMMAIN.MMD` block from `$FF25FA` through `$FF2701` (264 bytes) is now
   emitted as 66 explicit `dc.l` declarations, preserving its repeated 68000

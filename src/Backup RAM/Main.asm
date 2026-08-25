@@ -10965,8 +10965,17 @@ L_NonUSA_FF25F4:
 	dc.l	$24992499
 	dc.l	$24992499
 	dc.l	$24994E75
-	dc.b	$11,$FC,$00,$01
-	dc.b	$CD,$00,$46,$FC,$25,$00,$4A,$38,$CD,$00,$66,$FA,$4E,$75,$33,$FC
+L_NonUSA_FF2702:
+	move.b	#$1, $FFFFcd00.w
+L_NonUSA_FF2708:
+	move.w	#$2500, sr
+L_NonUSA_FF270C:
+	tst.b	$FFFFcd00.w
+L_NonUSA_FF2710:
+	bne.b	L_NonUSA_FF270C
+L_NonUSA_FF2712:
+	rts
+	dc.b	$33,$FC
 	dc.b	$FF,$00,$00,$A1,$20,$1E,$4E,$75,$2F,$01,$22,$38,$CD,$0E,$66,$06
 	dc.b	$22,$3C,$2A,$6D,$36,$5A,$20,$01,$E5,$81,$D2,$80,$E7,$81,$D2,$80
 	dc.b	$30,$01,$48,$41,$D0,$41,$32,$00,$48,$41,$21,$C1,$CD,$0E,$22,$1F

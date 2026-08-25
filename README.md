@@ -115,6 +115,12 @@ The non-USA `BRAMMAIN.MMD` pattern-data block from `$FF25FA` through `$FF2701`
 repeated 68000 instruction-pattern words and exact layout. The next raw routine
 begins at `$FF2702`; later manager spans remain pending semantic decomposition.
 
+The next non-USA `BRAMMAIN.MMD` handoff routine from `$FF2702` through
+`$FF2713` (18 bytes) is now labeled source. It requests the sub-CPU handoff via
+`$CD00`, raises the interrupt mask to `$2500`, polls until the request clears,
+and returns; the following `$FF2714` span remains explicit source bytes pending
+decomposition.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
