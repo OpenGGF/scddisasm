@@ -341,6 +341,11 @@ The seventh non-USA `BRAMMAIN.MMD` table target from `$FF45EE` through
 sets the command state for the success path, and enters the shared handler; the
 next table target begins at `$FF460E`.
 
+The eighth non-USA `BRAMMAIN.MMD` table target from `$FF460E` through
+`$FF4661` (84 bytes) is now labeled source. It checks the status flag, updates
+the Backup RAM state and command bytes, and invokes the completion handlers; the
+next table target begins at `$FF4662`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
