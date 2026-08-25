@@ -16,10 +16,50 @@ Padding1:
 		dc.w	$4500, $31FC, $0081, $F640, $3AB8, $F640, $43F9, $0020, $FDD4, $3C3C, $007F, $6100, $005E, $6624, $4BF9, $00C0
 		dc.w	$0004, $2ABC, $9401, $9300, $2ABC, $968C, $95C0, $3ABC, $977F, $3ABC, $4700, $31FC, $0081, $F640, $3AB8, $F640
 		dc.w	$43F9, $0020, $FE26, $3C3C, $007F, $6100, $002A, $6624, $4BF9, $00C0, $0004, $2ABC, $9401, $9300, $2ABC, $968C
-		dc.w	$95C0, $3ABC, $977F, $3ABC, $4900, $31FC, $0081, $F640, $3AB8, $F640, $4E75, $5312, $6A42, $7000, $1014, $5200
-		dc.w	$B011, $6502, $7000, $1880, $D040, $14B1, $0002, $1031, $0003, $4880, $D040, $D040, $7200, $1211, $D241, $D041
-		dc.w	$2271, $0002, $47F9, $00FF, $1980, $26D9, $51CE, $FFFC, $D4FC, $0001, $D8FC, $0001, $7000, $4E75, $D4FC, $0001
-		dc.w	$D8FC, $0001, $7001, $4E75, $1800, $3C00, $0801, $0802, $0803, $0804, $0805, $0606, $0607, $3C00, $0801, $0802
+		dc.w	$95C0, $3ABC, $977F, $3ABC, $4900, $31FC, $0081, $F640, $3AB8, $F640, $4E75
+
+		; Non-USA R42A animated-art routine. Its fixed branch words are kept
+		; explicit because this legacy block is linked at a historical offset.
+R42A_NonUSA_AnimateTiles:
+		subq.b	#$1,(a2)
+		dc.w	$6A42		; bpl.s R42A_NonUSA_AnimateTiles_NoUpdate
+		moveq	#$0,d0
+		move.b	(a4),d0
+		addq.b	#$1,d0
+		dc.w	$B011		; cmp.b (a1),d0
+		dc.w	$6502		; bcs.s R42A_NonUSA_AnimateTiles_IndexZero
+		moveq	#$0,d0
+
+R42A_NonUSA_AnimateTiles_IndexZero:
+		move.b	d0,(a4)
+		add.w	d0,d0
+		move.b	$2(a1,d0.w),(a2)
+		move.b	$3(a1,d0.w),d0
+		ext.w	d0
+		add.w	d0,d0
+		add.w	d0,d0
+		moveq	#$0,d1
+		move.b	(a1),d1
+		add.w	d1,d1
+		add.w	d1,d0
+		movea.l	$2(a1,d0.w),a1
+		lea.l	$FF1980.l,a3
+
+R42A_NonUSA_AnimateTiles_Copy:
+		move.l	(a1)+,(a3)+
+		dbra	d6,R42A_NonUSA_AnimateTiles_Copy
+		adda.w	#$1,a2
+		adda.w	#$1,a4
+		moveq	#$0,d0
+		rts
+
+R42A_NonUSA_AnimateTiles_NoUpdate:
+		adda.w	#$1,a2
+		adda.w	#$1,a4
+		moveq	#$1,d0
+		rts
+
+		dc.w	$1800, $3C00, $0801, $0802, $0803, $0804, $0805, $0606, $0607, $3C00, $0801, $0802
 		dc.w	$0803, $0804, $0805, $0606, $0607, $3C00, $0800, $0800, $0800, $0800, $0800, $0600, $0600, $0023, $8A42, $0023
 		dc.w	$8C42, $0023, $8E42, $0023, $9042, $0023, $9242, $0023, $9442, $0023, $9642, $0023, $9842, $1800, $3C00, $0801
 		dc.w	$0802, $0803, $0804, $0805, $0606, $0607, $3C00, $0800, $0800, $0800, $0800, $0800, $0600, $0600, $3C00, $0801

@@ -56,6 +56,12 @@ The surrounding animation tables remain declarative data, and the two fixed
 legacy branch encodings remain explicit `dc.w` values so the historical link
 layout is unchanged. Japan, USA, and Europe still produce byte-exact outputs.
 
+The non-USA R42A Padding1 fragment likewise expresses its 82-byte animated-art
+routine in `src/r4/data_2a.asm`. Its fixed `$6A42` and `$6502` branches remain
+explicit `dc.w` values, while the animation-buffer traversal and no-update
+tail are labeled 68000 source. `R42A__.MMD` remains byte-exact in the regional
+comparisons.
+
 The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 `R12B__.MMD`, `R12C__.MMD`, `R12D__.MMD`, `R13C__.MMD`, and `R13D__.MMD`
 byte-exact for both Japan and Europe. The source preserves USA's existing

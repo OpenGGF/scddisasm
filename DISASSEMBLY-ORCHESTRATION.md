@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **R42A non-USA animation-routine milestone:** The Japanese/European R42A
+  Padding1 source now labels and emits its 82-byte animated-art routine and
+  no-update tail instead of representing that code as undifferentiated words.
+  The historical `$6A42` and `$6502` branch encodings remain explicit `dc.w`
+  values to preserve the fixed link layout. Fresh guarded displayless Proton
+  builds and checks remain exact for Japan, USA, and Europe, with zero
+  differences and zero missing targets; no proprietary bytes were added.
+
 - **R71 non-USA animation-routine milestone:** The shared non-USA R71 Padding1
   source now labels and emits both legacy 68000 animation routines instead of
   representing their 134-byte code regions as undifferentiated words. The
