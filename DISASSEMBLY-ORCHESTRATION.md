@@ -2,6 +2,18 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN `Start` disassembly milestone:** The remaining 250-byte
+  Japan/Europe entry span at `$FF2000-$FF20F9` is now labeled 68000 source,
+  including startup, RAM clearing, regional manager calls, controller
+  synchronization, and the local setup routine. Together with the preceding
+  initialization-tail recovery, the complete 390-byte `Start` image through
+  `$FF2185` is now source-level code. Numeric calls preserve the regional
+  absolute ABI until their later routine spans are decomposed; the
+  `VInterrupt` and following data remain explicit source bytes. Fresh guarded
+  displayless Japan, USA, and Europe builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN entry-tail milestone:** The 140-byte Japan/Europe
   `BRAMMAIN.MMD` initialization tail at `$FF20FA-$FF2185` is now expressed as
   labeled 68000 source, including the regional Backup RAM table setup, two
