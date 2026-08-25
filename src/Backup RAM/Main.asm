@@ -13660,19 +13660,107 @@ L_NonUSA_FF49B0:
 L_NonUSA_FF49B4:
 	rts
 L_NonUSA_FF49B6:
-	dc.b	$36,$3C,$00,$14,$61,$00,$F2,$2E,$66,$04,$36,$3C,$00,$DC,$78,$00
-	dc.b	$38,$29,$00,$04,$C8,$FC,$00,$10,$06,$44,$00,$2C,$45,$F8,$B4,$C0
-	dc.b	$35,$43,$00,$08,$35,$44,$00,$0C,$51,$6A,$00,$0C,$35,$7C,$E0,$27
-	dc.b	$00,$02,$D4,$FC,$00,$40,$35,$43,$00,$08,$50,$6A,$00,$08,$35,$44
-	dc.b	$00,$0C,$51,$6A,$00,$0C,$35,$7C,$E0,$29,$00,$02,$D4,$FC,$00,$40
-	dc.b	$35,$43,$00,$08,$35,$44,$00,$0C,$35,$7C,$E0,$28,$00,$02,$D4,$FC
-	dc.b	$00,$40,$35,$43,$00,$08,$50,$6A,$00,$08,$35,$44,$00,$0C,$35,$7C
-	dc.b	$E0,$2A,$00,$02,$D4,$FC,$00,$40,$D0,$FC,$00,$09,$06,$43,$00,$18
-	dc.b	$32,$3C,$00,$01,$70,$00,$10,$18,$61,$00,$08,$50,$06,$40,$C0,$00
-	dc.b	$35,$40,$00,$02,$35,$43,$00,$08,$35,$44,$00,$0C,$D4,$FC,$00,$40
-	dc.b	$50,$43,$51,$C9,$FF,$E0,$32,$3C,$00,$04,$35,$7C,$00,$00,$00,$02
-	dc.b	$35,$43,$00,$08,$35,$44,$00,$0C,$D4,$FC,$00,$40,$50,$43,$51,$C9
-	dc.b	$FF,$EA,$4E,$75,$61,$00,$0C,$B4,$61,$00,$05,$CA,$31,$F8,$CD,$14
+	move.w	#$14, d3
+L_NonUSA_FF49BA:
+	bsr.w	$FF3BEA
+L_NonUSA_FF49BE:
+	bne.b	L_NonUSA_FF49C4
+L_NonUSA_FF49C0:
+	move.w	#$DC, d3
+L_NonUSA_FF49C4:
+	moveq	#$0, d4
+L_NonUSA_FF49C6:
+	move.w	$4(a1), d4
+L_NonUSA_FF49CA:
+	mulu.w	#$10, d4
+L_NonUSA_FF49CE:
+	addi.w	#$2C, d4
+L_NonUSA_FF49D2:
+	lea.l	$FFFFB4C0.w, a2
+L_NonUSA_FF49D6:
+	move.w	d3, $8(a2)
+L_NonUSA_FF49DA:
+	move.w	d4, $C(a2)
+L_NonUSA_FF49DE:
+	subq.w	#8, $C(a2)
+L_NonUSA_FF49E2:
+	move.w	#$E027, $2(a2)
+L_NonUSA_FF49E8:
+	dc.w	$D4FC,$0040		; add.w #$40, d2 (historical ADD immediate encoding)
+L_NonUSA_FF49EC:
+	move.w	d3, $8(a2)
+L_NonUSA_FF49F0:
+	addq.w	#8, $8(a2)
+L_NonUSA_FF49F4:
+	move.w	d4, $C(a2)
+L_NonUSA_FF49F8:
+	subq.w	#8, $C(a2)
+L_NonUSA_FF49FC:
+	move.w	#$E029, $2(a2)
+L_NonUSA_FF4A02:
+	dc.w	$D4FC,$0040		; add.w #$40, d2 (historical ADD immediate encoding)
+L_NonUSA_FF4A06:
+	move.w	d3, $8(a2)
+L_NonUSA_FF4A0A:
+	move.w	d4, $C(a2)
+L_NonUSA_FF4A0E:
+	move.w	#$E028, $2(a2)
+L_NonUSA_FF4A14:
+	dc.w	$D4FC,$0040		; add.w #$40, d2 (historical ADD immediate encoding)
+L_NonUSA_FF4A18:
+	move.w	d3, $8(a2)
+L_NonUSA_FF4A1C:
+	addq.w	#8, $8(a2)
+L_NonUSA_FF4A20:
+	move.w	d4, $C(a2)
+L_NonUSA_FF4A24:
+	move.w	#$E02A, $2(a2)
+L_NonUSA_FF4A2A:
+	dc.w	$D4FC,$0040		; add.w #$40, d2 (historical ADD immediate encoding)
+L_NonUSA_FF4A2E:
+	dc.w	$D0FC,$0009		; add.w #$9, d0 (historical ADD immediate encoding)
+L_NonUSA_FF4A32:
+	addi.w	#$18, d3
+L_NonUSA_FF4A36:
+	move.w	#$1, d1
+L_NonUSA_FF4A3A:
+	moveq	#$0, d0
+L_NonUSA_FF4A3C:
+	move.b	(a0)+, d0
+L_NonUSA_FF4A3E:
+	bsr.w	$FF5290
+L_NonUSA_FF4A42:
+	addi.w	#$C000, d0
+L_NonUSA_FF4A46:
+	move.w	d0, $2(a2)
+L_NonUSA_FF4A4A:
+	move.w	d3, $8(a2)
+L_NonUSA_FF4A4E:
+	move.w	d4, $C(a2)
+L_NonUSA_FF4A52:
+	dc.w	$D4FC,$0040		; add.w #$40, d2 (historical ADD immediate encoding)
+L_NonUSA_FF4A56:
+	addq.w	#8, d3
+L_NonUSA_FF4A58:
+	dbra	d1, L_NonUSA_FF4A3A
+L_NonUSA_FF4A5C:
+	move.w	#$4, d1
+L_NonUSA_FF4A60:
+	move.w	#$0, $2(a2)
+L_NonUSA_FF4A66:
+	move.w	d3, $8(a2)
+L_NonUSA_FF4A6A:
+	move.w	d4, $C(a2)
+L_NonUSA_FF4A6E:
+	dc.w	$D4FC,$0040		; add.w #$40, d2 (historical ADD immediate encoding)
+L_NonUSA_FF4A72:
+	addq.w	#8, d3
+L_NonUSA_FF4A74:
+	dbra	d1, L_NonUSA_FF4A60
+L_NonUSA_FF4A78:
+	rts
+L_NonUSA_FF4A7A:
+	dc.b	$61,$00,$0C,$B4,$61,$00,$05,$CA,$31,$F8,$CD,$14
 	dc.b	$CD,$1C,$30,$3C,$00,$05,$61,$00,$01,$D0,$11,$FC,$00,$01,$CD,$2C
 	dc.b	$31,$FC,$00,$07,$CD,$14,$11,$FC,$00,$01,$CD,$40,$4E,$75,$61,$00
 	dc.b	$04,$A4,$6E,$00,$00,$80,$6B,$00,$00,$B0,$61,$00,$04,$88,$02,$00

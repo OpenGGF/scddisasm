@@ -434,6 +434,12 @@ The next non-USA raw `BRAMMAIN.MMD` routine from `$FF495A` through `$FF49B5`
 constructs ten buffer records at `$B4C0`, advances the record coordinates, and
 returns; the following raw routine begins at `$FF49B6`.
 
+The next non-USA raw `BRAMMAIN.MMD` routine from `$FF49B6` through `$FF4A79`
+(196 bytes) is now labeled source. It builds the alternate `$B4C0` buffer
+records, applies the fixed record identifiers and coordinate adjustments, runs
+both bounded loops, and returns; the following raw routine begins at
+`$FF4A7A`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
