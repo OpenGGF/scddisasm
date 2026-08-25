@@ -429,6 +429,11 @@ The next non-USA raw `BRAMMAIN.MMD` routine from `$FF492A` through `$FF4959`
 the mode-2 alternate path when needed, runs the shared handlers, and returns;
 the next raw routine begins at `$FF495A`.
 
+The next non-USA raw `BRAMMAIN.MMD` routine from `$FF495A` through `$FF49B5`
+(92 bytes) is now labeled source. It selects the status-dependent setup path,
+constructs ten buffer records at `$B4C0`, advances the record coordinates, and
+returns; the following raw routine begins at `$FF49B6`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
