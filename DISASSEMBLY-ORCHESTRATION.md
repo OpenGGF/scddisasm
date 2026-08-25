@@ -2,6 +2,13 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN polling-routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine at `$FF233C-$FF235D` (34 bytes) is now labeled source.
+  It writes `$A12012`, polls `$A12022` in both directions, and returns; the
+  following raw span begins at `$FF235E`. Fresh guarded displayless Japan, USA,
+  and Europe builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN frame helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper at `$FF22E8-$FF233B` (84 bytes) is now labeled source,
   covering its frame/counter checks, `$CD53` byte loop, and `$CD52` result

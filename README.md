@@ -72,6 +72,13 @@ The next non-USA `BRAMMAIN.MMD` helper is now labeled from `$FF22E8` through
 established; the following routine begins at `$FF233C` and remains raw. Japan,
 USA, and Europe still produce byte-exact component outputs.
 
+The following non-USA `BRAMMAIN.MMD` routine is now labeled from `$FF233C`
+through `$FF235D` (34 bytes). It writes `$A12012`, polls `$A12022` in both
+directions, and returns; the next source span begins at `$FF235E` and remains
+explicit bytes. This is a bounded source-recovery milestone, not a claim that
+the remaining `BRAMMAIN` routines and data tables are fully disassembled.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
