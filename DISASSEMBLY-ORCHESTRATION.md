@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN pointer-table milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` pointer table from `$FF2748` through `$FF275F` (24 bytes) is
+  now declared as six explicit `dc.l` targets. The following routine begins at
+  `$FF2760`; later manager code remains pending semantic decomposition. Fresh
+  guarded displayless Japan, USA, and Europe builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN VSRAM/random-helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` span from `$FF2714` through `$FF2747` (52 bytes) is now
   labeled source. It contains the VSRAM-mode setter and random-value helper,

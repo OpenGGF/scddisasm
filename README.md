@@ -127,6 +127,11 @@ random-value helper, including its `$2A6D365A` seed, arithmetic sequence, and
 state update; the pointer/data table beginning at `$FF2748` remains explicit
 source bytes pending decomposition.
 
+The non-USA `BRAMMAIN.MMD` pointer table from `$FF2748` through `$FF275F`
+(24 bytes) is now declared as six explicit `dc.l` targets. The following
+routine begins at `$FF2760`; later manager code remains pending semantic
+decomposition.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
