@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN first table-target milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF432E` through `$FF43E1` (180 bytes), the
+  first target selected by the indexed table, is now labeled source. It handles
+  the command-2 path, result/status updates, and the associated display-state
+  branches; the next table target begins at `$FF43E2`. Fresh guarded
+  displayless Japan, USA, and Europe builds/checks report every listed target as
+  an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN indexed-wrapper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` indexed jump wrapper and 12-word offset table from `$FF4306`
   through `$FF432D` (40 bytes) are now labeled source. The wrapper selects a

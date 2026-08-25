@@ -307,6 +307,11 @@ table from `$FF4306` through `$FF432D` (40 bytes) are now labeled source. The
 wrapper selects a table entry from the command-state byte; the first raw target
 routine begins at `$FF432E`.
 
+The first non-USA `BRAMMAIN.MMD` table target from `$FF432E` through `$FF43E1`
+(180 bytes) is now labeled source. It handles the command-2 path, result/status
+updates, and the associated display-state branches; the next table target begins
+at `$FF43E2`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
