@@ -1,5 +1,16 @@
 # Disassembly Orchestration Ledger
 
+## 2026-08-26
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4B7A` through `$FF4BA3` (42 bytes) is now
+  labeled source. It initializes the `$CD2C`, `$CD2A`, `$CD2B`, and `$CD27`
+  state bytes, copies `$CD14` to `$CD1A`, sets `$CD14` to 5, and returns; the
+  following raw routine begins at `$FF4BA4`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 ## 2026-08-25
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
