@@ -312,6 +312,10 @@ The first non-USA `BRAMMAIN.MMD` table target from `$FF432E` through `$FF43E1`
 updates, and the associated display-state branches; the next table target begins
 at `$FF43E2`.
 
+The second non-USA `BRAMMAIN.MMD` table target from `$FF43E2` through `$FF4453`
+(114 bytes) is now labeled source. It handles the status/result path and its
+reset fallback; the next table target begins at `$FF4454`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
