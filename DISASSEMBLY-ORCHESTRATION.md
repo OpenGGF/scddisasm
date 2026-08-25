@@ -2,6 +2,16 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN final indexed-table target milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF46CA` through `$FF4731` (104 bytes), the
+  twelfth and final target selected by the indexed table, is now labeled
+  source. It clears and updates the Backup RAM state, handles the completion
+  paths, tests the result, invokes the cleanup handlers, and returns; the
+  independent dispatcher begins at `$FF4732`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN eleventh table-target milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF46A8` through `$FF46C9` (34 bytes), the
   eleventh target selected by the indexed table, is now labeled source. It
