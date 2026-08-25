@@ -3,6 +3,14 @@
 ## 2026-08-25
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4A7A` through `$FF4AA3` (42 bytes) is now
+  labeled source. It synchronizes the command-state bytes, runs the status
+  handler, selects the follow-up command, and returns; the following raw
+  routine begins at `$FF4AA4`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF49B6` through `$FF4A79` (196 bytes) is now
   labeled source. It builds the alternate `$B4C0` buffer records, applies the
   fixed record identifiers and coordinate adjustments, runs both bounded
