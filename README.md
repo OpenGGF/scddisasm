@@ -69,15 +69,23 @@ The next non-USA `BRAMMAIN.MMD` helper is now labeled from `$FF22E8` through
 `$FF233B` (84 bytes), covering its frame/counter checks, `$CD53` byte loop, and
 `$CD52` result write. Three `$05xx` words at `$FF2312`, `$FF2326`, and
 `$FF232C` remain explicit `dc.w` values until their instruction/data role is
-established; the following routine begins at `$FF233C` and remains raw. Japan,
-USA, and Europe still produce byte-exact component outputs.
+established; the following routine begins at `$FF233C` and is covered by the
+next paragraph. Japan, USA, and Europe still produce byte-exact component
+outputs.
 
 The following non-USA `BRAMMAIN.MMD` routine is now labeled from `$FF233C`
 through `$FF235D` (34 bytes). It writes `$A12012`, polls `$A12022` in both
-directions, and returns; the next source span begins at `$FF235E` and remains
-explicit bytes. This is a bounded source-recovery milestone, not a claim that
-the remaining `BRAMMAIN` routines and data tables are fully disassembled.
-Japan, USA, and Europe still produce byte-exact component outputs.
+directions, and returns. The four short hardware-polling routines from
+`$FF235E` through `$FF2395` (56 bytes) are also now labeled; the larger
+routine beginning at `$FF2396` remains explicit bytes. This is a bounded
+source-recovery milestone, not a claim that the remaining `BRAMMAIN` routines
+and data tables are fully disassembled. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
+The non-USA `BRAMMAIN.MMD` polling span at `$FF235E-$FF2395` covers the
+`$A12003` bit-set/test waits and both `$A1200F` bit-7 wait directions. Its
+following routine begins at `$FF2396` and remains source-emitted bytes pending
+semantic decomposition.
 
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.

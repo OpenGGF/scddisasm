@@ -2,19 +2,29 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN hardware-polling milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routines from `$FF235E` through `$FF2395` (56 bytes) are now
+  labeled source. They cover the `$A12003` bit-set/test waits and both
+  `$A1200F` bit-7 wait directions; the larger routine beginning at `$FF2396`
+  remains explicit bytes. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN polling-routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine at `$FF233C-$FF235D` (34 bytes) is now labeled source.
   It writes `$A12012`, polls `$A12022` in both directions, and returns; the
-  following raw span begins at `$FF235E`. Fresh guarded displayless Japan, USA,
-  and Europe builds/checks report every listed target as an exact match, with
-  zero differences and zero missing targets. No proprietary bytes were added.
+  following polling span begins at `$FF235E` and is covered by the subsequent
+  hardware-polling milestone. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
 
 - **Non-USA BRAMMAIN frame helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper at `$FF22E8-$FF233B` (84 bytes) is now labeled source,
   covering its frame/counter checks, `$CD53` byte loop, and `$CD52` result
   write. Three `$05xx` words at `$FF2312`, `$FF2326`, and `$FF232C` remain
   explicit `dc.w` values because their instruction/data role is not yet
-  established; the following routine begins at `$FF233C` and remains raw.
+  established; the following routine begins at `$FF233C` and is covered by the
+  subsequent polling-routine milestone.
   Fresh guarded displayless Japan, USA, and Europe builds/checks report every
   listed target as an exact match, with zero differences and zero missing
   targets. No proprietary bytes were added.

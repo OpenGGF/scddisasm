@@ -10691,10 +10691,32 @@ L_NonUSA_FF235A:
 	bne.b	L_NonUSA_FF2354
 L_NonUSA_FF235C:
 	rts
-	dc.b	$08,$F9,$00,$01,$00,$A1,$20,$03
-	dc.b	$08,$39,$00,$01,$00,$A1,$20,$03,$67,$EE,$4E,$75,$08,$39,$00,$00
-	dc.b	$00,$A1,$20,$03,$67,$F6,$4E,$75,$08,$39,$00,$07,$00,$A1,$20,$0F
-	dc.b	$67,$F6,$4E,$75,$08,$39,$00,$07,$00,$A1,$20,$0F,$66,$F6,$4E,$75
+L_NonUSA_FF235E:
+	bset.b	#$1, $a12003.l
+L_NonUSA_FF2366:
+	btst.b	#$1, $a12003.l
+L_NonUSA_FF236E:
+	beq.b	L_NonUSA_FF235E
+L_NonUSA_FF2370:
+	rts
+L_NonUSA_FF2372:
+	btst.b	#$0, $a12003.l
+L_NonUSA_FF237A:
+	beq.b	L_NonUSA_FF2372
+L_NonUSA_FF237C:
+	rts
+L_NonUSA_FF237E:
+	btst.b	#$7, $a1200f.l
+L_NonUSA_FF2386:
+	beq.b	L_NonUSA_FF237E
+L_NonUSA_FF2388:
+	rts
+L_NonUSA_FF238A:
+	btst.b	#$7, $a1200f.l
+L_NonUSA_FF2392:
+	bne.b	L_NonUSA_FF238A
+L_NonUSA_FF2394:
+	rts
 	dc.b	$41,$FA,$01,$70,$30,$3C,$80,$00,$7E,$12,$10,$18,$33,$C0,$00,$C0
 	dc.b	$00,$04,$06,$40,$01,$00,$51,$CF,$FF,$F2,$70,$40,$13,$C0,$00,$A1
 	dc.b	$00,$09,$13,$C0,$00,$A1,$00,$0B,$13,$C0,$00,$A1,$00,$0D,$13,$FC
