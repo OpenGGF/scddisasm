@@ -288,6 +288,11 @@ The following non-USA `BRAMMAIN.MMD` handler from `$FF4176` through `$FF422D`
 command/status state, and handles the failure path; the next raw helper begins
 at `$FF422E`.
 
+The following non-USA `BRAMMAIN.MMD` status-selection helper from `$FF422E`
+through `$FF4273` (70 bytes) is now labeled source. It selects status-byte
+paths for command states 5 and 6 and branches to the shared dispatch at
+`$FF42AC`; the next raw entry begins at `$FF4274`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
