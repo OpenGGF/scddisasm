@@ -2,13 +2,24 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN frame helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper at `$FF22E8-$FF233B` (84 bytes) is now labeled source,
+  covering its frame/counter checks, `$CD53` byte loop, and `$CD52` result
+  write. Three `$05xx` words at `$FF2312`, `$FF2326`, and `$FF232C` remain
+  explicit `dc.w` values because their instruction/data role is not yet
+  established; the following routine begins at `$FF233C` and remains raw.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN V-interrupt milestone:** The Japan/Europe
   `BRAMMAIN.MMD` V-interrupt dispatch and VDP setup path from `$FF2186` through
   `$FF22E6` (354 bytes) is now labeled 68000 source. It includes the VDP
   register update loops, state dispatch word, common frame-update path, and
   both interrupt exits. The following helper begins at the explicitly labeled
-  `$FF22E8` boundary and remains source-emitted bytes, as do the later
-  V-interrupt/data spans. Fresh guarded displayless Japan, USA, and Europe
+  `$FF22E8` boundary and is covered by the subsequent helper milestone; the
+  later V-interrupt/data spans remain source-emitted bytes. Fresh guarded
+  displayless Japan, USA, and Europe
   builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.
 

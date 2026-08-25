@@ -61,9 +61,16 @@ and Europe still produce byte-exact component outputs.
 The non-USA `BRAMMAIN.MMD` V-interrupt dispatch and VDP setup path now adds 354
 bytes of labeled 68000 source from `$FF2186` through `$FF22E6`, including its
 state dispatch word, two VDP update paths, and both interrupt exits. The next
-helper at `$FF22E8` and later V-interrupt/data spans remain explicit source
-bytes pending decomposition; this is not a claim that the whole manager is
-fully disassembled.
+helper at `$FF22E8` is covered by the following paragraph; later
+V-interrupt/data spans remain explicit source bytes pending decomposition.
+This is not a claim that the whole manager is fully disassembled.
+
+The next non-USA `BRAMMAIN.MMD` helper is now labeled from `$FF22E8` through
+`$FF233B` (84 bytes), covering its frame/counter checks, `$CD53` byte loop, and
+`$CD52` result write. Three `$05xx` words at `$FF2312`, `$FF2326`, and
+`$FF232C` remain explicit `dc.w` values until their instruction/data role is
+established; the following routine begins at `$FF233C` and remains raw. Japan,
+USA, and Europe still produce byte-exact component outputs.
 
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
