@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **R63D non-USA animation-routine milestone:** The Japanese/European R63D
+  Padding1 source now labels and emits both legacy 68000 animated-art routines
+  instead of representing their 134-byte code regions as undifferentiated
+  words. The fixed `$6A00,$0034`, `$B029,$0001`, and `$6502` encodings remain
+  explicit `dc.w` values to preserve the historical link layout. Fresh guarded
+  displayless Proton builds and checks remain exact for Japan, USA, and Europe,
+  with zero differences and zero missing targets; no proprietary bytes were
+  added.
+
 - **R42A non-USA animation-routine milestone:** The Japanese/European R42A
   Padding1 source now labels and emits its 82-byte animated-art routine and
   no-update tail instead of representing that code as undifferentiated words.

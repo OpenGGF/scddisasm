@@ -62,6 +62,12 @@ explicit `dc.w` values, while the animation-buffer traversal and no-update
 tail are labeled 68000 source. `R42A__.MMD` remains byte-exact in the regional
 comparisons.
 
+The non-USA R63D Padding1 fragment now likewise expresses both legacy animated-
+art routines in `src/r6/data_3d.asm`. Their fixed `$6A00,$0034`,
+`$B029,$0001`, and `$6502` branch/comparison words remain explicit `dc.w`
+values, while the animation-buffer traversal and no-update entries are labeled
+68000 source. `R63D__.MMD` remains byte-exact in Japan, USA, and Europe.
+
 The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 `R12B__.MMD`, `R12C__.MMD`, `R12D__.MMD`, `R13C__.MMD`, and `R13D__.MMD`
 byte-exact for both Japan and Europe. The source preserves USA's existing
