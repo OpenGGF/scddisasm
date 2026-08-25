@@ -132,6 +132,11 @@ The non-USA `BRAMMAIN.MMD` pointer table from `$FF2748` through `$FF275F`
 routine begins at `$FF2760`; later manager code remains pending semantic
 decomposition.
 
+The non-USA `BRAMMAIN.MMD` state/animation-sequence routine from `$FF2760`
+through `$FF280B` (172 bytes) is now labeled source. It updates the current
+sequence state from indexed animation data, handles its marker branches, and
+returns; the following helper begins at `$FF280C` and remains pending.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

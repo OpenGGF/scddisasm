@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN state/animation-routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF2760` through `$FF280B` (172 bytes) is now
+  labeled source. It updates sequence state from indexed animation data,
+  handles its marker branches, and returns; the following helper begins at
+  `$FF280C` and remains pending. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN pointer-table milestone:** The Japan/Europe
   `BRAMMAIN.MMD` pointer table from `$FF2748` through `$FF275F` (24 bytes) is
   now declared as six explicit `dc.l` targets. The following routine begins at
