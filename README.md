@@ -450,6 +450,11 @@ The next non-USA raw `BRAMMAIN.MMD` routine from `$FF4AA4` through `$FF4B29`
 clamps the two mode-dependent byte fields, writes the updated value, and
 returns; the following raw routine begins at `$FF4B2A`.
 
+The next non-USA raw `BRAMMAIN.MMD` routine from `$FF4B2A` through `$FF4B79`
+(80 bytes) is now labeled source. It dispatches the status result, updates the
+`$CD14`, `$CD2A`, and `$CD2B` state bytes, and returns; the following raw
+routine begins at `$FF4B7A`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
