@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN buffer/status-dispatch milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4008` through `$FF403D` (54 bytes) is now
+  labeled source. It selects the regional buffer, runs the status path, and
+  branches on the `$CD1E` operation codes; the next raw handler begins at
+  `$FF403E`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN initialization-loop milestone:** The Japan/Europe
   `BRAMMAIN.MMD` initialization/cleanup loop and exit branches from `$FF3FE4`
   through `$FF4007` (36 bytes) are now labeled source. They perform the

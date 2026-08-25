@@ -12454,10 +12454,34 @@ L_NonUSA_FF4002:
 L_NonUSA_FF4004:
 	bra.w	L_NonUSA_FF202E
 
-	dc.b	$41,$F9,$00,$FF,$4D,$56,$4A,$39,$00,$FF,$0F,$1F,$67,$06
-	dc.b	$41,$F9,$00,$FF,$4D,$50,$61,$00,$0C,$72,$61,$00,$02,$52,$0C,$38
-	dc.b	$00,$05,$CD,$1E,$67,$36,$0C,$38,$00,$06,$CD,$1E,$67,$0A,$61,$00
-	dc.b	$0F,$14,$6E,$00,$00,$4C,$4E,$75,$11,$FC,$00,$06,$CD,$16,$31,$FC
+L_NonUSA_FF4008:
+	lea.l	$FF4D56.l, a0
+L_NonUSA_FF400E:
+	tst.b	$FF0F1F.l
+L_NonUSA_FF4014:
+	beq.b	L_NonUSA_FF401C
+L_NonUSA_FF4016:
+	lea.l	$FF4D50.l, a0
+L_NonUSA_FF401C:
+	bsr.w	$FF4C90
+L_NonUSA_FF4020:
+	bsr.w	$FF4274
+L_NonUSA_FF4024:
+	cmpi.b	#$5, $FFFFCD1E.w
+L_NonUSA_FF402A:
+	beq.b	$FF4062
+L_NonUSA_FF402C:
+	cmpi.b	#$6, $FFFFCD1E.w
+L_NonUSA_FF4032:
+	beq.b	L_NonUSA_FF403E
+L_NonUSA_FF4034:
+	bsr.w	$FF4F4A
+L_NonUSA_FF4038:
+	bgt.w	$FF4086
+L_NonUSA_FF403C:
+	rts
+L_NonUSA_FF403E:
+	dc.b	$11,$FC,$00,$06,$CD,$16,$31,$FC
 	dc.b	$00,$01,$CD,$14,$11,$FC,$00,$01,$CD,$25,$11,$FC,$00,$00,$CD,$21
 	dc.b	$11,$FC,$00,$00,$CD,$24,$61,$00,$14,$22,$4E,$75,$11,$FC,$00,$05
 	dc.b	$CD,$16,$31,$FC,$00,$01,$CD,$14,$11,$FC,$00,$01,$CD,$24,$11,$FC

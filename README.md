@@ -257,6 +257,11 @@ The non-USA `BRAMMAIN.MMD` initialization/cleanup loop and exit branches from
 `$CD20` initialization loop, restore its saved counter, and branch to the
 corresponding manager exits; the next raw routine begins at `$FF4008`.
 
+The non-USA `BRAMMAIN.MMD` buffer-selection and status-dispatch routine from
+`$FF4008` through `$FF403D` (54 bytes) is now labeled source. It selects the
+regional buffer, runs the status path, and branches on the `$CD1E` operation
+codes; the next raw handler begins at `$FF403E`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
