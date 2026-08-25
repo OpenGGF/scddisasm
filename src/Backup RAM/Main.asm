@@ -10975,11 +10975,45 @@ L_NonUSA_FF2710:
 	bne.b	L_NonUSA_FF270C
 L_NonUSA_FF2712:
 	rts
-	dc.b	$33,$FC
-	dc.b	$FF,$00,$00,$A1,$20,$1E,$4E,$75,$2F,$01,$22,$38,$CD,$0E,$66,$06
-	dc.b	$22,$3C,$2A,$6D,$36,$5A,$20,$01,$E5,$81,$D2,$80,$E7,$81,$D2,$80
-	dc.b	$30,$01,$48,$41,$D0,$41,$32,$00,$48,$41,$21,$C1,$CD,$0E,$22,$1F
-	dc.b	$4E,$75,$00,$FF,$57,$4A,$00,$FF,$5A,$FA,$00,$FF,$5B,$96,$00,$FF
+L_NonUSA_FF2714:
+	move.w	#$FF00, $a1201e.l
+L_NonUSA_FF271C:
+	rts
+L_NonUSA_FF271E:
+	move.l	d1, -(a7)
+L_NonUSA_FF2720:
+	move.l	$FFFFcd0e.w, d1
+L_NonUSA_FF2724:
+	bne.b	L_NonUSA_FF272C
+L_NonUSA_FF2726:
+	move.l	#$2A6D365A, d1
+L_NonUSA_FF272C:
+	move.l	d1, d0
+L_NonUSA_FF272E:
+	asl.l	#$2, d1
+L_NonUSA_FF2730:
+	add.l	d0, d1
+L_NonUSA_FF2732:
+	asl.l	#$3, d1
+L_NonUSA_FF2734:
+	add.l	d0, d1
+L_NonUSA_FF2736:
+	move.w	d1, d0
+L_NonUSA_FF2738:
+	swap	d1
+L_NonUSA_FF273A:
+	add.w	d1, d0
+L_NonUSA_FF273C:
+	move.w	d0, d1
+L_NonUSA_FF273E:
+	swap	d1
+L_NonUSA_FF2740:
+	move.l	d1, $FFFFcd0e.w
+L_NonUSA_FF2744:
+	move.l	(a7)+, d1
+L_NonUSA_FF2746:
+	rts
+	dc.b	$00,$FF,$57,$4A,$00,$FF,$5A,$FA,$00,$FF,$5B,$96,$00,$FF
 	dc.b	$5E,$C4,$00,$FF,$60,$DA,$00,$FF,$5C,$50,$70,$00,$10,$28,$00,$1C
 	dc.b	$B0,$28,$00,$1D,$67,$10,$11,$40,$00,$1D,$11,$7C,$00,$00,$00,$1B
 	dc.b	$11,$7C,$00,$00,$00,$1E,$53,$28,$00,$1E,$6A,$3A,$D0,$40,$D2,$F1

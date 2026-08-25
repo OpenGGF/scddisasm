@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN VSRAM/random-helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` span from `$FF2714` through `$FF2747` (52 bytes) is now
+  labeled source. It contains the VSRAM-mode setter and random-value helper,
+  including the `$2A6D365A` seed, arithmetic sequence, and state update; the
+  pointer/data table beginning at `$FF2748` remains explicit source bytes
+  pending decomposition. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN handoff-poll milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF2702` through `$FF2713` (18 bytes) is now
   labeled source. It requests the sub-CPU handoff via `$CD00`, raises the
