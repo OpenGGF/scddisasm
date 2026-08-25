@@ -18,6 +18,15 @@
   Europe builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.
 
+- **Non-USA BRAMMAIN object-dispatch milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` dispatcher from `$FF28D0` through `$FF29BD` (238 bytes) is now
+  labeled source. It scans active `$C000` object slots, derives viewport-relative
+  coordinates, follows object mapping data, and emits active-object records to
+  `$B000`; its embedded 24-byte table remains explicit data, and the called
+  helper begins at `$FF29BE`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state/animation-routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF2760` through `$FF280B` (172 bytes) is now
   labeled source. It updates sequence state from indexed animation data,

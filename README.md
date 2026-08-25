@@ -147,6 +147,12 @@ The next non-USA `BRAMMAIN.MMD` camera/position gate from `$FF2834` through
 and vertical bounds, selects a `$C000` table slot from the object angle, and
 writes the current object address; the following data begins at `$FF28B2`.
 
+The following non-USA `BRAMMAIN.MMD` object-processing dispatcher from `$FF28D0`
+through `$FF29BD` (238 bytes) is now labeled source. It scans active `$C000`
+object slots, derives viewport-relative coordinates, follows object mapping
+data, and emits active-object records to `$B000`; its embedded 24-byte table is
+still explicit data, and the called helper begins at `$FF29BE`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
