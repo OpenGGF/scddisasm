@@ -12068,10 +12068,25 @@ L_NonUSA_FF3C8A:
 L_NonUSA_FF3C8E:
 	rts
 L_NonUSA_FF3C90:
-	dc.b	$61,$00,$FF,$58,$66,$18
-	dc.b	$13,$F9,$00,$FF,$0F,$1F,$00,$20,$00,$28,$4E,$B9,$00,$FF,$23,$5E
-	dc.b	$4E,$B9,$00,$FF,$23,$72,$60,$04,$61,$00,$EE,$98,$4A,$39,$00,$20
-	dc.b	$00,$21,$4E,$75,$4E,$B9,$00,$FF,$23,$72,$61,$00,$00,$82,$66,$00
+	bsr.w	$FF3BEA
+L_NonUSA_FF3C94:
+	bne.b	L_NonUSA_FF3CAE
+L_NonUSA_FF3C96:
+	move.b	$FF0F1F.l, $200028.l
+L_NonUSA_FF3CA0:
+	jsr	$FF235E.l
+L_NonUSA_FF3CA6:
+	jsr	$FF2372.l
+L_NonUSA_FF3CAC:
+	bra.b	L_NonUSA_FF3CB2
+L_NonUSA_FF3CAE:
+	bsr.w	$FF2B48
+L_NonUSA_FF3CB2:
+	tst.b	$200021.l
+L_NonUSA_FF3CB8:
+	rts
+L_NonUSA_FF3CBA:
+	dc.b	$4E,$B9,$00,$FF,$23,$72,$61,$00,$00,$82,$66,$00
 	dc.b	$00,$24,$13,$FC,$00,$01,$00,$20,$00,$26,$13,$FC,$00,$01,$00,$20
 	dc.b	$00,$20,$61,$B6,$4A,$39,$00,$20,$00,$21,$67,$12,$4A,$79,$00,$20
 	dc.b	$00,$24,$66,$54,$13,$FC,$00,$00,$00,$20,$00,$27,$60,$0C,$61,$00

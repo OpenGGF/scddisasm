@@ -198,6 +198,11 @@ The non-USA `BRAMMAIN.MMD` buffer-copy helper from `$FF3C78` through `$FF3C8F`
 the `$200030` state area and restores the caller registers; the following data
 begins at `$FF3C90`.
 
+The non-USA `BRAMMAIN.MMD` status-dispatch helper from `$FF3C90` through
+`$FF3CB9` (42 bytes) is now labeled source. It checks the status result,
+updates `$200028`, invokes the regional VDP/status routines, and reports the
+command status through `$200021`; the following helper begins at `$FF3CBA`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

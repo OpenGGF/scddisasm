@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN status-dispatch milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF3C90` through `$FF3CB9` (42 bytes) is now
+  labeled source. It checks the status result, updates `$200028`, invokes the
+  regional VDP/status routines, and reports command status through `$200021`;
+  the following helper begins at `$FF3CBA`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN buffer-copy milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF3C78` through `$FF3C8F` (24 bytes) is now
   labeled source. It copies the command buffer from `a0` into the `$200030`
