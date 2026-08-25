@@ -56,11 +56,13 @@ The surrounding animation tables remain declarative data, and the two fixed
 legacy branch encodings remain explicit `dc.w` values so the historical link
 layout is unchanged. Japan, USA, and Europe still produce byte-exact outputs.
 
-The non-USA R42A Padding1 fragment likewise expresses its 82-byte animated-art
-routine in `src/r4/data_2a.asm`. Its fixed `$6A42` and `$6502` branches remain
-explicit `dc.w` values, while the animation-buffer traversal and no-update
-tail are labeled 68000 source. `R42A__.MMD` remains byte-exact in the regional
-comparisons.
+The non-USA R42A Padding1 fragment now also expresses 246 bytes of retained
+68000 code before that animated-art routine: the continuation of the
+animal-removal helper and the historical three-pass `AnimateStageGfx` copy.
+Its fixed branch words and historical absolute targets remain explicit where
+needed to preserve the fixed link layout; the animation-buffer traversal and
+no-update tails are labeled 68000 source. `R42A__.MMD` remains byte-exact in
+the regional comparisons.
 
 The non-USA R63D Padding1 fragment now likewise expresses both legacy animated-
 art routines in `src/r6/data_3d.asm`. Their fixed `$6A00,$0034`,

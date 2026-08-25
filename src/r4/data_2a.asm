@@ -8,15 +8,79 @@ Padding1:
 	if REGION=USA
 		include	"r4/usa_padding_2a.asm"
 	else
-		; European/Japanese legacy graphics and routine fragment.
-		dc.w	$6B2A, $0C39, $0002, $00FF, $152E, $6C10, $4A39, $00FF, $156D, $6618, $588F, $4EF9, $0020, $7990, $4A39, $00FF
-		dc.w	$156A, $6608, $588F, $4EF9, $0020, $3C2A, $4E75, $4A38, $F63A, $6600, $00C0, $4EB9, $0020, $688C, $0C78, $0280
-		dc.w	$F700, $6400, $00B0, $0C78, $0160, $F704, $6400, $00A6, $45F8, $F66C, $49F8, $F666, $43F9, $0020, $FD82, $3C3C
-		dc.w	$007F, $6100, $0092, $6624, $4BF9, $00C0, $0004, $2ABC, $9401, $9300, $2ABC, $968C, $95C0, $3ABC, $977F, $3ABC
-		dc.w	$4500, $31FC, $0081, $F640, $3AB8, $F640, $43F9, $0020, $FDD4, $3C3C, $007F, $6100, $005E, $6624, $4BF9, $00C0
-		dc.w	$0004, $2ABC, $9401, $9300, $2ABC, $968C, $95C0, $3ABC, $977F, $3ABC, $4700, $31FC, $0081, $F640, $3AB8, $F640
-		dc.w	$43F9, $0020, $FE26, $3C3C, $007F, $6100, $002A, $6624, $4BF9, $00C0, $0004, $2ABC, $9401, $9300, $2ABC, $968C
-		dc.w	$95C0, $3ABC, $977F, $3ABC, $4900, $31FC, $0081, $F640, $3AB8, $F640, $4E75
+		; European/Japanese retained code fragment. The first routine starts
+		; at a historical continuation point; its preceding tst.b instruction
+		; is outside this data block in the original binary.
+R42A_NonUSA_CheckAnimalRemoveTail:
+		dc.w	$6B2A		; bmi.s R42A_NonUSA_CheckAnimalRemove_Return
+		cmpi.b	#2,time_zone
+		dc.w	$6C10		; bge.s R42A_NonUSA_CheckAnimalRemove_CheckGlobal
+		tst.b	projector_destroyed
+		dc.w	$6618		; bne.s R42A_NonUSA_CheckAnimalRemove_Return
+		addq.l	#4,sp
+		jmp	$207990.L
+
+R42A_NonUSA_CheckAnimalRemove_CheckGlobal:
+		tst.b	good_future
+		dc.w	$6608		; bne.s R42A_NonUSA_CheckAnimalRemove_Return
+		addq.l	#4,sp
+		jmp	$203C2A.L
+
+R42A_NonUSA_CheckAnimalRemove_Return:
+		rts
+
+		; This legacy copy of AnimateStageGfx is retained at a fixed address
+		; and is separate from the six-byte entry wrapper above.
+R42A_NonUSA_LegacyAnimateStageGfx:
+		tst.b	paused
+		dc.w	$6600, $00C0	; bne.w R42A_NonUSA_LegacyAnimateStageGfx_Return
+		jsr	$20688C.L
+		cmpi.w	#$280,scroll_fg_x
+		dc.w	$6400, $00B0	; bcc.w R42A_NonUSA_LegacyAnimateStageGfx_Return
+		cmpi.w	#$160,scroll_fg_y
+		dc.w	$6400, $00A6	; bcc.w R42A_NonUSA_LegacyAnimateStageGfx_Return
+		lea	stage_anim_timers,a2
+		lea	stage_anim_frames,a4
+		lea	$20FD82.L,a1
+		move.w	#$7F,d6
+		bsr.w	R42A_NonUSA_AnimateTiles
+		dc.w	$6624		; bne.s R42A_NonUSA_LegacyAnimateStageGfx_Second
+		lea	VDP_CTRL,a5
+		move.l	#$94019300,(a5)
+		move.l	#$968C95C0,(a5)
+		move.w	#$977F,(a5)
+		move.w	#$4500,(a5)
+		move.w	#$81,dma_stack
+		move.w	dma_stack,(a5)
+
+R42A_NonUSA_LegacyAnimateStageGfx_Second:
+		lea	$20FDD4.L,a1
+		move.w	#$7F,d6
+		bsr.w	R42A_NonUSA_AnimateTiles
+		dc.w	$6624		; bne.s R42A_NonUSA_LegacyAnimateStageGfx_Third
+		lea	VDP_CTRL,a5
+		move.l	#$94019300,(a5)
+		move.l	#$968C95C0,(a5)
+		move.w	#$977F,(a5)
+		move.w	#$4700,(a5)
+		move.w	#$81,dma_stack
+		move.w	dma_stack,(a5)
+
+R42A_NonUSA_LegacyAnimateStageGfx_Third:
+		lea	$20FE26.L,a1
+		move.w	#$7F,d6
+		bsr.w	R42A_NonUSA_AnimateTiles
+		dc.w	$6624		; bne.s R42A_NonUSA_LegacyAnimateStageGfx_Return
+		lea	VDP_CTRL,a5
+		move.l	#$94019300,(a5)
+		move.l	#$968C95C0,(a5)
+		move.w	#$977F,(a5)
+		move.w	#$4900,(a5)
+		move.w	#$81,dma_stack
+		move.w	dma_stack,(a5)
+
+R42A_NonUSA_LegacyAnimateStageGfx_Return:
+		rts
 
 		; Non-USA R42A animated-art routine. Its fixed branch words are kept
 		; explicit because this legacy block is linked at a historical offset.

@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **R42A non-USA retained-code milestone:** The Japanese/European R42A
+  Padding1 source now labels and emits 246 bytes of retained 68000 code before
+  the previously converted animated-art routine: the animal-removal
+  continuation and the historical three-pass `AnimateStageGfx` copy. Fixed
+  branch words and historical absolute targets remain explicit where needed to
+  preserve the exact link layout. Fresh guarded displayless Proton builds and
+  checks remain exact for Japan, USA, and Europe, with zero differences and
+  zero missing targets; no proprietary bytes were added.
+
 - **R63C non-USA animation-routine milestone:** The Japanese/European R63C
   Padding1 source now labels and emits its 148-byte pair of legacy 68000
   animated-art routines instead of representing those code regions as
