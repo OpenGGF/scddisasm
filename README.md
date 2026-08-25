@@ -230,6 +230,12 @@ are now labeled source. They submit their commands through the regional status
 dispatcher, with command 5 conditionally invoking the following routine; the
 next raw helper begins at `$FF3EF0`.
 
+The non-USA `BRAMMAIN.MMD` command-11 wrapper from `$FF3EF0` through `$FF3F03`
+(20 bytes), command-6 wrapper from `$FF3F04` through `$FF3F15` (18 bytes), and
+command-7 wrapper from `$FF3F16` through `$FF3F27` (18 bytes) are now labeled
+source. They submit their command values through the regional status
+dispatcher; the next raw helper begins at `$FF3F28`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

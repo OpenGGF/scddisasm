@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-11/6/7 milestone:** The Japan/Europe
+  command-11 wrapper from `$FF3EF0` through `$FF3F03` (20 bytes), command-6
+  wrapper from `$FF3F04` through `$FF3F15` (18 bytes), and command-7 wrapper
+  from `$FF3F16` through `$FF3F27` (18 bytes) are now labeled source. They
+  submit their command values through the regional status dispatcher; the next
+  raw helper begins at `$FF3F28`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN command-10/5 milestone:** The Japan/Europe command-10
   wrapper from `$FF3EC4` through `$FF3ED5` (18 bytes) and command-5 wrapper
   from `$FF3ED6` through `$FF3EEF` (26 bytes) are now labeled source. They
