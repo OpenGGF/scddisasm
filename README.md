@@ -203,6 +203,11 @@ The non-USA `BRAMMAIN.MMD` status-dispatch helper from `$FF3C90` through
 updates `$200028`, invokes the regional VDP/status routines, and reports the
 command status through `$200021`; the following helper begins at `$FF3CBA`.
 
+The non-USA `BRAMMAIN.MMD` command-result helper from `$FF3CBA` through
+`$FF3D43` (138 bytes) is now labeled source. It initializes and submits the
+command state, performs the two status paths, and returns result/error values
+in `d0/d1`; the following regional helper begins at `$FF3D44`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

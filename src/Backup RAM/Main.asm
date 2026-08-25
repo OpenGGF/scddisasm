@@ -12086,15 +12086,69 @@ L_NonUSA_FF3CB2:
 L_NonUSA_FF3CB8:
 	rts
 L_NonUSA_FF3CBA:
-	dc.b	$4E,$B9,$00,$FF,$23,$72,$61,$00,$00,$82,$66,$00
-	dc.b	$00,$24,$13,$FC,$00,$01,$00,$20,$00,$26,$13,$FC,$00,$01,$00,$20
-	dc.b	$00,$20,$61,$B6,$4A,$39,$00,$20,$00,$21,$67,$12,$4A,$79,$00,$20
-	dc.b	$00,$24,$66,$54,$13,$FC,$00,$00,$00,$20,$00,$27,$60,$0C,$61,$00
-	dc.b	$01,$98,$13,$FC,$00,$01,$00,$20,$00,$27,$13,$FC,$00,$00,$00,$20
-	dc.b	$00,$26,$13,$FC,$00,$01,$00,$20,$00,$20,$61,$00,$FF,$7E,$4A,$39
-	dc.b	$00,$20,$00,$21,$66,$1C,$61,$00,$01,$70,$4A,$39,$00,$20,$00,$27
-	dc.b	$67,$06,$30,$3C,$00,$00,$4E,$75,$30,$3C,$00,$01,$32,$3C,$00,$00
-	dc.b	$4E,$75,$30,$3C,$FF,$FF,$4E,$75,$30,$3C,$FF,$FE,$4E,$75,$08,$39
+	jsr	$FF2372.l
+L_NonUSA_FF3CC0:
+	bsr.w	$FF3D44
+L_NonUSA_FF3CC4:
+	bne.w	L_NonUSA_FF3CEA
+L_NonUSA_FF3CC8:
+	move.b	#$1, $200026.l
+L_NonUSA_FF3CD0:
+	move.b	#$1, $200020.l
+L_NonUSA_FF3CD8:
+	bsr.b	L_NonUSA_FF3C90
+L_NonUSA_FF3CDA:
+	tst.b	$200021.l
+L_NonUSA_FF3CE0:
+	beq.b	L_NonUSA_FF3CF4
+L_NonUSA_FF3CE2:
+	tst.w	$200024.l
+L_NonUSA_FF3CE8:
+	bne.b	L_NonUSA_FF3D3E
+L_NonUSA_FF3CEA:
+	move.b	#$0, $200027.l
+L_NonUSA_FF3CF2:
+	bra.b	L_NonUSA_FF3D00
+L_NonUSA_FF3CF4:
+	bsr.w	$FF3E8E
+L_NonUSA_FF3CF8:
+	move.b	#$1, $200027.l
+L_NonUSA_FF3D00:
+	move.b	#$0, $200026.l
+L_NonUSA_FF3D08:
+	move.b	#$1, $200020.l
+L_NonUSA_FF3D10:
+	bsr.w	L_NonUSA_FF3C90
+L_NonUSA_FF3D14:
+	tst.b	$200021.l
+L_NonUSA_FF3D1A:
+	bne.b	L_NonUSA_FF3D38
+L_NonUSA_FF3D1C:
+	bsr.w	$FF3E8E
+L_NonUSA_FF3D20:
+	tst.b	$200027.l
+L_NonUSA_FF3D26:
+	beq.b	L_NonUSA_FF3D2E
+L_NonUSA_FF3D28:
+	move.w	#$0, d0
+L_NonUSA_FF3D2C:
+	rts
+L_NonUSA_FF3D2E:
+	move.w	#$1, d0
+L_NonUSA_FF3D32:
+	move.w	#$0, d1
+L_NonUSA_FF3D36:
+	rts
+L_NonUSA_FF3D38:
+	move.w	#$FFFF, d0
+L_NonUSA_FF3D3C:
+	rts
+L_NonUSA_FF3D3E:
+	move.w	#$FFFE, d0
+L_NonUSA_FF3D42:
+	rts
+L_NonUSA_FF3D44:
+	dc.b	$08,$39
 	dc.b	$00,$07,$00,$40,$00,$01,$67,$26,$41,$F9,$00,$40,$00,$10,$43,$F9
 	dc.b	$00,$FF,$3E,$44,$70,$02,$B3,$88,$66,$14,$51,$C8,$FF,$FA,$20,$7C
 	dc.b	$FF,$FF,$FD,$AE,$4E,$B9,$00,$40,$00,$20,$60,$00,$00,$C6,$08,$39
