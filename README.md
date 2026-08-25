@@ -241,6 +241,11 @@ The non-USA `BRAMMAIN.MMD` command-9 wrapper from `$FF3F28` through `$FF3F39`
 regional status dispatcher; the following hardware routine begins at
 `$FF3F3A`.
 
+The non-USA `BRAMMAIN.MMD` hardware-setup routine from `$FF3F3A` through
+`$FF3FBD` (132 bytes) is now labeled source. It clears and configures VDP state,
+initializes cartridge and controller data, and restores the status flag before
+returning; the next raw routine begins at `$FF3FBE`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

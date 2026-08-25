@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN hardware-setup milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF3F3A` through `$FF3FBD` (132 bytes) is now
+  labeled source. It clears and configures VDP state, initializes cartridge and
+  controller data, and restores the status flag before returning; the next raw
+  routine begins at `$FF3FBE`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN command-9 milestone:** The Japan/Europe
   `BRAMMAIN.MMD` command-9 wrapper from `$FF3F28` through `$FF3F39` (18 bytes)
   is now labeled source. It submits command value 9 through the regional
