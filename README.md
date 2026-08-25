@@ -326,6 +326,11 @@ The fourth non-USA `BRAMMAIN.MMD` table target from `$FF4468` through `$FF4493`
 clear/status path, and sets up the command-6 path; the next table target begins
 at `$FF4494`.
 
+The fifth non-USA `BRAMMAIN.MMD` table target from `$FF4494` through `$FF452D`
+(154 bytes) is now labeled source. It dispatches the status/result paths,
+invokes the shared result handlers, and initializes the command-state branches;
+the next table target begins at `$FF452E`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

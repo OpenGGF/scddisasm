@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN fifth table-target milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4494` through `$FF452D` (154 bytes), the
+  fifth target selected by the indexed table, is now labeled source. It
+  dispatches the status/result paths, invokes the shared result handlers, and
+  initializes the command-state branches; the next table target begins at
+  `$FF452E`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN fourth table-target milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF4468` through `$FF4493` (44 bytes), the
   fourth target selected by the indexed table, is now labeled source. It checks

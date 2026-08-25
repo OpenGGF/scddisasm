@@ -13015,17 +13015,87 @@ L_NonUSA_FF448E:
 L_NonUSA_FF4492:
 	rts
 L_NonUSA_FF4494:
-	dc.b	$4A,$38
-	dc.b	$CD,$2B,$66,$10,$61,$00,$12,$94,$11,$FC,$00,$03,$CD,$14,$60,$00
-	dc.b	$05,$D4,$4E,$75,$31,$FC,$00,$00,$CD,$14,$11,$F8,$CD,$16,$CD,$1E
-	dc.b	$61,$00,$0B,$24,$61,$00,$11,$BC,$4A,$00,$66,$00,$00,$0C,$61,$00
-	dc.b	$11,$16,$61,$00,$12,$4C,$4E,$75,$48,$E7,$80,$00,$61,$00,$12,$5C
-	dc.b	$61,$00,$0B,$92,$4C,$DF,$00,$01,$60,$00,$00,$02,$48,$E7,$80,$00
-	dc.b	$30,$3C,$00,$9E,$4E,$B9,$00,$FF,$25,$B8,$4C,$DF,$00,$01,$0C,$00
-	dc.b	$00,$01,$67,$14,$31,$FC,$00,$08,$CD,$14,$11,$FC,$00,$01,$CD,$1E
-	dc.b	$70,$08,$70,$09,$70,$0A,$60,$1C,$31,$FC,$00,$00,$CD,$14,$11,$F8
-	dc.b	$CD,$16,$CD,$1E,$61,$00,$11,$FA,$70,$03,$0C,$38,$00,$05,$CD,$17
-	dc.b	$67,$02,$70,$04,$60,$00,$07,$0C,$61,$00,$F6,$C2,$67,$3C,$41,$F9
+	tst.b	$FFFFCD2B.w
+L_NonUSA_FF4498:
+	bne.b	L_NonUSA_FF44AA
+L_NonUSA_FF449A:
+	bsr.w	$FF5730
+L_NonUSA_FF449E:
+	move.b	#$3, $FFFFCD14.w
+L_NonUSA_FF44A4:
+	bra.w	$FF4A7A
+L_NonUSA_FF44A8:
+	rts
+L_NonUSA_FF44AA:
+	move.w	#$0, $FFFFCD14.w
+L_NonUSA_FF44B0:
+	move.b	$FFFFCD16.w, $FFFFCD1E.w
+L_NonUSA_FF44B6:
+	bsr.w	$FF4FDC
+L_NonUSA_FF44BA:
+	bsr.w	$FF5678
+L_NonUSA_FF44BE:
+	tst.b	d0
+L_NonUSA_FF44C0:
+	bne.w	L_NonUSA_FF44CE
+L_NonUSA_FF44C4:
+	bsr.w	$FF55DC
+L_NonUSA_FF44C8:
+	bsr.w	$FF5716
+L_NonUSA_FF44CC:
+	rts
+L_NonUSA_FF44CE:
+	movem.l	d0, -(a7)
+L_NonUSA_FF44D2:
+	bsr.w	$FF5730
+L_NonUSA_FF44D6:
+	bsr.w	$FF506A
+L_NonUSA_FF44DA:
+	movem.l	(a7)+, d0
+L_NonUSA_FF44DE:
+	bra.w	L_NonUSA_FF44E2
+L_NonUSA_FF44E2:
+	movem.l	d0, -(a7)
+L_NonUSA_FF44E6:
+	move.w	#$9E, d0
+L_NonUSA_FF44EA:
+	jsr	$FF25B8.l
+L_NonUSA_FF44F0:
+	movem.l	(a7)+, d0
+L_NonUSA_FF44F4:
+	cmpi.b	#$1, d0
+L_NonUSA_FF44F8:
+	beq.b	L_NonUSA_FF450E
+L_NonUSA_FF44FA:
+	move.w	#$8, $FFFFCD14.w
+L_NonUSA_FF4500:
+	move.b	#$1, $FFFFCD1E.w
+L_NonUSA_FF4506:
+	moveq	#$8, d0
+L_NonUSA_FF4508:
+	moveq	#$9, d0
+L_NonUSA_FF450A:
+	moveq	#$A, d0
+L_NonUSA_FF450C:
+	bra.b	L_NonUSA_FF452A
+L_NonUSA_FF450E:
+	move.w	#$0, $FFFFCD14.w
+L_NonUSA_FF4514:
+	move.b	$FFFFCD16.w, $FFFFCD1E.w
+L_NonUSA_FF451A:
+	bsr.w	$FF5716
+L_NonUSA_FF451E:
+	moveq	#$3, d0
+L_NonUSA_FF4520:
+	cmpi.b	#$5, $FFFFCD17.w
+L_NonUSA_FF4526:
+	beq.b	L_NonUSA_FF452A
+L_NonUSA_FF4528:
+	moveq	#$4, d0
+L_NonUSA_FF452A:
+	bra.w	$FF4C38
+L_NonUSA_FF452E:
+	dc.b	$61,$00,$F6,$C2,$67,$3C,$41,$F9
 	dc.b	$00,$FF,$4D,$84,$0C,$38,$00,$06,$CD,$16,$67,$06,$41,$F9,$00,$FF
 	dc.b	$4D,$7A,$61,$00,$07,$46,$61,$00,$FC,$E0,$61,$00,$09,$F8,$6E,$24
 	dc.b	$6B,$02,$4E,$75,$61,$00,$07,$2A,$31,$FC,$00,$00,$CD,$14,$11,$F8
