@@ -10301,16 +10301,73 @@ Start:
 	dc.b	$67,$F2,$70,$00,$23,$C0,$00,$A1,$20,$10,$23,$C0,$00,$A1,$20,$14
 	dc.b	$23,$C0,$00,$A1,$20,$18,$23,$C0,$00,$A1,$20,$1C,$13,$C0,$00,$A1
 	dc.b	$20,$0E,$4E,$75,$61,$00,$46,$B0,$4E,$B9,$00,$FF,$28,$0C,$4E,$B9
-	dc.b	$00,$FF,$28,$D0,$4E,$F9,$00,$FF,$27,$02,$11,$FC,$00,$01,$B2,$80
-	dc.b	$11,$FC,$00,$02,$B2,$C0,$11,$FC,$00,$00,$B2,$E8,$11,$FC,$00,$02
-	dc.b	$B3,$00,$11,$FC,$00,$01,$B3,$28,$11,$FC,$00,$03,$B3,$40,$11,$FC
-	dc.b	$00,$06,$B3,$80,$72,$00,$41,$F8,$B3,$C0,$11,$7C,$00,$05,$00,$00
-	dc.b	$11,$41,$00,$1A,$D0,$FC,$00,$40,$52,$41,$0C,$41,$00,$04,$66,$EA
-	dc.b	$41,$F8,$B4,$C0,$72,$00,$11,$7C,$00,$04,$00,$00,$11,$41,$00,$28
-	dc.b	$D0,$FC,$00,$40,$52,$41,$0C,$41,$00,$0B,$66,$EA,$31,$FC,$00,$00
-	dc.b	$CD,$14,$11,$FC,$00,$01,$CD,$1E,$41,$F9,$00,$FF,$3C,$6C,$43,$F8
-	dc.b	$CD,$30,$22,$D8,$22,$D8,$22,$90,$13,$7C,$00,$30,$00,$01,$13,$7C
-	dc.b	$00,$30,$00,$02,$4E,$75
+	dc.b	$00,$FF,$28,$D0,$4E,$F9,$00,$FF,$27,$02
+L_NonUSA_FF20FA:
+	move.b	#$1, $FFFFb280.w
+L_NonUSA_FF2100:
+	move.b	#$2, $FFFFb2c0.w
+L_NonUSA_FF2106:
+	move.b	#$0, $FFFFb2e8.w
+L_NonUSA_FF210C:
+	move.b	#$2, $FFFFb300.w
+L_NonUSA_FF2112:
+	move.b	#$1, $FFFFb328.w
+L_NonUSA_FF2118:
+	move.b	#$3, $FFFFb340.w
+L_NonUSA_FF211E:
+	move.b	#$6, $FFFFb380.w
+L_NonUSA_FF2124:
+	moveq	#$0, d1
+L_NonUSA_FF2126:
+	lea.l	$FFFFb3c0.w, a0
+L_NonUSA_FF212A:
+	move.b	#$5, $0(a0)
+L_NonUSA_FF2130:
+	move.b	d1, $1a(a0)
+L_NonUSA_FF2134:
+	adda.w	#$40, a0
+L_NonUSA_FF2138:
+	addq.w	#$1, d1
+L_NonUSA_FF213A:
+	cmpi.w	#$4, d1
+L_NonUSA_FF213E:
+	bne.b	L_NonUSA_FF212A
+L_NonUSA_FF2140:
+	lea.l	$FFFFb4c0.w, a0
+L_NonUSA_FF2144:
+	moveq	#$0, d1
+L_NonUSA_FF2146:
+	move.b	#$4, $0(a0)
+L_NonUSA_FF214C:
+	move.b	d1, $28(a0)
+L_NonUSA_FF2150:
+	adda.w	#$40, a0
+L_NonUSA_FF2154:
+	addq.w	#$1, d1
+L_NonUSA_FF2156:
+	cmpi.w	#$b, d1
+L_NonUSA_FF215A:
+	bne.b	L_NonUSA_FF2146
+L_NonUSA_FF215C:
+	move.w	#$0, $FFFFcd14.w
+L_NonUSA_FF2162:
+	move.b	#$1, $FFFFcd1e.w
+L_NonUSA_FF2168:
+	lea.l	$ff3c6c.l, a0
+L_NonUSA_FF216E:
+	lea.l	$FFFFcd30.w, a1
+L_NonUSA_FF2172:
+	move.l	(a0)+, (a1)+
+L_NonUSA_FF2174:
+	move.l	(a0)+, (a1)+
+L_NonUSA_FF2176:
+	move.l	(a0), (a1)
+L_NonUSA_FF2178:
+	move.b	#$30, $1(a1)
+L_NonUSA_FF217E:
+	move.b	#$30, $2(a1)
+L_NonUSA_FF2184:
+	rts
 VInterrupt:
 	dc.b	$48,$E7,$FF,$FE,$13,$FC,$00,$01,$00,$A1,$20,$00,$4A,$38,$CD,$00
 	dc.b	$67,$00,$01,$3C,$11,$FC,$00,$00,$CD,$00,$43,$F9,$00,$C0,$00,$04

@@ -50,6 +50,13 @@ regional path still contains explicit `dc.b` spans pending semantic
 decomposition, so source-only generation is not being presented as a fully
 readable disassembly of every routine and data table.
 
+The non-USA `BRAMMAIN.MMD` entry now expresses the 140-byte initialization
+tail at `$FF20FA-$FF2185` as labeled 68000 instructions, preserving the
+regional buffer addresses and initialization table pointer. The preceding
+localized entry bytes and the `VInterrupt`/data spans remain explicit source
+bytes pending further decomposition. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

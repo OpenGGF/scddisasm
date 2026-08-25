@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN entry-tail milestone:** The 140-byte Japan/Europe
+  `BRAMMAIN.MMD` initialization tail at `$FF20FA-$FF2185` is now expressed as
+  labeled 68000 source, including the regional Backup RAM table setup, two
+  initialization loops, VDP register setup, and pointer copy. The preceding
+  localized entry span and the `VInterrupt`/data spans remain explicit source
+  bytes pending semantic decomposition. Fresh guarded displayless Japan, USA,
+  and Europe builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were added.
+
 - **USA R52 legacy graphics-list milestone:** The 426-byte R52B/R52C/R52D
   USA tail slices are now expressed as labeled legacy main, section, single,
   results, and signpost PLC records using explicit `dc.l` pointer and `dc.w`
