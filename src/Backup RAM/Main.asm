@@ -11126,9 +11126,35 @@ L_NonUSA_FF2806:
 	addq.b	#$2, $25(a0)
 L_NonUSA_FF280A:
 	rts
-	dc.b	$41,$F8,$B2,$80,$7E,$35,$70,$00,$10,$10
-	dc.b	$67,$12,$D0,$40,$D0,$40,$43,$F9,$00,$FF,$27,$48,$22,$71,$00,$FC
-	dc.b	$4E,$91,$70,$00,$41,$E8,$00,$40,$51,$CF,$FF,$E4,$4E,$75,$70,$00
+L_NonUSA_FF280C:
+	lea.l	$FFFFb280.w, a0
+L_NonUSA_FF2810:
+	moveq	#$35, d7
+L_NonUSA_FF2812:
+	moveq	#$0, d0
+L_NonUSA_FF2814:
+	move.b	(a0), d0
+L_NonUSA_FF2816:
+	beq.b	L_NonUSA_FF282A
+L_NonUSA_FF2818:
+	add.w	d0, d0
+L_NonUSA_FF281A:
+	add.w	d0, d0
+L_NonUSA_FF281C:
+	lea.l	$FF2748.l, a1
+L_NonUSA_FF2822:
+	movea.l	-$4(a1, d0.w), a1
+L_NonUSA_FF2826:
+	jsr	(a1)
+L_NonUSA_FF2828:
+	moveq	#$0, d0
+L_NonUSA_FF282A:
+	lea.l	$40(a0), a0
+L_NonUSA_FF282E:
+	dbra	d7, L_NonUSA_FF2814
+L_NonUSA_FF2832:
+	rts
+	dc.b	$70,$00
 	dc.b	$10,$28,$00,$19,$36,$28,$00,$08,$96,$78,$C4,$00,$32,$03,$D2,$40
 	dc.b	$6B,$68,$32,$03,$92,$40,$0C,$41,$01,$40,$6C,$5E,$10,$28,$00,$16
 	dc.b	$36,$28,$00,$0C,$0C,$78,$01,$00,$C4,$04,$64,$0C,$0C,$43,$08,$00
