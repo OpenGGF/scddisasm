@@ -278,6 +278,11 @@ selects the regional result buffer, routes status outcomes for operations 1 and
 3, and retains its three-word tail table; the next raw routine begins at
 `$FF413C`.
 
+The non-USA `BRAMMAIN.MMD` state-finalization routine from `$FF413C` through
+`$FF4175` (58 bytes) is now labeled source. It records the resulting command
+state, clears the status bytes, and returns; the next raw routine begins at
+`$FF4176`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
