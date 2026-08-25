@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN status-clear helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF4274` through `$FF42AB` (56 bytes) is now
+  labeled source. It clears the status bytes for the normal and alternate
+  paths and enters the dispatch at `$FF42AC`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN status-selection milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF422E` through `$FF4273` (70 bytes) is now
   labeled source. It selects status-byte paths for command states 5 and 6 and

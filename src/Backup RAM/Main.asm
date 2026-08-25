@@ -12758,10 +12758,27 @@ L_NonUSA_FF426C:
 L_NonUSA_FF4272:
 	bra.b	$FF42AC
 L_NonUSA_FF4274:
-	dc.b	$11,$FC,$00,$00,$CD,$21,$11,$FC,$00,$00,$CD,$25,$11,$FC,$00,$00,$CD,$20
-	dc.b	$11,$FC,$00,$00,$CD,$24,$11,$FC,$00,$00,$CD,$22,$11,$FC,$00,$00
-	dc.b	$CD,$23,$60,$12,$11,$FC,$00,$00,$CD,$22,$11,$FC,$00,$00,$CD,$23
-	dc.b	$11,$FC,$00,$00,$CD,$20,$10,$38,$CD,$1E,$0C,$00,$00,$01,$67,$20
+	move.b	#$0, $FFFFCD21.w
+L_NonUSA_FF427A:
+	move.b	#$0, $FFFFCD25.w
+L_NonUSA_FF4280:
+	move.b	#$0, $FFFFCD20.w
+L_NonUSA_FF4286:
+	move.b	#$0, $FFFFCD24.w
+L_NonUSA_FF428C:
+	move.b	#$0, $FFFFCD22.w
+L_NonUSA_FF4292:
+	move.b	#$0, $FFFFCD23.w
+L_NonUSA_FF4298:
+	bra.b	L_NonUSA_FF42AC
+L_NonUSA_FF429A:
+	move.b	#$0, $FFFFCD22.w
+L_NonUSA_FF42A0:
+	move.b	#$0, $FFFFCD23.w
+L_NonUSA_FF42A6:
+	move.b	#$0, $FFFFCD20.w
+L_NonUSA_FF42AC:
+	dc.b	$10,$38,$CD,$1E,$0C,$00,$00,$01,$67,$20
 	dc.b	$0C,$00,$00,$02,$67,$22,$0C,$00,$00,$03,$67,$24,$0C,$00,$00,$04
 	dc.b	$67,$26,$0C,$00,$00,$05,$67,$28,$0C,$00,$00,$06,$67,$2A,$4E,$75
 	dc.b	$11,$FC,$00,$01,$CD,$20,$4E,$75,$11,$FC,$00,$01,$CD,$21,$4E,$75

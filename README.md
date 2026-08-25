@@ -293,6 +293,10 @@ through `$FF4273` (70 bytes) is now labeled source. It selects status-byte
 paths for command states 5 and 6 and branches to the shared dispatch at
 `$FF42AC`; the next raw entry begins at `$FF4274`.
 
+The following non-USA `BRAMMAIN.MMD` status-clear helper from `$FF4274` through
+`$FF42AB` (56 bytes) is now labeled source. It clears the status bytes for the
+normal and alternate paths and enters the dispatch at `$FF42AC`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
