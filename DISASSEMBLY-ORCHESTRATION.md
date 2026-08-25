@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **R71 non-USA animation-routine milestone:** The shared non-USA R71 Padding1
+  source now labels and emits both legacy 68000 animation routines instead of
+  representing their 134-byte code regions as undifferentiated words. The
+  surrounding animation tables remain declarative data, while the two fixed
+  branch encodings stay explicit `dc.w` values to preserve the historical
+  link layout. Fresh guarded displayless Proton builds and checks remain exact
+  for Japan, USA, and Europe, with zero differences and zero missing targets;
+  no proprietary bytes were added.
+
 - **Cross-region Time Attack data milestone:** The common source-defined
   `ATTACK.MMD` suffix is now used for every region, with the 3,327-byte
   Japan/Europe packed presentation delta emitted by

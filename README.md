@@ -50,6 +50,12 @@ regional path still contains explicit `dc.b` spans pending semantic
 decomposition, so source-only generation is not being presented as a fully
 readable disassembly of every routine and data table.
 
+The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
+routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
+The surrounding animation tables remain declarative data, and the two fixed
+legacy branch encodings remain explicit `dc.w` values so the historical link
+layout is unchanged. Japan, USA, and Europe still produce byte-exact outputs.
+
 The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 `R12B__.MMD`, `R12C__.MMD`, `R12D__.MMD`, `R13C__.MMD`, and `R13D__.MMD`
 byte-exact for both Japan and Europe. The source preserves USA's existing
