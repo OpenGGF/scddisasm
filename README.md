@@ -168,6 +168,11 @@ The second bit-selected non-USA `BRAMMAIN.MMD` object-record helper from
 mirrored record format with its alternate tile/attribute transformation and
 returns at `$FF2A96`; the next variant begins at `$FF2A98`.
 
+The final bit-selected non-USA `BRAMMAIN.MMD` object-record helper from
+`$FF2A98` through `$FF2AEB` (84 bytes) is now labeled source. It emits the
+remaining record format and returns at `$FF2AEA`; the following data table
+begins at `$FF2AEC`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
