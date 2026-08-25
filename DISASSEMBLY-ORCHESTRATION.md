@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN first post-table routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF475C` through `$FF4789` (46 bytes), the
+  first target selected by the post-table offset table, is now labeled source.
+  It checks the status flag, updates the command and result state, and calls
+  the shared handlers; the next table-selected routine begins at `$FF478A`.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN post-table dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` dispatcher and 13-word offset table from `$FF4732` through
   `$FF475B` (42 bytes) are now labeled source. The dispatcher selects a

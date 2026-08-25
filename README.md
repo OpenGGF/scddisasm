@@ -371,6 +371,11 @@ The non-USA `BRAMMAIN.MMD` post-table dispatcher and 13-word offset table from
 selects a routine offset from the Backup RAM command-state byte; the next raw
 routine begins at `$FF475C`.
 
+The first non-USA post-table `BRAMMAIN.MMD` routine from `$FF475C` through
+`$FF4789` (46 bytes) is now labeled source. It checks the status flag, updates
+the command and result state, and calls the shared handlers; the next
+table-selected routine begins at `$FF478A`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

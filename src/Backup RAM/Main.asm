@@ -13360,10 +13360,29 @@ L_NonUSA_FF4742:
 	dc.w	$001A,$0048,$0060,$0072,$00EE,$0000,$0000,$0000
 	dc.w	$0116,$012E,$0140,$016E,$0196
 L_NonUSA_FF475C:
-	dc.b	$4A,$38,$CD,$21,$66,$1A,$11,$FC,$00,$01
-	dc.b	$CD,$14,$61,$00,$01,$F0,$61,$00,$0C,$E4,$42,$38,$CD,$2E,$11,$FC
-	dc.b	$00,$01,$CD,$2D,$4E,$75,$11,$FC,$00,$01,$CD,$50,$11,$FC,$00,$08
-	dc.b	$CD,$14,$4E,$75,$42,$38,$CD,$2D,$0C,$38,$00,$0B,$CD,$2E,$66,$0A
+	tst.b	$FFFFCD21.w
+L_NonUSA_FF4760:
+	bne.b	L_NonUSA_FF477C
+L_NonUSA_FF4762:
+	move.b	#$1, $FFFFCD14.w
+L_NonUSA_FF4768:
+	bsr.w	$FF495A
+L_NonUSA_FF476C:
+	bsr.w	$FF5452
+L_NonUSA_FF4770:
+	clr.b	$FFFFCD2E.w
+L_NonUSA_FF4774:
+	move.b	#$1, $FFFFCD2D.w
+L_NonUSA_FF477A:
+	rts
+L_NonUSA_FF477C:
+	move.b	#$1, $FFFFCD50.w
+L_NonUSA_FF4782:
+	move.b	#$8, $FFFFCD14.w
+L_NonUSA_FF4788:
+	rts
+L_NonUSA_FF478A:
+	dc.b	$42,$38,$CD,$2D,$0C,$38,$00,$0B,$CD,$2E,$66,$0A
 	dc.b	$42,$38,$CD,$2E,$11,$FC,$00,$02,$CD,$14,$4E,$75,$11,$FC,$00,$03
 	dc.b	$CD,$14,$61,$00,$0F,$6C,$30,$3C,$00,$01,$60,$00,$03,$C8,$4A,$38
 	dc.b	$CD,$2B,$67,$64,$61,$00,$01,$6E,$4A,$39,$00,$FF,$0F,$1F,$67,$00
