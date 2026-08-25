@@ -173,6 +173,12 @@ The final bit-selected non-USA `BRAMMAIN.MMD` object-record helper from
 remaining record format and returns at `$FF2AEA`; the following data table
 begins at `$FF2AEC`.
 
+The non-USA `BRAMMAIN.MMD` command dispatcher from `$FF2B48` through
+`$FF2B93` (76 bytes) is now labeled source. It reads a command byte from
+`$200020`, dispatches through the `$FF2B94` routine table, records the result
+and status at `$200021-$200024`, and clears the command byte; the routine table
+remains explicit data.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

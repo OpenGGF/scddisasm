@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-dispatch milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` command dispatcher from `$FF2B48` through `$FF2B93` (76 bytes)
+  is now labeled source. It reads a command byte from `$200020`, dispatches
+  through the `$FF2B94` routine table, records result/status at
+  `$200021-$200024`, and clears the command byte; the routine table remains
+  explicit data. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` dispatcher from `$FF280C` through `$FF2833` (40 bytes) is now
   labeled source. It scans the 54-entry object area, selects a routine through
