@@ -424,6 +424,11 @@ The final non-USA post-table `BRAMMAIN.MMD` target from `$FF48D8` through
 updates `$FF0F1F` and `$CD50`, restores the command/result state, and returns;
 the next raw routine begins at `$FF492A`.
 
+The next non-USA raw `BRAMMAIN.MMD` routine from `$FF492A` through `$FF4959`
+(48 bytes) is now labeled source. It checks the Backup RAM status mode, takes
+the mode-2 alternate path when needed, runs the shared handlers, and returns;
+the next raw routine begins at `$FF495A`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

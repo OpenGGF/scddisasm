@@ -13580,11 +13580,36 @@ L_NonUSA_FF4924:
 L_NonUSA_FF4928:
 	rts
 L_NonUSA_FF492A:
-	dc.b	$61,$00,$05,$FE,$0C,$38,$00,$02,$CD,$16,$67,$0E
-	dc.b	$30,$29,$00,$06,$61,$00,$0D,$14,$61,$00,$F3,$38,$60,$04,$61,$00
-	dc.b	$F3,$0E,$61,$00,$F5,$BA,$66,$02,$4E,$71,$61,$00,$09,$78,$61,$00
-	dc.b	$09,$AE,$4E,$75,$61,$00,$05,$CE,$30,$29,$00,$06,$61,$00,$0C,$EC
-	dc.b	$61,$00,$07,$CC,$67,$00,$00,$4A,$45,$F8,$B4,$C0,$36,$3C,$00,$14
+	bsr.w	$FF4F2A
+L_NonUSA_FF492E:
+	cmpi.b	#$2, $FFFFCD16.w
+L_NonUSA_FF4934:
+	beq.b	L_NonUSA_FF4944
+L_NonUSA_FF4936:
+	move.w	$6(a1), d0
+L_NonUSA_FF493A:
+	bsr.w	$FF5650
+L_NonUSA_FF493E:
+	bsr.w	$FF3C78
+L_NonUSA_FF4942:
+	bra.b	L_NonUSA_FF4948
+L_NonUSA_FF4944:
+	bsr.w	$FF3C54
+L_NonUSA_FF4948:
+	bsr.w	$FF3F04
+L_NonUSA_FF494C:
+	bne.b	L_NonUSA_FF4950
+L_NonUSA_FF494E:
+	nop
+L_NonUSA_FF4950:
+	bsr.w	$FF52CA
+L_NonUSA_FF4954:
+	bsr.w	$FF5304
+L_NonUSA_FF4958:
+	rts
+L_NonUSA_FF495A:
+	dc.b	$61,$00,$05,$CE,$30,$29,$00,$06
+	dc.b	$61,$00,$0C,$EC,$61,$00,$07,$CC,$67,$00,$00,$4A,$45,$F8,$B4,$C0,$36,$3C,$00,$14
 	dc.b	$61,$00,$F2,$72,$66,$04,$36,$3C,$00,$DC,$78,$00,$38,$29,$00,$04
 	dc.b	$C8,$FC,$00,$10,$06,$44,$00,$2C,$32,$3C,$00,$0A,$70,$00,$10,$18
 	dc.b	$61,$00,$08,$F8,$06,$40,$C0,$00,$35,$40,$00,$02,$35,$43,$00,$08
