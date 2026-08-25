@@ -302,6 +302,11 @@ through `$FF4305` (90 bytes) is now labeled source. It maps state codes 1
 through 6 to their status-byte flags and returns for unrecognized states; the
 next raw routine begins at `$FF4306`.
 
+The following non-USA `BRAMMAIN.MMD` indexed jump wrapper and 12-word offset
+table from `$FF4306` through `$FF432D` (40 bytes) are now labeled source. The
+wrapper selects a table entry from the command-state byte; the first raw target
+routine begins at `$FF432E`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

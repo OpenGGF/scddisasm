@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN indexed-wrapper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` indexed jump wrapper and 12-word offset table from `$FF4306`
+  through `$FF432D` (40 bytes) are now labeled source. The wrapper selects a
+  table entry from the command-state byte; the first raw target routine begins
+  at `$FF432E`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state-code dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` dispatcher from `$FF42AC` through `$FF4305` (90 bytes) is now
   labeled source. It maps state codes 1 through 6 to their status-byte flags
