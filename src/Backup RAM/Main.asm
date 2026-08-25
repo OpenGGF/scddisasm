@@ -13277,9 +13277,25 @@ L_NonUSA_FF46A0:
 L_NonUSA_FF46A6:
 	rts
 L_NonUSA_FF46A8:
-	dc.b	$42,$38,$CD,$2D,$0C,$38,$00,$0B,$CD,$2E,$67,$02,$4E,$75
-	dc.b	$11,$FC,$00,$0B,$CD,$14,$61,$00,$10,$72,$30,$3C,$00,$00,$60,$00
-	dc.b	$04,$B4,$4E,$75,$42,$38,$CD,$2E,$61,$00,$05,$B6,$4A,$38,$CD,$2B
+	clr.b	$FFFFCD2D.w
+L_NonUSA_FF46AC:
+	cmpi.b	#$B, $FFFFCD2E.w
+L_NonUSA_FF46B2:
+	beq.b	L_NonUSA_FF46B6
+L_NonUSA_FF46B4:
+	rts
+L_NonUSA_FF46B6:
+	move.b	#$B, $FFFFCD14.w
+L_NonUSA_FF46BC:
+	bsr.w	$FF5730
+L_NonUSA_FF46C0:
+	move.w	#$0, d0
+L_NonUSA_FF46C4:
+	bra.w	$FF4B7A
+L_NonUSA_FF46C8:
+	rts
+L_NonUSA_FF46CA:
+	dc.b	$42,$38,$CD,$2E,$61,$00,$05,$B6,$4A,$38,$CD,$2B
 	dc.b	$66,$12,$31,$FC,$00,$00,$CD,$14,$11,$F8,$CD,$16,$CD,$1E,$61,$00
 	dc.b	$10,$30,$4E,$75,$31,$FC,$00,$00,$CD,$14,$11,$F8,$CD,$16,$CD,$1E
 	dc.b	$61,$00,$08,$E4,$61,$00,$09,$D8,$48,$E7,$80,$00,$61,$00,$0F,$74
