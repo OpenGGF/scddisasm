@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN operation-dispatch milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` operation dispatcher and code-2 handler from `$FF4086` through
+  `$FF40B9` (52 bytes) are now labeled source. They select operation codes 1
+  and 2, loop code 1 through the initialization routine, and submit code 2
+  through `$FF5014`; the next raw handler begins at `$FF40BA`. Fresh guarded
+  displayless Japan, USA, and Europe builds/checks report every listed target as
+  an exact match, with zero differences and zero missing targets. No proprietary
+  bytes were added.
+
 - **Non-USA BRAMMAIN command-6/5 handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` command-6 and command-5 handlers from `$FF403E` through
   `$FF4085` (72 bytes) are now labeled source. They initialize their operation

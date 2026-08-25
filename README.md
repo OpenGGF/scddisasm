@@ -267,6 +267,11 @@ through `$FF4085` (72 bytes) are now labeled source. They initialize their
 operation state, invoke the shared `$FF5480` path, and return; the next raw
 handler begins at `$FF4086`.
 
+The non-USA `BRAMMAIN.MMD` operation dispatcher and code-2 handler from
+`$FF4086` through `$FF40B9` (52 bytes) are now labeled source. They select
+operation codes 1 and 2, loop code 1 through the initialization routine, and
+submit code 2 through `$FF5014`; the next raw handler begins at `$FF40BA`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
