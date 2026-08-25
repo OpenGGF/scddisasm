@@ -2,6 +2,18 @@
 
 ## 2026-08-25
 
+- **USA R52 legacy graphics-list milestone:** The 426-byte R52B/R52C/R52D
+  USA tail slices are now expressed as labeled legacy main, section, single,
+  results, and signpost PLC records using explicit `dc.l` pointer and `dc.w`
+  VRAM fields. The final R52B signpost entry and the final R52C/R52D section
+  entries continue into their adjacent Padding1 source at the historical
+  file boundary. R52A's leading legacy object record and `$2064C2` flower
+  trampoline are also expressed as data plus a 68000 `jmp`; its following
+  mapping table remains packed declarative data. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks compare every listed target exactly,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **USA R51A pre-chunk sharing milestone:** The USA R51A pre-chunk source now
   reuses `src/r5/USA Legacy R5 Shared PreChunk.asm` with its historical
   six-byte leading record omitted. Its remaining `$486` bytes are therefore

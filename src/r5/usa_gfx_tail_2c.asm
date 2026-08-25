@@ -1,15 +1,59 @@
 ; ------------------------------------------------------------------------------
 ; R52C USA source-owned data between the active graphics lists and Padding1.
-; Length: $8E bytes. Kept byte-labelled pending semantic disassembly.
+; Length: $8E bytes. The final section-list record continues at the start of
+; the Padding1 source.
 ; ------------------------------------------------------------------------------
-USA_R52C_USA_DATA_TAIL:
-; The active source graph ends at raw $F758; this tail reaches USA Padding1 at raw $F7E6.
-	dc.b	$00, $01, $00, $23, $8F, $CE, $00, $00, $00, $23, $C1, $76, $41, $60, $00, $0E
-	dc.b	$00, $23, $D4, $CC, $60, $00, $00, $23, $D6, $A4, $60, $80, $00, $23, $D5, $34
-	dc.b	$F2, $E0, $00, $23, $E5, $E4, $66, $40, $00, $23, $0D, $A2, $6C, $00, $00, $23
-	dc.b	$39, $E4, $7A, $00, $00, $23, $D9, $E0, $97, $40, $00, $23, $21, $3A, $A4, $00
-	dc.b	$00, $23, $1E, $2E, $9E, $40, $00, $23, $34, $BC, $AD, $00, $00, $23, $23, $5C
-	dc.b	$B5, $00, $00, $23, $29, $60, $D0, $00, $00, $22, $ED, $E6, $D8, $C0, $00, $23
-	dc.b	$37, $32, $DA, $E0, $00, $23, $2E, $48, $F5, $C0, $00, $0C, $00, $22, $F8, $FC
-	dc.b	$57, $40, $00, $23, $E5, $28, $68, $40, $00, $23, $E3, $46, $6A, $00, $00, $23
-	dc.b	$E2, $A4, $6B, $00, $00, $23, $F0, $DE, $72, $00, $00, $23, $DD, $50
+USA_R52C_LegacyStageGfxList:
+	; Two entries; the count is the legacy PLC count-minus-one field.
+	dc.w	$0001
+	dc.l	$00238FCE
+	dc.w	$0000
+	dc.l	$0023C176
+	dc.w	$4160
+
+USA_R52C_LegacyMainGfxList:
+	dc.w	$000E
+	dc.l	$0023D4CC
+	dc.w	$6000
+	dc.l	$0023D6A4
+	dc.w	$6080
+	dc.l	$0023D534
+	dc.w	$F2E0
+	dc.l	$0023E5E4
+	dc.w	$6640
+	dc.l	$00230DA2
+	dc.w	$6C00
+	dc.l	$002339E4
+	dc.w	$7A00
+	dc.l	$0023D9E0
+	dc.w	$9740
+	dc.l	$0023213A
+	dc.w	$A400
+	dc.l	$00231E2E
+	dc.w	$9E40
+	dc.l	$002334BC
+	dc.w	$AD00
+	dc.l	$0023235C
+	dc.w	$B500
+	dc.l	$00232960
+	dc.w	$D000
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+USA_R52C_LegacySectionGfxList:
+	dc.w	$000C
+	dc.l	$0022F8FC
+	dc.w	$5740
+	dc.l	$0023E528
+	dc.w	$6840
+	dc.l	$0023E346
+	dc.w	$6A00
+	dc.l	$0023E2A4
+	dc.w	$6B00
+	dc.l	$0023F0DE
+	dc.w	$7200
+	dc.l	$0023DD50

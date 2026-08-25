@@ -100,6 +100,15 @@ labeled retained helper and compatibility routines, while the packed graphics
 and mapping records remain declarative data. Fresh Japan, USA, and Europe
 builds and component comparisons remain byte-exact.
 
+The USA R52B/R52C/R52D graphics-list tails now express 426 bytes of legacy
+main, section, single, results, and signpost PLC records as labeled pointer and
+VRAM fields. Their final records deliberately continue into the adjacent
+Padding1 source at the historical boundary. R52A's leading legacy object record
+and `$2064C2` flower trampoline are also source-labeled, while its following
+mapping table remains packed data. Fresh Japan, USA, and Europe builds and
+component comparisons remain byte-exact; this is incremental source recovery,
+not a claim that every packed data table has been decoded.
+
 The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 `R12B__.MMD`, `R12C__.MMD`, `R12D__.MMD`, `R13C__.MMD`, and `R13D__.MMD`
 byte-exact for both Japan and Europe. The source preserves USA's existing

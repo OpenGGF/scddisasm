@@ -2,13 +2,17 @@
 ; R52A USA data between the active graphics lists and Padding1 (0x9A bytes).
 ;
 ; This region is source-owned so the USA build does not read the original MMD.
-; It is retained as byte-labelled data pending semantic disassembly.
+; The leading legacy object record and trampoline are expressed as their
+; original data/instruction forms; the following table remains packed data.
 ; ------------------------------------------------------------------------------
-USA_R52A_USA_DATA_TAIL:
-	dc.w	$097C
-	dc.w	$0001
-	dc.w	$48B0
-	dc.b	$4E, $F9, $00, $20, $64, $C2, $03, $23, $8E, $D2, $02, $23, $7C, $50, $00, $21
+USA_R52A_LegacyObjectRecord:
+	dc.w	$097C, $0001, $48B0
+
+USA_R52A_LegacyFlowerJump:
+	jmp	$2064C2.l
+
+USA_R52A_LegacyMappingData:
+	dc.b	$03, $23, $8E, $D2, $02, $23, $7C, $50, $00, $21
 	dc.b	$00, $00, $00, $81, $04, $04, $00, $26, $00, $34, $00, $8A, $00, $26, $00, $8A
 	dc.b	$00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A
 	dc.b	$00, $8A, $00, $E2, $00, $EA, $00, $DA, $00, $8A, $00, $F2, $00, $01, $00, $23

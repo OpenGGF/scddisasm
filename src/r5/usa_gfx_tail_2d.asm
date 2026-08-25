@@ -1,15 +1,76 @@
 ; ------------------------------------------------------------------------------
 ; R52D USA source-owned data between the active graphics lists and Padding1.
-; Length: $8E bytes. Kept byte-labelled pending semantic disassembly.
+; Length: $8E bytes. The final section-list record continues at the start of
+; the Padding1 source.
 ; ------------------------------------------------------------------------------
-USA_R52D_USA_DATA_TAIL:
-; The active source graph ends at raw $F850; this tail reaches USA Padding1 at raw $F8DE.
-	dc.b	$00, $23, $F5, $A4, $90, $E0, $00, $23, $F7, $58, $94, $E0, $00, $23, $F3, $F2
-	dc.b	$9A, $40, $00, $00, $00, $23, $DD, $50, $76, $C0, $00, $00, $00, $23, $EC, $48
-	dc.b	$76, $C0, $00, $00, $00, $23, $00, $98, $78, $80, $00, $00, $00, $23, $C1, $76
-	dc.b	$41, $60, $00, $00, $00, $23, $CA, $96, $41, $40, $00, $02, $00, $22, $FA, $BC
-	dc.b	$87, $80, $00, $22, $F4, $F2, $91, $00, $00, $20, $B6, $AE, $7D, $E0, $00, $00
-	dc.b	$00, $23, $D9, $E0, $97, $40, $00, $00, $00, $23, $DB, $9E, $97, $40, $00, $22
-	dc.b	$ED, $E6, $D8, $C0, $00, $23, $37, $32, $DA, $E0, $00, $23, $2E, $48, $F5, $C0
-	dc.b	$00, $0D, $00, $22, $F8, $FC, $59, $80, $00, $23, $E1, $AE, $68, $40, $00, $23
-	dc.b	$DF, $B6, $6A, $00, $00, $23, $DF, $14, $6B, $00, $00, $23, $ED, $9A
+USA_R52D_LegacyMainGfxTail0:
+	dc.l	$0023F5A4
+	dc.w	$90E0
+	dc.l	$0023F758
+	dc.w	$94E0
+	dc.l	$0023F3F2
+	dc.w	$9A40
+
+USA_R52D_LegacySingleGfxList0:
+	dc.w	$0000
+	dc.l	$0023DD50
+	dc.w	$76C0
+
+USA_R52D_LegacySingleGfxList1:
+	dc.w	$0000
+	dc.l	$0023EC48
+	dc.w	$76C0
+
+USA_R52D_LegacyResultsGfxList:
+	dc.w	$0000
+	dc.l	$00230098
+	dc.w	$7880
+
+USA_R52D_LegacySingleGfxList2:
+	dc.w	$0000
+	dc.l	$0023C176
+	dc.w	$4160
+
+USA_R52D_LegacySingleGfxList3:
+	dc.w	$0000
+	dc.l	$0023CA96
+	dc.w	$4140
+
+USA_R52D_LegacySignpostGfxList:
+	dc.w	$0002
+	dc.l	$0022FABC
+	dc.w	$8780
+	dc.l	$0022F4F2
+	dc.w	$9100
+	dc.l	$0020B6AE
+	dc.w	$7DE0
+
+USA_R52D_LegacySingleGfxList4:
+	dc.w	$0000
+	dc.l	$0023D9E0
+	dc.w	$9740
+
+USA_R52D_LegacySingleGfxList5:
+	dc.w	$0000
+	dc.l	$0023DB9E
+	dc.w	$9740
+
+USA_R52D_LegacyMainGfxTail1:
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+USA_R52D_LegacySectionGfxList:
+	dc.w	$000D
+	dc.l	$0022F8FC
+	dc.w	$5980
+	dc.l	$0023E1AE
+	dc.w	$6840
+	dc.l	$0023DFB6
+	dc.w	$6A00
+	dc.l	$0023DF14
+	dc.w	$6B00
+	dc.l	$0023ED9A
