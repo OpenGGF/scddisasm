@@ -266,6 +266,10 @@ loc_206ACE:
 HurtPlayer:
 	tst.b	shield
 	bne.s	loc_206B12
+	if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+	 tst.b	combine_ring
+	 bne.s	loc_206B12
+	endif
 	tst.w	rings
 	beq.w	loc_206B7C
 	jsr	SpawnObject
@@ -328,7 +332,9 @@ KillPlayer:
 	move.w	obj.y(a0),obj.var_38(a0)
 	move.b	#$18,obj.anim_id(a0)
 	bset	#7,obj.sprite_tile(a0)
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	move.b	#0,obj.sprite_layer(a0)
+	endif
 	move.w	#$93,d0
 	jsr	PlayFmSound
 

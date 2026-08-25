@@ -9,8 +9,8 @@ July 27, 2025
 
 ## Reconstruction status
 
-The USA component comparison can reach a complete match while the disc
-reconstruction is still incomplete. The comparison covers the files listed in
+The configured Japan, USA, and Europe component comparisons can reach complete
+matches while the disc reconstruction is still incomplete. The comparison covers the files listed in
 `check.sh`; it does not certify that every ISO file is assembled from source,
 that every level data slice is disassembled, or that the ISO is independent of
 the regional original tree. The current build still requires three externally
@@ -55,9 +55,11 @@ The Palmtree Panic regional reconciliation now makes `R12A__.MMD`,
 byte-exact for both Japan and Europe. The source preserves USA's existing
 exact output while selecting the regional object-map byte, scroll order and
 R13 start position, roll-tunnel operands, debug-object flag, R13 boss
-allocator calls, and future-level pre-chunk layout. The other still-differing
-regional level binaries remain unfinished; this does not complete the level
-graph or the disc reconstruction.
+allocator calls, and future-level pre-chunk layout. Subsequent regional and
+demo reconciliations brought the current local Japan, USA, and Europe
+build/check set to a byte-exact result for every listed comparison target.
+This is component parity, not a claim that the entire disc is reconstructable
+from source and freely supplied assets.
 
 The sixteen former Padding3 files share an identical 258-byte suffix. That
 suffix is now one source-backed table of signed rotation-vector pairs, reused

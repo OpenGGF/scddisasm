@@ -110,6 +110,13 @@ loc_208234:
 	bclr	#7,2(a1,d0.w)
 
 loc_20823C:
+	if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+	cmpi.b	#$80,obj.subtype(a0)
+	beq.w	loc_208154
+	lea	player_object,a6
+	cmpi.b	#6,obj.routine(a6)
+	bcc.s	locret_208276
+	else
 	lea	player_object,a6
 	cmpi.b	#$2B,obj.anim_id(a6)
 	beq.s	locret_208276
@@ -117,6 +124,7 @@ loc_20823C:
 	bcc.s	locret_208276
 	cmpi.b	#$80,obj.subtype(a0)
 	beq.w	loc_208154
+	endif
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_208278(pc,d0.w),d1
@@ -164,18 +172,32 @@ TunnelPathObject_0_Routine2:
 	sub.w	obj.x(a0),d0
 	addi.w	#$10,d0
 	cmpi.w	#$20,d0
+	if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+	bcc.s	locret_20835A
+	else
 	bcc.w	locret_20835A
+	endif
 	move.w	obj.y(a6),d1
 	sub.w	obj.y(a0),d1
 	addi.w	#$10,d1
 	cmpi.w	#$20,d1
+	if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+	bcc.s	locret_20835A
+	else
 	bcc.w	locret_20835A
+	endif
 	tst.b	obj.var_2c(a6)
+	if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+	bne.s	locret_20835A
+	else
 	bne.w	locret_20835A
+	endif
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	cmpi.b	#4,obj.routine(a6)
 	bne.s	loc_208308
 	subq.b	#2,obj.routine(a6)
 	move.w	#$78,obj.var_30(a6)
+	endif
 
 loc_208308:
 	addq.b	#2,obj.routine(a0)

@@ -271,6 +271,12 @@ BigRingObject:
 		else
 			jmp	CheckObjectDespawn
 		endif
+	elseif def(R8_VARIANT)
+		if (R8_VARIANT=5)&(REGION<>USA)&(DEMO<>0)
+			jmp	DeleteObject
+		else
+			jmp	CheckObjectDespawn
+		endif
 	else
 		jmp	CheckObjectDespawn
 	endif
@@ -561,8 +567,15 @@ SignpostMain:
 	addq.b	#2,obj.routine(a0)
 	clr.b	speed_shoes
 	clr.b	invincible
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	move.w	#$9D,d0
 	jmp	PlayFmSound
+		endif
+	else
+	move.w	#$9D,d0
+	jmp	PlayFmSound
+	endif
 
 ; ------------------------------------------------------------------------------
 

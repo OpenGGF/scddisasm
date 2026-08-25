@@ -24,8 +24,14 @@ sub_20593E:
 
 loc_2059D4:
 	move.l	d0,respawn_time
-	if STAGE_ZONE<>2
-		move.b	shrunk_player,respawn_shrunk
+	if def(R8_VARIANT)
+		if (STAGE_ZONE<>2)&((R8_VARIANT<>5)|(DEMO=0)|(REGION=USA))
+			move.b	shrunk_player,respawn_shrunk
+		endif
+	else
+		if STAGE_ZONE<>2
+			move.b	shrunk_player,respawn_shrunk
+		endif
 	endif
 	rts
 

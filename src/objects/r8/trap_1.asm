@@ -1,5 +1,6 @@
 ; ------------------------------------------------------------------------------
 
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
 	beq.s	loc_20BDAC
@@ -14,9 +15,11 @@
 
 loc_20BDAC:
 	jmp	DeleteObject
+	endif
 
 ; ------------------------------------------------------------------------------
 
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 SpikesObject:
 	tst.b	obj.subtype(a0)
 	bmi.w	loc_20BEA4
@@ -221,9 +224,11 @@ locret_20BFE8:
 SpikesSprites:
 	include	"sprites/r8/spikes.asm"
 	even
+	endif
 
 ; ------------------------------------------------------------------------------
 
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 TrapDoorObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
@@ -413,5 +418,6 @@ byte_20C1C4:
 TrapDoorSprites:
 	include	"sprites/r8/trap_door.asm"
 	even
+	endif
 
 ; ------------------------------------------------------------------------------

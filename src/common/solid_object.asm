@@ -11,10 +11,19 @@ GetOffObject:
 	addi.l	#object_pool&$FFFFFF,d0
 	cmpa.w	d0,a0
 	bne.s	locret_207D34
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+	tst.b	obj.var_2a(a1)
+	beq.s	loc_207CF6
+			move.w	#$AB,d0
+			jsr	PlayFmSound
+		endif
+	else
 	tst.b	obj.var_2a(a1)
 	beq.s	loc_207CF6
 	move.w	#$AB,d0
 	jsr	PlayFmSound
+	endif
 
 loc_207CF6:
 	clr.b	obj.var_38(a1)
@@ -49,10 +58,19 @@ loc_207D48:
 	clr.b	obj.var_3c(a1)
 	bset	#3,obj.flags(a0)
 	bne.s	loc_207DA8
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	cmpi.b	#$2B,obj.anim_id(a1)
 	bne.s	loc_207D6A
 	bclr	#3,obj.flags(a0)
 	bra.w	GetOffObject
+		endif
+	else
+	cmpi.b	#$2B,obj.anim_id(a1)
+	bne.s	loc_207D6A
+	bclr	#3,obj.flags(a0)
+	bra.w	GetOffObject
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -60,7 +78,15 @@ loc_207D6A:
 	bclr	#4,obj.flags(a1)
 	bclr	#2,obj.flags(a1)
 	beq.s	loc_207DA8
-	tst.b	shrunk_player
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			tst.b	$FF1587
+		else
+			tst.b	shrunk_player
+		endif
+	else
+		tst.b	shrunk_player
+	endif
 	beq.s	loc_207D92
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)
@@ -131,6 +157,12 @@ SolidObject:
 	bne.w	loc_2080C6
 	cmpi.b	#6,obj.routine(a1)
 	bcc.w	loc_2080C6
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			cmpi.b	#$2B,obj.anim_id(a1)
+			beq.w	loc_2080C6
+		endif
+	endif
 	tst.b	obj.id(a1)
 	beq.w	loc_2080C6
 	tst.b	obj.sprite_flags(a0)
@@ -148,11 +180,21 @@ SolidObject:
 	add.w	d2,d2
 	cmp.w	d2,d0
 	bcc.w	loc_2080C6
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	cmpi.b	#$2B,obj.anim_id(a1)
 	bne.s	loc_207E80
 	btst	#3,obj.flags(a0)
 	bne.s	loc_207E92
 	bra.w	loc_2080C6
+		endif
+	else
+	cmpi.b	#$2B,obj.anim_id(a1)
+	bne.s	loc_207E80
+	btst	#3,obj.flags(a0)
+	bne.s	loc_207E92
+	bra.w	loc_2080C6
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -244,8 +286,17 @@ loc_207F48:
 ; ------------------------------------------------------------------------------
 
 loc_207F52:
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	bsr.w	StopObjPush
 	bsr.w	CheckWallCrush
+		else
+	bsr.w	CheckWallCrush
+		endif
+	else
+	bsr.w	StopObjPush
+	bsr.w	CheckWallCrush
+	endif
 	bclr	#5,obj.flags(a1)
 	bclr	#5,obj.flags(a0)
 	moveq	#0,d0
@@ -270,8 +321,15 @@ loc_207F7C:
 	bmi.w	loc_208062
 
 loc_207F92:
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	cmpi.b	#$2B,obj.anim_id(a1)
 	beq.s	loc_207FA4
+		endif
+	else
+	cmpi.b	#$2B,obj.anim_id(a1)
+	beq.s	loc_207FA4
+	endif
 	tst.w	obj.y_speed(a1)
 	beq.s	loc_207FA4
 	bmi.w	loc_2080C6

@@ -18,8 +18,8 @@ InitStage:
 	bne.s	loc_201512
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 	tst.b	time_attack
-	endif
 	bne.s	loc_201512
+	endif
 	move.b	#1,good_future
 
 loc_201512:
@@ -33,6 +33,11 @@ loc_201512:
 	move.b	#0,paused
 	bset	#0,stage_start_flags
 	bne.s	loc_201578
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			clr.b	$FF1587
+		endif
+	endif
 	clr.b	palette_fade_flags
 	clr.b	respawn_checkpoint
 	move.l	#$1388,next_life_score
@@ -83,7 +88,15 @@ loc_2015E2:
 	bne.s	loc_2015FE
 	move.w	#0,restart_stage
 	move.b	#0,palette_fade_flags
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			rts
+		else
 	bra.s	loc_201626
+		endif
+	else
+	bra.s	loc_201626
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -94,6 +107,11 @@ loc_2015FE:
 	move.b	#0,respawn_checkpoint
 	move.b	#0,spawn_mode
 	move.b	#0,palette_fade_flags
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			move.b	#0,$FF1587
+		endif
+	endif
 
 loc_201626:
 	lea	palette,a1
@@ -349,7 +367,15 @@ loc_201948:
 	bsr.w	ResetObjectStates
 	clr.b	spawn_mode
 	move.w	#1,restart_stage
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+		bra.s	loc_201972
+		else
 	bra.s	loc_201974
+		endif
+	else
+	bra.s	loc_201974
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -359,6 +385,12 @@ loc_201966:
 
 loc_201970:
 	clr.b	lives
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+		loc_201972:
+			clr.b	$FF1587
+		endif
+	endif
 
 loc_201974:
 	clr.b	paused
@@ -381,12 +413,27 @@ loc_201988:
 	tst.w	restart_stage
 	bne.w	InitStage
 	tst.w	debug_mode
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			bne.s	loc_2019D0
+			cmpi.b	#6,player_object+obj.routine
+			bcc.s	loc_2019D4
+		else
 	bne.s	loc_2019D0
 	cmpi.b	#6,player_object+obj.routine
 	bcs.s	loc_2019D0
 	move.w	scroll_fg_y,bottom_bound
 	move.w	scroll_fg_y,target_bottom_bound
 	bra.s	loc_2019D4
+		endif
+	else
+	bne.s	loc_2019D0
+	cmpi.b	#6,player_object+obj.routine
+	bcs.s	loc_2019D0
+	move.w	scroll_fg_y,bottom_bound
+	move.w	scroll_fg_y,target_bottom_bound
+	bra.s	loc_2019D4
+	endif
 
 ; ------------------------------------------------------------------------------
 

@@ -1,5 +1,15 @@
 ; ------------------------------------------------------------------------------
 
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+player_shrunk_state	equ	$FF1587
+		else
+player_shrunk_state	equ	shrunk_player
+		endif
+	else
+player_shrunk_state	equ	shrunk_player
+	endif
+
 PlayerCheckBored:
 	lea	bored_timer,a1
 	cmpi.b	#5,obj.anim_id(a0)
@@ -20,7 +30,13 @@ loc_203ADC:
 	move.w	#0,(a1)
 	move.b	#$2B,obj.anim_id(a0)
 	ori.b	#$80,obj.sprite_tile(a0)
-	move.b	#0,obj.sprite_layer(a0)
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			move.b	#0,obj.sprite_layer(a0)
+		endif
+	else
+		move.b	#0,obj.sprite_layer(a0)
+	endif
 	move.b	#1,lives
 	move.w	#-$500,obj.y_speed(a0)
 	move.w	#$100,obj.x_speed(a0)
@@ -124,7 +140,7 @@ PlayerInit:
 	addq.b	#2,obj.routine(a0)
 	move.b	#$13,obj.height(a0)
 	move.b	#9,obj.width(a0)
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	beq.s	loc_203BEC
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -506,7 +522,13 @@ SetPlayerWarpRespawn:
 
 loc_204028:
 	move.l	d0,warp_time
-	move.b	shrunk_player,warp_shrunk
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			move.b	shrunk_player,warp_shrunk
+		endif
+	else
+		move.b	shrunk_player,warp_shrunk
+	endif
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -613,7 +635,7 @@ PlayerGroundState:
 	bsr.w	PlayerCheckBored
 	cmpi.b	#$2B,obj.anim_id(a0)
 	bne.s	loc_204150
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	beq.s	loc_20413E
 	cmpi.b	#$79,obj.sprite_frame(a0)
 	bne.s	locret_20417A
@@ -1386,7 +1408,7 @@ loc_204840:
 
 loc_204850:
 	bclr	#2,obj.flags(a0)
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	beq.s	loc_204870
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -1646,7 +1668,7 @@ PlayerStartRoll:
 
 loc_204A80:
 	bset	#2,obj.flags(a0)
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	beq.s	loc_204AA0
 	move.b	#8,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -1731,7 +1753,7 @@ loc_204B32:
 	jsr	PlayFmSound
 	btst	#2,obj.flags(a0)
 	bne.s	loc_204BAE
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	beq.s	loc_204B90
 	move.b	#8,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -2145,7 +2167,7 @@ loc_204EF2:
 	btst	#2,obj.flags(a0)
 	beq.s	loc_204F4C
 	bclr	#2,obj.flags(a0)
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	beq.s	loc_204F2C
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
@@ -2238,8 +2260,15 @@ sub_205004:
 	clr.b	update_hud_time
 	addq.b	#1,update_hud_lives
 	subq.b	#1,lives
-	bpl.s	loc_205038
-	clr.b	lives
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			bpl.s	loc_205038
+			clr.b	lives
+		endif
+	else
+		bpl.s	loc_205038
+		clr.b	lives
+	endif
 
 loc_205038:
 	cmpi.b	#$2B,obj.anim_id(a0)
@@ -2289,6 +2318,11 @@ loc_2050C4:
 	beq.s	loc_2050F2
 	cmpi.b	#1,time_zone
 	bne.s	loc_2050EC
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			clr.b	$FF1587
+		endif
+	endif
 	tst.b	respawn_checkpoint
 	beq.s	loc_2050F2
 	move.b	#1,spawn_mode
@@ -2297,7 +2331,17 @@ loc_2050C4:
 ; ------------------------------------------------------------------------------
 
 loc_2050EC:
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+			cmpi.b	#2,act
+			beq.s	loc_2050F2
+			move.b	#2,spawn_mode
+		else
+			clr.b	spawn_mode
+		endif
+	else
 	clr.b	spawn_mode
+	endif
 
 loc_2050F2:
 	bra.w	SubCpuCommand
@@ -2533,7 +2577,7 @@ loc_2052DC:
 	bpl.s	locret_2052AA
 	addq.b	#1,d0
 	bne.w	loc_205396
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	bne.w	loc_20545E
 	moveq	#0,d1
 	move.b	obj.angle(a0),d0
@@ -2618,7 +2662,7 @@ loc_205396:
 
 loc_2053A2:
 	lea	PlayerRollShrunkAnim,a1
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	bne.s	loc_2053E0
 	lea	PlayerRollFastAnim,a1
 	btst	#1,obj.var_2c(a0)
@@ -2672,7 +2716,7 @@ loc_20541A:
 	lsr.w	#6,d2
 	move.b	d2,obj.anim_timer(a0)
 	lea	PlayerPushShrunkAnim,a1
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	bne.s	loc_205434
 	lea	PlayerPushAnim,a1
 
@@ -2746,7 +2790,7 @@ loc_2054CA:
 ; ------------------------------------------------------------------------------
 
 sub_2054D4:
-	tst.b	shrunk_player
+	tst.b	player_shrunk_state
 	beq.s	locret_2054E0
 	move.b	byte_2054E2(pc,d0.w),d0
 

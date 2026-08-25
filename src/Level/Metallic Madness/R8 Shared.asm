@@ -155,7 +155,11 @@ QQ_VARIANT		EQU	0
 	if R8_VARIANT<5
 		include	"r8/stage_object_maps_1.asm"
 	elseif R8_VARIANT<9
-		include	"r8/stage_object_maps_2.asm"
+		if (DEMO<>0)&(REGION<>USA)
+			include	"r8/stage_object_maps_legacy_demo.asm"
+		else
+			include	"r8/stage_object_maps_2.asm"
+		endif
 	else
 		include	"r8/stage_object_maps_3.asm"
 	endif
@@ -209,7 +213,11 @@ QQ_VARIANT		EQU	0
 		include	"objects/r8/seesaw.asm"
 		include	"objects/r8/crusher.asm"
 		include	"r8/section_gfx_2.asm"
-		include	"objects/r8/trap_2.asm"
+		if (DEMO<>0)&(REGION<>USA)
+			include	"objects/r8/trap_legacy_demo.asm"
+		else
+			include	"objects/r8/trap_2.asm"
+		endif
 		include	"objects/r8/bigbom.asm"
 		include	"objects/r8/mecha_bu.asm"
 		include	"objects/r8/collapse_floor.asm"

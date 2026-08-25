@@ -141,8 +141,10 @@ RobotGeneratorDestroyed:
 	bne.s	locret_20E5B4
 	subq.b	#6,obj.routine(a0)
 	move.w	obj.var_30(a0),obj.y(a0)
+	if (R8_VARIANT<>5)|(REGION=USA)|(DEMO=0)
 	move.w	#$D9,d0
 	jmp	PlayFmSound
+	endif
 
 ; ------------------------------------------------------------------------------
 

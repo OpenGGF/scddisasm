@@ -1,5 +1,6 @@
 ; ------------------------------------------------------------------------------
 
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 loc_20CCAC:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
@@ -26,6 +27,7 @@ TrapDoorObject:
 TrapDoorSprites:
 	include	"sprites/r8/trap_door.asm"
 	even
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -102,7 +104,11 @@ SpikeCrusherObject_0_Routine0:
 	move.b	#1,obj.var_3b(a0)
 	jsr	SpawnObject
 	beq.s	loc_20CE78
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	jmp	loc_20CCAC
+	else
+	jmp	LegacyTrapCleanup
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -113,7 +119,11 @@ loc_20CE78:
 	bsr.s	sub_20CEDC
 	jsr	SpawnObject
 	beq.s	loc_20CE98
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	jmp	loc_20CCAC
+	else
+	jmp	LegacyTrapCleanup
+	endif
 
 ; ------------------------------------------------------------------------------
 
@@ -458,6 +468,7 @@ SpikeCrusherSprites:
 
 ; ------------------------------------------------------------------------------
 
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 SpikesObject:
 	cmpi.b	#$F8,obj.subtype(a0)
 	beq.w	loc_20D408
@@ -727,5 +738,6 @@ loc_20D45E:
 LayerPlatformSprites:
 	include	"sprites/r8/layer_platform.asm"
 	even
+	endif
 
 ; ------------------------------------------------------------------------------

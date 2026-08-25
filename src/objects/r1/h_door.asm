@@ -55,9 +55,17 @@ HDoorObject_0_Routine0:
 	move.b	#1,obj.sprite_layer(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#$2C,obj.width_2(a0)
-	cmpi.b	#2,obj.subtype(a0)
-	bne.s	loc_205EB6
-	move.b	#$18,obj.width_2(a0)
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			cmpi.b	#2,obj.subtype(a0)
+			bne.s	loc_205EB6
+			move.b	#$18,obj.width_2(a0)
+		endif
+	else
+		cmpi.b	#2,obj.subtype(a0)
+		bne.s	loc_205EB6
+		move.b	#$18,obj.width_2(a0)
+	endif
 
 loc_205EB6:
 	move.b	#8,obj.height(a0)

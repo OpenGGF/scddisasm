@@ -37,7 +37,11 @@ loc_20B4B4:
 LaserObject_0_Routine2:
 	subq.b	#1,obj.var_2a(a0)
 	bne.s	locret_20B530
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	jsr	SpawnObjectAfter
+	else
+	jsr	SpawnObject
+	endif
 	bne.s	locret_20B530
 	move.b	#$1D,obj.id(a1)
 	move.b	#4,obj.routine(a1)
@@ -54,7 +58,9 @@ LaserObject_0_Routine2:
 	move.w	#$C5,d0
 	tst.b	obj.subtype(a0)
 	beq.s	loc_20B524
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	move.b	#$1E,obj.var_2a(a0)
+	endif
 	move.w	#$BC,d0
 
 loc_20B524:
@@ -86,7 +92,11 @@ loc_20B556:
 	tst.w	d1
 	bpl.s	loc_20B5AC
 	addq.b	#2,obj.routine(a0)
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	jsr	SpawnObjectAfter
+	else
+	jsr	SpawnObject
+	endif
 	bne.s	loc_20B5AC
 	move.b	#$1D,obj.id(a1)
 	move.w	obj.sprite_tile(a0),obj.sprite_tile(a1)
@@ -144,11 +154,17 @@ loc_20B5FE:
 ; ------------------------------------------------------------------------------
 
 loc_20B60A:
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	cmpi.b	#$2B,obj.anim_id(a6)
 	beq.s	locret_20B620
+	endif
 	tst.b	obj.subtype(a0)
 	bne.s	loc_20B622
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	tst.b	shrunk_player
+	else
+	tst.b	$FF1587
+	endif
 	beq.s	loc_20B62A
 
 locret_20B620:
@@ -157,7 +173,11 @@ locret_20B620:
 ; ------------------------------------------------------------------------------
 
 loc_20B622:
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	tst.b	shrunk_player
+	else
+	tst.b	$FF1587
+	endif
 	beq.s	locret_20B620
 
 loc_20B62A:
@@ -204,8 +224,13 @@ loc_20B6A8:
 	move.b	#$38,obj.anim_id(a6)
 	move.b	#$A,obj.height(a6)
 	move.b	#5,obj.width(a6)
+	if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 	eori.b	#1,shrunk_player
 	tst.b	shrunk_player
+	else
+	eori.b	#1,$FF1587
+	tst.b	$FF1587
+	endif
 	bne.s	locret_20B6DC
 	move.b	#$13,obj.height(a6)
 	move.b	#9,obj.width(a6)

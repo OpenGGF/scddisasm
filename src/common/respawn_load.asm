@@ -21,9 +21,17 @@ LoadTimeWarpData:
 	move.w	warp_scroll_bg2_y,scroll_bg2_y
 	move.w	warp_scroll_bg3_x,scroll_bg3_x
 	move.w	warp_scroll_bg3_y,scroll_bg3_y
-	cmpi.b	#6,zone
-	bne.s	loc_2063C6
-	move.b	warp_shrunk,shrunk_player
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			cmpi.b	#6,zone
+			bne.s	loc_2063C6
+			move.b	warp_shrunk,shrunk_player
+		endif
+	else
+		cmpi.b	#6,zone
+		bne.s	loc_2063C6
+		move.b	warp_shrunk,shrunk_player
+	endif
 
 loc_2063C6:
 	tst.b	spawn_mode
@@ -60,9 +68,17 @@ LoadCheckpoint:
 	move.w	respawn_scroll_bg2_y,scroll_bg2_y
 	move.w	respawn_scroll_bg3_x,scroll_bg3_x
 	move.w	respawn_scroll_bg3_y,scroll_bg3_y
-	cmpi.b	#6,zone
-	bne.s	loc_206498
-	move.b	respawn_shrunk,shrunk_player
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			cmpi.b	#6,zone
+			bne.s	loc_206498
+			move.b	respawn_shrunk,shrunk_player
+		endif
+	else
+		cmpi.b	#6,zone
+		bne.s	loc_206498
+		move.b	respawn_shrunk,shrunk_player
+	endif
 
 loc_206498:
 	cmpi.b	#2,zone

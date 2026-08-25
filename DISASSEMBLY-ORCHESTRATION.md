@@ -1,5 +1,19 @@
 # Disassembly Orchestration Ledger
 
+## 2026-08-25
+
+- **DEMO82A byte-exact milestone:** The Japan/Europe R8 demo path now emits
+  source-defined StageChunks demo data, its seven regional chunk corrections,
+  the non-USA mapping tail, the Japan/Europe foreground-map byte, and the
+  non-USA Padding3 table. The legacy demo object graph and the retained
+  pre-chunk data are also wired through source-level wrappers and tables.
+  Fresh guarded displayless Proton builds/checks now compare every listed
+  target exactly for Japan, USA, and Europe; all three report 0 differences
+  and 0 missing targets. This completes comparison parity for the current
+  build/check set, but it does not claim that the ISO is fully reconstructable
+  without external media/metadata inputs or that every packed data table is
+  semantically disassembled.
+
 ## 2026-08-24
 
 - **Non-USA DEMO43C byte-exact milestone:** The Japanese and European demo

@@ -30,7 +30,15 @@ sub_208254:
 	move.b	#4,obj.sprite_layer(a0)
 	move.l	#MoveSpringSprites,obj.sprite_data(a0)
 	move.b	#8,obj.width_2(a0)
+	if def(R8_VARIANT)
+		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
+	move.b	#8,obj.height(a0)
+		else
 	move.b	#7,obj.height(a0)
+		endif
+	else
+	move.b	#7,obj.height(a0)
+	endif
 	move.w	obj.x(a0),obj.var_36(a0)
 	move.w	#$180,obj.x_speed(a0)
 	moveq	#$E,d0

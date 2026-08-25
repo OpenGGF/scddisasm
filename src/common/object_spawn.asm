@@ -353,16 +353,32 @@ loc_2073AA:
 	bclr	#7,2(a1,d0.w)
 
 loc_2073B2:
-	jsr	DeleteObject
-	moveq	#1,d0
-	rts
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			jsr	DeleteObject
+			moveq	#1,d0
+			rts
+		else
+			jmp	DeleteObject
+		endif
+	else
+		jsr	DeleteObject
+		moveq	#1,d0
+		rts
+	endif
 
 ; ------------------------------------------------------------------------------
 
 loc_2073BC:
 	btst	#7,time_zone
 	bne.s	DespawnObject
-	moveq	#0,d0
+	if def(R8_VARIANT)
+		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
+			moveq	#0,d0
+		endif
+	else
+		moveq	#0,d0
+	endif
 	rts
 
 ; ------------------------------------------------------------------------------

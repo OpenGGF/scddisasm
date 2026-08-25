@@ -61,8 +61,10 @@ loc_202964:
 	moveq	#0,d1
 	move.w	8(a6),d1
 	move.w	$C(a6),d0
-	bpl.s	loc_202982
-	moveq	#0,d0
+	if (DEMO=0)|(REGION=USA)
+		bpl.s	loc_202982
+		moveq	#0,d0
+	endif
 
 loc_202982:
 	bra.s	loc_20299A

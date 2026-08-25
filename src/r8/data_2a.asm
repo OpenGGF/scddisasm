@@ -68,6 +68,8 @@ Padding1:
 		include	"Level/USA Legacy Stage Tail B.asm"
 		dc.w	$0023, $D59E, $78C0, $0023, $C440, $7D20, $0023, $D0C4
 		dc.w	$8BA0, $0000, $0023
+	elseif DEMO<>0
+		include	"Level/Metallic Madness/Data/R82A Demo Padding 1.asm"
 	else
 		dc.w	$0828, $0002, $0029, $670E, $B028, $0030, $6606, $4EB9
 		dc.w	$0020, $38CC, $4E75, $0200, $0001, $B028, $0030, $6606
@@ -131,6 +133,12 @@ StageChunks:
 		incbin	"maps/r82a/chunks.bin",0,$4000
 		include	"Level/USA Legacy R8 Demo Data.asm"
 		incbin	"maps/r82a/chunks.bin",$5000
+	elseif DEMO<>0
+		incbin	"maps/r82a/chunks.bin",0,$4000
+		include	"Level/Metallic Madness/Data/R82A JE Demo Data.asm"
+		incbin	"maps/r82a/chunks.bin",$5000,$6A6E
+		include	"Level/Metallic Madness/Data/R82A JE Demo Chunk Patch.asm"
+		incbin	"maps/r82a/chunks.bin",$BB36
 	else
 		incbin	"maps/r82a/chunks.bin"
 	endif
@@ -271,9 +279,11 @@ byte_21FC16:
 byte_21FC96:
 	incbin	"data/r8/byte_21FC96.bin"
 
-Padding2:
+	Padding2:
 	if (REGION=USA)&(DEMO<>0)
 		include	"Level/USA Legacy Demo Mapping Tail.asm"
+	elseif DEMO<>0
+		include	"Level/Metallic Madness/Data/R82A JE Demo Mapping Tail.asm"
 	else
 		; This tile data is already split into the source-owned 128-byte tables.
 		incbin	"data/r8/byte_235F4A.bin"
@@ -397,7 +407,13 @@ StageMaps:
 	dc.w	StageMapBg-StageMaps
 
 StageMapFg:
-	incbin	"maps/r82a/foreground.bin"
+	if (REGION<>USA)&(DEMO<>0)
+		incbin	"maps/r82a/foreground.bin",0,$1B
+		dc.b	$01
+		incbin	"maps/r82a/foreground.bin",$1C
+	else
+		incbin	"maps/r82a/foreground.bin"
+	endif
 	even
 
 StageMapBg:
@@ -555,6 +571,8 @@ Padding3:
 	include	"Level/Metallic Madness/Data/R82A Padding 3 Base.asm"
 	if (REGION=USA)&(DEMO<>0)
 		include	"Level/USA Legacy Demo Padding3 Tail.asm"
+	elseif DEMO<>0
+		include	"Level/Metallic Madness/Data/R82A JE Demo Padding3 Tail.asm"
 	else
 		include	"Level/Metallic Madness/Data/R82A Padding 3 Retail Tail.asm"
 	endif
