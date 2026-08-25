@@ -95,8 +95,13 @@ explicit source-emitted bytes pending semantic decomposition.
 
 The non-USA `BRAMMAIN.MMD` 148-byte table from `$FF2488` through `$FF251B` is
 now declared as 37 `dc.l` values, matching the regional VDP pattern data and
-preserving its historical layout. The next routine begins at `$FF251C` and
-remains source-emitted bytes pending semantic decomposition.
+preserving its historical layout. The next routine begins at `$FF251C` and is
+covered by the following paragraph.
+
+The two non-USA `BRAMMAIN.MMD` handoff helpers from `$FF251C` through `$FF2541`
+(38 bytes) are now labeled source. They save and restore the interrupt status
+around the `$A11100` handoff/reset sequence; the next raw routine begins at
+`$FF2542` and remains pending semantic decomposition.
 
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.

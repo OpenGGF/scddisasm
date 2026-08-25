@@ -2,11 +2,20 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN handoff-helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helpers from `$FF251C` through `$FF2541` (38 bytes) are now
+  labeled source. They save and restore the interrupt status around the
+  `$A11100` handoff/reset sequence; the next raw routine begins at `$FF2542`
+  and remains pending semantic decomposition. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN VDP-pattern-table milestone:** The Japan/Europe
   `BRAMMAIN.MMD` table from `$FF2488` through `$FF251B` (148 bytes) is now
   declared as 37 `dc.l` values, matching the regional VDP pattern data while
   preserving the historical layout. The next routine begins at `$FF251C` and
-  remains source-emitted bytes pending semantic decomposition. Fresh guarded
+  is covered by the subsequent handoff-helper milestone. Fresh guarded
   displayless Japan, USA, and Europe builds/checks report every listed target
   as an exact match, with zero differences and zero missing targets. No
   proprietary bytes were added.
