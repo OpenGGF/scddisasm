@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-wrapper milestone:** The three Japan/Europe
+  `BRAMMAIN.MMD` wrappers from `$FF3E8E` through `$FF3EC3` (54 bytes) are now
+  labeled source. They issue command values 2, 3, and 4 through the regional
+  status dispatcher; the following raw helper begins at `$FF3EC4`. Fresh
+  guarded displayless Japan, USA, and Europe builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets.
+  No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN command-submission milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF3E5C` through `$FF3E81` (38 bytes) is now
   labeled source. It saves the command value, submits it through the regional
