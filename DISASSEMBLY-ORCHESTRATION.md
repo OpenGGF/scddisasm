@@ -36,6 +36,14 @@
   with zero differences and zero missing targets. No proprietary bytes were
   added.
 
+- **Non-USA BRAMMAIN alternate-record-helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF2A04` through `$FF2A51` (78 bytes) is now
+  labeled source. It emits the alternate record format, including the
+  transformed tile/attribute word, and returns at `$FF2A50`; the next variant
+  begins at `$FF2A52`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state/animation-routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF2760` through `$FF280B` (172 bytes) is now
   labeled source. It updates sequence state from indexed animation data,
