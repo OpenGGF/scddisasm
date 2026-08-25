@@ -2,14 +2,23 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN latch/event milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` latch and event-handler routines from `$FF25B8` through
+  `$FF25F9` (66 bytes) are now labeled source. They update the input latches,
+  dispatch the pending `$F00B`/`$F00C` event, and restore the handoff state; the
+  preceding `$FF2542-$FF25B7` span remains explicit bytes, and the following
+  pattern data begins at `$FF25FA`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN handoff-helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helpers from `$FF251C` through `$FF2541` (38 bytes) are now
   labeled source. They save and restore the interrupt status around the
   `$A11100` handoff/reset sequence; the next raw routine begins at `$FF2542`
-  and remains pending semantic decomposition. Fresh guarded displayless Japan,
-  USA, and Europe builds/checks report every listed target as an exact match,
-  with zero differences and zero missing targets. No proprietary bytes were
-  added.
+  and later recovered code is covered by the subsequent latch/event milestone.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
 
 - **Non-USA BRAMMAIN VDP-pattern-table milestone:** The Japan/Europe
   `BRAMMAIN.MMD` table from `$FF2488` through `$FF251B` (148 bytes) is now
