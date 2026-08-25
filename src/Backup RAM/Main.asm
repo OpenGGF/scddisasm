@@ -13189,9 +13189,24 @@ L_NonUSA_FF45E6:
 L_NonUSA_FF45EC:
 	rts
 L_NonUSA_FF45EE:
-	dc.b	$0C,$38,$00,$10,$B3,$A4,$67,$02
-	dc.b	$4E,$75,$11,$FC,$00,$07,$CD,$14,$4E,$B9,$00,$FF,$57,$30,$30,$3C
-	dc.b	$00,$00,$60,$00,$05,$70,$4E,$75,$4A,$38,$CD,$2B,$66,$14,$11,$FC
+	cmpi.b	#$10, $FFFFB3A4.w
+L_NonUSA_FF45F4:
+	beq.b	L_NonUSA_FF45F8
+L_NonUSA_FF45F6:
+	rts
+L_NonUSA_FF45F8:
+	move.b	#$7, $FFFFCD14.w
+L_NonUSA_FF45FE:
+	jsr	$FF5730.l
+L_NonUSA_FF4604:
+	move.w	#$0, d0
+L_NonUSA_FF4608:
+	bra.w	$FF4B7A
+L_NonUSA_FF460C:
+	rts
+L_NonUSA_FF460E:
+	dc.b	$4A,$38,$CD,$2B
+	dc.b	$66,$14,$11,$FC
 	dc.b	$00,$02,$B3,$A4,$11,$FC,$00,$08,$CD,$14,$11,$FC,$00,$02,$CD,$50
 	dc.b	$4E,$75,$42,$38,$CD,$51,$11,$FC,$00,$03,$CD,$50,$11,$FC,$00,$02
 	dc.b	$B3,$A4,$31,$FC,$00,$00,$CD,$14,$11,$F8,$CD,$16,$CD,$1E,$61,$00
