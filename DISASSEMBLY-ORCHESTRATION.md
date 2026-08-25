@@ -2,6 +2,14 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN command-9 milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` command-9 wrapper from `$FF3F28` through `$FF3F39` (18 bytes)
+  is now labeled source. It submits command value 9 through the regional
+  status dispatcher; the following hardware routine begins at `$FF3F3A`.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN command-11/6/7 milestone:** The Japan/Europe
   command-11 wrapper from `$FF3EF0` through `$FF3F03` (20 bytes), command-6
   wrapper from `$FF3F04` through `$FF3F15` (18 bytes), and command-7 wrapper
