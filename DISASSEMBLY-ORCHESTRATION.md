@@ -2,6 +2,15 @@
 
 ## 2026-08-25
 
+- **Non-USA BRAMMAIN initialization-loop milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` initialization/cleanup loop and exit branches from `$FF3FE4`
+  through `$FF4007` (36 bytes) are now labeled source. They perform the
+  `$CD20` initialization loop, restore its saved counter, and branch to the
+  corresponding manager exits; the next raw routine begins at `$FF4008`.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN indexed-dispatch milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF3FBE` through `$FF3FCE` (18 bytes) and its
   five-entry offset table from `$FF3FD0` through `$FF3FE3` (20 bytes) are now

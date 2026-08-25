@@ -252,6 +252,11 @@ The non-USA `BRAMMAIN.MMD` indexed dispatch helper from `$FF3FBE` through
 selector, doubles it, and dispatches through the table; the next raw routine
 begins at `$FF3FE4`.
 
+The non-USA `BRAMMAIN.MMD` initialization/cleanup loop and exit branches from
+`$FF3FE4` through `$FF4007` (36 bytes) are now labeled source. They perform the
+`$CD20` initialization loop, restore its saved counter, and branch to the
+corresponding manager exits; the next raw routine begins at `$FF4008`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
