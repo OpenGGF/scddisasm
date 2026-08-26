@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` state-advance routine from `$FF54B6` through `$FF5515`
+  (96 bytes) is now labeled source. It advances the animation phase, waits
+  for the `$C(a1)` timing window while preserving the interrupt state, wraps
+  the phase counter, and invokes the `$FF556C` update helper; the following
+  raw routine begins at `$FF5516`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` upload-address helper from `$FF5492` through `$FF54B5`
   (36 bytes) is now labeled source, including its internal entry at
   `$FF54A4`. It selects the current record table, resolves the slot through

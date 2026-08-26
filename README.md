@@ -723,6 +723,13 @@ through `$FF5650`, clears the destination flag, computes the record offset,
 and branches to `$FF5158`; the following raw routine begins at `$FF54B6`.
 Japan, USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` state-advance routine from `$FF54B6`
+through `$FF5515` (96 bytes) is now labeled source. It advances the animation
+phase, waits for the `$C(a1)` timing window while preserving the interrupt
+state, wraps the phase counter, and invokes the `$FF556C` update helper; the
+following raw routine begins at `$FF5516`. Japan, USA, and Europe still
+produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
