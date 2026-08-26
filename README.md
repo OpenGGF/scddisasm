@@ -1000,6 +1000,14 @@ working registers; the following 22-byte parameter table at `$FF656C` through
 `$FF6581` is also explicit source data, and the next helper begins at `$FF6582`.
 Japan, USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA `BRAMMAIN.MMD` object-data decoder and output dispatcher
+from `$FF6582` through `$FF663E` (189 bytes) are now labeled source, including
+the eight-entry branch table at `$FF6618`. It extracts packed object data,
+selects the appropriate output path, writes the expanded values, and restores
+the working registers; the next helper begins at `$FF6640` and remains
+explicit source bytes pending semantic decomposition. Japan, USA, and Europe
+still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
