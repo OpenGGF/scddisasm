@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN handler-cluster milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` cluster from `$FF6128` through `$FF61D1` (170 bytes) is now
+  labeled source. It selects the object variant from `$CD50`, updates the
+  `$CD51` counter and object coordinates, handles the state 4/state 6
+  transitions, and performs the display-gated reset paths; the following
+  helper begins at `$FF61D2` and remains explicit source bytes pending semantic
+  decomposition. Fresh guarded displayless Japan, Europe, and USA builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` block from `$FF60D2` through `$FF6127` (86 bytes) is now
   labeled source. It preserves the object-data header, dispatches on the

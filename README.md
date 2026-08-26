@@ -911,6 +911,14 @@ object fields before the following handler begins at `$FF6128`, which remains
 explicit source bytes pending semantic decomposition. Japan, USA, and Europe
 still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` handler cluster from `$FF6128` through
+`$FF61D1` (170 bytes) is now labeled source. It selects the object variant from
+`$CD50`, updates the `$CD51` counter and object coordinates, handles the state
+4/state 6 transitions, and performs the display-gated reset paths; the
+following helper begins at `$FF61D2` and remains explicit source bytes pending
+semantic decomposition. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
