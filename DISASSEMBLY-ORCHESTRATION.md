@@ -2,14 +2,31 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN dispatcher milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` span from `$FF5E70` through `$FF5EE1` (114 bytes) is now
+  labeled source. It contains the state-cleanup routine, its terminal jump,
+  the object-state dispatcher, and the eight-entry offset table. The following
+  raw `$FF5EE2` handler remains explicit source bytes pending semantic
+  decomposition. Fresh guarded displayless Japan, Europe, and USA builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN state-routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` span from `$FF5D8A` through `$FF5E6F` (230 bytes) is now
+  labeled source. It contains four object-state transition routines covering
+  the coordinate/state update paths and their state changes; the following
+  routine begins at `$FF5E70` and is covered by the preceding entry. Fresh
+  guarded displayless Japan, Europe, and USA builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` span from `$FF5D10` through `$FF5D89` (122 bytes) is now
   labeled source. It contains the region/status selector, the coordinate
-  helper, and the index helper; the following raw `$FF5D8A` span remains
-  explicit source bytes pending semantic decomposition. Fresh guarded
-  displayless Japan, Europe, and USA builds/checks report every listed target
-  as an exact match, with zero differences and zero missing targets. No
-  proprietary bytes were added.
+  helper, and the index helper; the following routine begins at `$FF5D8A` and
+  is covered by the following entry. Fresh guarded displayless Japan, Europe,
+  and USA builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
 
 - **Non-USA BRAMMAIN state-handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` span from `$FF5C50` through `$FF5D0F` (192 bytes) is now
