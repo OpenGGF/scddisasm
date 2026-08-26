@@ -14367,8 +14367,16 @@ L_NonUSA_FF4F26:
 L_NonUSA_FF4F28:
 	rts
 L_NonUSA_FF4F2A:
-	dc.b	$43,$F8,$CF,$A0,$61,$00,$EC,$BA,$67,$04,$43,$F8
-	dc.b	$DF,$D0,$4E,$75,$4A,$38,$CD,$1F,$66,$06,$10,$38,$CD,$52,$4E,$75
+	lea.l	$FFFFCFA0.w, a1
+L_NonUSA_FF4F2E:
+	bsr.w	$FF3BEA
+L_NonUSA_FF4F32:
+	beq.b	L_NonUSA_FF4F38
+L_NonUSA_FF4F34:
+	lea.l	$FFFFDFD0.w, a1
+L_NonUSA_FF4F38:
+	rts
+	dc.b	$4A,$38,$CD,$1F,$66,$06,$10,$38,$CD,$52,$4E,$75
 	dc.b	$70,$00,$4E,$75,$48,$E7,$80,$00,$0C,$38,$00,$03,$CD,$1F,$67,$22
 	dc.b	$4A,$38,$CD,$1F,$66,$18,$10,$39,$00,$A1,$20,$1F,$02,$00,$00,$60
 	dc.b	$66,$18,$10,$39,$00,$A1,$20,$1F,$02,$00,$00,$10,$66,$32,$70,$00
