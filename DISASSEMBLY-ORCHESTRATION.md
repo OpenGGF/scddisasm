@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` transfer loop from `$FF5090` through `$FF50D3`
+  (68 bytes) is now labeled source. It initializes the VDP transfer,
+  iterates three entries from `$CD39`, conditionally adds the `$4000` bank
+  offset, writes each word to VDP, and returns; the next raw routine begins at
+  `$FF50D4`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` `$FFFFCD30` table-upload helper from `$FF507E` through
   `$FF508F` (18 bytes) is now labeled source. It calls `$FF50D4`, loads
   `$4000` into `d1`, selects `$FFFFCD30`, calls `$FF5158`, and returns; the

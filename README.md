@@ -600,6 +600,12 @@ The next non-USA raw `BRAMMAIN.MMD` `$FFFFCD30` table-upload helper from
 returns; the following raw routine begins at `$FF5090`. Japan, USA, and Europe
 still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` transfer loop from `$FF5090` through
+`$FF50D3` (68 bytes) is now labeled source. It initializes the VDP transfer,
+iterates three entries from `$CD39`, conditionally adds the `$4000` bank offset,
+writes each word to VDP, and returns; the next raw routine begins at `$FF50D4`.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
