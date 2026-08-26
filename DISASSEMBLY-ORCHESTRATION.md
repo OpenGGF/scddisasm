@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN cleanup-handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` handler from `$FF6032` through `$FF604F` (30 bytes) is now
+  labeled source. It performs the common object update, decrements the
+  object-use counter, advances `$CD2E` when the counter reaches zero, and
+  transitions the object to state 8; the following handler begins at `$FF6050`
+  and remains explicit source bytes pending semantic decomposition. Fresh
+  guarded displayless Japan, Europe, and USA builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN visibility-handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` handler from `$FF5FF8` through `$FF6031` (58 bytes) is now
   labeled source. It increments the object-use counter, performs the four

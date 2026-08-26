@@ -16533,9 +16533,23 @@ L_NonUSA_FF602A:
 L_NonUSA_FF6030:
 	rts
 L_NonUSA_FF6032:
-	dc.b	$61,$00,$02,$32
-	dc.b	$4E,$B9,$00,$FF,$28,$34,$53,$28,$00,$2A,$67,$02,$4E,$75,$52,$38
-	dc.b	$CD,$2E,$11,$7C,$00,$08,$00,$24,$4E,$75,$4A,$38,$CD,$2E,$67,$06
+	bsr.w	$FF6266
+L_NonUSA_FF6036:
+	jsr	$FF2834.l
+L_NonUSA_FF603C:
+	subq.b	#$1, $2A(a0)
+L_NonUSA_FF6040:
+	beq.b	L_NonUSA_FF6044
+L_NonUSA_FF6042:
+	rts
+L_NonUSA_FF6044:
+	addq.b	#$1, $FFFFCD2E.w
+L_NonUSA_FF6048:
+	move.b	#$8, $24(a0)
+L_NonUSA_FF604E:
+	rts
+L_NonUSA_FF6050:
+	dc.b	$4A,$38,$CD,$2E,$67,$06
 	dc.b	$4E,$F9,$00,$FF,$28,$34,$11,$7C,$00,$02,$00,$24,$4E,$75,$61,$00
 	dc.b	$02,$00,$4E,$B9,$00,$FF,$28,$34,$30,$28,$00,$32,$B0,$68,$00,$08
 	dc.b	$67,$02,$4E,$75,$11,$7C,$00,$0C,$00,$24,$42,$68,$00,$10,$31,$7C
