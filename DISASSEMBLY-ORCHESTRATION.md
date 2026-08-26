@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` status/update helper from `$FF5304` through `$FF532B`
+  (40 bytes) is now labeled source. It initializes the status query, points at
+  the `$FF3C6C` table, calls the `$FF3C78` and `$FF3EA0` helpers, and clears or
+  sets `$FF0F1F` on the two result paths; the following raw routine begins at
+  `$FF532C`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` initialization/reset helper from `$FF52CA` through `$FF5303`
   (58 bytes) is now labeled source. It checks the shared status predicates,
   calls the `$FF4F2A` setup helper, clears the `$2/$4/$6/$8/$A/$C/$12` record
