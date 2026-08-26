@@ -530,6 +530,13 @@ helper, tests the `$2`, `$10`, and `$12` fields of `a1`, preserves the regional
 `1`; the next raw routine begins at `$FF4E76`. Japan, USA, and Europe still
 produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` incrementing status helper from `$FF4E76`
+through `$FF4F29` (180 bytes) is now labeled source. It preserves the
+`$FF546E`, `$FF4F2A`, `$FF532C`, `$FF5480`, and `$FF54B6` helper calls, updates
+the `$6`, `$4`, and `$12` fields of `a1`, and returns `-1`, `0`, or `1`; the
+next raw helper begins at `$FF4F2A`. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
