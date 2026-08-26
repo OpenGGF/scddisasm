@@ -543,6 +543,12 @@ calls the `$FF3BEA` status helper, and selects `$FFFFDFD0` when that call is
 nonzero; the next raw routine begins at `$FF4F3A`. Japan, USA, and Europe
 still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` status-result routine from `$FF4F3A`
+through `$FF4F49` (16 bytes) is now labeled source. It tests `$CD1F`, returns
+`$CD52` when the status byte is clear, and otherwise returns zero through the
+shared `$FF4F46` tail; the next raw routine begins at `$FF4F4A`. Japan, USA,
+and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
