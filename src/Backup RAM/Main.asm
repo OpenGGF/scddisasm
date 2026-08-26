@@ -14389,14 +14389,71 @@ L_NonUSA_FF4F46:
 	moveq	#$0, d0
 L_NonUSA_FF4F48:
 	rts
-	dc.b	$48,$E7,$80,$00,$0C,$38,$00,$03,$CD,$1F,$67,$22
-	dc.b	$4A,$38,$CD,$1F,$66,$18,$10,$39,$00,$A1,$20,$1F,$02,$00,$00,$60
-	dc.b	$66,$18,$10,$39,$00,$A1,$20,$1F,$02,$00,$00,$10,$66,$32,$70,$00
-	dc.b	$60,$3A,$42,$38,$CD,$1F,$70,$01,$60,$32,$61,$00,$00,$36,$66,$12
-	dc.b	$30,$3C,$00,$92,$4E,$B9,$00,$FF,$25,$B8,$11,$FC,$00,$02,$CD,$1F
-	dc.b	$60,$DC,$30,$3C,$00,$AE,$4E,$B9,$00,$FF,$25,$B8,$70,$01,$60,$0C
-	dc.b	$30,$3C,$00,$AD,$4E,$B9,$00,$FF,$25,$B8,$70,$FF,$4C,$DF,$00,$01
-	dc.b	$4E,$75,$10,$38,$CD,$1E,$0C,$00,$00,$01,$67,$18,$0C,$00,$00,$03
+
+L_NonUSA_FF4F4A:
+	movem.l	d0, -(a7)
+L_NonUSA_FF4F4E:
+	cmpi.b	#$3, $FFFFCD1F.w
+L_NonUSA_FF4F54:
+	beq.b	L_NonUSA_FF4F78
+L_NonUSA_FF4F56:
+	tst.b	$FFFFCD1F.w
+L_NonUSA_FF4F5A:
+	bne.b	L_NonUSA_FF4F74
+L_NonUSA_FF4F5C:
+	move.b	$A1201F.l, d0
+L_NonUSA_FF4F62:
+	andi.b	#$60, d0
+L_NonUSA_FF4F66:
+	bne.b	L_NonUSA_FF4F80
+L_NonUSA_FF4F68:
+	move.b	$A1201F.l, d0
+L_NonUSA_FF4F6E:
+	andi.b	#$10, d0
+L_NonUSA_FF4F72:
+	bne.b	L_NonUSA_FF4FA6
+L_NonUSA_FF4F74:
+	moveq	#$0, d0
+L_NonUSA_FF4F76:
+	bra.b	L_NonUSA_FF4FB2
+L_NonUSA_FF4F78:
+	clr.b	$FFFFCD1F.w
+L_NonUSA_FF4F7C:
+	moveq	#$1, d0
+L_NonUSA_FF4F7E:
+	bra.b	L_NonUSA_FF4FB2
+L_NonUSA_FF4F80:
+	bsr.w	$FF4FB8
+L_NonUSA_FF4F84:
+	bne.b	L_NonUSA_FF4F98
+L_NonUSA_FF4F86:
+	move.w	#$92, d0
+L_NonUSA_FF4F8A:
+	jsr	$FF25B8.l
+L_NonUSA_FF4F90:
+	move.b	#$2, $FFFFCD1F.w
+L_NonUSA_FF4F96:
+	bra.b	L_NonUSA_FF4F74
+L_NonUSA_FF4F98:
+	move.w	#$AE, d0
+L_NonUSA_FF4F9C:
+	jsr	$FF25B8.l
+L_NonUSA_FF4FA2:
+	moveq	#$1, d0
+L_NonUSA_FF4FA4:
+	bra.b	L_NonUSA_FF4FB2
+L_NonUSA_FF4FA6:
+	move.w	#$AD, d0
+L_NonUSA_FF4FAA:
+	jsr	$FF25B8.l
+L_NonUSA_FF4FB0:
+	moveq	#$FF, d0
+L_NonUSA_FF4FB2:
+	movem.l	(a7)+, d0
+L_NonUSA_FF4FB6:
+	rts
+L_NonUSA_FF4FB8:
+	dc.b	$10,$38,$CD,$1E,$0C,$00,$00,$01,$67,$18,$0C,$00,$00,$03
 	dc.b	$67,$12,$0C,$00,$00,$04,$67,$0C,$30,$38,$CD,$14,$0C,$00,$00,$05
 	dc.b	$67,$02,$4E,$75,$4E,$75,$0C,$38,$00,$02,$CD,$17,$67,$22,$41,$F8
 	dc.b	$CD,$60,$61,$00,$01,$4A,$67,$0C,$41,$F8,$CD,$60,$43,$F8,$CD,$70
