@@ -16505,10 +16505,35 @@ L_NonUSA_FF5FEE:
 L_NonUSA_FF5FF2:
 	jmp	$FF2834.l
 L_NonUSA_FF5FF8:
-	dc.b	$52,$28,$00,$2A,$61,$00,$02,$68,$0C,$68,$FF,$FC,$00,$08
-	dc.b	$6D,$1E,$0C,$68,$01,$44,$00,$08,$6E,$16,$0C,$68,$FF,$FC,$00,$0C
-	dc.b	$6D,$0E,$0C,$68,$00,$E4,$00,$0C,$6E,$06,$4E,$F9,$00,$FF,$28,$34
-	dc.b	$52,$38,$CD,$2E,$11,$7C,$00,$02,$00,$24,$4E,$75,$61,$00,$02,$32
+	addq.b	#$1, $2A(a0)
+L_NonUSA_FF5FFC:
+	bsr.w	$FF6266
+L_NonUSA_FF6000:
+	cmpi.w	#$FFFC, $8(a0)
+L_NonUSA_FF6006:
+	blt.b	L_NonUSA_FF6026
+L_NonUSA_FF6008:
+	cmpi.w	#$144, $8(a0)
+L_NonUSA_FF600E:
+	bgt.b	L_NonUSA_FF6026
+L_NonUSA_FF6010:
+	cmpi.w	#$FFFC, $C(a0)
+L_NonUSA_FF6016:
+	blt.b	L_NonUSA_FF6026
+L_NonUSA_FF6018:
+	cmpi.w	#$E4, $C(a0)
+L_NonUSA_FF601E:
+	bgt.b	L_NonUSA_FF6026
+L_NonUSA_FF6020:
+	jmp	$FF2834.l
+L_NonUSA_FF6026:
+	addq.b	#$1, $FFFFCD2E.w
+L_NonUSA_FF602A:
+	move.b	#$2, $24(a0)
+L_NonUSA_FF6030:
+	rts
+L_NonUSA_FF6032:
+	dc.b	$61,$00,$02,$32
 	dc.b	$4E,$B9,$00,$FF,$28,$34,$53,$28,$00,$2A,$67,$02,$4E,$75,$52,$38
 	dc.b	$CD,$2E,$11,$7C,$00,$08,$00,$24,$4E,$75,$4A,$38,$CD,$2E,$67,$06
 	dc.b	$4E,$F9,$00,$FF,$28,$34,$11,$7C,$00,$02,$00,$24,$4E,$75,$61,$00
