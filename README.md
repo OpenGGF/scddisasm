@@ -738,6 +738,13 @@ final position, and invokes the `$FF55B6` update helper before the VDP wait;
 the following raw routine begins at `$FF556C`. Japan, USA, and Europe still
 produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` record-selection helper from `$FF556C`
+through `$FF55B5` (74 bytes) is now labeled source. It computes the next
+record index, skips the selected record when required, chooses either a
+record slot or the blank space table, and sends the phase-dependent tile
+upload through `$FF5158`; the following raw routine begins at `$FF55B6`.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

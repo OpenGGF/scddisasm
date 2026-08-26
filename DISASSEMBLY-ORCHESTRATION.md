@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN record/upload helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` record-selection helper from `$FF556C` through `$FF55B5`
+  (74 bytes) is now labeled source. It computes the next record index,
+  skips the selected record when required, chooses either a record slot or
+  the blank space table, and sends the phase-dependent tile upload through
+  `$FF5158`; the following raw routine begins at `$FF55B6`. Fresh guarded
+  displayless Japan, USA, and Europe builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN reverse-phase routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` reverse state-advance routine from `$FF5516` through
   `$FF556B` (86 bytes) is now labeled source. It decrements and wraps the
