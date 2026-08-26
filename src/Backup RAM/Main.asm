@@ -15612,11 +15612,37 @@ L_NonUSA_FF57B6:
 L_NonUSA_FF57BA:
 	rts
 L_NonUSA_FF57BC:
-	dc.b	$0C,$38,$00,$02,$CD,$1F,$67,$34,$0C,$38,$00,$01,$CD,$15,$66,$14
-	dc.b	$08,$39,$00,$00,$00,$A1,$20,$1E,$66,$12
-	dc.b	$08,$39,$00,$01,$00,$A1,$20,$1E,$66,$08,$11,$7C,$00,$00,$00,$1C
-	dc.b	$60,$06,$11,$7C,$00,$06,$00,$1C,$42,$38,$CD,$1F,$61,$00,$00,$34
-	dc.b	$4E,$75,$11,$7C,$00,$03,$00,$1C,$11,$7C,$00,$06,$00,$24,$42,$28
+	cmpi.b	#$2, $FFFFcd1f.w
+L_NonUSA_FF57C2:
+	beq.b	L_NonUSA_FF57F8
+L_NonUSA_FF57C4:
+	cmpi.b	#$1, $FFFFcd15.w
+L_NonUSA_FF57CA:
+	bne.b	L_NonUSA_FF57E0
+L_NonUSA_FF57CC:
+	btst.b	#$0, $A1201E.l
+L_NonUSA_FF57D4:
+	bne.b	L_NonUSA_FF57E8
+L_NonUSA_FF57D6:
+	btst.b	#$1, $A1201E.l
+L_NonUSA_FF57DE:
+	bne.b	L_NonUSA_FF57E8
+L_NonUSA_FF57E0:
+	move.b	#$0, $1C(a0)
+L_NonUSA_FF57E6:
+	bra.b	L_NonUSA_FF57EE
+L_NonUSA_FF57E8:
+	move.b	#$6, $1C(a0)
+L_NonUSA_FF57EE:
+	clr.b	$FFFFcd1f.w
+L_NonUSA_FF57F2:
+	bsr.w	$FF5828
+L_NonUSA_FF57F6:
+	rts
+L_NonUSA_FF57F8:
+	dc.b	$11,$7C,$00,$03,$00,$1C
+	dc.b	$11,$7C,$00,$06,$00,$24
+	dc.b	$42,$28
 	dc.b	$00,$2D,$42,$68,$00,$32,$31,$68,$00,$0C,$00,$34,$42,$68,$00,$10
 	dc.b	$31,$7C,$FB,$00,$00,$12,$42,$68,$00,$2E,$31,$7C,$00,$40,$00,$30
 	dc.b	$4E,$75,$61,$00,$01,$0C,$B2,$68,$00,$32,$66,$08,$B4,$68,$00,$34
