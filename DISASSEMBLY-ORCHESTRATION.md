@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN status/update helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routines from `$FF5692` through `$FF5749` (184 bytes) are
+  now labeled source. This covers the dispatcher's three callees, their
+  shared status/update calls, and the CD16/CD17 selector helpers; the
+  following raw routine begins at `$FF574A`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` dispatcher from `$FF5678` through `$FF5691`
   (26 bytes) is now labeled source. It tries the three record/status

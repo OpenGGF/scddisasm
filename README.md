@@ -780,6 +780,12 @@ update paths, returns zero on success, and returns `$FF` on failure; the
 following raw routine begins at `$FF5692`. Japan, USA, and Europe still
 produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` routines from `$FF5692` through `$FF5749`
+(184 bytes) are now labeled source. This covers the dispatcher's three
+callees, their shared status/update calls, and the CD16/CD17 selector helpers;
+the following raw routine begins at `$FF574A`. Japan, USA, and Europe still
+produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
