@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN decode-setup milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` dual-entry setup from `$FF62E8` through `$FF6339` (82 bytes)
+  is now labeled source. It saves the working registers, selects the
+  entry-specific output table, prepares the decode parameters, and performs
+  the shared bitstream setup before the decompression routine at `$FF633A`;
+  that following routine remains explicit source bytes pending semantic
+  decomposition. Fresh guarded displayless Japan, Europe, and USA
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN output-helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper and parameter table from `$FF6280` through `$FF62E7`
   (104 bytes) is now labeled source. It selects the output target for each

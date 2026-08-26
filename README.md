@@ -942,6 +942,14 @@ begins at `$FF62E8` and remains explicit source bytes pending semantic
 decomposition. Japan, USA, and Europe still produce byte-exact component
 outputs.
 
+The next non-USA `BRAMMAIN.MMD` dual-entry decode setup from `$FF62E8` through
+`$FF6339` (82 bytes) is now labeled source. It saves the working registers,
+selects the entry-specific output table, prepares the decode parameters, and
+performs the shared bitstream setup before the decompression routine at
+`$FF633A`; that following routine remains explicit source bytes pending
+semantic decomposition. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
