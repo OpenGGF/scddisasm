@@ -839,20 +839,28 @@ negates the value, sets subtype `2`, and calls the shared helper at
 `$FF6266`; the following raw routine begins at `$FF58E6`. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` coordinate-pair tables from `$FF59CC`
+through `$FF5A47` (124 bytes) are now labeled `dc.w` source, with explicit
+boundaries for the five indexed tables. The adjacent seven-word
+selector-offset table from `$FF5A48` through `$FF5A55` (14 bytes) is also
+source-backed; the next raw data region begins at `$FF5A56`. Japan, USA, and
+Europe still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` selector/coordinate dispatcher from
 `$FF5936` through `$FF59CA` (149 bytes) is now labeled source. It selects
 the fixed coordinate path for status words `$0603` and `$0803`, dispatches
 the `$CD15` selector cases, and loads coordinate pairs from the PC-relative
 tables at `$FF59CC` and `$FF59E8`/`$FF5A10`/`$FF5A38`/`$FF5A40`; the following
-raw table begins at `$FF59CC`. Japan, USA, and Europe still produce
+coordinate data block is now source-backed through `$FF5A55`, and the next
+raw data region begins at `$FF5A56`. Japan, USA, and Europe still produce
 byte-exact component outputs.
 
 The next non-USA raw `BRAMMAIN.MMD` constant-coordinate helper from
 `$FF596E` through `$FF5977` (10 bytes) is now labeled source. It loads the
 fixed coordinate values `$00B4` and `$0040` into `d1` and `d2` before
 returning; it is part of the selector/coordinate region now source-backed
-through `$FF59CA`, and the following raw table begins at `$FF59CC`. Japan,
-USA, and Europe still produce byte-exact component outputs.
+through `$FF5A55`, and the following raw data region begins at `$FF5A56`.
+Japan, USA, and Europe still produce byte-exact component outputs.
 
 The next non-USA raw `BRAMMAIN.MMD` position/update dispatcher from
 `$FF58E6` through `$FF5935` (80 bytes) is now labeled source. It sets the
