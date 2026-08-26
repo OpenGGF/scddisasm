@@ -14608,8 +14608,17 @@ L_NonUSA_FF50D0:
 L_NonUSA_FF50D2:
 	rts
 L_NonUSA_FF50D4:
-	dc.b	$61,$00
-	dc.b	$FE,$54,$61,$00,$00,$0C,$D0,$40,$58,$40,$D0,$29,$00,$0A,$4E,$75
+	bsr.w	$FF4F2A
+L_NonUSA_FF50D8:
+	bsr.w	$FF50E6
+L_NonUSA_FF50DC:
+	add.w	d0, d0
+L_NonUSA_FF50DE:
+	addq.w	#$4, d0
+L_NonUSA_FF50E0:
+	add.b	$A(a1), d0
+L_NonUSA_FF50E4:
+	rts
 	dc.b	$70,$00,$30,$29,$00,$04,$66,$16,$0C,$69,$FF,$FF,$00,$10,$67,$08
 	dc.b	$0C,$69,$00,$02,$00,$02,$6D,$08,$4A,$69,$00,$02,$67,$02,$52,$40
 	dc.b	$4E,$75,$48,$E7,$80,$40,$43,$F9,$00,$FF,$3C,$6C,$20,$19,$B0,$90

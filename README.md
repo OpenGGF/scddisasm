@@ -606,6 +606,12 @@ iterates three entries from `$CD39`, conditionally adds the `$4000` bank offset,
 writes each word to VDP, and returns; the next raw routine begins at `$FF50D4`.
 Japan, USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` helper from `$FF50D4` through `$FF50E5`
+(18 bytes) is now labeled source. It computes the character offset through the
+`$FF4F2A` and `$FF50E6` helpers, doubles it, adds four and the byte at
+`$0A(a1)`, and returns; the following raw routine begins at `$FF50E6`. Japan,
+USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
