@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper span from `$FF4DA6` through `$FF4DE5` (64 bytes) is
+  now labeled source. It preserves the two related status loops, their three
+  `$FF20E4` calls, the `$FF4E76`/`$FF4DE6` helper calls, and the historical
+  transfers to `$FF546E`; the next raw routine begins at `$FF4DE6`. Fresh
+  guarded displayless Japan, USA, and Europe builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF4D40` through `$FF4D4F` (16 bytes) is now
   labeled source. It loads `$CD1E`, scans five-byte records through `a0`, and
   returns on a matching record; the following table begins at `$FF4D50`. Fresh

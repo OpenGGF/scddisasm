@@ -14154,10 +14154,38 @@ L_NonUSA_FF4D50:
 	dc.b	$00,$00,$05,$00,$02,$00,$00,$00,$06,$06,$00,$00,$02,$00,$05,$00
 	dc.b	$00,$00,$02,$02,$00,$00,$05,$00,$05,$00,$00,$00,$01,$06,$00,$00
 	dc.b	$01,$00,$61,$00,$06,$E6,$70,$00,$4E,$75,$70,$01,$70,$FF,$4E,$75
-	dc.b	$61,$00,$00,$CE,$6B,$16,$6E,$F8,$4E,$B9,$00,$FF,$20,$E4,$4E,$B9
-	dc.b	$00,$FF,$20,$E4,$4E,$B9,$00,$FF,$20,$E4,$60,$E4,$60,$00,$06,$AA
-	dc.b	$61,$00,$00,$1E,$6B,$16,$6E,$D8,$4E,$B9,$00,$FF,$20,$E4,$4E,$B9
-	dc.b	$00,$FF,$20,$E4,$4E,$B9,$00,$FF,$20,$E4,$60,$C4,$60,$00,$06,$8A
+L_NonUSA_FF4DA6:
+	bsr.w	$FF4E76
+L_NonUSA_FF4DAA:
+	bmi.b	L_NonUSA_FF4DC2
+L_NonUSA_FF4DAC:
+	bgt.b	L_NonUSA_FF4DA6
+L_NonUSA_FF4DAE:
+	jsr	$FF20E4.l
+L_NonUSA_FF4DB4:
+	jsr	$FF20E4.l
+L_NonUSA_FF4DBA:
+	jsr	$FF20E4.l
+L_NonUSA_FF4DC0:
+	bra.b	L_NonUSA_FF4DA6
+L_NonUSA_FF4DC2:
+	bra.w	$FF546E
+L_NonUSA_FF4DC6:
+	bsr.w	$FF4DE6
+L_NonUSA_FF4DCA:
+	bmi.b	L_NonUSA_FF4DE2
+L_NonUSA_FF4DCC:
+	bgt.b	L_NonUSA_FF4DA6
+L_NonUSA_FF4DCE:
+	jsr	$FF20E4.l
+L_NonUSA_FF4DD4:
+	jsr	$FF20E4.l
+L_NonUSA_FF4DDA:
+	jsr	$FF20E4.l
+L_NonUSA_FF4DE0:
+	bra.b	L_NonUSA_FF4DA6
+L_NonUSA_FF4DE2:
+	bra.w	$FF546E
 	dc.b	$61,$00,$06,$86,$61,$00,$01,$3E,$4A,$69,$00,$02,$67,$00,$00,$7A
 	dc.b	$0C,$69,$00,$01,$00,$02,$66,$00,$00,$0A,$4A,$69,$00,$10,$67,$00
 	dc.b	$00,$68,$30,$29,$00,$06,$53,$40,$B0,$69,$00,$10,$66,$02,$53,$40
