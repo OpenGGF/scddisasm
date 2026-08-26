@@ -205,7 +205,15 @@ the following zero-filled data begins at `$FF2C8C`.
 The non-USA `BRAMMAIN.MMD` status helpers from `$FF3BDA` through `$FF3BF9`
 (32 bytes) are now labeled source. They run the status check, normalize its
 result into `$200026`, and expose the `$200026/$200027` state tests; the
-following regional data begins at `$FF3BFA`.
+following regional wrapper block begins at `$FF3BFA` and is covered below.
+
+The USA `BRAMMAIN.MMD` wrapper/data block from `$FF3C08` through `$FF3C85`
+and the Japan/Europe block from `$FF3BFA` through `$FF3C77` (126 bytes per
+layout) are now labeled source. They contain the entry wrappers, buffer-copy
+loops, command-field initialization, and the `SONICCD____` filename string;
+the following copy helpers begin at `$FF3C86` in USA and `$FF3C78` in
+Japan/Europe. Japan, USA, and Europe still produce byte-exact component
+outputs.
 
 The non-USA `BRAMMAIN.MMD` buffer-copy helper from `$FF3C78` through `$FF3C8F`
 (24 bytes) is now labeled source. It copies the command buffer from `a0` into

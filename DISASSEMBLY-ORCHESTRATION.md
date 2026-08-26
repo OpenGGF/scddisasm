@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **BRAMMAIN wrapper/data milestone:** The USA `BRAMMAIN.MMD` block from
+  `$FF3C08` through `$FF3C85` and the Japan/Europe block from `$FF3BFA`
+  through `$FF3C77` (126 bytes in each layout) are now labeled 68000 source.
+  They contain the entry wrappers, buffer-copy loops, command-field
+  initialization, and the `SONICCD____` filename string; the following copy
+  helpers begin at `$FF3C86` in USA and `$FF3C78` in Japan/Europe. Fresh
+  guarded displayless Japan, Europe, and USA builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **BRAMMAIN coordinate-bound helper milestone:** The USA
   `BRAMMAIN.MMD` helper pair from `$FF2AFA` through `$FF2B55` and the
   Japan/Europe pair from `$FF2AEC` through `$FF2B47` (92 bytes in each layout)
@@ -1475,7 +1485,7 @@
   `BRAMMAIN.MMD` helpers from `$FF3BDA` through `$FF3BF9` (32 bytes) are now
   labeled source. They run the status check, normalize its result into
   `$200026`, and expose the `$200026/$200027` state tests; the following
-  regional data begins at `$FF3BFA`. Fresh guarded displayless Japan, USA, and
+  regional wrapper block begins at `$FF3BFA` and is covered above. Fresh guarded displayless Japan, USA, and
   Europe builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.
 

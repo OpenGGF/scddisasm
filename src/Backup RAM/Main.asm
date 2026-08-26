@@ -2528,38 +2528,56 @@ L_FF3C00:
 	tst.b	$200027.l
 L_FF3C06:
 	rts
-	dc.l	$610000BE
-	dc.l	$61000054
-	dc.l	$61000008
-	dc.l	$4E756000
-	dc.l	$02E66000
-	dc.l	$02B64EB9
-	dc.l	$00FF237C
-	dc.l	$41F900FF
-	dc.l	$392643F9
-	dc.l	$00200040
-	dc.l	$303C00A8
-	dc.l	$22D851C8
-	dc.l	$FFFC41F9
-	dc.l	$00FF3BCA
-	dc.l	$43F90020
-	dc.l	$02E4303C
-	dc.l	$000622D8
-	dc.l	$51C8FFFC
-	dc.l	$13FC0000
-	dc.l	$00200029
-	dc.l	$33FC000B
-	dc.l	$0020002A
-	dc.l	$4E7513FC
-	dc.l	$00000020
-	dc.l	$002933FC
-	dc.l	$000B0020
-	dc.l	$002A41F9
-	dc.l	$00FF3C7A
-	dc.l	$600C534F
-	dc.l	$4E494343
-	dc.l	$445F5F5F
-	dc.b	$5F,$00
+L_FF3C08:
+	bsr.w	L_FF3CC8
+L_FF3C0C:
+	bsr.w	L_FF3C62
+L_FF3C10:
+	bsr.w	L_FF3C1A
+L_FF3C14:
+	rts
+L_FF3C16:
+	bra.w	$FF3EFE
+L_FF3C1A:
+	bra.w	$FF3ED2
+L_FF3C1E:
+	jsr	$FF237C.l
+L_FF3C24:
+	lea.l	$FF3926.l, a0
+L_FF3C2A:
+	lea.l	$200040.l, a1
+L_FF3C30:
+	move.w	#$A8, d0
+L_FF3C34:
+	move.l	(a0)+, (a1)+
+L_FF3C36:
+	dbra	d0, L_FF3C34
+L_FF3C3A:
+	lea.l	$FF3BCA.l, a0
+L_FF3C40:
+	lea.l	$2002E4.l, a1
+L_FF3C46:
+	move.w	#$6, d0
+L_FF3C4A:
+	move.l	(a0)+, (a1)+
+L_FF3C4C:
+	dbra	d0, L_FF3C4A
+L_FF3C50:
+	move.b	#$0, $200029.l
+L_FF3C58:
+	move.w	#$B, $20002A.l
+L_FF3C60:
+	rts
+L_FF3C62:
+	move.b	#$0, $200029.l
+L_FF3C6A:
+	move.w	#$B, $20002A.l
+L_FF3C72:
+	lea.l	$FF3C7A.l, a0
+L_FF3C78:
+	bra.b	L_FF3C86
+L_FF3C7A:
+	dc.b	"SONICCD____", 0
 L_FF3C86:
 	movem.l	a0-a1, -(a7)
 L_FF3C8A:
@@ -12201,15 +12219,55 @@ L_NonUSA_FF3BF2:
 L_NonUSA_FF3BF8:
 	rts
 L_NonUSA_FF3BFA:
-	dc.b	$61,$00,$00,$BE,$61,$00,$00,$54,$61,$00,$00,$08
-	dc.b	$4E,$75,$60,$00,$02,$E6,$60,$00,$02,$B6,$4E,$B9,$00,$FF,$23,$72
-	dc.b	$41,$F9,$00,$FF,$39,$18,$43,$F9,$00,$20,$00,$40,$30,$3C,$00,$A8
-	dc.b	$22,$D8,$51,$C8,$FF,$FC,$41,$F9,$00,$FF,$3B,$BC,$43,$F9,$00,$20
-	dc.b	$02,$E4,$30,$3C,$00,$06,$22,$D8,$51,$C8,$FF,$FC,$13,$FC,$00,$00
-	dc.b	$00,$20,$00,$29,$33,$FC,$00,$0B,$00,$20,$00,$2A,$4E,$75,$13,$FC
-	dc.b	$00,$00,$00,$20,$00,$29,$33,$FC,$00,$0B,$00,$20,$00,$2A,$41,$F9
-	dc.b	$00,$FF,$3C,$6C,$60,$0C,$53,$4F,$4E,$49,$43,$43,$44,$5F,$5F,$5F
-	dc.b	$5F,$00
+	bsr.w	L_NonUSA_FF3CBA
+L_NonUSA_FF3BFE:
+	bsr.w	L_NonUSA_FF3C54
+L_NonUSA_FF3C02:
+	bsr.w	L_NonUSA_FF3C0C
+L_NonUSA_FF3C06:
+	rts
+L_NonUSA_FF3C08:
+	bra.w	L_NonUSA_FF3EF0
+L_NonUSA_FF3C0C:
+	bra.w	L_NonUSA_FF3EC4
+L_NonUSA_FF3C10:
+	jsr	$FF2372.l
+L_NonUSA_FF3C16:
+	lea.l	$FF3918.l, a0
+L_NonUSA_FF3C1C:
+	lea.l	$200040.l, a1
+L_NonUSA_FF3C22:
+	move.w	#$A8, d0
+L_NonUSA_FF3C26:
+	move.l	(a0)+, (a1)+
+L_NonUSA_FF3C28:
+	dbra	d0, L_NonUSA_FF3C26
+L_NonUSA_FF3C2C:
+	lea.l	$FF3BBC.l, a0
+L_NonUSA_FF3C32:
+	lea.l	$2002E4.l, a1
+L_NonUSA_FF3C38:
+	move.w	#$6, d0
+L_NonUSA_FF3C3C:
+	move.l	(a0)+, (a1)+
+L_NonUSA_FF3C3E:
+	dbra	d0, L_NonUSA_FF3C3C
+L_NonUSA_FF3C42:
+	move.b	#$0, $200029.l
+L_NonUSA_FF3C4A:
+	move.w	#$B, $20002A.l
+L_NonUSA_FF3C52:
+	rts
+L_NonUSA_FF3C54:
+	move.b	#$0, $200029.l
+L_NonUSA_FF3C5C:
+	move.w	#$B, $20002A.l
+L_NonUSA_FF3C64:
+	lea.l	$FF3C6C.l, a0
+L_NonUSA_FF3C6A:
+	bra.b	L_NonUSA_FF3C78
+L_NonUSA_FF3C6C:
+	dc.b	"SONICCD____", 0
 L_NonUSA_FF3C78:
 	movem.l	a0-a1, -(a7)
 L_NonUSA_FF3C7C:
