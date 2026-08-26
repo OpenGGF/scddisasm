@@ -17836,15 +17836,40 @@ L_NonUSA_FF69FE:
 	dc.l	$776D8E06
 	dc.l	$32177028
 L_NonUSA_FF6A7E:
-	dc.b	$F1,$8F,$08,$E7,$FF,$D9,$CD,$B3,$99,$14,$A9,$53
-	dc.b	$79,$E2,$2A,$8C,$8B,$73,$06,$45,$C1,$5A,$9D,$37,$33,$DE,$97,$95
-	dc.b	$BA,$F2,$A5,$9D,$91,$70,$52,$CE,$A7,$32,$CF,$99,$52,$D4,$59,$DF
-	dc.b	$45,$6A,$32,$2C,$D1,$8B,$4D,$4B,$5C,$C5,$71,$CD,$8D,$E9,$79,$64
-	dc.b	$67,$64,$BE,$8A,$7A,$4D,$F7,$31,$5B,$95,$D5,$D4,$E6,$97,$D1,$5D
-	dc.b	$82,$32,$5F,$34,$67,$57,$CD,$14,$AB,$AA,$66,$F9,$A3,$15,$39,$A5
-	dc.b	$EE,$B4,$52,$A5,$5D,$4F,$15,$E8,$A3,$0E,$2A,$2A,$29,$64,$CD,$33
-	dc.b	$62,$CF,$C4,$97,$BA,$9F,$D6,$76,$EA,$3F,$ED,$00,$00,$0E,$DF,$F6
-	dc.b	$81,$84,$63,$AC,$0F,$EE,$E5,$B5,$8F,$95,$7F,$A4,$9F,$D1,$B0,$4F
+	dc.l	$F18F08E7
+	dc.l	$FFD9CDB3
+	dc.l	$9914A953
+	dc.l	$79E22A8C
+	dc.l	$8B730645
+	dc.l	$C15A9D37
+	dc.l	$33DE9795
+	dc.l	$BAF2A59D
+	dc.l	$917052CE
+	dc.l	$A732CF99
+	dc.l	$52D459DF
+	dc.l	$456A322C
+	dc.l	$D18B4D4B
+	dc.l	$5CC571CD
+	dc.l	$8DE97964
+	dc.l	$6764BE8A
+	dc.l	$7A4DF731
+	dc.l	$5B95D5D4
+	dc.l	$E697D15D
+	dc.l	$82325F34
+	dc.l	$6757CD14
+	dc.l	$ABAA66F9
+	dc.l	$A31539A5
+	dc.l	$EEB452A5
+	dc.l	$5D4F15E8
+	dc.l	$A30E2A2A
+	dc.l	$2964CD33
+	dc.l	$62CFC497
+	dc.l	$BA9FD676
+	dc.l	$EA3FED00
+	dc.l	$000EDFF6
+	dc.l	$818463AC
+L_NonUSA_FF6AFE:
+	dc.b	$0F,$EE,$E5,$B5,$8F,$95,$7F,$A4,$9F,$D1,$B0,$4F
 	dc.b	$E4,$D7,$06,$E7,$6F,$E2,$6D,$F2,$EA,$FF,$88,$A7,$F2,$52,$54,$DD
 	dc.b	$7F,$F1,$36,$F9,$75,$7F,$C4,$3E,$8F,$2A,$42,$6E,$BF,$A3,$2D,$B7
 	dc.b	$FF,$4D,$3F,$85,$58,$3F,$C1,$48,$C6,$D0,$74,$10,$95,$2D,$D1,$93

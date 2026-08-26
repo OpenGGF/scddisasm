@@ -1067,6 +1067,12 @@ contiguous table layout. The following data begins at `$FF6A7E` and remains
 explicit source bytes pending semantic decomposition. Japan, USA, and Europe
 still produce byte-exact component outputs.
 
+The next non-USA `BRAMMAIN.MMD` data block from `$FF6A7E` through `$FF6AFD`
+(128 bytes) is now explicit structured `dc.l` source, preserving its
+contiguous table layout. The following data begins at `$FF6AFE` and remains
+explicit source bytes pending semantic decomposition. Japan, USA, and Europe
+still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
