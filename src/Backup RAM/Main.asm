@@ -3351,51 +3351,93 @@ L_FF4336:
 	dc.l	$02D802F8
 	dc.l	$034C0370
 	dc.l	$039203B4
-	dc.l	$61001404
-	dc.l	$0C380002
-	dc.l	$CD166700
-	dc.l	$007C6100
-	dc.l	$0C0A3029
-	dc.l	$00066100
-	dc.l	$13286100
-	dc.l	$0E08674C
-	dc.l	$0C380005
-	dc.l	$CD16670E
-	dc.l	$11FC0005
-	dc.l	$CD1E11FC
-	dc.l	$0005CD17
-	dc.l	$600C11FC
-	dc.l	$0006CD1E
-	dc.l	$11FC0006
-	dc.l	$CD176100
-	dc.l	$0C886100
-	dc.l	$13A26718
-	dc.l	$31FC0000
-	dc.l	$CD1411F8
-	dc.l	$CD16CD1E
-	dc.l	$610013AC
-	dc.l	$303C000D
-	dc.l	$600008A8
-	dc.l	$11FC0009
-	dc.l	$CD144E75
-	dc.l	$11FC0002
-	dc.l	$CD1E6100
-	dc.l	$F83A6708
-	dc.l	$303C0002
-	dc.l	$610008BE
-	dc.l	$11FC0005
-	dc.l	$CD144E75
-	dc.l	$41F8CD30
-	dc.l	$103C0030
-	dc.l	$11400009
-	dc.l	$1140000A
-	dc.l	$6100F814
-	dc.l	$6708303C
-	dc.l	$00026100
-	dc.l	$089811FC
-	dc.l	$0001CD14
-	dc.l	$11FC0006
-	dc.l	$CD1E4E75
+
+L_FF4352:
+	bsr.w	L_FF5758
+L_FF4356:
+	cmpi.b	#$2, $FFFFcd16.w
+L_FF435C:
+	beq.w	L_FF43DA
+L_FF4360:
+	bsr.w	L_FF4F6C
+L_FF4364:
+	move.w	$6(a1), d0
+L_FF4368:
+	bsr.w	L_FF5692
+L_FF436C:
+	bsr.w	L_FF5176
+L_FF4370:
+	beq.b	L_FF43BE
+L_FF4372:
+	cmpi.b	#$5, $FFFFcd16.w
+L_FF4378:
+	beq.b	L_FF4388
+L_FF437A:
+	move.b	#$5, $FFFFcd1e.w
+L_FF4380:
+	move.b	#$5, $FFFFcd17.w
+L_FF4386:
+	bra.b	L_FF4394
+L_FF4388:
+	move.b	#$6, $FFFFcd1e.w
+L_FF438e:
+	move.b	#$6, $FFFFcd17.w
+L_FF4394:
+	bsr.w	L_FF501E
+L_FF4398:
+	bsr.w	L_FF573C
+L_FF439C:
+	beq.b	L_FF43B6
+L_FF439E:
+	move.w	#$0, $FFFFcd14.w
+L_FF43A4:
+	move.b	$FFFFcd16.w, $FFFFcd1e.w
+L_FF43AA:
+	bsr.w	L_FF5758
+L_FF43AE:
+	move.w	#$D, d0
+L_FF43B2:
+	bra.w	L_FF4C5C
+L_FF43B6:
+	move.b	#$9, $FFFFcd14.w
+L_FF43BC:
+	rts
+L_FF43BE:
+	move.b	#$2, $FFFFcd1e.w
+L_FF43C4:
+	bsr.w	L_FF3C00
+L_FF43C8:
+	beq.b	L_FF43D2
+L_FF43CA:
+	move.w	#$2, d0
+L_FF43CE:
+	bsr.w	L_FF4C8E
+L_FF43D2:
+	move.b	#$5, $FFFFcd14.w
+L_FF43D8:
+	rts
+L_FF43DA:
+	lea.l	$FFFFcd30.w, a0
+L_FF43DE:
+	move.b	#$30, d0
+L_FF43E2:
+	move.b	d0, $9(a0)
+L_FF43E6:
+	move.b	d0, $A(a0)
+L_FF43EA:
+	bsr.w	L_FF3C00
+L_FF43EE:
+	beq.b	L_FF43F8
+L_FF43F0:
+	move.w	#$2, d0
+L_FF43F4:
+	bsr.w	L_FF4C8E
+L_FF43F8:
+	move.b	#$1, $FFFFcd14.w
+L_FF43FE:
+	move.b	#$6, $FFFFcd1e.w
+L_FF4404:
+	rts
 	dc.l	$6100F7F8
 	dc.l	$672C41F9
 	dc.l	$00FF4DB2

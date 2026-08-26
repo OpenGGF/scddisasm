@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **USA BRAMMAIN indexed-dispatch milestone:** The USA `BRAMMAIN.MMD` target
+  from `$FF4352` through `$FF4405` (180 bytes) is now labeled 68000 source.
+  It covers the indexed state dispatch, state transitions, status updates,
+  and controller-buffer initialization while preserving the original table
+  target boundaries and regional helper calls. This establishes the
+  source-backed reconstruction boundary: verified byte declarations remain
+  valid source even when later semantic decomposition is still desirable.
+  Fresh guarded displayless Japan, Europe, and USA builds/checks report every
+  configured component as an exact match. No proprietary bytes were added.
+
 - **BRAMMAIN wrapper/data milestone:** The USA `BRAMMAIN.MMD` block from
   `$FF3C08` through `$FF3C85` and the Japan/Europe block from `$FF3BFA`
   through `$FF3C77` (126 bytes in each layout) are now labeled 68000 source.

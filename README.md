@@ -50,6 +50,19 @@ regional path still contains explicit `dc.b` spans pending semantic
 decomposition, so source-only generation is not being presented as a fully
 readable disassembly of every routine and data table.
 
+For the reconstruction goal, a verified `dc.b`, `dc.w`, or `dc.l` span is
+source-backed even when its code/data meaning is not yet known: the assembler
+reads the tracked declaration, not an executable region from an original ISO.
+Semantic decomposition improves readability and future editing, but it is a
+separate quality goal. The hard completion gate remains that the required disc
+outputs are regenerated from tracked source plus explicitly documented assets,
+then match the corresponding regional originals.
+
+The USA `BRAMMAIN.MMD` indexed-dispatch target at `$FF4352-$FF4405` is now
+labeled source (180 bytes). It preserves the original table target boundaries
+and regional helper calls; fresh Japan, Europe, and USA builds still produce
+byte-exact configured component outputs.
+
 The non-USA `BRAMMAIN.MMD` entry now expresses its complete 390-byte `Start`
 image at `$FF2000-$FF2185` as labeled 68000 instructions, including the
 localized startup, Backup RAM initialization, controller handshake, and
