@@ -14076,14 +14076,67 @@ L_NonUSA_FF4CD0:
 L_NonUSA_FF4CD2:
 	rts
 L_NonUSA_FF4CD4:
-	dc.b	$0C,$00
-	dc.b	$00,$05,$66,$1A,$61,$00,$EF,$16,$67,$00,$FF,$F2,$48,$A7,$80,$00
-	dc.b	$70,$01,$61,$00,$EE,$F0,$4C,$9F,$00,$01,$60,$00,$00,$38,$0C,$00
-	dc.b	$00,$06,$66,$12,$48,$A7,$80,$00,$70,$00,$61,$00,$EE,$D8,$4C,$9F
-	dc.b	$00,$01,$60,$00,$00,$20,$0C,$00,$00,$02,$66,$18,$4A,$39,$00,$FF
-	dc.b	$0F,$1F,$66,$00,$FF,$B8,$48,$A7,$80,$00,$70,$00,$61,$00,$EE,$B6
-	dc.b	$4C,$9F,$00,$01,$B0,$38,$CD,$1E,$67,$0E,$11,$C0,$CD,$1E,$30,$3C
-	dc.b	$00,$9B,$4E,$B9,$00,$FF,$25,$B8,$4E,$75,$10,$38,$CD,$1E,$B0,$10
+	cmpi.b	#$5, d0
+L_NonUSA_FF4CD8:
+	bne.b	L_NonUSA_FF4CF4
+L_NonUSA_FF4CDA:
+	bsr.w	$FF3BF2
+L_NonUSA_FF4CDE:
+	beq.w	$FF4CD2
+L_NonUSA_FF4CE2:
+	dc.w	$48A7,$8000		; movem.l d0, -(a7) (historical stack encoding)
+L_NonUSA_FF4CE6:
+	moveq	#$1, d0
+L_NonUSA_FF4CE8:
+	bsr.w	$FF3BDA
+L_NonUSA_FF4CEC:
+	dc.w	$4C9F,$0001		; movem.l (a7)+, d0 (historical stack encoding)
+L_NonUSA_FF4CF0:
+	bra.w	$FF4D2A
+L_NonUSA_FF4CF4:
+	cmpi.b	#$6, d0
+L_NonUSA_FF4CF8:
+	bne.b	L_NonUSA_FF4D0C
+L_NonUSA_FF4CFA:
+	dc.w	$48A7,$8000		; movem.l d0, -(a7) (historical stack encoding)
+L_NonUSA_FF4CFE:
+	moveq	#$0, d0
+L_NonUSA_FF4D00:
+	bsr.w	$FF3BDA
+L_NonUSA_FF4D04:
+	dc.w	$4C9F,$0001		; movem.l (a7)+, d0 (historical stack encoding)
+L_NonUSA_FF4D08:
+	bra.w	$FF4D2A
+L_NonUSA_FF4D0C:
+	cmpi.b	#$2, d0
+L_NonUSA_FF4D10:
+	bne.b	L_NonUSA_FF4D2A
+L_NonUSA_FF4D12:
+	tst.b	$FF0F1F.l
+L_NonUSA_FF4D18:
+	bne.w	$FF4CD2
+L_NonUSA_FF4D1C:
+	dc.w	$48A7,$8000		; movem.l d0, -(a7) (historical stack encoding)
+L_NonUSA_FF4D20:
+	moveq	#$0, d0
+L_NonUSA_FF4D22:
+	bsr.w	$FF3BDA
+L_NonUSA_FF4D26:
+	dc.w	$4C9F,$0001		; movem.l (a7)+, d0 (historical stack encoding)
+L_NonUSA_FF4D2A:
+	cmp.b	$FFFFCD1E.w, d0
+L_NonUSA_FF4D2E:
+	beq.b	L_NonUSA_FF4D3E
+L_NonUSA_FF4D30:
+	move.b	d0, $FFFFCD1E.w
+L_NonUSA_FF4D34:
+	move.w	#$9B, d0
+L_NonUSA_FF4D38:
+	jsr	$FF25B8.l
+L_NonUSA_FF4D3E:
+	rts
+L_NonUSA_FF4D40:
+	dc.b	$10,$38,$CD,$1E,$B0,$10
 	dc.b	$67,$06,$D0,$FC,$00,$05,$60,$F6,$4E,$75,$01,$00,$00,$05,$06,$00
 	dc.b	$01,$00,$02,$05,$06,$02,$01,$00,$05,$06,$04,$00,$00,$00,$00,$00
 	dc.b	$03,$00,$04,$00,$00,$04,$03,$00,$00,$00,$05,$00,$00,$00,$06,$06
