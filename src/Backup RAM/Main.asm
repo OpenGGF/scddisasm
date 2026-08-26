@@ -15072,14 +15072,75 @@ L_NonUSA_FF53DE:
 L_NonUSA_FF53E2:
 	rts
 L_NonUSA_FF53E4:
-	dc.b	$61,$00,$FB,$44
-	dc.b	$42,$69,$00,$0C,$42,$29,$00,$0A,$70,$00,$61,$00,$02,$5C
-	dc.b	$24,$48,$32,$3C,$40,$00,$76,$00,$30,$3C,$00,$04,$38,$29,$00,$08
-	dc.b	$7A,$00,$BA,$69,$00,$10,$66,$08,$52,$45,$D4,$FC,$00,$10,$60,$F2
-	dc.b	$B8,$45,$6F,$0A,$15,$7C,$00,$00,$00,$0B,$20,$4A,$60,$04,$41,$FA
-	dc.b	$00,$20,$48,$E7,$FC,$80,$61,$00,$FD,$2A,$4C,$DF,$01,$3F,$54,$40
-	dc.b	$D4,$FC,$00,$10,$52,$45,$52,$43,$0C,$03,$00,$0C,$66,$C4,$4E,$75
-	dc.b	$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$00,$48,$E7,$00,$40
+	bsr.w	$FF4F2A
+L_NonUSA_FF53E8:
+	clr.w	$C(a1)
+L_NonUSA_FF53EC:
+	clr.b	$A(a1)
+L_NonUSA_FF53F0:
+	moveq	#$0, d0
+L_NonUSA_FF53F2:
+	bsr.w	$FF5650
+L_NonUSA_FF53F6:
+	movea.l	a0, a2
+L_NonUSA_FF53F8:
+	move.w	#$4000, d1
+L_NonUSA_FF53FC:
+	moveq	#$0, d3
+L_NonUSA_FF53FE:
+	move.w	#$4, d0
+L_NonUSA_FF5402:
+	move.w	$8(a1), d4
+L_NonUSA_FF5406:
+	moveq	#$0, d5
+L_NonUSA_FF5408:
+	cmp.w	$10(a1), d5
+L_NonUSA_FF540C:
+	bne.b	L_NonUSA_FF5416
+L_NonUSA_FF540E:
+	addq.w	#$1, d5
+L_NonUSA_FF5410:
+	adda.w	#$10, a2
+L_NonUSA_FF5414:
+	bra.b	L_NonUSA_FF5408
+L_NonUSA_FF5416:
+	cmp.w	d5, d4
+L_NonUSA_FF5418:
+	ble.b	L_NonUSA_FF5424
+L_NonUSA_FF541A:
+	move.b	#$0, $B(a2)
+L_NonUSA_FF5420:
+	movea.l	a2, a0
+L_NonUSA_FF5422:
+	bra.b	L_NonUSA_FF5428
+L_NonUSA_FF5424:
+	lea.l	$FF5446(pc), a0
+L_NonUSA_FF5428:
+	movem.l	d0-d5/a0, -(a7)
+L_NonUSA_FF542C:
+	bsr.w	$FF5158
+L_NonUSA_FF5430:
+	movem.l	(a7)+, d0-d5/a0
+L_NonUSA_FF5434:
+	addq.w	#$2, d0
+L_NonUSA_FF5436:
+	adda.w	#$10, a2
+L_NonUSA_FF543A:
+	addq.w	#$1, d5
+L_NonUSA_FF543C:
+	addq.w	#$1, d3
+L_NonUSA_FF543E:
+	cmpi.b	#$C, d3
+L_NonUSA_FF5442:
+	bne.b	L_NonUSA_FF5408
+L_NonUSA_FF5444:
+	rts
+L_NonUSA_FF5446:
+	dc.l	$20202020
+	dc.l	$20202020
+	dc.l	$20202000
+L_NonUSA_FF5452:
+	dc.b	$48,$E7,$00,$40
 	dc.b	$32,$3C,$40,$00,$61,$00,$FA,$CE,$41,$F9,$00,$FF,$54,$46,$61,$00
 	dc.b	$00,$3E,$4C,$DF,$02,$00,$4E,$75,$48,$E7,$00,$40,$32,$3C,$40,$00
 	dc.b	$61,$00,$00,$1A,$4C,$DF,$02,$00,$4E,$75,$48,$E7,$00,$40,$32,$3C
