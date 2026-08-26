@@ -582,6 +582,12 @@ The next non-USA raw `BRAMMAIN.MMD` buffer-copy routine from `$FF503C` through
 begins at `$FF504A`. Japan, USA, and Europe still produce byte-exact
 component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` helper from `$FF504A` through `$FF505D`
+(20 bytes) is now labeled source. It calls the regional `$FF50D4` setup
+helper, loads `$4000` into `d1`, points at the following `SONICCD__00` data at
+`$FF505E`, calls `$FF5158`, and returns. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
