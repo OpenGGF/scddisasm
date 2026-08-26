@@ -121,11 +121,9 @@ for file in ABS.TXT BIB.TXT CPY.TXT; do
 		exit 1
 	fi
 done
-if [[ $REGION == 1 ]]; then
-	if ! command -v python3 >/dev/null 2>&1; then
-		echo 'Python 3 is required to construct the byte-exact USA ISO filesystem.' >&2
-		exit 1
-	fi
+if ! command -v python3 >/dev/null 2>&1; then
+	echo 'Python 3 is required to construct the deterministic regional ISO filesystem.' >&2
+	exit 1
 fi
 # The checked-in Windows tools are console programs, but asm68k can create a
 # Win32 information window. Never let a build attach to the user's desktop.
@@ -465,13 +463,8 @@ assemble 'Special Stage\Main.asm' '..\out\files\SPMM__.MMD' 'Special Stage\Main.
 assemble 'Special Stage\Sub.asm' '..\out\files\SPSS__.BIN' 'Special Stage\Sub.lst'
 
 echo 'Compiling filesystem...'
-if [[ $REGION == 1 ]]; then
-	python3 "$ROOT_DIR/tools/build_retail_iso.py" "$ROOT_DIR/out/files" "$ROOT_DIR/out/misc/files.bin"
-else
-	run_tool "$ROOT_DIR/bin/mkisofs.exe" -quiet -abstract ABS.TXT -biblio BIB.TXT -copyright CPY.TXT \
-		-A 'SEGA ENTERPRISES' -V SONIC_CD___ -publisher 'SEGA ENTERPRISES' -p 'SEGA ENTERPRISES' \
-		-sysid MEGA_CD -iso-level 1 -o '..\out\misc\files.bin' '..\out\files'
-fi
+python3 "$ROOT_DIR/tools/build_retail_iso.py" --region "$REGION_DIR" \
+	"$ROOT_DIR/out/files" "$ROOT_DIR/out/misc/files.bin"
 
 run_tool "$ROOT_DIR/bin/asm68k.exe" /q /p /o 'ae-,l.,ow+' /e "REGION=$REGION" \
 	'Main.asm,' "..\\out\\$OUTPUT"

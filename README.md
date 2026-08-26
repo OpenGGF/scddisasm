@@ -1,6 +1,9 @@
 # Sonic CD Disassembly
 
-This is an incomplete disassembly of Sonic CD for the Sega CD. Builds a working ISO, as long as you provide the rest of the files in the "original" folder. Unfortunately, I do not have the time or motivation to continue working on this, but hopefully this new home for the project will encourage others to contribute.
+This repository contains a source-backed, byte-exact reconstruction of Sonic CD
+for the Sega CD. The human-readable disassembly is still incomplete in places,
+but the retail data-track ISO can be rebuilt from tracked source plus the
+explicitly documented media and metadata inputs below.
 
 Special thanks to flamewing and TheStoneBanana for helping out and contributing, especially for R11A in the disassembly's infancy stages back in 2015.
 
@@ -9,12 +12,12 @@ July 27, 2025
 
 ## Reconstruction status
 
-The configured Japan, USA, and Europe component comparisons can reach complete
-matches while the disc reconstruction is still incomplete. The comparison covers the files listed in
-`check.sh`; it does not certify that every ISO file is assembled from source,
-that every level data slice is disassembled, or that the ISO is independent of
-the regional original tree. The current build still requires three externally
-supplied encoded media streams (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`),
+The configured Japan, USA, and Europe component comparisons now reach complete
+matches, and direct comparison of their rebuilt 2,048-byte data tracks against
+the corresponding local retail CHDs also reaches zero mismatches. The
+component comparison covers the files listed in `check.sh`; the separate data-
+track check covers the complete product ISO payload. The build still requires
+three externally supplied encoded media streams (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`),
 but these can be supplied independently through `FMV_STREAM_DIR`; they are not
 executable game logic. A byte-exact regional filesystem also needs the three retail
 ISO identification text files (`ABS.TXT`, `BIB.TXT`, and `CPY.TXT`), supplied
@@ -54,9 +57,10 @@ For the reconstruction goal, a verified `dc.b`, `dc.w`, or `dc.l` span is
 source-backed even when its code/data meaning is not yet known: the assembler
 reads the tracked declaration, not an executable region from an original ISO.
 Semantic decomposition improves readability and future editing, but it is a
-separate quality goal. The hard completion gate remains that the required disc
-outputs are regenerated from tracked source plus explicitly documented assets,
-then match the corresponding regional originals.
+separate quality goal. The reconstruction completion gate is that the required
+disc outputs are regenerated from tracked source plus explicitly documented
+assets, then match the corresponding regional originals. Semantic decomposition
+of packed data and remaining BRAM routines is not a second source dependency.
 
 The USA `BRAMMAIN.MMD` indexed-dispatch target at `$FF4352-$FF4405` is now
 labeled source (180 bytes). It preserves the original table target boundaries
@@ -1493,9 +1497,9 @@ alignment fill.
 Every region still requires externally supplied `BADEND.STM`, `GOODEND.STM`,
 and `PTEST.STM` encoded media. By default they are read from
 `original/<region>/`; set `FMV_STREAM_DIR` to keep those media inputs separate
-from the regional comparison tree. The USA byte-exact filesystem additionally
+from the regional comparison tree. The byte-exact regional filesystem also
 requires `ABS.TXT`, `BIB.TXT`, and `CPY.TXT`; these default to
-`original/usa/`, or can be supplied separately with `ISO_METADATA_DIR`. They
+`original/<region>/`, or can be supplied separately with `ISO_METADATA_DIR`. They
 are disc identification text, not executable game logic. The configured
 Japan, USA, and Europe executable/data outputs are now source-emitted; the
 regional comparison trees remain local prerequisites for byte checks, not build

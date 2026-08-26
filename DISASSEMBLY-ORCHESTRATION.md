@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Regional deterministic ISO filesystem milestone:** `tools/build_retail_iso.py`
+  now emits the retail ISO9660 filesystem for Japan, USA, and Europe from the
+  staged source-backed files and explicitly supplied media/metadata. It uses
+  the shared retail file order with each region's volume size, PVD date, and
+  recording timestamps, replacing the generic non-USA `mkisofs` path. Fresh
+  Japan, Europe, and USA component checks remain exact; direct data-track
+  comparison against all three local CHDs produced zero mismatches for the
+  rebuilt track sectors, with the matching regional track lengths. No disc
+  images or extracted proprietary files were added.
+
 - **Regional ISO metadata boundary milestone:** `make.sh`/`make.bat` now stage
   `ABS.TXT`, `BIB.TXT`, and `CPY.TXT` for Japan, USA, and Europe, and both
   comparison frontends verify those three files for every region. This closes

@@ -26,11 +26,9 @@ for %%F in (ABS.TXT BIB.TXT CPY.TXT) do (
 	)
 	copy "%ISO_METADATA_DIR%\%%F" "out\files\%%F" > nul
 )
-if "%REGION%"=="1" (
-	where py > nul 2>&1 || (
-		echo Python 3 is required to construct the byte-exact USA ISO filesystem.
-		exit /b 1
-	)
+where py > nul 2>&1 || (
+    echo Python 3 is required to construct the deterministic regional ISO filesystem.
+    exit /b 1
 )
 cd src
 
@@ -204,11 +202,7 @@ if exist "Special Stage\Stage Data.sym" ( del "Special Stage\Stage Data.sym" > n
 
 echo.
 echo Compiling filesystem...
-if "%REGION%"=="1" (
-    py -3 ..\tools\build_retail_iso.py ..\out\files ..\out\misc\files.bin
-) else (
-    ..\bin\mkisofs.exe -quiet -abstract ABS.TXT -biblio BIB.TXT -copyright CPY.TXT -A "SEGA ENTERPRISES" -V "SONIC_CD___" -publisher "SEGA ENTERPRISES" -p "SEGA ENTERPRISES" -sysid "MEGA_CD" -iso-level 1 -o ..\out\misc\files.bin ..\out\files
-)
+py -3 ..\tools\build_retail_iso.py --region %REGIONDIR% ..\out\files ..\out\misc\files.bin
 if errorlevel 1 exit /b 1
 
 %ASM68K% main.asm, ..\out\%OUTPUT%

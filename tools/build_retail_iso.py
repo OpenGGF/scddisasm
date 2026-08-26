@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the USA retail ISO9660 layout from staged, independently supplied files."""
+"""Build a regional retail ISO9660 layout from staged, independently supplied files."""
 
 from __future__ import annotations
 
@@ -13,8 +13,34 @@ from pathlib import Path
 SECTOR_SIZE = 2048
 ROOT_EXTENT = 20
 ROOT_SIZE = 3 * SECTOR_SIZE
-VOLUME_SECTORS = 59111
-PHYSICAL_SECTORS = 59261
+
+# The retail releases use the same file order and ISO9660 structure, but the
+# volume size, PVD dates, and mkisofs recording timestamps are release-specific.
+# These values describe filesystem metadata only; no proprietary file content
+# is embedded here.
+REGIONS = {
+	"japan": {
+		"volume_sectors": 54949,
+		"physical_sectors": 55099,
+		"pvd_date": b"1993080612000000\0",
+		"recording_base": (93, 8, 6, 3, 18, 43),
+		"recording_steps": ((5688, 44), (54937, 45)),
+	},
+	"usa": {
+		"volume_sectors": 59111,
+		"physical_sectors": 59261,
+		"pvd_date": b"1993082012000000\0",
+		"recording_base": (93, 10, 13, 0, 39, 9),
+		"recording_steps": ((1720, 10), (17103, 11)),
+	},
+	"europe": {
+		"volume_sectors": 54948,
+		"physical_sectors": 55098,
+		"pvd_date": b"1993082012000000\0",
+		"recording_base": (93, 8, 27, 17, 46, 47),
+		"recording_steps": ((765, 48), (9940, 49)),
+	},
+}
 
 
 def level_names() -> list[str]:
@@ -60,17 +86,21 @@ def both32(value: int) -> bytes:
 	return struct.pack("<I", value) + struct.pack(">I", value)
 
 
-def recording_time(hour: int) -> bytes:
-	return bytes((93, 10, 13, 0, 39, hour, 0))
+def recording_time(region: dict, extent: int) -> bytes:
+	year, month, day, hour, minute, second = region["recording_base"]
+	for minimum, candidate in region["recording_steps"]:
+		if extent >= minimum:
+			second = candidate
+	return bytes((year, month, day, hour, minute, second, 0))
 
 
-def directory_record(name: bytes, extent: int, size: int, hour: int, directory: bool = False) -> bytes:
+def directory_record(name: bytes, extent: int, size: int, timestamp: bytes, directory: bool = False) -> bytes:
 	length = 33 + len(name) + (len(name) % 2 == 0)
 	record = bytearray(length)
 	record[0] = length
 	record[2:10] = both32(extent)
 	record[10:18] = both32(size)
-	record[18:25] = recording_time(hour)
+	record[18:25] = timestamp
 	record[25] = 2 if directory else 0
 	record[28:32] = both16(1)
 	record[32] = len(name)
@@ -78,12 +108,12 @@ def directory_record(name: bytes, extent: int, size: int, hour: int, directory: 
 	return bytes(record)
 
 
-def pvd(root_record: bytes) -> bytes:
+def pvd(root_record: bytes, region: dict) -> bytes:
 	result = bytearray(SECTOR_SIZE)
 	result[0:7] = b"\x01CD001\x01"
 	result[8:40] = b"MEGA_CD".ljust(32)
 	result[40:72] = b"SONIC_CD___".ljust(32)
-	result[80:88] = both32(VOLUME_SECTORS)
+	result[80:88] = both32(region["volume_sectors"])
 	result[120:124] = both16(1)
 	result[124:128] = both16(1)
 	result[128:132] = both16(SECTOR_SIZE)
@@ -99,7 +129,7 @@ def pvd(root_record: bytes) -> bytes:
 	result[739:776] = b"ABS.TXT".ljust(37)
 	result[776:813] = b"BIB.TXT".ljust(37)
 	result[813:830] = b"0000000000000000\0"
-	result[830:847] = b"1993082012000000\0"
+	result[830:847] = region["pvd_date"]
 	result[847:864] = b"0000000000000000\0"
 	result[864:881] = b"0000000000000000\0"
 	result[881] = 1
@@ -116,9 +146,11 @@ def write_sector(output, sector: int, data: bytes) -> None:
 
 def main() -> int:
 	parser = argparse.ArgumentParser()
+	parser.add_argument("--region", choices=sorted(REGIONS), default="usa")
 	parser.add_argument("source", type=Path)
 	parser.add_argument("output", type=Path)
 	args = parser.parse_args()
+	region = REGIONS[args.region]
 
 	files = {path.name: path for path in args.source.iterdir() if path.is_file()}
 	expected = set(LAYOUT)
@@ -137,18 +169,20 @@ def main() -> int:
 		size = files[name].stat().st_size
 		extents[name] = (next_extent, size)
 		next_extent += (size + SECTOR_SIZE - 1) // SECTOR_SIZE
-	if next_extent != VOLUME_SECTORS:
-		print(f"ISO layout ends at sector {next_extent}, expected {VOLUME_SECTORS}", file=sys.stderr)
+	if next_extent != region["volume_sectors"]:
+		print(f"ISO layout ends at sector {next_extent}, expected {region['volume_sectors']}", file=sys.stderr)
 		return 1
 
-	root = directory_record(b"\0", ROOT_EXTENT, ROOT_SIZE, 9, True)
+	root_time = recording_time(region, ROOT_EXTENT)
+	root = directory_record(b"\0", ROOT_EXTENT, ROOT_SIZE, root_time, True)
 	directory = bytearray()
-	for record in (root, directory_record(b"\1", ROOT_EXTENT, ROOT_SIZE, 9, True)):
+	for record in (root, directory_record(b"\1", ROOT_EXTENT, ROOT_SIZE, root_time, True)):
 		directory.extend(record)
 	for name in sorted(LAYOUT):
 		extent, size = extents[name]
-		hour = 9 if extent < 1720 else 10 if extent < 17103 else 11
-		record = directory_record((name + ";1").encode("ascii"), extent, size, hour)
+		record = directory_record(
+			(name + ";1").encode("ascii"), extent, size, recording_time(region, extent)
+		)
 		sector_remaining = SECTOR_SIZE - (len(directory) % SECTOR_SIZE)
 		if len(record) > sector_remaining:
 			directory.extend(bytes(sector_remaining))
@@ -159,8 +193,8 @@ def main() -> int:
 
 	args.output.parent.mkdir(parents=True, exist_ok=True)
 	with args.output.open("w+b") as output:
-		output.truncate(PHYSICAL_SECTORS * SECTOR_SIZE)
-		write_sector(output, 16, pvd(root))
+		output.truncate(region["physical_sectors"] * SECTOR_SIZE)
+		write_sector(output, 16, pvd(root, region))
 		write_sector(output, 17, b"\xffCD001\x01")
 		write_sector(output, 18, b"\x01\x00" + struct.pack("<I", ROOT_EXTENT) + b"\x01\x00\x00\x00")
 		write_sector(output, 19, b"\x01\x00" + struct.pack(">I", ROOT_EXTENT) + b"\x00\x01\x00\x00")
