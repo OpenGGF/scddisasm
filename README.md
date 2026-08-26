@@ -667,6 +667,12 @@ following `$FF5290` helper, adds the caller-supplied offset, writes each word,
 and loops until the terminator; the conversion helper begins at `$FF5290`.
 Japan, USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` character-conversion helper from `$FF5290`
+through `$FF52C9` (58 bytes) is now labeled source. It maps uppercase letters,
+decimal digits, and underscore to the game's character codes and returns the
+`$26` default for the remaining case; the following raw routine begins at
+`$FF52CA`. Japan, USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

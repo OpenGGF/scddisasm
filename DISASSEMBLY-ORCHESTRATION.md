@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` character-conversion helper from `$FF5290` through `$FF52C9`
+  (58 bytes) is now labeled source. It maps uppercase letters, decimal digits,
+  and underscore to the game's character codes and returns the `$26` default
+  for the remaining case; the following raw routine begins at `$FF52CA`.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` VDP text-upload loop from `$FF5266` through `$FF528F`
   (42 bytes) is now labeled source. It initializes the VDP destination, reads
   null-terminated character data, converts each character through the

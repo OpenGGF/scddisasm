@@ -14862,11 +14862,45 @@ L_NonUSA_FF528A:
 L_NonUSA_FF528E:
 	rts
 L_NonUSA_FF5290:
-	dc.b	$0C,$00,$00,$41,$6D,$0C
-	dc.b	$0C,$00,$00,$5A,$6E,$06,$04,$00,$00,$40,$4E,$75,$0C,$00,$00,$30
-	dc.b	$6D,$0C,$0C,$00,$00,$39,$6E,$06,$04,$00,$00,$15,$4E,$75,$0C,$00
-	dc.b	$00,$5F,$66,$06,$04,$00,$00,$3A,$4E,$75,$0C,$00,$00,$20,$10,$3C
-	dc.b	$00,$26,$4E,$75,$61,$00,$E9,$1E,$67,$06,$61,$00,$E9,$20,$67,$2C
+	cmpi.b	#$41, d0
+L_NonUSA_FF5294:
+	blt.b	L_NonUSA_FF52A2
+L_NonUSA_FF5296:
+	cmpi.b	#$5A, d0
+L_NonUSA_FF529A:
+	bgt.b	L_NonUSA_FF52A2
+L_NonUSA_FF529C:
+	subi.b	#$40, d0
+L_NonUSA_FF52A0:
+	rts
+L_NonUSA_FF52A2:
+	cmpi.b	#$30, d0
+L_NonUSA_FF52A6:
+	blt.b	L_NonUSA_FF52B4
+L_NonUSA_FF52A8:
+	cmpi.b	#$39, d0
+L_NonUSA_FF52AC:
+	bgt.b	L_NonUSA_FF52B4
+L_NonUSA_FF52AE:
+	subi.b	#$15, d0
+L_NonUSA_FF52B2:
+	rts
+L_NonUSA_FF52B4:
+	cmpi.b	#$5F, d0
+L_NonUSA_FF52B8:
+	bne.b	L_NonUSA_FF52C0
+L_NonUSA_FF52BA:
+	subi.b	#$3A, d0
+L_NonUSA_FF52BE:
+	rts
+L_NonUSA_FF52C0:
+	cmpi.b	#$20, d0
+L_NonUSA_FF52C4:
+	move.b	#$26, d0
+L_NonUSA_FF52C8:
+	rts
+L_NonUSA_FF52CA:
+	dc.b	$61,$00,$E9,$1E,$67,$06,$61,$00,$E9,$20,$67,$2C
 	dc.b	$61,$00,$FC,$52,$42,$69,$00,$02,$42,$69,$00,$04,$42,$69,$00,$06
 	dc.b	$42,$69,$00,$08,$42,$29,$00,$0A,$42,$29,$00,$0C,$42,$69,$00,$12
 	dc.b	$61,$00,$03,$18,$61,$00,$00,$30,$61,$00,$00,$E4,$4E,$75,$70,$00
