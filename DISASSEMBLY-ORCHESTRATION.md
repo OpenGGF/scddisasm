@@ -7,8 +7,8 @@
   `$FF656B` (76 bytes) is now labeled source. It walks the five compact
   parameter records, clears the selected object-table words, and restores its
   working registers; the following 22-byte parameter table at `$FF656C`
-  through `$FF6581` is also explicit source data, and the next helper begins
-  at `$FF6582`. Fresh guarded displayless Japan, Europe, and USA builds/checks
+  through `$FF6581` is also explicit source data, and the following helper
+  begins at `$FF6582`. Fresh guarded displayless Japan, Europe, and USA builds/checks
   report every listed target as an exact match, with zero differences and zero
   missing targets. No proprietary bytes were added.
 
@@ -17,11 +17,22 @@
   through `$FF663E` (189 bytes) are now labeled source, including the
   eight-entry branch table at `$FF6618`. It extracts packed object data,
   selects the appropriate output path, writes the expanded values, and
-  restores the working registers; the next helper begins at `$FF6640` and
-  remains explicit source bytes pending semantic decomposition. Fresh guarded
-  displayless Japan, Europe, and USA builds/checks report every listed target
-  as an exact match, with zero differences and zero missing targets. No
-  proprietary bytes were added.
+  restores the working registers; the following packed-bit helper begins at
+  `$FF6640` and is covered by the next milestone. Fresh guarded displayless
+  Japan, Europe, and USA builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
+
+- **Non-USA BRAMMAIN packed-bit helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` packed-bit object-value helper from `$FF6640` through
+  `$FF66CF` (144 bytes) is now labeled source. It decodes the five packed flag
+  bits, combines the selected high-bit offsets with the shifted object value,
+  and returns the reconstructed word; the associated 16-word mask table from
+  `$FF66D0` through `$FF66EF` (32 bytes) is also explicit source data. The next
+  helper begins at `$FF66F0` and remains explicit source bytes pending
+  semantic decomposition. Fresh guarded displayless Japan, Europe, and USA
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
 
 - **Non-USA BRAMMAIN upload-record milestone:** The Japan/Europe
   `BRAMMAIN.MMD` two-record upload table from `$FF6504` through `$FF651F` (28

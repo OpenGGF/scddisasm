@@ -997,16 +997,25 @@ The next non-USA `BRAMMAIN.MMD` object-table clearing routine from `$FF6520`
 through `$FF656B` (76 bytes) is now labeled source. It walks the five compact
 parameter records, clears the selected object-table words, and restores its
 working registers; the following 22-byte parameter table at `$FF656C` through
-`$FF6581` is also explicit source data, and the next helper begins at `$FF6582`.
-Japan, USA, and Europe still produce byte-exact component outputs.
+`$FF6581` is also explicit source data, and the following helper begins at
+`$FF6582`. Japan, USA, and Europe still produce byte-exact component outputs.
 
 The next non-USA `BRAMMAIN.MMD` object-data decoder and output dispatcher
 from `$FF6582` through `$FF663E` (189 bytes) are now labeled source, including
 the eight-entry branch table at `$FF6618`. It extracts packed object data,
 selects the appropriate output path, writes the expanded values, and restores
-the working registers; the next helper begins at `$FF6640` and remains
-explicit source bytes pending semantic decomposition. Japan, USA, and Europe
-still produce byte-exact component outputs.
+the working registers; the following packed-bit helper begins at `$FF6640` and
+is covered below. Japan, USA, and Europe still produce byte-exact component
+outputs.
+
+The next non-USA `BRAMMAIN.MMD` packed-bit object-value helper from `$FF6640`
+through `$FF66CF` (144 bytes) is now labeled source. It decodes the five
+packed flag bits, combines the selected high-bit offsets with the shifted
+object value, and returns the reconstructed word; the associated 16-word mask
+table from `$FF66D0` through `$FF66EF` (32 bytes) is also explicit source data.
+The next helper begins at `$FF66F0` and remains explicit source bytes pending
+semantic decomposition. Japan, USA, and Europe still produce byte-exact
+component outputs.
 
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
