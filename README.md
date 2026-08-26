@@ -839,6 +839,15 @@ negates the value, sets subtype `2`, and calls the shared helper at
 `$FF6266`; the following raw routine begins at `$FF58E6`. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` object-state dispatcher from `$FF5AFA`
+through `$FF5B79` (128 bytes) is now labeled source. It selects the object
+handler through the inline table at `$FF5B08`, initializes the object fields,
+branches on the object mode, and returns through the shared jump at `$FF5B74`;
+the adjacent table at `$FF5B7A` through `$FF5B95` (28 bytes) is also labeled
+word data. The preceding raw data prefix remains at `$FF5A56` through
+`$FF5AF9`, and the next raw routine begins at `$FF5B96`. Japan, USA, and
+Europe still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` coordinate-pair tables from `$FF59CC`
 through `$FF5A47` (124 bytes) are now labeled `dc.w` source, with explicit
 boundaries for the five indexed tables. The adjacent seven-word

@@ -2,6 +2,18 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN object-state dispatcher milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` executable span from `$FF5AFA` through `$FF5B79` (128 bytes)
+  is now labeled source. It selects the object handler through the inline
+  table at `$FF5B08`, initializes the object fields, branches on the object
+  mode, and returns through the shared jump at `$FF5B74`; the adjacent table
+  at `$FF5B7A` through `$FF5B95` (28 bytes) is also labeled word data. The
+  preceding raw data prefix remains at `$FF5A56` through `$FF5AF9`, and the
+  next raw routine begins at `$FF5B96`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN coordinate-table milestone:** The Japan/Europe
   `BRAMMAIN.MMD` coordinate-pair tables from `$FF59CC` through `$FF5A47`
   (124 bytes) are now labeled `dc.w` source, with explicit boundaries for
