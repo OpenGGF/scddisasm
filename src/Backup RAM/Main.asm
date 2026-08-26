@@ -16451,9 +16451,13 @@ L_NonUSA_FF5F86:
 L_NonUSA_FF5F88:
 	rts
 L_NonUSA_FF5F8A:
-	dc.b	$11,$7C,$00,$06,$00,$24,$44,$68,$00,$10
+	move.b	#$6, $24(a0)
+L_NonUSA_FF5F90:
+	neg.w	$10(a0)
 L_NonUSA_FF5F94:
-	dc.b	$44,$68,$00,$12,$4E,$75
+	neg.w	$12(a0)
+L_NonUSA_FF5F98:
+	rts
 L_NonUSA_FF5F9A:
 	dc.b	$11,$7C,$00,$0A,$00,$24,$0C,$38,$00,$06,$CD,$17
 	dc.b	$67,$0E,$30,$28,$00,$08,$04,$40,$00,$C8,$31,$40,$00,$32,$60,$0C

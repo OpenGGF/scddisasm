@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN state-6 handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` handler from `$FF5F8A` through `$FF5F99` (16 bytes) is now
+  labeled source. It sets state 6, negates the two stored coordinate
+  components, and returns; the following handler begins at `$FF5F9A` and
+  remains explicit source bytes pending semantic decomposition. Fresh guarded
+  displayless Japan, Europe, and USA builds/checks report every listed target as
+  an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN coordinate-handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` handler from `$FF5F0E` through `$FF5F89` (124 bytes) is now
   labeled source. It dispatches on `$CD2D`, initializes state 4, computes and
