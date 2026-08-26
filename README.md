@@ -653,6 +653,13 @@ the VDP destination, iterates eleven entries with the `$A` counter, applies the
 following data begins at `$FF5222`. Japan, USA, and Europe still produce
 byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` character-address helper from `$FF523A`
+through `$FF5265` (44 bytes) is now labeled source. It masks the character
+code, normalizes the tile offset in `$80`-byte units, consults the shared status
+helper, and selects the corresponding VDP command base; the following raw
+routine begins at `$FF5266`. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
