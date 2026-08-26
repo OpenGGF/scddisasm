@@ -1034,9 +1034,14 @@ still produce byte-exact component outputs.
 The next non-USA `BRAMMAIN.MMD` three-record table from `$FF67FE` through
 `$FF6815` (24 bytes) is now explicit structured `dc.l` source. It supplies the
 per-state shadow-table offsets and values used by the preceding state-table
-update routine. The following data begins at `$FF6816` and remains explicit
-source bytes pending semantic decomposition. Japan, USA, and Europe still
-produce byte-exact component outputs.
+update routine. The following data block begins at `$FF6816` and is covered
+below. Japan, USA, and Europe still produce byte-exact component outputs.
+
+The next non-USA `BRAMMAIN.MMD` data block from `$FF6816` through `$FF687D`
+(104 bytes) is now explicit structured `dc.l` source, preserving its
+contiguous data layout. The following data begins at `$FF687E` and remains
+explicit source bytes pending semantic decomposition. Japan, USA, and Europe
+still produce byte-exact component outputs.
 
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores

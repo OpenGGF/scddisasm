@@ -59,7 +59,15 @@
   `BRAMMAIN.MMD` three-record table from `$FF67FE` through `$FF6815` (24 bytes)
   is now explicit structured `dc.l` source. It supplies the per-state shadow
   table offsets and values used by the preceding state-table update routine.
-  The following data begins at `$FF6816` and remains explicit source bytes
+  The following data block begins at `$FF6816` and is covered by the next
+  milestone. Fresh guarded displayless Japan, Europe, and USA builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN data-block milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` data block from `$FF6816` through `$FF687D` (104 bytes) is now
+  explicit structured `dc.l` source, preserving its contiguous data layout.
+  The following data begins at `$FF687E` and remains explicit source bytes
   pending semantic decomposition. Fresh guarded displayless Japan, Europe,
   and USA builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.
