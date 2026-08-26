@@ -2,6 +2,17 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN reverse-phase routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` reverse state-advance routine from `$FF5516` through
+  `$FF556B` (86 bytes) is now labeled source. It decrements and wraps the
+  animation phase, advances the `$C(a1)` position backwards through its
+  timing window while preserving the interrupt state, clamps the final
+  position, and invokes the `$FF55B6` update helper before the VDP wait; the
+  following raw routine begins at `$FF556C`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` state-advance routine from `$FF54B6` through `$FF5515`
   (96 bytes) is now labeled source. It advances the animation phase, waits
