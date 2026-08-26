@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN object initializer milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` object initializer from `$FF5772` through `$FF57BB`
+  (74 bytes) is now labeled source. It sets the object mode, geometry, and
+  coordinate fields, calls the shared setup routine at `$FF5936`, and returns;
+  the following raw handler begins at `$FF57BC`. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
+
 - **Non-USA BRAMMAIN object-state dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` object-state dispatcher and inline handler table from
   `$FF574A` through `$FF5771` (40 bytes) are now labeled source. The
