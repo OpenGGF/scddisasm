@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN state-initializer milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` state initializer from `$FF57F8` through `$FF5827`
+  (48 bytes) is now labeled source. It sets the object state and flags,
+  clears the required object fields, copies the existing coordinate, and
+  installs the fixed state values before returning; the following raw routine
+  begins at `$FF5828`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state-selection handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` state-selection handler from `$FF57BC` through `$FF57F7`
   (60 bytes) is now labeled source. It checks the region/status flags, selects
