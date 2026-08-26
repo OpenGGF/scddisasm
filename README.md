@@ -556,6 +556,12 @@ samples `$A1201F`, performs the `$92`, `$AE`, and `$AD` status actions through
 begins at `$FF4FB8`. Japan, USA, and Europe still produce byte-exact
 component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` status predicate from `$FF4FB8` through
+`$FF4FDB` (36 bytes) is now labeled source. It tests the `$CD1E` status
+against values 1, 3, 4, and 5 and returns through the shared `$FF4FDA` tail;
+the next raw routine begins at `$FF4FDC`. Japan, USA, and Europe still
+produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

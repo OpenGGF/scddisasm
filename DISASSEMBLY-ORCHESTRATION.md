@@ -3,6 +3,14 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` status predicate from `$FF4FB8` through `$FF4FDB`
+  (36 bytes) is now labeled source. It tests the `$CD1E` status against
+  values 1, 3, 4, and 5 and returns through the shared `$FF4FDA` tail; the
+  next raw routine begins at `$FF4FDC`. Fresh guarded displayless Japan, USA,
+  and Europe builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` status-processing routine from `$FF4F4A` through `$FF4FB7`
   (110 bytes) is now labeled source. It checks `$CD1F`, samples `$A1201F`,
   performs the `$92`, `$AE`, and `$AD` status actions through `$FF25B8`,
