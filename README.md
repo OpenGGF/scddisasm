@@ -839,6 +839,13 @@ negates the value, sets subtype `2`, and calls the shared helper at
 `$FF6266`; the following raw routine begins at `$FF58E6`. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` position/update dispatcher from
+`$FF58E6` through `$FF5935` (80 bytes) is now labeled source. It sets the
+object flag at `$FF58E6`, compares the object's position against the stored
+coordinate, dispatches through the shared object-update routines, and handles
+the alternate position path before reaching the next raw span at `$FF5936`.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

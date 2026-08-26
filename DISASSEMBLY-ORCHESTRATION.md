@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN position/update dispatcher milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` span from `$FF58E6` through `$FF5935` (80 bytes) is now
+  labeled source. It sets the object flag at `$FF58E6`, compares the
+  object's position against the stored coordinate, dispatches through the
+  shared object-update routines, and handles the alternate position path
+  before reaching the next raw span at `$FF5936`. Fresh guarded displayless
+  Japan, USA, and Europe builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
+
 - **Non-USA BRAMMAIN state-adjustment handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` handler from `$FF58B6` through `$FF58E5` (48 bytes) is
   now labeled source. It initializes the horizontal value, compares the
