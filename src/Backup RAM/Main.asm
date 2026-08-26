@@ -15732,10 +15732,32 @@ L_NonUSA_FF58B2:
 L_NonUSA_FF58B4:
 	rts
 L_NonUSA_FF58B6:
-	dc.b	$42,$68,$00,$10,$31,$7C,$04,$00,$00,$12,$30,$28,$00,$0C,$B0,$68
-	dc.b	$00,$34,$67,$1C,$6D,$04,$44,$68,$00,$12,$11,$7C,$00,$02,$00,$2D
+	clr.w	$10(a0)
+L_NonUSA_FF58BA:
+	move.w	#$400, $12(a0)
+L_NonUSA_FF58C0:
+	move.w	$C(a0), d0
+L_NonUSA_FF58C4:
+	cmp.w	$34(a0), d0
+L_NonUSA_FF58C8:
+	beq.b	L_NonUSA_FF58E6
+L_NonUSA_FF58CA:
+	blt.b	L_NonUSA_FF58D0
+L_NonUSA_FF58CC:
+	neg.w	$12(a0)
+L_NonUSA_FF58D0:
+	move.b	#$2, $2D(a0)
 L_NonUSA_FF58D6:
-	dc.b	$61,$00,$09,$8E,$30,$28,$00,$0C,$B0,$68,$00,$34,$67,$02,$4E,$75
+	bsr.w	$FF6266
+L_NonUSA_FF58DA:
+	move.w	$C(a0), d0
+L_NonUSA_FF58DE:
+	cmp.w	$34(a0), d0
+L_NonUSA_FF58E2:
+	beq.b	L_NonUSA_FF58E6
+L_NonUSA_FF58E4:
+	rts
+L_NonUSA_FF58E6:
 	dc.b	$11,$7C,$00,$02,$00,$24,$4E,$75,$61,$00,$09,$66,$30,$28,$00,$34
 	dc.b	$B0,$68,$00,$0C,$6F,$12,$43,$F9,$00,$FF,$5A,$48,$4E,$B9,$00,$FF
 	dc.b	$27,$60,$4E,$F9,$00,$FF,$28,$34,$31,$40,$00,$0C,$11,$7C,$00,$02
