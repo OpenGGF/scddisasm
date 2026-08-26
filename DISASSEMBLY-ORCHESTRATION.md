@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN state-update helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` state-update routine from `$FF55DC` through `$FF560F`
+  (52 bytes) is now labeled source. It updates the active record position,
+  copies the timing counter, invokes the record-buffer update path, clamps
+  the selected index, and stores the resulting record index; the following
+  raw routine begins at `$FF5610`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN reverse record helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` reverse record-update helper from `$FF55B6` through
   `$FF55DB` (38 bytes) is now labeled source. It decrements the active record

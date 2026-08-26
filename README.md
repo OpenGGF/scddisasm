@@ -753,6 +753,13 @@ phase-dependent tile upload through `$FF5158`; the following raw routine
 begins at `$FF55DC`. Japan, USA, and Europe still produce byte-exact
 component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` state-update routine from `$FF55DC`
+through `$FF560F` (52 bytes) is now labeled source. It updates the active
+record position, copies the timing counter, invokes the record-buffer update
+path, clamps the selected index, and stores the resulting record index; the
+following raw routine begins at `$FF5610`. Japan, USA, and Europe still
+produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
