@@ -813,6 +813,12 @@ installs the fixed state values before returning; the following raw routine
 begins at `$FF5828`. Japan, USA, and Europe still produce byte-exact component
 outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` coordinate-check helper from `$FF5828`
+through `$FF5839` (18 bytes) is now labeled source. It calls the shared
+helper at `$FF5936`, compares the two object coordinate fields, and returns;
+the following raw routine begins at `$FF583A`. Japan, USA, and Europe still
+produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
