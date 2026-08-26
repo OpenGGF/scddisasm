@@ -2,11 +2,23 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN selector/coordinate dispatcher milestone:** The
+  Japan/Europe `BRAMMAIN.MMD` instruction span from `$FF5936` through
+  `$FF59CA` (149 bytes) is now labeled source. It selects the fixed
+  coordinate path for status words `$0603` and `$0803`, dispatches the
+  `$CD15` selector cases, and loads coordinate pairs from the PC-relative
+  tables at `$FF59CC` and `$FF59E8`/`$FF5A10`/`$FF5A38`/`$FF5A40`; the raw
+  table begins at `$FF59CC`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN constant-coordinate helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF596E` through `$FF5977` (10 bytes) is now
   labeled source. It loads the fixed coordinate values `$00B4` and `$0040`
-  into `d1` and `d2` before returning; the preceding unresolved dispatcher
-  remains at `$FF5936` and the following raw routine begins at `$FF5978`.
+  into `d1` and `d2` before returning; it is part of the adjacent
+  selector/coordinate region now source-backed through `$FF59CA`, and the
+  following raw table begins at `$FF59CC`.
   Fresh guarded displayless Japan, USA, and Europe builds/checks report every
   listed target as an exact match, with zero differences and zero missing
   targets. No proprietary bytes were added.

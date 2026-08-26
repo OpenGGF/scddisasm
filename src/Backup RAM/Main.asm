@@ -15790,10 +15790,35 @@ L_NonUSA_FF592A:
 L_NonUSA_FF5930:
 	jmp	$FF2834.l
 L_NonUSA_FF5936:
-	dc.b	$0C,$78,$06,$03,$CD,$14,$67,$30,$0C,$78,$08,$03,$CD,$14,$67,$28
-	dc.b	$0C,$38,$00,$01,$CD,$15,$67,$00,$00,$2A,$0C,$38,$00,$05,$CD,$15
-	dc.b	$67,$00,$00,$4C,$70,$00,$10,$38,$CD,$1E,$D0,$00,$D0,$00,$32,$3B
-	dc.b	$00,$66,$34,$3B,$00,$64,$4E,$75
+	cmpi.w	#$603, $FFFFCD14.w
+L_NonUSA_FF593C:
+	beq.b	L_NonUSA_FF596E
+L_NonUSA_FF593E:
+	cmpi.w	#$803, $FFFFCD14.w
+L_NonUSA_FF5944:
+	beq.b	L_NonUSA_FF596E
+L_NonUSA_FF5946:
+	cmpi.b	#$1, $FFFFCD15.w
+L_NonUSA_FF594C:
+	beq.w	L_NonUSA_FF5978
+L_NonUSA_FF5950:
+	cmpi.b	#$5, $FFFFCD15.w
+L_NonUSA_FF5956:
+	beq.w	L_NonUSA_FF59A4
+L_NonUSA_FF595A:
+	moveq	#$0, d0
+L_NonUSA_FF595C:
+	move.b	$FFFFCD1E.w, d0
+L_NonUSA_FF5960:
+	add.b	d0, d0
+L_NonUSA_FF5962:
+	add.b	d0, d0
+L_NonUSA_FF5964:
+	move.w	L_NonUSA_FF59CC(pc, d0.w), d1
+L_NonUSA_FF5968:
+	move.w	L_NonUSA_FF59CE(pc, d0.w), d2
+L_NonUSA_FF596C:
+	rts
 L_NonUSA_FF596E:
 	move.w	#$B4, d1
 L_NonUSA_FF5972:
@@ -15801,12 +15826,57 @@ L_NonUSA_FF5972:
 L_NonUSA_FF5976:
 	rts
 L_NonUSA_FF5978:
-	dc.b	$61,$00,$F5,$B0,$45,$F9,$00,$FF,$5A,$10,$20,$09,$0C,$40
-	dc.b	$CF,$A0,$67,$06,$45,$F9,$00,$FF,$59,$E8,$70,$00,$30,$29,$00,$04
-	dc.b	$D0,$40,$D0,$40,$32,$32,$00,$00,$34,$32,$00,$02,$4E,$75,$45,$F9
-	dc.b	$00,$FF,$5A,$40,$0C,$38,$00,$01,$CD,$29,$67,$06,$45,$F9,$00,$FF
-	dc.b	$5A,$38,$70,$00,$10,$38,$CD,$2A,$D0,$40,$D0,$40,$32,$32,$00,$00
-	dc.b	$34,$32,$00,$02,$4E,$75,$01,$90,$00,$00,$00,$A4,$00,$18,$00,$A4
+	bsr.w	$FF4F2A
+L_NonUSA_FF597C:
+	lea.l	$FF5A10.l, a2
+L_NonUSA_FF5982:
+	move.l	a1, d0
+L_NonUSA_FF5984:
+	cmpi.w	#$CFA0, d0
+L_NonUSA_FF5988:
+	beq.b	L_NonUSA_FF5990
+L_NonUSA_FF598A:
+	lea.l	$FF59E8.l, a2
+L_NonUSA_FF5990:
+	moveq	#$0, d0
+L_NonUSA_FF5992:
+	move.w	$4(a1), d0
+L_NonUSA_FF5996:
+	add.w	d0, d0
+L_NonUSA_FF5998:
+	add.w	d0, d0
+L_NonUSA_FF599A:
+	move.w	(a2, d0.w), d1
+L_NonUSA_FF599E:
+	move.w	$2(a2, d0.w), d2
+L_NonUSA_FF59A2:
+	rts
+L_NonUSA_FF59A4:
+	lea.l	$FF5A40.l, a2
+L_NonUSA_FF59AA:
+	cmpi.b	#$1, $FFFFCD29.w
+L_NonUSA_FF59B0:
+	beq.b	L_NonUSA_FF59B8
+L_NonUSA_FF59B2:
+	lea.l	$FF5A38.l, a2
+L_NonUSA_FF59B8:
+	moveq	#$0, d0
+L_NonUSA_FF59BA:
+	move.b	$FFFFCD2A.w, d0
+L_NonUSA_FF59BE:
+	add.w	d0, d0
+L_NonUSA_FF59C0:
+	add.w	d0, d0
+L_NonUSA_FF59C2:
+	move.w	(a2, d0.w), d1
+L_NonUSA_FF59C6:
+	move.w	$2(a2, d0.w), d2
+L_NonUSA_FF59CA:
+	rts
+L_NonUSA_FF59CC:
+	dc.b	$01,$90
+L_NonUSA_FF59CE:
+	dc.b	$00,$00,$00,$A4,$00,$18,$00,$A4
 	dc.b	$00,$38,$00,$A4,$00,$5C,$00,$A4,$00,$74,$00,$4C,$00,$14,$00,$E4
 	dc.b	$00,$14,$00,$6C,$00,$24,$00,$6C,$00,$34,$00,$6C,$00,$44,$00,$6C
 	dc.b	$00,$54,$00,$6C,$00,$64,$00,$6C,$00,$74,$00,$6C,$00,$84,$00,$6C
