@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` `$FFFFCD30` table-upload helper from `$FF507E` through
+  `$FF508F` (18 bytes) is now labeled source. It calls `$FF50D4`, loads
+  `$4000` into `d1`, selects `$FFFFCD30`, calls `$FF5158`, and returns; the
+  following raw routine begins at `$FF5090`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` table-upload helper from `$FF506A` through `$FF507D`
   (20 bytes) is now labeled source. It calls `$FF50D4`, loads `$4000` into
   `d1`, points at the `$FF5190` table, calls `$FF5158`, and returns; the
