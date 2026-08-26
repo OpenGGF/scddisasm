@@ -3,6 +3,14 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` routine from `$FF4C5E` through `$FF4C85` (40 bytes) is now
+  labeled source. It calls `$FF6430`, clears `$CD26` and `$CD27`, checks
+  `$FF3BEA`, selects `$CD29 = 2` or `$CD29 = 1`, and returns; the following raw
+  clear-state entry begins at `$FF4C86`. Fresh guarded displayless Japan, USA,
+  and Europe builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routine from `$FF4C52` through `$FF4C5D` (12 bytes) is now
   labeled source. It calls the clear-state entry at `$FF4C86`, restores
   `$CD14` from `$CD18`, and returns; the following raw routine begins at
