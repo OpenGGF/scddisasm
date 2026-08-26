@@ -496,6 +496,10 @@ The next non-USA raw `BRAMMAIN.MMD` routine from `$FF4C5E` through `$FF4C85`
 `$CD27`, checks `$FF3BEA`, selects `$CD29 = 2` or `$CD29 = 1`, and returns; the
 following raw clear-state entry begins at `$FF4C86`.
 
+The next non-USA raw `BRAMMAIN.MMD` routine from `$FF4C86` through `$FF4C8F`
+(10 bytes) is now labeled source. It clears `$CD2C` and `$CD29`, then returns;
+the following raw routine begins at `$FF4C90`.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
