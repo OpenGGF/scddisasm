@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN object-handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` span from `$FF5B96` through `$FF5C31` (156 bytes) is now
+  labeled source. It contains the object-state dispatcher, its three-entry
+  handler table, two object handlers, and the trailing five-word data table.
+  The adjacent `$FF5C32-$FF5C4F` tables and `$FF5C50-$FF5C65` entry prefix are
+  explicitly boundary-labeled source bytes; semantic decomposition of the
+  following span remains pending. Fresh guarded displayless Japan, Europe,
+  and USA builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN data-prefix milestone:** The Japan/Europe
   `BRAMMAIN.MMD` data prefix from `$FF5A56` through `$FF5AF9` (164 bytes) is
   now labeled source. The word header, 50-byte sequence stream, 14-word
