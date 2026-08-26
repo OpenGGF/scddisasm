@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN object-state dispatcher milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` object-state dispatcher and inline handler table from
+  `$FF574A` through `$FF5771` (40 bytes) are now labeled source. The
+  dispatcher reads the object state, selects one of four PC-relative handlers,
+  and continues through the common object-update helper; the following raw
+  handler begins at `$FF5772`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN status/update helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` routines from `$FF5692` through `$FF5749` (184 bytes) are
   now labeled source. This covers the dispatcher's three callees, their
