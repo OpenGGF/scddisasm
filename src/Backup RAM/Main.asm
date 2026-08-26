@@ -15440,8 +15440,27 @@ L_NonUSA_FF5672:
 L_NonUSA_FF5676:
 	rts
 L_NonUSA_FF5678:
-	dc.b	$61,$00,$00,$3C,$66,$12,$61,$00,$00,$12,$66,$0A,$61,$00
-	dc.b	$00,$1E,$66,$04,$70,$00,$4E,$75,$70,$FF,$4E,$75,$61,$00,$00,$82
+	bsr.w	$FF56B6
+L_NonUSA_FF567C:
+	bne.b	L_NonUSA_FF5690
+L_NonUSA_FF567E:
+	bsr.w	L_NonUSA_FF5692
+L_NonUSA_FF5682:
+	bne.b	L_NonUSA_FF568E
+L_NonUSA_FF5684:
+	bsr.w	$FF56A4
+L_NonUSA_FF5688:
+	bne.b	L_NonUSA_FF568E
+L_NonUSA_FF568A:
+	moveq	#$0, d0
+L_NonUSA_FF568C:
+	rts
+L_NonUSA_FF568E:
+	moveq	#$FF, d0
+L_NonUSA_FF5690:
+	rts
+L_NonUSA_FF5692:
+	dc.b	$61,$00,$00,$82
 	dc.b	$41,$F8,$CD,$60,$61,$00,$E5,$DC,$61,$00,$E8,$12,$4E,$75,$61,$00
 	dc.b	$00,$8A,$41,$F8,$CD,$70,$61,$00,$E5,$CA,$61,$00,$E8,$24,$4E,$75
 	dc.b	$61,$00,$00,$5E,$41,$F8,$CD,$60,$61,$00,$E5,$B8,$61,$00,$E7,$DC
