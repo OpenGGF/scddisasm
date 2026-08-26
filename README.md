@@ -950,6 +950,14 @@ performs the shared bitstream setup before the decompression routine at
 semantic decomposition. Japan, USA, and Europe still produce byte-exact
 component outputs.
 
+The next non-USA `BRAMMAIN.MMD` bitstream decoder and four output entry points
+from `$FF633A` through `$FF63DC` (163 bytes) are now labeled source. The
+decoder extracts indexed values from the bitstream, assembles packed output
+words, and dispatches through the entry-specific output handlers; the next
+routine begins at `$FF63DE` and remains explicit source bytes pending semantic
+decomposition. Japan, USA, and Europe still produce byte-exact component
+outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`

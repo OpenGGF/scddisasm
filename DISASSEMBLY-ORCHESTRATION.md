@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN decoder/output milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` bitstream decoder and four output entry points from `$FF633A`
+  through `$FF63DC` (163 bytes) are now labeled source. The decoder extracts
+  indexed values from the bitstream, assembles packed output words, and
+  dispatches through the entry-specific output handlers; the next routine
+  begins at `$FF63DE` and remains explicit source bytes pending semantic
+  decomposition. Fresh guarded displayless Japan, Europe, and USA
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN decode-setup milestone:** The Japan/Europe
   `BRAMMAIN.MMD` dual-entry setup from `$FF62E8` through `$FF6339` (82 bytes)
   is now labeled source. It saves the working registers, selects the
