@@ -3,6 +3,14 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` buffer-copy routine from `$FF503C` through `$FF5049`
+  (14 bytes) is now labeled source. It copies three longwords from `a0` to
+  `a1`, clears the trailing byte, and returns; the next raw routine begins at
+  `$FF504A`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and
+  zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` buffer-preparation helper from `$FF5014` through `$FF503B`
   (40 bytes) is now labeled source. It calls the regional `$FF5716` setup
   helper, checks `$CD16`, uses `$FF4F2A` and `$FF5650` for the non-special

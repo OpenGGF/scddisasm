@@ -576,6 +576,12 @@ non-special path, and selects the `$FF3C6C` table for the special path before
 converging at the shared copy routine beginning at `$FF503C`. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` buffer-copy routine from `$FF503C` through
+`$FF5049` (14 bytes) is now labeled source. It copies three longwords from
+`a0` to `a1`, clears the trailing byte, and returns; the next raw routine
+begins at `$FF504A`. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
