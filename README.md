@@ -687,6 +687,14 @@ clears or sets `$FF0F1F` on the two result paths; the following raw routine
 begins at `$FF532C`. Japan, USA, and Europe still produce byte-exact component
 outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` record-animation/update helper from
+`$FF532C` through `$FF53A5` (122 bytes) is now labeled source. It computes the
+active record span, clamps the count to `$100`, updates the `$8(a1)` field,
+copies active four-word blocks from `$200044`, fills remaining blocks with
+zeroes, and applies the final `$10(a1)`/`$6(a1)` status update; the following
+raw routine begins at `$FF53A6`. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

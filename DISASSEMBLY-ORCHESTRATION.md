@@ -3,6 +3,16 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` record-animation/update helper from `$FF532C` through
+  `$FF53A5` (122 bytes) is now labeled source. It computes the active record
+  span, clamps the count to `$100`, updates the `$8(a1)` field, copies active
+  four-word blocks from `$200044`, fills remaining blocks with zeroes, and
+  applies the final `$10(a1)`/`$6(a1)` status update; the following raw routine
+  begins at `$FF53A6`. Fresh guarded displayless Japan, USA, and Europe
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` status/update helper from `$FF5304` through `$FF532B`
   (40 bytes) is now labeled source. It initializes the status query, points at
   the `$FF3C6C` table, calls the `$FF3C78` and `$FF3EA0` helpers, and clears or
