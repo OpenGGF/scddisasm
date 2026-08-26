@@ -14477,10 +14477,35 @@ L_NonUSA_FF4FD8:
 L_NonUSA_FF4FDA:
 	rts
 L_NonUSA_FF4FDC:
-	dc.b	$0C,$38,$00,$02,$CD,$17,$67,$22,$41,$F8
-	dc.b	$CD,$60,$61,$00,$01,$4A,$67,$0C,$41,$F8,$CD,$60,$43,$F8,$CD,$70
-	dc.b	$60,$00,$00,$44,$41,$F8,$CD,$30,$43,$F8,$CD,$70,$60,$00,$00,$38
-	dc.b	$41,$F9,$00,$FF,$3C,$6C,$43,$F8,$CD,$70,$60,$00,$00,$2A,$61,$00
+	cmpi.b	#$2, $FFFFCD17.w
+L_NonUSA_FF4FE2:
+	beq.b	L_NonUSA_FF5006
+L_NonUSA_FF4FE4:
+	lea.l	$FFFFCD60.w, a0
+L_NonUSA_FF4FE8:
+	bsr.w	$FF5134
+L_NonUSA_FF4FEC:
+	beq.b	L_NonUSA_FF4FFA
+L_NonUSA_FF4FEE:
+	lea.l	$FFFFCD60.w, a0
+L_NonUSA_FF4FF2:
+	lea.l	$FFFFCD70.w, a1
+L_NonUSA_FF4FF6:
+	bra.w	$FF503C
+L_NonUSA_FF4FFA:
+	lea.l	$FFFFCD30.w, a0
+L_NonUSA_FF4FFE:
+	lea.l	$FFFFCD70.w, a1
+L_NonUSA_FF5002:
+	bra.w	$FF503C
+L_NonUSA_FF5006:
+	lea.l	$FF3C6C.l, a0
+L_NonUSA_FF500C:
+	lea.l	$FFFFCD70.w, a1
+L_NonUSA_FF5010:
+	bra.w	$FF503C
+L_NonUSA_FF5014:
+	dc.b	$61,$00
 	dc.b	$07,$00,$0C,$38,$00,$02,$CD,$16,$67,$12,$61,$00,$FF,$08,$30,$29
 	dc.b	$00,$06,$61,$00,$06,$26,$43,$F8,$CD,$60,$60,$0A,$41,$F9,$00,$FF
 	dc.b	$3C,$6C,$43,$F8,$CD,$60,$22,$D8,$22,$D8,$22,$D8,$13,$7C,$00,$00

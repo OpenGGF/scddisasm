@@ -562,6 +562,13 @@ against values 1, 3, 4, and 5 and returns through the shared `$FF4FDA` tail;
 the next raw routine begins at `$FF4FDC`. Japan, USA, and Europe still
 produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` setup/table-selection routine from
+`$FF4FDC` through `$FF5013` (56 bytes) is now labeled source. It checks
+`$CD17`, selects the `$CD60` or `$CD30` buffer path using `$FF5134`, preserves
+the `$FF3C6C` table path, and converges through `$FF503C`; the next raw
+routine begins at `$FF5014`. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

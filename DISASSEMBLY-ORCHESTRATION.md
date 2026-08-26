@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` setup/table-selection routine from `$FF4FDC` through
+  `$FF5013` (56 bytes) is now labeled source. It checks `$CD17`, selects the
+  `$CD60` or `$CD30` buffer path using `$FF5134`, preserves the `$FF3C6C`
+  table path, and converges through `$FF503C`; the next raw routine begins at
+  `$FF5014`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and
+  zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` status predicate from `$FF4FB8` through `$FF4FDB`
   (36 bytes) is now labeled source. It tests the `$CD1E` status against
   values 1, 3, 4, and 5 and returns through the shared `$FF4FDA` tail; the
