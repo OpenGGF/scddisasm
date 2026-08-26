@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **BRAMMAIN coordinate-bound helper milestone:** The USA
+  `BRAMMAIN.MMD` helper pair from `$FF2AFA` through `$FF2B55` and the
+  Japan/Europe pair from `$FF2AEC` through `$FF2B47` (92 bytes in each layout)
+  are now labeled 68000 source. They test object coordinates against the
+  active viewport bounds and return the in-range/out-of-range result; the
+  following command dispatchers begin at `$FF2B56` in USA and `$FF2B48` in
+  Japan/Europe. Fresh guarded displayless Japan, Europe, and USA builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN object-clear milestone:** The Japan/Europe
   `BRAMMAIN.MMD` object-table clearing routine from `$FF6520` through
   `$FF656B` (76 bytes) is now labeled source. It walks the five compact

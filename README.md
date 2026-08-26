@@ -110,6 +110,14 @@ second loads the five-byte `DI, DI, JP $0000` Z80 stub, toggles the Z80 reset,
 and resumes the Z80 through the existing handoff helper. The next latch and
 event-handler routines begin at `$FF25B8`.
 
+The coordinate-bound helper pair immediately following the object-record
+variants is now labeled source in both regional layouts: USA
+`$FF2AFA-$FF2B55` and Japan/Europe `$FF2AEC-$FF2B47` (92 bytes each). The
+helpers test the object coordinates against the active viewport bounds and
+return the corresponding in-range/out-of-range result; the following command
+dispatchers begin at `$FF2B56` in USA and `$FF2B48` in Japan/Europe. Japan,
+USA, and Europe still produce byte-exact component outputs.
+
 The non-USA `BRAMMAIN.MMD` latch and event-handler routines from `$FF25B8`
 through `$FF25F9` (66 bytes) are now labeled source. They update the input
 latches, dispatch the pending `$F00B`/`$F00C` event, and restore the handoff
@@ -176,8 +184,8 @@ returns at `$FF2A96`; the next variant begins at `$FF2A98`.
 
 The final bit-selected non-USA `BRAMMAIN.MMD` object-record helper from
 `$FF2A98` through `$FF2AEB` (84 bytes) is now labeled source. It emits the
-remaining record format and returns at `$FF2AEA`; the following data table
-begins at `$FF2AEC`.
+remaining record format and returns at `$FF2AEA`; the following coordinate-
+bound helper pair is covered above.
 
 The non-USA `BRAMMAIN.MMD` command dispatcher from `$FF2B48` through
 `$FF2B93` (76 bytes) is now labeled source. It reads a command byte from
