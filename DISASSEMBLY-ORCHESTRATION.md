@@ -3,6 +3,16 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` VDP text-upload loop from `$FF5266` through `$FF528F`
+  (42 bytes) is now labeled source. It initializes the VDP destination, reads
+  null-terminated character data, converts each character through the
+  following `$FF5290` helper, adds the caller-supplied offset, writes each word,
+  and loops until the terminator; the conversion helper begins at `$FF5290`.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` character-address helper from `$FF523A` through `$FF5265`
   (44 bytes) is now labeled source. It masks the character code, normalizes
   the tile offset in `$80`-byte units, consults the shared status helper, and
