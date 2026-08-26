@@ -17608,14 +17608,69 @@ L_NonUSA_FF6716:
 	dc.l	$00000008
 	dc.l	$00000000
 L_NonUSA_FF6796:
-	dc.b	$52,$38,$CD,$28
-	dc.b	$41,$F8,$C4,$20,$43,$F8,$CD,$20,$45,$F9,$00,$FF,$67,$FE,$7A,$07
-	dc.b	$4A,$11,$67,$2C,$0C,$11,$00,$FF,$66,$0A,$08,$38,$00,$02,$CD,$28
-	dc.b	$67,$18,$60,$10,$0C,$11,$00,$01,$67,$0A,$53,$11,$08,$38,$00,$02
-	dc.b	$CD,$28,$67,$06,$30,$3C,$00,$04,$60,$0A,$30,$3C,$00,$06,$60,$04
-	dc.b	$30,$3C,$00,$02,$78,$02,$36,$32,$00,$00,$34,$2A,$00,$00,$31,$83
-	dc.b	$20,$00,$D4,$FC,$00,$08,$51,$CC,$FF,$EE,$D2,$FC,$00,$01,$51,$CD
-	dc.b	$FF,$B0,$4E,$75,$00,$10,$0A,$66,$00,$E0,$0C,$88,$00,$14,$0C,$88
+	addq.b	#$1, $FFFFCD28.w
+L_NonUSA_FF679A:
+	lea.l	$FFFFC420.w, a0
+L_NonUSA_FF679E:
+	lea.l	$FFFFCD20.w, a1
+L_NonUSA_FF67A2:
+	lea.l	$FF67FE.l, a2
+L_NonUSA_FF67A8:
+	moveq	#$7, d5
+L_NonUSA_FF67AA:
+	tst.b	(a1)
+L_NonUSA_FF67AC:
+	beq.b	L_NonUSA_FF67DA
+L_NonUSA_FF67AE:
+	cmpi.b	#$FF, (a1)
+L_NonUSA_FF67B2:
+	bne.b	L_NonUSA_FF67BE
+L_NonUSA_FF67B4:
+	btst.b	#$2, $FFFFCD28.w
+L_NonUSA_FF67BA:
+	beq.b	L_NonUSA_FF67D4
+L_NonUSA_FF67BC:
+	bra.b	L_NonUSA_FF67CE
+L_NonUSA_FF67BE:
+	cmpi.b	#$1, (a1)
+L_NonUSA_FF67C2:
+	beq.b	L_NonUSA_FF67CE
+L_NonUSA_FF67C4:
+	subq.b	#$1, (a1)
+L_NonUSA_FF67C6:
+	btst.b	#$2, $FFFFCD28.w
+L_NonUSA_FF67CC:
+	beq.b	L_NonUSA_FF67D4
+L_NonUSA_FF67CE:
+	move.w	#$4, d0
+L_NonUSA_FF67D2:
+	bra.b	L_NonUSA_FF67DE
+L_NonUSA_FF67D4:
+	move.w	#$6, d0
+L_NonUSA_FF67D8:
+	bra.b	L_NonUSA_FF67DE
+L_NonUSA_FF67DA:
+	move.w	#$2, d0
+L_NonUSA_FF67DE:
+	moveq	#$2, d4
+L_NonUSA_FF67E0:
+	move.w	(a2, d0.w), d3
+L_NonUSA_FF67E4:
+	move.w	$0(a2), d2
+L_NonUSA_FF67E8:
+	move.w	d3, (a0, d2.w)
+L_NonUSA_FF67EC:
+	adda.w	#$8, a2
+L_NonUSA_FF67F0:
+	dbra	d4, L_NonUSA_FF67E0
+L_NonUSA_FF67F4:
+	adda.w	#$1, a1
+L_NonUSA_FF67F8:
+	dbra	d5, L_NonUSA_FF67AA
+L_NonUSA_FF67FC:
+	rts
+L_NonUSA_FF67FE:
+	dc.b	$00,$10,$0A,$66,$00,$E0,$0C,$88,$00,$14,$0C,$88
 	dc.b	$00,$E0,$0C,$88,$00,$1C,$0E,$AA,$00,$E0,$0C,$88,$00,$2A,$0A,$66
 	dc.b	$00,$E0,$0C,$88,$00,$2C,$0C,$88,$00,$E0,$0C,$88,$00,$2E,$0E,$AA
 	dc.b	$00,$E0,$0C,$88,$00,$30,$0A,$66,$00,$E0,$0C,$88,$00,$32,$0C,$88

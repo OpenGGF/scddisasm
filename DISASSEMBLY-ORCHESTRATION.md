@@ -39,10 +39,21 @@
   and VDP-register table-copy routine from `$FF6700` through `$FF6715` (22
   bytes) are now labeled source. The associated 32-word register table from
   `$FF6716` through `$FF6795` (128 bytes) is also explicit source data. The
-  following routine begins at `$FF6796` and remains explicit source bytes
-  pending semantic decomposition. Fresh guarded displayless Japan, Europe,
-  and USA builds/checks report every listed target as an exact match, with zero
-  differences and zero missing targets. No proprietary bytes were added.
+  following routine begins at `$FF6796` and is covered by the next milestone.
+  Fresh guarded displayless Japan, Europe, and USA builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN state-table update milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` state-table update routine from `$FF6796` through `$FF67FD`
+  (104 bytes) is now labeled source. It increments the `$CD28` state byte,
+  walks the eight `$CD20` status entries, selects one of the three-word
+  records at `$FF67FE`, and writes each selected value into the `$C420` shadow
+  table. The following data table begins at `$FF67FE` and remains explicit
+  source bytes pending semantic decomposition. Fresh guarded displayless
+  Japan, Europe, and USA builds/checks report every listed target as an exact
+  match, with zero differences and zero missing targets. No proprietary bytes
+  were added.
 
 - **Non-USA BRAMMAIN upload-record milestone:** The Japan/Europe
   `BRAMMAIN.MMD` two-record upload table from `$FF6504` through `$FF651F` (28

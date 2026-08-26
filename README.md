@@ -1020,9 +1020,16 @@ The next non-USA `BRAMMAIN.MMD` bit-width helper from `$FF66F0` through
 `$FF66FF` (16 bytes) and VDP-register table-copy routine from `$FF6700`
 through `$FF6715` (22 bytes) are now labeled source. The associated 32-word
 register table from `$FF6716` through `$FF6795` (128 bytes) is also explicit
-source data. The following routine begins at `$FF6796` and remains explicit
-source bytes pending semantic decomposition. Japan, USA, and Europe still
-produce byte-exact component outputs.
+source data. The following routine begins at `$FF6796` and is covered below.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
+The next non-USA `BRAMMAIN.MMD` state-table update routine from `$FF6796`
+through `$FF67FD` (104 bytes) is now labeled source. It increments the
+`$CD28` state byte, walks the eight `$CD20` status entries, selects one of the
+three-word records at `$FF67FE`, and writes each selected value into the `$C420`
+shadow table. The following data table begins at `$FF67FE` and remains
+explicit source bytes pending semantic decomposition. Japan, USA, and Europe
+still produce byte-exact component outputs.
 
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
