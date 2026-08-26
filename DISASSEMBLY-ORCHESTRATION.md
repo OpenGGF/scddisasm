@@ -96,6 +96,14 @@
   and USA builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.
 
+- **Non-USA BRAMMAIN data-block continuation milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` data block from `$FF69FE` through `$FF6A7D` (128 bytes) is now
+  explicit structured `dc.l` source, preserving its contiguous table layout.
+  The following data begins at `$FF6A7E` and remains explicit source bytes
+  pending semantic decomposition. Fresh guarded displayless Japan, Europe,
+  and USA builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN upload-record milestone:** The Japan/Europe
   `BRAMMAIN.MMD` two-record upload table from `$FF6504` through `$FF651F` (28
   bytes) is now explicit `dc.l`/`dc.w` source, retaining its two 14-byte
