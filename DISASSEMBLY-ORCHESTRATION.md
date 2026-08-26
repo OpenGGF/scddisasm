@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN upload-record milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` two-record upload table from `$FF6504` through `$FF651F` (28
+  bytes) is now explicit `dc.l`/`dc.w` source, retaining its two 14-byte
+  regional upload records. The following helper begins at `$FF6520` and
+  remains explicit source bytes pending semantic decomposition. Fresh guarded
+  displayless Japan, Europe, and USA builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN table-upload milestone:** The Japan/Europe
   `BRAMMAIN.MMD` table-upload routine from `$FF64AA` through `$FF6503` (90
   bytes) is now labeled source. It selects a regional table record, invokes

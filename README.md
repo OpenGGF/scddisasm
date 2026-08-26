@@ -987,6 +987,12 @@ selected 20-word block to the VDP; the following record table begins at
 `$FF6504` and remains explicit source data pending semantic decomposition.
 Japan, USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA `BRAMMAIN.MMD` two-record upload table from `$FF6504` through
+`$FF651F` (28 bytes) is now explicit `dc.l`/`dc.w` source, retaining its two
+14-byte regional upload records. The following helper begins at `$FF6520` and
+remains explicit source bytes pending semantic decomposition. Japan, USA, and
+Europe still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
