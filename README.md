@@ -646,6 +646,13 @@ two-byte table values through `$FF5290`, updates the `$FF5222`/`$FF522E`
 buffers through `$FF523A`, and calls the following routine at `$FF51E4`; Japan,
 USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` VDP character-transfer helper from
+`$FF51E4` through `$FF5221` (62 bytes) is now labeled source. It initializes
+the VDP destination, iterates eleven entries with the `$A` counter, applies the
+`$6000`/`$4000` character-bank cases, writes each word, and returns; the
+following data begins at `$FF5222`. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

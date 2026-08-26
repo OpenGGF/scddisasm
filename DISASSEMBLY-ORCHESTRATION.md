@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` VDP character-transfer helper from `$FF51E4` through
+  `$FF5221` (62 bytes) is now labeled source. It initializes the VDP
+  destination, iterates eleven entries with the `$A` counter, applies the
+  `$6000`/`$4000` character-bank cases, writes each word, and returns; the
+  following data begins at `$FF5222`. Fresh guarded displayless Japan, USA,
+  and Europe builds/checks report every listed target as an exact match, with
+  zero differences and zero missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` data table at `$FF5190` through `$FF519B` (12 bytes) is now
   expressed as three labeled longwords, followed by the `$FF519C–$FF51E3`
   helper (72 bytes) in labeled source. The helper generates the two-byte table
