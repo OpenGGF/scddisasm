@@ -882,6 +882,14 @@ state 2; the following handler begins at `$FF6064` and remains explicit source
 bytes pending semantic decomposition. Japan, USA, and Europe still produce
 byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` handler from `$FF6064` through `$FF6099`
+(54 bytes) is now labeled source. It performs the common object update,
+waits for the horizontal coordinate to reach its target, initializes the
+vertical movement field, and applies its direction correction; the following
+handler begins at `$FF609A` and remains explicit source bytes pending semantic
+decomposition. Japan, USA, and Europe still produce byte-exact component
+outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`

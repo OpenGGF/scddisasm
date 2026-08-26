@@ -16559,11 +16559,35 @@ L_NonUSA_FF605C:
 L_NonUSA_FF6062:
 	rts
 L_NonUSA_FF6064:
-	dc.b	$61,$00
-	dc.b	$02,$00,$4E,$B9,$00,$FF,$28,$34,$30,$28,$00,$32,$B0,$68,$00,$08
-	dc.b	$67,$02,$4E,$75,$11,$7C,$00,$0C,$00,$24,$42,$68,$00,$10,$31,$7C
-	dc.b	$04,$00,$00,$12,$30,$28,$00,$34,$B0,$68,$00,$0C,$6E,$04,$44,$68
-	dc.b	$00,$12,$4E,$75,$30,$28,$00,$34,$B0,$68,$00,$0C,$67,$0A,$61,$00
+	bsr.w	$FF6266
+L_NonUSA_FF6068:
+	jsr	$FF2834.l
+L_NonUSA_FF606E:
+	move.w	$32(a0), d0
+L_NonUSA_FF6072:
+	cmp.w	$8(a0), d0
+L_NonUSA_FF6076:
+	beq.b	L_NonUSA_FF607A
+L_NonUSA_FF6078:
+	rts
+L_NonUSA_FF607A:
+	move.b	#$C, $24(a0)
+L_NonUSA_FF6080:
+	clr.w	$10(a0)
+L_NonUSA_FF6084:
+	move.w	#$400, $12(a0)
+L_NonUSA_FF608A:
+	move.w	$34(a0), d0
+L_NonUSA_FF608E:
+	cmp.w	$C(a0), d0
+L_NonUSA_FF6092:
+	bgt.b	L_NonUSA_FF6098
+L_NonUSA_FF6094:
+	neg.w	$12(a0)
+L_NonUSA_FF6098:
+	rts
+L_NonUSA_FF609A:
+	dc.b	$30,$28,$00,$34,$B0,$68,$00,$0C,$67,$0A,$61,$00
 	dc.b	$01,$C0,$4E,$F9,$00,$FF,$28,$34,$52,$38,$CD,$2E,$11,$7C,$00,$0E
 	dc.b	$00,$24,$4E,$F9,$00,$FF,$28,$34,$4A,$38,$CD,$2E,$67,$06,$4E,$F9
 	dc.b	$00,$FF,$28,$34,$11,$7C,$00,$02,$00,$24,$4E,$75,$00,$02,$01,$FC
