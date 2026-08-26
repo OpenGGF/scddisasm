@@ -15418,10 +15418,29 @@ L_NonUSA_FF564A:
 L_NonUSA_FF564E:
 	rts
 L_NonUSA_FF5650:
-	dc.b	$48,$E7,$80,$00,$02,$80
-	dc.b	$00,$00,$FF,$FF,$C0,$FC,$00,$10,$48,$E7,$00,$40,$61,$00,$F8,$C6
-	dc.b	$20,$49,$D0,$FC,$00,$30,$4C,$DF,$02,$00,$D0,$C0,$4C,$DF,$00,$01
-	dc.b	$4E,$75,$61,$00,$00,$3C,$66,$12,$61,$00,$00,$12,$66,$0A,$61,$00
+	movem.l	d0, -(a7)
+L_NonUSA_FF5654:
+	andi.l	#$FFFF, d0
+L_NonUSA_FF565A:
+	mulu.w	#$10, d0
+L_NonUSA_FF565E:
+	movem.l	a1, -(a7)
+L_NonUSA_FF5662:
+	bsr.w	$FF4F2A
+L_NonUSA_FF5666:
+	movea.l	a1, a0
+L_NonUSA_FF5668:
+	adda.w	#$30, a0
+L_NonUSA_FF566C:
+	movem.l	(a7)+, a1
+L_NonUSA_FF5670:
+	adda.w	d0, a0
+L_NonUSA_FF5672:
+	movem.l	(a7)+, d0
+L_NonUSA_FF5676:
+	rts
+L_NonUSA_FF5678:
+	dc.b	$61,$00,$00,$3C,$66,$12,$61,$00,$00,$12,$66,$0A,$61,$00
 	dc.b	$00,$1E,$66,$04,$70,$00,$4E,$75,$70,$FF,$4E,$75,$61,$00,$00,$82
 	dc.b	$41,$F8,$CD,$60,$61,$00,$E5,$DC,$61,$00,$E8,$12,$4E,$75,$61,$00
 	dc.b	$00,$8A,$41,$F8,$CD,$70,$61,$00,$E5,$CA,$61,$00,$E8,$24,$4E,$75

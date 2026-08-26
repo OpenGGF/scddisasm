@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN slot-address helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` slot-address helper from `$FF5650` through `$FF5677`
+  (40 bytes) is now labeled source. It masks and scales the selected record
+  index, obtains the active record base through the regional setup helper,
+  and returns the corresponding record slot address; the following raw
+  routine begins at `$FF5678`. Fresh guarded displayless Japan, USA, and
+  Europe builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN initialization/update helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` initialization/update routine from `$FF5610` through
   `$FF564F` (64 bytes) is now labeled source. It refreshes the shared timing

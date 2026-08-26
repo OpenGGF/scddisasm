@@ -767,6 +767,13 @@ record, derives the `$14(a1)` timing counter, and returns the normalized
 record index; the following raw routine begins at `$FF5650`. Japan, USA,
 and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` slot-address helper from `$FF5650`
+through `$FF5677` (40 bytes) is now labeled source. It masks and scales the
+selected record index, obtains the active record base through the regional
+setup helper, and returns the corresponding record slot address; the
+following raw routine begins at `$FF5678`. Japan, USA, and Europe still
+produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
