@@ -3,6 +3,16 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` initialization/reset helper from `$FF52CA` through `$FF5303`
+  (58 bytes) is now labeled source. It checks the shared status predicates,
+  calls the `$FF4F2A` setup helper, clears the `$2/$4/$6/$8/$A/$C/$12` record
+  fields, and invokes the existing `$FF5610`, `$FF532C`, and `$FF53E4`
+  helpers; the following raw routine begins at `$FF5304`. Fresh guarded
+  displayless Japan, USA, and Europe builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` character-conversion helper from `$FF5290` through `$FF52C9`
   (58 bytes) is now labeled source. It maps uppercase letters, decimal digits,
   and underscore to the game's character codes and returns the `$26` default

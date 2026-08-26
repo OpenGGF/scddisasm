@@ -14900,10 +14900,39 @@ L_NonUSA_FF52C4:
 L_NonUSA_FF52C8:
 	rts
 L_NonUSA_FF52CA:
-	dc.b	$61,$00,$E9,$1E,$67,$06,$61,$00,$E9,$20,$67,$2C
-	dc.b	$61,$00,$FC,$52,$42,$69,$00,$02,$42,$69,$00,$04,$42,$69,$00,$06
-	dc.b	$42,$69,$00,$08,$42,$29,$00,$0A,$42,$29,$00,$0C,$42,$69,$00,$12
-	dc.b	$61,$00,$03,$18,$61,$00,$00,$30,$61,$00,$00,$E4,$4E,$75,$70,$00
+	bsr.w	$FF3BEA
+L_NonUSA_FF52CE:
+	beq.b	L_NonUSA_FF52D6
+L_NonUSA_FF52D0:
+	bsr.w	$FF3BF2
+L_NonUSA_FF52D4:
+	beq.b	L_NonUSA_FF5302
+L_NonUSA_FF52D6:
+	bsr.w	$FF4F2A
+L_NonUSA_FF52DA:
+	clr.w	$2(a1)
+L_NonUSA_FF52DE:
+	clr.w	$4(a1)
+L_NonUSA_FF52E2:
+	clr.w	$6(a1)
+L_NonUSA_FF52E6:
+	clr.w	$8(a1)
+L_NonUSA_FF52EA:
+	clr.b	$A(a1)
+L_NonUSA_FF52EE:
+	clr.b	$C(a1)
+L_NonUSA_FF52F2:
+	clr.w	$12(a1)
+L_NonUSA_FF52F6:
+	bsr.w	$FF5610
+L_NonUSA_FF52FA:
+	bsr.w	$FF532C
+L_NonUSA_FF52FE:
+	bsr.w	$FF53E4
+L_NonUSA_FF5302:
+	rts
+L_NonUSA_FF5304:
+	dc.b	$70,$00
 	dc.b	$61,$00,$E8,$D2,$41,$F9,$00,$FF,$3C,$6C,$61,$00,$E9,$66,$61,$00
 	dc.b	$EB,$8A,$66,$08,$42,$39,$00,$FF,$0F,$1F,$4E,$75,$13,$FC,$00,$01
 	dc.b	$00,$FF,$0F,$1F,$4E,$75,$61,$00,$FB,$FC,$70,$00,$30,$29,$00,$12
