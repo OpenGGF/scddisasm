@@ -934,6 +934,14 @@ fixed-point position updates; the following helper begins at `$FF6280` and
 remains explicit source bytes pending semantic decomposition. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA `BRAMMAIN.MMD` helper and parameter table from `$FF6280`
+through `$FF62E7` (104 bytes) is now labeled source. It selects the output
+target for each motion component, emits the transformed data, and preserves
+the eight-entry output/handler table; the following decompression routine
+begins at `$FF62E8` and remains explicit source bytes pending semantic
+decomposition. Japan, USA, and Europe still produce byte-exact component
+outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`

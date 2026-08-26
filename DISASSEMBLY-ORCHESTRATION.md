@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN output-helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper and parameter table from `$FF6280` through `$FF62E7`
+  (104 bytes) is now labeled source. It selects the output target for each
+  motion component, emits the transformed data, and preserves the eight-entry
+  output/handler table; the following decompression routine begins at
+  `$FF62E8` and remains explicit source bytes pending semantic decomposition.
+  Fresh guarded displayless Japan, Europe, and USA builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN movement-helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` block from `$FF6220` through `$FF627F` (96 bytes) is now
   labeled source. It defines the motion parameter table and the helpers that
