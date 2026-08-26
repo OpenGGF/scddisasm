@@ -839,6 +839,13 @@ negates the value, sets subtype `2`, and calls the shared helper at
 `$FF6266`; the following raw routine begins at `$FF58E6`. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` constant-coordinate helper from
+`$FF596E` through `$FF5977` (10 bytes) is now labeled source. It loads the
+fixed coordinate values `$00B4` and `$0040` into `d1` and `d2` before
+returning; the preceding unresolved dispatcher remains at `$FF5936` and the
+following raw routine begins at `$FF5978`. Japan, USA, and Europe still
+produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` position/update dispatcher from
 `$FF58E6` through `$FF5935` (80 bytes) is now labeled source. It sets the
 object flag at `$FF58E6`, compares the object's position against the stored

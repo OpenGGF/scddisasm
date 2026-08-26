@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN constant-coordinate helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF596E` through `$FF5977` (10 bytes) is now
+  labeled source. It loads the fixed coordinate values `$00B4` and `$0040`
+  into `d1` and `d2` before returning; the preceding unresolved dispatcher
+  remains at `$FF5936` and the following raw routine begins at `$FF5978`.
+  Fresh guarded displayless Japan, USA, and Europe builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN position/update dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` span from `$FF58E6` through `$FF5935` (80 bytes) is now
   labeled source. It sets the object flag at `$FF58E6`, compares the
