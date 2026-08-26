@@ -28,10 +28,20 @@
   `$FF66CF` (144 bytes) is now labeled source. It decodes the five packed flag
   bits, combines the selected high-bit offsets with the shifted object value,
   and returns the reconstructed word; the associated 16-word mask table from
-  `$FF66D0` through `$FF66EF` (32 bytes) is also explicit source data. The next
-  helper begins at `$FF66F0` and remains explicit source bytes pending
-  semantic decomposition. Fresh guarded displayless Japan, Europe, and USA
-  builds/checks report every listed target as an exact match, with zero
+  `$FF66D0` through `$FF66EF` (32 bytes) is also explicit source data. The
+  following helper begins at `$FF66F0` and is covered by the next milestone.
+  Fresh guarded displayless Japan, Europe, and USA builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN bit-width and VDP-table milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` bit-width helper from `$FF66F0` through `$FF66FF` (16 bytes)
+  and VDP-register table-copy routine from `$FF6700` through `$FF6715` (22
+  bytes) are now labeled source. The associated 32-word register table from
+  `$FF6716` through `$FF6795` (128 bytes) is also explicit source data. The
+  following routine begins at `$FF6796` and remains explicit source bytes
+  pending semantic decomposition. Fresh guarded displayless Japan, Europe,
+  and USA builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.
 
 - **Non-USA BRAMMAIN upload-record milestone:** The Japan/Europe

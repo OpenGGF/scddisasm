@@ -17549,17 +17549,66 @@ L_NonUSA_FF66D0:
 	dc.l	$1FFF3FFF
 	dc.l	$7FFFFFFF
 L_NonUSA_FF66F0:
-	dc.b	$9C,$40,$0C,$46,$00,$09,$64,$06,$50,$46
-	dc.b	$E1,$45,$1A,$18,$4E,$75,$41,$F9,$00,$FF,$67,$16,$43,$F8,$C4,$20
-	dc.b	$30,$3C,$00,$1F,$22,$D8,$51,$C8,$FF,$FC,$4E,$75,$0A,$66,$0E,$AA
-	dc.b	$08,$44,$08,$00,$0A,$66,$0C,$88,$0E,$AA,$00,$E0,$0A,$66,$0E,$EE
-	dc.b	$0C,$88,$0A,$66,$0C,$88,$0E,$CA,$0E,$AA,$0C,$68,$0A,$66,$0E,$AA
-	dc.b	$08,$44,$0C,$88,$0A,$66,$0C,$88,$0E,$AA,$0E,$AA,$0A,$66,$0C,$88
-	dc.b	$0C,$88,$0A,$66,$0C,$88,$0E,$CA,$0E,$AA,$0E,$AA,$00,$00,$0E,$AA
-	dc.b	$00,$00,$00,$00,$0E,$62,$00,$00,$00,$00,$00,$00,$00,$00,$06,$22
-	dc.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$06,$66,$00,$00
-	dc.b	$0C,$22,$0E,$44,$0E,$66,$0E,$88,$0E,$EE,$0A,$AA,$08,$88,$04,$44
-	dc.b	$08,$AE,$04,$6A,$00,$00,$00,$08,$00,$00,$00,$00,$52,$38,$CD,$28
+	sub.w	d0, d6
+L_NonUSA_FF66F2:
+	cmpi.w	#$9, d6
+L_NonUSA_FF66F6:
+	bcc.b	L_NonUSA_FF66FE
+L_NonUSA_FF66F8:
+	addq.w	#$8, d6
+L_NonUSA_FF66FA:
+	asl.w	#$8, d5
+L_NonUSA_FF66FC:
+	move.b	(a0)+, d5
+L_NonUSA_FF66FE:
+	rts
+L_NonUSA_FF6700:
+	lea.l	$FF6716.l, a0
+L_NonUSA_FF6706:
+	lea.l	$FFFFC420.w, a1
+L_NonUSA_FF670A:
+	move.w	#$1F, d0
+L_NonUSA_FF670E:
+	move.l	(a0)+, (a1)+
+L_NonUSA_FF6710:
+	dbra	d0, L_NonUSA_FF670E
+L_NonUSA_FF6714:
+	rts
+L_NonUSA_FF6716:
+	dc.l	$0A660EAA
+	dc.l	$08440800
+	dc.l	$0A660C88
+	dc.l	$0EAA00E0
+	dc.l	$0A660EEE
+	dc.l	$0C880A66
+	dc.l	$0C880ECA
+	dc.l	$0EAA0C68
+	dc.l	$0A660EAA
+	dc.l	$08440C88
+	dc.l	$0A660C88
+	dc.l	$0EAA0EAA
+	dc.l	$0A660C88
+	dc.l	$0C880A66
+	dc.l	$0C880ECA
+	dc.l	$0EAA0EAA
+	dc.l	$00000EAA
+	dc.l	$00000000
+	dc.l	$0E620000
+	dc.l	$00000000
+	dc.l	$00000622
+	dc.l	$00000000
+	dc.l	$00000000
+	dc.l	$00000000
+	dc.l	$06660000
+	dc.l	$0C220E44
+	dc.l	$0E660E88
+	dc.l	$0EEE0AAA
+	dc.l	$08880444
+	dc.l	$08AE046A
+	dc.l	$00000008
+	dc.l	$00000000
+L_NonUSA_FF6796:
+	dc.b	$52,$38,$CD,$28
 	dc.b	$41,$F8,$C4,$20,$43,$F8,$CD,$20,$45,$F9,$00,$FF,$67,$FE,$7A,$07
 	dc.b	$4A,$11,$67,$2C,$0C,$11,$00,$FF,$66,$0A,$08,$38,$00,$02,$CD,$28
 	dc.b	$67,$18,$60,$10,$0C,$11,$00,$01,$67,$0A,$53,$11,$08,$38,$00,$02

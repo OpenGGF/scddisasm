@@ -1013,9 +1013,16 @@ through `$FF66CF` (144 bytes) is now labeled source. It decodes the five
 packed flag bits, combines the selected high-bit offsets with the shifted
 object value, and returns the reconstructed word; the associated 16-word mask
 table from `$FF66D0` through `$FF66EF` (32 bytes) is also explicit source data.
-The next helper begins at `$FF66F0` and remains explicit source bytes pending
-semantic decomposition. Japan, USA, and Europe still produce byte-exact
-component outputs.
+The following helper begins at `$FF66F0` and is covered below. Japan, USA, and
+Europe still produce byte-exact component outputs.
+
+The next non-USA `BRAMMAIN.MMD` bit-width helper from `$FF66F0` through
+`$FF66FF` (16 bytes) and VDP-register table-copy routine from `$FF6700`
+through `$FF6715` (22 bytes) are now labeled source. The associated 32-word
+register table from `$FF6716` through `$FF6795` (128 bytes) is also explicit
+source data. The following routine begins at `$FF6796` and remains explicit
+source bytes pending semantic decomposition. Japan, USA, and Europe still
+produce byte-exact component outputs.
 
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
