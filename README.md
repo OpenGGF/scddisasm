@@ -852,6 +852,14 @@ coordinate components, and returns; the following handler begins at `$FF5F9A`
 and remains explicit source bytes pending semantic decomposition. Japan, USA,
 and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5F9A` through `$FF5FF7`
+(94 bytes) is now labeled source. It sets state 10, selects the horizontal
+coordinate offset from `$CD17`, derives the object table address, initializes
+the movement fields, and applies the direction correction before jumping to
+the common object path; the following handler begins at `$FF5FF8` and remains
+explicit source bytes pending semantic decomposition. Japan, USA, and Europe
+still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
