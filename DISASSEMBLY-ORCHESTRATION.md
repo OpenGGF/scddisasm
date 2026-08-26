@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN object-state handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` handler from `$FF585A` through `$FF58B5` (92 bytes) is
+  now labeled source. It checks and updates the object subtype, adjusts the
+  horizontal state value, sets or clears the object flags, and calls the
+  shared helper at `$FF6266`; the following raw routine begins at
+  `$FF58B6`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN coordinate-storage handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` handler from `$FF583A` through `$FF5859` (32 bytes) is
   now labeled source. It raises the status latch, sets the object state and

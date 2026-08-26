@@ -825,6 +825,13 @@ status latch, sets the object state and flags, clears the object field, stores
 the two coordinate values, and returns; the following raw routine begins at
 `$FF585A`. Japan, USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` object-state handler from `$FF585A`
+through `$FF58B5` (92 bytes) is now labeled source. It checks and updates the
+object subtype, adjusts the horizontal state value, sets or clears the object
+flags, and calls the shared helper at `$FF6266`; the following raw routine
+begins at `$FF58B6`. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
