@@ -632,6 +632,13 @@ the two longwords and one byte at `$FF3C6C` against `(a0)`, `$4(a0)`, and
 routine begins at `$FF5158`. Japan, USA, and Europe still produce byte-exact
 component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` shared comparison/upload helper from
+`$FF5158` through `$FF518F` (56 bytes) is now labeled source. It compares
+against the `$FF3C6C` table, branches into the `$4000` VDP upload path when
+needed, increments the character index, and converges through the shared
+`$FF518A` restore tail; the following data begins at `$FF5190`. Japan, USA,
+and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
