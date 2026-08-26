@@ -13996,7 +13996,13 @@ L_NonUSA_FF4C42:
 L_NonUSA_FF4C48:
 	rts
 L_NonUSA_FF4C4A:
-	dc.b	$61,$00,$02,$FE,$66,$02,$4E,$75,$61,$00,$00,$32
+	bsr.w	$FF4F4A
+L_NonUSA_FF4C4E:
+	bne.b	L_NonUSA_FF4C52
+L_NonUSA_FF4C50:
+	rts
+L_NonUSA_FF4C52:
+	dc.b	$61,$00,$00,$32
 	dc.b	$31,$F8,$CD,$18,$CD,$14,$4E,$75,$4E,$B9,$00,$FF,$64,$30,$11,$FC
 	dc.b	$00,$00,$CD,$26,$11,$FC,$00,$00,$CD,$27,$61,$00,$EF,$78,$66,$08
 	dc.b	$11,$FC,$00,$02,$CD,$29,$4E,$75,$11,$FC,$00,$01,$CD,$29,$4E,$75
