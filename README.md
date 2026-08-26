@@ -919,6 +919,14 @@ following helper begins at `$FF61D2` and remains explicit source bytes pending
 semantic decomposition. Japan, USA, and Europe still produce byte-exact
 component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` motion helper from `$FF61D2` through
+`$FF621F` (78 bytes) is now labeled source. It generates and scales the two
+motion components, applies the object direction bit, clears the motion timer,
+and stores the resulting horizontal and vertical values; the following
+code/data block begins at `$FF6220` and remains explicit source bytes pending
+semantic decomposition. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`

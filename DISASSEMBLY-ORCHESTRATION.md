@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN motion-helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` helper from `$FF61D2` through `$FF621F` (78 bytes) is now
+  labeled source. It generates and scales the two motion components, applies
+  the object direction bit, clears the motion timer, and stores the resulting
+  horizontal and vertical values; the following code/data block begins at
+  `$FF6220` and remains explicit source bytes pending semantic decomposition.
+  Fresh guarded displayless Japan, Europe, and USA builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN handler-cluster milestone:** The Japan/Europe
   `BRAMMAIN.MMD` cluster from `$FF6128` through `$FF61D1` (170 bytes) is now
   labeled source. It selects the object variant from `$CD50`, updates the
