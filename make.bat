@@ -19,18 +19,18 @@ for %%F in (BADEND.STM GOODEND.STM PTEST.STM) do (
     )
     copy "%FMV_STREAM_DIR%\%%F" "out\files\%%F" > nul
 )
+for %%F in (ABS.TXT BIB.TXT CPY.TXT) do (
+	if not exist "%ISO_METADATA_DIR%\%%F" (
+		echo Missing externally supplied ISO metadata file: %ISO_METADATA_DIR%\%%F
+		exit /b 1
+	)
+	copy "%ISO_METADATA_DIR%\%%F" "out\files\%%F" > nul
+)
 if "%REGION%"=="1" (
-    where py > nul 2>&1 || (
-        echo Python 3 is required to construct the byte-exact USA ISO filesystem.
-        exit /b 1
-    )
-    for %%F in (ABS.TXT BIB.TXT CPY.TXT) do (
-        if not exist "%ISO_METADATA_DIR%\%%F" (
-            echo Missing externally supplied ISO metadata file: %ISO_METADATA_DIR%\%%F
-            exit /b 1
-        )
-        copy "%ISO_METADATA_DIR%\%%F" "out\files\%%F" > nul
-    )
+	where py > nul 2>&1 || (
+		echo Python 3 is required to construct the byte-exact USA ISO filesystem.
+		exit /b 1
+	)
 )
 cd src
 

@@ -9,9 +9,9 @@ if %REGION%==0 fc /b original\ip_japan.bin out\misc\ip.bin
 if %REGION%==1 fc /b original\ip_usa.bin out\misc\ip.bin
 if %REGION%==2 fc /b original\ip_europe.bin out\misc\ip.bin
 fc /b original\sp.bin out\misc\sp.bin
-if %REGION%==1 fc /b original\%REGPATH%\ABS.TXT out\files\ABS.TXT
-if %REGION%==1 fc /b original\%REGPATH%\BIB.TXT out\files\BIB.TXT
-if %REGION%==1 fc /b original\%REGPATH%\CPY.TXT out\files\CPY.TXT
+fc /b original\%REGPATH%\ABS.TXT out\files\ABS.TXT
+fc /b original\%REGPATH%\BIB.TXT out\files\BIB.TXT
+fc /b original\%REGPATH%\CPY.TXT out\files\CPY.TXT
 fc /b original\%REGPATH%\IPX___.MMD out\files\IPX___.MMD
 fc /b original\%REGPATH%\SPX___.BIN out\files\SPX___.BIN
 fc /b original\%REGPATH%\BRAMINIT.MMD out\files\BRAMINIT.MMD

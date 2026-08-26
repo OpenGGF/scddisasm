@@ -16,7 +16,7 @@ that every level data slice is disassembled, or that the ISO is independent of
 the regional original tree. The current build still requires three externally
 supplied encoded media streams (`BADEND.STM`, `GOODEND.STM`, and `PTEST.STM`),
 but these can be supplied independently through `FMV_STREAM_DIR`; they are not
-executable game logic. A byte-exact USA filesystem also needs the three retail
+executable game logic. A byte-exact regional filesystem also needs the three retail
 ISO identification text files (`ABS.TXT`, `BIB.TXT`, and `CPY.TXT`), supplied
 through `ISO_METADATA_DIR`; the deterministic builder does not read a reference
 ISO. The padding slices
@@ -1555,7 +1555,7 @@ REGION=2 ./check.sh
 ```
 
 The build clears the generated `out/files/` entries before assembling and
-copies only externally supplied media plus USA ISO metadata. The build does not
+copies only externally supplied media plus ISO metadata for the selected region. The build does not
 remove other stale files under `out/`,
 so use a fresh `out/` directory after switching regions. If the Wine or Proton executable has
 a custom name or path, set `WINE_BIN` or `PROTON_BIN` when running `make.sh`.

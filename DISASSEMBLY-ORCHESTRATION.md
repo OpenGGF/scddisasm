@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Regional ISO metadata boundary milestone:** `make.sh`/`make.bat` now stage
+  `ABS.TXT`, `BIB.TXT`, and `CPY.TXT` for Japan, USA, and Europe, and both
+  comparison frontends verify those three files for every region. This closes
+  the previously unchecked non-USA root-file gap while keeping the inputs
+  explicitly classified as ISO metadata rather than executable logic. Fresh
+  guarded displayless Japan, Europe, and USA builds/checks report every
+  configured component and metadata file as an exact match. No proprietary
+  files were added.
+
 - **USA BRAMMAIN indexed-dispatch milestone:** The USA `BRAMMAIN.MMD` target
   from `$FF4352` through `$FF4405` (180 bytes) is now labeled 68000 source.
   It covers the indexed state dispatch, state transitions, status updates,

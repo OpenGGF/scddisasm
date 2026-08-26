@@ -114,18 +114,18 @@ for file in BADEND.STM GOODEND.STM PTEST.STM; do
 		exit 1
 	fi
 done
+for file in ABS.TXT BIB.TXT CPY.TXT; do
+	if [[ ! -f $ISO_METADATA_DIR/$file ]]; then
+		echo "Missing externally supplied ISO metadata file: $ISO_METADATA_DIR/$file" >&2
+		echo 'See README.md for the required ISO inputs.' >&2
+		exit 1
+	fi
+done
 if [[ $REGION == 1 ]]; then
 	if ! command -v python3 >/dev/null 2>&1; then
 		echo 'Python 3 is required to construct the byte-exact USA ISO filesystem.' >&2
 		exit 1
 	fi
-	for file in ABS.TXT BIB.TXT CPY.TXT; do
-		if [[ ! -f $ISO_METADATA_DIR/$file ]]; then
-			echo "Missing externally supplied ISO metadata file: $ISO_METADATA_DIR/$file" >&2
-			echo 'See README.md for the required ISO inputs.' >&2
-			exit 1
-		fi
-	done
 fi
 # The checked-in Windows tools are console programs, but asm68k can create a
 # Win32 information window. Never let a build attach to the user's desktop.
@@ -266,11 +266,9 @@ find "$ROOT_DIR/out/files" -mindepth 1 -maxdepth 1 -type f -delete
 for file in BADEND.STM GOODEND.STM PTEST.STM; do
 	cp "$FMV_STREAM_DIR/$file" "$ROOT_DIR/out/files/$file"
 done
-if [[ $REGION == 1 ]]; then
-	for file in ABS.TXT BIB.TXT CPY.TXT; do
-		cp "$ISO_METADATA_DIR/$file" "$ROOT_DIR/out/files/$file"
-	done
-fi
+for file in ABS.TXT BIB.TXT CPY.TXT; do
+	cp "$ISO_METADATA_DIR/$file" "$ROOT_DIR/out/files/$file"
+done
 run_tool() {
 	local status=0
 	if [[ $RUNNER == proton ]]; then
