@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` span from `$FF5D10` through `$FF5D89` (122 bytes) is now
+  labeled source. It contains the region/status selector, the coordinate
+  helper, and the index helper; the following raw `$FF5D8A` span remains
+  explicit source bytes pending semantic decomposition. Fresh guarded
+  displayless Japan, Europe, and USA builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state-handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` span from `$FF5C50` through `$FF5D0F` (192 bytes) is now
   labeled source. It contains the three-way object-state dispatcher, its two

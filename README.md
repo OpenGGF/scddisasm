@@ -839,6 +839,12 @@ negates the value, sets subtype `2`, and calls the shared helper at
 `$FF6266`; the following raw routine begins at `$FF58E6`. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` span from `$FF5D10` through `$FF5D89`
+(122 bytes) is now labeled source. It contains the region/status selector,
+the coordinate helper, and the index helper; the following raw routine begins
+at `$FF5D8A` and remains explicit source bytes pending semantic decomposition.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` object-state handler span from `$FF5C50`
 through `$FF5D0F` (192 bytes) is now labeled source. It contains the three-way
 object-state dispatcher, its two inline offset tables, and two state-update

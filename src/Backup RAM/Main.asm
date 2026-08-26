@@ -16153,15 +16153,83 @@ L_NonUSA_FF5D08:
 L_NonUSA_FF5D0E:
 	rts
 L_NonUSA_FF5D10:
-	dc.b	$78,$00,$61,$00,$DE,$D6
-	dc.b	$67,$02,$78,$01,$10,$38,$CD,$17,$61,$00,$00,$1E,$48,$E7,$C0,$00
-	dc.b	$10,$38,$CD,$16,$61,$00,$00,$12,$48,$E7,$C0,$00,$20,$04,$61,$00
-	dc.b	$DE,$A4,$4C,$DF,$00,$0F,$4E,$75,$0C,$00,$00,$06,$67,$22,$0C,$00
-	dc.b	$00,$05,$67,$0A,$30,$3C,$00,$A0,$32,$3C,$00,$38,$60,$22,$70,$01
-	dc.b	$61,$00,$DE,$82,$61,$00,$00,$1C,$32,$00,$30,$3C,$00,$18,$60,$10
-	dc.b	$70,$00,$61,$00,$DE,$70,$61,$00,$00,$0A,$32,$00,$30,$3C,$00,$E0
-	dc.b	$4E,$75,$61,$00,$F1,$B0,$61,$00,$F3,$68,$C0,$FC,$00,$10,$06,$40
-	dc.b	$00,$2C,$4E,$75,$61,$00,$04,$DA,$43,$F9,$00,$FF,$5A,$48,$4E,$B9
+	moveq	#$0, d4
+L_NonUSA_FF5D12:
+	bsr.w	$FF3BEA
+L_NonUSA_FF5D16:
+	beq.b	L_NonUSA_FF5D1A
+L_NonUSA_FF5D18:
+	moveq	#$1, d4
+L_NonUSA_FF5D1A:
+	move.b	$FFFFCD17.w, d0
+L_NonUSA_FF5D1E:
+	bsr.w	L_NonUSA_FF5D3E
+L_NonUSA_FF5D22:
+	movem.l	d0-d1, -(a7)
+L_NonUSA_FF5D26:
+	move.b	$FFFFCD16.w, d0
+L_NonUSA_FF5D2A:
+	bsr.w	L_NonUSA_FF5D3E
+L_NonUSA_FF5D2E:
+	movem.l	d0-d1, -(a7)
+L_NonUSA_FF5D32:
+	move.l	d4, d0
+L_NonUSA_FF5D34:
+	bsr.w	$FF3BDA
+L_NonUSA_FF5D38:
+	movem.l	(a7)+, d0-d3
+L_NonUSA_FF5D3C:
+	rts
+L_NonUSA_FF5D3E:
+	cmpi.b	#$6, d0
+L_NonUSA_FF5D42:
+	beq.b	L_NonUSA_FF5D66
+L_NonUSA_FF5D44:
+	cmpi.b	#$5, d0
+L_NonUSA_FF5D48:
+	beq.b	L_NonUSA_FF5D54
+L_NonUSA_FF5D4A:
+	move.w	#$A0, d0
+L_NonUSA_FF5D4E:
+	move.w	#$38, d1
+L_NonUSA_FF5D52:
+	bra.b	L_NonUSA_FF5D76
+L_NonUSA_FF5D54:
+	moveq	#$1, d0
+L_NonUSA_FF5D56:
+	bsr.w	$FF3BDA
+L_NonUSA_FF5D5A:
+	bsr.w	L_NonUSA_FF5D78
+L_NonUSA_FF5D5E:
+	move.w	d0, d1
+L_NonUSA_FF5D60:
+	move.w	#$18, d0
+L_NonUSA_FF5D64:
+	bra.b	L_NonUSA_FF5D76
+L_NonUSA_FF5D66:
+	moveq	#$0, d0
+L_NonUSA_FF5D68:
+	bsr.w	$FF3BDA
+L_NonUSA_FF5D6C:
+	bsr.w	L_NonUSA_FF5D78
+L_NonUSA_FF5D70:
+	move.w	d0, d1
+L_NonUSA_FF5D72:
+	move.w	#$E0, d0
+L_NonUSA_FF5D76:
+	rts
+L_NonUSA_FF5D78:
+	bsr.w	L_NonUSA_FF4F2A
+L_NonUSA_FF5D7C:
+	bsr.w	L_NonUSA_FF50E6
+L_NonUSA_FF5D80:
+	mulu.w	#$10, d0
+L_NonUSA_FF5D84:
+	addi.w	#$2C, d0
+L_NonUSA_FF5D88:
+	rts
+L_NonUSA_FF5D8A:
+	dc.b	$61,$00,$04,$DA,$43,$F9,$00,$FF,$5A,$48,$4E,$B9
 	dc.b	$00,$FF,$27,$60,$4E,$B9,$00,$FF,$28,$34,$30,$28,$00,$32,$B0,$68
 	dc.b	$00,$08,$67,$02,$4E,$75,$11,$7C,$00,$08,$00,$24,$42,$68,$00,$10
 	dc.b	$31,$7C,$04,$00,$00,$12,$30,$28,$00,$34,$B0,$68,$00,$0C,$6E,$04
