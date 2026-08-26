@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN table-upload milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` table-upload routine from `$FF64AA` through `$FF6503` (90
+  bytes) is now labeled source. It selects a regional table record, invokes
+  the still-raw upload helpers at `$FF6520` and `$FF6582`, and uploads the
+  selected 20-word block to the VDP; the following record table begins at
+  `$FF6504` and remains explicit source data pending semantic decomposition.
+  Fresh guarded displayless Japan, Europe, and USA builds/checks report every
+  listed target as an exact match, with zero differences and zero missing
+  targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN regional-pointer milestone:** The Japan/Europe
   `BRAMMAIN.MMD` 14-entry pointer table from `$FF6472` through `$FF64A9` (56
   bytes) is now explicit conditional `dc.l` source. It supplies the

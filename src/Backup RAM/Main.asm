@@ -17151,12 +17151,61 @@ L_NonUSA_FF6472:
 	dc.l	$00FF9142,$00FF91E2,$00FF9282,$00FF9322,$00FF93C2,$00FF9462,$00FF9502
 	endif
 L_NonUSA_FF64AA:
-	dc.b	$3F,$00,$02,$80,$00,$00,$FF,$FF,$C0,$FC,$00,$0E,$43,$F9,$00,$FF
-	dc.b	$65,$04,$D2,$C0,$20,$59,$30,$19,$2F,$09,$43,$F8,$A0,$00,$61,$00
-	dc.b	$00,$B8,$22,$5F,$30,$1F,$0C,$40,$00,$01,$66,$04,$61,$00,$00,$48
-	dc.b	$36,$19,$34,$19,$20,$11,$41,$F8,$A0,$00,$22,$7C,$00,$C0,$00,$00
-	dc.b	$23,$C0,$00,$C0,$00,$04,$32,$03,$32,$98,$51,$C9,$FF,$FC,$06,$80
-	dc.b	$00,$80,$00,$00,$51,$CA,$FF,$EA,$4E,$75,$00,$FF,$83,$70,$81,$C0
+	move.w	d0, -(a7)
+L_NonUSA_FF64AC:
+	andi.l	#$FFFF, d0
+L_NonUSA_FF64B2:
+	mulu.w	#$E, d0
+L_NonUSA_FF64B6:
+	lea.l	$FF6504.l, a1
+L_NonUSA_FF64BC:
+	adda.w	d0, a1
+L_NonUSA_FF64BE:
+	movea.l	(a1)+, a0
+L_NonUSA_FF64C0:
+	move.w	(a1)+, d0
+L_NonUSA_FF64C2:
+	move.l	a1, -(a7)
+L_NonUSA_FF64C4:
+	lea.l	$FFFFA000.w, a1
+L_NonUSA_FF64C8:
+	bsr.w	$FF6582
+L_NonUSA_FF64CC:
+	movea.l	(a7)+, a1
+L_NonUSA_FF64CE:
+	move.w	(a7)+, d0
+L_NonUSA_FF64D0:
+	cmpi.w	#$1, d0
+L_NonUSA_FF64D4:
+	bne.b	L_NonUSA_FF64DA
+L_NonUSA_FF64D6:
+	bsr.w	$FF6520
+L_NonUSA_FF64DA:
+	move.w	(a1)+, d3
+L_NonUSA_FF64DC:
+	move.w	(a1)+, d2
+L_NonUSA_FF64DE:
+	move.l	(a1), d0
+L_NonUSA_FF64E0:
+	lea.l	$FFFFA000.w, a0
+L_NonUSA_FF64E4:
+	movea.l	#$C00000, a1
+L_NonUSA_FF64EA:
+	move.l	d0, $C00004.l
+L_NonUSA_FF64F0:
+	move.w	d3, d1
+L_NonUSA_FF64F2:
+	move.w	(a0)+, (a1)
+L_NonUSA_FF64F4:
+	dbra	d1, L_NonUSA_FF64F2
+L_NonUSA_FF64F8:
+	addi.l	#$800000, d0
+L_NonUSA_FF64FE:
+	dbra	d2, L_NonUSA_FF64EA
+L_NonUSA_FF6502:
+	rts
+L_NonUSA_FF6504:
+	dc.b	$00,$FF,$83,$70,$81,$C0
 	dc.b	$00,$27,$00,$1B,$40,$00,$00,$03,$00,$FF,$85,$40,$22,$5C,$00,$27
 	dc.b	$00,$1B,$60,$00,$00,$03,$48,$E7,$F0,$E0,$45,$F9,$00,$FF,$65,$6C
 	dc.b	$36,$1A,$41,$F8,$A0,$00,$42,$80,$10,$1A,$D0,$40,$D0,$C0,$42,$80
