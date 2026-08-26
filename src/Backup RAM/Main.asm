@@ -14619,9 +14619,29 @@ L_NonUSA_FF50E0:
 	add.b	$A(a1), d0
 L_NonUSA_FF50E4:
 	rts
-	dc.b	$70,$00,$30,$29,$00,$04,$66,$16,$0C,$69,$FF,$FF,$00,$10,$67,$08
-	dc.b	$0C,$69,$00,$02,$00,$02,$6D,$08,$4A,$69,$00,$02,$67,$02,$52,$40
-	dc.b	$4E,$75,$48,$E7,$80,$40,$43,$F9,$00,$FF,$3C,$6C,$20,$19,$B0,$90
+L_NonUSA_FF50E6:
+	moveq	#$0, d0
+L_NonUSA_FF50E8:
+	move.w	$4(a1), d0
+L_NonUSA_FF50EC:
+	bne.b	L_NonUSA_FF5104
+L_NonUSA_FF50EE:
+	cmpi.w	#$FFFF, $10(a1)
+L_NonUSA_FF50F4:
+	beq.b	L_NonUSA_FF50FE
+L_NonUSA_FF50F6:
+	cmpi.w	#$2, $2(a1)
+L_NonUSA_FF50FC:
+	blt.b	L_NonUSA_FF5106
+L_NonUSA_FF50FE:
+	tst.w	$2(a1)
+L_NonUSA_FF5102:
+	beq.b	L_NonUSA_FF5106
+L_NonUSA_FF5104:
+	addq.w	#$1, d0
+L_NonUSA_FF5106:
+	rts
+	dc.b	$48,$E7,$80,$40,$43,$F9,$00,$FF,$3C,$6C,$20,$19,$B0,$90
 	dc.b	$66,$16,$20,$19,$B0,$A8,$00,$04,$66,$0E,$30,$19,$B0,$68,$00,$08
 	dc.b	$66,$06,$10,$19,$B0,$28,$00,$0A,$4C,$DF,$02,$01,$4E,$75,$48,$E7
 	dc.b	$80,$40,$43,$F9,$00,$FF,$3C,$6C,$20,$19,$B0,$90,$66,$0E,$20,$19

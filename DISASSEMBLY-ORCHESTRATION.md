@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` status helper from `$FF50E6` through `$FF5107` (34 bytes) is
+  now labeled source. It loads the `$4(a1)` status word, checks the `$10(a1)`
+  and `$2(a1)` fields, conditionally increments `d0`, and returns; the
+  following raw routine begins at `$FF5108`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF50D4` through `$FF50E5` (18 bytes) is now
   labeled source. It computes the character offset through the `$FF4F2A` and
   `$FF50E6` helpers, doubles it, adds four and the byte at `$0A(a1)`, and
