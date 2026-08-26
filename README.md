@@ -927,6 +927,13 @@ code/data block begins at `$FF6220` and remains explicit source bytes pending
 semantic decomposition. Japan, USA, and Europe still produce byte-exact
 component outputs.
 
+The next non-USA `BRAMMAIN.MMD` block from `$FF6220` through `$FF627F` (96
+bytes) is now labeled source. It defines the motion parameter table and the
+helpers that apply accumulated motion and convert the signed components into
+fixed-point position updates; the following helper begins at `$FF6280` and
+remains explicit source bytes pending semantic decomposition. Japan, USA, and
+Europe still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`

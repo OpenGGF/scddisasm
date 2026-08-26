@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN movement-helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` block from `$FF6220` through `$FF627F` (96 bytes) is now
+  labeled source. It defines the motion parameter table and the helpers that
+  apply accumulated motion and convert the signed components into fixed-point
+  position updates; the following helper begins at `$FF6280` and remains
+  explicit source bytes pending semantic decomposition. Fresh guarded
+  displayless Japan, Europe, and USA builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN motion-helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` helper from `$FF61D2` through `$FF621F` (78 bytes) is now
   labeled source. It generates and scales the two motion components, applies
