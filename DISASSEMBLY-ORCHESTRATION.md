@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN dispatcher milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` block from `$FF60D2` through `$FF6127` (86 bytes) is now
+  labeled source. It preserves the object-data header, dispatches on the
+  object state through its local offset table, and initializes the state-0
+  object fields before the following handler begins at `$FF6128`, which
+  remains explicit source bytes pending semantic decomposition. Fresh guarded
+  displayless Japan, Europe, and USA builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
 - **Non-USA BRAMMAIN state-2 handler milestone:** The Japan/Europe
   `BRAMMAIN.MMD` handler from `$FF60BE` through `$FF60D1` (20 bytes) is now
   labeled source. It checks the pending object count, returns through the
