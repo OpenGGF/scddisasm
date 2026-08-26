@@ -848,9 +848,9 @@ Japan, USA, and Europe still produce byte-exact component outputs.
 The next non-USA raw `BRAMMAIN.MMD` object-state handler span from `$FF5C50`
 through `$FF5D0F` (192 bytes) is now labeled source. It contains the three-way
 object-state dispatcher, its two inline offset tables, and two state-update
-handlers. The following raw routine begins at `$FF5D10` and remains explicit
-source bytes pending semantic decomposition. Japan, USA, and Europe still
-produce byte-exact component outputs.
+handlers. The following routine begins at `$FF5D10` and is covered by the
+preceding paragraph. Japan, USA, and Europe still produce byte-exact component
+outputs.
 
 The next non-USA raw `BRAMMAIN.MMD` object-handler span from `$FF5B96` through
 `$FF5C31` (156 bytes) is now labeled source. It contains the object-state
