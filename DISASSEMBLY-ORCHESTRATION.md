@@ -2,11 +2,21 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN coordinate-handler milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` handler from `$FF5F0E` through `$FF5F89` (124 bytes) is now
+  labeled source. It dispatches on `$CD2D`, initializes state 4, computes and
+  stores the two coordinate components through the fixed-point helper, and
+  returns; the following handler begins at `$FF5F8A` and remains explicit
+  source bytes pending semantic decomposition. Fresh guarded displayless Japan,
+  Europe, and USA builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN state-initialization milestone:** The Japan/Europe
   `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D` (44 bytes) is now
   labeled source. It initializes the object state and stores the state-specific
-  routine pointer; the following handler begins at `$FF5F0E` and remains
-  explicit source bytes pending semantic decomposition. Fresh guarded
+  routine pointer; the following handler begins at `$FF5F0E` and is covered by
+  the preceding entry. Fresh guarded
   displayless Japan, Europe, and USA builds/checks report every listed target
   as an exact match, with zero differences and zero missing targets. No
   proprietary bytes were added.
@@ -15,7 +25,7 @@
   `BRAMMAIN.MMD` span from `$FF5E70` through `$FF5EE1` (114 bytes) is now
   labeled source. It contains the state-cleanup routine, its terminal jump,
   the object-state dispatcher, and the eight-entry offset table. The following
-  handler begins at `$FF5EE2` and is covered by the preceding entry. Fresh
+  handler begins at `$FF5EE2` and is covered by the following entries. Fresh
   guarded displayless Japan, Europe, and USA builds/checks report every listed
   target as an exact match, with zero differences and zero missing targets. No
   proprietary bytes were added.

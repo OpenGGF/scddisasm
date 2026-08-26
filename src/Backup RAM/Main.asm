@@ -16385,16 +16385,77 @@ L_NonUSA_FF5F00:
 L_NonUSA_FF5F06:
 	move.l	#$FF60D2, $4(a0)
 L_NonUSA_FF5F0E:
-	dc.b	$0C,$38,$00,$01,$CD,$2D,$67,$14
-	dc.b	$0C,$38,$00,$02,$CD,$2D,$67,$6C,$0C,$38,$00,$03,$CD,$2D,$67,$00
-	dc.b	$00,$74,$4E,$75,$11,$7C,$00,$04,$00,$24,$42,$28,$00,$2A,$61,$00
-	dc.b	$00,$08,$4E,$F9,$00,$FF,$28,$34,$4E,$B9,$00,$FF,$27,$1E,$32,$3C
-	dc.b	$02,$80,$34,$3C,$01,$80,$61,$00,$00,$1E,$31,$40,$00,$10,$4E,$B9
-	dc.b	$00,$FF,$27,$1E,$32,$3C,$02,$80,$34,$3C,$01,$80,$61,$00,$00,$08
-	dc.b	$31,$40,$00,$12,$4E,$75,$02,$80,$00,$00,$FF,$FF,$02,$82,$00,$00
-	dc.b	$FF,$FF,$48,$C0,$81,$C2,$48,$40,$4A,$40,$6B,$04,$D0,$41,$60,$02
-	dc.b	$90,$41,$4E,$75,$11,$7C,$00,$06,$00,$24,$44,$68,$00,$10,$44,$68
-	dc.b	$00,$12,$4E,$75,$11,$7C,$00,$0A,$00,$24,$0C,$38,$00,$06,$CD,$17
+	cmpi.b	#$1, $FFFFCD2D.w
+L_NonUSA_FF5F14:
+	beq.b	L_NonUSA_FF5F2A
+L_NonUSA_FF5F16:
+	cmpi.b	#$2, $FFFFCD2D.w
+L_NonUSA_FF5F1C:
+	beq.b	L_NonUSA_FF5F8A
+L_NonUSA_FF5F1E:
+	cmpi.b	#$3, $FFFFCD2D.w
+L_NonUSA_FF5F24:
+	beq.w	L_NonUSA_FF5F9A
+L_NonUSA_FF5F28:
+	rts
+L_NonUSA_FF5F2A:
+	move.b	#$4, $24(a0)
+L_NonUSA_FF5F30:
+	clr.b	$2A(a0)
+L_NonUSA_FF5F34:
+	bsr.w	L_NonUSA_FF5F3E
+L_NonUSA_FF5F38:
+	jmp	$FF2834.l
+L_NonUSA_FF5F3E:
+	jsr	$FF271E.l
+L_NonUSA_FF5F44:
+	move.w	#$280, d1
+L_NonUSA_FF5F48:
+	move.w	#$180, d2
+L_NonUSA_FF5F4C:
+	bsr.w	L_NonUSA_FF5F6C
+L_NonUSA_FF5F50:
+	move.w	d0, $10(a0)
+L_NonUSA_FF5F54:
+	jsr	$FF271E.l
+L_NonUSA_FF5F5A:
+	move.w	#$280, d1
+L_NonUSA_FF5F5E:
+	move.w	#$180, d2
+L_NonUSA_FF5F62:
+	bsr.w	L_NonUSA_FF5F6C
+L_NonUSA_FF5F66:
+	move.w	d0, $12(a0)
+L_NonUSA_FF5F6A:
+	rts
+L_NonUSA_FF5F6C:
+	andi.l	#$FFFF, d0
+L_NonUSA_FF5F72:
+	andi.l	#$FFFF, d2
+L_NonUSA_FF5F78:
+	ext.l	d0
+L_NonUSA_FF5F7A:
+	divs.w	d2, d0
+L_NonUSA_FF5F7C:
+	swap	d0
+L_NonUSA_FF5F7E:
+	tst.w	d0
+L_NonUSA_FF5F80:
+	bmi.b	L_NonUSA_FF5F86
+L_NonUSA_FF5F82:
+	add.w	d1, d0
+L_NonUSA_FF5F84:
+	bra.b	L_NonUSA_FF5F88
+L_NonUSA_FF5F86:
+	sub.w	d1, d0
+L_NonUSA_FF5F88:
+	rts
+L_NonUSA_FF5F8A:
+	dc.b	$11,$7C,$00,$06,$00,$24,$44,$68,$00,$10
+L_NonUSA_FF5F94:
+	dc.b	$44,$68,$00,$12,$4E,$75
+L_NonUSA_FF5F9A:
+	dc.b	$11,$7C,$00,$0A,$00,$24,$0C,$38,$00,$06,$CD,$17
 	dc.b	$67,$0E,$30,$28,$00,$08,$04,$40,$00,$C8,$31,$40,$00,$32,$60,$0C
 	dc.b	$30,$28,$00,$08,$06,$40,$00,$C8,$31,$40,$00,$32,$61,$00,$F7,$6C
 	dc.b	$61,$00,$EF,$62,$61,$00,$F1,$1A,$C0,$FC,$00,$10,$06,$40,$00,$2C
