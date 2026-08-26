@@ -973,6 +973,13 @@ returns; the following table begins at `$FF6472` and remains explicit source
 data pending semantic decomposition. Japan, USA, and Europe still produce
 byte-exact component outputs.
 
+The next non-USA `BRAMMAIN.MMD` 14-entry regional pointer table from `$FF6472`
+through `$FF64A9` (56 bytes) is now explicit conditional `dc.l` source. It
+supplies the table-backed addresses used by the preceding VDP-upload helper;
+the next routine begins at `$FF64AA` and remains explicit source bytes pending
+semantic decomposition. Japan, USA, and Europe still produce byte-exact
+component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`

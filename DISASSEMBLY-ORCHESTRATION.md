@@ -2,6 +2,15 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN regional-pointer milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` 14-entry pointer table from `$FF6472` through `$FF64A9` (56
+  bytes) is now explicit conditional `dc.l` source. It supplies the
+  table-backed addresses used by the preceding VDP-upload helper; the next
+  routine begins at `$FF64AA` and remains explicit source bytes pending
+  semantic decomposition. Fresh guarded displayless Japan, Europe, and USA
+  builds/checks report every listed target as an exact match, with zero
+  differences and zero missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN VDP-upload milestone:** The Japan/Europe
   `BRAMMAIN.MMD` table-backed VDP-upload routine from `$FF6430` through
   `$FF6470` (65 bytes) is now labeled source. It selects the table entry,
