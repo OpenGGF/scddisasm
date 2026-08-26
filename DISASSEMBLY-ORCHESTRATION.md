@@ -3,6 +3,15 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` table-comparison helper from `$FF5108` through `$FF5133`
+  (44 bytes) is now labeled source. It saves `d0/a1`, compares the four fields
+  at `$FF3C6C` against `(a0)`, `$4(a0)`, `$8(a0)`, and `$A(a0)`, restores the
+  registers on every path, and returns; the following raw routine begins at
+  `$FF5134`. Fresh guarded displayless Japan, USA, and Europe builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` status helper from `$FF50E6` through `$FF5107` (34 bytes) is
   now labeled source. It loads the `$4(a1)` status word, checks the `$10(a1)`
   and `$2(a1)` fields, conditionally increments `d0`, and returns; the

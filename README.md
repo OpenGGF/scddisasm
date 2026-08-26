@@ -618,6 +618,13 @@ checks the `$10(a1)` and `$2(a1)` fields, conditionally increments `d0`, and
 returns; the following raw routine begins at `$FF5108`. Japan, USA, and Europe
 still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` table-comparison helper from `$FF5108`
+through `$FF5133` (44 bytes) is now labeled source. It saves `d0/a1`, compares
+the four fields at `$FF3C6C` against `(a0)`, `$4(a0)`, `$8(a0)`, and `$A(a0)`,
+restores the registers on every path, and returns; the following raw routine
+begins at `$FF5134`. Japan, USA, and Europe still produce byte-exact component
+outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
