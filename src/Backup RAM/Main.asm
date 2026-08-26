@@ -14672,10 +14672,31 @@ L_NonUSA_FF512E:
 	movem.l	(a7)+, d0/a1
 L_NonUSA_FF5132:
 	rts
-	dc.b	$48,$E7,$80,$40,$43,$F9,$00,$FF,$3C,$6C,$20,$19,$B0,$90
-	dc.b	$66,$0E,$20,$19
-	dc.b	$B0,$A8,$00,$04,$66,$06,$10,$19,$B0,$28,$00,$08,$4C,$DF,$02,$01
-	dc.b	$4E,$75,$48,$E7,$E0,$00,$61,$D6,$66,$08,$61,$00,$00,$3A,$60,$00
+L_NonUSA_FF5134:
+	movem.l	d0/a1, -(a7)
+L_NonUSA_FF5138:
+	lea.l	$FF3C6C.l, a1
+L_NonUSA_FF513E:
+	move.l	(a1)+, d0
+L_NonUSA_FF5140:
+	cmp.l	(a0), d0
+L_NonUSA_FF5142:
+	bne.b	L_NonUSA_FF5152
+L_NonUSA_FF5144:
+	move.l	(a1)+, d0
+L_NonUSA_FF5146:
+	cmp.l	$4(a0), d0
+L_NonUSA_FF514A:
+	bne.b	L_NonUSA_FF5152
+L_NonUSA_FF514C:
+	move.b	(a1)+, d0
+L_NonUSA_FF514E:
+	cmp.b	$8(a0), d0
+L_NonUSA_FF5152:
+	movem.l	(a7)+, d0/a1
+L_NonUSA_FF5156:
+	rts
+	dc.b	$48,$E7,$E0,$00,$61,$D6,$66,$08,$61,$00,$00,$3A,$60,$00
 	dc.b	$00,$24,$48,$E7,$C0,$80,$32,$3C,$40,$00,$41,$FA,$00,$1E,$61,$00
 	dc.b	$00,$C4,$61,$00,$00,$EC,$4C,$DF,$01,$03,$52,$00,$61,$00,$00,$B6
 	dc.b	$61,$00,$00,$DE,$4C,$DF,$00,$07,$4E,$75,$20,$20,$20,$20,$20,$20
