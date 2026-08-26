@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN VDP-upload milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` table-backed VDP-upload routine from `$FF6430` through
+  `$FF6470` (65 bytes) is now labeled source. It selects the table entry,
+  initializes the VDP command and loop parameters, uploads the 20-word block,
+  and returns; the following table begins at `$FF6472` and remains explicit
+  source data pending semantic decomposition. Fresh guarded displayless Japan,
+  Europe, and USA builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN table-decoder milestone:** The Japan/Europe
   `BRAMMAIN.MMD` compact-table expansion routine from `$FF63DE` through
   `$FF642E` (81 bytes) is now labeled source. It reads packed records,

@@ -966,6 +966,13 @@ VDP-upload routine begins at `$FF6430` and remains explicit source bytes
 pending semantic decomposition. Japan, USA, and Europe still produce
 byte-exact component outputs.
 
+The next non-USA `BRAMMAIN.MMD` table-backed VDP-upload routine from `$FF6430`
+through `$FF6470` (65 bytes) is now labeled source. It selects the table entry,
+initializes the VDP command and loop parameters, uploads the 20-word block, and
+returns; the following table begins at `$FF6472` and remains explicit source
+data pending semantic decomposition. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`

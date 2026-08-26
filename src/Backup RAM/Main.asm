@@ -17107,11 +17107,43 @@ L_NonUSA_FF642A:
 L_NonUSA_FF642E:
 	bra.b	L_NonUSA_FF63EA
 L_NonUSA_FF6430:
-	dc.b	$D0,$40,$D0,$40,$41,$F9
-	dc.b	$00,$FF,$64,$72,$D0,$C0,$20,$50,$22,$7C,$00,$C0,$00,$00,$36,$3C
-	dc.b	$C0,$DB,$20,$3C,$48,$A0,$00,$03,$34,$3C,$00,$03,$23,$C0,$00,$C0
-	dc.b	$00,$04,$32,$3C,$00,$13,$38,$18,$D8,$43,$32,$84,$51,$C9,$FF,$F8
-	dc.b	$06,$80,$00,$80,$00,$00,$51,$CA,$FF,$E4,$4E,$75,$00,$FF,$8C
+	add.w	d0, d0
+L_NonUSA_FF6432:
+	add.w	d0, d0
+L_NonUSA_FF6434:
+	lea.l	$FF6472.l, a0
+L_NonUSA_FF643A:
+	adda.w	d0, a0
+L_NonUSA_FF643C:
+	movea.l	(a0), a0
+L_NonUSA_FF643E:
+	movea.l	#$C00000, a1
+L_NonUSA_FF6444:
+	move.w	#$C0DB, d3
+L_NonUSA_FF6448:
+	move.l	#$48A00003, d0
+L_NonUSA_FF644E:
+	move.w	#$3, d2
+L_NonUSA_FF6452:
+	move.l	d0, $C00004.l
+L_NonUSA_FF6458:
+	move.w	#$13, d1
+L_NonUSA_FF645C:
+	move.w	(a0)+, d4
+L_NonUSA_FF645E:
+	add.w	d3, d4
+L_NonUSA_FF6460:
+	move.w	d4, (a1)
+L_NonUSA_FF6462:
+	dbra	d1, L_NonUSA_FF645C
+L_NonUSA_FF6466:
+	addi.l	#$800000, d0
+L_NonUSA_FF646C:
+	dbra	d2, L_NonUSA_FF6452
+L_NonUSA_FF6470:
+	rts
+L_NonUSA_FF6472:
+	dc.b	$00,$FF,$8C
 	if REGION=JAPAN
 	dc.b	$B0,$00,$FF,$8D,$50,$00,$FF,$8D,$F0,$00,$FF,$8E,$90,$00,$FF,$8F
 	dc.b	$30,$00,$FF,$8F,$D0,$00,$FF,$90,$70,$00,$FF,$91,$10,$00,$FF,$91
