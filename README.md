@@ -760,6 +760,13 @@ path, clamps the selected index, and stores the resulting record index; the
 following raw routine begins at `$FF5610`. Japan, USA, and Europe still
 produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` initialization/update routine from
+`$FF5610` through `$FF564F` (64 bytes) is now labeled source. It refreshes
+the shared timing state, copies the current Backup RAM values into the
+record, derives the `$14(a1)` timing counter, and returns the normalized
+record index; the following raw routine begins at `$FF5650`. Japan, USA,
+and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

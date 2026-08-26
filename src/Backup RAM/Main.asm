@@ -15384,11 +15384,41 @@ L_NonUSA_FF560A:
 L_NonUSA_FF560E:
 	rts
 L_NonUSA_FF5610:
-	dc.b	$61,$00,$F9,$18,$48,$E7
-	dc.b	$00,$40,$61,$00,$E8,$74,$4C,$DF,$02,$00,$33,$79,$00,$20,$00,$22
-	dc.b	$00,$00,$33,$79,$00,$20,$00,$24,$00,$02,$70,$00,$30,$29,$00,$02
-	dc.b	$80,$FC,$01,$00,$33,$40,$00,$14,$48,$40,$4A,$40,$66,$0A,$4A,$69
-	dc.b	$00,$14,$66,$04,$53,$69,$00,$14,$4E,$75,$48,$E7,$80,$00,$02,$80
+	bsr.w	$FF4F2A
+L_NonUSA_FF5614:
+	movem.l	a1, -(a7)
+L_NonUSA_FF5618:
+	bsr.w	$FF3E8E
+L_NonUSA_FF561C:
+	movem.l	(a7)+, a1
+L_NonUSA_FF5620:
+	move.w	$200022.l, $0(a1)
+L_NonUSA_FF5628:
+	move.w	$200024.l, $2(a1)
+L_NonUSA_FF5630:
+	moveq	#$0, d0
+L_NonUSA_FF5632:
+	move.w	$2(a1), d0
+L_NonUSA_FF5636:
+	divu.w	#$100, d0
+L_NonUSA_FF563A:
+	move.w	d0, $14(a1)
+L_NonUSA_FF563E:
+	swap	d0
+L_NonUSA_FF5640:
+	tst.w	d0
+L_NonUSA_FF5642:
+	bne.b	L_NonUSA_FF564E
+L_NonUSA_FF5644:
+	tst.w	$14(a1)
+L_NonUSA_FF5648:
+	bne.b	L_NonUSA_FF564E
+L_NonUSA_FF564A:
+	subq.w	#$1, $14(a1)
+L_NonUSA_FF564E:
+	rts
+L_NonUSA_FF5650:
+	dc.b	$48,$E7,$80,$00,$02,$80
 	dc.b	$00,$00,$FF,$FF,$C0,$FC,$00,$10,$48,$E7,$00,$40,$61,$00,$F8,$C6
 	dc.b	$20,$49,$D0,$FC,$00,$30,$4C,$DF,$02,$00,$D0,$C0,$4C,$DF,$00,$01
 	dc.b	$4E,$75,$61,$00,$00,$3C,$66,$12,$61,$00,$00,$12,$66,$0A,$61,$00

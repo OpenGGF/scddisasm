@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN initialization/update helper milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` initialization/update routine from `$FF5610` through
+  `$FF564F` (64 bytes) is now labeled source. It refreshes the shared timing
+  state, copies the current Backup RAM values into the record, derives the
+  `$14(a1)` timing counter, and returns the normalized record index; the
+  following raw routine begins at `$FF5650`. Fresh guarded displayless Japan,
+  USA, and Europe builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN state-update helper milestone:** The Japan/Europe
   `BRAMMAIN.MMD` state-update routine from `$FF55DC` through `$FF560F`
   (52 bytes) is now labeled source. It updates the active record position,
