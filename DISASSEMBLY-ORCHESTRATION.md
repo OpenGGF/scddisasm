@@ -136,6 +136,17 @@
   and USA builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.
 
+- **Non-USA BRAMMAIN controller/Z80 milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` controller-sampling and dummy-Z80 routines from `$FF2542`
+  through `$FF25B7` (118 bytes) are now labeled source. The first routine
+  samples the controller port and stores the decoded two-byte state; the second
+  loads the five-byte `DI, DI, JP $0000` Z80 stub, toggles the Z80 reset, and
+  resumes the Z80 through the existing handoff helper. The next latch and
+  event-handler routines begin at `$FF25B8`. Fresh guarded displayless Japan,
+  Europe, and USA builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN upload-record milestone:** The Japan/Europe
   `BRAMMAIN.MMD` two-record upload table from `$FF6504` through `$FF651F` (28
   bytes) is now explicit `dc.l`/`dc.w` source, retaining its two 14-byte
@@ -1589,7 +1600,7 @@
   `BRAMMAIN.MMD` latch and event-handler routines from `$FF25B8` through
   `$FF25F9` (66 bytes) are now labeled source. They update the input latches,
   dispatch the pending `$F00B`/`$F00C` event, and restore the handoff state; the
-  preceding `$FF2542-$FF25B7` span remains explicit bytes, and the following
+  preceding `$FF2542-$FF25B7` span is now source-backed, and the following
   pattern data begins at `$FF25FA`. Fresh guarded displayless Japan, USA, and
   Europe builds/checks report every listed target as an exact match, with zero
   differences and zero missing targets. No proprietary bytes were added.

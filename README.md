@@ -100,15 +100,21 @@ covered by the following paragraph.
 
 The two non-USA `BRAMMAIN.MMD` handoff helpers from `$FF251C` through `$FF2541`
 (38 bytes) are now labeled source. They save and restore the interrupt status
-around the `$A11100` handoff/reset sequence; the next raw routine begins at
-`$FF2542`, with later recovered code covered by the following paragraphs.
+around the `$A11100` handoff/reset sequence; the next routine begins at
+`$FF2542` and is covered by the following paragraph.
+
+The non-USA `BRAMMAIN.MMD` controller-sampling and dummy-Z80 routines from
+`$FF2542` through `$FF25B7` (118 bytes) are now labeled source. The first
+routine samples the controller port and stores the decoded two-byte state; the
+second loads the five-byte `DI, DI, JP $0000` Z80 stub, toggles the Z80 reset,
+and resumes the Z80 through the existing handoff helper. The next latch and
+event-handler routines begin at `$FF25B8`.
 
 The non-USA `BRAMMAIN.MMD` latch and event-handler routines from `$FF25B8`
 through `$FF25F9` (66 bytes) are now labeled source. They update the input
 latches, dispatch the pending `$F00B`/`$F00C` event, and restore the handoff
-state; the preceding `$FF2542-$FF25B7` span remains explicit bytes. The
-following pattern data begins at `$FF25FA` and is covered by the following
-paragraph.
+state; the preceding `$FF2542-$FF25B7` span is now source-backed. The following
+pattern data begins at `$FF25FA` and is covered by the following paragraph.
 
 The non-USA `BRAMMAIN.MMD` pattern-data block from `$FF25FA` through `$FF2701`
 (264 bytes) is now emitted as 66 explicit `dc.l` declarations, preserving its
