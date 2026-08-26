@@ -14136,8 +14136,19 @@ L_NonUSA_FF4D38:
 L_NonUSA_FF4D3E:
 	rts
 L_NonUSA_FF4D40:
-	dc.b	$10,$38,$CD,$1E,$B0,$10
-	dc.b	$67,$06,$D0,$FC,$00,$05,$60,$F6,$4E,$75,$01,$00,$00,$05,$06,$00
+	move.b	$FFFFCD1E.w, d0
+L_NonUSA_FF4D44:
+	cmp.b	(a0), d0
+L_NonUSA_FF4D46:
+	beq.b	L_NonUSA_FF4D4E
+L_NonUSA_FF4D48:
+	adda.w	#$5, a0
+L_NonUSA_FF4D4C:
+	bra.b	L_NonUSA_FF4D44
+L_NonUSA_FF4D4E:
+	rts
+L_NonUSA_FF4D50:
+	dc.b	$01,$00,$00,$05,$06,$00
 	dc.b	$01,$00,$02,$05,$06,$02,$01,$00,$05,$06,$04,$00,$00,$00,$00,$00
 	dc.b	$03,$00,$04,$00,$00,$04,$03,$00,$00,$00,$05,$00,$00,$00,$06,$06
 	dc.b	$00,$00,$05,$00,$02,$00,$00,$00,$06,$06,$00,$00,$02,$00,$05,$00
