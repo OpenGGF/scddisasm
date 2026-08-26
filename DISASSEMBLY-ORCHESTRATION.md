@@ -3,6 +3,16 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` data table at `$FF5190` through `$FF519B` (12 bytes) is now
+  expressed as three labeled longwords, followed by the `$FF519C–$FF51E3`
+  helper (72 bytes) in labeled source. The helper generates the two-byte table
+  values through `$FF5290`, updates the `$FF5222`/`$FF522E` buffers through
+  `$FF523A`, and calls the following routine at `$FF51E4`. Fresh guarded
+  displayless Japan, USA, and Europe builds/checks report every listed target
+  as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
+- **Non-USA BRAMMAIN next raw routine milestone:** The Japan/Europe
   `BRAMMAIN.MMD` shared comparison/upload helper from `$FF5158` through
   `$FF518F` (56 bytes) is now labeled source. It compares against the
   `$FF3C6C` table, branches into the `$4000` VDP upload path when needed,

@@ -639,6 +639,13 @@ needed, increments the character index, and converges through the shared
 `$FF518A` restore tail; the following data begins at `$FF5190`. Japan, USA,
 and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` data table at `$FF5190` through `$FF519B`
+(12 bytes) is now expressed as three labeled longwords, followed by the
+`$FF519C–$FF51E3` helper (72 bytes) in labeled source. The helper generates the
+two-byte table values through `$FF5290`, updates the `$FF5222`/`$FF522E`
+buffers through `$FF523A`, and calls the following routine at `$FF51E4`; Japan,
+USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed
