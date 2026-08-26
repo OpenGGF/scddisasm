@@ -716,6 +716,13 @@ routines. They set the upload mode, select the table at `$FF5446`, and call
 the existing `$FF54A4`/`$FF5492` helpers; the following raw routine begins at
 `$FF5492`. Japan, USA, and Europe still produce byte-exact component outputs.
 
+The next non-USA raw `BRAMMAIN.MMD` upload-address helper from `$FF5492`
+through `$FF54B5` (36 bytes) is now labeled source, including its internal
+entry at `$FF54A4`. It selects the current record table, resolves the slot
+through `$FF5650`, clears the destination flag, computes the record offset,
+and branches to `$FF5158`; the following raw routine begins at `$FF54B6`.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
 The shared non-USA R71 Padding1 fragment now expresses its two 68000 animation
 routines with labels and instructions in `src/r7/nonusa_padding_1c_1.asm`.
 The surrounding animation tables remain declarative data, and the two fixed

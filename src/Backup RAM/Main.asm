@@ -15174,9 +15174,26 @@ L_NonUSA_FF548C:
 L_NonUSA_FF5490:
 	rts
 L_NonUSA_FF5492:
-	dc.b	$61,$00,$FA,$96
-	dc.b	$30,$29,$00,$06,$61,$00,$01,$B4,$11,$7C,$00,$00,$00,$0B,$70,$00
-	dc.b	$30,$29,$00,$04,$D0,$40,$58,$40,$D0,$29,$00,$0A,$60,$00,$FC,$A4
+	bsr.w	$FF4F2A
+L_NonUSA_FF5496:
+	move.w	$6(a1), d0
+L_NonUSA_FF549A:
+	bsr.w	$FF5650
+L_NonUSA_FF549E:
+	move.b	#$0, $B(a0)
+L_NonUSA_FF54A4:
+	moveq	#$0, d0
+L_NonUSA_FF54A6:
+	move.w	$4(a1), d0
+L_NonUSA_FF54AA:
+	add.w	d0, d0
+L_NonUSA_FF54AC:
+	addq.w	#$4, d0
+L_NonUSA_FF54AE:
+	add.b	$A(a1), d0
+L_NonUSA_FF54B2:
+	bra.w	L_NonUSA_FF5158
+L_NonUSA_FF54B6:
 	dc.b	$61,$00,$FA,$72,$54,$29,$00,$0A,$0C,$29,$00,$20,$00,$0A,$6D,$04
 	dc.b	$42,$29,$00,$0A,$20,$29,$00,$0C,$06,$80,$00,$10,$00,$00,$22,$3C
 	dc.b	$00,$02,$00,$00,$D3,$A9,$00,$0C,$B0,$A9,$00,$0C,$6F,$0E,$48,$E7
