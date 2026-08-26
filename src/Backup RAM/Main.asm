@@ -16603,8 +16603,17 @@ L_NonUSA_FF60B2:
 L_NonUSA_FF60B8:
 	jmp	$FF2834.l
 L_NonUSA_FF60BE:
-	dc.b	$4A,$38,$CD,$2E,$67,$06,$4E,$F9
-	dc.b	$00,$FF,$28,$34,$11,$7C,$00,$02,$00,$24,$4E,$75,$00,$02,$01,$FC
+	tst.b	$FFFFCD2E.w
+L_NonUSA_FF60C2:
+	beq.b	L_NonUSA_FF60CA
+L_NonUSA_FF60C4:
+	jmp	$FF2834.l
+L_NonUSA_FF60CA:
+	move.b	#$2, $24(a0)
+L_NonUSA_FF60D0:
+	rts
+L_NonUSA_FF60D2:
+	dc.b	$00,$02,$01,$FC
 	dc.b	$00,$00,$00,$FC,$70,$00,$10,$28,$00,$24,$30,$3B,$00,$06,$4E,$FB
 	dc.b	$00,$02,$00,$08,$00,$40,$00,$B0,$00,$D0,$11,$7C,$00,$04,$00,$01
 	dc.b	$11,$7C,$00,$02,$00,$24,$11,$7C,$00,$02,$00,$18,$11,$7C,$00,$08
