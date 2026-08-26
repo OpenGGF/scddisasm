@@ -2,14 +2,23 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN data-prefix milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` data prefix from `$FF5A56` through `$FF5AF9` (164 bytes) is
+  now labeled source. The word header, 50-byte sequence stream, 14-word
+  offset table, and fourteen three-word records preserve their original
+  boundaries and values; the following object-state dispatcher begins at
+  `$FF5AFA`. Fresh guarded displayless Japan, Europe, and USA builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN object-state dispatcher milestone:** The Japan/Europe
   `BRAMMAIN.MMD` executable span from `$FF5AFA` through `$FF5B79` (128 bytes)
   is now labeled source. It selects the object handler through the inline
   table at `$FF5B08`, initializes the object fields, branches on the object
   mode, and returns through the shared jump at `$FF5B74`; the adjacent table
   at `$FF5B7A` through `$FF5B95` (28 bytes) is also labeled word data. The
-  preceding raw data prefix remains at `$FF5A56` through `$FF5AF9`, and the
-  next raw routine begins at `$FF5B96`. Fresh guarded displayless Japan,
+  preceding data prefix is source-backed through `$FF5AF9`, and the next raw
+  routine begins at `$FF5B96`. Fresh guarded displayless Japan,
   USA, and Europe builds/checks report every listed target as an exact match,
   with zero differences and zero missing targets. No proprietary bytes were
   added.
@@ -19,7 +28,7 @@
   (124 bytes) are now labeled `dc.w` source, with explicit boundaries for
   the five indexed tables. The adjacent seven-word selector-offset table
   from `$FF5A48` through `$FF5A55` (14 bytes) is also source-backed; the next
-  raw data region begins at `$FF5A56`. Fresh guarded displayless Japan, USA,
+  data prefix is source-backed through `$FF5AF9`. Fresh guarded displayless Japan, USA,
   and Europe builds/checks report every listed target as an exact match, with
   zero differences and zero missing targets. No proprietary bytes were
   added.
@@ -31,7 +40,7 @@
   `$CD15` selector cases, and loads coordinate pairs from the PC-relative
   tables at `$FF59CC` and `$FF59E8`/`$FF5A10`/`$FF5A38`/`$FF5A40`; the
   following coordinate data block is now source-backed through `$FF5A55`,
-  and the next raw data region begins at `$FF5A56`. Fresh guarded displayless
+  and the next data prefix is source-backed through `$FF5AF9`. Fresh guarded displayless
   Japan, USA, and Europe builds/checks report every listed target as an exact
   match, with zero differences and zero missing targets. No proprietary
   bytes were added.
@@ -41,7 +50,7 @@
   labeled source. It loads the fixed coordinate values `$00B4` and `$0040`
   into `d1` and `d2` before returning; it is part of the adjacent
   selector/coordinate region now source-backed through `$FF5A55`, and the
-  following raw data region begins at `$FF5A56`.
+  following data prefix is source-backed through `$FF5AF9`.
   Fresh guarded displayless Japan, USA, and Europe builds/checks report every
   listed target as an exact match, with zero differences and zero missing
   targets. No proprietary bytes were added.
