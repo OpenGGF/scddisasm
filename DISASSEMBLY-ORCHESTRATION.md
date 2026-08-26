@@ -3,6 +3,16 @@
 ## 2026-08-26
 
 - **Non-USA BRAMMAIN coordinate-transition milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` handler from `$FF609A` through `$FF60BD` (36 bytes) is now
+  labeled source. It compares the target coordinate, advances `$CD2E` and
+  transitions the object to state 14 when the coordinate is reached; otherwise
+  it runs the common object path. The following handler begins at `$FF60BE`
+  and remains explicit source bytes pending semantic decomposition. Fresh
+  guarded displayless Japan, Europe, and USA builds/checks report every listed
+  target as an exact match, with zero differences and zero missing targets. No
+  proprietary bytes were added.
+
+- **Non-USA BRAMMAIN coordinate-transition milestone:** The Japan/Europe
   `BRAMMAIN.MMD` handler from `$FF6064` through `$FF6099` (54 bytes) is now
   labeled source. It performs the common object update, waits for the
   horizontal coordinate to reach its target, initializes the vertical movement
