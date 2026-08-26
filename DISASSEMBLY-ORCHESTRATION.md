@@ -2,6 +2,17 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN table-decoder milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` compact-table expansion routine from `$FF63DE` through
+  `$FF642E` (81 bytes) is now labeled source. It reads packed records,
+  expands their indexed values into the destination table, repeats entries
+  according to the encoded count, and returns on the terminator path; the
+  next VDP-upload routine begins at `$FF6430` and remains explicit source
+  bytes pending semantic decomposition. Fresh guarded displayless Japan,
+  Europe, and USA builds/checks report every listed target as an exact match,
+  with zero differences and zero missing targets. No proprietary bytes were
+  added.
+
 - **Non-USA BRAMMAIN decoder/output milestone:** The Japan/Europe
   `BRAMMAIN.MMD` bitstream decoder and four output entry points from `$FF633A`
   through `$FF63DC` (163 bytes) are now labeled source. The decoder extracts

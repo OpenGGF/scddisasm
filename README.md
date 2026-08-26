@@ -958,6 +958,14 @@ routine begins at `$FF63DE` and remains explicit source bytes pending semantic
 decomposition. Japan, USA, and Europe still produce byte-exact component
 outputs.
 
+The next non-USA `BRAMMAIN.MMD` compact-table expansion routine from `$FF63DE`
+through `$FF642E` (81 bytes) is now labeled source. It reads packed records,
+expands their indexed values into the destination table, repeats entries
+according to the encoded count, and returns on the terminator path; the next
+VDP-upload routine begins at `$FF6430` and remains explicit source bytes
+pending semantic decomposition. Japan, USA, and Europe still produce
+byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
