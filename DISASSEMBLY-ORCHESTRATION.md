@@ -2,6 +2,16 @@
 
 ## 2026-08-26
 
+- **Non-USA BRAMMAIN object-clear milestone:** The Japan/Europe
+  `BRAMMAIN.MMD` object-table clearing routine from `$FF6520` through
+  `$FF656B` (76 bytes) is now labeled source. It walks the five compact
+  parameter records, clears the selected object-table words, and restores its
+  working registers; the following 22-byte parameter table at `$FF656C`
+  through `$FF6581` is also explicit source data, and the next helper begins
+  at `$FF6582`. Fresh guarded displayless Japan, Europe, and USA builds/checks
+  report every listed target as an exact match, with zero differences and zero
+  missing targets. No proprietary bytes were added.
+
 - **Non-USA BRAMMAIN upload-record milestone:** The Japan/Europe
   `BRAMMAIN.MMD` two-record upload table from `$FF6504` through `$FF651F` (28
   bytes) is now explicit `dc.l`/`dc.w` source, retaining its two 14-byte

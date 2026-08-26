@@ -993,6 +993,13 @@ The next non-USA `BRAMMAIN.MMD` two-record upload table from `$FF6504` through
 remains explicit source bytes pending semantic decomposition. Japan, USA, and
 Europe still produce byte-exact component outputs.
 
+The next non-USA `BRAMMAIN.MMD` object-table clearing routine from `$FF6520`
+through `$FF656B` (76 bytes) is now labeled source. It walks the five compact
+parameter records, clears the selected object-table words, and restores its
+working registers; the following 22-byte parameter table at `$FF656C` through
+`$FF6581` is also explicit source data, and the next helper begins at `$FF6582`.
+Japan, USA, and Europe still produce byte-exact component outputs.
+
 The next non-USA raw `BRAMMAIN.MMD` handler from `$FF5EE2` through `$FF5F0D`
 (44 bytes) is now labeled source. It initializes the object state and stores
 the state-specific routine pointer; the following handler begins at `$FF5F0E`
