@@ -24,9 +24,7 @@ CC_VARIANT	EQU	3
 
 	include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
 
-	include	"common/s1_object_despawn.asm"
-	include	"common/vsync.asm"
-	include	"common/math.asm"
+	include	"Level/Functions (Misc).asm"
 	include	"common/player_ground_collide.asm"
 	include	"common/block_collide.asm"
 	include	"common/main.asm"

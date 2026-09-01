@@ -11,6 +11,11 @@
 ;	a0.l - Object slot
 ; -------------------------------------------------------------------------
 
+	if def(R6_LEGACY_PLAYER)
+		if R6_LEGACY_PLAYER<>0
+S1CheckObjectDespawn:
+		endif
+	endif
 CheckObjDespawnS1:
 	move.w	oX(a0),d0			; Get the object's chunk position
 	andi.w	#$FF80,d0
@@ -56,6 +61,11 @@ VSync:
 ;	d1.w - Cosine
 ; -------------------------------------------------------------------------
 
+	if def(R6_LEGACY_PLAYER)
+		if R6_LEGACY_PLAYER<>0
+SineCosine:
+		endif
+	endif
 CalcSine:
 	andi.w	#$FF,d0				; Convert angle into table index
 	add.w	d0,d0
@@ -101,6 +111,11 @@ SineTable:
 ;	d0.w - Angle
 ; -------------------------------------------------------------------------
 
+	if def(R6_LEGACY_PLAYER)
+		if R6_LEGACY_PLAYER<>0
+Atan2:
+		endif
+	endif
 CalcAngle:
 	movem.l	d3-d4,-(sp)
 	moveq	#0,d3
