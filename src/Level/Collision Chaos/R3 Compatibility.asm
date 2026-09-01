@@ -304,7 +304,13 @@ DestroyOnGoodFuture	EQU	DestroyInGoodFuture
 ObjGa			EQU	GaObject
 	endif
 ObjTentou		EQU	TentouObject
+	if def(R3_SEMANTIC_POCKET)
+		if R3_SEMANTIC_POCKET=0
 ObjPocket		EQU	PocketObject
+		endif
+	else
+ObjPocket		EQU	PocketObject
+	endif
 ObjIntroSpikes	EQU	IntroSpikesObject
 ObjMetalSonic		EQU	MetalSonicObject
 ObjAmyRose		EQU	AmyRoseObject
