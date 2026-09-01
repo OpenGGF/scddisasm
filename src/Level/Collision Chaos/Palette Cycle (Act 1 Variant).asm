@@ -6,6 +6,7 @@
 
 	if CC_VARIANT=1
 
+CyclePalette:
 PaletteCycle:
 	rts
 
