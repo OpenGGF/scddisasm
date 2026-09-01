@@ -148,7 +148,13 @@ ObjSpring		EQU	SpringObject
 ObjTunnelDoorSplash	EQU	HDoorSplashObject
 ObjTunnelDoorSplashSet EQU	HDoorSplashSetObject
 ObjTunnelDoor		EQU	HDoorObject
+	if def(R3_SEMANTIC_TUNNEL_SPLASH)
+		if R3_SEMANTIC_TUNNEL_SPLASH=0
 ObjSpinSplash		EQU	TunnelSplashObject
+		endif
+	else
+ObjSpinSplash		EQU	TunnelSplashObject
+	endif
 ObjMovingSpring	EQU	MoveSpringObject
 ObjRing			EQU	RingObject
 ObjLostRing		EQU	LostRingObject
@@ -260,6 +266,14 @@ FlowerObject		EQU	ObjFlower
 MapSpr_Flower		EQU	FlowerSprites
 Ani_Flower		EQU	FlowerAnims
 ObjGetFloorDist	EQU	CheckBlockDown
+		endif
+	endif
+
+	if def(R3_SEMANTIC_TUNNEL_SPLASH)
+		if R3_SEMANTIC_TUNNEL_SPLASH<>0
+TunnelSplashObject	EQU	ObjSpinSplash
+MapSpr_TunnelWaterfall EQU	TunnelSplashSprites
+Ani_TunnelWaterfall	EQU	TunnelSplashAnims
 		endif
 	endif
 
