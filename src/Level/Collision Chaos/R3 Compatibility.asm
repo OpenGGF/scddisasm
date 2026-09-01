@@ -193,7 +193,13 @@ ObjExplosion		EQU	ExplosionObject
 	endif
 ObjMonitorTimePost	EQU	MonitorTimeObject
 ObjMonitorItem		EQU	MonitorItemObject
+	if def(R3_SEMANTIC_BOULDER)
+		if R3_SEMANTIC_BOULDER=0
 ObjBoulder		EQU	BoulderObject
+		endif
+	else
+ObjBoulder		EQU	BoulderObject
+	endif
 ObjHUDPoints		EQU	HudPointsObject
 ObjBumper		EQU	BumperObject
 ObjFlipper		EQU	FlipperObject
@@ -325,6 +331,12 @@ Art_TimeOver	EQU	TimeOverGfx
 	if def(R3_SEMANTIC_ROLL_TUNNEL)
 		if R3_SEMANTIC_ROLL_TUNNEL<>0
 RollTunnelObject	EQU	ObjRollTunnel
+		endif
+	endif
+
+	if def(R3_SEMANTIC_BOULDER)
+		if R3_SEMANTIC_BOULDER<>0
+BoulderObject		EQU	ObjBoulder
 		endif
 	endif
 
