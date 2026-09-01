@@ -42,7 +42,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Object Index (Act 1 Present).asm"
 	include	"objects/player.asm"
 	include	"Level/Sub CPU.asm"
-	include	"common/object_animate.asm"
+	include	"Level/Object Animate.asm"
 	include	"objects/checkpoint.asm"
 	include	"common/drown_reset.asm"
 	include	"objects/test.asm"
