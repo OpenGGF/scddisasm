@@ -293,7 +293,13 @@ ObjTeleporter		EQU	TeleporterObject
 	else
 ObjTeleporter		EQU	TeleporterObject
 	endif
+	if def(R3_SEMANTIC_SPIKE_CHAIN)
+		if R3_SEMANTIC_SPIKE_CHAIN=0
 ObjSpikeChain		EQU	SpikeChainObject
+		endif
+	else
+ObjSpikeChain		EQU	SpikeChainObject
+	endif
 	if def(R3_SEMANTIC_GA)
 		if R3_SEMANTIC_GA=0
 ObjGa			EQU	GaObject

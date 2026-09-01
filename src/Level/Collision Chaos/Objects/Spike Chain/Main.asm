@@ -17,7 +17,15 @@ oSpikeChainParent	EQU	oVar3E
 ; -------------------------------------------------------------------------
 
 ObjSpikeChain:
+	if def(CC_LEGACY_SPIKE_CHAIN_ABI)
+		if CC_LEGACY_SPIKE_CHAIN_ABI<>0
+	move.b	oSubtype(a0),d0
+		else
 	tst.b	oSubtype(a0)
+		endif
+	else
+	tst.b	oSubtype(a0)
+	endif
 	bpl.s	ObjSpikeChain_Parent
 	bra.w	ObjSpikeChain_Child
 
@@ -177,5 +185,13 @@ ObjSpikeChain_Child_Main:
 MapSpr_SpikeChain2:
 	include	"sprites/spike_chain_2.asm"
 	even
+
+	if def(R3_SEMANTIC_SPIKE_CHAIN)
+		if R3_SEMANTIC_SPIKE_CHAIN<>0
+SpikeChainObject	EQU	ObjSpikeChain
+SpikeChainSprites1	EQU	MapSpr_SpikeChain1
+SpikeChainSprites2	EQU	MapSpr_SpikeChain2
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
