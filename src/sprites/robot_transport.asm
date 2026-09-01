@@ -2,34 +2,36 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-.Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
-	dc.w	.Sprite3-.Sprites
-	dc.w	.Sprite4-.Sprites
-	dc.w	.Sprite5-.Sprites
-	dc.w	.Sprite6-.Sprites
-	dc.w	.Sprite7-.Sprites
+; Robot-generator mappings. Every nonempty frame is a count followed by
+; five-byte sprite pieces (Y, size, tile high, tile low, X).
+.Table:
+	dc.w	.GoodFuture-.Table
+	dc.w	.GoodFuturePast-.Table
+	dc.w	.Inactive-.Table
+	dc.w	.Active0-.Table
+	dc.w	.Active1-.Table
+	dc.w	.Active2-.Table
+	dc.w	.Active3-.Table
+	dc.w	.Destroyed-.Table
 
-.Sprite7:
+.Destroyed:
 	dc.b	0
 
-.Sprite0:
+.GoodFuture:
 	dc.b	4
 	dc.b	$10, 9, 0, 9, $E8
 	dc.b	$10, 9, 8, 9, 0
 	dc.b	$10, 9, 0, 9, $D8
 	dc.b	$10, 9, 8, 9, $10
 
-.Sprite1:
+.GoodFuturePast:
 	dc.b	4
 	dc.b	$10, 9, 0, $11, $E8
 	dc.b	$10, 9, 8, $11, 0
 	dc.b	$10, 9, 0, $11, $D8
 	dc.b	$10, 9, 8, $11, $10
 
-.Sprite2:
+.Inactive:
 	dc.b	$C
 	dc.b	$E0, $A, 0, 0, $E8
 	dc.b	$E0, $A, 8, 0, 0
@@ -44,7 +46,7 @@
 	dc.b	8, $A, $10, 0, $F8
 	dc.b	8, $A, $18, 0, $10
 
-.Sprite3:
+.Active0:
 	dc.b	$12
 	dc.b	$E0, $A, 0, 0, $E8
 	dc.b	$E0, $A, 8, 0, 0
@@ -65,7 +67,7 @@
 	dc.b	8, $A, $10, 0, $F8
 	dc.b	8, $A, $18, 0, $10
 
-.Sprite4:
+.Active1:
 	dc.b	$18
 	dc.b	$E0, 4, 0, 9, $F8
 	dc.b	$E0, $A, 0, 0, $E8
@@ -92,7 +94,7 @@
 	dc.b	8, $A, $10, 0, $F8
 	dc.b	8, $A, $18, 0, $10
 
-.Sprite5:
+.Active2:
 	dc.b	$18
 	dc.b	$E0, 4, 0, $B, $F8
 	dc.b	$E0, $A, 0, 0, $E8
@@ -119,7 +121,7 @@
 	dc.b	8, $A, $10, 0, $F8
 	dc.b	8, $A, $18, 0, $10
 
-.Sprite6:
+.Active3:
 	dc.b	$18
 	dc.b	$E0, 4, 0, 9, $F8
 	dc.b	$E0, $A, 0, 0, $E8

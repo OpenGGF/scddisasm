@@ -1,27 +1,34 @@
 ; ------------------------------------------------------------------------------
+; Collision Chaos robot generator
+;
+; Active only in the Past before the good-future flag is set. var_2A is reused
+; as the float phase, explosion timer, and rebuild delay; var_2C points into
+; the explosion schedule; var_30 saves the original Y position; var_32 stores
+; the signed one-pixel float direction.
+; ------------------------------------------------------------------------------
 
 RobotGeneratorObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E9A4(pc,d0.w),d0
-	jsr	off_20E9A4(pc,d0.w)
+	move.w	RobotGeneratorRoutineIndex(pc,d0.w),d0
+	jsr	RobotGeneratorRoutineIndex(pc,d0.w)
 	jsr	DrawObject
 	cmpi.b	#2,obj.routine(a0)
-	bgt.s	locret_20E9A2
+	bgt.s	.End
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-locret_20E9A2:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-off_20E9A4:
+RobotGeneratorRoutineIndex:
 	dc.w	RobotGeneratorInit-*
-	dc.w	RobotGeneratorMain-off_20E9A4
-	dc.w	RobotGeneratorExplode-off_20E9A4
-	dc.w	RobotGeneratorDestroyed-off_20E9A4
+	dc.w	RobotGeneratorMain-RobotGeneratorRoutineIndex
+	dc.w	RobotGeneratorExplode-RobotGeneratorRoutineIndex
+	dc.w	RobotGeneratorDestroyed-RobotGeneratorRoutineIndex
 
 ; ------------------------------------------------------------------------------
 
@@ -32,7 +39,7 @@ RobotGeneratorInit:
 	move.b	#$22,obj.width(a0)
 	move.b	#$22,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
-	lea	word_20EDD2(pc),a1
+	lea	RobotGeneratorBaseTileTable(pc),a1
 	moveq	#0,d0
 	move.b	act,d0
 	asl.w	#2,d0
@@ -40,21 +47,21 @@ RobotGeneratorInit:
 	add.w	d0,d0
 	move.w	(a1,d0.w),obj.sprite_tile(a0)
 	move.l	#RobotTransportSprites,obj.sprite_data(a0)
-	move.l	#byte_20ED92,obj.var_2c(a0)
+	move.l	#RobotGeneratorExplosionSchedule,obj.var_2c(a0)
 	move.w	obj.y(a0),obj.var_30(a0)
 	move.w	#4,obj.var_2a(a0)
 	move.w	#1,obj.var_32(a0)
 	moveq	#0,d0
 	tst.b	good_future
-	bne.s	loc_20EA18
+	bne.s	.GoodFuture
 	addq.b	#2,d0
 
-loc_20EA18:
+.GoodFuture:
 	tst.b	time_zone
-	bne.s	loc_20EA22
+	bne.s	.NotPast
 	addq.b	#1,d0
 
-loc_20EA22:
+.NotPast:
 	move.b	d0,obj.sprite_frame(a0)
 	tst.b	good_future
 	bne.s	RobotGeneratorMain
@@ -65,12 +72,12 @@ loc_20EA22:
 
 RobotGeneratorMain:
 	tst.b	good_future
-	bne.s	locret_20EAAA
+	bne.s	.Inactive
 	tst.b	time_zone
-	bne.s	locret_20EAAA
-	bsr.w	sub_20EB26
+	bne.s	.Inactive
+	bsr.w	RobotGeneratorFloat
 	tst.b	obj.collide_status(a0)
-	beq.s	loc_20EA96
+	beq.s	.Solid
 	clr.w	obj.collide_type(a0)
 	clr.w	obj.var_2a(a0)
 	move.b	#7,obj.sprite_frame(a0)
@@ -80,15 +87,15 @@ RobotGeneratorMain:
 	jsr	AddPoints
 	lea	player_object,a1
 	jsr	SolidObject
-	beq.s	locret_20EA94
+	beq.s	.End
 	jsr	GetOffObject
 
-locret_20EA94:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA96:
+.Solid:
 	lea	player_object,a1
 	jsr	SolidObject
 	lea	RobotTransportAnims(pc),a1
@@ -96,7 +103,7 @@ loc_20EA96:
 
 ; ------------------------------------------------------------------------------
 
-locret_20EAAA:
+.Inactive:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -104,17 +111,17 @@ locret_20EAAA:
 RobotGeneratorExplode:
 	movea.l	obj.var_2c(a0),a6
 	move.b	(a6)+,d0
-	bmi.s	loc_20EAFE
+	bmi.s	.Finished
 	addq.b	#1,obj.var_2a(a0)
 	cmp.b	obj.var_2a(a0),d0
-	bne.s	locret_20EAFC
+	bne.s	.End
 	move.b	(a6)+,d5
 	move.b	(a6)+,d6
 	move.l	a6,obj.var_2c(a0)
 	ext.w	d5
 	ext.w	d6
 	jsr	SpawnObject
-	bne.s	locret_20EAFC
+	bne.s	.End
 	move.b	#$18,obj.id(a1)
 	move.b	#1,obj.routine_2(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -124,12 +131,12 @@ RobotGeneratorExplode:
 	move.w	#$9E,d0
 	jsr	PlayFmSound
 
-locret_20EAFC:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EAFE:
+.Finished:
 	addq.b	#2,obj.routine(a0)
 	move.b	#8,obj.var_2a(a0)
 	rts
@@ -138,7 +145,7 @@ loc_20EAFE:
 
 RobotGeneratorDestroyed:
 	subq.b	#1,obj.var_2a(a0)
-	bne.s	locret_20EB24
+	bne.s	.End
 	subq.b	#6,obj.routine(a0)
 	move.w	obj.var_30(a0),obj.y(a0)
 	move.w	#$D9,d0
@@ -146,26 +153,27 @@ RobotGeneratorDestroyed:
 
 ; ------------------------------------------------------------------------------
 
-locret_20EB24:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20EB26:
+; Move one pixel every eight frames and reverse direction every 32 frames.
+RobotGeneratorFloat:
 	addq.w	#1,obj.var_2a(a0)
 	move.w	obj.var_2a(a0),d0
 	andi.w	#7,d0
-	bne.s	loc_20EB3C
+	bne.s	.CheckTurn
 	move.w	obj.var_32(a0),d0
 	add.w	d0,obj.y(a0)
 
-loc_20EB3C:
+.CheckTurn:
 	move.w	obj.var_2a(a0),d0
 	andi.w	#$1F,d0
-	bne.s	locret_20EB4A
+	bne.s	.End
 	neg.w	obj.var_32(a0)
 
-locret_20EB4A:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -178,7 +186,9 @@ RobotTransportSprites:
 	include	"sprites/robot_transport.asm"
 	even
 
-byte_20ED92:
+; Three-byte records: trigger frame, signed X offset, signed Y offset. $FF ends
+; the sequence; missed object allocations leave the schedule timing unchanged.
+RobotGeneratorExplosionSchedule:
 	dc.b	1, 0, 0
 	dc.b	2, $D8, $EC
 	dc.b	3, $1C, $A
@@ -202,7 +212,8 @@ byte_20ED92:
 	dc.b	$28, $F6, $A
 	dc.b	$FF
 
-word_20EDD2:
+; Base art tile indexed by [act * 4 + time_zone]; zero marks unavailable art.
+RobotGeneratorBaseTileTable:
 	dc.w	$33E, $33E, 0, 0
 	dc.w	$36A, $36A, 0, 0
 	dc.w	0, 0, 0

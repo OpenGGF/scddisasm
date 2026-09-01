@@ -2,10 +2,12 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-.Anims:
-	dc.w	.Anim0-.Anims
+; Standard object-animation script. The first byte is the frame delay and $FF
+; loops the four active-Past generator frames.
+.Table:
+	dc.w	.ActivePast-.Table
 
-.Anim0:
+.ActivePast:
 	dc.b	3
 	dc.b	3, 4, 5, 6
 	dc.b	$FF
