@@ -92,7 +92,19 @@ UpdateHUD		EQU	UpdateHudNumbers
 InitScroll		EQU	LevelSizeLoad
 UpdateScroll		EQU	LevelScroll
 LoadCheckpointData	EQU	LoadCheckpoint
+		if def(R3_SEMANTIC_EVENTS)
+			if R3_SEMANTIC_EVENTS=0
 RunLevelEvents		EQU	StageEvents
+			endif
+		else
+RunLevelEvents		EQU	StageEvents
+		endif
+		endif
+	endif
+
+	if def(R3_SEMANTIC_EVENTS)
+		if R3_SEMANTIC_EVENTS<>0
+StageEvents		EQU	RunLevelEvents
 		endif
 	endif
 
