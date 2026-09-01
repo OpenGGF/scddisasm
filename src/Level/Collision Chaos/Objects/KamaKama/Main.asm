@@ -2,9 +2,22 @@
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
 ; Collision Chaos KamaKama and sickle objects
+;
+; A non-negative KamaKama subtype attacks by spawning two sickles before
+; walking. A negative subtype uses the alternate stationary presentation,
+; skips sickle creation, and walks at half speed. Each sickle retains its
+; parent's slot address and deletes itself if that slot no longer contains a
+; KamaKama object.
 ; -------------------------------------------------------------------------
 
 oKamaSickleParent	EQU	oVar30
+oKamaKamaTimer		EQU	oVar2C
+oKamaStoredSubtype	EQU	oVar2E
+oKamaSickleLaunchDelay	EQU	oVar2C
+oKamaSickleParentFlags	EQU	oVar2E
+oKamaSickleBaseX	EQU	oVar32
+oKamaSickleGravity	EQU	oVar2A
+oKamaSickleDamageTimer	EQU	oVar34
 
 ; -------------------------------------------------------------------------
 
@@ -33,7 +46,7 @@ ObjKamaKama_Index:
 ObjKamaKama_Init:
 	move.l	#MapSpr_KamaKama1,d1
 	move.b	#1,d0
-	move.b	oSubtype(a0),oVar2E(a0)
+	move.b	oSubtype(a0),oKamaStoredSubtype(a0)
 	bpl.s	.SetSprite
 	move.l	#MapSpr_KamaKama2,d1
 	move.b	#2,d0
@@ -53,20 +66,56 @@ ObjKamaKama_Init:
 ; -------------------------------------------------------------------------
 
 ObjKamaKama_Routine2:
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	jsr	ObjKamaKama_Move(pc)
+		else
 	jsr	ObjKamaKama_Move
+		endif
+	else
+	jsr	ObjKamaKama_Move
+	endif
 	jsr	ObjGetFloorDist
 	tst.w	d1
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bpl.s	ObjKamaKama_AnimateLegacy
+		else
 	bpl.s	.Animate
+		endif
+	else
+	bpl.s	.Animate
+	endif
 	addq.b	#2,oRoutine(a0)
 
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+ObjKamaKama_AnimateLegacy:
+	lea	Ani_KamaKama(pc),a1
+	jsr	AnimateObject
+	jmp	DrawObject
+		else
 .Animate:
 	bra.w	ObjKamaKama_Animate
+		endif
+	else
+.Animate:
+	bra.w	ObjKamaKama_Animate
+	endif
 
 ; -------------------------------------------------------------------------
 
 ObjKamaKama_Routine4:
 	btst	#7,oSprFlags(a0)
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	beq.s	.NoTargetLegacy
+		else
 	beq.s	.NoTarget
+		endif
+	else
+	beq.s	.NoTarget
+	endif
 	bclr	#0,oSprFlags(a0)
 	bclr	#0,oFlags(a0)
 	lea	objPlayerSlot.w,a1
@@ -79,7 +128,15 @@ ObjKamaKama_Routine4:
 
 .CheckVertical:
 	tst.b	oSprFlags(a0)
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bpl.s	.NoTargetLegacy
+		else
 	bpl.s	.NoTarget
+		endif
+	else
+	bpl.s	.NoTarget
+	endif
 	move.w	oY(a0),d1
 	sub.w	oY(a1),d1
 	bcc.s	.CheckDistance
@@ -87,38 +144,82 @@ ObjKamaKama_Routine4:
 
 .CheckDistance:
 	cmpi.w	#$20,d1
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bcc.s	.NoTargetLegacy
+		else
 	bcc.s	.NoTarget
+		endif
+	else
+	bcc.s	.NoTarget
+	endif
 	cmpi.w	#$60,d0
 	bcs.s	.StartAttack
 
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+.NoTargetLegacy:
+	move.b	#1,oAnim(a0)
+	bra.s	ObjKamaKama_AnimateLegacy
+		else
 .NoTarget:
 	move.b	#1,oAnim(a0)
 	bra.w	ObjKamaKama_Animate
+		endif
+	else
+.NoTarget:
+	move.b	#1,oAnim(a0)
+	bra.w	ObjKamaKama_Animate
+	endif
 
 .StartAttack:
 	move.b	#2,oAnim(a0)
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	jsr	ObjKamaKama_SpawnSickles(pc)
+		else
 	jsr	ObjKamaKama_SpawnSickles
-	move.w	#$78,oVar2C(a0)
+		endif
+	else
+	jsr	ObjKamaKama_SpawnSickles
+	endif
+	move.w	#$78,oKamaKamaTimer(a0)
 	addq.b	#2,oRoutine(a0)
 
 ; -------------------------------------------------------------------------
 
 ObjKamaKama_Routine6:
-	subq.w	#1,oVar2C(a0)
+	subq.w	#1,oKamaKamaTimer(a0)
 	beq.s	.NextRoutine
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bra.w	ObjKamaKama_AnimateLegacy
+		else
 	bra.w	ObjKamaKama_Animate
+		endif
+	else
+	bra.w	ObjKamaKama_Animate
+	endif
 
 .NextRoutine:
 	move.b	#3,oAnim(a0)
-	move.w	#$3C,oVar2C(a0)
+	move.w	#$3C,oKamaKamaTimer(a0)
 	addq.b	#2,oRoutine(a0)
 
 ; -------------------------------------------------------------------------
 
 ObjKamaKama_Routine8:
-	subq.w	#1,oVar2C(a0)
+	subq.w	#1,oKamaKamaTimer(a0)
 	beq.s	.NextRoutine
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bra.w	ObjKamaKama_AnimateLegacy
+		else
 	bra.w	ObjKamaKama_Animate
+		endif
+	else
+	bra.w	ObjKamaKama_Animate
+	endif
 
 .NextRoutine:
 	addq.b	#2,oRoutine(a0)
@@ -139,11 +240,35 @@ ObjKamaKama_RoutineA:
 
 .SetVelocity:
 	move.w	d0,oXVel(a0)
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	jsr	ObjKamaKama_Move(pc)
+		else
 	jsr	ObjKamaKama_Move
+		endif
+	else
+	jsr	ObjKamaKama_Move
+	endif
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	jsr	PlayerCheckBlockLeft
+		else
 	jsr	Player_GetLWallDist
+		endif
+	else
+	jsr	Player_GetLWallDist
+	endif
 	tst.w	d1
 	bmi.s	.HitWall
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	jsr	PlayerCheckBlockRight
+		else
 	jsr	Player_GetRWallDist
+		endif
+	else
+	jsr	Player_GetRWallDist
+	endif
 	tst.w	d1
 	bmi.s	.HitWall
 	jsr	ObjGetFloorDist
@@ -156,33 +281,72 @@ ObjKamaKama_RoutineA:
 	add.w	d1,oY(a0)
 
 .Animate:
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bra.w	ObjKamaKama_AnimateLegacy
+		else
 	bra.w	ObjKamaKama_Animate
+		endif
+	else
+	bra.w	ObjKamaKama_Animate
+	endif
 
 .HitWall:
-	move.w	#$48,oVar2C(a0)
+	move.w	#$48,oKamaKamaTimer(a0)
 	move.w	#3,oAnim(a0)
 	addq.b	#2,oRoutine(a0)
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI=0
 	bra.w	ObjKamaKama_RoutineC
+		endif
+	else
+	bra.w	ObjKamaKama_RoutineC
+	endif
 
 ; -------------------------------------------------------------------------
 
 ObjKamaKama_RoutineC:
-	subq.w	#1,oVar2C(a0)
+	subq.w	#1,oKamaKamaTimer(a0)
 	beq.s	.Turn
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bra.w	ObjKamaKama_AnimateLegacy
+		else
 	bra.w	ObjKamaKama_Animate
+		endif
+	else
+	bra.w	ObjKamaKama_Animate
+	endif
 
 .Turn:
 	bchg	#0,oSprFlags(a0)
 	bchg	#0,oFlags(a0)
 	subq.b	#2,oRoutine(a0)
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	bra.w	ObjKamaKama_AnimateLegacy
+		else
 	bra.w	ObjKamaKama_Animate
+		endif
+	else
+	bra.w	ObjKamaKama_Animate
+	endif
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI=0
 ObjKamaKama_Animate:
 	lea	Ani_KamaKama(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
+		endif
+	else
+ObjKamaKama_Animate:
+	lea	Ani_KamaKama(pc),a1
+	jsr	AnimateObject
+	jmp	DrawObject
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -200,15 +364,28 @@ ObjKamaKama_Move:
 ; -------------------------------------------------------------------------
 
 ObjKamaKama_SpawnSickles:
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	tst.b	oSubtype(a0)
+	bpl.s	.Spawn
+	rts
+
+.Spawn:
+		else
 	tst.b	oSubtype(a0)
 	bmi.w	.End
+		endif
+	else
+	tst.b	oSubtype(a0)
+	bmi.w	.End
+	endif
 	jsr	FindObjSlot
 	bne.s	.SpawnSecond
 	move.b	#$25,oID(a1)
 	move.w	a0,oKamaSickleParent(a1)
-	move.w	#$40,oVar2C(a1)
+	move.w	#$40,oKamaSickleLaunchDelay(a1)
 	move.b	oSubtype(a0),oSubtype(a1)
-	move.b	oSprFlags(a0),oVar2E(a1)
+	move.b	oSprFlags(a0),oKamaSickleParentFlags(a1)
 	move.w	oY(a0),d0
 	subq.w	#4,d0
 	move.w	d0,oY(a1)
@@ -227,9 +404,9 @@ ObjKamaKama_SpawnSickles:
 	bne.s	.End
 	move.b	#$25,oID(a1)
 	move.w	a0,oKamaSickleParent(a1)
-	move.w	#$14,oVar2C(a1)
+	move.w	#$14,oKamaSickleLaunchDelay(a1)
 	move.b	oSubtype(a0),oSubtype(a1)
-	move.b	oSprFlags(a0),oVar2E(a1)
+	move.b	oSprFlags(a0),oKamaSickleParentFlags(a1)
 	move.w	oY(a0),d0
 	subq.w	#6,d0
 	move.w	d0,oY(a1)
@@ -247,6 +424,15 @@ ObjKamaKama_SpawnSickles:
 	rts
 
 ; -------------------------------------------------------------------------
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+Ani_KamaKama:
+	include	"anims/r3/kama_kama.asm"
+	even
+
+; -------------------------------------------------------------------------
+		endif
+	endif
 
 ObjKamaSickle:
 	moveq	#0,d0
@@ -254,7 +440,7 @@ ObjKamaSickle:
 	move.w	ObjKamaSickle_Index(pc,d0.w),d0
 	jsr	ObjKamaSickle_Index(pc,d0.w)
 	jsr	DrawObject
-	move.w	oVar32(a0),d0
+	move.w	oKamaSickleBaseX(a0),d0
 	jmp	CheckObjDespawn2
 ; End of function ObjKamaSickle
 
@@ -274,9 +460,9 @@ ObjKamaSickle_Init:
 	move.b	#4,oYRadius(a0)
 	move.w	#$23F2,oTile(a0)
 	move.l	#MapSpr_KamaSickle,oMap(a0)
-	move.w	oX(a0),oVar32(a0)
+	move.w	oX(a0),oKamaSickleBaseX(a0)
 	move.w	#$300,d1
-	btst	#0,oVar2E(a0)
+	btst	#0,oKamaSickleParentFlags(a0)
 	bne.s	.SetVelocity
 	bset	#0,oSprFlags(a0)
 	bset	#0,oFlags(a0)
@@ -290,16 +476,24 @@ ObjKamaSickle_Init:
 ; -------------------------------------------------------------------------
 
 ObjKamaSickle_Main:
-	subq.w	#1,oVar2C(a0)
+	subq.w	#1,oKamaSickleLaunchDelay(a0)
 	bne.s	.CheckParent
 	addq.b	#2,oRoutine(a0)
 	move.b	#$87,oColType(a0)
-	move.b	#$3C,oVar34(a0)
+	move.b	#$3C,oKamaSickleDamageTimer(a0)
 
 .CheckParent:
 	move.w	oKamaSickleParent(a0),d0
 	movea.w	d0,a1
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	cmpi.b	#$24,0(a1)
+		else
 	cmpi.b	#$24,oID(a1)
+		endif
+	else
+	cmpi.b	#$24,oID(a1)
+	endif
 	beq.s	.Animate
 	jmp	DeleteObject
 
@@ -310,8 +504,16 @@ ObjKamaSickle_Main:
 ; -------------------------------------------------------------------------
 
 ObjKamaSickle_Attack:
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+	jsr	ObjKamaKama_Move(pc)
+		else
 	jsr	ObjKamaKama_Move
-	move.w	oVar2A(a0),d0
+		endif
+	else
+	jsr	ObjKamaKama_Move
+	endif
+	move.w	oKamaSickleGravity(a0),d0
 	add.w	d0,oYVel(a0)
 	cmpi.b	#0,oMapFrame(a0)
 	bne.s	.CheckPlayer
@@ -327,9 +529,9 @@ ObjKamaSickle_Attack:
 	bsr.s	ObjKamaSickle_HurtPlayer
 
 .NoHit:
-	subq.b	#1,oVar34(a0)
+	subq.b	#1,oKamaSickleDamageTimer(a0)
 	bne.s	.Animate
-	addq.b	#1,oVar34(a0)
+	addq.b	#1,oKamaSickleDamageTimer(a0)
 	clr.b	oColType(a0)
 
 .Animate:
@@ -376,19 +578,29 @@ ObjKamaSickle_HurtPlayer:
 	move.w	oXVel(a1),d0
 	add.w	d0,oXVel(a0)
 	move.w	#$F800,oYVel(a0)
-	move.w	#$40,oVar2A(a0)
+	move.w	#$40,oKamaSickleGravity(a0)
 	rts
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI=0
 Ani_KamaKama:
 	include	"anims/r3/kama_kama.asm"
 	even
+		endif
+	else
+Ani_KamaKama:
+	include	"anims/r3/kama_kama.asm"
+	even
+	endif
 
 Ani_KamaSickle:
 	include	"anims/r3/kama_sickle.asm"
 	even
 
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI=0
 MapSpr_KamaKama1:
 	include	"sprites/r3/kama_kama_1.asm"
 	even
@@ -396,9 +608,31 @@ MapSpr_KamaKama1:
 MapSpr_KamaKama2:
 	include	"sprites/r3/kama_kama_2.asm"
 	even
+		else
+MapSpr_KamaKama1	EQU	KamaKamaSprites1
+MapSpr_KamaKama2	EQU	KamaKamaSprites2
+		endif
+	else
+MapSpr_KamaKama1:
+	include	"sprites/r3/kama_kama_1.asm"
+	even
+
+MapSpr_KamaKama2:
+	include	"sprites/r3/kama_kama_2.asm"
+	even
+	endif
 
 MapSpr_KamaSickle:
 	include	"sprites/r3/kama_sickle.asm"
 	even
 
 ; -------------------------------------------------------------------------
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+KamaKamaObject	EQU	ObjKamaKama
+KamaSickleObject	EQU	ObjKamaSickle
+KamaKamaAnims		EQU	Ani_KamaKama
+KamaSickleAnims	EQU	Ani_KamaSickle
+KamaSickleSprites	EQU	MapSpr_KamaSickle
+		endif
+	endif

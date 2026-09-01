@@ -2,15 +2,15 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 .Anims:
-	dc.w	.Anim0-.Anims
-	dc.w	.Anim1-.Anims
+	dc.w	.Spin-.Anims
+	dc.w	.Deflected-.Anims
 
-.Anim0:
+.Spin:
 	dc.b	3
 	dc.b	0, 1, 2, 3, 4, 5
 	dc.b	$FF
 
-.Anim1:
+.Deflected:
 	dc.b	0
 	dc.b	0, 1, 2, 3, 4, 5
 	dc.b	$FF

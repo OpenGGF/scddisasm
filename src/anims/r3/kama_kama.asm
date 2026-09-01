@@ -2,37 +2,37 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 .Anims:
-	dc.w	.Anim0-.Anims
-	dc.w	.Anim1-.Anims
-	dc.w	.Anim2-.Anims
-	dc.w	.Anim3-.Anims
-	dc.w	.Anim4-.Anims
+	dc.w	.Walk-.Anims
+	dc.w	.Watch-.Anims
+	dc.w	.Throw-.Anims
+	dc.w	.Recover-.Anims
+	dc.w	.Static-.Anims
 
-.Anim0:
+.Walk:
 	dc.b	7
 	dc.b	0, 1, 2, 3
 	dc.b	$FF
 	even
 
-.Anim1:
+.Watch:
 	dc.b	7
 	dc.b	5, 6
 	dc.b	$FF
 	even
 
-.Anim2:
+.Throw:
 	dc.b	7
 	dc.b	0, 4
 	dc.b	$FF
 	even
 
-.Anim3:
+.Recover:
 	dc.b	7
 	dc.b	7, 4
 	dc.b	$FF
 	even
 
-.Anim4:
+.Static:
 	dc.b	7
 	dc.b	0
 	dc.b	$FF

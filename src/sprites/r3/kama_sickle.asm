@@ -1,5 +1,7 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
+; Six one-piece rotation frames for a thrown sickle. Each piece is
+; Y, size/shape, tile high byte, tile low byte, X.
 ; ------------------------------------------------------------------------------
 .Sprites:
 	dc.w	.Sprite0-.Sprites

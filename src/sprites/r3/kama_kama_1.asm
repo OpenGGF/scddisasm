@@ -1,5 +1,7 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
+; KamaKama normal-variant mapping frames; each piece is
+; Y, size/shape, tile high byte, tile low byte, X.
 ; ------------------------------------------------------------------------------
 .Sprites:
 	dc.w	.Sprite0-.Sprites
