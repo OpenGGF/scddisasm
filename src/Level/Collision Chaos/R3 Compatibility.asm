@@ -216,8 +216,15 @@ ObjExplosion		EQU	ExplosionObject
 	else
 ObjExplosion		EQU	ExplosionObject
 	endif
+	if def(R3_SEMANTIC_MONITOR_TIME)
+		if R3_SEMANTIC_MONITOR_TIME=0
 ObjMonitorTimePost	EQU	MonitorTimeObject
 ObjMonitorItem		EQU	MonitorItemObject
+		endif
+	else
+ObjMonitorTimePost	EQU	MonitorTimeObject
+ObjMonitorItem		EQU	MonitorItemObject
+	endif
 	if def(R3_SEMANTIC_BOULDER)
 		if R3_SEMANTIC_BOULDER=0
 ObjBoulder		EQU	BoulderObject
@@ -390,6 +397,15 @@ LostRingObject	EQU	ObjLostRing
 RingSprites		EQU	MapSpr_Ring
 RingAnims		EQU	Ani_Ring
 FindNextObjSlot	EQU	SpawnObjectAfter
+		endif
+	endif
+
+	if def(R3_SEMANTIC_MONITOR_TIME)
+		if R3_SEMANTIC_MONITOR_TIME<>0
+MonitorTimeObject	EQU	ObjMonitorTimePost
+MonitorItemObject	EQU	ObjMonitorItem
+MonitorTimeSprites	EQU	MapSpr_MonitorTime
+MonitorTimeAnims	EQU	Ani_Monitor
 		endif
 	endif
 
