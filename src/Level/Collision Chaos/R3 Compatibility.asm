@@ -408,9 +408,21 @@ ObjRobotGenerator	EQU	RobotGeneratorObject
 ObjProjector		EQU	ProjectorObject
 ObjCCAnimal		EQU	AnimalObject
 ObjResults		EQU	ResultsObject
+	if def(R3_SEMANTIC_GAME_OVER)
+		if R3_SEMANTIC_GAME_OVER=0
 ObjGameOver		EQU	GameOverObject
+		endif
+	else
+ObjGameOver		EQU	GameOverObject
+	endif
 ObjTitleCard		EQU	TitleCardObject
 NullObject		EQU	ObjNull
+	endif
+	endif
+
+	if def(R3_SEMANTIC_GAME_OVER)
+		if R3_SEMANTIC_GAME_OVER<>0
+GameOverObject	EQU	ObjGameOver
 		endif
 	endif
 

@@ -50,11 +50,27 @@ ObjGameOver_Init:
 
 .GameOver:
 	bset	#7,powerup			; Load the art
+	if def(R3_SEMANTIC_GAME_OVER)
+		if R3_SEMANTIC_GAME_OVER<>0
+	jsr	SpawnObject			; Spawn "OVER" text
+		else
 	jsr	FindObjSlot			; Spawn "OVER" text
+		endif
+	else
+	jsr	FindObjSlot			; Spawn "OVER" text
+	endif
 	beq.s	.SpawnOverText
 
 .Destroy:
+	if def(R3_SEMANTIC_GAME_OVER)
+		if R3_SEMANTIC_GAME_OVER<>0
+	jmp	DeleteObject			; Delete ourselves
+		else
 	jmp	R43LegacyDeleteObject			; Delete ourselves
+		endif
+	else
+	jmp	R43LegacyDeleteObject			; Delete ourselves
+	endif
 
 .SpawnOverText:
 	move.b	#$3B,oID(a1)			; "OVER" text
@@ -85,7 +101,15 @@ ObjGameOver_Main:
 	add.w	d0,oX(a0)			; Move
 
 .Draw:
+	if def(R3_SEMANTIC_GAME_OVER)
+		if R3_SEMANTIC_GAME_OVER<>0
+	jmp	DrawObject			; Draw sprite
+		else
 	jmp	R43LegacyDrawObject			; Draw sprite
+		endif
+	else
+	jmp	R43LegacyDrawObject			; Draw sprite
+	endif
 
 ; -------------------------------------------------------------------------
 ; Data
