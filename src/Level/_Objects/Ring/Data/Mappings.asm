@@ -1,60 +1,45 @@
 .Map:
-	dc.w	unk_20A10C-.Map
-	dc.w	unk_20A112-.Map
-	dc.w	unk_20A118-.Map
-	dc.w	unk_20A11E-.Map
-	dc.w	unk_20A124-.Map
-	dc.w	unk_20A12A-.Map
-	dc.w	unk_20A130-.Map
-	dc.w	unk_20A136-.Map
-	dc.w	unk_20A13C-.Map
-unk_20A10C:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F8 ; ø
-unk_20A112:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$F8 ; ø
-unk_20A118:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  1
-	dc.b	  0
-	dc.b	  8
-	dc.b	$FC ; ü
-unk_20A11E:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  8
-	dc.b	  4
-	dc.b	$F8 ; ø
-unk_20A124:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	 $A
-	dc.b	$F8 ; ø
-unk_20A12A:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	$18
-	dc.b	 $A
-	dc.b	$F8 ; ø
-unk_20A130:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	$10
-	dc.b	 $A
-	dc.b	$F8 ; ø
-unk_20A136:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  8
-	dc.b	 $A
-	dc.b	$F8 ; ø
-unk_20A13C:	dc.b	  0
-	dc.b	  0
+	dc.w	.Frame0-.Map
+	dc.w	.Frame1-.Map
+	dc.w	.Frame2-.Map
+	dc.w	.Frame3-.Map
+	dc.w	.Frame4-.Map
+	dc.w	.Frame5-.Map
+	dc.w	.Frame6-.Map
+	dc.w	.Frame7-.Map
+	dc.w	.Invisible-.Map
+
+.Frame0:
+	dc.b	1
+	dc.b	$F8, 5, 0, 0, $F8
+
+.Frame1:
+	dc.b	1
+	dc.b	$F8, 5, 0, 4, $F8
+
+.Frame2:
+	dc.b	1
+	dc.b	$F8, 1, 0, 8, $FC
+
+.Frame3:
+	dc.b	1
+	dc.b	$F8, 5, 8, 4, $F8
+
+.Frame4:
+	dc.b	1
+	dc.b	$F8, 5, 0, $A, $F8
+
+.Frame5:
+	dc.b	1
+	dc.b	$F8, 5, $18, $A, $F8
+
+.Frame6:
+	dc.b	1
+	dc.b	$F8, 5, $10, $A, $F8
+
+.Frame7:
+	dc.b	1
+	dc.b	$F8, 5, 8, $A, $F8
+
+.Invisible:
+	dc.b	0

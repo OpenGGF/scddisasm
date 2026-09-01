@@ -1,3 +1,7 @@
 .Anim:
-	dc.w	byte_20A0F4-.Anim
-byte_20A0F4:	dc.b	5,	4, 5, 6, 7, $FC
+	dc.w	.Sparkle-.Anim
+
+.Sparkle:
+	dc.b	5
+	dc.b	4, 5, 6, 7
+	dc.b	$FC
