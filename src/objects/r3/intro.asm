@@ -1,28 +1,38 @@
 ; ------------------------------------------------------------------------------
+; Collision Chaos introductory cutscene objects
+;
+; Metal Sonic parent object
+;   a0: object slot
+;   Uses var_30 as the player-approach timer, var_32 as the base Y position,
+;   var_34 as Amy/exhaust linkage, var_3A as the phase/timer, var_3B as the
+;   initial vertical-motion timer, and var_3E as acceleration.
+;   Clobbers d0-d1/a1-a3 and may set amy_captured, replace the stage palette,
+;   spawn an exhaust child, play FM sound $CA, or delete itself.
+; ------------------------------------------------------------------------------
 
 MetalSonicObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20DE80(pc,d0.w),d0
-	jsr	off_20DE80(pc,d0.w)
-	bsr.w	sub_20E300
+	move.w	MetalSonicRoutineIndex(pc,d0.w),d0
+	jsr	MetalSonicRoutineIndex(pc,d0.w)
+	bsr.w	IntroLoadPlayer
 	cmpi.w	#$4C0,obj.x(a1)
-	bcc.w	loc_20E04A
+	bcc.w	MetalSonicCaptureAmy
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20DE80:
-	dc.w	MetalSonicObject_0_Routine0-*
-	dc.w	MetalSonicObject_0_Routine2-off_20DE80
-	dc.w	MetalSonicObject_0_Routine4-off_20DE80
-	dc.w	MetalSonicObject_0_Routine6-off_20DE80
-	dc.w	MetalSonicObject_0_Routine8-off_20DE80
-	dc.w	MetalSonicObject_0_RoutineA-off_20DE80
+MetalSonicRoutineIndex:
+	dc.w	MetalSonicInit-*
+	dc.w	MetalSonicWait-MetalSonicRoutineIndex
+	dc.w	MetalSonicApproach-MetalSonicRoutineIndex
+	dc.w	MetalSonicHover-MetalSonicRoutineIndex
+	dc.w	MetalSonicCapture-MetalSonicRoutineIndex
+	dc.w	MetalSonicEscape-MetalSonicRoutineIndex
 
 ; ------------------------------------------------------------------------------
 
-MetalSonicObject_0_Routine0:
+MetalSonicInit:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$3D0,obj.sprite_tile(a0)
@@ -33,80 +43,82 @@ MetalSonicObject_0_Routine0:
 	move.b	#$3C,obj.var_3a(a0)
 	move.b	#0,obj.collide_type(a0)
 
-MetalSonicObject_0_Routine2:
+MetalSonicWait:
 	tst.b	obj.var_3a(a0)
-	beq.s	loc_20DECE
+	beq.s	.Start
 	subq.b	#1,obj.var_3a(a0)
-	bne.s	locret_20DEEE
+	bne.s	.End
 
-loc_20DECE:
-	bsr.w	sub_20E254
+.Start:
+	bsr.w	IntroFaceRight
 	move.w	#$FFF0,obj.var_3e(a0)
 	addq.b	#2,obj.routine(a0)
 	btst	#7,obj.sprite_flags(a0)
-	beq.s	locret_20DEEE
+	beq.s	.End
 	move.w	#$CA,d0
 	jsr	PlayFmSound
 
-locret_20DEEE:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-MetalSonicObject_0_Routine4:
-	bsr.w	sub_20E08C
+MetalSonicApproach:
+	bsr.w	IntroMoveX
 	move.w	obj.var_3e(a0),d0
 	add.w	obj.x_speed(a0),d0
 	cmpi.w	#-$300,d0
-	bgt.s	loc_20DF06
+	bgt.s	.SetVelocity
 	move.w	#-$300,d0
 
-loc_20DF06:
+.SetVelocity:
 	move.w	d0,obj.x_speed(a0)
 	move.w	#$3E0,d0
 	move.w	obj.var_34(a0),d1
-	beq.s	loc_20DF1E
+	beq.s	.CheckTarget
 	movea.w	d1,a2
 	move.w	obj.x(a2),d0
 	addi.w	#$20,d0
 
-loc_20DF1E:
+.CheckTarget:
 	cmp.w	obj.x(a0),d0
-	bcs.s	loc_20DF48
+	bcs.s	.Animate
 	clr.w	obj.x_speed(a0)
 	clr.w	obj.var_3e(a0)
 	st	obj.var_3d(a0)
 	move.b	#2,obj.anim_id(a0)
-	bsr.w	sub_20E00C
+	bsr.w	MetalSonicSpawnExhaust
 	clr.b	obj.collide_type(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 	addq.b	#2,obj.routine(a0)
 
-loc_20DF48:
+.Animate:
 	lea	MetalSonicAnims(pc),a1
-	bra.w	sub_20E262
+	bra.w	IntroAnimateObject
 
 ; ------------------------------------------------------------------------------
 
-MetalSonicObject_0_Routine6:
-	bsr.w	sub_20E300
-	bsr.w	sub_20E236
-	bsr.w	sub_20DF86
+MetalSonicHover:
+	bsr.w	IntroLoadPlayer
+	bsr.w	IntroFacePlayer
+	bsr.w	MetalSonicBob
 	addq.b	#4,obj.var_3a(a0)
-	bcc.s	loc_20DF7E
+	bcc.s	.Animate
 	addq.b	#2,obj.routine(a0)
 	move.w	#-$2C0,obj.y_speed(a0)
 	move.w	#$B,obj.var_3e(a0)
 	move.b	#$40,obj.var_3b(a0)
 	move.b	#$50,obj.var_30(a0)
 
-loc_20DF7E:
+.Animate:
 	lea	MetalSonicAnims(pc),a1
-	bra.w	sub_20E262
+	bra.w	IntroAnimateObject
 
 ; ------------------------------------------------------------------------------
 
-sub_20DF86:
+; Apply a four-pixel sine-wave offset around the saved base Y position.
+; Uses the phase in var_3A; clobbers d0.
+MetalSonicBob:
 	moveq	#0,d0
 	move.b	obj.var_3a(a0),d0
 	jsr	SineCosine
@@ -120,75 +132,79 @@ sub_20DF86:
 
 ; ------------------------------------------------------------------------------
 
-MetalSonicObject_0_Routine8:
+MetalSonicCapture:
 	lea	player_object,a1
-	bsr.w	sub_20E236
+	bsr.w	IntroFacePlayer
 	tst.b	obj.var_3b(a0)
-	beq.s	loc_20DFD2
-	bsr.w	sub_20E07C
+	beq.s	.CheckPlayer
+	bsr.w	IntroMoveXY
 	move.w	obj.var_3e(a0),d0
 	add.w	d0,obj.y_speed(a0)
 	subq.b	#1,obj.var_3b(a0)
-	bne.s	loc_20E004
+	bne.s	.Animate
 	clr.w	obj.var_3e(a0)
 	clr.w	obj.y_speed(a0)
 	move.w	obj.y(a0),obj.var_32(a0)
 
-loc_20DFD2:
-	bsr.w	sub_20DF86
+.CheckPlayer:
+	bsr.w	MetalSonicBob
 	addq.b	#4,obj.var_3a(a0)
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
-	bcs.s	loc_20DFEA
+	bcs.s	.NearPlayer
 	cmpi.b	#$A0,d0
-	bcc.s	loc_20E004
+	bcc.s	.Animate
 
-loc_20DFEA:
+.NearPlayer:
 	subq.b	#1,obj.var_30(a0)
-	bne.s	loc_20E004
-	bsr.w	sub_20E246
+	bne.s	.Animate
+	bsr.w	IntroFaceLeft
 	move.w	#0,obj.x_speed(a0)
 	move.w	#$60,obj.var_3e(a0)
 	addq.b	#2,obj.routine(a0)
 
-loc_20E004:
+.Animate:
 	lea	MetalSonicAnims(pc),a1
-	bra.w	sub_20E262
+	bra.w	IntroAnimateObject
 
 ; ------------------------------------------------------------------------------
 
-sub_20E00C:
+; Spawn and link the exhaust child. The parent pointer is stored as a word
+; because object slots reside in 68000 work RAM.
+MetalSonicSpawnExhaust:
 	jsr	SpawnObject
-	bne.s	locret_20E01E
+	bne.s	.End
 	move.b	#$34,obj.id(a1)
 	move.w	a0,obj.var_34(a1)
 
-locret_20E01E:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-MetalSonicObject_0_RoutineA:
-	bsr.w	sub_20E08C
+MetalSonicEscape:
+	bsr.w	IntroMoveX
 	move.w	obj.var_3e(a0),d0
 	add.w	obj.x_speed(a0),d0
 	cmpi.w	#$400,d0
-	bcs.s	loc_20E036
+	bcs.s	.SetVelocity
 	move.w	#$400,d0
 
-loc_20E036:
+.SetVelocity:
 	move.w	d0,obj.x_speed(a0)
 	cmpi.w	#$528,obj.x(a0)
-	bcc.s	loc_20E04A
+	bcc.s	MetalSonicCaptureAmy
 	lea	MetalSonicAnims(pc),a1
-	bra.w	sub_20E262
+	bra.w	IntroAnimateObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E04A:
+; Shared cutscene abort/completion path. Amy also uses this when Time Attack is
+; active, Amy is already captured, or the player has moved beyond the scene.
+MetalSonicCaptureAmy:
 	move.b	#-1,amy_captured
 	lea	StagePalette,a3
-	bsr.w	sub_20E2C8
+	bsr.w	IntroLoadPalette
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
@@ -199,8 +215,10 @@ MetalSonicAnims:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E07C:
-	bsr.s	sub_20E08C
+; Move an object using its 8.8 X/Y velocities.
+; In: a0 = object. Clobbers d0.
+IntroMoveXY:
+	bsr.s	IntroMoveX
 	move.w	obj.y_speed(a0),d0
 	ext.l	d0
 	asl.l	#8,d0
@@ -209,7 +227,9 @@ sub_20E07C:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E08C:
+; Move an object using its 8.8 X velocity.
+; In: a0 = object. Clobbers d0.
+IntroMoveX:
 	move.w	obj.x_speed(a0),d0
 	ext.l	d0
 	asl.l	#8,d0
@@ -220,16 +240,16 @@ sub_20E08C:
 
 AmyRoseObject:
 	tst.b	time_attack
-	bne.w	loc_20E04A
+	bne.w	MetalSonicCaptureAmy
 	tst.b	amy_captured
-	bne.w	loc_20E04A
+	bne.w	MetalSonicCaptureAmy
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
 	move.w	off_20E0D0(pc,d0.w),d0
 	jsr	off_20E0D0(pc,d0.w)
-	bsr.w	sub_20E300
+	bsr.w	IntroLoadPlayer
 	cmpi.w	#$4C0,8(a1)
-	bcc.w	loc_20E04A
+	bcc.w	MetalSonicCaptureAmy
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
@@ -254,8 +274,8 @@ loc_20E0E8:
 	move.b	#1,obj.sprite_layer(a0)
 	move.l	#AmyRoseSprites,obj.sprite_data(a0)
 	bsr.w	sub_20E2C4
-	bsr.w	sub_20E300
-	bsr.w	sub_20E236
+	bsr.w	IntroLoadPlayer
+	bsr.w	IntroFacePlayer
 	move.w	obj.x(a1),d0
 	cmp.w	obj.x(a0),d0
 	bcs.s	loc_20E11C
@@ -263,7 +283,7 @@ loc_20E0E8:
 
 loc_20E11C:
 	lea	AmyRoseAnims,a1
-	bra.w	sub_20E262
+	bra.w	IntroAnimateObject
 
 ; ------------------------------------------------------------------------------
 
@@ -272,7 +292,7 @@ loc_20E11C:
 ; ------------------------------------------------------------------------------
 
 AmyRoseObject_0_Routine2:
-	bsr.w	sub_20E300
+	bsr.w	IntroLoadPlayer
 	move.w	obj.var_34(a0),d0
 	beq.s	loc_20E14E
 	movea.w	d0,a2
@@ -286,7 +306,7 @@ AmyRoseObject_0_Routine2:
 ; ------------------------------------------------------------------------------
 
 loc_20E14E:
-	bsr.w	sub_20E236
+	bsr.w	IntroFacePlayer
 	btst	#0,obj.flags(a0)
 	beq.s	loc_20E16E
 	cmpi.w	#$80,obj.x(a0)
@@ -321,7 +341,7 @@ loc_20E196:
 
 loc_20E19E:
 	move.w	d0,obj.x_speed(a0)
-	bsr.w	sub_20E08C
+	bsr.w	IntroMoveX
 	move.b	#1,obj.anim_id(a0)
 	cmpi.w	#$3C0,obj.x(a0)
 	bcs.s	loc_20E1E0
@@ -340,7 +360,7 @@ loc_20E1B4:
 
 loc_20E1E0:
 	lea	AmyRoseAnims,a1
-	bsr.w	sub_20E262
+	bsr.w	IntroAnimateObject
 	bra.w	loc_20E306
 
 ; ------------------------------------------------------------------------------
@@ -350,11 +370,11 @@ AmyRoseObject_0_Routine4:
 	cmpi.b	#$31,obj.id(a1)
 	bne.s	loc_20E230
 	moveq	#8,d0
-	bsr.w	sub_20E254
+	bsr.w	IntroFaceRight
 	btst	#0,obj.flags(a1)
 	beq.s	loc_20E20E
 	neg.w	d0
-	bsr.w	sub_20E246
+	bsr.w	IntroFaceLeft
 
 loc_20E20E:
 	add.w	obj.x(a1),d0
@@ -364,7 +384,7 @@ loc_20E20E:
 	move.w	d0,obj.y(a0)
 	move.b	#2,obj.anim_id(a0)
 	lea	AmyRoseAnims,a1
-	bra.w	sub_20E262
+	bra.w	IntroAnimateObject
 
 ; ------------------------------------------------------------------------------
 
@@ -373,33 +393,33 @@ loc_20E230:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E236:
-	bsr.s	sub_20E246
+IntroFacePlayer:
+	bsr.s	IntroFaceLeft
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
 	bcs.s	locret_20E244
-	bsr.s	sub_20E254
+	bsr.s	IntroFaceRight
 
 locret_20E244:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20E246:
+IntroFaceLeft:
 	bclr	#0,obj.flags(a0)
 	bclr	#0,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20E254:
+IntroFaceRight:
 	bset	#0,obj.flags(a0)
 	bset	#0,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20E262:
+IntroAnimateObject:
 	moveq	#0,d0
 	move.b	obj.anim_id(a0),d0
 	cmp.b	obj.prev_anim_id(a0),d0
@@ -447,7 +467,7 @@ sub_20E2C4:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E2C8:
+IntroLoadPalette:
 	lea	palette+$20,a4
 	movem.l	(a3)+,d0-d3
 	movem.l	d0-d3,(a4)
@@ -462,7 +482,7 @@ word_20E2E0:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E300:
+IntroLoadPlayer:
 	lea	player_object,a1
 	rts
 
@@ -689,7 +709,7 @@ word_20E548:
 ; ------------------------------------------------------------------------------
 
 IntroSpikesObject_0_Routine4:
-	bsr.w	sub_20E07C
+	bsr.w	IntroMoveXY
 	move.w	obj.var_3e(a0),d0
 	add.w	d0,obj.y_speed(a0)
 	subq.b	#1,obj.var_3a(a0)
@@ -740,7 +760,7 @@ HeartObject_0_Routine2:
 	move.w	d0,obj.x_speed(a0)
 
 loc_20E5D8:
-	bsr.w	sub_20E07C
+	bsr.w	IntroMoveXY
 	addq.b	#1,obj.var_3a(a0)
 	move.b	obj.var_3a(a0),d0
 	cmpi.b	#$14,d0
