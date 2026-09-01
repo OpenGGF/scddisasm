@@ -1,431 +1,176 @@
 .Map:
-	dc.w	unk_20AA76-.Map
-	dc.w	unk_20AA8C-.Map
-	dc.w	unk_20AAA2-.Map
-	dc.w	unk_20AAB8-.Map
-	dc.w	unk_20AACE-.Map
-	dc.w	unk_20AAE4-.Map
-	dc.w	unk_20AAFA-.Map
-	dc.w	unk_20AB10-.Map
-	dc.w	unk_20AB26-.Map
-	dc.w	unk_20AB3C-.Map
-	dc.w	unk_20AB52-.Map
-	dc.w	unk_20AB6C-.Map
-	dc.w	unk_20AB86-.Map
-	dc.w	unk_20ABA0-.Map
-	dc.w	unk_20ABBA-.Map
-	dc.w	unk_20ABD4-.Map
-	dc.w	unk_20ABEE-.Map
-	dc.w	unk_20ABFE-.Map
-	dc.w	unk_20AC04-.Map
-	dc.w	unk_20AC0A-.Map
-unk_20AA76:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$12
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AA8C:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AAA2:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1A
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AAB8:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1E
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AACE:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AAE4:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$26 ; &
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AAFA:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2A ; *
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AB10:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AB26:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  0
-	dc.b	$48 ; H
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AB3C:	dc.b	  4
-	dc.b	$F6 ; ö
-	dc.b	  5
-	dc.b	  8
-	dc.b	$48 ; H
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-	dc.b	  0
-unk_20AB52:	dc.b	  5
-	dc.b	$D8 ; Ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$32 ; 2
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  0
-	dc.b	$4C ; L
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  8
-	dc.b	$4C ; L
-	dc.b	  0
-	dc.b	  8
-	dc.b	  1
-	dc.b	  0
-	dc.b	$50 ; P
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  1
-	dc.b	  8
-	dc.b	$50 ; P
-	dc.b	  0
-unk_20AB6C:	dc.b	  5
-	dc.b	$D8 ; Ø
-	dc.b	 $D
-	dc.b	  8
-	dc.b	$32 ; 2
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  0
-	dc.b	$4C ; L
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  8
-	dc.b	$4C ; L
-	dc.b	  0
-	dc.b	  8
-	dc.b	  1
-	dc.b	  0
-	dc.b	$50 ; P
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  1
-	dc.b	  8
-	dc.b	$50 ; P
-	dc.b	  0
-unk_20AB86:	dc.b	  5
-	dc.b	$D8 ; Ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$3A ; :
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  0
-	dc.b	$4C ; L
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  8
-	dc.b	$4C ; L
-	dc.b	  0
-	dc.b	  8
-	dc.b	  1
-	dc.b	  0
-	dc.b	$50 ; P
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  1
-	dc.b	  8
-	dc.b	$50 ; P
-	dc.b	  0
-unk_20ABA0:	dc.b	  5
-	dc.b	$D8 ; Ø
-	dc.b	 $D
-	dc.b	  8
-	dc.b	$3A ; :
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  0
-	dc.b	$4C ; L
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  8
-	dc.b	$4C ; L
-	dc.b	  0
-	dc.b	  8
-	dc.b	  1
-	dc.b	  0
-	dc.b	$50 ; P
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  1
-	dc.b	  8
-	dc.b	$50 ; P
-	dc.b	  0
-unk_20ABBA:	dc.b	  5
-	dc.b	$D8 ; Ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$42 ; B
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  0
-	dc.b	$4C ; L
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  8
-	dc.b	$4C ; L
-	dc.b	  0
-	dc.b	  8
-	dc.b	  1
-	dc.b	  0
-	dc.b	$50 ; P
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  1
-	dc.b	  8
-	dc.b	$50 ; P
-	dc.b	  0
-unk_20ABD4:	dc.b	  5
-	dc.b	$D8 ; Ø
-	dc.b	  1
-	dc.b	  0
-	dc.b	$46 ; F
-	dc.b	$FC ; ü
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  0
-	dc.b	$4C ; L
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  3
-	dc.b	  8
-	dc.b	$4C ; L
-	dc.b	  0
-	dc.b	  8
-	dc.b	  1
-	dc.b	  0
-	dc.b	$50 ; P
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  1
-	dc.b	  8
-	dc.b	$50 ; P
-	dc.b	  0
-unk_20ABEE:	dc.b	  3
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  6
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  8
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  6
-	dc.b	$F0 ; ð
-unk_20ABFE:	dc.b	  1
-	dc.b	  0
-	dc.b	 $D
-	dc.b	  0
-	dc.b	 $A
-	dc.b	$F0 ; ð
-unk_20AC04:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$32 ; 2
-	dc.b	$F0 ; ð
-unk_20AC0A:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$3A ; :
-	dc.b	$F0 ; ð
+	dc.w	.OneUp-.Map
+	dc.w	.Rings-.Map
+	dc.w	.Shield-.Map
+	dc.w	.Invincibility-.Map
+	dc.w	.SpeedShoes-.Map
+	dc.w	.TimeStop-.Map
+	dc.w	.CombineRing-.Map
+	dc.w	.S-.Map
+	dc.w	.Past-.Map
+	dc.w	.Future-.Map
+	dc.w	.PostPast-.Map
+	dc.w	.PostPastFlip-.Map
+	dc.w	.PostFuture-.Map
+	dc.w	.PostFutureFlip-.Map
+	dc.w	.PostTransitionWide-.Map
+	dc.w	.PostTransitionNarrow-.Map
+	dc.w	.Breaking-.Map
+	dc.w	.Broken-.Map
+	dc.w	.PastHUD-.Map
+	dc.w	.FutureHUD-.Map
+
+.OneUp:
+	dc.b	4
+	dc.b	$F6, 5, 0, $12, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.Rings:
+	dc.b	4
+	dc.b	$F6, 5, 0, $16, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.Shield:
+	dc.b	4
+	dc.b	$F6, 5, 0, $1A, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.Invincibility:
+	dc.b	4
+	dc.b	$F6, 5, 0, $1E, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.SpeedShoes:
+	dc.b	4
+	dc.b	$F6, 5, 0, $22, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.TimeStop:
+	dc.b	4
+	dc.b	$F6, 5, 0, $26, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.CombineRing:
+	dc.b	4
+	dc.b	$F6, 5, 0, $2A, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.S:
+	dc.b	4
+	dc.b	$F6, 5, 0, $2E, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.Past:
+	dc.b	4
+	dc.b	$F6, 5, 0, $48, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.Future:
+	dc.b	4
+	dc.b	$F6, 5, 8, $48, $F8
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.PostPast:
+	dc.b	5
+	dc.b	$D8, $D, 0, $32, $F0
+	dc.b	$E8, 3, 0, $4C, $F8
+	dc.b	$E8, 3, 8, $4C, 0
+	dc.b	8, 1, 0, $50, $F8
+	dc.b	8, 1, 8, $50, 0
+	even
+
+.PostPastFlip:
+	dc.b	5
+	dc.b	$D8, $D, 8, $32, $F0
+	dc.b	$E8, 3, 0, $4C, $F8
+	dc.b	$E8, 3, 8, $4C, 0
+	dc.b	8, 1, 0, $50, $F8
+	dc.b	8, 1, 8, $50, 0
+	even
+
+.PostFuture:
+	dc.b	5
+	dc.b	$D8, $D, 0, $3A, $F0
+	dc.b	$E8, 3, 0, $4C, $F8
+	dc.b	$E8, 3, 8, $4C, 0
+	dc.b	8, 1, 0, $50, $F8
+	dc.b	8, 1, 8, $50, 0
+	even
+
+.PostFutureFlip:
+	dc.b	5
+	dc.b	$D8, $D, 8, $3A, $F0
+	dc.b	$E8, 3, 0, $4C, $F8
+	dc.b	$E8, 3, 8, $4C, 0
+	dc.b	8, 1, 0, $50, $F8
+	dc.b	8, 1, 8, $50, 0
+	even
+
+.PostTransitionWide:
+	dc.b	5
+	dc.b	$D8, 5, 0, $42, $F8
+	dc.b	$E8, 3, 0, $4C, $F8
+	dc.b	$E8, 3, 8, $4C, 0
+	dc.b	8, 1, 0, $50, $F8
+	dc.b	8, 1, 8, $50, 0
+	even
+
+.PostTransitionNarrow:
+	dc.b	5
+	dc.b	$D8, 1, 0, $46, $FC
+	dc.b	$E8, 3, 0, $4C, $F8
+	dc.b	$E8, 3, 8, $4C, 0
+	dc.b	8, 1, 0, $50, $F8
+	dc.b	8, 1, 8, $50, 0
+	even
+
+.Breaking:
+	dc.b	3
+	dc.b	$F0, 6, 0, 0, $F0
+	dc.b	$F0, 6, 8, 0, 0
+	dc.b	8, $C, 0, 6, $F0
+	even
+
+.Broken:
+	dc.b	1
+	dc.b	0, $D, 0, $A, $F0
+	even
+
+.PastHUD:
+	dc.b	1
+	dc.b	$F8, $D, 0, $32, $F0
+	even
+
+.FutureHUD:
+	dc.b	1
+	dc.b	$F8, $D, 0, $3A, $F0
