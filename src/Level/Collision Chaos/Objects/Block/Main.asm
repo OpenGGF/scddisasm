@@ -2,6 +2,11 @@
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
 ; Collision Chaos block and hidden block objects
+;
+; CC_LEGACY_BLOCK_ABI preserves R31A's original instruction encodings and
+; layout: the custom R3 despawn checks, byte-sized motion-table indexing,
+; early stationary return, PC-relative hidden-block helper calls, and the
+; block mapping placed between the two object implementations.
 ; -------------------------------------------------------------------------
 
 oBlockBaseX	EQU	oVar32
@@ -20,7 +25,25 @@ ObjBlock:
 	jsr	ObjBlock_Index(pc,d0.w)
 	jsr	DrawObject
 	move.w	oBlockBaseX(a0),d0
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	andi.w	#$FF80,d0
+	move.w	cameraX.w,d1
+	subi.w	#$80,d1
+	andi.w	#$FF80,d1
+	sub.w	d1,d0
+	cmpi.w	#$280,d0
+	bhi.s	.Despawn
+	rts
+
+.Despawn:
+	bra.w	DespawnObjectR3
+		else
 	jmp	CheckObjDespawn2
+		endif
+	else
+	jmp	CheckObjDespawn2
+	endif
 ; End of function ObjBlock
 
 ; -------------------------------------------------------------------------
@@ -61,7 +84,15 @@ ObjBlock_Init:
 ; -------------------------------------------------------------------------
 
 ObjBlock_Main:
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	bsr.s	ObjBlock_Solid
+		else
 	bsr.w	ObjBlock_Solid
+		endif
+	else
+	bsr.w	ObjBlock_Solid
+	endif
 	tst.b	timeZone
 	beq.s	.End
 
@@ -72,14 +103,31 @@ ObjBlock_Main:
 	bne.s	.Move
 	moveq	#0,d0
 	move.b	oBlockDirection(a0),d0
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	add.b	d0,d0
+	add.b	d0,d0
+		else
 	add.w	d0,d0
 	add.w	d0,d0
+		endif
+	else
+	add.w	d0,d0
+	add.w	d0,d0
+	endif
 	lea	ObjBlock_MotionData(pc,d0.w),a1
 	move.b	(a1)+,oBlockTimer(a0)
 	move.b	(a1)+,d0
 	ext.w	d0
 	move.w	d0,oBlockVelocity(a0)
 	move.w	(a1)+,oBlockPosition(a0)
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+
+.End:
+	rts
+		endif
+	endif
 
 .Move:
 	move.w	oBlockVelocity(a0),d0
@@ -90,13 +138,38 @@ ObjBlock_Main:
 	asl.l	#8,d0
 	add.l	d0,oX(a0)
 	subq.b	#1,oBlockTimer(a0)
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	beq.s	.AdvanceDirection
+	rts
+
+.AdvanceDirection:
+	addq.b	#1,oBlockDirection(a0)
+	andi.b	#3,oBlockDirection(a0)
+	bra.s	.CheckMotion
+		else
 	bne.s	.End
 	addq.b	#1,oBlockDirection(a0)
 	andi.b	#3,oBlockDirection(a0)
 	bra.s	.CheckMotion
+		endif
+	else
+	bne.s	.End
+	addq.b	#1,oBlockDirection(a0)
+	andi.b	#3,oBlockDirection(a0)
+	bra.s	.CheckMotion
+	endif
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI=0
 
 .End:
 	rts
+		endif
+	else
+
+.End:
+	rts
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -118,6 +191,14 @@ ObjBlock_MotionData:
 	dc.b	$40, 8
 	dc.w	0
 
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+MapSpr_Block:
+	include	"sprites/r3/block.asm"
+	even
+		endif
+	endif
+
 ; -------------------------------------------------------------------------
 
 ObjHiddenBlock:
@@ -127,7 +208,25 @@ ObjHiddenBlock:
 	jsr	ObjHiddenBlock_Index(pc,d0.w)
 	jsr	DrawObject
 	move.w	oHiddenBlockBaseX(a0),d0
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	andi.w	#$FF80,d0
+	move.w	cameraX.w,d1
+	subi.w	#$80,d1
+	andi.w	#$FF80,d1
+	sub.w	d1,d0
+	cmpi.w	#$280,d0
+	bhi.s	.Despawn
+	rts
+
+.Despawn:
+	bra.w	DespawnObjectR3
+		else
 	jmp	CheckObjDespawn2
+		endif
+	else
+	jmp	CheckObjDespawn2
+	endif
 ; End of function ObjHiddenBlock
 
 ; -------------------------------------------------------------------------
@@ -185,7 +284,15 @@ ObjHiddenBlock_Init:
 ; -------------------------------------------------------------------------
 
 ObjHiddenBlock_Main:
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	jsr	ObjHiddenBlock_Move(pc)
+		else
 	bsr.w	ObjHiddenBlock_Move
+		endif
+	else
+	bsr.w	ObjHiddenBlock_Move
+	endif
 	lea	objPlayerSlot.w,a1
 	move.w	oX(a0),d3
 	move.w	oY(a0),d4
@@ -196,7 +303,15 @@ ObjHiddenBlock_Main:
 ObjHiddenBlock_Move:
 	btst	#2,oSubtype(a0)
 	bne.s	.Negative
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	jsr	ObjHiddenBlock_CheckPlayer(pc)
+		else
 	bsr.w	ObjHiddenBlock_CheckPlayer
+		endif
+	else
+	bsr.w	ObjHiddenBlock_CheckPlayer
+	endif
 	moveq	#0,d0
 	move.b	oHiddenBlockOffset(a0),d0
 	add.w	oHiddenBlockBaseY(a0),d0
@@ -204,7 +319,15 @@ ObjHiddenBlock_Move:
 	rts
 
 .Negative:
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	jsr	ObjHiddenBlock_CheckPlayer(pc)
+		else
 	bsr.w	ObjHiddenBlock_CheckPlayer
+		endif
+	else
+	bsr.w	ObjHiddenBlock_CheckPlayer
+	endif
 	moveq	#0,d0
 	move.b	oHiddenBlockOffset(a0),d0
 	neg.w	d0
@@ -217,7 +340,13 @@ ObjHiddenBlock_Move:
 ObjHiddenBlock_CheckPlayer:
 	lea	objPlayerSlot.w,a1
 	move.w	oX(a0),d0
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI=0
 	moveq	#0,d1
+		endif
+	else
+	moveq	#0,d1
+	endif
 	move.b	oWidth(a0),d1
 	ext.w	d1
 	sub.w	d1,d0
@@ -230,7 +359,15 @@ ObjHiddenBlock_CheckPlayer:
 
 .MoveLeft:
 	subq.b	#8,oHiddenBlockOffset(a0)
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	bcc.s	.ClampEnd
+		else
 	bcc.s	.End
+		endif
+	else
+	bcc.s	.End
+	endif
 	move.b	#0,oHiddenBlockOffset(a0)
 
 .End:
@@ -239,18 +376,45 @@ ObjHiddenBlock_CheckPlayer:
 .MoveRight:
 	addq.b	#8,oHiddenBlockOffset(a0)
 	cmpi.b	#$20,oHiddenBlockOffset(a0)
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+	bcs.s	.ClampEnd
+		else
 	bcs.s	.End
+		endif
+	else
+	bcs.s	.End
+	endif
 	move.b	#$20,oHiddenBlockOffset(a0)
+
+.ClampEnd:
 	rts
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI=0
 MapSpr_Block:
 	include	"sprites/r3/block.asm"
 	even
+		endif
+	else
+MapSpr_Block:
+	include	"sprites/r3/block.asm"
+	even
+	endif
 
 MapSpr_HiddenBlock:
 	include	"sprites/r3/hidden_block.asm"
 	even
+
+	if def(R3_SEMANTIC_BLOCKS)
+		if R3_SEMANTIC_BLOCKS<>0
+BlockObject	EQU	ObjBlock
+HiddenBlockObject EQU	ObjHiddenBlock
+BlockSprites	EQU	MapSpr_Block
+HiddenBlockSprites EQU	MapSpr_HiddenBlock
+		endif
+	endif
 
 ; -------------------------------------------------------------------------

@@ -276,8 +276,15 @@ ObjSpikes		EQU	SpikesObject
 	else
 ObjSpikes		EQU	SpikesObject
 	endif
+	if def(R3_SEMANTIC_BLOCKS)
+		if R3_SEMANTIC_BLOCKS=0
 ObjBlock		EQU	BlockObject
 ObjHiddenBlock	EQU	HiddenBlockObject
+		endif
+	else
+ObjBlock		EQU	BlockObject
+ObjHiddenBlock	EQU	HiddenBlockObject
+	endif
 ObjMetalPlatform	EQU	MetalPlatformObject
 ObjKamaKama		EQU	KamaKamaObject
 ObjKamaSickle		EQU	KamaSickleObject
