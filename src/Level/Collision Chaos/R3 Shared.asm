@@ -6,6 +6,7 @@
 STANDALONE		EQU	0
 R6_LEGACY_PLAYER	EQU	1
 R3_SEMANTIC_COLLISION	EQU	1
+R3_SEMANTIC_GENERAL	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -28,16 +29,7 @@ CC_VARIANT	EQU	3
 	include	"Level/Functions (Misc).asm"
 	include	"Level/Collision Floor.asm"
 	include	"common/main.asm"
-	include	"common/random.asm"
-	include	"common/joypad.asm"
-	include	"common/vdp.asm"
-	include	"common/z80.asm"
-	include	"common/sound.asm"
-	include	"common/tilemap.asm"
-	include	"common/nemesis.asm"
-	include	"common/gfx_queue.asm"
-	include	"common/enigma.asm"
-	include	"common/kosinski.asm"
+	include	"Level/Functions (General).asm"
 
 	if R3_VARIANT=1
 		include	"r3/scroll_3c.asm"

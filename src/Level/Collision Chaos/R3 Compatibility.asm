@@ -20,7 +20,13 @@ r3_no_bumper		EQU	debugBlock+2
 
 ; The semantic palette fade engine uses the later queue-service name. The
 ; recovered R3 graphs retain the byte-identical historical implementation.
+	if def(R3_SEMANTIC_GENERAL)
+		if R3_SEMANTIC_GENERAL=0
 ProcessPLCs		EQU	AdvanceGfxQueue
+		endif
+	else
+ProcessPLCs		EQU	AdvanceGfxQueue
+	endif
 
 	if def(R3_SEMANTIC_COLLISION)
 		if R3_SEMANTIC_COLLISION<>0
@@ -32,6 +38,29 @@ CheckBlockY		EQU	FindLevelFloor
 CheckBlockX		EQU	FindLevelWall
 ConvertStageCollision	EQU	ConvColArray
 LevelChunks		EQU	StageChunks
+		endif
+	endif
+
+	if def(R3_SEMANTIC_GENERAL)
+		if R3_SEMANTIC_GENERAL<>0
+; Recovered names for the canonical general-service and decompression module.
+InitJoypads		EQU	InitControllers
+ReadJoypads		EQU	ReadControllers
+LoadDummyZ80		EQU	InitZ80Dummy
+FlushFmQueues		EQU	UpdateFMQueues
+DecompNemesisVram	EQU	NemDec
+DecompNemesis		EQU	NemDecToRAM
+AddGfxQueue		EQU	LoadPLC
+InitGfxQueue		EQU	InitPLC
+ClearGfxQueue		EQU	ClearPLCs
+AdvanceGfxQueue	EQU	ProcessPLCs
+ProcessGfxQueueFast	EQU	DecompPLCFast
+ProcessGfxQueueLarge	EQU	DecompPLCFast_Large
+ProcessGfxQueueSlow	EQU	DecompPLCSlow
+LoadGfxList		EQU	LoadPLCImm
+DecompEnigma		EQU	EniDec
+DecompKosinski		EQU	KosDec
+PLCLists		EQU	GfxLists
 		endif
 	endif
 

@@ -269,6 +269,13 @@ InitZ80Dummy:
 	ror.b	#8,d0				; Wait
 	move.w	#$100,Z80RESET			; Stop Z80 reset
 	jmp	StartZ80(pc)			; Start the Z80
+	if def(R3_SEMANTIC_GENERAL)
+		if R3_SEMANTIC_GENERAL<>0
+; The recovered graph labels the otherwise unreachable trailing instruction
+; as a no-op music service.
+PlayFmMusic:
+		endif
+	endif
 	rts
 
 ; -------------------------------------------------------------------------
@@ -1160,6 +1167,8 @@ KosDec_Done:
 ;	a6.l - Player object RAM
 ; -------------------------------------------------------------------------
 
+	if def(R3_SEMANTIC_GENERAL)
+		if R3_SEMANTIC_GENERAL=0
 GetPlayerObject:
 	lea	objPlayerSlot.w,a6		; Player 1
 	tst.b	usePlayer2			; Are we using player 2?
@@ -1168,5 +1177,16 @@ GetPlayerObject:
 
 .Done:
 	rts
+		endif
+	else
+GetPlayerObject:
+	lea	objPlayerSlot.w,a6		; Player 1
+	tst.b	usePlayer2			; Are we using player 2?
+	beq.s	.Done				; If not, branch
+	lea	objPlayerSlot2.w,a6		; Player 2
+
+.Done:
+	rts
+	endif
 
 ; -------------------------------------------------------------------------

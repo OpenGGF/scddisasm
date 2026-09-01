@@ -110,4 +110,10 @@ mcd_sub_data_0		EQU	$A12020
 LevelStart	EQU	InitStage
 HInterrupt	EQU	HBlank
 VInterrupt	EQU	VBlank
+	if def(R3_SEMANTIC_GENERAL)
+		if R3_SEMANTIC_GENERAL=0
 InitControllers	EQU	InitJoypads
+		endif
+	else
+InitControllers	EQU	InitJoypads
+	endif
