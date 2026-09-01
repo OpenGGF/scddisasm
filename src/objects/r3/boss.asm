@@ -13,6 +13,7 @@ boss.primary_link		equ obj.var_34	; Pilot from parent; parent from child
 boss.upper_child_link		equ obj.var_36	; Linked upper machine child slot
 boss.attack_count		equ obj.var_3a	; Number of arena attacks started
 boss.phase			equ obj.var_3b	; Encounter substate and camera-lock phase
+boss.timer			equ obj.var_3e	; Hit/recovery and exit timer
 
 ; The two barriers link to each other through 16-bit object-slot addresses.
 ; A collision retracts a barrier; crossing the arena threshold starts the boss.
@@ -300,35 +301,36 @@ BossMachine_TrackPlayer:
 
 ; ------------------------------------------------------------------------------
 
-sub_20DE80:
-	cmpi.b	#4,obj.var_3a(a0)
-	bge.w	loc_20DEB8
+BossMachine_CanSpawnExitBarrier:
+	cmpi.b	#4,boss.attack_count(a0)
+	bge.w	.No
 	moveq	#0,d0
-	move.b	obj.var_3a(a0),d0
+	move.b	boss.attack_count(a0),d0
 	add.b	d0,d0
-	move.w	word_20DEBC(pc,d0.w),d0
+	move.w	BossMachine_PlayerYThresholds(pc,d0.w),d0
 	move.w	player_object+obj.y,d1
 	cmp.w	d0,d1
-	bgt.s	loc_20DEB8
+	bgt.s	.No
 	cmpi.w	#$80,d1
-	blt.s	loc_20DEB8
+	blt.s	.No
 	move.w	player_object+obj.x,d1
 	cmpi.w	#$340,d1
-	blt.s	loc_20DEB8
+	blt.s	.No
 	cmpi.w	#$3C0,d1
-	bgt.s	loc_20DEB8
+	bgt.s	.No
 	moveq	#0,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20DEB8:
+.No:
 	moveq	#1,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20DEBC:
+; Maximum player Y for each of the four successively higher barriers.
+BossMachine_PlayerYThresholds:
 	dc.w	$1F0
 	dc.w	$1A8
 	dc.w	$160
@@ -337,40 +339,41 @@ word_20DEBC:
 ; ------------------------------------------------------------------------------
 
 BossMachine_Combat:
-	bsr.s	sub_20DE80
-	bne.s	loc_20DECC
-	bsr.w	sub_20DED8
+	bsr.s	BossMachine_CanSpawnExitBarrier
+	bne.s	.CheckHit
+	bsr.w	BossMachine_SpawnExitBarrier
 
-loc_20DECC:
+.CheckHit:
 	tst.b	obj.collide_type(a0)
-	bne.s	locret_20DED6
-	bra.w	loc_20DF08
+	bne.s	.End
+	bra.w	BossMachine_HandleHit
 
 ; ------------------------------------------------------------------------------
 
-locret_20DED6:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20DED8:
+BossMachine_SpawnExitBarrier:
 	bsr.w	SpawnObject
-	bne.s	locret_20DEFE
+	bne.s	.End
 	move.b	#$3F,obj.id(a1)
 	move.w	#$380,obj.x(a1)
 	moveq	#0,d0
-	move.b	obj.var_3a(a0),d0
-	addq.b	#1,obj.var_3a(a0)
+	move.b	boss.attack_count(a0),d0
+	addq.b	#1,boss.attack_count(a0)
 	add.b	d0,d0
-	move.w	word_20DF00(pc,d0.w),d0
+	move.w	BossMachine_ExitBarrierYPositions(pc,d0.w),d0
 	move.w	d0,obj.y(a1)
 
-locret_20DEFE:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20DF00:
+; Spawn Y for the four barriers, moving upward through the arena.
+BossMachine_ExitBarrierYPositions:
 	dc.w	$210
 	dc.w	$1C8
 	dc.w	$180
@@ -378,42 +381,42 @@ word_20DF00:
 
 ; ------------------------------------------------------------------------------
 
-loc_20DF08:
+BossMachine_HandleHit:
 	moveq	#0,d0
-	move.b	obj.var_3b(a0),d0
-	addq.b	#1,obj.var_3b(a0)
+	move.b	boss.phase(a0),d0
+	addq.b	#1,boss.phase(a0)
 	add.w	d0,d0
-	move.w	off_20DF1C(pc,d0.w),d0
-	jmp	off_20DF1C(pc,d0.w)
+	move.w	BossMachine_HitPhases(pc,d0.w),d0
+	jmp	BossMachine_HitPhases(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20DF1C:
-	dc.w	BossMachineObject_1_Routine0-*
-	dc.w	BossMachineObject_1_Routine2-off_20DF1C
-	dc.w	BossMachineObject_1_Routine4-off_20DF1C
+BossMachine_HitPhases:
+	dc.w	BossMachine_HitPhase_LoadArt-*
+	dc.w	BossMachine_HitPhase_RaiseUpperChild-BossMachine_HitPhases
+	dc.w	BossMachine_HitPhase_Defeated-BossMachine_HitPhases
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_1_Routine0:
+BossMachine_HitPhase_LoadArt:
 	moveq	#4,d0
 	jsr	AddGfxQueue
-	bra.w	*+4
+	bra.w	*+4			; Word-sized fall-through into the next hit phase
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_1_Routine2:
-	movea.w	obj.var_36(a0),a1
+BossMachine_HitPhase_RaiseUpperChild:
+	movea.w	boss.upper_child_link(a0),a1
 	move.b	#4,obj.routine(a1)
 	move.b	#1,obj.anim_id(a1)
 	move.l	#-$58000,obj.var_30(a1)
-	bra.w	loc_20DF7C
+	bra.w	BossMachine_StartHitReaction
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_1_Routine4:
+BossMachine_HitPhase_Defeated:
 	move.b	#4,obj.sprite_frame(a0)
-	movea.w	obj.var_36(a0),a1
+	movea.w	boss.upper_child_link(a0),a1
 	move.b	#6,obj.routine(a1)
 	clr.b	obj.var_2a(a1)
 	move.w	obj.y(a0),obj.var_2e(a1)
@@ -422,42 +425,42 @@ BossMachineObject_1_Routine4:
 	move.w	#$3FC,obj.sprite_tile(a1)
 	move.w	#$300,obj.anim_id(a1)
 
-loc_20DF7C:
+BossMachine_StartHitReaction:
 	move.w	#$AC,d0
 	jsr	PlayFmSound
-	clr.w	obj.var_3e(a0)
+	clr.w	boss.timer(a0)
 	move.b	#6,obj.routine(a0)
-	move.b	#$10,obj.var_2b(a0)
+	move.b	#$10,boss.flash_timer(a0)
 	cmpi.b	#1,obj.collide_status(a0)
-	beq.s	loc_20DFA2
+	beq.s	BossMachine_Defeated
 	bra.w	BossMachine_HitReaction
 
 ; ------------------------------------------------------------------------------
 
-loc_20DFA2:
+BossMachine_Defeated:
 	moveq	#100,d0
 	jsr	AddPoints(pc)
 	clr.b	obj.collide_type(a0)
-	move.w	obj.y(a0),obj.var_2e(a0)
-	addi.w	#-$70,obj.var_2e(a0)
+	move.w	obj.y(a0),boss.target_y(a0)
+	addi.w	#-$70,boss.target_y(a0)
 	move.w	#$14,d0
 	tst.b	good_future
-	beq.s	loc_20DFC8
+	beq.s	.SendCommand
 	move.w	#$13,d0
 
-loc_20DFC8:
+.SendCommand:
 	jsr	SubCpuCommand
 	bra.w	BossMachine_HitReaction
 
 ; ------------------------------------------------------------------------------
 
 loc_20DFD2:
-	cmpi.b	#3,obj.var_3a(a0)
+	cmpi.b	#3,boss.attack_count(a0)
 	bne.s	locret_20DFEA
-	bsr.w	sub_20DE80
+	bsr.w	BossMachine_CanSpawnExitBarrier
 	bne.s	locret_20DFEA
 	move.b	#3,boss_flags
-	bsr.w	sub_20DED8
+	bsr.w	BossMachine_SpawnExitBarrier
 
 locret_20DFEA:
 	rts
