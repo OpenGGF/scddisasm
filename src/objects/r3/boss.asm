@@ -22,6 +22,8 @@ boss_child.parent_link		equ obj.var_34	; Parent boss object slot
 eggman.target			equ obj.var_2e	; Initial Y, then escape target X
 eggman.y_speed			equ obj.var_30	; 16.16 vertical speed
 eggman.parent_link		equ obj.var_34	; Parent boss object slot
+gear.flags			equ obj.var_2c	; Bit 0: encounter finished
+gear.parent_link		equ obj.var_34	; Parent boss object slot
 
 ; The two barriers link to each other through 16-bit object-slot addresses.
 ; A collision retracts a barrier; crossing the arena threshold starts the boss.
@@ -810,7 +812,7 @@ Eggman_EscapeRight:
 
 GearObject:
 	tst.b	obj.routine(a0)
-	bne.s	loc_20E32A
+	bne.s	.FollowBoss
 	addq.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
@@ -819,22 +821,22 @@ GearObject:
 	move.w	#$31E,obj.sprite_tile(a0)
 	move.l	#GearSprites,obj.sprite_data(a0)
 
-loc_20E32A:
-	btst	#0,obj.var_2c(a0)
-	bne.s	locret_20E356
-	movea.w	obj.var_34(a0),a1
+.FollowBoss:
+	btst	#0,gear.flags(a0)
+	bne.s	.End
+	movea.w	gear.parent_link(a0),a1
 	move.w	obj.y(a1),obj.y(a0)
-	btst	#2,obj.var_2c(a1)
-	beq.s	loc_20E350
+	btst	#2,boss.flags(a1)
+	beq.s	.Draw
 	lea	GearAnims,a1
 	jsr	AnimateObject
 
-loc_20E350:
+.Draw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20E356:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
