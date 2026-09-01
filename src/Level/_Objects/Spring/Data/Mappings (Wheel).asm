@@ -1,15 +1,12 @@
 .Map:
-	dc.w	unk_209C72-.Map
-	dc.w	unk_209C78-.Map
-unk_209C72:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F8 ; ø
-unk_209C78:	dc.b	  1
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$F8 ; ø
+	dc.w	.Frame0-.Map
+	dc.w	.Frame1-.Map
+
+.Frame0:
+	dc.b	1
+	dc.b	$F8, 5, 0, 0, $F8
+	even
+
+.Frame1:
+	dc.b	1
+	dc.b	$F8, 5, 0, 4, $F8

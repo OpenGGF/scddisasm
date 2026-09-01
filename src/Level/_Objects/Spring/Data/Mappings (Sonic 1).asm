@@ -1,73 +1,37 @@
 .Map:
-	dc.w	unk_209B50-.Map
-	dc.w	unk_209B5B-.Map
-	dc.w	unk_209B61-.Map
-	dc.w	unk_209B71-.Map
-	dc.w	unk_209B77-.Map
-	dc.w	unk_209B7D-.Map
-unk_209B50:	dc.b	  2
-	dc.b	$F8 ; ø
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	  0
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  4
-	dc.b	$F0 ; ð
-unk_209B5B:	dc.b	  1
-	dc.b	  0
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-unk_209B61:	dc.b	  3
-	dc.b	$E8 ; è
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  5
-	dc.b	  0
-	dc.b	  8
-	dc.b	$F8 ; ø
-	dc.b	  0
-	dc.b	 $C
-	dc.b	  0
-	dc.b	 $C
-	dc.b	$F0 ; ð
-unk_209B71:	dc.b	  1
-	dc.b	$F0 ; ð
-	dc.b	  7
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F8 ; ø
-unk_209B77:	dc.b	  1
-	dc.b	$F0 ; ð
-	dc.b	  3
-	dc.b	  0
-	dc.b	  4
-	dc.b	$F8 ; ø
-unk_209B7D:	dc.b	  4
-	dc.b	$F0 ; ð
-	dc.b	  3
-	dc.b	  0
-	dc.b	  4
-	dc.b	$10
-	dc.b	$F8 ; ø
-	dc.b	  9
-	dc.b	  0
-	dc.b	  8
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  0
-	dc.b	  0
-	dc.b	  0
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  3
-	dc.b	$F8 ; ø
+	dc.w	.Frame0-.Map
+	dc.w	.Frame1-.Map
+	dc.w	.Frame2-.Map
+	dc.w	.Frame3-.Map
+	dc.w	.Frame4-.Map
+	dc.w	.Frame5-.Map
+
+.Frame0:
+	dc.b	2
+	dc.b	$F8, $C, 0, 0, $F0
+	dc.b	0, $C, 0, 4, $F0
+
+.Frame1:
+	dc.b	1
+	dc.b	0, $C, 0, 0, $F0
+
+.Frame2:
+	dc.b	3
+	dc.b	$E8, $C, 0, 0, $F0
+	dc.b	$F0, 5, 0, 8, $F8
+	dc.b	0, $C, 0, $C, $F0
+
+.Frame3:
+	dc.b	1
+	dc.b	$F0, 7, 0, 0, $F8
+
+.Frame4:
+	dc.b	1
+	dc.b	$F0, 3, 0, 4, $F8
+
+.Frame5:
+	dc.b	4
+	dc.b	$F0, 3, 0, 4, $10
+	dc.b	$F8, 9, 0, 8, $F8
+	dc.b	$F0, 0, 0, 0, $F8
+	dc.b	8, 0, 0, 3, $F8
