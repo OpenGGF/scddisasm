@@ -1,0 +1,334 @@
+# Non-BRAM Disassembly Remediation Plan
+
+## Purpose
+
+This document tracks the work required to turn the non-BRAM portion of this
+repository from a byte-exact, source-backed reconstruction into a consistently
+structured and documented disassembly.
+
+Backup RAM programs and data are explicitly out of scope for this plan. They
+must not be used when calculating progress or selecting the next milestone.
+
+Byte equality remains a non-negotiable constraint. Semantic recovery must not
+change include order, binary layout, regional behavior, or any generated
+component unless a separately approved change intentionally does so.
+
+## Reconstruction Boundary
+
+The repository supports byte-exact reconstruction of the Japan, USA, and
+Europe 2,048-byte-sector data tracks from tracked source plus explicitly
+identified external inputs. It does not independently reproduce a complete
+mixed-mode game disc:
+
+- `BADEND.STM`, `GOODEND.STM`, and `PTEST.STM` remain externally supplied
+  encoded media streams.
+- `ABS.TXT`, `BIB.TXT`, and `CPY.TXT` remain externally supplied ISO
+  identification metadata.
+- The build emits the retail data-track ISO; it does not build the disc's audio
+  tracks or a complete CUE/BIN-style mixed-mode image.
+
+At the initial audit, the existing USA output passed all 133 comparisons in
+`REGION=1 ./check.sh`. The repository records successful Japan, USA, and Europe
+component comparisons and zero-mismatch data-track comparisons against local
+CHDs. A fresh three-region build and CHD comparison was not repeated during the
+audit.
+
+## Initial Audit Findings
+
+The audit was performed on commit `407be4b` and excluded `src/Backup RAM/`.
+The measurements are heuristics for prioritization, not substitutes for manual
+classification.
+
+### What is already strong
+
+- The build and comparison frontends identify the real assembly entry points
+  and supported regional variants.
+- Newer `src/Level/` modules commonly use descriptive routine names, symbolic
+  object fields, functional file boundaries, and useful inline comments.
+- Palmtree Panic and Wacky Workbench provide good examples of the intended
+  subsystem-oriented level structure.
+- Most `.nem`, `.kos`, `.eni`, `.unc`, map, graphics, and audio inputs are
+  legitimate assets. A semantic disassembly does not require turning pixels or
+  known compressed streams into thousands of `dc.b` declarations.
+
+### Active legacy and hybrid source graphs
+
+- Collision Chaos Acts 1 and 2 select legacy entry graphs directly, although
+  partially structured alternatives are present in the tree.
+- Tidal Tempest Act 1 also selects legacy entry graphs directly.
+- Later Tidal Tempest acts, Quartz Quadrant, Stardust Speedway, and Metallic
+  Madness use hybrid graphs that combine descriptive `Level/` modules with
+  older `common/`, `objects/`, and `rN/` trees.
+- A literal include-graph audit found 95 apparently unselected assembly or
+  include files. Some are expected editor data or conditional helpers, but
+  others are parallel or unfinished implementations. They require manual
+  disposition rather than automatic deletion.
+
+### Naming and commentary debt
+
+The legacy `common/`, `objects/`, and `r1`/`r3`-`r8` trees contain approximately:
+
+- 836 assembly/include files;
+- 236,800 lines;
+- 997 instruction lines with inline comments; and
+- 11,600 address-derived labels before counting `L_FFxxxx` labels.
+
+Across all non-BRAM source, the audit found approximately 17,300 definitions in
+the common address-derived families `L_FFxxxx`, `loc_xxx`, `sub_xxx`,
+`off_xxx`, and address-named data labels.
+
+Large standalone examples include:
+
+- `src/Time Attack/Main.asm`: 5,210 lines and about 1,600 address-derived
+  labels;
+- `src/FMV/Main (Ending).asm`: 16,190 lines, about 822 address-derived labels,
+  and more than 14,000 `dc.*` declarations; and
+- `src/Thank You/Main.asm`: partially named, but still heavily dependent on
+  `L_FFxxxx` labels and embedded instruction bytes.
+
+### Unclassified and mechanically emitted data
+
+The non-BRAM assembly/include source contains approximately 149,900 `dc.b`,
+`dc.w`, or `dc.l` lines. Data declarations are not inherently debt, but their
+meaning must be explicit.
+
+The initial audit found:
+
+- 279 files with names containing terms such as `Padding`, `Legacy`, `Packed`,
+  or `Retained`;
+- approximately 44,966 `dc.*` lines in those files;
+- 175 files that are at least 90 percent declarations and contain at least 100
+  declaration lines, including both legitimate mappings and opaque streams;
+  and
+- 79 tracked binary assets with address-derived names such as
+  `byte_238A42_1a.bin`.
+
+The present source-backed status of these bytes is sufficient for
+reconstruction, but not for semantic completion.
+
+### Documentation debt
+
+The main documentation is dominated by chronological milestone records. It
+does not yet provide a concise architecture guide, active build graph, data
+format index, or component-by-component semantic status matrix. The IDA README
+is empty.
+
+## Definition of Semantic Completion
+
+A non-BRAM component is semantically complete only when all of the following
+are true:
+
+1. Every active executable range is expressed as assembly instructions rather
+   than unexplained `dc.*` bytes.
+2. Routines have functional names. Temporary address-derived labels are either
+   renamed or recorded in a bounded, explicit debt inventory.
+3. Important routines document their purpose, inputs, outputs, clobbers, and
+   externally visible side effects. Comments should explain intent and unusual
+   behavior, not merely restate every instruction.
+4. RAM, hardware registers, object fields, commands, flags, and table entries
+   use meaningful symbols where their purpose is known.
+5. Every data range is classified as a structured table, known compressed
+   stream, editable asset, genuine fill/alignment, or explicitly unresolved
+   data.
+6. Binary assets have descriptive names and documented formats. Binary assets
+   may remain binary when that is their natural representation.
+7. Each output has one canonical active source graph. Parallel implementations
+   are removed, archived as documentation, or explicitly justified.
+8. All affected regional component comparisons remain byte-exact.
+
+Repository-wide completion additionally requires all non-BRAM entries in the
+status inventory to meet this definition, all three regional checks to pass,
+and the regional data tracks to match their reference CHDs when the local
+comparison tools and images are available.
+
+## Operating Rules
+
+Every agent working on this plan must follow these rules:
+
+1. Read `AGENTS.md`, this document, the current status inventory, `make.sh` or
+   `make.bat`, and the latest relevant commits before editing.
+2. Work on one bounded milestone at a time. A milestone should normally cover
+   one executable range, one routine family, one data format, or one set of
+   outputs that necessarily share the same source.
+3. Trace every changed fragment to its true assembly entry points and all
+   regional or compile-time variants before editing.
+4. Preserve byte output. Prefer symbol aliases, labels, macros, comments, and
+   include-boundary changes that do not alter emitted bytes.
+5. Run the narrowest meaningful assembly checks during development, then run
+   every affected regional comparison required by the shared source graph.
+6. Update the status inventory and the progress ledger in this document as
+   part of the same milestone.
+7. Inspect `git status --short` before committing. Generated files, listings,
+   logs, `out/`, proprietary originals, and disc images must remain untracked.
+8. Commit each successfully validated milestone separately with a short,
+   imperative subject.
+9. Push that commit to the current branch's upstream immediately after the
+   commit. Verify that the remote branch contains the local commit before
+   starting the next milestone.
+10. Do not accumulate several completed milestones into one final commit or
+    defer all pushes until the end.
+11. If validation or push fails, diagnose it before starting another
+    milestone. Do not mark the milestone complete until its required checks
+    pass and its commit is present on the remote.
+12. Never weaken the displayless build safety rules to make an assembler run.
+    Report a missing prerequisite or known headless tool limitation instead.
+
+Commit subjects should describe the semantic result, for example:
+
+- `Migrate Collision Chaos Act 1 entry graph`
+- `Name Time Attack VDP initialization routines`
+- `Classify R31B packed mapping stream`
+- `Document legacy level data formats`
+
+## Progress Tracking
+
+Create `docs/disassembly-status.md` during milestone M1. It should contain one
+row per built non-BRAM component, with at least these fields:
+
+- output name;
+- assembly entry point;
+- active source graph (`structured`, `hybrid`, or `legacy`);
+- code status;
+- data status;
+- unresolved labels/ranges;
+- binary asset status;
+- affected regions and switches;
+- last validation result; and
+- next recommended milestone.
+
+Machine-generated measurements should live in a repeatable audit script rather
+than being manually recomputed in prose. The script must exclude BRAM and
+distinguish active source from tracked but unreachable source. Its output is an
+aid to manual review; it must not automatically classify declarations as
+opaque merely because they use `dc.*`.
+
+### Milestone ledger
+
+| Milestone | Status | Scope | Validation and handoff |
+| --- | --- | --- | --- |
+| M0 | Complete | Establish the non-BRAM audit, definitions, roadmap, and per-milestone commit/push protocol. | Existing USA output: all 133 `check.sh` comparisons matched; documentation-only change. |
+| M1 | Not started | Add the component status matrix and repeatable non-BRAM audit tooling. | Validate generated inventory, include reachability, ignored-file hygiene, and documentation links. |
+
+Add a row whenever a milestone is selected. Mark it complete only in the same
+commit that contains the finished, validated work. The Git history and remote
+branch are the authoritative commit record, so the table does not need to
+embed its own commit hash.
+
+## Roadmap
+
+The roadmap is ordered by dependency and reviewability. Split any item further
+when it cannot be understood, validated, committed, and pushed as one coherent
+change.
+
+### Track A: Establish a measurable baseline
+
+1. Create `docs/disassembly-status.md` and the audit script described above.
+2. Resolve false positives caused by conditional includes, generated includes,
+   editor-only assembly data, and case-insensitive Windows include behavior.
+3. Manually classify every active non-BRAM component as structured, hybrid, or
+   legacy and identify its largest unresolved code/data ranges.
+
+### Track B: Converge level source graphs
+
+Migrate the existing parallel and hybrid graphs in this order:
+
+1. Collision Chaos Act 1 (`R31A-D`)
+2. Collision Chaos Act 2 (`R32A-D`)
+3. Tidal Tempest Act 1 (`R41A-D`)
+4. Tidal Tempest Acts 2 and 3 (`R42A-D`, `R43C-D`, and `DEMO43C`)
+5. Quartz Quadrant (`R51A-D`, `R52A-D`, and `R53C-D`)
+6. Stardust Speedway (`R71A-D`, `R72A-D`, and `R73C-D`)
+7. Metallic Madness (`R81A-D`, `R82A-D`, `R83C-D`, and `DEMO82A`)
+
+Treat each act family or smaller shared source cluster as a separate milestone.
+Do not delete an alternative graph until all its consumers are accounted for
+and the replacement matches every affected regional output.
+
+### Track C: Recover active executable semantics
+
+Within the active graphs:
+
+1. Recover shared `common/` engine routines because they affect the most
+   consumers.
+2. Recover shared `objects/` routines in bounded object families.
+3. Recover zone-specific `rN/` scroll, event, collision, object, boss, and
+   stage-loading code.
+4. Recover the standalone high-debt programs in independently verifiable
+   address ranges:
+   - Time Attack main CPU program;
+   - ending FMV main CPU program; and
+   - Thank You main CPU program.
+
+For a large program, one semantic routine family is one milestone. Do not wait
+for the entire program to be understood before committing and pushing useful,
+verified progress.
+
+### Track D: Classify and restructure data
+
+Process active files named `Padding`, `Packed`, `Retained`, `Pre-Chunk`, or
+`Legacy` by exact output range:
+
+- executable bytes become instructions and labels;
+- pointer, state, animation, mapping, path, and object records become named
+  tables or macros;
+- known compressed streams become descriptively named assets with the correct
+  format extension;
+- genuine padding becomes an alignment or fill directive with an explanation;
+  and
+- unresolved material remains explicitly recorded in the status matrix rather
+  than being described as complete.
+
+Then identify and rename the address-named `.bin` assets. Document a schema,
+viewer, editor, extraction command, or round-trip process for each asset class.
+
+### Track E: Make the documentation navigable
+
+Create focused documentation as the corresponding knowledge becomes stable:
+
+- `docs/architecture.md`
+- `docs/build-graph.md`
+- `docs/regional-variants.md`
+- `docs/data-formats/`
+- `docs/history/`
+- a substantive `ida/README.md`
+
+Reduce the main README to the project boundary, current headline status, build
+instructions, and links to these documents. Preserve the existing milestone
+history under `docs/history/` rather than discarding it.
+
+### Track F: Enforce the standard
+
+Add non-BRAM static checks for:
+
+- new address-derived labels outside a reviewed allow-list;
+- new address-named assets;
+- unclassified large `dc.*` spans;
+- include-path case mismatches;
+- missing `include` or `incbin` targets;
+- unexplained unreachable duplicate source;
+- meaningful data named only as padding; and
+- generated or proprietary files entering version control.
+
+Where possible, add a component-only build mode that does not require the
+externally supplied FMV streams or ISO text metadata. Public automation can run
+static and source-only checks; protected local validation can perform the
+regional byte comparisons and CHD data-track comparisons.
+
+## Goal for a New Agent Instance
+
+Use the following as the goal for a fresh instance:
+
+> Execute the non-BRAM semantic disassembly remediation described in
+> `DISASSEMBLY-REMEDIATION-PLAN.md`. Begin by reading `AGENTS.md`, the plan, the
+> current progress ledger, `docs/disassembly-status.md` if it exists, and the
+> latest relevant commits. Ignore Backup RAM work. Work autonomously on one
+> bounded milestone at a time, preserving byte-exact Japan/USA/Europe output.
+> For every milestone, trace the real entry points and shared consumers,
+> implement semantic naming/structure/documentation or data classification,
+> run the required narrow and regional validation, update the status matrix and
+> milestone ledger, inspect repository hygiene, commit with an imperative
+> subject, push immediately to the current upstream branch, and verify the
+> remote commit before beginning the next milestone. Do not treat unexplained
+> `dc.*` emission as semantic completion, but allow binary assets when their
+> format and role are documented. Continue until the plan's completion criteria
+> are met or a genuine external prerequisite blocks further progress.

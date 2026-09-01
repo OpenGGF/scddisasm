@@ -5,6 +5,9 @@ for the Sega CD. The human-readable disassembly is still incomplete in places,
 but the retail data-track ISO can be rebuilt from tracked source plus the
 explicitly documented media and metadata inputs below.
 
+The tracked roadmap for completing the non-BRAM semantic disassembly is in
+[`DISASSEMBLY-REMEDIATION-PLAN.md`](DISASSEMBLY-REMEDIATION-PLAN.md).
+
 Special thanks to flamewing and TheStoneBanana for helping out and contributing, especially for R11A in the disassembly's infancy stages back in 2015.
 
 Devon  
