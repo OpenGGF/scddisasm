@@ -8,6 +8,7 @@ R6_LEGACY_PLAYER	EQU	1
 R3_SEMANTIC_COLLISION	EQU	1
 R3_SEMANTIC_GENERAL	EQU	1
 R3_SEMANTIC_MAIN	EQU	1
+R3_SEMANTIC_SCROLL	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -27,7 +28,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Main.asm"
 	include	"Level/Functions (General).asm"
 
-	include	"r3/scroll_1a.asm"
+	include	"Level/Collision Chaos/Scroll (Act 1 Present).asm"
 	include	"r3/stage_draw_1a.asm"
 	if STANDALONE<>0
 		include	"standalone/block_write.asm"

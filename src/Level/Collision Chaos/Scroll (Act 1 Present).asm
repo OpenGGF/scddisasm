@@ -4,11 +4,31 @@
 ; Collision Chaos Act 1 Present level scrolling
 ; -------------------------------------------------------------------------
 
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+; The recovered R3 graph places this shared selector immediately before its
+; scroll module; the canonical graph normally receives it from general code.
+GetPlayerObject:
+	lea	objPlayerSlot.w,a6		; Player 1
+	tst.b	usePlayer2			; Are we using player 2?
+	beq.s	.Done				; If not, branch
+	lea	objPlayerSlot2.w,a6		; Player 2
+
+.Done:
+	rts
+		endif
+	endif
+
 ; -------------------------------------------------------------------------
 ; Get level size and start position
 ; -------------------------------------------------------------------------
 
 LevelSizeLoad:
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	lea	objPlayerSlot.w,a6		; Retain the recovered player pointer ABI
+		endif
+	endif
 	moveq	#0,d0				; Clear unused variables
 	move.b	d0,unusedF740.w
 	move.b	d0,unusedF741.w
@@ -65,8 +85,18 @@ LevelSizeLoad_StartPos:
 	jsr	LoadCheckpointData		; Load checkpoint data
 	moveq	#0,d0				; Get player position
 	moveq	#0,d1
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	move.w	oX(a6),d1
+	move.w	oY(a6),d0
+		else
 	move.w	objPlayerSlot+oX.w,d1
 	move.w	objPlayerSlot+oY.w,d0
+		endif
+	else
+	move.w	objPlayerSlot+oX.w,d1
+	move.w	objPlayerSlot+oY.w,d0
+	endif
 	bpl.s	.SkipCap			; If the Y position is positive, branch
 	moveq	#0,d0				; Cap the Y position at 0 if negative
 
@@ -75,12 +105,45 @@ LevelSizeLoad_StartPos:
 
 .DefaultStart:
 	lea	LevelStartLoc,a1		; Prepare level start position
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	tst.w	demoMode			; Is a Sonic 1 ending/credits demo active?
+	bpl.s	.SelectDemoStart		; If not, use the indexed level demo position
+	move.w	s1CreditsIndex,d0		; Select a retained ending-demo position
+	subq.w	#1,d0
+	lsl.w	#2,d0
+	lea	EndingStLocsS1,a1
+	adda.w	d0,a1
+	bra.s	.GotStartLoc
+
+.SelectDemoStart:
+	move.w	demoMode,d0			; Select the level/demo start position
+	lsl.w	#2,d0
+	adda.w	d0,a1
+
+.GotStartLoc:
+	moveq	#0,d1				; Get starting X position
+	move.w	(a1)+,d1
+	move.w	d1,oX(a6)
+	moveq	#0,d0				; Get starting Y position
+	move.w	(a1),d0
+	move.w	d0,oY(a6)
+		else
 	moveq	#0,d1				; Get starting X position
 	move.w	(a1)+,d1
 	move.w	d1,objPlayerSlot+oX.w
 	moveq	#0,d0				; Get starting Y position
 	move.w	(a1),d0
 	move.w	d0,objPlayerSlot+oY.w
+		endif
+	else
+	moveq	#0,d1				; Get starting X position
+	move.w	(a1)+,d1
+	move.w	d1,objPlayerSlot+oX.w
+	moveq	#0,d0				; Get starting Y position
+	move.w	(a1),d0
+	move.w	d0,objPlayerSlot+oY.w
+	endif
 
 .SetupCamera:
 	subi.w	#320/2,d1			; Get camera X position
@@ -189,9 +252,21 @@ loc_2029A4:
 	clr.w	scrollFlagsBg.w
 	clr.w	scrollFlagsBg2.w
 	clr.w	scrollFlagsBg3.w
+	if def(R3_SEMANTIC_SCROLL)
+		if (R3_SEMANTIC_SCROLL<>0)&(REGION=USA)
+	bsr.w	RunLevelEvents
+	bsr.w	ScrollCamX
+	bsr.w	ScrollCamY
+		else
 	bsr.w	ScrollCamX
 	bsr.w	ScrollCamY
 	bsr.w	RunLevelEvents
+		endif
+	else
+	bsr.w	ScrollCamX
+	bsr.w	ScrollCamY
+	bsr.w	RunLevelEvents
+	endif
 	move.w	cameraY.w,vscrollScreen.w
 	move.w	cameraBgY.w,vscrollScreen+2.w
 	move.w	scrollXDiff.w,d4
@@ -582,7 +657,15 @@ ScrollCamX:
 ; -------------------------------------------------------------------------
 
 MoveScreenHoriz:
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	move.w	oX(a6),d0			; Get the distance scrolled
+		else
 	move.w	objPlayerSlot+oX.w,d0		; Get the distance scrolled
+		endif
+	else
+	move.w	objPlayerSlot+oX.w,d0		; Get the distance scrolled
+	endif
 	sub.w	cameraX.w,d0
 	sub.w	camXCenter.w,d0
 	beq.s	.AtDest				; If not scrolled at all, branch
@@ -647,14 +730,38 @@ ShiftCameraHoriz:
 
 ScrollCamY:
 	moveq	#0,d1				; Get how far we have scrolled vertically
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	move.w	oY(a6),d0
+		else
 	move.w	objPlayerSlot+oY.w,d0
+		endif
+	else
+	move.w	objPlayerSlot+oY.w,d0
+	endif
 	sub.w	cameraY.w,d0
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	btst	#2,oFlags(a6)			; Is the player rolling?
+		else
 	btst	#2,objPlayerSlot+oFlags.w	; Is the player rolling?
+		endif
+	else
+	btst	#2,objPlayerSlot+oFlags.w	; Is the player rolling?
+	endif
 	beq.s	.NoRoll				; If not, branch
 	subq.w	#5,d0				; Account for the different height
 
 .NoRoll:
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	btst	#1,oFlags(a6)			; Is the player in the air?
+		else
 	btst	#1,objPlayerSlot+oFlags.w	; Is the player in the air?
+		endif
+	else
+	btst	#1,objPlayerSlot+oFlags.w	; Is the player in the air?
+	endif
 	beq.s	.OnGround			; If not, branch
 
 	addi.w	#$20,d0
@@ -682,7 +789,15 @@ ScrollCamY:
 .CamMoving:
 	cmpi.w	#$60,camYCenter.w		; Is the camera center normal?
 	bne.s	.DoScrollSlow			; If not, branch
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	move.w	oPlayerGVel(a6),d1		; Get the player's ground velocity
+		else
 	move.w	objPlayerSlot+oPlayerGVel.w,d1	; Get the player's ground velocity
+		endif
+	else
+	move.w	objPlayerSlot+oPlayerGVel.w,d1	; Get the player's ground velocity
+	endif
 	bpl.s	.DoScrollMedium
 	neg.w	d1
 
@@ -739,7 +854,15 @@ ScrollCamY:
 	cmpi.w	#-$100,d1			; Is Y wrapping enabled?
 	bgt.s	.CapTop				; If not, branch
 	andi.w	#$7FF,d1			; Apply wrapping
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	andi.w	#$7FF,oY(a6)
+		else
 	andi.w	#$7FF,objPlayerSlot+oY.w
+		endif
+	else
+	andi.w	#$7FF,objPlayerSlot+oY.w
+	endif
 	andi.w	#$7FF,cameraY.w
 	andi.w	#$3FF,cameraBgY.w
 	bra.s	.MoveCam
@@ -761,7 +884,15 @@ ScrollCamY:
 	blt.s	.MoveCam			; If not, branch
 	subi.w	#$800,d1			; Should we wrap?
 	bcs.s	.CapBottom			; If not, branch
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+	andi.w	#$7FF,oY(a6)			; Apply wrapping
+		else
 	andi.w	#$7FF,objPlayerSlot+oY.w	; Apply wrapping
+		endif
+	else
+	andi.w	#$7FF,objPlayerSlot+oY.w	; Apply wrapping
+	endif
 	subi.w	#$800,cameraY.w
 	andi.w	#$3FF,cameraBgY.w
 	bra.s	.MoveCam

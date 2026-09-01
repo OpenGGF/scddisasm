@@ -43,8 +43,15 @@ UpdateWarpTimer	EQU	RunTimeWarp
 UpdateBoredTimer	EQU	RunBoredTimer
 ResetSavedObjFlags	EQU	ResetObjectStates
 LevelDataIndex		EQU	StageDataIndex
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL=0
 LevelSizeLoad		EQU	InitScroll
 LevelScroll		EQU	UpdateScroll
+		endif
+	else
+LevelSizeLoad		EQU	InitScroll
+LevelScroll		EQU	UpdateScroll
+	endif
 LoadLevelData		EQU	LoadStageData
 InitLevelDraw		EQU	InitStageDraw
 UpdateAnimTiles	EQU	AnimateStageGfx
@@ -58,6 +65,15 @@ DrawLevelBG		EQU	DrawStageBg
 LoadSonicDynPLC	EQU	LoadPlayerGfx
 DrawLevel		EQU	DrawStage
 UpdateHUD		EQU	UpdateHudNumbers
+		endif
+	endif
+
+	if def(R3_SEMANTIC_SCROLL)
+		if R3_SEMANTIC_SCROLL<>0
+InitScroll		EQU	LevelSizeLoad
+UpdateScroll		EQU	LevelScroll
+LoadCheckpointData	EQU	LoadCheckpoint
+RunLevelEvents		EQU	StageEvents
 		endif
 	endif
 
