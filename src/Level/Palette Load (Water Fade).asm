@@ -11,6 +11,11 @@
 ;	d0.w - Palette ID
 ; -------------------------------------------------------------------------
 
+	if def(R6_LEGACY_PLAYER)
+		if R6_LEGACY_PLAYER<>0
+LoadWaterFadePalette:
+		endif
+	endif
 LoadWaterFadePal:
 	lea	PaletteTable,a1			; Get pointer to palette metadata
 	lsl.w	#3,d0

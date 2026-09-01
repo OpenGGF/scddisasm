@@ -18,8 +18,8 @@ R6_LEGACY_PLAYER	EQU	1
 	include	"common/palette_fade.asm"
 	include	"Level/Palette Load (Fade).asm"
 	include	"Level/Palette Load.asm"
-	include	"common/palette_load_water.asm"
-	include	"common/palette_load_water_fade.asm"
+	include	"Level/Palette Load (Water).asm"
+	include	"Level/Palette Load (Water Fade).asm"
 
 	if R3_VARIANT=1
 		include	"r3/palettes_c.asm"
