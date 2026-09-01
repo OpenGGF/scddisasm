@@ -95,8 +95,14 @@ DrawLevelBG		EQU	DrawStageBg
 DrawLevel		EQU	DrawStage
 	endif
 LoadSonicDynPLC	EQU	LoadPlayerGfx
+	if def(R3_SEMANTIC_HUD_POINTS)
+		if R3_SEMANTIC_HUD_POINTS=0
 UpdateHUD		EQU	UpdateHudNumbers
 		endif
+	else
+UpdateHUD		EQU	UpdateHudNumbers
+	endif
+	endif
 	endif
 
 	if def(R3_SEMANTIC_SCROLL)
@@ -232,7 +238,13 @@ ObjBoulder		EQU	BoulderObject
 	else
 ObjBoulder		EQU	BoulderObject
 	endif
+	if def(R3_SEMANTIC_HUD_POINTS)
+		if R3_SEMANTIC_HUD_POINTS=0
 ObjHUDPoints		EQU	HudPointsObject
+		endif
+	else
+ObjHUDPoints		EQU	HudPointsObject
+	endif
 ObjBumper		EQU	BumperObject
 ObjFlipper		EQU	FlipperObject
 	if def(R3_SEMANTIC_FLOWER)
@@ -406,6 +418,14 @@ MonitorTimeObject	EQU	ObjMonitorTimePost
 MonitorItemObject	EQU	ObjMonitorItem
 MonitorTimeSprites	EQU	MapSpr_MonitorTime
 MonitorTimeAnims	EQU	Ani_Monitor
+		endif
+	endif
+
+	if def(R3_SEMANTIC_HUD_POINTS)
+		if R3_SEMANTIC_HUD_POINTS<>0
+HudPointsObject	EQU	ObjHUDPoints
+UpdateHudNumbers	EQU	UpdateHUD
+Art_HUDNumbers	EQU	HudNumbersGfx
 		endif
 	endif
 
