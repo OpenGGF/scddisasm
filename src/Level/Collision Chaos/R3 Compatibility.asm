@@ -177,7 +177,13 @@ ObjBoulder		EQU	BoulderObject
 ObjHUDPoints		EQU	HudPointsObject
 ObjBumper		EQU	BumperObject
 ObjFlipper		EQU	FlipperObject
+	if def(R3_SEMANTIC_FLOWER)
+		if R3_SEMANTIC_FLOWER=0
 ObjFlower		EQU	FlowerObject
+		endif
+	else
+ObjFlower		EQU	FlowerObject
+	endif
 ObjSpikes		EQU	SpikesObject
 ObjBlock		EQU	BlockObject
 ObjHiddenBlock	EQU	HiddenBlockObject
@@ -245,6 +251,15 @@ Ani_Powerup		EQU	PowerupAnims
 ExplosionObject	EQU	ObjExplosion
 MapSpr_Explosion	EQU	ExplosionSprites
 Ani_Explosion		EQU	ExplosionAnims
+		endif
+	endif
+
+	if def(R3_SEMANTIC_FLOWER)
+		if R3_SEMANTIC_FLOWER<>0
+FlowerObject		EQU	ObjFlower
+MapSpr_Flower		EQU	FlowerSprites
+Ani_Flower		EQU	FlowerAnims
+ObjGetFloorDist	EQU	CheckBlockDown
 		endif
 	endif
 
