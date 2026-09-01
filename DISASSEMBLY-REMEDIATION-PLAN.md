@@ -207,7 +207,7 @@ opaque merely because they use `dc.*`.
 | Milestone | Status | Scope | Validation and handoff |
 | --- | --- | --- | --- |
 | M0 | Complete | Establish the non-BRAM audit, definitions, roadmap, and per-milestone commit/push protocol. | Existing USA output: all 133 `check.sh` comparisons matched; documentation-only change. |
-| M1 | Not started | Add the component status matrix and repeatable non-BRAM audit tooling. | Validate generated inventory, include reachability, ignored-file hygiene, and documentation links. |
+| M1 | Complete | Add the 124-component status matrix and repeatable non-BRAM audit tooling. | Audit/check and JSON invariants pass: all build/check/status sets agree, active plus unreachable equals tracked, zero active includes are missing, and repository hygiene is clean. Documentation-only; no fresh assembly was required. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

@@ -1,6 +1,8 @@
 *.lst
 *.log
 *.sym
+*.py[cod]
+__pycache__/
 *.chd
 *.iso
 out/

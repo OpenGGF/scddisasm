@@ -6,7 +6,9 @@ but the retail data-track ISO can be rebuilt from tracked source plus the
 explicitly documented media and metadata inputs below.
 
 The tracked roadmap for completing the non-BRAM semantic disassembly is in
-[`DISASSEMBLY-REMEDIATION-PLAN.md`](DISASSEMBLY-REMEDIATION-PLAN.md).
+[`DISASSEMBLY-REMEDIATION-PLAN.md`](DISASSEMBLY-REMEDIATION-PLAN.md); the
+current component matrix is in
+[`docs/disassembly-status.md`](docs/disassembly-status.md).
 
 Special thanks to flamewing and TheStoneBanana for helping out and contributing, especially for R11A in the disassembly's infancy stages back in 2015.
 
