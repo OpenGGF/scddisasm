@@ -245,8 +245,17 @@ ObjHUDPoints		EQU	HudPointsObject
 	else
 ObjHUDPoints		EQU	HudPointsObject
 	endif
+	if def(R3_SEMANTIC_BUMPER_FLIPPER)
+		if R3_SEMANTIC_BUMPER_FLIPPER=0
 ObjBumper		EQU	BumperObject
 ObjFlipper		EQU	FlipperObject
+		else
+CheckObjDespawn2	EQU	CheckObjectDespawn2
+		endif
+	else
+ObjBumper		EQU	BumperObject
+ObjFlipper		EQU	FlipperObject
+	endif
 	if def(R3_SEMANTIC_FLOWER)
 		if R3_SEMANTIC_FLOWER=0
 ObjFlower		EQU	FlowerObject

@@ -15,8 +15,18 @@ oBumperPoints	EQU	oVar34
 ObjBumper:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI<>0
+	move.w	ObjBumper_Index(pc,d0.w),d1
+	jmp	ObjBumper_Index(pc,d1.w)
+		else
 	move.w	ObjBumper_Index(pc,d0.w),d0
 	jmp	ObjBumper_Index(pc,d0.w)
+		endif
+	else
+	move.w	ObjBumper_Index(pc,d0.w),d0
+	jmp	ObjBumper_Index(pc,d0.w)
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -72,7 +82,15 @@ ObjBumper_Main:
 
 .Move:
 	add.l	d0,(a1)
-	 subi.w	#1,oBumperSteps(a0)
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI<>0
+	addi.w	#-1,oBumperSteps(a0)
+		else
+	subi.w	#1,oBumperSteps(a0)
+		endif
+	else
+	subi.w	#1,oBumperSteps(a0)
+	endif
 	bne.s	.CheckCollide
 	move.w	oBumperRange(a0),oBumperSteps(a0)
 	neg.l	oBumperVelocity(a0)
@@ -85,7 +103,16 @@ ObjBumper_Main:
 	subq.w	#1,oBumperPoints(a0)
 	moveq	#$A,d0
 	bsr.w	AddPoints
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI<>0
+	moveq	#0,d1
+	bsr.w	SpawnPoints
+		else
 	bsr.w	ObjBumper_MakePoints
+		endif
+	else
+	bsr.w	ObjBumper_MakePoints
+	endif
 
 .PlaySound:
 	tst.b	oSprFlags(a0)
@@ -122,7 +149,15 @@ ObjBumper_Main:
 	addq.b	#1,2(a2,d0.w)
 
 .Animate:
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI<>0
+	lea	BumperAnims,a1
+		else
 	lea	BumperAnims(pc),a1
+		endif
+	else
+	lea	BumperAnims(pc),a1
+	endif
 	bsr.w	AnimateObject
 	jsr	DrawObject
 	move.w	oBumperBaseX(a0),d0
@@ -131,6 +166,8 @@ ObjBumper_Main:
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI=0
 ObjBumper_MakePoints:
 	moveq	#0,d1
 	ori.b	#$80,d1
@@ -143,6 +180,21 @@ ObjBumper_MakePoints:
 
 .End:
 	rts
+		endif
+	else
+ObjBumper_MakePoints:
+	moveq	#0,d1
+	ori.b	#$80,d1
+	jsr	FindObjSlot
+	bne.s	.End
+	move.b	#$1C,oID(a1)
+	move.w	oX(a0),oX(a1)
+	move.w	oY(a0),oY(a1)
+	move.b	d1,oSubtype(a1)
+
+.End:
+	rts
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -178,7 +230,15 @@ ObjFlipper_Main:
 	bsr.w	ObjFlipper_CheckPlayer
 
 .Animate:
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI<>0
+	lea	FlipperAnims,a1
+		else
 	lea	FlipperAnims(pc),a1
+		endif
+	else
+	lea	FlipperAnims(pc),a1
+	endif
 	bsr.w	AnimateObject
 	jsr	DrawObject
 	jmp	CheckObjDespawn
@@ -211,10 +271,26 @@ ObjFlipper_CheckPlayer:
 	move.w	d2,d0
 
 .GetSlopeData:
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI<>0
+	lea	FlipperTopSlope,a3
+		else
 	lea	FlipperTopSlope(pc),a3
+		endif
+	else
+	lea	FlipperTopSlope(pc),a3
+	endif
 	tst.w	oYVel(a1)
 	bpl.s	.GetColumn
+	if def(CC_LEGACY_BUMPER_FLIPPER_ABI)
+		if CC_LEGACY_BUMPER_FLIPPER_ABI<>0
+	lea	FlipperBottomSlope,a3
+		else
 	lea	FlipperBottomSlope(pc),a3
+		endif
+	else
+	lea	FlipperBottomSlope(pc),a3
+	endif
 
 .GetColumn:
 	move.b	(a3,d0.w),d0
@@ -285,5 +361,14 @@ FlipperAnims:
 MapSpr_Flipper:
 	include	"sprites/r3/flipper.asm"
 	even
+
+	if def(R3_SEMANTIC_BUMPER_FLIPPER)
+		if R3_SEMANTIC_BUMPER_FLIPPER<>0
+BumperObject	EQU	ObjBumper
+FlipperObject	EQU	ObjFlipper
+BumperSprites	EQU	MapSpr_Bumper
+FlipperSprites	EQU	MapSpr_Flipper
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
