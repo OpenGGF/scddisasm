@@ -1,22 +1,31 @@
 ; ------------------------------------------------------------------------------
 
+entry_barrier.retract_timer	equ obj.var_2a	; Delay before retract animation
+entry_barrier.flags		equ obj.var_2c	; Bit 1: boss triggered; bit 2: struck
+entry_barrier.target_y		equ obj.var_2e	; Raised Y position
+entry_barrier.y_speed		equ obj.var_30	; 16.16 vertical speed
+entry_barrier.link		equ obj.var_34	; Linked barrier object slot
+
+; The two barriers link to each other through 16-bit object-slot addresses.
+; A collision retracts a barrier; crossing the arena threshold starts the boss.
+
 EntryBarrierObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20DB62(pc,d0.w),d0
-	jmp	off_20DB62(pc,d0.w)
+	move.w	EntryBarrier_Routines(pc,d0.w),d0
+	jmp	EntryBarrier_Routines(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20DB62:
-	dc.w	EntryBarrierObject_0_Routine0-*
-	dc.w	EntryBarrierObject_0_Routine2-off_20DB62
-	dc.w	EntryBarrierObject_0_Routine4-off_20DB62
-	dc.w	EntryBarrierObject_0_Routine6-off_20DB62
+EntryBarrier_Routines:
+	dc.w	EntryBarrier_Init-*
+	dc.w	EntryBarrier_Main-EntryBarrier_Routines
+	dc.w	EntryBarrier_Retract-EntryBarrier_Routines
+	dc.w	EntryBarrier_BossActive-EntryBarrier_Routines
 
 ; ------------------------------------------------------------------------------
 
-EntryBarrierObject_0_Routine0:
+EntryBarrier_Init:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
@@ -24,100 +33,100 @@ EntryBarrierObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
 	move.l	#EntryBarrierSprites,obj.sprite_data(a0)
-	move.l	#-$28000,obj.var_30(a0)
-	move.w	obj.y(a0),obj.var_2e(a0)
-	addi.w	#-$30,obj.var_2e(a0)
+	move.l	#-$28000,entry_barrier.y_speed(a0)
+	move.w	obj.y(a0),entry_barrier.target_y(a0)
+	addi.w	#-$30,entry_barrier.target_y(a0)
 	move.b	#$3E,obj.collide_type(a0)
 	move.b	#2,obj.collide_status(a0)
 	bsr.w	SpawnObject
-	bne.s	EntryBarrierObject_0_Routine2
-	move.w	a0,obj.var_34(a1)
+	bne.s	EntryBarrier_Main
+	move.w	a0,entry_barrier.link(a1)
 	move.b	#$32,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	subi.w	#$30,obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
-	move.w	a1,obj.var_34(a0)
+	move.w	a1,entry_barrier.link(a0)
 
-EntryBarrierObject_0_Routine2:
+EntryBarrier_Main:
 	tst.b	obj.collide_type(a0)
-	bne.s	loc_20DC02
+	bne.s	.Draw
 	move.w	#$AC,d0
 	jsr	PlayFmSound
 	move.b	#4,obj.routine(a0)
-	bset	#2,obj.var_2c(a0)
+	bset	#2,entry_barrier.flags(a0)
 	move.b	#1,obj.anim_id(a0)
 	clr.b	obj.collide_status(a0)
 
-loc_20DC02:
+.Draw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-EntryBarrierObject_0_Routine4:
-	bsr.w	sub_20DC84
-	addq.b	#1,obj.var_2a(a0)
-	cmpi.b	#$10,obj.var_2a(a0)
-	blt.s	loc_20DC2A
+EntryBarrier_Retract:
+	bsr.w	EntryBarrier_CheckBossTrigger
+	addq.b	#1,entry_barrier.retract_timer(a0)
+	cmpi.b	#$10,entry_barrier.retract_timer(a0)
+	blt.s	.MoveUp
 	move.b	#0,obj.anim_id(a0)
 	lea	EntryBarrierAnims,a1
 	jsr	AnimateObject
 
-loc_20DC2A:
-	move.l	obj.var_30(a0),d0
+.MoveUp:
+	move.l	entry_barrier.y_speed(a0),d0
 	add.l	d0,obj.y(a0)
-	move.w	obj.var_2e(a0),d0
+	move.w	entry_barrier.target_y(a0),d0
 	cmp.w	obj.y(a0),d0
-	blt.s	loc_20DC4C
-	bclr	#2,obj.var_2c(a0)
+	blt.s	.Draw
+	bclr	#2,entry_barrier.flags(a0)
 	move.w	d0,obj.y(a0)
 	move.b	#6,obj.routine(a0)
 
-loc_20DC4C:
+.Draw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-EntryBarrierObject_0_Routine6:
-	bsr.w	sub_20DC84
+EntryBarrier_BossActive:
+	bsr.w	EntryBarrier_CheckBossTrigger
 	cmpi.w	#$78,obj.var_3e(a0)
-	bge.s	loc_20DC68
+	bge.s	.CheckRemoval
 	bsr.w	sub_20E0CE
 	jsr	DrawObject
 
-loc_20DC68:
-	btst	#1,obj.var_2c(a0)
-	beq.s	locret_20DC82
-	movea.w	obj.var_34(a0),a3
+.CheckRemoval:
+	btst	#1,entry_barrier.flags(a0)
+	beq.s	.End
+	movea.w	entry_barrier.link(a0),a3
 	jsr	DeleteObject
 	movea.l	a3,a1
 	jmp	DeleteOtherObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20DC82:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20DC84:
-	btst	#1,obj.var_2c(a0)
-	bne.w	locret_20DCD0
+EntryBarrier_CheckBossTrigger:
+	btst	#1,entry_barrier.flags(a0)
+	bne.w	.End
 	lea	player_object,a1
 	cmpi.w	#$480,obj.x(a1)
-	blt.s	locret_20DCD0
+	blt.s	.End
 	cmpi.w	#$51C,obj.y(a1)
-	bgt.s	locret_20DCD0
-	bset	#1,obj.var_2c(a0)
+	bgt.s	.End
+	bset	#1,entry_barrier.flags(a0)
 	move.w	#$67,d0
 	jsr	SubCpuCommand
 	bsr.w	SpawnObject
-	bne.s	locret_20DCD0
+	bne.s	.End
 	move.b	#$3F,obj.id(a1)
 	move.b	#6,obj.routine(a1)
 	move.w	#$420,obj.x(a1)
 	move.w	#$540,obj.y(a1)
 
-locret_20DCD0:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
