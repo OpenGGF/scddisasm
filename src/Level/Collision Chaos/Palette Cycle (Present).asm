@@ -8,23 +8,24 @@
 	include	"Level/Collision Chaos/Palette Cycle (Act 1 Variant).asm"
 	else
 
+CyclePalette:
 PaletteCycle:
 	lea	palCycleTimers.w,a5
 	lea	palCycleSteps.w,a4
 
 	lea	CCPalCycleScript1,a1
 	lea	CCPalCycleColors1,a2
-	bsr.w	CycleColor
+	bsr.s	CycleColor
 	lea	CCPalCycleScript2,a1
 	lea	CCPalCycleColors2,a2
-	bsr.w	CycleColor
+	bsr.s	CycleColor
 	lea	CCPalCycleScript3,a1
 	lea	CCPalCycleColors3,a2
-	bsr.w	CycleColor
+	bsr.s	CycleColor
 	lea	CCPalCycleScript4,a1
 	lea	CCPalCycleColors4,a2
-	bsr.w	CycleColor
-	rts
+	; The fourth cycle falls through to CycleColor. This matches the original
+	; routine while avoiding one redundant call and return pair.
 
 ; -------------------------------------------------------------------------
 
@@ -39,7 +40,7 @@ CCPalCycleScript1:
 	dc.b	2, 2
 
 CCPalCycleColors1:
-	dc.w	$EEE, $E, 0
+	dc.w	$EE, $E, 0
 
 ; -------------------------------------------------------------------------
 

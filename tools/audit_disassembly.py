@@ -127,6 +127,11 @@ def git_tracked_sources() -> set[Path]:
 		if not raw:
 			continue
 		path = REPOSITORY / raw.decode()
+		# A milestone may delete a tracked duplicate before its commit. Git still
+		# reports that path from the index, but it is no longer part of the
+		# worktree inventory that this audit measures.
+		if not path.is_file():
+			continue
 		if path.suffix.lower() not in SOURCE_SUFFIXES:
 			continue
 		if repository_path(path).startswith(BRAM_PREFIX):
