@@ -24,6 +24,12 @@ eggman.y_speed			equ obj.var_30	; 16.16 vertical speed
 eggman.parent_link		equ obj.var_34	; Parent boss object slot
 gear.flags			equ obj.var_2c	; Bit 0: encounter finished
 gear.parent_link		equ obj.var_34	; Parent boss object slot
+bomb_launcher.fire_timer	equ obj.var_2a	; Frames until the next bomb launch
+bomb_launcher.parent_link	equ obj.var_34	; Parent boss object slot
+bomb.lifetime			equ obj.var_2a	; Frames before automatic detonation
+bomb.x_acceleration		equ obj.var_38	; Horizontal acceleration
+bomb.y_acceleration		equ obj.var_3a	; Vertical acceleration
+bomb.terminal_y_speed		equ obj.var_3c	; Signed vertical speed limit
 
 ; The two barriers link to each other through 16-bit object-slot addresses.
 ; A collision retracts a barrier; crossing the arena threshold starts the boss.
@@ -842,32 +848,32 @@ GearObject:
 ; ------------------------------------------------------------------------------
 
 BombLauncherObject:
-	movea.w	obj.var_34(a0),a2
+	movea.w	bomb_launcher.parent_link(a0),a2
 	move.w	obj.y(a2),obj.y(a0)
 	addi.w	#$20,obj.y(a0)
-	tst.b	obj.var_3b(a2)
-	bne.s	loc_20E382
+	tst.b	boss.phase(a2)
+	bne.s	.Delete
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E388(pc,d0.w),d0
-	jsr	off_20E388(pc,d0.w)
+	move.w	BombLauncher_Routines(pc,d0.w),d0
+	jsr	BombLauncher_Routines(pc,d0.w)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E382:
+.Delete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-off_20E388:
-	dc.w	BombLauncherObject_0_Routine0-*
-	dc.w	BombLauncherObject_0_Routine2-off_20E388
-	dc.w	BombLauncherObject_0_Routine4-off_20E388
+BombLauncher_Routines:
+	dc.w	BombLauncher_Init-*
+	dc.w	BombLauncher_WaitToFire-BombLauncher_Routines
+	dc.w	BombLauncher_AnimateFiring-BombLauncher_Routines
 
 ; ------------------------------------------------------------------------------
 
-BombLauncherObject_0_Routine0:
+BombLauncher_Init:
 	addq.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
@@ -875,27 +881,27 @@ BombLauncherObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 	move.w	#$47C,obj.sprite_tile(a0)
 	move.l	#BombLaunchSprites,obj.sprite_data(a0)
-	movea.w	obj.var_34(a0),a2
+	movea.w	bomb_launcher.parent_link(a0),a2
 
-BombLauncherObject_0_Routine2:
+BombLauncher_WaitToFire:
 	cmpi.w	#$400,player_object+obj.y
-	bge.s	locret_20E3D6
-	tst.b	$3A(a2)
-	bne.s	locret_20E3D6
-	addq.w	#1,obj.var_2a(a0)
-	cmpi.w	#$78,obj.var_2a(a0)
-	bge.s	loc_20E3D8
+	bge.s	.WaitEnd
+	tst.b	boss.attack_count(a2)
+	bne.s	.WaitEnd
+	addq.w	#1,bomb_launcher.fire_timer(a0)
+	cmpi.w	#$78,bomb_launcher.fire_timer(a0)
+	bge.s	.Launch
 
-locret_20E3D6:
+.WaitEnd:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E3D8:
-	clr.w	obj.var_2a(a0)
+.Launch:
+	clr.w	bomb_launcher.fire_timer(a0)
 	move.b	#4,obj.routine(a0)
 	bsr.w	SpawnObject
-	bne.w	locret_20E432
+	bne.w	.LaunchEnd
 	move.b	#$3E,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -908,82 +914,78 @@ loc_20E3D8:
 	swap	d0
 	move.w	#$C,d1
 	tst.b	obj.anim_index(a0)
-	bne.s	loc_20E424
+	bne.s	.SetVelocity
 	neg.w	d0
 	neg.w	d1
 
-loc_20E424:
+.SetVelocity:
 	add.w	d1,obj.x(a1)
 	move.w	d0,obj.x_speed(a1)
 	move.w	#$300,obj.y_speed(a1)
 
-locret_20E432:
+.LaunchEnd:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-BombLauncherObject_0_Routine4:
+BombLauncher_AnimateFiring:
 	subq.b	#1,obj.anim_timer(a0)
-	bgt.s	locret_20E460
+	bgt.s	.End
 	moveq	#0,d0
 	move.b	obj.anim_index(a0),d0
 	addq.b	#1,d0
 	cmpi.b	#4,d0
-	beq.s	loc_20E464
+	beq.s	.ReturnToWaiting
 	cmpi.b	#8,d0
-	beq.s	loc_20E462
+	beq.s	.RestartSequence
 	move.b	#2,obj.anim_timer(a0)
 
-loc_20E454:
+.SetFrame:
 	move.b	d0,obj.anim_index(a0)
-	move.b	byte_20E46C(pc,d0.w),d0
+	move.b	BombLauncher_FiringFrames(pc,d0.w),d0
 	move.b	d0,obj.sprite_frame(a0)
 
-locret_20E460:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E462:
+.RestartSequence:
 	moveq	#0,d0
 
-loc_20E464:
+.ReturnToWaiting:
 	move.b	#2,obj.routine(a0)
-	bra.s	loc_20E454
+	bra.s	.SetFrame
 
 ; ------------------------------------------------------------------------------
 
-byte_20E46C:
-	dc.b	0
-	dc.b	1
-	dc.b	0
-	dc.b	2
-	dc.b	0
-	dc.b	3
-	dc.b	0
-	dc.b	4
+; Closed frames alternate with two stages for each launcher side. Index 4 is
+; retained between launches so the second half is selected on the next shot.
+BombLauncher_FiringFrames:
+	dc.b	0, 1, 0, 2
+	dc.b	0, 3, 0, 4
 
 ; ------------------------------------------------------------------------------
 
 BombObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E482(pc,d0.w),d0
-	jmp	off_20E482(pc,d0.w)
+	move.w	Bomb_Routines(pc,d0.w),d0
+	jmp	Bomb_Routines(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20E482:
-	dc.w	BombObject_0_Routine0-*
-	dc.w	BombObject_0_Routine2-off_20E482
-	dc.w	BombObject_0_Routine4-off_20E482
-	dc.w	BombObject_0_Routine6-off_20E482
-	dc.w	BombObject_0_Routine8-off_20E482
-	dc.w	BombObject_0_RoutineA-off_20E482
+Bomb_Routines:
+	dc.w	Bomb_Init-*
+	dc.w	Bomb_Active-Bomb_Routines
+	dc.w	Bomb_Explosion-Bomb_Routines
+	dc.w	Bomb_Delete-Bomb_Routines
+	dc.w	Bomb_Detonate-Bomb_Routines
+	dc.w	Bomb_BeginSilentExplosion-Bomb_Routines
 
 ; ------------------------------------------------------------------------------
 
-BombObject_0_Routine0:
+Bomb_Init:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#5,obj.sprite_layer(a0)
@@ -992,78 +994,78 @@ BombObject_0_Routine0:
 	move.w	#$47C,obj.sprite_tile(a0)
 	move.l	#BombSprites,obj.sprite_data(a0)
 	move.b	#$D7,obj.collide_type(a0)
-	move.w	#0,obj.var_38(a0)
-	move.w	#$20,obj.var_3a(a0)
-	move.w	#$600,obj.var_3c(a0)
+	move.w	#0,bomb.x_acceleration(a0)
+	move.w	#$20,bomb.y_acceleration(a0)
+	move.w	#$600,bomb.terminal_y_speed(a0)
 
-BombObject_0_Routine2:
+Bomb_Active:
 	tst.b	obj.collide_status(a0)
-	bne.w	loc_20E584
-	addq.w	#1,obj.var_2a(a0)
-	cmpi.w	#$F0,obj.var_2a(a0)
-	bge.w	BombObject_0_Routine8
+	bne.w	Bomb_HitPlayer
+	addq.w	#1,bomb.lifetime(a0)
+	cmpi.w	#$F0,bomb.lifetime(a0)
+	bge.w	Bomb_Detonate
 	addq.b	#1,obj.anim_timer(a0)
 	btst	#1,obj.anim_timer(a0)
-	beq.s	loc_20E4FA
+	beq.s	.Move
 	eori.b	#1,obj.sprite_frame(a0)
 
-loc_20E4FA:
-	bsr.w	sub_20E65E
+.Move:
+	bsr.w	Bomb_ApplyAcceleratedMotion
 	tst.w	obj.y_speed(a0)
-	bmi.s	loc_20E520
+	bmi.s	.CheckCeiling
 	bsr.w	CheckBlockDown
 	tst.w	d1
-	bgt.w	loc_20E538
+	bgt.w	.CheckHorizontal
 	add.w	d1,obj.y(a0)
 	move.w	obj.y_speed(a0),d1
 	neg.w	d1
 	move.w	d1,obj.y_speed(a0)
-	bra.w	loc_20E538
+	bra.w	.CheckHorizontal
 
 ; ------------------------------------------------------------------------------
 
-loc_20E520:
+.CheckCeiling:
 	bsr.w	CheckBlockUp
 	tst.w	d1
-	bgt.w	loc_20E538
+	bgt.w	.CheckHorizontal
 	sub.w	d1,obj.y(a0)
 	move.w	obj.y_speed(a0),d1
 	neg.w	d1
 	move.w	d1,obj.y_speed(a0)
 
-loc_20E538:
+.CheckHorizontal:
 	tst.w	obj.x_speed(a0)
-	bmi.s	loc_20E560
+	bmi.s	.CheckLeft
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
 	bsr.w	CheckBlockRight
 	tst.w	d1
-	bgt.w	loc_20E57E
+	bgt.w	.Draw
 	add.w	d1,obj.x(a0)
 	move.w	obj.x_speed(a0),d0
 	neg.w	d0
 	move.w	d0,obj.x_speed(a0)
-	bra.w	loc_20E57E
+	bra.w	.Draw
 
 ; ------------------------------------------------------------------------------
 
-loc_20E560:
+.CheckLeft:
 	moveq	#0,d3
 	move.b	obj.width(a0),d3
 	bsr.w	CheckBlockLeft
 	tst.w	d1
-	bgt.w	loc_20E57E
+	bgt.w	.Draw
 	sub.w	d1,obj.x(a0)
 	move.w	obj.x_speed(a0),d0
 	neg.w	d0
 	move.w	d0,obj.x_speed(a0)
 
-loc_20E57E:
+.Draw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E584:
+Bomb_HitPlayer:
 	lea	player_object,a1
 	clr.b	obj.collide_status(a0)
 	move.w	obj.x(a0),d1
@@ -1086,28 +1088,28 @@ loc_20E584:
 	lea	object_states,a2
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	beq.s	loc_20E5F2
+	beq.s	.ClearPlayerFlag
 	cmpi.b	#$8A,2(a2,d0.w)
-	bcc.s	loc_20E5F2
+	bcc.s	.ClearPlayerFlag
 	addq.b	#1,2(a2,d0.w)
 
-loc_20E5F2:
+.ClearPlayerFlag:
 	bclr	#3,obj.flags(a1)
 
-BombObject_0_Routine8:
+Bomb_Detonate:
 	move.w	#$9E,d0
 	jsr	PlayFmSound
 	move.w	#$100,obj.anim_id(a0)
 	move.b	#4,obj.routine(a0)
-	bra.s	loc_20E61C
+	bra.s	Bomb_ConvertToExplosion
 
 ; ------------------------------------------------------------------------------
 
-BombObject_0_RoutineA:
+Bomb_BeginSilentExplosion:
 	move.w	#1,obj.anim_id(a0)
 	move.b	#4,obj.routine(a0)
 
-loc_20E61C:
+Bomb_ConvertToExplosion:
 	clr.b	obj.collide_type(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
@@ -1116,49 +1118,51 @@ loc_20E61C:
 	move.w	#$680,obj.sprite_tile(a0)
 	move.l	#ExplosionSprites,obj.sprite_data(a0)
 
-BombObject_0_Routine4:
+Bomb_Explosion:
 	lea	ExplosionAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-BombObject_0_Routine6:
+Bomb_Delete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-sub_20E65E:
-	move.w	obj.var_3a(a0),d0
+Bomb_ApplyAcceleratedMotion:
+	move.w	bomb.y_acceleration(a0),d0
 	add.w	d0,obj.y_speed(a0)
-	move.w	obj.var_38(a0),d0
+	move.w	bomb.x_acceleration(a0),d0
 	add.w	d0,obj.x_speed(a0)
-	tst.w	obj.var_3a(a0)
-	beq.s	loc_20E6A6
-	bmi.s	loc_20E686
-	move.w	obj.var_3c(a0),d0
+	tst.w	bomb.y_acceleration(a0)
+	beq.s	Bomb_ApplyPosition
+	bmi.s	.ClampUpwardSpeed
+	move.w	bomb.terminal_y_speed(a0),d0
 	cmp.w	obj.y_speed(a0),d0
-	bgt.s	loc_20E6A6
+	bgt.s	Bomb_ApplyPosition
 	move.w	d0,obj.y_speed(a0)
-	bra.s	loc_20E6A6
+	bra.s	Bomb_ApplyPosition
 
 ; ------------------------------------------------------------------------------
 
-loc_20E686:
-	move.w	obj.var_3c(a0),d0
+.ClampUpwardSpeed:
+	move.w	bomb.terminal_y_speed(a0),d0
 	cmp.w	obj.y_speed(a0),d0
-	blt.s	loc_20E6A6
+	blt.s	Bomb_ApplyPosition
 	move.w	d0,obj.y_speed(a0)
-	bra.s	loc_20E6A6
+	bra.s	Bomb_ApplyPosition
 
 ; ------------------------------------------------------------------------------
 
-	move.w	obj.var_38(a0),d0
+; Unreachable executable leftover: duplicates the acceleration updates above.
+BombMotion_UnreachableDuplicateAcceleration:
+	move.w	bomb.x_acceleration(a0),d0
 	add.w	d0,obj.x_speed(a0)
-	move.w	obj.var_3a(a0),d0
+	move.w	bomb.y_acceleration(a0),d0
 	add.w	d0,obj.y_speed(a0)
 
-loc_20E6A6:
+Bomb_ApplyPosition:
 	move.w	obj.x_speed(a0),d0
 	ext.l	d0
 	lsl.l	#8,d0

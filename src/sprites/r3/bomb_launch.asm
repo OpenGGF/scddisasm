@@ -3,13 +3,15 @@
 ; ------------------------------------------------------------------------------
 
 .Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
-	dc.w	.Sprite3-.Sprites
-	dc.w	.Sprite4-.Sprites
+	dc.w	.Closed-.Sprites
+	dc.w	.LeftLowered-.Sprites
+	dc.w	.LeftRaised-.Sprites
+	dc.w	.RightLowered-.Sprites
+	dc.w	.RightRaised-.Sprites
 
-.Sprite0:
+; Each frame starts with a piece count followed by five-byte sprite pieces:
+; signed Y, size, attributes/tile high, tile low, and signed X.
+.Closed:
 	dc.b	4
 	dc.b	$F0, 8, 0, 9, $E8
 	dc.b	$F0, 8, 8, 9, 0
@@ -17,7 +19,7 @@
 	dc.b	$F0, $A, 8, 0, 0
 	even
 
-.Sprite1:
+.LeftLowered:
 	dc.b	4
 	dc.b	$F0, 8, 0, 9, $E8
 	dc.b	$F0, 8, 8, 9, 0
@@ -25,7 +27,7 @@
 	dc.b	$F0, $A, 8, 0, 0
 	even
 
-.Sprite2:
+.LeftRaised:
 	dc.b	4
 	dc.b	$F0, 8, 0, 9, $E8
 	dc.b	$F0, 8, 8, 9, 0
@@ -33,7 +35,7 @@
 	dc.b	$F0, $A, 8, 0, 0
 	even
 
-.Sprite3:
+.RightLowered:
 	dc.b	4
 	dc.b	$F0, 8, 0, 9, $E8
 	dc.b	$F0, 8, 8, 9, 0
@@ -41,7 +43,7 @@
 	dc.b	$F8, $A, 8, 0, 0
 	even
 
-.Sprite4:
+.RightRaised:
 	dc.b	4
 	dc.b	$F0, 8, 0, 9, $E8
 	dc.b	$F0, 8, 8, 9, 0
