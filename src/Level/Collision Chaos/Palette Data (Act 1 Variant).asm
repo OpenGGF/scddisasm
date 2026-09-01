@@ -22,9 +22,7 @@ PaletteTable:
 	dc.w	$17
 
 	if CC_VARIANT=1
-	dc.l	Pal_LevelEnd
-	dc.w	palette+$20
-	dc.w	$17
+	; Past has only the single stage-palette entry emitted above.
 	elseif CC_VARIANT=2
 	dc.l	Pal_LevelAlt1
 	dc.w	palette+$20
@@ -60,6 +58,7 @@ Pal_Sonic:
 
 	if CC_VARIANT=1
 
+StagePalette:
 Pal_LevelEnd:
 Pal_Level:
 	dc.b	6, $66
@@ -76,8 +75,6 @@ Pal_Level:
 	dcb.b	2,$E
 	dcb.b	2,8
 	dc.b	$E, $EE
-
-	; Past has only one stage palette in its source table.
 
 	elseif CC_VARIANT=2
 
