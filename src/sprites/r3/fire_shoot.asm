@@ -1,6 +1,9 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
+; Fire-shooter mappings: emitter cap, two full flame frames, two projectile
+; directions, and the shared empty burnout frame (referenced twice).
+
 .Sprites:
 	dc.w	.Sprite0-.Sprites
 	dc.w	.Sprite1-.Sprites

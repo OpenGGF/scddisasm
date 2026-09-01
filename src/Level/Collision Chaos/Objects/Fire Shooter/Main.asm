@@ -2,6 +2,13 @@
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
 ; Collision Chaos fire shooter object
+;
+; Subtype 0 is the emitter, subtype 1 is its rising/lowering flame, and subtype
+; 2 is either horizontal projectile. The flame uses a five-state routine table;
+; projectiles accelerate for $40 pixels, then play a timed burnout animation.
+;
+; CC_LEGACY_FIRE_SHOOTER_ABI preserves R31A's custom despawn paths, helper
+; addressing, setup/return joins, and byte/word instruction choices.
 ; -------------------------------------------------------------------------
 
 oFireShooterBaseX	EQU	oVar36
@@ -10,7 +17,13 @@ oFireShooterBaseY	EQU	oVar32
 ; -------------------------------------------------------------------------
 
 ObjFireShooter:
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI=0
 	moveq	#0,d0
+		endif
+	else
+	moveq	#0,d0
+	endif
 	move.b	oSubtype(a0),d0
 	cmpi.b	#1,d0
 	beq.w	ObjFireShooter_Flame
@@ -24,7 +37,25 @@ ObjFireShooter_Emitter:
 	jsr	ObjFireShooter_Emitter_Index(pc,d0.w)
 	jsr	DrawObject
 	move.w	oFireShooterBaseX(a0),d0
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	andi.w	#$FF80,d0
+	move.w	cameraX.w,d1
+	subi.w	#$80,d1
+	andi.w	#$FF80,d1
+	sub.w	d1,d0
+	cmpi.w	#$280,d0
+	bhi.s	.Despawn
+	rts
+
+.Despawn:
+	bra.w	DespawnObjectR3
+		else
 	jmp	CheckObjDespawn2
+		endif
+	else
+	jmp	CheckObjDespawn2
+	endif
 ; End of function ObjFireShooter_Emitter
 
 ; -------------------------------------------------------------------------
@@ -44,7 +75,18 @@ ObjFireShooter_Emitter_Init:
 	move.w	oY(a0),oFireShooterBaseY(a0)
 	move.b	#$10,oWidth(a0)
 	jsr	FindObjSlot
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	beq.s	.SpawnChild
+	rts
+
+.SpawnChild:
+		else
 	bne.s	.End
+		endif
+	else
+	bne.s	.End
+	endif
 	move.b	#$27,oID(a1)
 	move.w	oX(a0),oX(a1)
 	move.w	oY(a0),d0
@@ -52,9 +94,17 @@ ObjFireShooter_Emitter_Init:
 	move.w	d0,oY(a1)
 	move.b	#1,oSubtype(a1)
 	addq.b	#2,oRoutine(a0)
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI=0
 
 .End:
 	rts
+		endif
+	else
+
+.End:
+	rts
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -70,7 +120,25 @@ ObjFireShooter_Flame:
 	jsr	ObjFireShooter_Flame_Index(pc,d0.w)
 	jsr	DrawObject
 	move.w	oFireShooterBaseX(a0),d0
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	andi.w	#$FF80,d0
+	move.w	cameraX.w,d1
+	subi.w	#$80,d1
+	andi.w	#$FF80,d1
+	sub.w	d1,d0
+	cmpi.w	#$280,d0
+	bhi.s	.Despawn
+	rts
+
+.Despawn:
+	bra.w	DespawnObjectR3
+		else
 	jmp	CheckObjDespawn2
+		endif
+	else
+	jmp	CheckObjDespawn2
+	endif
 ; End of function ObjFireShooter_Flame
 
 ; -------------------------------------------------------------------------
@@ -90,11 +158,21 @@ ObjFireShooter_Flame_Solid:
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI=0
 ObjFireShooter_Flame_SolidAt:
 	lea	objPlayerSlot.w,a1
 	move.w	oX(a0),d3
 	move.w	oY(a0),d4
 	jmp	SolidObject
+		endif
+	else
+ObjFireShooter_Flame_SolidAt:
+	lea	objPlayerSlot.w,a1
+	move.w	oX(a0),d3
+	move.w	oY(a0),d4
+	jmp	SolidObject
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -109,13 +187,26 @@ ObjFireShooter_Flame_Init:
 	move.w	oY(a0),oFireShooterBaseY(a0)
 	move.b	#1,oMapFrame(a0)
 	addq.b	#2,oRoutine(a0)
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	rts
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
 
 ObjFireShooter_Flame_Main:
 	tst.b	oVar3A(a0)
 	bne.s	.Active
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	bsr.w	sub_20CF36
+		else
 	bsr.w	ObjFireShooter_GetPlayer
+		endif
+	else
+	bsr.w	ObjFireShooter_GetPlayer
+	endif
 	move.w	oX(a0),d0
 	sub.w	oX(a1),d0
 	bcc.s	.CheckRange
@@ -147,7 +238,15 @@ ObjFireShooter_Flame_Main:
 	bra.w	ObjFireShooter_Flame_Solid
 
 .Raise:
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	move.w	#0,oVar3A(a0)
+		else
 	move.b	#0,oVar3A(a0)
+		endif
+	else
+	move.b	#0,oVar3A(a0)
+	endif
 	move.b	#1,oMapFrame(a0)
 	addq.b	#2,oRoutine(a0)
 	rts
@@ -161,8 +260,18 @@ ObjFireShooter_Flame_Raise:
 	move.b	#$20,oVar3B(a0)
 
 .ApplyHeight:
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	move.b	oVar3B(a0),d0
+	ext.w	d0
+		else
 	moveq	#0,d0
 	move.b	oVar3B(a0),d0
+		endif
+	else
+	moveq	#0,d0
+	move.b	oVar3B(a0),d0
+	endif
 	neg.w	d0
 	add.w	oFireShooterBaseY(a0),d0
 	move.w	d0,oY(a0)
@@ -171,8 +280,19 @@ ObjFireShooter_Flame_Raise:
 	bra.w	ObjFireShooter_Flame_Solid
 
 .AtTop:
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	jsr	ObjFireShooter_Flame_SpawnProjectiles(pc)
+	lea	objPlayerSlot.w,a1
+	bsr.s	ObjFireShooter_Flame_SolidAt
+		else
 	jsr	ObjFireShooter_Flame_SpawnProjectiles
 	jsr	ObjFireShooter_Flame_SolidAt
+		endif
+	else
+	jsr	ObjFireShooter_Flame_SpawnProjectiles
+	jsr	ObjFireShooter_Flame_SolidAt
+	endif
 	bne.s	.HitPlayer
 	move.b	#8,oVar3A(a0)
 	addq.b	#2,oRoutine(a0)
@@ -186,13 +306,31 @@ ObjFireShooter_Flame_Raise:
 	bclr	#3,oFlags(a0)
 	rts
 
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+
+ObjFireShooter_Flame_SolidAt:
+	move.w	oX(a0),d3
+	move.w	oY(a0),d4
+	jmp	SolidObject
+		endif
+	endif
+
 ; -------------------------------------------------------------------------
 
 ObjFireShooter_Flame_Lower:
 	tst.b	oVar3A(a0)
 	beq.s	.Lower
 	subq.b	#1,oVar3A(a0)
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	bra.s	.Solid
+		else
 	bra.w	ObjFireShooter_Flame_Solid
+		endif
+	else
+	bra.w	ObjFireShooter_Flame_Solid
+	endif
 
 .Lower:
 	subq.b	#4,oVar3B(a0)
@@ -200,8 +338,18 @@ ObjFireShooter_Flame_Lower:
 	move.b	#0,oVar3B(a0)
 
 .ApplyHeight:
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	move.b	oVar3B(a0),d0
+	ext.w	d0
+		else
 	moveq	#0,d0
 	move.b	oVar3B(a0),d0
+		endif
+	else
+	moveq	#0,d0
+	move.b	oVar3B(a0),d0
+	endif
 	neg.w	d0
 	add.w	oFireShooterBaseY(a0),d0
 	move.w	d0,oY(a0)
@@ -262,7 +410,15 @@ ObjFireShooter_Flame_SpawnProjectiles:
 	move.b	#$27,oID(a1)
 	move.b	#2,oSubtype(a1)
 	move.w	oY(a0),d0
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	addq.b	#8,d0
+		else
 	addq.w	#8,d0
+		endif
+	else
+	addq.w	#8,d0
+	endif
 	move.w	d0,oY(a1)
 	rts
 
@@ -340,17 +496,41 @@ ObjFireShooter_Projectile_Main:
 
 .Countdown:
 	subq.b	#1,oVar3B(a0)
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
+	beq.s	.Delete
+	rts
+
+.Delete:
+	jmp	DeleteObject
+		else
 	bne.s	.End
 	jmp	DeleteObject
 
 .End:
 	rts
+		endif
+	else
+	bne.s	.End
+	jmp	DeleteObject
+
+.End:
+	rts
+	endif
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
+		if CC_LEGACY_FIRE_SHOOTER_ABI=0
 ObjFireShooter_GetPlayer:
 	lea	objPlayerSlot.w,a1
 	rts
+		endif
+	else
+ObjFireShooter_GetPlayer:
+	lea	objPlayerSlot.w,a1
+	rts
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -361,5 +541,13 @@ Ani_FireShoot:
 MapSpr_FireShoot:
 	include	"sprites/r3/fire_shoot.asm"
 	even
+
+	if def(R3_SEMANTIC_FIRE_SHOOTER)
+		if R3_SEMANTIC_FIRE_SHOOTER<>0
+FireShooterObject EQU	ObjFireShooter
+FireShootAnims	EQU	Ani_FireShoot
+FireShootSprites EQU	MapSpr_FireShoot
+		endif
+	endif
 
 ; -------------------------------------------------------------------------

@@ -1,6 +1,9 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
+; Fire-shooter animation scripts: idle flame, two charging directions, and
+; the two directional projectile burnout loops.
+
 .Anims:
 	dc.w	.Anim0-.Anims
 	dc.w	.Anim1-.Anims

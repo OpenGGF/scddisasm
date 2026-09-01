@@ -301,7 +301,13 @@ ObjDoor			EQU	DoorObject
 	else
 ObjDoor			EQU	DoorObject
 	endif
+	if def(R3_SEMANTIC_FIRE_SHOOTER)
+		if R3_SEMANTIC_FIRE_SHOOTER=0
 ObjFireShooter	EQU	FireShooterObject
+		endif
+	else
+ObjFireShooter	EQU	FireShooterObject
+	endif
 ObjDrumPlatform	EQU	DrumPlatformObject
 	if def(R3_SEMANTIC_GLASS_SHATTER)
 		if R3_SEMANTIC_GLASS_SHATTER=0
