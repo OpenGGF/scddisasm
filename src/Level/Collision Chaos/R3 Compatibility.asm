@@ -294,7 +294,13 @@ ObjMetalPlatform	EQU	MetalPlatformObject
 	endif
 ObjKamaKama		EQU	KamaKamaObject
 ObjKamaSickle		EQU	KamaSickleObject
+	if def(R3_SEMANTIC_DOOR)
+		if R3_SEMANTIC_DOOR=0
 ObjDoor			EQU	DoorObject
+		endif
+	else
+ObjDoor			EQU	DoorObject
+	endif
 ObjFireShooter	EQU	FireShooterObject
 ObjDrumPlatform	EQU	DrumPlatformObject
 	if def(R3_SEMANTIC_GLASS_SHATTER)

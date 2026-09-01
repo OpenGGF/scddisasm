@@ -42,6 +42,7 @@ R3_SEMANTIC_SECTION_ART EQU	1
 R3_SEMANTIC_CC_SPIKES	EQU	1
 R3_SEMANTIC_BLOCKS	EQU	1
 R3_SEMANTIC_METAL_PLATFORM EQU	1
+R3_SEMANTIC_DOOR	EQU	1
 CC_LEGACY_ROLL_TUNNEL_ABI EQU	1
 CC_LEGACY_BUMPER_FLIPPER_ABI EQU	1
 CC_LEGACY_BUMPER_PLATFORM_ABI EQU	1
@@ -52,6 +53,7 @@ CC_LEGACY_TENTOU_ABI	EQU	1
 CC_LEGACY_SPIKE_CHAIN_ABI EQU	1
 CC_LEGACY_BLOCK_ABI	EQU	1
 CC_LEGACY_METAL_PLATFORM_ABI EQU	1
+CC_LEGACY_DOOR_ABI	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -117,7 +119,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Objects/Spikes/Main.asm"
 	include	"Level/Collision Chaos/Objects/Block/Main.asm"
 	include	"Level/Collision Chaos/Objects/Metal Platform/Main.asm"
-	include	"objects/r3/door.asm"
+	include	"Level/Collision Chaos/Objects/Door/Main.asm"
 	include	"objects/r3/fire_shooter.asm"
 	include	"objects/r3/drum_platform.asm"
 	include	"r3/object_despawn.asm"
