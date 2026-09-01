@@ -286,7 +286,13 @@ ObjBumperPlatform	EQU	BumperPlatformObject
 	else
 ObjBumperPlatform	EQU	BumperPlatformObject
 	endif
+	if def(R3_SEMANTIC_TELEPORTER)
+		if R3_SEMANTIC_TELEPORTER=0
 ObjTeleporter		EQU	TeleporterObject
+		endif
+	else
+ObjTeleporter		EQU	TeleporterObject
+	endif
 ObjSpikeChain		EQU	SpikeChainObject
 	if def(R3_SEMANTIC_GA)
 		if R3_SEMANTIC_GA=0
