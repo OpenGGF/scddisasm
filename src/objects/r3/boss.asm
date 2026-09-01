@@ -5,6 +5,14 @@ entry_barrier.flags		equ obj.var_2c	; Bit 1: boss triggered; bit 2: struck
 entry_barrier.target_y		equ obj.var_2e	; Raised Y position
 entry_barrier.y_speed		equ obj.var_30	; 16.16 vertical speed
 entry_barrier.link		equ obj.var_34	; Linked barrier object slot
+boss.flash_timer		equ obj.var_2b	; Palette-flash countdown and phase bit
+boss.flags			equ obj.var_2c	; Movement/draw and encounter flags
+boss.target_y			equ obj.var_2e	; Target or last tracked Y position
+boss.y_speed			equ obj.var_30	; 16.16 vertical speed
+boss.primary_link		equ obj.var_34	; Pilot from parent; parent from child
+boss.upper_child_link		equ obj.var_36	; Linked upper machine child slot
+boss.attack_count		equ obj.var_3a	; Number of arena attacks started
+boss.phase			equ obj.var_3b	; Encounter substate and camera-lock phase
 
 ; The two barriers link to each other through 16-bit object-slot addresses.
 ; A collision retracts a barrier; crossing the arena threshold starts the boss.
@@ -131,28 +139,28 @@ EntryBarrier_CheckBossTrigger:
 
 ; ------------------------------------------------------------------------------
 
-sub_20DCD2:
-	tst.b	obj.var_2b(a0)
-	bne.s	loc_20DCDA
+BossMachine_UpdateDamageFlash:
+	tst.b	boss.flash_timer(a0)
+	bne.s	.Flash
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20DCDA:
-	bchg	#7,obj.var_2b(a0)
-	bne.s	loc_20DCEE
+.Flash:
+	bchg	#7,boss.flash_timer(a0)
+	bne.s	.UseNormalPalette
 	move.w	#5,d0
 	ori.b	#1,obj.sprite_frame(a0)
-	bra.s	loc_20DCF8
+	bra.s	.LoadPalette
 
 ; ------------------------------------------------------------------------------
 
-loc_20DCEE:
+.UseNormalPalette:
 	move.w	#6,d0
 	andi.b	#$FE,obj.sprite_frame(a0)
 
-loc_20DCF8:
-	subq.b	#1,obj.var_2b(a0)
+.LoadPalette:
+	subq.b	#1,boss.flash_timer(a0)
 	movem.l	d7/a1-a3,-(sp)
 	jsr	LoadPalette
 	movem.l	(sp)+,d7/a1-a3
@@ -161,48 +169,48 @@ loc_20DCF8:
 ; ------------------------------------------------------------------------------
 
 BossMachineObject:
-	tst.b	obj.var_3b(a0)
-	beq.s	loc_20DD2E
+	tst.b	boss.phase(a0)
+	beq.s	.RunState
 	cmpi.w	#$B0,scroll_focus_y
-	bge.s	loc_20DD28
+	bge.s	.LockCamera
 	addq.w	#6,scroll_focus_y
 	cmpi.w	#$B2,scroll_focus_y
-	bge.s	loc_20DD28
-	bra.s	loc_20DD2E
+	bge.s	.LockCamera
+	bra.s	.RunState
 
 ; ------------------------------------------------------------------------------
 
-loc_20DD28:
+.LockCamera:
 	move.w	#$B2,scroll_focus_y
 
-loc_20DD2E:
+.RunState:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20DD4E(pc,d0.w),d0
-	jsr	off_20DD4E(pc,d0.w)
-	btst	#0,obj.var_2c(a0)
-	beq.s	loc_20DD46
+	move.w	BossMachine_Routines(pc,d0.w),d0
+	jsr	BossMachine_Routines(pc,d0.w)
+	btst	#0,boss.flags(a0)
+	beq.s	.Draw
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20DD46:
-	bsr.s	sub_20DCD2
+.Draw:
+	bsr.s	BossMachine_UpdateDamageFlash
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20DD4E:
-	dc.w	BossMachineObject_0_Routine0-*
-	dc.w	BossMachineObject_0_Routine2-off_20DD4E
-	dc.w	BossMachineObject_0_Routine4-off_20DD4E
-	dc.w	BossMachineObject_0_Routine6-off_20DD4E
-	dc.w	BossMachineObject_0_Routine8-off_20DD4E
-	dc.w	BossMachineObject_0_RoutineA-off_20DD4E
+BossMachine_Routines:
+	dc.w	BossMachine_Init-*
+	dc.w	BossMachine_TrackPlayer-BossMachine_Routines
+	dc.w	BossMachine_Combat-BossMachine_Routines
+	dc.w	BossMachine_HitReaction-BossMachine_Routines
+	dc.w	BossMachine_DefeatedRise-BossMachine_Routines
+	dc.w	BossMachine_WaitForExit-BossMachine_Routines
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine0:
+BossMachine_Init:
 	movem.l	d7/a1-a3,-(sp)
 	move.w	#6,d0
 	jsr	LoadPalette
@@ -215,78 +223,78 @@ BossMachineObject_0_Routine0:
 	move.w	#$31E,obj.sprite_tile(a0)
 	move.l	#BossMachineSprites,obj.sprite_data(a0)
 	bsr.w	SpawnObjectAfter
-	bne.w	locret_20DDFE
-	move.w	a1,obj.var_36(a0)
-	move.w	a0,obj.var_34(a1)
+	bne.w	.End
+	move.w	a1,boss.upper_child_link(a0)
+	move.w	a0,boss.primary_link(a1)
 	move.b	#$33,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	subi.w	#$30,obj.y(a1)
 	bsr.w	SpawnObjectAfter
-	bne.w	locret_20DDFE
-	move.w	a0,obj.var_34(a1)
-	move.w	a1,obj.var_34(a0)
+	bne.w	.End
+	move.w	a0,boss.primary_link(a1)
+	move.w	a1,boss.primary_link(a0)
 	move.b	#$32,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	subi.w	#$40,obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	bsr.w	SpawnObjectAfter
-	bne.s	locret_20DDFE
-	move.w	a0,obj.var_34(a1)
+	bne.s	.End
+	move.w	a0,boss.primary_link(a1)
 	move.b	#$3D,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 
-locret_20DDFE:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine2:
-	movea.w	obj.var_34(a0),a1
+BossMachine_TrackPlayer:
+	movea.w	boss.primary_link(a0),a1
 	move.b	#1,$1C(a1)
 	lea	player_object,a1
 	move.w	#$1C0,d1
 	move.w	#$DC,d2
 	move.w	obj.y(a1),d0
 	cmp.w	d0,d1
-	ble.s	loc_20DE44
+	ble.s	.StartFight
 	cmp.w	d0,d2
-	bgt.s	loc_20DE40
+	bgt.s	.ClampTop
 
-loc_20DE22:
-	cmp.w	obj.var_2e(a0),d0
-	bne.s	loc_20DE30
-	bclr	#2,obj.var_2c(a0)
-	bra.s	loc_20DE36
+.ApplyY:
+	cmp.w	boss.target_y(a0),d0
+	bne.s	.SetMoving
+	bclr	#2,boss.flags(a0)
+	bra.s	.StoreY
 
 ; ------------------------------------------------------------------------------
 
-loc_20DE30:
-	bset	#2,obj.var_2c(a0)
+.SetMoving:
+	bset	#2,boss.flags(a0)
 
-loc_20DE36:
-	move.w	d0,obj.var_2e(a0)
+.StoreY:
+	move.w	d0,boss.target_y(a0)
 	move.w	d0,obj.y(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20DE40:
+.ClampTop:
 	move.w	d2,d0
-	bra.s	loc_20DE22
+	bra.s	.ApplyY
 
 ; ------------------------------------------------------------------------------
 
-loc_20DE44:
+.StartFight:
 	move.w	d1,obj.y(a0)
-	bclr	#2,obj.var_2c(a0)
+	bclr	#2,boss.flags(a0)
 	move.b	#4,obj.routine(a0)
-	move.l	#-$28000,obj.var_30(a0)
-	move.w	obj.y(a0),obj.var_2e(a0)
-	addi.w	#-$48,obj.var_2e(a0)
+	move.l	#-$28000,boss.y_speed(a0)
+	move.w	obj.y(a0),boss.target_y(a0)
+	addi.w	#-$48,boss.target_y(a0)
 	move.b	#$3F,obj.collide_type(a0)
 	move.b	#4,obj.collide_status(a0)
-	movea.w	obj.var_34(a0),a1
+	movea.w	boss.primary_link(a0),a1
 	move.b	#0,$1C(a1)
 	rts
 
@@ -328,7 +336,7 @@ word_20DEBC:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine4:
+BossMachine_Combat:
 	bsr.s	sub_20DE80
 	bne.s	loc_20DECC
 	bsr.w	sub_20DED8
@@ -422,7 +430,7 @@ loc_20DF7C:
 	move.b	#$10,obj.var_2b(a0)
 	cmpi.b	#1,obj.collide_status(a0)
 	beq.s	loc_20DFA2
-	bra.w	BossMachineObject_0_Routine6
+	bra.w	BossMachine_HitReaction
 
 ; ------------------------------------------------------------------------------
 
@@ -439,7 +447,7 @@ loc_20DFA2:
 
 loc_20DFC8:
 	jsr	SubCpuCommand
-	bra.w	BossMachineObject_0_Routine6
+	bra.w	BossMachine_HitReaction
 
 ; ------------------------------------------------------------------------------
 
@@ -456,7 +464,7 @@ locret_20DFEA:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine6:
+BossMachine_HitReaction:
 	moveq	#0,d0
 	move.b	obj.var_3b(a0),d0
 	subq.w	#1,d0
@@ -507,7 +515,7 @@ locret_20E06A:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine8:
+BossMachine_DefeatedRise:
 	bsr.w	sub_20E0CE
 	bsr.w	loc_20DFD2
 	addq.b	#1,obj.var_2a(a0)
@@ -528,7 +536,7 @@ locret_20E09E:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_RoutineA:
+BossMachine_WaitForExit:
 	bsr.w	sub_20E0CE
 	bsr.w	loc_20DFD2
 	btst	#0,obj.var_2c(a0)
