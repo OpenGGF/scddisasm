@@ -29,3 +29,20 @@ SectionInitPLCs:
 	dc.w	6
 
 	endif
+
+	if def(R3_SEMANTIC_SECTION_ART)
+		if R3_SEMANTIC_SECTION_ART<>0
+; Collision Chaos uses this fixed tile ID for the shared boulder, tunnel-door,
+; and spring object family after section art has been selected.
+SetObjectTileID:
+	move.w	#$4F2,oTile(a0)
+	rts
+
+InitSectionGfx		EQU	LoadSectionArt
+UpdateSectionGfx	EQU	UpdateSectionArt
+SectionGfxRanges	EQU	SectionRanges
+SectionGfxUpdateLists	EQU	SectionUpdatePLCs
+SectionGfxInitLists	EQU	SectionInitPLCs
+SetObjectSpriteTile	EQU	SetObjectTileID
+		endif
+	endif

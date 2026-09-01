@@ -38,6 +38,7 @@ R3_SEMANTIC_TELEPORTER EQU	1
 R3_SEMANTIC_POCKET	EQU	1
 R3_SEMANTIC_TENTOU	EQU	1
 R3_SEMANTIC_SPIKE_CHAIN EQU	1
+R3_SEMANTIC_SECTION_ART EQU	1
 CC_LEGACY_ROLL_TUNNEL_ABI EQU	1
 CC_LEGACY_BUMPER_FLIPPER_ABI EQU	1
 CC_LEGACY_BUMPER_PLATFORM_ABI EQU	1
@@ -106,7 +107,8 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Objects/Pocket/Main.asm"
 	include	"Level/Collision Chaos/Objects/Tentou/Main.asm"
 	include	"Level/Collision Chaos/Objects/Spike Chain/Main.asm"
-	include	"r3/section_gfx_1a.asm"
+	include	"Level/Section Art Load.asm"
+	include	"Level/Collision Chaos/Section Data (Act 1 Present).asm"
 	include	"objects/r3/spikes.asm"
 	include	"objects/r3/block.asm"
 	include	"objects/r3/hidden_block.asm"

@@ -82,7 +82,13 @@ RunObjects		EQU	UpdateObjects
 	else
 RunObjects		EQU	UpdateObjects
 	endif
+	if def(R3_SEMANTIC_SECTION_ART)
+		if R3_SEMANTIC_SECTION_ART=0
 UpdateSectionArt	EQU	UpdateSectionGfx
+		endif
+	else
+UpdateSectionArt	EQU	UpdateSectionGfx
+	endif
 LevelCollision		EQU	StageCollision
 Art_LifeIcon		EQU	LivesIconsGfx
 	if def(R3_SEMANTIC_DRAW)
@@ -413,7 +419,13 @@ MapSpr_TunnelDoor	EQU	HDoorSprites
 Ani_TunnelDoor		EQU	HDoorAnims
 MapSpr_TunnelDoorSplash EQU	SplashSprites
 Ani_TunnelDoorSplash	EQU	SplashAnims
+		if def(R3_SEMANTIC_SECTION_ART)
+			if R3_SEMANTIC_SECTION_ART=0
 SetObjectTileID	EQU	SetObjectSpriteTile
+			endif
+		else
+SetObjectTileID	EQU	SetObjectSpriteTile
+		endif
 		endif
 	endif
 
@@ -498,7 +510,13 @@ PlaceBlock		EQU	PlaceBlockAtPos
 		if R3_SEMANTIC_DATA_LOAD<>0
 ; Recovered providers used by the structured level-data loader.
 LoadStageData		EQU	LoadLevelData
+		if def(R3_SEMANTIC_SECTION_ART)
+			if R3_SEMANTIC_SECTION_ART=0
 LoadSectionArt	EQU	InitSectionGfx
+			endif
+		else
+LoadSectionArt	EQU	InitSectionGfx
+		endif
 LevelLayouts		EQU	StageMaps
 		endif
 	endif
