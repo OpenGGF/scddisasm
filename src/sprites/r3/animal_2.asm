@@ -2,29 +2,31 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-.Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
-	dc.w	.Sprite3-.Sprites
-	dc.w	.Sprite4-.Sprites
+; Ground-animal mappings. Each nonempty frame contains one five-byte sprite
+; piece (Y, size, tile high, tile low, X); Empty is used by the hologram pulse.
+.Table:
+	dc.w	.Leap-.Table
+	dc.w	.Land-.Table
+	dc.w	.Empty-.Table
+	dc.w	.HologramLand-.Table
+	dc.w	.HologramLeap-.Table
 
-.Sprite0:
+.Leap:
 	dc.b	1
 	dc.b	$F4, 6, 0, $E, $F8
 
-.Sprite1:
+.Land:
 	dc.b	1
 	dc.b	$F4, 6, 0, 8, $F8
 
-.Sprite2:
+.Empty:
 	dc.b	0
 
-.Sprite3:
+.HologramLand:
 	dc.b	1
 	dc.b	$F4, 6, 0, 8, $F8
 
-.Sprite4:
+.HologramLeap:
 	dc.b	1
 	dc.b	$FC, 9, 0, $E, $F8
 

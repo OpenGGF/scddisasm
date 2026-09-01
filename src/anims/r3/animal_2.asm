@@ -2,10 +2,12 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-.Anims:
-	dc.w	.Anim0-.Anims
+; Standard object-animation script: a frame delay followed by frame indices;
+; $FF loops to the start of the projector-hologram sequence.
+.Table:
+	dc.w	.Hologram-.Table
 
-.Anim0:
+.Hologram:
 	dc.b	0
 	dc.b	3, 3, 2, 3, 3, 2, 3, 3
 	dc.b	2, 3, 3, 2, 3, 3, 2, 2

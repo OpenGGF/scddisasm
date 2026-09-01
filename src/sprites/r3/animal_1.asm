@@ -2,20 +2,22 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-.Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
+; Flying-animal mappings. Each nonempty frame contains one five-byte sprite
+; piece (Y, size, tile high, tile low, X); Empty is used by the hologram pulse.
+.Table:
+	dc.w	.WingUp-.Table
+	dc.w	.WingDown-.Table
+	dc.w	.Empty-.Table
 
-.Sprite0:
+.WingUp:
 	dc.b	1
 	dc.b	$F8, 5, 0, 0, $F8
 
-.Sprite1:
+.WingDown:
 	dc.b	1
 	dc.b	$F8, 5, 0, 4, $F8
 
-.Sprite2:
+.Empty:
 	dc.b	0
 
 ; ------------------------------------------------------------------------------

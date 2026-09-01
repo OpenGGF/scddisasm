@@ -2,17 +2,19 @@
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
 
-.Anims:
-	dc.w	.Anim0-.Anims
-	dc.w	.Anim1-.Anims
+; Standard object-animation scripts: a frame delay followed by frame indices;
+; $FF loops to the start of the script.
+.Table:
+	dc.w	.Freed-.Table
+	dc.w	.Hologram-.Table
 
-.Anim0:
+.Freed:
 	dc.b	3
 	dc.b	0, 1
 	dc.b	$FF
 	even
 
-.Anim1:
+.Hologram:
 	dc.b	0
 	dc.b	0, 0, 2, 0, 0, 2, 0, 0
 	dc.b	2, 0, 0, 2, 1, 1, 2, 2
