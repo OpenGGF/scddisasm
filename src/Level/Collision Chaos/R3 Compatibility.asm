@@ -288,7 +288,15 @@ ObjBumperPlatform	EQU	BumperPlatformObject
 	endif
 ObjTeleporter		EQU	TeleporterObject
 ObjSpikeChain		EQU	SpikeChainObject
+	if def(R3_SEMANTIC_GA)
+		if R3_SEMANTIC_GA=0
 ObjGa			EQU	GaObject
+		else
+DestroyOnGoodFuture	EQU	DestroyInGoodFuture
+		endif
+	else
+ObjGa			EQU	GaObject
+	endif
 ObjTentou		EQU	TentouObject
 ObjPocket		EQU	PocketObject
 ObjIntroSpikes	EQU	IntroSpikesObject

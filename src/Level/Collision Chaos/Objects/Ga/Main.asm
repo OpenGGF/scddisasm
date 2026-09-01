@@ -11,7 +11,13 @@ oGaHorizontalVelocity	EQU	oVar2C
 ; -------------------------------------------------------------------------
 
 ObjGa:
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI=0
 	moveq	#0,d0
+		endif
+	else
+	moveq	#0,d0
+	endif
 	move.b	oSubtype(a0),d0
 	subq.b	#1,d0
 	bmi.s	ObjGa_Parent
@@ -60,7 +66,15 @@ ObjGa_Init:
 ; -------------------------------------------------------------------------
 
 ObjGa_Routine2:
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+	addi.w	#-1,oGaTimer(a0)
+		else
 	subi.w	#1,oGaTimer(a0)
+		endif
+	else
+	subi.w	#1,oGaTimer(a0)
+	endif
 	bne.s	.End
 	addq.b	#2,oRoutine(a0)
 	move.w	#$3D,oGaTimer(a0)
@@ -71,7 +85,15 @@ ObjGa_Routine2:
 ; -------------------------------------------------------------------------
 
 ObjGa_Routine4:
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+	addi.w	#-1,oGaTimer(a0)
+		else
 	subi.w	#1,oGaTimer(a0)
+		endif
+	else
+	subi.w	#1,oGaTimer(a0)
+	endif
 	bne.s	.Animate
 	move.b	#$25,oColType(a0)
 	addq.b	#2,oRoutine(a0)
@@ -79,14 +101,35 @@ ObjGa_Routine4:
 	move.w	#$33,oGaTimer(a0)
 
 .Animate:
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+	lea	Ani_Ga,a1
+		else
 	lea	Ani_Ga(pc),a1
+		endif
+	else
+	lea	Ani_Ga(pc),a1
+	endif
 	jsr	AnimateObject
 	jmp	DrawObject
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+ObjGa_Routine4_Animate	EQU	.Animate
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
 
 ObjGa_Routine6:
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+	addi.w	#-1,oGaTimer(a0)
+		else
 	subi.w	#1,oGaTimer(a0)
+		endif
+	else
+	subi.w	#1,oGaTimer(a0)
+	endif
 	bne.s	.Animate
 	move.b	#$26,oColType(a0)
 	addq.b	#2,oRoutine(a0)
@@ -118,7 +161,15 @@ ObjGa_Routine8:
 	add.l	d0,oX(a0)
 	move.l	oGaVerticalVelocity(a0),d0
 	add.l	d0,oY(a0)
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+	addi.w	#-1,oGaTimer(a0)
+		else
 	subi.w	#1,oGaTimer(a0)
+		endif
+	else
+	subi.w	#1,oGaTimer(a0)
+	endif
 	bne.s	.Animate
 	move.w	#$41,oGaTimer(a0)
 	tst.b	oSubtype(a0)
@@ -141,10 +192,19 @@ ObjGa_Routine8:
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI=0
 ObjGa_Routine4_Animate:
 	lea	Ani_Ga(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
+		endif
+	else
+ObjGa_Routine4_Animate:
+	lea	Ani_Ga(pc),a1
+	jsr	AnimateObject
+	jmp	DrawObject
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -152,9 +212,17 @@ Ani_Ga:
 	include	"anims/r3/ga.asm"
 	even
 
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI=0
 Ani_GaDust:
 	include	"anims/r3/ga_dust.asm"
 	even
+		endif
+	else
+Ani_GaDust:
+	include	"anims/r3/ga_dust.asm"
+	even
+	endif
 
 MapSpr_Ga:
 	include	"sprites/r3/ga.asm"
@@ -194,7 +262,15 @@ ObjGa_Dust_Init:
 ; -------------------------------------------------------------------------
 
 ObjGa_Dust_Main:
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+	addi.w	#-1,oGaTimer(a0)
+		else
 	subi.w	#1,oGaTimer(a0)
+		endif
+	else
+	subi.w	#1,oGaTimer(a0)
+	endif
 	beq.s	ObjGa_Dust_Delete
 	addi.l	#$10000,oY(a0)
 	lea	Ani_GaDust(pc),a1
@@ -204,5 +280,22 @@ ObjGa_Dust_Main:
 
 ObjGa_Dust_Delete:
 	jmp	DeleteObject
+
+	if def(CC_LEGACY_GA_ABI)
+		if CC_LEGACY_GA_ABI<>0
+Ani_GaDust:
+	include	"anims/r3/ga_dust.asm"
+	even
+		endif
+	endif
+
+	if def(R3_SEMANTIC_GA)
+		if R3_SEMANTIC_GA<>0
+GaObject	EQU	ObjGa
+GaAnims	EQU	Ani_Ga
+GaDustAnims	EQU	Ani_GaDust
+GaSprites	EQU	MapSpr_Ga
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
