@@ -18,7 +18,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Palette Load.asm"
 	include	"Level/Palette Load (Water).asm"
 	include	"Level/Palette Load (Water Fade).asm"
-	include	"r3/palettes_a.asm"
+	include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
 	include	"common/s1_object_despawn.asm"
 	include	"common/vsync.asm"
 	include	"common/math.asm"
