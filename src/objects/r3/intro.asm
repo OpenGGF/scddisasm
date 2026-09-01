@@ -526,50 +526,56 @@ AmyRoseSpawnHeart:
 	rts
 
 ; ------------------------------------------------------------------------------
+; Introductory spike barrier and its three flying shard children
+;   Subtype 0 is the short barrier, subtype 1 is the player-hurting solid
+;   barrier, and subtypes 2/3 select the two tall barrier frames.
+;   var_3C identifies a shard and selects one of four motion records; var_3E
+;   stores gravity and var_3A stores its 120-tick lifetime.
+; ------------------------------------------------------------------------------
 
 IntroSpikesObject:
 	tst.b	time_attack
-	bne.w	loc_20E56C
+	bne.w	IntroSpikesDelete
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E35E(pc,d0.w),d0
-	jsr	off_20E35E(pc,d0.w)
+	move.w	IntroSpikesRoutineIndex(pc,d0.w),d0
+	jsr	IntroSpikesRoutineIndex(pc,d0.w)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20E35E:
-	dc.w	IntroSpikesObject_0_Routine0-*
-	dc.w	IntroSpikesObject_0_Routine2-off_20E35E
-	dc.w	IntroSpikesObject_0_Routine4-off_20E35E
+IntroSpikesRoutineIndex:
+	dc.w	IntroSpikesInit-*
+	dc.w	IntroSpikesMain-IntroSpikesRoutineIndex
+	dc.w	IntroSpikesShard-IntroSpikesRoutineIndex
 
 ; ------------------------------------------------------------------------------
 
-loc_20E364:
+IntroSpikesSolid:
 	cmpi.b	#1,obj.subtype(a0)
-	beq.s	loc_20E376
+	beq.s	IntroSpikesSolidHurt
 	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E376:
+IntroSpikesSolidHurt:
 	lea	player_object,a1
 	jsr	SolidObject
-	beq.s	locret_20E3CA
+	beq.s	.End
 	btst	#3,obj.flags(a0)
-	beq.s	locret_20E3CA
+	beq.s	.End
 	tst.b	warping
-	bne.s	locret_20E3CA
+	bne.s	.End
 	tst.b	invincible
-	bne.s	locret_20E3CA
+	bne.s	.End
 	move.l	a0,-(sp)
 	movea.l	a0,a2
 	lea	player_object,a0
 	cmpi.b	#4,obj.routine(a0)
-	bcc.s	loc_20E3C8
+	bcc.s	.RestoreObject
 	tst.w	obj.var_30(a0)
-	bne.s	loc_20E3C8
+	bne.s	.RestoreObject
 	move.l	obj.y(a0),d3
 	move.w	obj.y_speed(a0),d0
 	ext.l	d0
@@ -578,17 +584,17 @@ loc_20E376:
 	move.l	d3,obj.y(a0)
 	jsr	HurtPlayer
 
-loc_20E3C8:
+.RestoreObject:
 	movea.l	(sp)+,a0
 
-locret_20E3CA:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-IntroSpikesObject_0_Routine0:
+IntroSpikesInit:
 	tst.b	amy_captured
-	bne.w	loc_20E56C
+	bne.w	IntroSpikesDelete
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
@@ -597,93 +603,96 @@ IntroSpikesObject_0_Routine0:
 	move.b	#$12,obj.width_2(a0)
 	move.b	#8,obj.height(a0)
 	cmpi.b	#1,obj.subtype(a0)
-	beq.s	loc_20E436
+	beq.s	.SetFrame
 	move.b	#$20,obj.height(a0)
 	cmpi.b	#0,obj.subtype(a0)
-	beq.s	loc_20E436
+	beq.s	.SetFrame
 	move.b	#9,obj.sprite_frame(a0)
 	move.b	#$86,obj.collide_type(a0)
 	move.b	#$C,obj.width_2(a0)
 	cmpi.b	#2,obj.subtype(a0)
-	beq.s	loc_20E436
+	beq.s	.SetFrame
 	move.b	#$E,obj.sprite_frame(a0)
 
-loc_20E436:
+.SetFrame:
 	tst.b	obj.var_3c(a0)
-	beq.s	IntroSpikesObject_0_Routine2
+	beq.s	IntroSpikesMain
 	clr.b	obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
-	bsr.w	sub_20E526
-	bra.w	IntroSpikesObject_0_Routine4
+	bsr.w	IntroSpikesSetMotion
+	bra.w	IntroSpikesShard
 
 ; ------------------------------------------------------------------------------
 
-IntroSpikesObject_0_Routine2:
+IntroSpikesMain:
 	cmpi.b	#1,obj.subtype(a0)
-	beq.w	loc_20E364
+	beq.w	IntroSpikesSolid
 	lea	object_spawn_pool,a1
 	move.w	#$5F,d0
 
-loc_20E45E:
+.FindMetalSonic:
 	cmpi.b	#$31,obj.id(a1)
-	beq.s	loc_20E470
+	beq.s	.FoundMetalSonic
 	lea	obj.struct_len(a1),a1
-	dbf	d0,loc_20E45E
-	bra.s	loc_20E4BC
+	dbf	d0,.FindMetalSonic
+	bra.s	.Solid
 
 ; ------------------------------------------------------------------------------
 
-loc_20E470:
+.FoundMetalSonic:
 	move.b	obj.width_2(a0),d1
 	ext.w	d1
 	addi.w	#$10,d1
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
 	add.w	d1,d0
-	bmi.s	loc_20E4BC
+	bmi.s	.Solid
 	move.w	d1,d2
 	add.w	d2,d2
 	cmp.w	d2,d0
-	bcc.s	loc_20E4BC
+	bcc.s	.Solid
 	move.b	obj.height(a0),d1
 	ext.w	d1
 	addi.w	#$10,d1
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	add.w	d1,d0
-	bmi.s	loc_20E4BC
+	bmi.s	.Solid
 	move.w	d1,d2
 	add.w	d2,d2
 	cmp.w	d2,d0
-	bcc.s	loc_20E4BC
+	bcc.s	.Solid
 	addq.b	#2,obj.routine(a0)
-	bsr.s	sub_20E4C0
+	bsr.s	IntroSpikesSpawnShards
 	lea	player_object,a1
 	jmp	GetOffObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E4BC:
-	bra.w	loc_20E364
+.Solid:
+	bra.w	IntroSpikesSolid
 
 ; ------------------------------------------------------------------------------
 
-sub_20E4C0:
+; Replace the parent frame with a broken base and emit three shard objects.
+; d2 selects the first shard frame for the barrier subtype; d1 counts 3..1
+; and is copied to each child's motion selector.
+IntroSpikesSpawnShards:
 	moveq	#3,d1
 	move.b	#4,obj.sprite_frame(a0)
 	moveq	#0,d2
 	cmpi.b	#0,obj.subtype(a0)
-	beq.s	loc_20E4EA
+	beq.s	.Spawn
 	move.b	#8,obj.sprite_frame(a0)
 	moveq	#4,d2
 	cmpi.b	#2,obj.subtype(a0)
-	beq.s	loc_20E4EA
+	beq.s	.Spawn
 	move.b	#$D,obj.sprite_frame(a0)
 	moveq	#9,d2
 
-loc_20E4EA:
+.Spawn:
 	jsr	SpawnObject
-	bne.s	loc_20E510
+	bne.s	.NoSlot
 	move.b	#$30,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -692,21 +701,24 @@ loc_20E4EA:
 	move.b	d3,obj.sprite_frame(a1)
 	move.b	d1,obj.var_3c(a1)
 
-loc_20E510:
+.NoSlot:
 	subq.b	#1,d1
-	bne.s	loc_20E4EA
+	bne.s	.Spawn
 	btst	#7,obj.sprite_flags(a0)
-	beq.s	sub_20E526
+	beq.s	IntroSpikesSetMotion
 	move.w	#$A3,d0
 	jsr	PlayFmSound
 
 ; ------------------------------------------------------------------------------
 
-sub_20E526:
+; Initialize a shard from its four-byte X/Y velocity record. Entry by
+; fall-through after the shatter sound also initializes the broken parent;
+; its zero motion selector uses the first record.
+IntroSpikesSetMotion:
 	moveq	#0,d0
 	move.b	obj.var_3c(a0),d0
 	asl.l	#2,d0
-	lea	word_20E548(pc,d0.w),a2
+	lea	IntroSpikesMotion(pc,d0.w),a2
 	move.w	(a2)+,obj.x_speed(a0)
 	move.w	(a2)+,obj.y_speed(a0)
 	move.w	#$60,obj.var_3e(a0)
@@ -715,7 +727,7 @@ sub_20E526:
 
 ; ------------------------------------------------------------------------------
 
-word_20E548:
+IntroSpikesMotion:
 	dc.w	$200, -$200
 	dc.w	-$100, -$400
 	dc.w	-$100, -$200
@@ -723,17 +735,17 @@ word_20E548:
 
 ; ------------------------------------------------------------------------------
 
-IntroSpikesObject_0_Routine4:
+IntroSpikesShard:
 	bsr.w	IntroMoveXY
 	move.w	obj.var_3e(a0),d0
 	add.w	d0,obj.y_speed(a0)
 	subq.b	#1,obj.var_3a(a0)
-	beq.s	loc_20E56C
+	beq.s	IntroSpikesDelete
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E56C:
+IntroSpikesDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
