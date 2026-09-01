@@ -269,7 +269,13 @@ ObjFlower		EQU	FlowerObject
 	else
 ObjFlower		EQU	FlowerObject
 	endif
+	if def(R3_SEMANTIC_CC_SPIKES)
+		if R3_SEMANTIC_CC_SPIKES=0
 ObjSpikes		EQU	SpikesObject
+		endif
+	else
+ObjSpikes		EQU	SpikesObject
+	endif
 ObjBlock		EQU	BlockObject
 ObjHiddenBlock	EQU	HiddenBlockObject
 ObjMetalPlatform	EQU	MetalPlatformObject
