@@ -107,9 +107,17 @@ warp_shrunk		EQU	warpMiniSonic
 mcd_main_data_0	EQU	$A12010
 mcd_sub_data_0		EQU	$A12020
 
+	if def(R3_SEMANTIC_MAIN)
+		if R3_SEMANTIC_MAIN=0
 LevelStart	EQU	InitStage
 HInterrupt	EQU	HBlank
 VInterrupt	EQU	VBlank
+		endif
+	else
+LevelStart	EQU	InitStage
+HInterrupt	EQU	HBlank
+VInterrupt	EQU	VBlank
+	endif
 	if def(R3_SEMANTIC_GENERAL)
 		if R3_SEMANTIC_GENERAL=0
 InitControllers	EQU	InitJoypads

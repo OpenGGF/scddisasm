@@ -28,6 +28,39 @@ ProcessPLCs		EQU	AdvanceGfxQueue
 ProcessPLCs		EQU	AdvanceGfxQueue
 	endif
 
+	if def(R3_SEMANTIC_MAIN)
+		if R3_SEMANTIC_MAIN<>0
+; Recovered public names for the canonical level main loop and interrupts.
+InitStage		EQU	LevelStart
+SpawnPlayer		EQU	LoadPlayer
+RestoreFlowers		EQU	RestoreZoneFlowers
+LoadStageCollision	EQU	LoadLevelCollision
+PlayStageMusic		EQU	PlayLevelMusic
+PlayStageMusic2	EQU	PlayLevelMusic2
+VBlank			EQU	VInterrupt
+HBlank			EQU	HInterrupt
+UpdateWarpTimer	EQU	RunTimeWarp
+UpdateBoredTimer	EQU	RunBoredTimer
+ResetSavedObjFlags	EQU	ResetObjectStates
+LevelDataIndex		EQU	StageDataIndex
+LevelSizeLoad		EQU	InitScroll
+LevelScroll		EQU	UpdateScroll
+LoadLevelData		EQU	LoadStageData
+InitLevelDraw		EQU	InitStageDraw
+UpdateAnimTiles	EQU	AnimateStageGfx
+SubCPUCmd		EQU	SubCpuCommand
+SpawnObjects		EQU	SpawnStageObjects
+RunObjects		EQU	UpdateObjects
+UpdateSectionArt	EQU	UpdateSectionGfx
+LevelCollision		EQU	StageCollision
+Art_LifeIcon		EQU	LivesIconsGfx
+DrawLevelBG		EQU	DrawStageBg
+LoadSonicDynPLC	EQU	LoadPlayerGfx
+DrawLevel		EQU	DrawStage
+UpdateHUD		EQU	UpdateHudNumbers
+		endif
+	endif
+
 	if def(R3_SEMANTIC_COLLISION)
 		if R3_SEMANTIC_COLLISION<>0
 ; The recovered R3 player, main loop, and object collision sources retain

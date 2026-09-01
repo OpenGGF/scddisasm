@@ -7,6 +7,7 @@ STANDALONE		EQU	0
 R6_LEGACY_PLAYER	EQU	1
 R3_SEMANTIC_COLLISION	EQU	1
 R3_SEMANTIC_GENERAL	EQU	1
+R3_SEMANTIC_MAIN	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -23,7 +24,7 @@ CC_VARIANT	EQU	1
 	include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
 	include	"Level/Functions (Misc).asm"
 	include	"Level/Collision Floor.asm"
-	include	"common/main.asm"
+	include	"Level/Main.asm"
 	include	"Level/Functions (General).asm"
 
 	include	"r3/scroll_1b.asm"
