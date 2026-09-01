@@ -126,7 +126,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Objects/Door/Main.asm"
 	include	"Level/Collision Chaos/Objects/Fire Shooter/Main.asm"
 	include	"Level/Collision Chaos/Objects/Drum Platform/Main.asm"
-	include	"r3/object_despawn.asm"
+	include	"Level/Collision Chaos/Object Despawn.asm"
 	include	"objects/r3/kama_kama.asm"
 	include	"objects/stage_end.asm"
 	include	"objects/r3/intro.asm"
