@@ -217,10 +217,19 @@ ObjCheckpoint		EQU	CheckpointObject
 	else
 ObjCheckpoint		EQU	CheckpointObject
 	endif
+	if def(R3_SEMANTIC_LEVEL_END)
+		if R3_SEMANTIC_LEVEL_END=0
 ObjBigRing		EQU	BigRingObject
 ObjCapsule		EQU	CapsuleObject
 ObjGoalPost		EQU	GoalObject
 ObjSignpost		EQU	SignpostObject
+		endif
+	else
+ObjBigRing		EQU	BigRingObject
+ObjCapsule		EQU	CapsuleObject
+ObjGoalPost		EQU	GoalObject
+ObjSignpost		EQU	SignpostObject
+	endif
 	if def(R3_SEMANTIC_EXPLOSION)
 		if R3_SEMANTIC_EXPLOSION=0
 ObjExplosion		EQU	ExplosionObject

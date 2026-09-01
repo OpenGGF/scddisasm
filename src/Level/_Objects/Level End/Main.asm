@@ -70,6 +70,18 @@ R43_LEGACY_CAPSULE_SKIP	EQU	0
 	endif
 
 oLvlEndTimer	EQU	oVar2A			; Timer
+	if def(CC_LEGACY_LEVEL_END_ABI)
+		if CC_LEGACY_LEVEL_END_ABI<>0
+oResultsTimer	EQU	oVar32
+LevelPaletteID	EQU	StageDataIndex+$E
+MapSpr_FlowerCapsule	EQU	CapsuleSprites
+Ani_FlowerCapsule	EQU	CapsuleAnims
+MapSpr_BigRing		EQU	BigRingSprites
+Ani_BigRing		EQU	BigRingAnims
+MapSpr_GoalSignpost	EQU	SignpostSprites
+Ani_Signpost		EQU	SignpostAnims
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
 ; Flower capsule object
@@ -911,3 +923,16 @@ Art_BigRingFlash:
 	even
 
 ; -------------------------------------------------------------------------
+	if def(CC_LEGACY_LEVEL_END_ABI)
+		if CC_LEGACY_LEVEL_END_ABI<>0
+CapsuleObject		EQU	ObjCapsule
+BigRingFlashObject	EQU	ObjBigRingFlash
+BigRingObject		EQU	ObjBigRing
+GoalObject		EQU	ObjGoalPost
+SignpostObject		EQU	ObjSignpost
+LoadCapsulePalette	EQU	LoadCapsulePal
+BigRingFlashAnims	EQU	Ani_BigRingFlash
+BigRingFlashSprites	EQU	MapSpr_BigRingFlash
+BigRingFlashGfx		EQU	Art_BigRingFlash
+		endif
+	endif

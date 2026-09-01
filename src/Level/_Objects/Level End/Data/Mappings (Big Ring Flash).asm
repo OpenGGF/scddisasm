@@ -1,13 +1,19 @@
+; Eight expansion frames used by the big-ring flash animation. Each frame is
+; a piece count followed by five-byte records: Y, size/shape, tile high byte,
+; tile low byte, and X. Frames 0-7 progress from the compact ring flash to the
+; full-screen burst.
+
 .Map:
-	dc.w	byte_20D9AC-.Map
-	dc.w	unk_20D9CC-.Map
-	dc.w	unk_20D9EC-.Map
-	dc.w	unk_20DA20-.Map
-	dc.w	unk_20DA72-.Map
-	dc.w	unk_20DAA6-.Map
-	dc.w	unk_20DAC6-.Map
-	dc.w	unk_20DAE6-.Map
-byte_20D9AC:	dc.b	6
+	dc.w	.Flash0-.Map
+	dc.w	.Flash1-.Map
+	dc.w	.Flash2-.Map
+	dc.w	.Flash3-.Map
+	dc.w	.Flash4-.Map
+	dc.w	.Flash5-.Map
+	dc.w	.Flash6-.Map
+	dc.w	.Flash7-.Map
+
+.Flash0:	dc.b	6
 	dc.b	$E0 ; à
 	dc.b	  8
 	dc.b	  0
@@ -39,7 +45,7 @@ byte_20D9AC:	dc.b	6
 	dc.b	  0
 	dc.b	  0
 	dc.b	  0
-unk_20D9CC:	dc.b	  6
+.Flash1:	dc.b	  6
 	dc.b	$E0 ; à
 	dc.b	  2
 	dc.b	  0
@@ -71,7 +77,7 @@ unk_20D9CC:	dc.b	  6
 	dc.b	 $E
 	dc.b	$F0 ; ð
 	dc.b	  0
-unk_20D9EC:	dc.b	 $A
+.Flash2:	dc.b	 $A
 	dc.b	$E0 ; à
 	dc.b	  7
 	dc.b	  0
@@ -123,7 +129,7 @@ unk_20D9EC:	dc.b	 $A
 	dc.b	$24 ; $
 	dc.b	$E8 ; è
 	dc.b	  0
-unk_20DA20:	dc.b	$10
+.Flash3:	dc.b	$10
 	dc.b	$E0 ; à
 	dc.b	  0
 	dc.b	  8
@@ -205,7 +211,7 @@ unk_20DA20:	dc.b	$10
 	dc.b	$38 ; 8
 	dc.b	$10
 	dc.b	  0
-unk_20DA72:	dc.b	 $A
+.Flash4:	dc.b	 $A
 	dc.b	$E8 ; è
 	dc.b	  2
 	dc.b	  8
@@ -257,7 +263,7 @@ unk_20DA72:	dc.b	 $A
 	dc.b	$24 ; $
 	dc.b	  8
 	dc.b	  0
-unk_20DAA6:	dc.b	  6
+.Flash5:	dc.b	  6
 	dc.b	$E8 ; è
 	dc.b	  2
 	dc.b	  8
@@ -289,7 +295,7 @@ unk_20DAA6:	dc.b	  6
 	dc.b	 $E
 	dc.b	  8
 	dc.b	  0
-unk_20DAC6:	dc.b	  6
+.Flash6:	dc.b	  6
 	dc.b	$E0 ; à
 	dc.b	  8
 	dc.b	  8
@@ -321,7 +327,7 @@ unk_20DAC6:	dc.b	  6
 	dc.b	  0
 	dc.b	$E8 ; è
 	dc.b	  0
-unk_20DAE6:	dc.b	$11
+.Flash7:	dc.b	$11
 	dc.b	$E0 ; à
 	dc.b	  4
 	dc.b	  0
