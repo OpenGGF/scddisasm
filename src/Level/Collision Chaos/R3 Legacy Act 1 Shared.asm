@@ -23,6 +23,8 @@ R3_SEMANTIC_FLOWER	EQU	1
 R3_SEMANTIC_TUNNEL_SPLASH EQU	1
 R3_SEMANTIC_TUNNEL_DOOR EQU	1
 R3_SEMANTIC_POWERUP	EQU	1
+R3_SEMANTIC_ROLL_TUNNEL EQU	1
+CC_LEGACY_ROLL_TUNNEL_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -59,7 +61,7 @@ CC_VARIANT	EQU	0
 	include	"Level/_Objects/Spin Tunnel/Main (Waterfall Splash).asm"
 	include	"Level/_Objects/Spin Tunnel/Main (Door).asm"
 	include	"Level/_Objects/Powerup/Main.asm"
-	include	"objects/roll_tunnel.asm"
+	include	"Level/Collision Chaos/Objects/Roll Tunnel/Main.asm"
 	include	"r3/player_block_check.asm"
 	include	"common/respawn_load.asm"
 	include	"common/object_block_collide.asm"

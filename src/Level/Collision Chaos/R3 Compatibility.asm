@@ -225,7 +225,13 @@ ObjMetalSonic		EQU	MetalSonicObject
 ObjAmyRose		EQU	AmyRoseObject
 ObjAmyHeart		EQU	HeartObject
 ObjMetalSonic_Exhaust EQU	MetalSonicExhaustObject
+	if def(R3_SEMANTIC_ROLL_TUNNEL)
+		if R3_SEMANTIC_ROLL_TUNNEL=0
 ObjRollTunnel		EQU	RollTunnelObject
+		endif
+	else
+ObjRollTunnel		EQU	RollTunnelObject
+	endif
 ObjRobotGenerator	EQU	RobotGeneratorObject
 ObjProjector		EQU	ProjectorObject
 ObjCCAnimal		EQU	AnimalObject
@@ -313,6 +319,12 @@ Art_InvStars		EQU	InvincibleGfx
 Art_TimeStars	EQU	WarpGfx
 Art_GameOver	EQU	GameOverGfx
 Art_TimeOver	EQU	TimeOverGfx
+		endif
+	endif
+
+	if def(R3_SEMANTIC_ROLL_TUNNEL)
+		if R3_SEMANTIC_ROLL_TUNNEL<>0
+RollTunnelObject	EQU	ObjRollTunnel
 		endif
 	endif
 

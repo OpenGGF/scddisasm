@@ -104,10 +104,22 @@ ObjRollTunnel_Main:
 		bset	#2,oFlags(a1)
 		bne.s	.End
 		move.b	#$E,oYRadius(a1)
-		if (REGION=USA)|(STAGE_R13)
-			move.b	#7,oXRadius(a1)
+		if def(CC_LEGACY_ROLL_TUNNEL_ABI)
+			if CC_LEGACY_ROLL_TUNNEL_ABI<>0
+				move.b	#7,oXRadius(a1)
+			else
+				if (REGION=USA)|(STAGE_R13)
+					move.b	#7,oXRadius(a1)
+				else
+					move.b	#7,oWidth(a1)
+				endif
+			endif
 		else
-			move.b	#7,oWidth(a1)
+			if (REGION=USA)|(STAGE_R13)
+				move.b	#7,oXRadius(a1)
+			else
+				move.b	#7,oWidth(a1)
+			endif
 		endif
 		addq.w	#5,oY(a1)
 		move.b	#2,oAnim(a1)
@@ -160,10 +172,22 @@ ObjRollTunnel_Main:
 ; -------------------------------------------------------------------------
 
 ObjRollTunnel_CheckPlayer:
-	if (REGION=USA)|(STAGE_R13)
-		tst.b	debugMode
+	if def(CC_LEGACY_ROLL_TUNNEL_ABI)
+		if CC_LEGACY_ROLL_TUNNEL_ABI<>0
+			tst.b	debugMode
+		else
+			if (REGION=USA)|(STAGE_R13)
+				tst.b	debugMode
+			else
+				tst.w	debugMode
+			endif
+		endif
 	else
-		tst.w	debugMode
+		if (REGION=USA)|(STAGE_R13)
+			tst.b	debugMode
+		else
+			tst.w	debugMode
+		endif
 	endif
 	bne.s	.NoCollision
 	move.w	oX(a1),d0
