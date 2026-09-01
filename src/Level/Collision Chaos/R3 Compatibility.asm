@@ -150,7 +150,13 @@ ObjTestBadnik		EQU	TestObject
 	else
 ObjTestBadnik		EQU	TestObject
 	endif
+	if def(R3_SEMANTIC_SPRING)
+		if R3_SEMANTIC_SPRING=0
 ObjSpring		EQU	SpringObject
+		endif
+	else
+ObjSpring		EQU	SpringObject
+	endif
 	if def(R3_SEMANTIC_TUNNEL_DOOR)
 		if R3_SEMANTIC_TUNNEL_DOOR=0
 ObjTunnelDoorSplash	EQU	HDoorSplashObject
@@ -169,7 +175,13 @@ ObjSpinSplash		EQU	TunnelSplashObject
 	else
 ObjSpinSplash		EQU	TunnelSplashObject
 	endif
+	if def(R3_SEMANTIC_SPRING)
+		if R3_SEMANTIC_SPRING=0
 ObjMovingSpring	EQU	MoveSpringObject
+		endif
+	else
+ObjMovingSpring	EQU	MoveSpringObject
+	endif
 ObjRing			EQU	RingObject
 ObjLostRing		EQU	LostRingObject
 	if def(R3_SEMANTIC_FLOAT_BLOCK)
@@ -349,6 +361,18 @@ BoulderObject		EQU	ObjBoulder
 	if def(R3_SEMANTIC_FLOAT_BLOCK)
 		if R3_SEMANTIC_FLOAT_BLOCK<>0
 FloatBlockObject	EQU	ObjFloatBlock
+		endif
+	endif
+
+	if def(R3_SEMANTIC_SPRING)
+		if R3_SEMANTIC_SPRING<>0
+SpringObject		EQU	ObjSpring
+MoveSpringObject	EQU	ObjMovingSpring
+SpringVSprites	EQU	MapSpr_Spring1
+SpringHSprites	EQU	MapSpr_Spring2
+Spring45Sprites	EQU	MapSpr_Spring3
+MoveSpringSprites	EQU	MapSpr_MovingSpring
+BtmSolidObject		EQU	BottomSolidObject
 		endif
 	endif
 
