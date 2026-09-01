@@ -14,7 +14,7 @@ amy_captured	EQU	amyCaptured
 	include	"r3/palette_cycle_d.asm"
 	include	"common/palette_fade.asm"
 	include	"common/palette_load_fade.asm"
-	include	"common/palette_load.asm"
+	include	"Level/Palette Load.asm"
 	include	"common/palette_load_water.asm"
 	include	"common/palette_load_water_fade.asm"
 	include	"r3/palettes_d.asm"

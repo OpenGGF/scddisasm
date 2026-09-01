@@ -15,7 +15,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Palette Cycle (Present).asm"
 	include	"common/palette_fade.asm"
 	include	"common/palette_load_fade.asm"
-	include	"common/palette_load.asm"
+	include	"Level/Palette Load.asm"
 	include	"common/palette_load_water.asm"
 	include	"common/palette_load_water_fade.asm"
 	include	"r3/palettes_a.asm"
