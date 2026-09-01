@@ -2,6 +2,10 @@
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
 ; Collision Chaos drum platform object
+;
+; Subtypes select a starting frame in the bounce cycle. Frames 0-1 use the
+; non-solid state, frames 2-5 use the solid state, and frames 6-17 use the
+; extended non-solid cycle before returning to frame 0.
 ; -------------------------------------------------------------------------
 
 oDrumPlatformBaseX	EQU	oVar32
@@ -19,7 +23,25 @@ ObjDrumPlatform:
 	jsr	ObjDrumPlatform_Index(pc,d0.w)
 	jsr	DrawObject
 	move.w	oDrumPlatformBaseX(a0),d0
+	if def(CC_LEGACY_DRUM_PLATFORM_ABI)
+		if CC_LEGACY_DRUM_PLATFORM_ABI<>0
+	andi.w	#$FF80,d0
+	move.w	cameraX.w,d1
+	subi.w	#$80,d1
+	andi.w	#$FF80,d1
+	sub.w	d1,d0
+	cmpi.w	#$280,d0
+	bhi.s	.Despawn
+	rts
+
+.Despawn:
+	bra.w	DespawnObjectR3
+		else
 	jmp	CheckObjDespawn2
+		endif
+	else
+	jmp	CheckObjDespawn2
+	endif
 ; End of function ObjDrumPlatform
 
 ; -------------------------------------------------------------------------
@@ -196,6 +218,7 @@ ObjDrumPlatform_StartBounce:
 ; -------------------------------------------------------------------------
 
 ObjDrumPlatform_MotionData:
+	; velocity, collision radius, mapping frame
 	dc.b	1, 8, 0
 	dc.b	5, 8, 1
 	dc.b	6, $C, 2
@@ -224,12 +247,30 @@ ObjDrumPlatform_SetPriority:
 	rts
 
 ObjDrumPlatform_Priorities:
+	; Sprite priority indexed by mapping frame.
 	dc.b	5, 4, 3, 2, 2, 2, 3, 4, 5, 6, 6, 6
 
 ; -------------------------------------------------------------------------
+	if def(CC_LEGACY_DRUM_PLATFORM_ABI)
+		if CC_LEGACY_DRUM_PLATFORM_ABI<>0
+; Shared player-slot loader used by the preceding R31A platform, door, and
+; fire-shooter objects. Its placement is part of their PC-relative call ABI.
+ObjDrumPlatform_LoadPlayerSlot:
+	lea	objPlayerSlot.w,a1
+	rts
+
+; -------------------------------------------------------------------------
+		endif
+	endif
 
 MapSpr_DrumPlatform:
 	include	"sprites/r3/drum_platform.asm"
 	even
 
 ; -------------------------------------------------------------------------
+	if def(CC_LEGACY_DRUM_PLATFORM_ABI)
+		if CC_LEGACY_DRUM_PLATFORM_ABI<>0
+DrumPlatformObject	EQU	ObjDrumPlatform
+DrumPlatformSprites	EQU	MapSpr_DrumPlatform
+		endif
+	endif

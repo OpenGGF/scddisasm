@@ -308,7 +308,13 @@ ObjFireShooter	EQU	FireShooterObject
 	else
 ObjFireShooter	EQU	FireShooterObject
 	endif
+	if def(R3_SEMANTIC_DRUM_PLATFORM)
+		if R3_SEMANTIC_DRUM_PLATFORM=0
 ObjDrumPlatform	EQU	DrumPlatformObject
+		endif
+	else
+ObjDrumPlatform	EQU	DrumPlatformObject
+	endif
 	if def(R3_SEMANTIC_GLASS_SHATTER)
 		if R3_SEMANTIC_GLASS_SHATTER=0
 ObjGlassShatter	EQU	GlassShatterObject

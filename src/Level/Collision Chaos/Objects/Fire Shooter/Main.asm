@@ -200,7 +200,7 @@ ObjFireShooter_Flame_Main:
 	bne.s	.Active
 	if def(CC_LEGACY_FIRE_SHOOTER_ABI)
 		if CC_LEGACY_FIRE_SHOOTER_ABI<>0
-	bsr.w	sub_20CF36
+	bsr.w	ObjDrumPlatform_LoadPlayerSlot
 		else
 	bsr.w	ObjFireShooter_GetPlayer
 		endif

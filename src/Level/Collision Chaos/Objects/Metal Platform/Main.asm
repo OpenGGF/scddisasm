@@ -466,7 +466,7 @@ ObjMetalPlatform_SubtypeA_Init:
 	move.b	#1,oVar3F(a0)
 	if def(CC_LEGACY_METAL_PLATFORM_ABI)
 		if CC_LEGACY_METAL_PLATFORM_ABI<>0
-	bsr.w	sub_20CF36
+	bsr.w	ObjDrumPlatform_LoadPlayerSlot
 		else
 	lea	objPlayerSlot.w,a1
 		endif

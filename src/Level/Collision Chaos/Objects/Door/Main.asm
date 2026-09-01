@@ -109,7 +109,7 @@ ObjDoor_Main:
 ; -------------------------------------------------------------------------
 
 ObjDoor_UpdateOffset:
-	bsr.w	sub_20CF36
+	bsr.w	ObjDrumPlatform_LoadPlayerSlot
 	move.w	oY(a1),d0
 	sub.w	oY(a0),d0
 	bcc.s	.Open
