@@ -147,7 +147,13 @@ ObjMovingSpring	EQU	MoveSpringObject
 ObjRing			EQU	RingObject
 ObjLostRing		EQU	LostRingObject
 ObjFloatBlock		EQU	FloatBlockObject
+	if def(R3_SEMANTIC_CHECKPOINT)
+		if R3_SEMANTIC_CHECKPOINT=0
 ObjCheckpoint		EQU	CheckpointObject
+		endif
+	else
+ObjCheckpoint		EQU	CheckpointObject
+	endif
 ObjBigRing		EQU	BigRingObject
 ObjCapsule		EQU	CapsuleObject
 ObjGoalPost		EQU	GoalObject
@@ -195,6 +201,16 @@ NullObject		EQU	ObjNull
 	if def(R3_SEMANTIC_SUB_CPU)
 		if R3_SEMANTIC_SUB_CPU<>0
 SubCpuCommand		EQU	SubCPUCmd
+		endif
+	endif
+
+	if def(R3_SEMANTIC_CHECKPOINT)
+		if R3_SEMANTIC_CHECKPOINT<>0
+CheckpointObject	EQU	ObjCheckpoint
+MapSpr_Checkpoint	EQU	CheckpointSprites
+Ani_Checkpoint		EQU	CheckpointAnims
+FindObjSlot		EQU	SpawnObject
+CheckObjDespawn	EQU	CheckObjectDespawn
 		endif
 	endif
 
