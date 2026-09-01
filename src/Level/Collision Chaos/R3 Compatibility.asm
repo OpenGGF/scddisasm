@@ -137,7 +137,13 @@ CheckObjectVisibleWide EQU	ChkObjOnScrWidth
 ; Semantic dispatch-table names bound to the recovered R31A object providers.
 ObjSonic		EQU	PlayerObject
 ObjPowerup		EQU	PowerupObject
+	if def(R3_SEMANTIC_TEST_BADNIK)
+		if R3_SEMANTIC_TEST_BADNIK=0
 ObjTestBadnik		EQU	TestObject
+		endif
+	else
+ObjTestBadnik		EQU	TestObject
+	endif
 ObjSpring		EQU	SpringObject
 ObjTunnelDoorSplash	EQU	HDoorSplashObject
 ObjTunnelDoorSplashSet EQU	HDoorSplashSetObject
@@ -217,6 +223,14 @@ CheckObjDespawn	EQU	CheckObjectDespawn
 	if def(R3_SEMANTIC_RESUME_MUSIC)
 		if R3_SEMANTIC_RESUME_MUSIC<>0
 PlayerResetDrown	EQU	ResumeMusicS1
+		endif
+	endif
+
+	if def(R3_SEMANTIC_TEST_BADNIK)
+		if R3_SEMANTIC_TEST_BADNIK<>0
+TestObject		EQU	ObjTestBadnik
+MapSpr_Powerup	EQU	PowerupSprites
+Ani_Powerup		EQU	PowerupAnims
 		endif
 	endif
 
