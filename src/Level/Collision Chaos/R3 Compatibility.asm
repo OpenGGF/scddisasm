@@ -22,6 +22,19 @@ r3_no_bumper		EQU	debugBlock+2
 ; recovered R3 graphs retain the byte-identical historical implementation.
 ProcessPLCs		EQU	AdvanceGfxQueue
 
+	if def(R3_SEMANTIC_COLLISION)
+		if R3_SEMANTIC_COLLISION<>0
+; The recovered R3 player, main loop, and object collision sources retain
+; historical names for entry points in the structured floor collision module.
+PlayerGroundCollide	EQU	Player_GroundCol
+GetBlock		EQU	GetLevelBlock
+CheckBlockY		EQU	FindLevelFloor
+CheckBlockX		EQU	FindLevelWall
+ConvertStageCollision	EQU	ConvColArray
+LevelChunks		EQU	StageChunks
+		endif
+	endif
+
 ; The historical R3 debug table uses the original macro name.  The shared
 ; compatibility layer keeps the same eight-byte table layout under the
 ; names used by the later recovered graphs.

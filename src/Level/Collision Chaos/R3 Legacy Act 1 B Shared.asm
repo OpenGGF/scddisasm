@@ -5,6 +5,7 @@
 
 STANDALONE		EQU	0
 R6_LEGACY_PLAYER	EQU	1
+R3_SEMANTIC_COLLISION	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -20,8 +21,7 @@ CC_VARIANT	EQU	1
 	include	"Level/Palette Load (Water Fade).asm"
 	include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
 	include	"Level/Functions (Misc).asm"
-	include	"common/player_ground_collide.asm"
-	include	"common/block_collide.asm"
+	include	"Level/Collision Floor.asm"
 	include	"common/main.asm"
 	include	"common/random.asm"
 	include	"common/joypad.asm"
