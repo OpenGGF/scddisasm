@@ -285,7 +285,13 @@ ObjHiddenBlock	EQU	HiddenBlockObject
 ObjBlock		EQU	BlockObject
 ObjHiddenBlock	EQU	HiddenBlockObject
 	endif
+	if def(R3_SEMANTIC_METAL_PLATFORM)
+		if R3_SEMANTIC_METAL_PLATFORM=0
 ObjMetalPlatform	EQU	MetalPlatformObject
+		endif
+	else
+ObjMetalPlatform	EQU	MetalPlatformObject
+	endif
 ObjKamaKama		EQU	KamaKamaObject
 ObjKamaSickle		EQU	KamaSickleObject
 ObjDoor			EQU	DoorObject
