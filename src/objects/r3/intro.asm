@@ -818,41 +818,46 @@ AmyHeartMain:
 	rts
 
 ; ------------------------------------------------------------------------------
+; Metal Sonic exhaust child
+;   var_34 stores the parent slot's 16-bit work-RAM address. The child follows
+;   the parent at a facing-dependent horizontal offset and deletes itself as
+;   soon as that slot no longer contains object $31.
+; ------------------------------------------------------------------------------
 
 MetalSonicExhaustObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E626(pc,d0.w),d0
-	jsr	off_20E626(pc,d0.w)
+	move.w	MetalSonicExhaustRoutineIndex(pc,d0.w),d0
+	jsr	MetalSonicExhaustRoutineIndex(pc,d0.w)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20E626:
-	dc.w	MetalSonicExhaustObject_0_Routine0-*
-	dc.w	MetalSonicExhaustObject_0_Routine2-off_20E626
+MetalSonicExhaustRoutineIndex:
+	dc.w	MetalSonicExhaustInit-*
+	dc.w	MetalSonicExhaustMain-MetalSonicExhaustRoutineIndex
 
 ; ------------------------------------------------------------------------------
 
-MetalSonicExhaustObject_0_Routine0:
+MetalSonicExhaustInit:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$3D0,obj.sprite_tile(a0)
 	move.l	#MetalSonicSprites,obj.sprite_data(a0)
 	move.b	#3,obj.sprite_layer(a0)
 
-MetalSonicExhaustObject_0_Routine2:
+MetalSonicExhaustMain:
 	move.w	obj.var_34(a0),d0
 	movea.w	d0,a1
 	cmpi.b	#$31,obj.id(a1)
-	bne.s	loc_20E680
+	bne.s	.Delete
 	move.w	obj.x(a1),d0
 	subi.w	#$10,d0
 	btst	#0,obj.flags(a1)
-	beq.s	loc_20E66A
+	beq.s	.SetPosition
 	addi.w	#$20,d0
 
-loc_20E66A:
+.SetPosition:
 	move.w	d0,obj.x(a0)
 	move.w	obj.y(a1),d0
 	move.w	d0,obj.y(a0)
@@ -861,7 +866,7 @@ loc_20E66A:
 
 ; ------------------------------------------------------------------------------
 
-loc_20E680:
+.Delete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
