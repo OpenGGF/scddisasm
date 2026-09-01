@@ -119,7 +119,15 @@ ObjBumperPlatform_Main:
 .Move:
 	move.l	oBumperPlatformVelocity(a0),d0
 	add.l	d0,(a1)
+	if def(CC_LEGACY_BUMPER_PLATFORM_ABI)
+		if CC_LEGACY_BUMPER_PLATFORM_ABI<>0
+	addi.w	#-1,oBumperPlatformSteps(a0)
+		else
 	subi.w	#1,oBumperPlatformSteps(a0)
+		endif
+	else
+	subi.w	#1,oBumperPlatformSteps(a0)
+	endif
 	bne.s	.End
 	move.w	oBumperPlatformRange(a0),oBumperPlatformSteps(a0)
 	neg.l	oBumperPlatformVelocity(a0)
@@ -132,5 +140,12 @@ ObjBumperPlatform_Main:
 MapSpr_BumperPlatform:
 	include	"sprites/r3/bumper_platform.asm"
 	even
+
+	if def(R3_SEMANTIC_BUMPER_PLATFORM)
+		if R3_SEMANTIC_BUMPER_PLATFORM<>0
+BumperPlatformObject	EQU	ObjBumperPlatform
+BumperPlatform		EQU	MapSpr_BumperPlatform
+		endif
+	endif
 
 ; -------------------------------------------------------------------------

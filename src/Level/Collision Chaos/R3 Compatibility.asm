@@ -273,7 +273,13 @@ ObjDoor			EQU	DoorObject
 ObjFireShooter	EQU	FireShooterObject
 ObjDrumPlatform	EQU	DrumPlatformObject
 ObjGlassShatter	EQU	GlassShatterObject
+	if def(R3_SEMANTIC_BUMPER_PLATFORM)
+		if R3_SEMANTIC_BUMPER_PLATFORM=0
 ObjBumperPlatform	EQU	BumperPlatformObject
+		endif
+	else
+ObjBumperPlatform	EQU	BumperPlatformObject
+	endif
 ObjTeleporter		EQU	TeleporterObject
 ObjSpikeChain		EQU	SpikeChainObject
 ObjGa			EQU	GaObject
