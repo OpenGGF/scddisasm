@@ -126,6 +126,66 @@ CheckObjectVisibleWide EQU	ChkObjOnScrWidth
 		endif
 	endif
 
+	if def(R3_SEMANTIC_OBJECT_INDEX)
+		if R3_SEMANTIC_OBJECT_INDEX<>0
+; Semantic dispatch-table names bound to the recovered R31A object providers.
+ObjSonic		EQU	PlayerObject
+ObjPowerup		EQU	PowerupObject
+ObjTestBadnik		EQU	TestObject
+ObjSpring		EQU	SpringObject
+ObjTunnelDoorSplash	EQU	HDoorSplashObject
+ObjTunnelDoorSplashSet EQU	HDoorSplashSetObject
+ObjTunnelDoor		EQU	HDoorObject
+ObjSpinSplash		EQU	TunnelSplashObject
+ObjMovingSpring	EQU	MoveSpringObject
+ObjRing			EQU	RingObject
+ObjLostRing		EQU	LostRingObject
+ObjFloatBlock		EQU	FloatBlockObject
+ObjCheckpoint		EQU	CheckpointObject
+ObjBigRing		EQU	BigRingObject
+ObjCapsule		EQU	CapsuleObject
+ObjGoalPost		EQU	GoalObject
+ObjSignpost		EQU	SignpostObject
+ObjExplosion		EQU	ExplosionObject
+ObjMonitorTimePost	EQU	MonitorTimeObject
+ObjMonitorItem		EQU	MonitorItemObject
+ObjBoulder		EQU	BoulderObject
+ObjHUDPoints		EQU	HudPointsObject
+ObjBumper		EQU	BumperObject
+ObjFlipper		EQU	FlipperObject
+ObjFlower		EQU	FlowerObject
+ObjSpikes		EQU	SpikesObject
+ObjBlock		EQU	BlockObject
+ObjHiddenBlock	EQU	HiddenBlockObject
+ObjMetalPlatform	EQU	MetalPlatformObject
+ObjKamaKama		EQU	KamaKamaObject
+ObjKamaSickle		EQU	KamaSickleObject
+ObjDoor			EQU	DoorObject
+ObjFireShooter	EQU	FireShooterObject
+ObjDrumPlatform	EQU	DrumPlatformObject
+ObjGlassShatter	EQU	GlassShatterObject
+ObjBumperPlatform	EQU	BumperPlatformObject
+ObjTeleporter		EQU	TeleporterObject
+ObjSpikeChain		EQU	SpikeChainObject
+ObjGa			EQU	GaObject
+ObjTentou		EQU	TentouObject
+ObjPocket		EQU	PocketObject
+ObjIntroSpikes	EQU	IntroSpikesObject
+ObjMetalSonic		EQU	MetalSonicObject
+ObjAmyRose		EQU	AmyRoseObject
+ObjAmyHeart		EQU	HeartObject
+ObjMetalSonic_Exhaust EQU	MetalSonicExhaustObject
+ObjRollTunnel		EQU	RollTunnelObject
+ObjRobotGenerator	EQU	RobotGeneratorObject
+ObjProjector		EQU	ProjectorObject
+ObjCCAnimal		EQU	AnimalObject
+ObjResults		EQU	ResultsObject
+ObjGameOver		EQU	GameOverObject
+ObjTitleCard		EQU	TitleCardObject
+NullObject		EQU	ObjNull
+		endif
+	endif
+
 	if def(R3_SEMANTIC_DRAW)
 		if R3_SEMANTIC_DRAW<>0
 ; The recovered R31A collision object calls the shared block replacement
