@@ -69,7 +69,13 @@ InitLevelDraw		EQU	InitStageDraw
 UpdateAnimTiles	EQU	AnimateStageGfx
 SubCPUCmd		EQU	SubCpuCommand
 SpawnObjects		EQU	SpawnStageObjects
+	if def(R3_SEMANTIC_OBJECT_FUNCS)
+		if R3_SEMANTIC_OBJECT_FUNCS=0
 RunObjects		EQU	UpdateObjects
+		endif
+	else
+RunObjects		EQU	UpdateObjects
+	endif
 UpdateSectionArt	EQU	UpdateSectionGfx
 LevelCollision		EQU	StageCollision
 Art_LifeIcon		EQU	LivesIconsGfx
@@ -105,6 +111,18 @@ RunLevelEvents		EQU	StageEvents
 	if def(R3_SEMANTIC_EVENTS)
 		if R3_SEMANTIC_EVENTS<>0
 StageEvents		EQU	RunLevelEvents
+		endif
+	endif
+
+	if def(R3_SEMANTIC_OBJECT_FUNCS)
+		if R3_SEMANTIC_OBJECT_FUNCS<>0
+; Recovered object-service ABI for the structured shared implementation.
+UpdateObjects		EQU	RunObjects
+MoveObjectFall	EQU	ObjMoveGrv
+MoveObject		EQU	ObjMove
+DeleteOtherObject	EQU	DeleteObject
+CheckObjectVisible	EQU	ChkObjOnScreen
+CheckObjectVisibleWide EQU	ChkObjOnScrWidth
 		endif
 	endif
 

@@ -12,6 +12,7 @@ R3_SEMANTIC_SCROLL	EQU	1
 R3_SEMANTIC_DRAW	EQU	1
 R3_SEMANTIC_DATA_LOAD	EQU	1
 R3_SEMANTIC_EVENTS	EQU	1
+R3_SEMANTIC_OBJECT_FUNCS EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -35,7 +36,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Stage Draw (Act 1 Present).asm"
 	include	"Level/Palmtree Panic/Load Level Data.asm"
 	include	"Level/_Events.asm"
-	include	"common/object.asm"
+	include	"Level/Object Functions.asm"
 	include	"r3/object_index_1a.asm"
 	include	"objects/null.asm"
 	include	"objects/player.asm"
