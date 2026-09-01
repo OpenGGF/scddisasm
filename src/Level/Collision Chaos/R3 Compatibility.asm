@@ -52,7 +52,13 @@ LevelScroll		EQU	UpdateScroll
 LevelSizeLoad		EQU	InitScroll
 LevelScroll		EQU	UpdateScroll
 	endif
+	if def(R3_SEMANTIC_DATA_LOAD)
+		if R3_SEMANTIC_DATA_LOAD=0
 LoadLevelData		EQU	LoadStageData
+		endif
+	else
+LoadLevelData		EQU	LoadStageData
+	endif
 	if def(R3_SEMANTIC_DRAW)
 		if R3_SEMANTIC_DRAW=0
 InitLevelDraw		EQU	InitStageDraw
@@ -95,6 +101,15 @@ RunLevelEvents		EQU	StageEvents
 ; The recovered R31A collision object calls the shared block replacement
 ; routine by its historical public name.
 PlaceBlock		EQU	PlaceBlockAtPos
+		endif
+	endif
+
+	if def(R3_SEMANTIC_DATA_LOAD)
+		if R3_SEMANTIC_DATA_LOAD<>0
+; Recovered providers used by the structured level-data loader.
+LoadStageData		EQU	LoadLevelData
+LoadSectionArt	EQU	InitSectionGfx
+LevelLayouts		EQU	StageMaps
 		endif
 	endif
 
