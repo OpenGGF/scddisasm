@@ -1,45 +1,52 @@
 ; ------------------------------------------------------------------------------
+; Collision Chaos Metal Sonic projector and hologram children
+;
+; Subtype zero is the destructible projector. Nonzero subtypes are linked
+; hologram children whose var_3E stores the parent slot's 16-bit work-RAM
+; address. The parent uses var_2A as its explosion timer/final delay, var_2C
+; as the explosion-schedule pointer, and var_3F to invalidate all children.
+; ------------------------------------------------------------------------------
 
 ProjectorObject:
 	tst.b	obj.subtype(a0)
-	bne.w	loc_20EFF8
+	bne.w	ProjectorHologram
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20EE22(pc,d0.w),d0
-	jsr	off_20EE22(pc,d0.w)
+	move.w	ProjectorRoutineIndex(pc,d0.w),d0
+	jsr	ProjectorRoutineIndex(pc,d0.w)
 	jsr	DrawObject
 	cmpi.b	#2,obj.routine(a0)
-	bgt.s	locret_20EE20
+	bgt.s	.End
 	jsr	CheckObjectDespawn
 	tst.b	(a0)
-	bne.s	locret_20EE20
+	bne.s	.End
 	move.w	#4,d0
 	jmp	AddGfxQueue
 
 ; ------------------------------------------------------------------------------
 
-locret_20EE20:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-off_20EE22:
-	dc.w	ProjectorObject_0_Routine0-*
-	dc.w	ProjectorObject_0_Routine2-off_20EE22
-	dc.w	ProjectorObject_0_Routine4-off_20EE22
-	dc.w	ProjectorObject_0_Routine6-off_20EE22
-	dc.w	ProjectorObject_0_Routine8-off_20EE22
+ProjectorRoutineIndex:
+	dc.w	ProjectorInit-*
+	dc.w	ProjectorMain-ProjectorRoutineIndex
+	dc.w	ProjectorStartExploding-ProjectorRoutineIndex
+	dc.w	ProjectorExploding-ProjectorRoutineIndex
+	dc.w	ProjectorDestroyed-ProjectorRoutineIndex
 
 ; ------------------------------------------------------------------------------
 
-loc_20EE2C:
+ProjectorDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-ProjectorObject_0_Routine0:
+ProjectorInit:
 	tst.b	projector_destroyed
-	bne.s	loc_20EE2C
+	bne.s	ProjectorDelete
 	move.w	#5,d0
 	jsr	AddGfxQueue
 	addq.b	#2,obj.routine(a0)
@@ -51,9 +58,9 @@ ProjectorObject_0_Routine0:
 	move.b	#$FB,obj.collide_type(a0)
 	move.w	#$33E,obj.sprite_tile(a0)
 	move.l	#HologramSprites,obj.sprite_data(a0)
-	move.l	#byte_20F0EC,obj.var_2c(a0)
+	move.l	#ProjectorExplosionSchedule,obj.var_2c(a0)
 	jsr	SpawnObject
-	bne.w	loc_20EE2C
+	bne.w	ProjectorDelete
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -62,7 +69,7 @@ ProjectorObject_0_Routine0:
 	move.b	#$FF,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
 	jsr	SpawnObject
-	bne.w	loc_20EE2C
+	bne.w	ProjectorDelete
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -71,7 +78,7 @@ ProjectorObject_0_Routine0:
 	move.b	#1,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
 	jsr	SpawnObject
-	bne.w	loc_20EE2C
+	bne.w	ProjectorDelete
 	move.b	#$39,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -80,7 +87,7 @@ ProjectorObject_0_Routine0:
 	move.b	#$80,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
 	jsr	SpawnObject
-	bne.w	loc_20EE2C
+	bne.w	ProjectorDelete
 	move.b	#$39,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -89,19 +96,19 @@ ProjectorObject_0_Routine0:
 	move.b	#$81,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
 
-ProjectorObject_0_Routine2:
+ProjectorMain:
 	tst.b	obj.collide_status(a0)
-	beq.s	loc_20EF54
+	beq.s	.Solid
 	clr.w	obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
 
-loc_20EF54:
+.Solid:
 	lea	player_object,a1
 	jmp	SolidObject
 
 ; ------------------------------------------------------------------------------
 
-ProjectorObject_0_Routine4:
+ProjectorStartExploding:
 	addq.b	#2,obj.routine(a0)
 	move.b	#1,obj.sprite_frame(a0)
 	st	obj.var_3f(a0)
@@ -109,23 +116,23 @@ ProjectorObject_0_Routine4:
 	jsr	AddGfxQueue
 	lea	player_object,a1
 	jsr	SolidObject
-	beq.s	ProjectorObject_0_Routine6
+	beq.s	ProjectorExploding
 	jsr	GetOffObject
 
-ProjectorObject_0_Routine6:
+ProjectorExploding:
 	movea.l	obj.var_2c(a0),a6
 	move.b	(a6)+,d0
-	bmi.s	loc_20EFDA
+	bmi.s	.Finished
 	addq.b	#1,obj.var_2a(a0)
 	cmp.b	obj.var_2a(a0),d0
-	bne.s	locret_20EFD8
+	bne.s	.End
 	move.b	(a6)+,d5
 	move.b	(a6)+,d6
 	move.l	a6,obj.var_2c(a0)
 	ext.w	d5
 	ext.w	d6
 	jsr	SpawnObject
-	bne.s	locret_20EFD8
+	bne.s	.End
 	move.b	#$18,obj.id(a1)
 	move.b	#1,obj.routine_2(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -135,39 +142,41 @@ ProjectorObject_0_Routine6:
 	move.w	#$9E,d0
 	jsr	PlayFmSound
 
-locret_20EFD8:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EFDA:
+.Finished:
 	addq.b	#2,obj.routine(a0)
 	move.w	#$3C,obj.var_2a(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-ProjectorObject_0_Routine8:
+ProjectorDestroyed:
 	subq.w	#1,obj.var_2a(a0)
-	bne.s	locret_20EFF6
+	bne.s	.End
 	st	projector_destroyed
-	bra.w	loc_20EE2C
+	bra.w	ProjectorDelete
 
 ; ------------------------------------------------------------------------------
 
-locret_20EFF6:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EFF8:
+; Initialize and animate either the small projector beam (negative subtype) or
+; the large Metal Sonic image (positive subtype). Both die with their parent.
+ProjectorHologram:
 	movea.w	obj.var_3e(a0),a1
 	cmpi.b	#$38,obj.id(a1)
-	bne.w	loc_20EE2C
+	bne.w	ProjectorDelete
 	tst.b	obj.var_3f(a1)
-	bne.w	loc_20EE2C
+	bne.w	ProjectorDelete
 	tst.b	obj.routine(a0)
-	bne.s	loc_20F054
+	bne.s	.Animate
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
@@ -177,18 +186,18 @@ loc_20EFF8:
 	moveq	#4,d1
 	moveq	#0,d2
 	tst.b	obj.subtype(a0)
-	bmi.s	loc_20F044
+	bmi.s	.GotSize
 	moveq	#$14,d0
 	moveq	#$18,d1
 	moveq	#1,d2
 
-loc_20F044:
+.GotSize:
 	move.b	d0,obj.width(a0)
 	move.b	d0,obj.width_2(a0)
 	move.b	d1,obj.height(a0)
 	move.b	d2,obj.anim_id(a0)
 
-loc_20F054:
+.Animate:
 	lea	HologramAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
@@ -203,7 +212,9 @@ HologramSprites:
 	include	"sprites/hologram.asm"
 	even
 
-byte_20F0EC:
+; Three-byte records: trigger frame, signed X offset, signed Y offset. $FF ends
+; the twelve-record sequence; the following zero byte preserves word alignment.
+ProjectorExplosionSchedule:
 	dc.b	1, 0, 0
 	dc.b	5, $EE, $F6
 	dc.b	$A, $F6, $A
