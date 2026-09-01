@@ -67,7 +67,13 @@ InitLevelDraw		EQU	InitStageDraw
 InitLevelDraw		EQU	InitStageDraw
 	endif
 UpdateAnimTiles	EQU	AnimateStageGfx
+	if def(R3_SEMANTIC_SUB_CPU)
+		if R3_SEMANTIC_SUB_CPU=0
 SubCPUCmd		EQU	SubCpuCommand
+		endif
+	else
+SubCPUCmd		EQU	SubCpuCommand
+	endif
 SpawnObjects		EQU	SpawnStageObjects
 	if def(R3_SEMANTIC_OBJECT_FUNCS)
 		if R3_SEMANTIC_OBJECT_FUNCS=0
@@ -183,6 +189,12 @@ ObjResults		EQU	ResultsObject
 ObjGameOver		EQU	GameOverObject
 ObjTitleCard		EQU	TitleCardObject
 NullObject		EQU	ObjNull
+		endif
+	endif
+
+	if def(R3_SEMANTIC_SUB_CPU)
+		if R3_SEMANTIC_SUB_CPU<>0
+SubCpuCommand		EQU	SubCPUCmd
 		endif
 	endif
 

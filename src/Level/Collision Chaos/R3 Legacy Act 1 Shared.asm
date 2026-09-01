@@ -14,6 +14,7 @@ R3_SEMANTIC_DATA_LOAD	EQU	1
 R3_SEMANTIC_EVENTS	EQU	1
 R3_SEMANTIC_OBJECT_FUNCS EQU	1
 R3_SEMANTIC_OBJECT_INDEX EQU	1
+R3_SEMANTIC_SUB_CPU	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -40,7 +41,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Object Functions.asm"
 	include	"Level/Collision Chaos/Object Index (Act 1 Present).asm"
 	include	"objects/player.asm"
-	include	"common/sub_cpu.asm"
+	include	"Level/Sub CPU.asm"
 	include	"common/object_animate.asm"
 	include	"objects/checkpoint.asm"
 	include	"common/drown_reset.asm"
