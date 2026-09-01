@@ -22,7 +22,8 @@ R6_LEGACY_PLAYER	EQU	1
 	include	"Level/Palette Load (Water Fade).asm"
 
 	if R3_VARIANT=1
-		include	"r3/palettes_c.asm"
+CC_VARIANT	EQU	2
+		include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
 	else
 		include	"r3/palettes_d.asm"
 	endif

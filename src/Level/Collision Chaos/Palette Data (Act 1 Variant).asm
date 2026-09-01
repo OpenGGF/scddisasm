@@ -17,23 +17,27 @@ PaletteTable:
 	dc.l	Pal_Sonic
 	dc.w	palette
 	dc.w	7
+	if CC_VARIANT=1
 	dc.l	Pal_Level
 	dc.w	palette+$20
 	dc.w	$17
-
-	if CC_VARIANT=1
-	; Past has only the single stage-palette entry emitted above.
 	elseif CC_VARIANT=2
+	dc.l	Pal_LevelEnd
+	dc.w	palette+$20
+	dc.w	$17
 	dc.l	Pal_LevelAlt1
 	dc.w	palette+$20
 	dc.w	7
 	dc.l	Pal_LevelAlt2
 	dc.w	palette+$20
 	dc.w	7
-	dc.l	Pal_LevelEnd
+	dc.l	Pal_Level
 	dc.w	palette+$20
 	dc.w	$17
 	else
+	dc.l	Pal_Level
+	dc.w	palette+$20
+	dc.w	$17
 	dc.l	Pal_LevelAlt1
 	dc.w	palette+$20
 	dc.w	7
@@ -78,7 +82,7 @@ Pal_Level:
 
 	elseif CC_VARIANT=2
 
-Pal_Level:
+CCGoodFutureStagePalette macro tail_high, tail_low
 	dc.b	6, $66
 	dcb.b	2,0
 	dc.b	$E, $42, $E, $86, 0, $60, 0, $A0, $E, $EE, 8, $88, 4, $44
@@ -97,41 +101,29 @@ Pal_Level:
 	dc.b	$E8, 0, $C0, 0, $60, 0, $40, 6, 0, $E, $EE, $E, $A0, $E, $20
 	dc.b	0, $AE, 0, $4E
 	dcb.b	5,0
-	dc.b	$AE, 0, $20
-	dcb.b	2,0
+	dc.b	$AE, 0, $20, \tail_high, \tail_low
+	endm
 
+StagePalette:
+Pal_Level:
+	CCGoodFutureStagePalette 0, 0
+
+Pal_2006A0:
+Pal_LevelEnd:
+	CCGoodFutureStagePalette 4, $86
+
+Pal_200700:
 Pal_LevelAlt1:
 	dcb.b	4,0
 	dc.b	$E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E
 	dc.b	$EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE
 	dc.b	$E, $EE
 
+Pal_200720:
 Pal_LevelAlt2:
 	dcb.b	4,0
 	dc.b	2, $22, 4, $44, 6, $66, 8, $88, $A, $AA, $C, $CC, $E, $EE
 	dc.b	$E, $AC, $A, $68, 8, $46, 0, $EE, 0, $88, 0, $44, 0, $E
-
-Pal_LevelEnd:
-	; The Good Future end palette is the full stage palette.
-	dc.b	6, $66
-	dcb.b	2,0
-	dc.b	$E, $42, $E, $86, 0, $60, 0, $A0, $E, $EE, 8, $88, 4, $44
-	dc.b	$C, $20, 0, 6, 0, $6E, 0, $EE, 0, $88, 0, $44, 0
-	dcb.b	2,$E
-	dc.b	0, 8, $EE, $A, $E0, 8, $A0, 6, $60, 6, 0, 2
-	dcb.b	2,0
-	dc.b	$EA, 0, $C0, 0, $60
-	dcb.b	2,0
-	dc.b	$E, $4C
-	dcb.b	2,$E
-	dc.b	$C
-	dcb.b	2,8
-	dc.b	4, $A, 0, $E
-	dcb.b	2,0
-	dc.b	$E8, 0, $C0, 0, $60, 0, $40, 6, 0, $E, $EE, $E, $A0, $E, $20
-	dc.b	0, $AE, 0, $4E
-	dcb.b	5,0
-	dc.b	$AE, 0, $20, 4, $86
 
 	else
 
