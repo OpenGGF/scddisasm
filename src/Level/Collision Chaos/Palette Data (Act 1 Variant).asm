@@ -127,6 +127,7 @@ Pal_LevelAlt2:
 
 	else
 
+StagePalette:
 Pal_Level:
 	dc.b	6, $66
 	dcb.b	2,0
@@ -142,12 +143,14 @@ Pal_Level:
 	dcb.b	2,$E
 	dc.b	$A, 4, 0, $AE, 2, 0, 2, $EE
 
+Pal_2006EA:
 Pal_LevelAlt1:
 	dcb.b	4,0
 	dc.b	$E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E
 	dc.b	$EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE, $E, $EE
 	dc.b	$E, $EE
 
+Pal_20070A:
 Pal_LevelAlt2:
 	dcb.b	4,0
 	dc.b	2, $22, 4, $44, 6, $66, 8, $88, $A, $AA, $C, $CC, $E, $EE
