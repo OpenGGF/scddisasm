@@ -12,7 +12,7 @@ R6_LEGACY_PLAYER	EQU	1
 amy_captured	EQU	amyCaptured
 
 	include	"r3/palette_cycle_d.asm"
-	include	"common/palette_fade.asm"
+	include	"Level/Palette Fade.asm"
 	include	"Level/Palette Load (Fade).asm"
 	include	"Level/Palette Load.asm"
 	include	"Level/Palette Load (Water).asm"

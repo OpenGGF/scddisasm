@@ -18,6 +18,10 @@ QQ_VARIANT		EQU	0
 bg_water_deform		EQU	updateHUDBonus+2
 r3_no_bumper		EQU	debugBlock+2
 
+; The semantic palette fade engine uses the later queue-service name. The
+; recovered R3 graphs retain the byte-identical historical implementation.
+ProcessPLCs		EQU	AdvanceGfxQueue
+
 ; The historical R3 debug table uses the original macro name.  The shared
 ; compatibility layer keeps the same eight-byte table layout under the
 ; names used by the later recovered graphs.

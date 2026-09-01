@@ -15,7 +15,7 @@ R6_LEGACY_PLAYER	EQU	1
 		include	"r3/palette_cycle_d.asm"
 	endif
 
-	include	"common/palette_fade.asm"
+	include	"Level/Palette Fade.asm"
 	include	"Level/Palette Load (Fade).asm"
 	include	"Level/Palette Load.asm"
 	include	"Level/Palette Load (Water).asm"

@@ -13,7 +13,7 @@ amy_captured	EQU	amyCaptured
 CC_VARIANT	EQU	0
 
 	include	"Level/Collision Chaos/Palette Cycle (Present).asm"
-	include	"common/palette_fade.asm"
+	include	"Level/Palette Fade.asm"
 	include	"Level/Palette Load (Fade).asm"
 	include	"Level/Palette Load.asm"
 	include	"Level/Palette Load (Water).asm"
