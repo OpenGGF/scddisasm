@@ -39,7 +39,15 @@ ObjGlassShatter_Init:
 	moveq	#10,d0
 	bsr.w	AddPoints
 	moveq	#0,d1
+	if def(CC_LEGACY_GLASS_SHATTER_ABI)
+		if CC_LEGACY_GLASS_SHATTER_ABI<>0
+	bsr.w	SpawnPoints
+		else
 	bsr.w	ObjGlassShatter_SpawnPoints
+		endif
+	else
+	bsr.w	ObjGlassShatter_SpawnPoints
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -54,6 +62,8 @@ ObjGlassShatter_Delete:
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_GLASS_SHATTER_ABI)
+		if CC_LEGACY_GLASS_SHATTER_ABI=0
 ObjGlassShatter_SpawnPoints:
 	ori.b	#$80,d1
 	jsr	FindObjSlot
@@ -65,6 +75,20 @@ ObjGlassShatter_SpawnPoints:
 
 .End:
 	rts
+		endif
+	else
+ObjGlassShatter_SpawnPoints:
+	ori.b	#$80,d1
+	jsr	FindObjSlot
+	bne.s	.End
+	move.b	#$1C,oID(a1)
+	move.w	oX(a0),oX(a1)
+	move.w	oY(a0),oY(a1)
+	move.b	d1,oSubtype(a1)
+
+.End:
+	rts
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -75,5 +99,13 @@ Ani_GlassBreak:
 MapSpr_GlassBreak:
 	include	"sprites/r3/glass_break.asm"
 	even
+
+	if def(R3_SEMANTIC_GLASS_SHATTER)
+		if R3_SEMANTIC_GLASS_SHATTER<>0
+GlassShatterObject	EQU	ObjGlassShatter
+GlassBreakAnims		EQU	Ani_GlassBreak
+GlassBreakSprites	EQU	MapSpr_GlassBreak
+		endif
+	endif
 
 ; -------------------------------------------------------------------------

@@ -32,9 +32,11 @@ R3_SEMANTIC_MONITOR_TIME EQU	1
 R3_SEMANTIC_HUD_POINTS EQU	1
 R3_SEMANTIC_BUMPER_FLIPPER EQU	1
 R3_SEMANTIC_BUMPER_PLATFORM EQU	1
+R3_SEMANTIC_GLASS_SHATTER EQU	1
 CC_LEGACY_ROLL_TUNNEL_ABI EQU	1
 CC_LEGACY_BUMPER_FLIPPER_ABI EQU	1
 CC_LEGACY_BUMPER_PLATFORM_ABI EQU	1
+CC_LEGACY_GLASS_SHATTER_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -89,7 +91,7 @@ CC_VARIANT	EQU	0
 	include	"Level/_Objects/HUD and Points/Main.asm"
 	include	"Level/Collision Chaos/Objects/Bumper and Flipper/Main.asm"
 	include	"Level/Collision Chaos/Objects/Bumper Platform/Main.asm"
-	include	"objects/r3/glass_shatter.asm"
+	include	"Level/Collision Chaos/Objects/Glass Shatter/Main.asm"
 	include	"objects/r3/ga.asm"
 	include	"objects/r3/teleporter.asm"
 	include	"objects/r3/points_pocket.asm"

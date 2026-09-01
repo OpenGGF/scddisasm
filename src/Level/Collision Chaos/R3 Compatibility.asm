@@ -272,7 +272,13 @@ ObjKamaSickle		EQU	KamaSickleObject
 ObjDoor			EQU	DoorObject
 ObjFireShooter	EQU	FireShooterObject
 ObjDrumPlatform	EQU	DrumPlatformObject
+	if def(R3_SEMANTIC_GLASS_SHATTER)
+		if R3_SEMANTIC_GLASS_SHATTER=0
 ObjGlassShatter	EQU	GlassShatterObject
+		endif
+	else
+ObjGlassShatter	EQU	GlassShatterObject
+	endif
 	if def(R3_SEMANTIC_BUMPER_PLATFORM)
 		if R3_SEMANTIC_BUMPER_PLATFORM=0
 ObjBumperPlatform	EQU	BumperPlatformObject
