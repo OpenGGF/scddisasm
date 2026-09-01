@@ -25,6 +25,7 @@ R3_SEMANTIC_TUNNEL_DOOR EQU	1
 R3_SEMANTIC_POWERUP	EQU	1
 R3_SEMANTIC_ROLL_TUNNEL EQU	1
 R3_SEMANTIC_BOULDER	EQU	1
+R3_SEMANTIC_FLOAT_BLOCK EQU	1
 CC_LEGACY_ROLL_TUNNEL_ABI EQU	1
 
 	include	"Level/Initialization.asm"
@@ -75,7 +76,7 @@ CC_VARIANT	EQU	0
 	include	"Level/_Objects/Boulder/Main.asm"
 	include	"objects/spring.asm"
 	include	"objects/ring.asm"
-	include	"objects/r1/float_block.asm"
+	include	"Level/_Objects/Floating Block/Main.asm"
 	include	"objects/monitor_time.asm"
 	include	"objects/hud_points.asm"
 	include	"objects/r3/bumper_flipper.asm"

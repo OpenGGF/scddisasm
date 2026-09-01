@@ -172,7 +172,13 @@ ObjSpinSplash		EQU	TunnelSplashObject
 ObjMovingSpring	EQU	MoveSpringObject
 ObjRing			EQU	RingObject
 ObjLostRing		EQU	LostRingObject
+	if def(R3_SEMANTIC_FLOAT_BLOCK)
+		if R3_SEMANTIC_FLOAT_BLOCK=0
 ObjFloatBlock		EQU	FloatBlockObject
+		endif
+	else
+ObjFloatBlock		EQU	FloatBlockObject
+	endif
 	if def(R3_SEMANTIC_CHECKPOINT)
 		if R3_SEMANTIC_CHECKPOINT=0
 ObjCheckpoint		EQU	CheckpointObject
@@ -337,6 +343,12 @@ RollTunnelObject	EQU	ObjRollTunnel
 	if def(R3_SEMANTIC_BOULDER)
 		if R3_SEMANTIC_BOULDER<>0
 BoulderObject		EQU	ObjBoulder
+		endif
+	endif
+
+	if def(R3_SEMANTIC_FLOAT_BLOCK)
+		if R3_SEMANTIC_FLOAT_BLOCK<>0
+FloatBlockObject	EQU	ObjFloatBlock
 		endif
 	endif
 
