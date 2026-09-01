@@ -407,7 +407,13 @@ ObjRollTunnel		EQU	RollTunnelObject
 ObjRobotGenerator	EQU	RobotGeneratorObject
 ObjProjector		EQU	ProjectorObject
 ObjCCAnimal		EQU	AnimalObject
+	if def(R3_SEMANTIC_RESULTS)
+		if R3_SEMANTIC_RESULTS=0
 ObjResults		EQU	ResultsObject
+		endif
+	else
+ObjResults		EQU	ResultsObject
+	endif
 	if def(R3_SEMANTIC_GAME_OVER)
 		if R3_SEMANTIC_GAME_OVER=0
 ObjGameOver		EQU	GameOverObject
@@ -422,8 +428,15 @@ ObjTitleCard		EQU	TitleCardObject
 	else
 ObjTitleCard		EQU	TitleCardObject
 	endif
+
 NullObject		EQU	ObjNull
 	endif
+	endif
+
+	if def(R3_SEMANTIC_RESULTS)
+		if R3_SEMANTIC_RESULTS<>0
+ResultsObject	EQU	ObjResults
+		endif
 	endif
 
 	if def(R3_SEMANTIC_GAME_OVER)

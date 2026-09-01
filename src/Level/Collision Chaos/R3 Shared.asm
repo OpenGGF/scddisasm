@@ -11,6 +11,7 @@ R3_SEMANTIC_MAIN	EQU	1
 R3_SEMANTIC_TIME_CHECK EQU	1
 R3_SEMANTIC_GAME_OVER EQU	1
 R3_SEMANTIC_TITLE_CARD EQU	1
+R3_SEMANTIC_RESULTS	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -107,7 +108,7 @@ CC_VARIANT	EQU	3
 	include	"objects/stage_end.asm"
 	include	"Level/_Objects/Game Over/Main.asm"
 	include	"Level/_Objects/Title Card/Main.asm"
-	include	"objects/results.asm"
+	include	"Level/_Objects/Results/Main.asm"
 	include	"r3/title_card_data.asm"
 	include	"objects/r3/boss.asm"
 	include	"objects/r3/animal.asm"

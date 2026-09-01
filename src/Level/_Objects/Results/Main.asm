@@ -9,6 +9,36 @@ oResultsTimer	EQU	oVar32			; Timer
 
 ; -------------------------------------------------------------------------
 
+	if def(R3_SEMANTIC_RESULTS)
+		if R3_SEMANTIC_RESULTS<>0
+ResultsFindObjSlot	EQU	SpawnObject
+ResultsDrawObject	EQU	DrawObject
+ResultsPlayFMSound	EQU	PlayFmSound
+ResultsStopZ80		EQU	StopZ80
+ResultsStartZ80		EQU	StartZ80
+ResultsAddPoints	EQU	AddPoints
+ResultsFadeOutMusic	EQU	FadeOutMusic
+		else
+ResultsFindObjSlot	EQU	FindObjSlot
+ResultsDrawObject	EQU	R43LegacyDrawObject
+ResultsPlayFMSound	EQU	R43LegacyPlayFMSound
+ResultsStopZ80		EQU	R43LegacyStopZ80
+ResultsStartZ80		EQU	R43LegacyStartZ80
+ResultsAddPoints	EQU	R43LegacyAddPoints
+ResultsFadeOutMusic	EQU	R43LegacyFadeOutMusic
+		endif
+	else
+ResultsFindObjSlot	EQU	FindObjSlot
+ResultsDrawObject	EQU	R43LegacyDrawObject
+ResultsPlayFMSound	EQU	R43LegacyPlayFMSound
+ResultsStopZ80		EQU	R43LegacyStopZ80
+ResultsStartZ80		EQU	R43LegacyStartZ80
+ResultsAddPoints	EQU	R43LegacyAddPoints
+ResultsFadeOutMusic	EQU	R43LegacyFadeOutMusic
+	endif
+
+; -------------------------------------------------------------------------
+
 ObjResults:
 	moveq	#0,d0				; Run routine
 	move.b	oRoutine(a0),d0
@@ -71,7 +101,7 @@ ObjResults_WaitPLC:
 	bra.s	.InitLoop			; Start initializing
 
 .Loop:
-	jsr	FindObjSlot			; Spawn results object
+	jsr	ResultsFindObjSlot		; Spawn results object
 
 .InitLoop:
 	if REGION=USA				; Set timer
@@ -145,7 +175,7 @@ ObjResults_Move:
 		cmpi.w	#352,oResultsTimer(a0)
 	endif
 	bcc.s	.End				; If not, branch
-	jmp	R43LegacyDrawObject			; Draw sprite
+	jmp	ResultsDrawObject			; Draw sprite
 
 .End:
 	rts
@@ -186,10 +216,10 @@ ObjResults_Bonus:
 	tst.b	specialStage			; Is the special stage flag set?
 	beq.s	.Draw				; If not, branch
 	move.w	#FM_SSWARP,d0			; Play special stage warp sound
-	jsr	R43LegacyPlayFMSound
+	jsr	ResultsPlayFMSound
 
 .Draw:
-	jmp	R43LegacyDrawObject			; Draw sprite
+	jmp	ResultsDrawObject			; Draw sprite
 
 .TimeBonus:
 	addi.w	#10,d0				; Add time bonus points
@@ -210,9 +240,9 @@ ObjResults_Bonus:
 	bne.s	.HaveBonus			; If so, branch
 
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
-		jsr	R43LegacyStopZ80			; Play "ka-ching" sound
+		jsr	ResultsStopZ80			; Play "ka-ching" sound
 		move.b	#FM_KACHING,FMDrvQueue1
-		jsr	R43LegacyStartZ80
+		jsr	ResultsStartZ80
 
 		cmpi.w	#45,oResultsTimer(a0)
 		bcc.s	.AddPoints
@@ -221,7 +251,7 @@ ObjResults_Bonus:
 
 	else
 		move.w	#FM_KACHING,d0		; Play "ka-ching" sound
-		jsr	R43LegacyPlayFMSound
+		jsr	ResultsPlayFMSound
 		bra.s	.AddPoints
 	endif
 
@@ -234,12 +264,12 @@ ObjResults_Bonus:
 	btst	#0,oResultsTimer(a0)		; Is this an even frame?
 	bne.s	.AddPoints			; If not, branch
 	move.w	#FM_TALLY,d0			; Play tally sound
-	jsr	R43LegacyPlayFMSound
+	jsr	ResultsPlayFMSound
 
 .AddPoints:
 	move.l	d1,d0				; Add points
-	jsr	R43LegacyAddPoints
-	jmp	R43LegacyDrawObject			; Draw sprite
+	jsr	ResultsAddPoints
+	jmp	ResultsDrawObject			; Draw sprite
 
 ; -------------------------------------------------------------------------
 ; Set next level
@@ -281,9 +311,9 @@ ObjResults_NextLevel:
 	move.w	d0,zoneAct			; Set level ID
 
 	jsr	ResetSavedObjFlags		; Reset saved object flags
-	jsr	R43LegacyFadeOutMusic			; Fade music out
+	jsr	ResultsFadeOutMusic			; Fade music out
 
-	jsr	R43LegacyDrawObject			; Draw sprite
+	jsr	ResultsDrawObject			; Draw sprite
 	move.b	act,d0				; Were we in act 3?
 	subq.b	#1,d0
 	bpl.s	.CheckGoodFuture		; If not, branch

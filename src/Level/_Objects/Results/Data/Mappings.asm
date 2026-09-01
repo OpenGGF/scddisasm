@@ -1,630 +1,190 @@
+; -------------------------------------------------------------------------
+; Sonic CD Disassembly
+; -------------------------------------------------------------------------
+; Results-screen sprite mappings
+; -------------------------------------------------------------------------
+
 MapSpr_ResultsBad:
-	dc.w	unk_20F4FC-MapSpr_ResultsBad
-	dc.w	unk_20F6B2-MapSpr_ResultsBad
-	dc.w	unk_20F526-MapSpr_ResultsBad
-	dc.w	unk_20F55A-MapSpr_ResultsBad
-	dc.w	unk_20F58E-MapSpr_ResultsBad
+	dc.w	MapSpr_ResultsBadHeader-MapSpr_ResultsBad
+	dc.w	MapSpr_ResultsScore-MapSpr_ResultsBad
+	dc.w	MapSpr_ResultsBadAct1-MapSpr_ResultsBad
+	dc.w	MapSpr_ResultsBadAct2-MapSpr_ResultsBad
+	dc.w	MapSpr_ResultsBadAct3-MapSpr_ResultsBad
 
 MapSpr_ResultsBadSSZ3:
-	dc.w	unk_20F4FC-MapSpr_ResultsBadSSZ3
-	dc.w	unk_20F6FA-MapSpr_ResultsBadSSZ3
-	dc.w	unk_20F526-MapSpr_ResultsBadSSZ3
-	dc.w	unk_20F55A-MapSpr_ResultsBadSSZ3
-	dc.w	unk_20F58E-MapSpr_ResultsBadSSZ3
+	dc.w	MapSpr_ResultsBadHeader-MapSpr_ResultsBadSSZ3
+	dc.w	MapSpr_ResultsSSZ3Score-MapSpr_ResultsBadSSZ3
+	dc.w	MapSpr_ResultsBadAct1-MapSpr_ResultsBadSSZ3
+	dc.w	MapSpr_ResultsBadAct2-MapSpr_ResultsBadSSZ3
+	dc.w	MapSpr_ResultsBadAct3-MapSpr_ResultsBadSSZ3
 
 MapSpr_ResultsGood:
-	dc.w	unk_20F5C2-MapSpr_ResultsGood
-	dc.w	unk_20F6B2-MapSpr_ResultsGood
-	dc.w	unk_20F60A-MapSpr_ResultsGood
-	dc.w	unk_20F642-MapSpr_ResultsGood
-	dc.w	unk_20F67A-MapSpr_ResultsGood
+	dc.w	MapSpr_ResultsGoodHeader-MapSpr_ResultsGood
+	dc.w	MapSpr_ResultsScore-MapSpr_ResultsGood
+	dc.w	MapSpr_ResultsGoodAct1-MapSpr_ResultsGood
+	dc.w	MapSpr_ResultsGoodAct2-MapSpr_ResultsGood
+	dc.w	MapSpr_ResultsGoodAct3-MapSpr_ResultsGood
 
 MapSpr_ResultsGoodSSZ3:
-	dc.w	unk_20F5C2-MapSpr_ResultsGoodSSZ3
-	dc.w	unk_20F6FA-MapSpr_ResultsGoodSSZ3
-	dc.w	unk_20F60A-MapSpr_ResultsGoodSSZ3
-	dc.w	unk_20F642-MapSpr_ResultsGoodSSZ3
-	dc.w	unk_20F67A-MapSpr_ResultsGoodSSZ3
+	dc.w	MapSpr_ResultsGoodHeader-MapSpr_ResultsGoodSSZ3
+	dc.w	MapSpr_ResultsSSZ3Score-MapSpr_ResultsGoodSSZ3
+	dc.w	MapSpr_ResultsGoodAct1-MapSpr_ResultsGoodSSZ3
+	dc.w	MapSpr_ResultsGoodAct2-MapSpr_ResultsGoodSSZ3
+	dc.w	MapSpr_ResultsGoodAct3-MapSpr_ResultsGoodSSZ3
 
-unk_20F4FC:
-	dc.b	  8
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  0
-	dc.b	$BC ; ¼
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$CC ; Ì
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  8
-	dc.b	$DC ; Ü
-	dc.b	$EC ; ì
-	dc.b	  1
-	dc.b	  0
-	dc.b	 $C
-	dc.b	$EC ; ì
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	 $E
-	dc.b	$F4 ; ô
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$12
-	dc.b	$14
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$24 ; $
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$34 ; 4
-	dc.b	  0
+; Each frame starts with a piece count followed by five-byte sprite pieces:
+; Y offset, size, tile attributes, tile index, and X offset.
 
-unk_20F526:
-	dc.b	 $A
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$9C ; œ
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1A
-	dc.b	$AC ; ¬
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1E
-	dc.b	$BC ; ¼
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$CC ; Ì
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$DC ; Ü
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$12
-	dc.b	$EC ; ì
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1A
-	dc.b	$FC ; ü
-	dc.b	  4
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$26 ; &
-	dc.b	$1C
-	dc.b	  4
-	dc.b	  9
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	$3C ; <
-	dc.b	  4
-	dc.b	  1
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$5C ; \
-	dc.b	  0
+MapSpr_ResultsBadHeader:
+	dc.b	8
+	dc.b	$EC, 5, 0, 0, $BC
+	dc.b	$EC, 5, 0, 4, $CC
+	dc.b	$EC, 5, 0, 8, $DC
+	dc.b	$EC, 1, 0, $C, $EC
+	dc.b	$EC, 5, 0, $E, $F4
+	dc.b	$EC, 5, 0, $12, $14
+	dc.b	$EC, 5, 0, 4, $24
+	dc.b	$EC, 5, 0, $16, $34
+	even
 
-unk_20F55A:
-	dc.b	 $A
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$9C ; œ
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1A
-	dc.b	$AC ; ¬
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1E
-	dc.b	$BC ; ¼
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$CC ; Ì
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$DC ; Ü
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$12
-	dc.b	$EC ; ì
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1A
-	dc.b	$FC ; ü
-	dc.b	  4
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$26 ; &
-	dc.b	$1C
-	dc.b	  4
-	dc.b	  9
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	$3C ; <
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$4A ; J
-	dc.b	$5C ; \
-	dc.b	  0
+MapSpr_ResultsBadAct1:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 1, 0, $34, $5C
+	even
 
-unk_20F58E:
-	dc.b	 $A
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$9C ; œ
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1A
-	dc.b	$AC ; ¬
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1E
-	dc.b	$BC ; ¼
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$CC ; Ì
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$DC ; Ü
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$12
-	dc.b	$EC ; ì
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1A
-	dc.b	$FC ; ü
-	dc.b	  4
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$26 ; &
-	dc.b	$1C
-	dc.b	  4
-	dc.b	  9
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	$3C ; <
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$4E ; N
-	dc.b	$5C ; \
-	dc.b	  0
+MapSpr_ResultsBadAct2:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4A, $5C
+	even
 
-unk_20F5C2:
-	dc.b	 $E
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  0
-	dc.b	$80 ; €
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$90 ; 
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  8
-	dc.b	$A0 ;  
-	dc.b	$EC ; ì
-	dc.b	  1
-	dc.b	  0
-	dc.b	 $C
-	dc.b	$B0 ; °
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	 $E
-	dc.b	$B8 ; ¸
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$36 ; 6
-	dc.b	$D0 ; Ð
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$3A ; :
-	dc.b	$E0 ; à
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$3E ; >
-	dc.b	$F0 ; ð
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$42 ; B
-	dc.b	  0
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$3A ; :
-	dc.b	$20
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$12
-	dc.b	$40 ; .
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$50 ; P
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	  4
-	dc.b	$60 ; `
-	dc.b	$EC ; ì
-	dc.b	  5
-	dc.b	  0
-	dc.b	$3E ; >
-	dc.b	$70 ; p
-	dc.b	  0
+MapSpr_ResultsBadAct3:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4E, $5C
+	even
 
-unk_20F60A:
-	dc.b	 $B
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$46 ; F
-	dc.b	$90 ; 
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$A0 ;  
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$B0 ; °
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$C0 ; À
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1E
-	dc.b	$D0 ; Ð
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$42 ; B
-	dc.b	$E0 ; à
-	dc.b	  4
-	dc.b	  1
-	dc.b	  0
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	  8
-	dc.b	  8
-	dc.b	  4
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$26 ; &
-	dc.b	$28 ; (
-	dc.b	  4
-	dc.b	  9
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	$48 ; H
-	dc.b	  4
-	dc.b	  1
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$68 ; h
+MapSpr_ResultsGoodHeader:
+	dc.b	$E
+	dc.b	$EC, 5, 0, 0, $80
+	dc.b	$EC, 5, 0, 4, $90
+	dc.b	$EC, 5, 0, 8, $A0
+	dc.b	$EC, 1, 0, $C, $B0
+	dc.b	$EC, 5, 0, $E, $B8
+	dc.b	$EC, 5, 0, $36, $D0
+	dc.b	$EC, 5, 0, $3A, $E0
+	dc.b	$EC, 5, 0, $3E, $F0
+	dc.b	$EC, 5, 0, $42, 0
+	dc.b	$EC, 5, 0, $3A, $20
+	dc.b	$EC, 5, 0, $12, $40
+	dc.b	$EC, 5, 0, 4, $50
+	dc.b	$EC, 5, 0, 4, $60
+	dc.b	$EC, 5, 0, $3E, $70
+	even
 
-unk_20F642:
-	dc.b	 $B
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$46 ; F
-	dc.b	$90 ; 
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$A0 ;  
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$B0 ; °
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$C0 ; À
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1E
-	dc.b	$D0 ; Ð
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$42 ; B
-	dc.b	$E0 ; à
-	dc.b	  4
-	dc.b	  1
-	dc.b	  0
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	  8
-	dc.b	  8
-	dc.b	  4
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$26 ; &
-	dc.b	$28 ; (
-	dc.b	  4
-	dc.b	  9
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	$48 ; H
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$4A ; J
-	dc.b	$68 ; h
+MapSpr_ResultsGoodAct1:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 1, 0, $34, $68
+	even
 
-unk_20F67A:
-	dc.b	 $B
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$46 ; F
-	dc.b	$90 ; 
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$A0 ;  
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$16
-	dc.b	$B0 ; °
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$22 ; "
-	dc.b	$C0 ; À
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$1E
-	dc.b	$D0 ; Ð
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$42 ; B
-	dc.b	$E0 ; à
-	dc.b	  4
-	dc.b	  1
-	dc.b	  0
-	dc.b	 $C
-	dc.b	  0
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	  8
-	dc.b	  8
-	dc.b	  4
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$26 ; &
-	dc.b	$28 ; (
-	dc.b	  4
-	dc.b	  9
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	$48 ; H
-	dc.b	  4
-	dc.b	  5
-	dc.b	  0
-	dc.b	$4E ; N
-	dc.b	$68 ; h
+MapSpr_ResultsGoodAct2:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4A, $68
+	even
 
-unk_20F6B2:
-	dc.b	 $E
-	dc.b	$E0 ; à
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$52 ; R
-	dc.b	$D4 ; Ô
-	dc.b	$E0 ; à
-	dc.b	  1
-	dc.b	  0
-	dc.b	$5A ; Z
-	dc.b	$F4 ; ô
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$5C ; \
-	dc.b	$D4 ; Ô
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$64 ; d
-	dc.b	$FC ; ü
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$6C ; l
-	dc.b	$1C
-	dc.b	$10
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$70 ; p
-	dc.b	$D4 ; Ô
-	dc.b	$10
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$64 ; d
-	dc.b	$FC ; ü
-	dc.b	$10
-	dc.b	  5
-	dc.b	  0
-	dc.b	$6C ; l
-	dc.b	$1C
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$82 ; ‚
-	dc.b	$58 ; X
-	dc.b	$F8 ; ø
-	dc.b	  1
-	dc.b	  0
-	dc.b	$8A ; Š
-	dc.b	$78 ; x
-	dc.b	$10
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$78 ; x
-	dc.b	$58 ; X
-	dc.b	$10
-	dc.b	  1
-	dc.b	  0
-	dc.b	$80 ; €
-	dc.b	$78 ; x
-	dc.b	$E0 ; à
-	dc.b	  9
-	dc.b	  1
-	dc.b	$BF ; ¿
-	dc.b	$48 ; H
-	dc.b	$E0 ; à
-	dc.b	 $D
-	dc.b	  1
-	dc.b	$C5 ; Å
-	dc.b	$60 ; `
-	dc.b	  0
+MapSpr_ResultsGoodAct3:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4E, $68
+	even
 
-unk_20F6FA:
-	dc.b	 $E
-	dc.b	$E0 ; à
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$52 ; R
-	dc.b	$D4 ; Ô
-	dc.b	$E0 ; à
-	dc.b	  1
-	dc.b	  0
-	dc.b	$5A ; Z
-	dc.b	$F4 ; ô
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$5C ; \
-	dc.b	$D4 ; Ô
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$64 ; d
-	dc.b	$FC ; ü
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$6C ; l
-	dc.b	$1C
-	dc.b	$10
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$70 ; p
-	dc.b	$D4 ; Ô
-	dc.b	$10
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$64 ; d
-	dc.b	$FC ; ü
-	dc.b	$10
-	dc.b	  5
-	dc.b	  0
-	dc.b	$6C ; l
-	dc.b	$1C
-	dc.b	$F8 ; ø
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$82 ; ‚
-	dc.b	$58 ; X
-	dc.b	$F8 ; ø
-	dc.b	  1
-	dc.b	  0
-	dc.b	$8A ; Š
-	dc.b	$78 ; x
-	dc.b	$10
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$78 ; x
-	dc.b	$58 ; X
-	dc.b	$10
-	dc.b	  1
-	dc.b	  0
-	dc.b	$80 ; €
-	dc.b	$78 ; x
-	dc.b	$E0 ; à
-	dc.b	  9
-	dc.b	  2
-	dc.b	$91 ; ‘
-	dc.b	$48 ; H
-	dc.b	$E0 ; à
-	dc.b	 $D
-	dc.b	  2
-	dc.b	$97 ; —
-	dc.b	$60 ; `
-	dc.b	  0
-	
+MapSpr_ResultsScore:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 1, $BF, $48
+	dc.b	$E0, $D, 1, $C5, $60
+	even
+
+MapSpr_ResultsSSZ3Score:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 2, $91, $48
+	dc.b	$E0, $D, 2, $97, $60
+
+; ------------------------------------------------------------------------------
