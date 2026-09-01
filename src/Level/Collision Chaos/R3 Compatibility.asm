@@ -164,7 +164,13 @@ ObjBigRing		EQU	BigRingObject
 ObjCapsule		EQU	CapsuleObject
 ObjGoalPost		EQU	GoalObject
 ObjSignpost		EQU	SignpostObject
+	if def(R3_SEMANTIC_EXPLOSION)
+		if R3_SEMANTIC_EXPLOSION=0
 ObjExplosion		EQU	ExplosionObject
+		endif
+	else
+ObjExplosion		EQU	ExplosionObject
+	endif
 ObjMonitorTimePost	EQU	MonitorTimeObject
 ObjMonitorItem		EQU	MonitorItemObject
 ObjBoulder		EQU	BoulderObject
@@ -231,6 +237,14 @@ PlayerResetDrown	EQU	ResumeMusicS1
 TestObject		EQU	ObjTestBadnik
 MapSpr_Powerup	EQU	PowerupSprites
 Ani_Powerup		EQU	PowerupAnims
+		endif
+	endif
+
+	if def(R3_SEMANTIC_EXPLOSION)
+		if R3_SEMANTIC_EXPLOSION<>0
+ExplosionObject	EQU	ObjExplosion
+MapSpr_Explosion	EQU	ExplosionSprites
+Ani_Explosion		EQU	ExplosionAnims
 		endif
 	endif
 

@@ -13,22 +13,29 @@ oExplodePoints	EQU	oVar3E			; Sprite ID for points object
 
 ObjExplosion_MakePoints:
 	tst.b	oExplodeBadnik(a0)		; Was this explosion from a badnik?
-	bne.s	.End				; If not, branch
+	bne.s	ObjExplosion_MakePoints_End	; If not, branch
 
 	moveq	#0,d1				; Get points sprite to display
 	move.w	oExplodePoints(a0),d1
 	lsr.b	#1,d1
+	if def(R3_SEMANTIC_EXPLOSION)
+		if R3_SEMANTIC_EXPLOSION<>0
+; Recovered R3 bumper, glass, and pocket objects enter here after selecting a
+; points sprite directly.
+SpawnPoints:
+		endif
+	endif
 	ori.b	#$80,d1
 
 	jsr	FindObjSlot			; Find a free object slot
-	bne.s	.End				; If one was not found, branch
+	bne.s	ObjExplosion_MakePoints_End	; If one was not found, branch
 
 	move.b	#$1C,oID(a1)			; Load points object
 	move.w	oX(a0),oX(a1)			; Set the points position to ours
 	move.w	oY(a0),oY(a1)
 	move.b	d1,oSubtype(a1)			; Set points sprite frame ID
 
-.End:
+ObjExplosion_MakePoints_End:
 	rts
 
 ; -------------------------------------------------------------------------

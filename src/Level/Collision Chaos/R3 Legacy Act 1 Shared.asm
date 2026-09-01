@@ -18,6 +18,7 @@ R3_SEMANTIC_SUB_CPU	EQU	1
 R3_SEMANTIC_CHECKPOINT	EQU	1
 R3_SEMANTIC_RESUME_MUSIC EQU	1
 R3_SEMANTIC_TEST_BADNIK EQU	1
+R3_SEMANTIC_EXPLOSION	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -49,7 +50,7 @@ CC_VARIANT	EQU	0
 	include	"Level/_Objects/Checkpoint/Main.asm"
 	include	"Level/Resume Music (Leftover).asm"
 	include	"Level/_Objects/Test Badnik/Main.asm"
-	include	"objects/explosion.asm"
+	include	"Level/_Objects/Explosion/Main.asm"
 	include	"objects/flower.asm"
 	include	"objects/r1/tunnel_splash.asm"
 	include	"objects/r1/h_door.asm"
