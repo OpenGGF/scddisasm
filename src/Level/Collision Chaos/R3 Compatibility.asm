@@ -303,7 +303,17 @@ DestroyOnGoodFuture	EQU	DestroyInGoodFuture
 	else
 ObjGa			EQU	GaObject
 	endif
+	if def(R3_SEMANTIC_TENTOU)
+		if R3_SEMANTIC_TENTOU=0
 ObjTentou		EQU	TentouObject
+		else
+ObjGetLWallDist	EQU	CheckBlockLeft
+ObjGetRWallDist	EQU	CheckBlockRight
+ObjGetFloorDist2	EQU	CheckBlockDown2
+		endif
+	else
+ObjTentou		EQU	TentouObject
+	endif
 	if def(R3_SEMANTIC_POCKET)
 		if R3_SEMANTIC_POCKET=0
 ObjPocket		EQU	PocketObject

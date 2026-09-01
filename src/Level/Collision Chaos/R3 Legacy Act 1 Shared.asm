@@ -36,12 +36,14 @@ R3_SEMANTIC_GLASS_SHATTER EQU	1
 R3_SEMANTIC_GA		EQU	1
 R3_SEMANTIC_TELEPORTER EQU	1
 R3_SEMANTIC_POCKET	EQU	1
+R3_SEMANTIC_TENTOU	EQU	1
 CC_LEGACY_ROLL_TUNNEL_ABI EQU	1
 CC_LEGACY_BUMPER_FLIPPER_ABI EQU	1
 CC_LEGACY_BUMPER_PLATFORM_ABI EQU	1
 CC_LEGACY_GLASS_SHATTER_ABI EQU	1
 CC_LEGACY_GA_ABI	EQU	1
 CC_LEGACY_POCKET_ABI	EQU	1
+CC_LEGACY_TENTOU_ABI	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -100,7 +102,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Objects/Ga/Main.asm"
 	include	"Level/Collision Chaos/Objects/Teleporter/Main.asm"
 	include	"Level/Collision Chaos/Objects/Pocket/Main.asm"
-	include	"objects/r3/tentou.asm"
+	include	"Level/Collision Chaos/Objects/Tentou/Main.asm"
 	include	"objects/r3/spike_chain.asm"
 	include	"r3/section_gfx_1a.asm"
 	include	"objects/r3/spikes.asm"

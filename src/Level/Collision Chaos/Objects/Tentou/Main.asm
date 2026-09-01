@@ -13,9 +13,23 @@ oTentouHorizontalVelocity	EQU	oVar2A
 ; -------------------------------------------------------------------------
 
 ObjTentou:
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI=0
 	moveq	#0,d0
+		endif
+	else
+	moveq	#0,d0
+	endif
 	move.b	oSubtype(a0),d0
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+	addi.b	#-1,d0
+		else
 	subq.b	#1,d0
+		endif
+	else
+	subq.b	#1,d0
+	endif
 	bmi.s	ObjTentou_Parent
 	bra.w	ObjTentou_Bomb
 
@@ -115,6 +129,16 @@ ObjTentou_Routine6:
 	move.l	oTentouBaseY(a0),oY(a0)
 	moveq	#0,d3
 	move.b	oXRadius(a0),d3
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+	lea	ObjGetLWallDist,a1
+	tst.l	oTentouHorizontalVelocity(a0)
+	bmi.s	.CheckWall
+	lea	ObjGetRWallDist,a1
+
+.CheckWall:
+	jsr	(a1)
+		else
 	tst.l	oTentouHorizontalVelocity(a0)
 	bmi.s	.CheckLeft
 	jsr	ObjGetRWallDist
@@ -124,6 +148,18 @@ ObjTentou_Routine6:
 	jsr	ObjGetLWallDist
 
 .CheckWall:
+		endif
+	else
+	tst.l	oTentouHorizontalVelocity(a0)
+	bmi.s	.CheckLeft
+	jsr	ObjGetRWallDist
+	bra.s	.CheckWall
+
+.CheckLeft:
+	jsr	ObjGetLWallDist
+
+.CheckWall:
+	endif
 	tst.w	d1
 	bmi.s	.HitWall
 	jsr	ObjGetFloorDist
@@ -202,11 +238,44 @@ ObjTentou_Bob:
 	rts
 
 ; -------------------------------------------------------------------------
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+; Unreferenced retail helper: report whether the player is within a
+; $200-by-$200 box around Tentou. The carry result from the X check is left
+; intact for the missing caller.
+ObjTentou_CheckPlayerRange_Unused:
+	lea	objPlayerSlot.w,a1
+	move.w	oY(a1),d0
+	sub.w	oY(a0),d0
+	subi.w	#-$100,d0
+	subi.w	#$200,d0
+	bcc.s	.End
+	move.w	oX(a1),d0
+	sub.w	oX(a0),d0
+	subi.w	#-$100,d0
+	subi.w	#$200,d0
+
+.End:
+	rts
+		endif
+	endif
+
+; -------------------------------------------------------------------------
 
 Ani_Tentou:
 	include	"anims/r3/tentou.asm"
 	even
 
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+MapSpr_Tentou2:
+	include	"sprites/r3/tentou_2.asm"
+	even
+
+MapSpr_Tentou1:
+	include	"sprites/r3/tentou_1.asm"
+	even
+		else
 MapSpr_Tentou1:
 	include	"sprites/r3/tentou_1.asm"
 	even
@@ -214,6 +283,16 @@ MapSpr_Tentou1:
 MapSpr_Tentou2:
 	include	"sprites/r3/tentou_2.asm"
 	even
+		endif
+	else
+MapSpr_Tentou1:
+	include	"sprites/r3/tentou_1.asm"
+	even
+
+MapSpr_Tentou2:
+	include	"sprites/r3/tentou_2.asm"
+	even
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -267,7 +346,15 @@ ObjTentou_Bomb_Routine2:
 ObjTentou_Bomb_Routine4:
 	tst.b	oColStatus(a0)
 	bne.s	ObjTentou_Bomb_Explode
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+	addi.w	#-1,oTentouTimer(a0)
+		else
 	subi.w	#1,oTentouTimer(a0)
+		endif
+	else
+	subi.w	#1,oTentouTimer(a0)
+	endif
 	bne.s	.End
 	move.w	#$78,oTentouTimer(a0)
 	addq.b	#2,oRoutine(a0)
@@ -280,7 +367,15 @@ ObjTentou_Bomb_Routine4:
 ObjTentou_Bomb_Routine6:
 	tst.b	oColStatus(a0)
 	bne.s	ObjTentou_Bomb_Explode
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+	addi.w	#-1,oTentouTimer(a0)
+		else
 	subi.w	#1,oTentouTimer(a0)
+		endif
+	else
+	subi.w	#1,oTentouTimer(a0)
+	endif
 	bne.s	.Animate
 	addq.b	#2,oRoutine(a0)
 
@@ -311,5 +406,16 @@ Ani_TentouBomb:
 MapSpr_TentouBomb:
 	include	"sprites/r3/tentou_bomb.asm"
 	even
+
+	if def(R3_SEMANTIC_TENTOU)
+		if R3_SEMANTIC_TENTOU<>0
+TentouObject		EQU	ObjTentou
+TentouAnims		EQU	Ani_Tentou
+TentouSprites1		EQU	MapSpr_Tentou1
+TentouSprites2		EQU	MapSpr_Tentou2
+TentouBombAnims	EQU	Ani_TentouBomb
+TentouBombSprites	EQU	MapSpr_TentouBomb
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
