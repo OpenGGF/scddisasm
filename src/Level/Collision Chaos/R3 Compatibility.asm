@@ -363,7 +363,13 @@ ObjSpikeChain		EQU	SpikeChainObject
 		if R3_SEMANTIC_GA=0
 ObjGa			EQU	GaObject
 		else
+			if def(R3_SEMANTIC_TIME_CHECK)
+				if R3_SEMANTIC_TIME_CHECK=0
 DestroyOnGoodFuture	EQU	DestroyInGoodFuture
+				endif
+			else
+DestroyOnGoodFuture	EQU	DestroyInGoodFuture
+			endif
 		endif
 	else
 ObjGa			EQU	GaObject

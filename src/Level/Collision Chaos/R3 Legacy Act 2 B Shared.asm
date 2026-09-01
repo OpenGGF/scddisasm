@@ -8,6 +8,7 @@ R6_LEGACY_PLAYER	EQU	1
 R3_SEMANTIC_COLLISION	EQU	1
 R3_SEMANTIC_GENERAL	EQU	1
 R3_SEMANTIC_MAIN	EQU	1
+R3_SEMANTIC_TIME_CHECK EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -86,7 +87,7 @@ CC_VARIANT	EQU	1
 	include	"objects/r3/animal.asm"
 	include	"objects/r3/robot_generator.asm"
 	include	"objects/r3/projector.asm"
-	include	"common/time_check.asm"
+	include	"Level/Object Time Check.asm"
 	include	"objects/game_over.asm"
 	include	"objects/title_card.asm"
 	include	"objects/results.asm"

@@ -4,6 +4,11 @@
 ; Object time zone check functions
 ; -------------------------------------------------------------------------
 
+	if def(R3_SEMANTIC_TIME_CHECK)
+		if R3_SEMANTIC_TIME_CHECK<>0
+DestroyInGoodFuture:
+		endif
+	endif
 DestroyOnGoodFuture:
 	tst.b	goodFuture
 	beq.s	.End
@@ -56,7 +61,15 @@ CheckAnimalPrescence:
 	tst.b	projDestroyed
 	bne.s	.End
 	addq.l	#4,sp
+	if def(R3_SEMANTIC_TIME_CHECK)
+		if R3_SEMANTIC_TIME_CHECK<>0
+	jmp	CheckObjectDespawn
+		else
 	jmp	CheckObjDespawn
+		endif
+	else
+	jmp	CheckObjDespawn
+	endif
 
 .ChkGoodFuture:
 	tst.b	goodFuture
