@@ -3,60 +3,62 @@
 ; ------------------------------------------------------------------------------
 
 .Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
-	dc.w	.Sprite3-.Sprites
-	dc.w	.Sprite4-.Sprites
-	dc.w	.Sprite5-.Sprites
-	dc.w	.Sprite6-.Sprites
-	dc.w	.Sprite7-.Sprites
-	dc.w	.Sprite8-.Sprites
-	dc.w	.Sprite9-.Sprites
+	dc.w	.OperatingNeutral-.Sprites
+	dc.w	.OperatingLeft-.Sprites
+	dc.w	.OperatingRight-.Sprites
+	dc.w	.OperatingBoth-.Sprites
+	dc.w	.Reeling1-.Sprites
+	dc.w	.Reeling2-.Sprites
+	dc.w	.Defeated-.Sprites
+	dc.w	.FinalPhase-.Sprites
+	dc.w	.Escape1-.Sprites
+	dc.w	.Escape2-.Sprites
 
-.Sprite0:
+; Each frame starts with a piece count followed by five-byte sprite pieces:
+; signed Y, size, attributes/tile high, tile low, and signed X.
+.OperatingNeutral:
 	dc.b	4
 	dc.b	$C8, 9, 0, 0, $E8
 	dc.b	$C8, 9, 8, 0, 0
 	dc.b	$D8, 8, 0, $C, $E8
 	dc.b	$D8, 8, 0, $F, 0
 
-.Sprite1:
+.OperatingLeft:
 	dc.b	4
 	dc.b	$C8, 9, 0, 6, $E8
 	dc.b	$C8, 9, 8, 6, 0
 	dc.b	$D8, 8, 0, $C, $E8
 	dc.b	$D8, 8, 0, $F, 0
 
-.Sprite2:
+.OperatingRight:
 	dc.b	4
 	dc.b	$C8, 9, 0, 0, $E8
 	dc.b	$C8, 9, 8, 0, 0
 	dc.b	$D8, 8, 0, $12, $E8
 	dc.b	$D8, 8, 0, $15, 0
 
-.Sprite3:
+.OperatingBoth:
 	dc.b	4
 	dc.b	$C8, 9, 0, 6, $E8
 	dc.b	$C8, 9, 8, 6, 0
 	dc.b	$D8, 8, 0, $12, $E8
 	dc.b	$D8, 8, 0, $15, 0
 
-.Sprite4:
+.Reeling1:
 	dc.b	4
 	dc.b	$C0, $F, 0, $18, $E0
 	dc.b	$C0, $B, 0, $28, 0
 	dc.b	$E0, $B, 0, $4C, $E8
 	dc.b	$E0, $B, 0, $58, 0
 
-.Sprite5:
+.Reeling2:
 	dc.b	4
 	dc.b	$C0, $F, 8, $18, 0
 	dc.b	$C0, $B, 8, $28, $E8
 	dc.b	$E0, $B, 0, $34, $E8
 	dc.b	$E0, $B, 0, $40, 0
 
-.Sprite6:
+.Defeated:
 	dc.b	8
 	dc.b	$C8, 9, 0, 8, $E8
 	dc.b	$C8, 9, 8, 8, 0
@@ -67,7 +69,7 @@
 	dc.b	$E8, $A, 0, $20, $E8
 	dc.b	$E8, $A, 8, $20, 0
 
-.Sprite7:
+.FinalPhase:
 	dc.b	8
 	dc.b	$C8, 9, 0, $14, $E8
 	dc.b	$C8, 9, 8, $14, 0
@@ -78,7 +80,7 @@
 	dc.b	$E8, $A, 0, $20, $E8
 	dc.b	$E8, $A, 8, $20, 0
 
-.Sprite8:
+.Escape1:
 	dc.b	9
 	dc.b	$C8, 5, 0, 0, $18
 	dc.b	$F0, 5, 0, $68, 5
@@ -90,7 +92,7 @@
 	dc.b	$E8, $E, 0, $59, $20
 	dc.b	$E8, 2, 0, $65, $40
 
-.Sprite9:
+.Escape2:
 	dc.b	9
 	dc.b	$C8, 5, 0, 4, $18
 	dc.b	$F0, 5, 0, $6C, 5

@@ -12,12 +12,16 @@ boss.flash_timer		equ obj.var_2b	; Palette-flash countdown and phase bit
 boss.flags			equ obj.var_2c	; Movement/draw and encounter flags
 boss.target_y			equ obj.var_2e	; Target or last tracked Y position
 boss.y_speed			equ obj.var_30	; 16.16 vertical speed
-boss.primary_link		equ obj.var_34	; Pilot from parent; parent from child
-boss.upper_child_link		equ obj.var_36	; Linked upper machine child slot
+boss.gear_link			equ obj.var_34	; Linked gear object slot
+boss.eggman_link		equ obj.var_36	; Linked Eggman object slot
 boss.attack_count		equ obj.var_3a	; Number of arena attacks started
 boss.phase			equ obj.var_3b	; Encounter substate and camera-lock phase
 boss.timer			equ obj.var_3e	; Hit/recovery and exit timer
 boss.rise_counter		equ obj.var_2a	; Defeat-rise sprite delay
+boss_child.parent_link		equ obj.var_34	; Parent boss object slot
+eggman.target			equ obj.var_2e	; Initial Y, then escape target X
+eggman.y_speed			equ obj.var_30	; 16.16 vertical speed
+eggman.parent_link		equ obj.var_34	; Parent boss object slot
 
 ; The two barriers link to each other through 16-bit object-slot addresses.
 ; A collision retracts a barrier; crossing the arena threshold starts the boss.
@@ -229,23 +233,23 @@ BossMachine_Init:
 	move.l	#BossMachineSprites,obj.sprite_data(a0)
 	bsr.w	SpawnObjectAfter
 	bne.w	.End
-	move.w	a1,boss.upper_child_link(a0)
-	move.w	a0,boss.primary_link(a1)
+	move.w	a1,boss.eggman_link(a0)
+	move.w	a0,boss_child.parent_link(a1)
 	move.b	#$33,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	subi.w	#$30,obj.y(a1)
 	bsr.w	SpawnObjectAfter
 	bne.w	.End
-	move.w	a0,boss.primary_link(a1)
-	move.w	a1,boss.primary_link(a0)
+	move.w	a0,boss_child.parent_link(a1)
+	move.w	a1,boss.gear_link(a0)
 	move.b	#$32,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	subi.w	#$40,obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	bsr.w	SpawnObjectAfter
 	bne.s	.End
-	move.w	a0,boss.primary_link(a1)
+	move.w	a0,boss_child.parent_link(a1)
 	move.b	#$3D,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 
@@ -255,7 +259,7 @@ BossMachine_Init:
 ; ------------------------------------------------------------------------------
 
 BossMachine_TrackPlayer:
-	movea.w	boss.primary_link(a0),a1
+	movea.w	boss.gear_link(a0),a1
 	move.b	#1,$1C(a1)
 	lea	player_object,a1
 	move.w	#$1C0,d1
@@ -299,7 +303,7 @@ BossMachine_TrackPlayer:
 	addi.w	#-$48,boss.target_y(a0)
 	move.b	#$3F,obj.collide_type(a0)
 	move.b	#4,obj.collide_status(a0)
-	movea.w	boss.primary_link(a0),a1
+	movea.w	boss.gear_link(a0),a1
 	move.b	#0,$1C(a1)
 	rts
 
@@ -410,7 +414,7 @@ BossMachine_HitPhase_LoadArt:
 ; ------------------------------------------------------------------------------
 
 BossMachine_HitPhase_RaiseUpperChild:
-	movea.w	boss.upper_child_link(a0),a1
+	movea.w	boss.eggman_link(a0),a1
 	move.b	#4,obj.routine(a1)
 	move.b	#1,obj.anim_id(a1)
 	move.l	#-$58000,obj.var_30(a1)
@@ -420,7 +424,7 @@ BossMachine_HitPhase_RaiseUpperChild:
 
 BossMachine_HitPhase_Defeated:
 	move.b	#4,obj.sprite_frame(a0)
-	movea.w	boss.upper_child_link(a0),a1
+	movea.w	boss.eggman_link(a0),a1
 	move.b	#6,obj.routine(a1)
 	clr.b	obj.var_2a(a1)
 	move.w	obj.y(a0),obj.var_2e(a1)
@@ -557,7 +561,7 @@ BossMachine_WaitForExit:
 ; ------------------------------------------------------------------------------
 
 BossMachine_ExitEncounter:
-	movea.w	boss.primary_link(a0),a3
+	movea.w	boss.gear_link(a0),a3
 	jsr	DeleteObject
 	movea.l	a3,a1
 	addq.l	#4,sp
@@ -707,28 +711,28 @@ BossArena_SpawnTimedExplosion:
 EggmanObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E214(pc,d0.w),d0
-	jsr	off_20E214(pc,d0.w)
+	move.w	Eggman_Routines(pc,d0.w),d0
+	jsr	Eggman_Routines(pc,d0.w)
 	tst.b	obj.sprite_flags(a0)
-	bpl.s	loc_20E20E
+	bpl.s	.Draw
 	lea	EggmanAnims,a1
 	jsr	AnimateObject
 
-loc_20E20E:
+.Draw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20E214:
-	dc.w	EggmanObject_0_Routine0-*
-	dc.w	EggmanObject_0_Routine2-off_20E214
-	dc.w	EggmanObject_0_Routine4-off_20E214
-	dc.w	EggmanObject_0_Routine6-off_20E214
-	dc.w	EggmanObject_0_Routine8-off_20E214
+Eggman_Routines:
+	dc.w	Eggman_Init-*
+	dc.w	Eggman_FollowBoss-Eggman_Routines
+	dc.w	Eggman_ReboundToBoss-Eggman_Routines
+	dc.w	Eggman_EscapeUp-Eggman_Routines
+	dc.w	Eggman_EscapeRight-Eggman_Routines
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine0:
+Eggman_Init:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#6,obj.sprite_layer(a0)
@@ -736,70 +740,70 @@ EggmanObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 	move.w	#$31E,obj.sprite_tile(a0)
 	move.l	#EggmanSprites,obj.sprite_data(a0)
-	move.w	obj.y(a0),obj.var_2e(a0)
+	move.w	obj.y(a0),eggman.target(a0)
 
-EggmanObject_0_Routine2:
-	movea.w	obj.var_34(a0),a1
-	move.w	$C(a1),obj.y(a0)
+Eggman_FollowBoss:
+	movea.w	eggman.parent_link(a0),a1
+	move.w	obj.y(a1),obj.y(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine4:
-	move.l	obj.var_30(a0),d0
+Eggman_ReboundToBoss:
+	move.l	eggman.y_speed(a0),d0
 	add.l	d0,obj.y(a0)
-	addi.l	#$3000,obj.var_30(a0)
-	movea.w	obj.var_34(a0),a1
+	addi.l	#$3000,eggman.y_speed(a0)
+	movea.w	eggman.parent_link(a0),a1
 	move.w	obj.y(a1),d0
 	cmp.w	obj.y(a0),d0
-	bgt.s	locret_20E2A6
+	bgt.s	.End
 	move.w	d0,obj.y(a0)
 	move.b	#2,obj.routine(a0)
-	cmpi.b	#2,obj.var_3b(a1)
-	beq.s	loc_20E294
+	cmpi.b	#2,boss.phase(a1)
+	beq.s	.PrepareFinalPhase
 	move.w	#1,obj.anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E294:
+.PrepareFinalPhase:
 	move.b	#2,obj.sprite_frame(a1)
 	move.w	#$3FC,obj.sprite_tile(a0)
 	move.w	#$300,obj.anim_id(a0)
 
-locret_20E2A6:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine6:
+Eggman_EscapeUp:
 	addi.l	#-$40000,obj.y(a0)
-	move.w	obj.var_2e(a0),d0
+	move.w	eggman.target(a0),d0
 	cmp.w	obj.y(a0),d0
-	blt.s	locret_20E2DC
+	blt.s	.End
 	move.w	#$400,obj.anim_id(a0)
 	move.b	#3,obj.sprite_layer(a0)
 	move.w	d0,obj.y(a0)
 	move.b	#8,obj.routine(a0)
-	move.w	obj.x(a0),obj.var_2e(a0)
-	addi.w	#$230,obj.var_2e(a0)
+	move.w	obj.x(a0),eggman.target(a0)
+	addi.w	#$230,eggman.target(a0)
 
-locret_20E2DC:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine8:
+Eggman_EscapeRight:
 	addi.l	#$40000,obj.x(a0)
-	move.w	obj.var_2e(a0),d0
+	move.w	eggman.target(a0),d0
 	cmp.w	obj.x(a0),d0
-	bgt.s	locret_20E2F8
+	bgt.s	.End
 	addq.l	#4,sp
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20E2F8:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
