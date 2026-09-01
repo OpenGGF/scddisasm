@@ -237,6 +237,13 @@ IntroMoveX:
 	rts
 
 ; ------------------------------------------------------------------------------
+; Amy Rose parent object
+;   a0: object slot
+;   Uses var_34 for the linked Metal Sonic slot, var_3B as the heart emission
+;   accumulator, and var_3E as the one-time palette-load flag.
+;   Clobbers d0-d2/a1-a4 and may queue graphics, load Amy's palette, create
+;   Metal Sonic and heart objects, send Sub CPU command $7D, or delete itself.
+; ------------------------------------------------------------------------------
 
 AmyRoseObject:
 	tst.b	time_attack
@@ -245,8 +252,8 @@ AmyRoseObject:
 	bne.w	MetalSonicCaptureAmy
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E0D0(pc,d0.w),d0
-	jsr	off_20E0D0(pc,d0.w)
+	move.w	AmyRoseRoutineIndex(pc,d0.w),d0
+	jsr	AmyRoseRoutineIndex(pc,d0.w)
 	bsr.w	IntroLoadPlayer
 	cmpi.w	#$4C0,8(a1)
 	bcc.w	MetalSonicCaptureAmy
@@ -254,129 +261,131 @@ AmyRoseObject:
 
 ; ------------------------------------------------------------------------------
 
-off_20E0D0:
-	dc.w	AmyRoseObject_0_Routine0-*
-	dc.w	AmyRoseObject_0_Routine2-off_20E0D0
-	dc.w	AmyRoseObject_0_Routine4-off_20E0D0
+AmyRoseRoutineIndex:
+	dc.w	AmyRoseInit-*
+	dc.w	AmyRoseRun-AmyRoseRoutineIndex
+	dc.w	AmyRoseCaptured-AmyRoseRoutineIndex
 
 ; ------------------------------------------------------------------------------
 
-AmyRoseObject_0_Routine0:
+AmyRoseInit:
 	tst.b	obj.var_3e(a0)
-	bmi.s	loc_20E0E8
+	bmi.s	.PaletteLoaded
 	moveq	#$B,d0
 	jsr	AddGfxQueue
 	st	obj.var_3e(a0)
 
-loc_20E0E8:
+.PaletteLoaded:
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$235E,obj.sprite_tile(a0)
 	move.b	#1,obj.sprite_layer(a0)
 	move.l	#AmyRoseSprites,obj.sprite_data(a0)
-	bsr.w	sub_20E2C4
+	bsr.w	AmyRoseLoadPalette
 	bsr.w	IntroLoadPlayer
 	bsr.w	IntroFacePlayer
 	move.w	obj.x(a1),d0
 	cmp.w	obj.x(a0),d0
-	bcs.s	loc_20E11C
+	bcs.s	.Animate
 	addq.b	#2,obj.routine(a0)
 
-loc_20E11C:
+.Animate:
 	lea	AmyRoseAnims,a1
 	bra.w	IntroAnimateObject
 
 ; ------------------------------------------------------------------------------
 
+; Retained unreachable return between the initialization and running states.
+AmyRoseUnusedReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-AmyRoseObject_0_Routine2:
+AmyRoseRun:
 	bsr.w	IntroLoadPlayer
 	move.w	obj.var_34(a0),d0
-	beq.s	loc_20E14E
+	beq.s	.NoMetalSonic
 	movea.w	d0,a2
 	tst.b	$3D(a2)
-	beq.s	loc_20E14E
+	beq.s	.NoMetalSonic
 	move.b	#4,obj.routine(a0)
 	move.w	#$7D,d0
 	jsr	SubCpuCommand
-	bra.w	loc_20E1E0
+	bra.w	AmyRoseAnimateAndSpawnHeart
 
 ; ------------------------------------------------------------------------------
 
-loc_20E14E:
+.NoMetalSonic:
 	bsr.w	IntroFacePlayer
 	btst	#0,obj.flags(a0)
-	beq.s	loc_20E16E
+	beq.s	.Move
 	cmpi.w	#$80,obj.x(a0)
-	bcc.s	loc_20E16E
+	bcc.s	.Move
 	clr.b	obj.anim_id(a0)
 	clr.w	obj.x_speed(a0)
-	bra.w	loc_20E1E0
+	bra.w	AmyRoseAnimateAndSpawnHeart
 
 ; ------------------------------------------------------------------------------
 
-loc_20E16E:
+.Move:
 	cmpi.w	#$3C0,obj.x(a0)
-	bcc.s	loc_20E1B4
+	bcc.s	.SpawnMetalSonic
 	move.w	#$FFE0,d0
 	btst	#0,obj.flags(a0)
-	bne.s	loc_20E184
+	bne.s	.GotAcceleration
 	neg.w	d0
 
-loc_20E184:
+.GotAcceleration:
 	add.w	obj.x_speed(a0),d0
 	move.w	d0,d1
 	move.w	#$200,d2
 	tst.w	d1
-	bpl.s	loc_20E196
+	bpl.s	.CheckAcceleration
 	neg.w	d1
 	neg.w	d2
 
-loc_20E196:
+.CheckAcceleration:
 	cmpi.w	#$200,d1
-	bcs.s	loc_20E19E
+	bcs.s	.SetVelocity
 	move.w	d2,d0
 
-loc_20E19E:
+.SetVelocity:
 	move.w	d0,obj.x_speed(a0)
 	bsr.w	IntroMoveX
 	move.b	#1,obj.anim_id(a0)
 	cmpi.w	#$3C0,obj.x(a0)
-	bcs.s	loc_20E1E0
+	bcs.s	AmyRoseAnimateAndSpawnHeart
 
-loc_20E1B4:
+.SpawnMetalSonic:
 	clr.b	obj.anim_id(a0)
 	tst.w	obj.var_34(a0)
-	bne.s	loc_20E1E0
+	bne.s	AmyRoseAnimateAndSpawnHeart
 	jsr	SpawnObject
-	bne.s	loc_20E1E0
+	bne.s	AmyRoseAnimateAndSpawnHeart
 	move.b	#$31,obj.id(a1)
 	move.w	#$500,obj.x(a1)
 	move.w	#$3E8,obj.y(a1)
 	move.w	a0,obj.var_34(a1)
 	move.w	a1,obj.var_34(a0)
 
-loc_20E1E0:
+AmyRoseAnimateAndSpawnHeart:
 	lea	AmyRoseAnims,a1
 	bsr.w	IntroAnimateObject
-	bra.w	loc_20E306
+	bra.w	AmyRoseSpawnHeart
 
 ; ------------------------------------------------------------------------------
 
-AmyRoseObject_0_Routine4:
+AmyRoseCaptured:
 	movea.w	obj.var_34(a0),a1
 	cmpi.b	#$31,obj.id(a1)
-	bne.s	loc_20E230
+	bne.s	.Delete
 	moveq	#8,d0
 	bsr.w	IntroFaceRight
 	btst	#0,obj.flags(a1)
-	beq.s	loc_20E20E
+	beq.s	.SetPosition
 	neg.w	d0
 	bsr.w	IntroFaceLeft
 
-loc_20E20E:
+.SetPosition:
 	add.w	obj.x(a1),d0
 	move.w	d0,obj.x(a0)
 	move.w	obj.y(a1),d0
@@ -388,7 +397,7 @@ loc_20E20E:
 
 ; ------------------------------------------------------------------------------
 
-loc_20E230:
+.Delete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
@@ -397,10 +406,10 @@ IntroFacePlayer:
 	bsr.s	IntroFaceLeft
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
-	bcs.s	locret_20E244
+	bcs.s	.End
 	bsr.s	IntroFaceRight
 
-locret_20E244:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -420,31 +429,33 @@ IntroFaceRight:
 ; ------------------------------------------------------------------------------
 
 IntroAnimateObject:
+	; a0 = object, a1 = animation offset table. Each frame record stores a
+	; packed frame/flip byte followed by its duration; $FF restarts the script.
 	moveq	#0,d0
 	move.b	obj.anim_id(a0),d0
 	cmp.b	obj.prev_anim_id(a0),d0
-	beq.s	loc_20E27A
+	beq.s	.Timer
 	move.b	d0,obj.prev_anim_id(a0)
 	clr.b	obj.anim_index(a0)
 	clr.b	obj.anim_timer(a0)
 
-loc_20E27A:
+.Timer:
 	subq.b	#1,obj.anim_timer(a0)
-	bpl.s	locret_20E2C2
+	bpl.s	.End
 	add.w	d0,d0
 	adda.w	(a1,d0.w),a1
 
-loc_20E286:
+.ReadFrame:
 	move.b	obj.anim_index(a0),d0
 	lea	(a1,d0.w),a2
 	move.b	(a2),d0
-	bpl.s	loc_20E298
+	bpl.s	.SetFrame
 	clr.b	obj.anim_index(a0)
-	bra.s	loc_20E286
+	bra.s	.ReadFrame
 
 ; ------------------------------------------------------------------------------
 
-loc_20E298:
+.SetFrame:
 	move.b	d0,d1
 	andi.b	#$1F,d0
 	move.b	d0,obj.sprite_frame(a0)
@@ -457,13 +468,15 @@ loc_20E298:
 	move.b	1(a2),obj.anim_timer(a0)
 	addq.b	#2,obj.anim_index(a0)
 
-locret_20E2C2:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20E2C4:
-	lea	word_20E2E0(pc),a3
+; Load Amy's sixteen-color sprite palette into palette line 2. Entry through
+; IntroLoadPalette accepts an arbitrary source in a3 for Metal Sonic's exit.
+AmyRoseLoadPalette:
+	lea	AmyRosePalette(pc),a3
 
 ; ------------------------------------------------------------------------------
 
@@ -477,7 +490,7 @@ IntroLoadPalette:
 
 ; ------------------------------------------------------------------------------
 
-word_20E2E0:
+AmyRosePalette:
 	dc.w	0, 0, $628, $84A, $E6E, $EAE, $EEE, $AAA, $888, $444, $8AE, $6C, $C2, $80, $806, $E
 
 ; ------------------------------------------------------------------------------
@@ -488,18 +501,20 @@ IntroLoadPlayer:
 
 ; ------------------------------------------------------------------------------
 
-loc_20E306:
+; Emit one heart whenever the byte accumulator overflows. The facing flag
+; selects the offset that places it above Amy's leading shoulder.
+AmyRoseSpawnHeart:
 	addq.b	#8,obj.var_3b(a0)
-	bcc.s	locret_20E33E
+	bcc.s	.End
 	jsr	SpawnObject
-	bne.s	locret_20E33E
+	bne.s	.End
 	move.b	#$33,obj.id(a1)
 	moveq	#$C,d1
 	btst	#0,obj.flags(a0)
-	beq.s	loc_20E328
+	beq.s	.SetXOffset
 	move.w	#-$E,d1
 
-loc_20E328:
+.SetXOffset:
 	move.w	obj.x(a0),d0
 	add.w	d1,d0
 	move.w	d0,obj.x(a1)
@@ -507,7 +522,7 @@ loc_20E328:
 	subi.w	#$C,d0
 	move.w	d0,obj.y(a1)
 
-locret_20E33E:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -722,24 +737,29 @@ loc_20E56C:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
+; Amy heart child
+;   var_3A is the lifetime/ripple phase and var_3C marks the stopped phase.
+;   The child ripples horizontally while rising, changes frame at 20 ticks,
+;   stops at 110 ticks, and deletes itself at 120 ticks.
+; ------------------------------------------------------------------------------
 
 HeartObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E58C(pc,d0.w),d0
-	jsr	off_20E58C(pc,d0.w)
+	move.w	AmyHeartRoutineIndex(pc,d0.w),d0
+	jsr	AmyHeartRoutineIndex(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20E58C:
-	dc.w	HeartObject_0_Routine0-*
-	dc.w	HeartObject_0_Routine2-off_20E58C
+AmyHeartRoutineIndex:
+	dc.w	AmyHeartInit-*
+	dc.w	AmyHeartMain-AmyHeartRoutineIndex
 
 ; ------------------------------------------------------------------------------
 
-HeartObject_0_Routine0:
+AmyHeartInit:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.w	#$35E,obj.sprite_tile(a0)
@@ -748,9 +768,9 @@ HeartObject_0_Routine0:
 	move.w	#-$60,obj.y_speed(a0)
 	move.b	#$A,obj.sprite_frame(a0)
 
-HeartObject_0_Routine2:
+AmyHeartMain:
 	tst.b	obj.var_3c(a0)
-	bne.s	loc_20E5D8
+	bne.s	.StopRipple
 	moveq	#0,d0
 	move.b	obj.var_3a(a0),d0
 	add.b	d0,d0
@@ -759,30 +779,30 @@ HeartObject_0_Routine2:
 	asr.w	#2,d0
 	move.w	d0,obj.x_speed(a0)
 
-loc_20E5D8:
+.StopRipple:
 	bsr.w	IntroMoveXY
 	addq.b	#1,obj.var_3a(a0)
 	move.b	obj.var_3a(a0),d0
 	cmpi.b	#$14,d0
-	bne.s	loc_20E5EE
+	bne.s	.CheckStop
 	addq.b	#1,obj.sprite_frame(a0)
 
-loc_20E5EE:
+.CheckStop:
 	cmpi.b	#$6E,d0
-	bne.s	loc_20E604
+	bne.s	.CheckDelete
 	addq.b	#1,obj.sprite_frame(a0)
 	clr.w	obj.y_speed(a0)
 	clr.w	obj.x_speed(a0)
 	st	obj.var_3c(a0)
 
-loc_20E604:
+.CheckDelete:
 	cmpi.b	#$78,d0
-	bne.s	locret_20E610
+	bne.s	.End
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20E610:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
