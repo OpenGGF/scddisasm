@@ -182,8 +182,15 @@ ObjMovingSpring	EQU	MoveSpringObject
 	else
 ObjMovingSpring	EQU	MoveSpringObject
 	endif
+	if def(R3_SEMANTIC_RING)
+		if R3_SEMANTIC_RING=0
 ObjRing			EQU	RingObject
 ObjLostRing		EQU	LostRingObject
+		endif
+	else
+ObjRing			EQU	RingObject
+ObjLostRing		EQU	LostRingObject
+	endif
 	if def(R3_SEMANTIC_FLOAT_BLOCK)
 		if R3_SEMANTIC_FLOAT_BLOCK=0
 ObjFloatBlock		EQU	FloatBlockObject
@@ -373,6 +380,16 @@ SpringHSprites	EQU	MapSpr_Spring2
 Spring45Sprites	EQU	MapSpr_Spring3
 MoveSpringSprites	EQU	MapSpr_MovingSpring
 BtmSolidObject		EQU	BottomSolidObject
+		endif
+	endif
+
+	if def(R3_SEMANTIC_RING)
+		if R3_SEMANTIC_RING<>0
+RingObject		EQU	ObjRing
+LostRingObject	EQU	ObjLostRing
+RingSprites		EQU	MapSpr_Ring
+RingAnims		EQU	Ani_Ring
+FindNextObjSlot	EQU	SpawnObjectAfter
 		endif
 	endif
 
