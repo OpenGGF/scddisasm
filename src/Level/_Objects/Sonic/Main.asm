@@ -3045,7 +3045,7 @@ ObjSonic_GetMiniAnim:
 ; -------------------------------------------------------------------------
 
 Ani_Sonic:
-	include	"Level/_objects/Sonic/Data/Animations.asm"
+	include	"Level/_Objects/Sonic/Data/Animations.asm"
 	even
 
 ; -------------------------------------------------------------------------
