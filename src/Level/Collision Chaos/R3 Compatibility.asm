@@ -145,9 +145,17 @@ ObjTestBadnik		EQU	TestObject
 ObjTestBadnik		EQU	TestObject
 	endif
 ObjSpring		EQU	SpringObject
+	if def(R3_SEMANTIC_TUNNEL_DOOR)
+		if R3_SEMANTIC_TUNNEL_DOOR=0
 ObjTunnelDoorSplash	EQU	HDoorSplashObject
 ObjTunnelDoorSplashSet EQU	HDoorSplashSetObject
 ObjTunnelDoor		EQU	HDoorObject
+		endif
+	else
+ObjTunnelDoorSplash	EQU	HDoorSplashObject
+ObjTunnelDoorSplashSet EQU	HDoorSplashSetObject
+ObjTunnelDoor		EQU	HDoorObject
+	endif
 	if def(R3_SEMANTIC_TUNNEL_SPLASH)
 		if R3_SEMANTIC_TUNNEL_SPLASH=0
 ObjSpinSplash		EQU	TunnelSplashObject
@@ -274,6 +282,19 @@ ObjGetFloorDist	EQU	CheckBlockDown
 TunnelSplashObject	EQU	ObjSpinSplash
 MapSpr_TunnelWaterfall EQU	TunnelSplashSprites
 Ani_TunnelWaterfall	EQU	TunnelSplashAnims
+		endif
+	endif
+
+	if def(R3_SEMANTIC_TUNNEL_DOOR)
+		if R3_SEMANTIC_TUNNEL_DOOR<>0
+HDoorObject		EQU	ObjTunnelDoor
+HDoorSplashSetObject	EQU	ObjTunnelDoorSplashSet
+HDoorSplashObject	EQU	ObjTunnelDoorSplash
+MapSpr_TunnelDoor	EQU	HDoorSprites
+Ani_TunnelDoor		EQU	HDoorAnims
+MapSpr_TunnelDoorSplash EQU	SplashSprites
+Ani_TunnelDoorSplash	EQU	SplashAnims
+SetObjectTileID	EQU	SetObjectSpriteTile
 		endif
 	endif
 

@@ -21,6 +21,7 @@ R3_SEMANTIC_TEST_BADNIK EQU	1
 R3_SEMANTIC_EXPLOSION	EQU	1
 R3_SEMANTIC_FLOWER	EQU	1
 R3_SEMANTIC_TUNNEL_SPLASH EQU	1
+R3_SEMANTIC_TUNNEL_DOOR EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -55,7 +56,7 @@ CC_VARIANT	EQU	0
 	include	"Level/_Objects/Explosion/Main.asm"
 	include	"Level/_Objects/Flower/Main.asm"
 	include	"Level/_Objects/Spin Tunnel/Main (Waterfall Splash).asm"
-	include	"objects/r1/h_door.asm"
+	include	"Level/_Objects/Spin Tunnel/Main (Door).asm"
 	include	"objects/powerup.asm"
 	include	"objects/roll_tunnel.asm"
 	include	"r3/player_block_check.asm"
