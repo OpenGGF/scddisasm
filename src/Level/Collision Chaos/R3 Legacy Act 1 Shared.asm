@@ -16,6 +16,7 @@ R3_SEMANTIC_OBJECT_FUNCS EQU	1
 R3_SEMANTIC_OBJECT_INDEX EQU	1
 R3_SEMANTIC_SUB_CPU	EQU	1
 R3_SEMANTIC_CHECKPOINT	EQU	1
+R3_SEMANTIC_RESUME_MUSIC EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -45,7 +46,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Sub CPU.asm"
 	include	"Level/Object Animate.asm"
 	include	"Level/_Objects/Checkpoint/Main.asm"
-	include	"common/drown_reset.asm"
+	include	"Level/Resume Music (Leftover).asm"
 	include	"objects/test.asm"
 	include	"objects/explosion.asm"
 	include	"objects/flower.asm"

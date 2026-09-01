@@ -214,6 +214,12 @@ CheckObjDespawn	EQU	CheckObjectDespawn
 		endif
 	endif
 
+	if def(R3_SEMANTIC_RESUME_MUSIC)
+		if R3_SEMANTIC_RESUME_MUSIC<>0
+PlayerResetDrown	EQU	ResumeMusicS1
+		endif
+	endif
+
 	if def(R3_SEMANTIC_DRAW)
 		if R3_SEMANTIC_DRAW<>0
 ; The recovered R31A collision object calls the shared block replacement
