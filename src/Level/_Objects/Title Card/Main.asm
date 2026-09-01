@@ -4,6 +4,22 @@
 ; Title card object
 ; -------------------------------------------------------------------------
 
+	if def(R3_SEMANTIC_TITLE_CARD)
+		if R3_SEMANTIC_TITLE_CARD<>0
+TitleCardFindObjSlot	EQU	SpawnObject
+TitleCardDrawObject	EQU	DrawObject
+TitleCardDeleteObject	EQU	DeleteObject
+		else
+TitleCardFindObjSlot	EQU	FindObjSlot
+TitleCardDrawObject	EQU	R43LegacyDrawObject
+TitleCardDeleteObject	EQU	R43LegacyDeleteObject
+		endif
+	else
+TitleCardFindObjSlot	EQU	FindObjSlot
+TitleCardDrawObject	EQU	R43LegacyDrawObject
+TitleCardDeleteObject	EQU	R43LegacyDeleteObject
+	endif
+
 ObjTitleCard:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
@@ -35,7 +51,7 @@ ObjTitleCard_Init:
 	lea	ObjTitleCard_Data,a2
 
 .Loop:
-	jsr	FindObjSlot
+	jsr	TitleCardFindObjSlot
 	move.b	#$3C,oID(a1)
 	move.b	#4,oRoutine(a1)
 	move.w	#$8360,oTile(a1)
@@ -71,13 +87,13 @@ ObjTitleCard_SlideInVert:
 
 .DoYSlide:
 	add.w	d0,oYScr(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 
 ; -------------------------------------------------------------------------
 
 .DidSlide:
 	addq.b	#4,oRoutine(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 ; End of function ObjTitleCard_SlideInVert
 
 ; -------------------------------------------------------------------------
@@ -92,13 +108,13 @@ ObjTitleCard_SlideInHoriz:
 
 .DoXSlide:
 	add.w	d0,oX(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 
 ; -------------------------------------------------------------------------
 
 .DidSlide:
 	addq.b	#4,oRoutine(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 ; End of function ObjTitleCard_SlideInHoriz
 
 ; -------------------------------------------------------------------------
@@ -107,7 +123,7 @@ ObjTitleCard_SlideOutVert:
 	tst.b	oAnimTime(a0)
 	beq.s	.SlideOut
 	subq.b	#1,oAnimTime(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 
 ; -------------------------------------------------------------------------
 
@@ -121,7 +137,7 @@ ObjTitleCard_SlideOutVert:
 
 .DoYSlide:
 	add.w	d0,oYScr(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 
 ; -------------------------------------------------------------------------
 
@@ -138,7 +154,7 @@ ObjTitleCard_SlideOutHoriz:
 	tst.b	oAnimTime(a0)
 	beq.s	.SlideOut
 	subq.b	#1,oAnimTime(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 
 ; -------------------------------------------------------------------------
 
@@ -152,12 +168,12 @@ ObjTitleCard_SlideOutHoriz:
 
 .DoXSlide:
 	add.w	d0,oX(a0)
-	jmp	R43LegacyDrawObject
+	jmp	TitleCardDrawObject
 
 ; -------------------------------------------------------------------------
 
 .DidSlide:
-	jmp	R43LegacyDeleteObject
+	jmp	TitleCardDeleteObject
 ; End of function ObjTitleCard_SlideOutHoriz
 
 ; -------------------------------------------------------------------------
@@ -167,7 +183,7 @@ ObjTitleCard_WaitPLC:
 	bne.s	.End
 	clr.b	scrollLock.w
 	clr.b	ctrlLocked.w
-	jmp	R43LegacyDeleteObject
+	jmp	TitleCardDeleteObject
 
 ; -------------------------------------------------------------------------
 

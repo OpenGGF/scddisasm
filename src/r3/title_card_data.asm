@@ -1,6 +1,8 @@
 ; ------------------------------------------------------------------------------
 
 word_20B014:
+	; Eight-byte records: initial Y, initial X, destination X, then
+	; mapping frame and slide-out delay as two packed bytes.
 	dc.w	$130, $228, $168, $15A
 	dc.w	$100, $238, $178, $25A
 	dc.w	$100, $240, $180, $25A

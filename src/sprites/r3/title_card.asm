@@ -3,6 +3,8 @@
 ; ------------------------------------------------------------------------------
 
 .Sprites:
+	; Each frame begins with a piece count followed by five-byte sprite pieces:
+	; Y offset, size, tile attributes, tile index, and X offset.
 	dc.w	.Sprite0-.Sprites
 	dc.w	.Sprite1-.Sprites
 	dc.w	.Sprite2-.Sprites

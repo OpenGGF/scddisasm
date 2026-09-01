@@ -415,7 +415,13 @@ ObjGameOver		EQU	GameOverObject
 	else
 ObjGameOver		EQU	GameOverObject
 	endif
+	if def(R3_SEMANTIC_TITLE_CARD)
+		if R3_SEMANTIC_TITLE_CARD=0
 ObjTitleCard		EQU	TitleCardObject
+		endif
+	else
+ObjTitleCard		EQU	TitleCardObject
+	endif
 NullObject		EQU	ObjNull
 	endif
 	endif
@@ -423,6 +429,14 @@ NullObject		EQU	ObjNull
 	if def(R3_SEMANTIC_GAME_OVER)
 		if R3_SEMANTIC_GAME_OVER<>0
 GameOverObject	EQU	ObjGameOver
+		endif
+	endif
+
+	if def(R3_SEMANTIC_TITLE_CARD)
+		if R3_SEMANTIC_TITLE_CARD<>0
+TitleCardObject	EQU	ObjTitleCard
+MapSpr_TitleCard	EQU	TitleCardSprites
+ObjTitleCard_Data	EQU	word_20B014
 		endif
 	endif
 
