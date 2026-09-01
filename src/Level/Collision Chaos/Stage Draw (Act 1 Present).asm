@@ -208,6 +208,17 @@ nullsub_35:
 	rts
 
 ; -------------------------------------------------------------------------
+
+	if def(R3_SEMANTIC_DRAW)
+		if R3_SEMANTIC_DRAW<>0
+; The recovered R31A module placed the shared block engine between its live
+; drawing and initialization routines. Preserve that observable layout while
+; keeping the common implementation in its canonical source file.
+	include	"Level/Block Draw.asm"
+		endif
+	endif
+
+; -------------------------------------------------------------------------
 ; Initialize the foreground and background planes from Collision Chaos data.
 ; The block and VDP helper routines are the current shared implementations.
 ; -------------------------------------------------------------------------

@@ -53,7 +53,13 @@ LevelSizeLoad		EQU	InitScroll
 LevelScroll		EQU	UpdateScroll
 	endif
 LoadLevelData		EQU	LoadStageData
+	if def(R3_SEMANTIC_DRAW)
+		if R3_SEMANTIC_DRAW=0
 InitLevelDraw		EQU	InitStageDraw
+		endif
+	else
+InitLevelDraw		EQU	InitStageDraw
+	endif
 UpdateAnimTiles	EQU	AnimateStageGfx
 SubCPUCmd		EQU	SubCpuCommand
 SpawnObjects		EQU	SpawnStageObjects
@@ -61,9 +67,16 @@ RunObjects		EQU	UpdateObjects
 UpdateSectionArt	EQU	UpdateSectionGfx
 LevelCollision		EQU	StageCollision
 Art_LifeIcon		EQU	LivesIconsGfx
+	if def(R3_SEMANTIC_DRAW)
+		if R3_SEMANTIC_DRAW=0
 DrawLevelBG		EQU	DrawStageBg
-LoadSonicDynPLC	EQU	LoadPlayerGfx
 DrawLevel		EQU	DrawStage
+		endif
+	else
+DrawLevelBG		EQU	DrawStageBg
+DrawLevel		EQU	DrawStage
+	endif
+LoadSonicDynPLC	EQU	LoadPlayerGfx
 UpdateHUD		EQU	UpdateHudNumbers
 		endif
 	endif
@@ -74,6 +87,14 @@ InitScroll		EQU	LevelSizeLoad
 UpdateScroll		EQU	LevelScroll
 LoadCheckpointData	EQU	LoadCheckpoint
 RunLevelEvents		EQU	StageEvents
+		endif
+	endif
+
+	if def(R3_SEMANTIC_DRAW)
+		if R3_SEMANTIC_DRAW<>0
+; The recovered R31A collision object calls the shared block replacement
+; routine by its historical public name.
+PlaceBlock		EQU	PlaceBlockAtPos
 		endif
 	endif
 
