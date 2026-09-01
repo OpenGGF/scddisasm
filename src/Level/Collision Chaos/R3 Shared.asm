@@ -10,10 +10,11 @@ R6_LEGACY_PLAYER	EQU	1
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
 
 	if R3_VARIANT=1
-		include	"r3/palette_cycle_c.asm"
+CC_VARIANT	EQU	2
 	else
-		include	"r3/palette_cycle_d.asm"
+CC_VARIANT	EQU	3
 	endif
+	include	"Level/Collision Chaos/Palette Cycle (Present).asm"
 
 	include	"Level/Palette Fade.asm"
 	include	"Level/Palette Load (Fade).asm"
@@ -21,13 +22,7 @@ R6_LEGACY_PLAYER	EQU	1
 	include	"Level/Palette Load (Water).asm"
 	include	"Level/Palette Load (Water Fade).asm"
 
-	if R3_VARIANT=1
-CC_VARIANT	EQU	2
-		include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
-	else
-CC_VARIANT	EQU	3
-		include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
-	endif
+	include	"Level/Collision Chaos/Palette Data (Act 1 Present).asm"
 
 	include	"common/s1_object_despawn.asm"
 	include	"common/vsync.asm"

@@ -12,21 +12,22 @@ PaletteCycle:
 
 	else
 
+CyclePalette:
 PaletteCycle:
 	lea	palCycleTimers.w,a5
 	lea	palCycleSteps.w,a4
 	lea	CCPalCycleScript1,a1
 	lea	CCPalCycleColors1,a2
-	bsr.w	CycleColor
+	bsr.s	CycleColor
 	lea	CCPalCycleScript2,a1
 	lea	CCPalCycleColors2,a2
-	bsr.w	CycleColor
 	if CC_VARIANT=3
+	bsr.s	CycleColor
 	lea	CCPalCycleScript3,a1
 	lea	CCPalCycleColors3,a2
-	bsr.w	CycleColor
 	endif
-	rts
+	; The final configured cycle falls through to CycleColor, matching the
+	; original routine without a redundant call and return pair.
 
 	include	"Level/Palette Cycle Script.asm"
 

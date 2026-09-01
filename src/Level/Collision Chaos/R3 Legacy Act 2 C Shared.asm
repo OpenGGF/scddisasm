@@ -12,7 +12,7 @@ R6_LEGACY_PLAYER	EQU	1
 amy_captured	EQU	amyCaptured
 CC_VARIANT	EQU	2
 
-	include	"r3/palette_cycle_c.asm"
+	include	"Level/Collision Chaos/Palette Cycle (Present).asm"
 	include	"Level/Palette Fade.asm"
 	include	"Level/Palette Load (Fade).asm"
 	include	"Level/Palette Load.asm"
