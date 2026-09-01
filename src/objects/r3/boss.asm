@@ -5,6 +5,9 @@ entry_barrier.flags		equ obj.var_2c	; Bit 1: boss triggered; bit 2: struck
 entry_barrier.target_y		equ obj.var_2e	; Raised Y position
 entry_barrier.y_speed		equ obj.var_30	; 16.16 vertical speed
 entry_barrier.link		equ obj.var_34	; Linked barrier object slot
+encounter.flags			equ obj.var_2c	; Shared arena actor state flags
+encounter.link			equ obj.var_34	; Linked arena actor object slot
+encounter.sequence_timer	equ obj.var_3e	; Explosion sequence frame counter
 boss.flash_timer		equ obj.var_2b	; Palette-flash countdown and phase bit
 boss.flags			equ obj.var_2c	; Movement/draw and encounter flags
 boss.target_y			equ obj.var_2e	; Target or last tracked Y position
@@ -14,6 +17,7 @@ boss.upper_child_link		equ obj.var_36	; Linked upper machine child slot
 boss.attack_count		equ obj.var_3a	; Number of arena attacks started
 boss.phase			equ obj.var_3b	; Encounter substate and camera-lock phase
 boss.timer			equ obj.var_3e	; Hit/recovery and exit timer
+boss.rise_counter		equ obj.var_2a	; Defeat-rise sprite delay
 
 ; The two barriers link to each other through 16-bit object-slot addresses.
 ; A collision retracts a barrier; crossing the arena threshold starts the boss.
@@ -97,9 +101,9 @@ EntryBarrier_Retract:
 
 EntryBarrier_BossActive:
 	bsr.w	EntryBarrier_CheckBossTrigger
-	cmpi.w	#$78,obj.var_3e(a0)
+	cmpi.w	#$78,encounter.sequence_timer(a0)
 	bge.s	.CheckRemoval
-	bsr.w	sub_20E0CE
+	bsr.w	BossArena_UpdateDefeatExplosions
 	jsr	DrawObject
 
 .CheckRemoval:
@@ -454,106 +458,106 @@ BossMachine_Defeated:
 
 ; ------------------------------------------------------------------------------
 
-loc_20DFD2:
+BossMachine_TrySpawnFinalBarrier:
 	cmpi.b	#3,boss.attack_count(a0)
-	bne.s	locret_20DFEA
+	bne.s	.End
 	bsr.w	BossMachine_CanSpawnExitBarrier
-	bne.s	locret_20DFEA
+	bne.s	.End
 	move.b	#3,boss_flags
 	bsr.w	BossMachine_SpawnExitBarrier
 
-locret_20DFEA:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 BossMachine_HitReaction:
 	moveq	#0,d0
-	move.b	obj.var_3b(a0),d0
+	move.b	boss.phase(a0),d0
 	subq.w	#1,d0
 	add.b	d0,d0
-	move.w	off_20E000(pc,d0.w),d0
-	jsr	off_20E000(pc,d0.w)
-	bra.s	loc_20E006
+	move.w	BossMachine_HitReactionPhases(pc,d0.w),d0
+	jsr	BossMachine_HitReactionPhases(pc,d0.w)
+	bra.s	BossMachine_MoveToTarget
 
 ; ------------------------------------------------------------------------------
 
-off_20E000:
-	dc.w	BossMachineObject_2_Routine0-*
-	dc.w	BossMachineObject_2_Routine2-off_20E000
-	dc.w	BossMachineObject_2_Routine4-off_20E000
+BossMachine_HitReactionPhases:
+	dc.w	BossMachine_SpawnLowerHitExplosions-*
+	dc.w	BossMachine_SpawnUpperHitExplosions-BossMachine_HitReactionPhases
+	dc.w	BossMachine_SpawnDefeatHitExplosions-BossMachine_HitReactionPhases
 
 ; ------------------------------------------------------------------------------
 
-loc_20E006:
-	bset	#2,obj.var_2c(a0)
-	bsr.s	loc_20DFD2
-	move.l	obj.var_30(a0),d0
+BossMachine_MoveToTarget:
+	bset	#2,boss.flags(a0)
+	bsr.s	BossMachine_TrySpawnFinalBarrier
+	move.l	boss.y_speed(a0),d0
 	add.l	d0,obj.y(a0)
-	move.w	obj.var_2e(a0),d0
+	move.w	boss.target_y(a0),d0
 	cmp.w	obj.y(a0),d0
-	blt.s	locret_20E06A
-	bclr	#2,obj.var_2c(a0)
+	blt.s	.End
+	bclr	#2,boss.flags(a0)
 	move.w	d0,obj.y(a0)
 	cmpi.b	#1,obj.collide_status(a0)
-	beq.s	loc_20E050
-	clr.b	obj.var_2a(a0)
+	beq.s	.BeginDefeatRise
+	clr.b	boss.rise_counter(a0)
 	move.b	#$3F,obj.collide_type(a0)
 	move.b	#4,obj.routine(a0)
-	move.w	obj.y(a0),obj.var_2e(a0)
-	addi.w	#-$48,obj.var_2e(a0)
-	bra.s	locret_20E06A
+	move.w	obj.y(a0),boss.target_y(a0)
+	addi.w	#-$48,boss.target_y(a0)
+	bra.s	.End
 
 ; ------------------------------------------------------------------------------
 
-loc_20E050:
+.BeginDefeatRise:
 	jsr	LoadCapsulePalette(pc)
-	clr.b	obj.var_2a(a0)
+	clr.b	boss.rise_counter(a0)
 	move.b	#8,obj.routine(a0)
-	move.w	obj.y(a0),obj.var_2e(a0)
-	addi.w	#-$10,obj.var_2e(a0)
+	move.w	obj.y(a0),boss.target_y(a0)
+	addi.w	#-$10,boss.target_y(a0)
 
-locret_20E06A:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 BossMachine_DefeatedRise:
-	bsr.w	sub_20E0CE
-	bsr.w	loc_20DFD2
-	addq.b	#1,obj.var_2a(a0)
-	cmpi.b	#4,obj.var_2a(a0)
-	bne.s	loc_20E086
+	bsr.w	BossArena_UpdateDefeatExplosions
+	bsr.w	BossMachine_TrySpawnFinalBarrier
+	addq.b	#1,boss.rise_counter(a0)
+	cmpi.b	#4,boss.rise_counter(a0)
+	bne.s	.Move
 	move.b	#6,obj.sprite_frame(a0)
 
-loc_20E086:
-	move.l	obj.var_30(a0),d0
+.Move:
+	move.l	boss.y_speed(a0),d0
 	add.l	d0,obj.y(a0)
-	move.w	obj.var_2e(a0),d0
+	move.w	boss.target_y(a0),d0
 	cmp.w	obj.y(a0),d0
-	blt.s	locret_20E09E
+	blt.s	.End
 	move.b	#$A,obj.routine(a0)
 
-locret_20E09E:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 BossMachine_WaitForExit:
-	bsr.w	sub_20E0CE
-	bsr.w	loc_20DFD2
-	btst	#0,obj.var_2c(a0)
-	beq.s	locret_20E0B8
-	cmpi.b	#4,obj.var_3a(a0)
-	beq.s	loc_20E0BA
+	bsr.w	BossArena_UpdateDefeatExplosions
+	bsr.w	BossMachine_TrySpawnFinalBarrier
+	btst	#0,boss.flags(a0)
+	beq.s	.End
+	cmpi.b	#4,boss.attack_count(a0)
+	beq.s	BossMachine_ExitEncounter
 
-locret_20E0B8:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E0BA:
-	movea.w	obj.var_34(a0),a3
+BossMachine_ExitEncounter:
+	movea.w	boss.primary_link(a0),a3
 	jsr	DeleteObject
 	movea.l	a3,a1
 	addq.l	#4,sp
@@ -561,27 +565,30 @@ loc_20E0BA:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E0CE:
-	addq.w	#1,obj.var_3e(a0)
-	cmpi.w	#$78,obj.var_3e(a0)
-	beq.s	loc_20E0E4
-	bcc.s	locret_20E0F4
-	lea	word_20E0F6(pc),a2
-	bra.w	loc_20E190
+BossArena_UpdateDefeatExplosions:
+	addq.w	#1,encounter.sequence_timer(a0)
+	cmpi.w	#$78,encounter.sequence_timer(a0)
+	beq.s	.EnableExit
+	bcc.s	.End
+	lea	BossArena_DefeatExplosionPattern(pc),a2
+	bra.w	BossArena_SpawnTimedExplosion
 
 ; ------------------------------------------------------------------------------
 
-loc_20E0E4:
-	bset	#0,obj.var_2c(a0)
-	movea.w	obj.var_34(a0),a1
-	bset	#0,obj.var_2c(a1)
+.EnableExit:
+	bset	#0,encounter.flags(a0)
+	movea.w	encounter.link(a0),a1
+	bset	#0,encounter.flags(a1)
 
-locret_20E0F4:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20E0F6:
+; Both barriers and the boss use this sequence. Each pattern begins with an
+; interval and position count, followed by signed X/Y offsets selected
+; cyclically from the arena actor's sequence timer.
+BossArena_DefeatExplosionPattern:
 	dc.w	4, $A
 	dc.w	-$30, -$10
 	dc.w	$30, $10
@@ -596,21 +603,21 @@ word_20E0F6:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_2_Routine0:
-	addq.w	#1,obj.var_3e(a0)
-	cmpi.w	#4,obj.var_3e(a0)
-	bcc.s	locret_20E136
-	lea	word_20E138(pc),a2
-	bra.w	loc_20E190
+BossMachine_SpawnLowerHitExplosions:
+	addq.w	#1,boss.timer(a0)
+	cmpi.w	#4,boss.timer(a0)
+	bcc.s	.End
+	lea	BossMachine_LowerHitExplosionPattern(pc),a2
+	bra.w	BossArena_SpawnTimedExplosion
 
 ; ------------------------------------------------------------------------------
 
-locret_20E136:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20E138:
+BossMachine_LowerHitExplosionPattern:
 	dc.w	1, 3
 	dc.w	0, 0
 	dc.w	-$20, 0
@@ -618,21 +625,21 @@ word_20E138:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_2_Routine2:
-	addq.w	#1,obj.var_3e(a0)
-	cmpi.w	#4,obj.var_3e(a0)
-	bcc.s	locret_20E15C
-	lea	word_20E15E(pc),a2
-	bra.w	loc_20E190
+BossMachine_SpawnUpperHitExplosions:
+	addq.w	#1,boss.timer(a0)
+	cmpi.w	#4,boss.timer(a0)
+	bcc.s	.End
+	lea	BossMachine_UpperHitExplosionPattern(pc),a2
+	bra.w	BossArena_SpawnTimedExplosion
 
 ; ------------------------------------------------------------------------------
 
-locret_20E15C:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20E15E:
+BossMachine_UpperHitExplosionPattern:
 	dc.w	1, 3
 	dc.w	0, -$38
 	dc.w	-$20, -$38
@@ -640,37 +647,37 @@ word_20E15E:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_2_Routine4:
-	addq.w	#1,obj.var_3e(a0)
-	cmpi.w	#3,obj.var_3e(a0)
-	bcc.s	locret_20E182
-	lea	word_20E184(pc),a2
-	bra.w	loc_20E190
+BossMachine_SpawnDefeatHitExplosions:
+	addq.w	#1,boss.timer(a0)
+	cmpi.w	#3,boss.timer(a0)
+	bcc.s	.End
+	lea	BossMachine_DefeatHitExplosionPattern(pc),a2
+	bra.w	BossArena_SpawnTimedExplosion
 
 ; ------------------------------------------------------------------------------
 
-locret_20E182:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20E184:
+BossMachine_DefeatHitExplosionPattern:
 	dc.w	1, 2
 	dc.w	-$10, -$38
 	dc.w	$10, -$38
 
 ; ------------------------------------------------------------------------------
 
-loc_20E190:
+BossArena_SpawnTimedExplosion:
 	moveq	#0,d2
 	moveq	#0,d0
-	move.w	obj.var_3e(a0),d2
+	move.w	encounter.sequence_timer(a0),d2
 	move.w	(a2)+,d0
 	divu.w	d0,d2
 	move.l	d2,d0
 	swap	d0
 	tst.w	d0
-	bne.s	locret_20E1EC
+	bne.s	.End
 	andi.l	#$FFFF,d2
 	moveq	#0,d0
 	move.w	(a2)+,d0
@@ -679,7 +686,7 @@ loc_20E190:
 	add.w	d2,d2
 	add.w	d2,d2
 	bsr.w	SpawnObject
-	bne.s	locret_20E1EC
+	bne.s	.End
 	adda.w	d2,a2
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -692,7 +699,7 @@ loc_20E190:
 	move.w	#$9E,d0
 	jsr	PlayFmSound
 
-locret_20E1EC:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
