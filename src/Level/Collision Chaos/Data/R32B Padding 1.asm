@@ -43,7 +43,8 @@
 ; +$0A22-+$0A47 retained nineteen-entry stage/PLC offset table
 ; +$0A48-+$0A55 retained Stage PLC
 ; +$0A56-+$0AB1 retained Standard PLC
-; +$0AB2 onward  retained stage/PLC bodies still to be structured
+; +$0AB2-+$0AC5 retained Section 0 PLC
+; +$0AC6 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -973,8 +974,18 @@ R32BRetainedAct1PresentStandardPLC:
 	dc.l	$00232E48		; rings
 	dc.w	$F5C0
 
-	dc.b	0, 2, 0, $23, $57, $F0, $63, $C0, 0, $23
-	dc.b	$4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0, 0, $B, 0
+
+; Three-entry Section 0 PLC; pointers retain their historical absolute values.
+R32BRetainedAct1PresentSection0PLC:
+	dc.w	2			; entry count minus one
+	dc.l	$002357F0		; breakable wall
+	dc.w	$63C0
+	dc.l	$00234EAC		; block
+	dc.w	$67C0
+	dc.l	$00234C14		; metal platform
+	dc.w	$69C0
+
+	dc.b	0, $B, 0
 	dc.b	$23, $4D, $3A, $63, $C0, 0, $23, $4E, $AC, $67, $C0, 0, $23
 	dc.b	$4C, $14, $69, $C0, 0, $23, $67, 2, $6B, $C0, 0, $23, $50
 	dc.b	$4A, $6E, $20, 0, $23, $50, $C6, $6F, $20, 0, $23, $4F, $90
