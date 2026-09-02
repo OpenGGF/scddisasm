@@ -3,7 +3,9 @@
 ; Recovered from tracked historical assembly; no proprietary binary is included.
 ; ------------------------------------------------------------------------------
 ; +$0000-+$1205 retained tail of the shared R12C Nemesis graphics stream
-; +$1206 onward retained data to be structured
+; +$1206-+$15AB retained data to be structured
+; +$15AC-+$16AB retained wobble table
+; +$16AC onward retained data to be structured
 ;
 ; This slice begins at offset $1990 of the complete R12C graphics stream.
 R32BRetainedR12CGfxNemesisTail:
@@ -291,34 +293,12 @@ R32BRetainedR12CGfxNemesisTail:
 	dc.b	5, 0, $3E
 	dcb.b	2,0
 	dc.b	5, 0, $42, $F0, 0, 5, $18, $3A
-	dcb.b	8,0
-	dcb.b	5,1
-	dcb.b	7,2
-	dcb.b	$1D,3
-	dcb.b	7,2
-	dcb.b	5,1
-	dcb.b	6,0
-	dcb.b	5,$FF
-	dcb.b	5,$FE
-	dcb.b	7,$FD
-	dcb.b	$1D,$FC
-	dcb.b	7,$FD
-	dcb.b	5,$FE
-	dcb.b	5,$FF
-	dcb.b	6,0
-	dcb.b	5,1
-	dcb.b	7,2
-	dcb.b	$1D,3
-	dcb.b	7,2
-	dcb.b	5,1
-	dcb.b	6,0
-	dcb.b	5,$FF
-	dcb.b	5,$FE
-	dcb.b	7,$FD
-	dcb.b	$1D,$FC
-	dcb.b	7,$FD
-	dcb.b	5,$FE
-	dcb.b	5,$FF
+	dc.b	0, 0
+
+; Complete retained 256-byte wobble table copy.
+R32BRetainedWobbleTable:
+	incbin	"data/wobble.bin"
+
 	dc.b	0, 2, 3, 2, 3, $FF, 0, 8, 0, $1E, 0, $2A, 0, $36, 4, $E8
 	dc.b	3
 	dcb.b	2,0
