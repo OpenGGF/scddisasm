@@ -4,15 +4,33 @@
 ; Robot generator object
 ; -------------------------------------------------------------------------
 
+oRobotGeneratorTimer	EQU	oVar2A
+oRobotGeneratorSchedule	EQU	oVar2C
+oRobotGeneratorBaseY	EQU	oVar30
+oRobotGeneratorFloatStep	EQU	oVar32
+
+	if def(CC_LEGACY_ROBOT_GENERATOR_ABI)
+		if CC_LEGACY_ROBOT_GENERATOR_ABI<>0
+RobotGeneratorSpawn	EQU	SpawnObject
+RobotGeneratorDespawn	EQU	CheckObjectDespawn
+		else
+RobotGeneratorSpawn	EQU	FindObjSlot
+RobotGeneratorDespawn	EQU	CheckObjDespawn
+		endif
+	else
+RobotGeneratorSpawn	EQU	FindObjSlot
+RobotGeneratorDespawn	EQU	CheckObjDespawn
+	endif
+
 ObjRobotGenerator:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjRobotGenerator_Index(pc,d0.w),d0
-	jsr	ObjRobotGenerator_Index(pc,d0.w)
+	move.w	ObjRobotGenerator_Routines(pc,d0.w),d0
+	jsr	ObjRobotGenerator_Routines(pc,d0.w)
 	jsr	R43LegacyDrawObject
 	cmpi.b	#2,oRoutine(a0)
 	bgt.s	.End
-	jmp	CheckObjDespawn
+	jmp	RobotGeneratorDespawn
 
 ; -------------------------------------------------------------------------
 
@@ -21,11 +39,11 @@ ObjRobotGenerator:
 ; End of function ObjRobotGenerator
 
 ; -------------------------------------------------------------------------
-ObjRobotGenerator_Index:
-	dc.w	ObjRobotGenerator_Init-ObjRobotGenerator_Index
-	dc.w	ObjRobotGenerator_Main-ObjRobotGenerator_Index
-	dc.w	ObjRobotGenerator_Exploding-ObjRobotGenerator_Index
-	dc.w	ObjRobotGenerator_BreakDown-ObjRobotGenerator_Index
+ObjRobotGenerator_Routines:
+	dc.w	ObjRobotGenerator_Init-ObjRobotGenerator_Routines
+	dc.w	ObjRobotGenerator_ActivePast-ObjRobotGenerator_Routines
+	dc.w	ObjRobotGenerator_Exploding-ObjRobotGenerator_Routines
+	dc.w	ObjRobotGenerator_RebuildDelay-ObjRobotGenerator_Routines
 ; -------------------------------------------------------------------------
 
 ObjRobotGenerator_Init:
@@ -43,10 +61,10 @@ ObjRobotGenerator_Init:
 	add.w	d0,d0
 	move.w	(a1,d0.w),oTile(a0)
 	move.l	#MapSpr_RobotGenerator,oMap(a0)
-	move.l	#ObjRobotGenerator_ExplosionLocs,oVar2C(a0)
-	move.w	oY(a0),oVar30(a0)
-	move.w	#4,oVar2A(a0)
-	move.w	#1,oVar32(a0)
+	move.l	#ObjRobotGenerator_ExplosionLocs,oRobotGeneratorSchedule(a0)
+	move.w	oY(a0),oRobotGeneratorBaseY(a0)
+	move.w	#4,oRobotGeneratorTimer(a0)
+	move.w	#1,oRobotGeneratorFloatStep(a0)
 	moveq	#0,d0
 	tst.b	goodFuture
 	bne.s	.GoodFuture
@@ -60,16 +78,16 @@ ObjRobotGenerator_Init:
 .NotPast:
 	move.b	d0,oMapFrame(a0)
 	tst.b	goodFuture
-	bne.s	ObjRobotGenerator_Main
+	bne.s	ObjRobotGenerator_ActivePast
 	tst.b	timeZone
-	bne.s	ObjRobotGenerator_Main
+	bne.s	ObjRobotGenerator_ActivePast
 	move.b	#$FA,oColType(a0)
 	subi.w	#$10,oY(a0)
 ; End of function ObjRobotGenerator_Init
 
 ; -------------------------------------------------------------------------
 
-ObjRobotGenerator_Main:
+ObjRobotGenerator_ActivePast:
 	tst.b	goodFuture
 	bne.s	.End2
 	tst.b	timeZone
@@ -78,7 +96,7 @@ ObjRobotGenerator_Main:
 	tst.b	oColStatus(a0)
 	beq.s	.Solid
 	clr.w	oColType(a0)
-	clr.w	oVar2A(a0)
+	clr.w	oRobotGeneratorTimer(a0)
 	move.b	#7,oMapFrame(a0)
 	addq.b	#2,oRoutine(a0)
 	move.b	#1,goodFuture
@@ -104,23 +122,23 @@ ObjRobotGenerator_Main:
 
 .End2:
 	rts
-; End of function ObjRobotGenerator_Main
+; End of function ObjRobotGenerator_ActivePast
 
 ; -------------------------------------------------------------------------
 
 ObjRobotGenerator_Exploding:
-	movea.l	oVar2C(a0),a6
+	movea.l	oRobotGeneratorSchedule(a0),a6
 	move.b	(a6)+,d0
 	bmi.s	.Finished
-	addq.b	#1,oVar2A(a0)
-	cmp.b	oVar2A(a0),d0
+	addq.b	#1,oRobotGeneratorTimer(a0)
+	cmp.b	oRobotGeneratorTimer(a0),d0
 	bne.s	.End
 	move.b	(a6)+,d5
 	move.b	(a6)+,d6
-	move.l	a6,oVar2C(a0)
+	move.l	a6,oRobotGeneratorSchedule(a0)
 	ext.w	d5
 	ext.w	d6
-	jsr	FindObjSlot
+	jsr	RobotGeneratorSpawn
 	bne.s	.End
 	move.b	#$18,oID(a1)
 	move.b	#1,oRoutine2(a1)
@@ -138,17 +156,17 @@ ObjRobotGenerator_Exploding:
 
 .Finished:
 	addq.b	#2,oRoutine(a0)
-	move.b	#8,oVar2A(a0)
+	move.b	#8,oRobotGeneratorTimer(a0)
 	rts
 ; End of function ObjRobotGenerator_Exploding
 
 ; -------------------------------------------------------------------------
 
-ObjRobotGenerator_BreakDown:
-	subq.b	#1,oVar2A(a0)
+ObjRobotGenerator_RebuildDelay:
+	subq.b	#1,oRobotGeneratorTimer(a0)
 	bne.s	.End
 	subq.b	#6,oRoutine(a0)
-	move.w	oVar30(a0),oY(a0)
+	move.w	oRobotGeneratorBaseY(a0),oY(a0)
 	move.w	#FM_D9,d0
 	jmp	R43LegacyPlayFMSound
 
@@ -156,23 +174,23 @@ ObjRobotGenerator_BreakDown:
 
 .End:
 	rts
-; End of function ObjRobotGenerator_BreakDown
+; End of function ObjRobotGenerator_RebuildDelay
 
 ; -------------------------------------------------------------------------
 
 ObjRobotGenerator_Float:
-	addq.w	#1,oVar2A(a0)
-	move.w	oVar2A(a0),d0
+	addq.w	#1,oRobotGeneratorTimer(a0)
+	move.w	oRobotGeneratorTimer(a0),d0
 	andi.w	#7,d0
 	bne.s	.Stay
-	move.w	oVar32(a0),d0
+	move.w	oRobotGeneratorFloatStep(a0),d0
 	add.w	d0,oY(a0)
 
 .Stay:
-	move.w	oVar2A(a0),d0
+	move.w	oRobotGeneratorTimer(a0),d0
 	andi.w	#$1F,d0
 	bne.s	.End
-	neg.w	oVar32(a0)
+	neg.w	oRobotGeneratorFloatStep(a0)
 
 .End:
 	rts
@@ -186,6 +204,7 @@ MapSpr_RobotGenerator:
 	include	"Level/_Objects/Robot Generator/Data/Mappings.asm"
 	even
 ObjRobotGenerator_ExplosionLocs:
+	; Three-byte records: trigger tick, signed X offset, signed Y offset.
 	dc.b	1, 0, 0
 	dc.b	2, $D8, $EC
 	dc.b	3, $1C, $A
@@ -208,5 +227,14 @@ ObjRobotGenerator_ExplosionLocs:
 	dc.b	$23, $D, $F6
 	dc.b	$28, $F6, $A
 	dc.b	$FF
+
+	if def(CC_LEGACY_ROBOT_GENERATOR_ABI)
+		if CC_LEGACY_ROBOT_GENERATOR_ABI<>0
+RobotGeneratorObject	EQU	ObjRobotGenerator
+RobotTransportAnims	EQU	Ani_RobotGenerator
+RobotTransportSprites	EQU	MapSpr_RobotGenerator
+RobotGeneratorExplosionSchedule EQU	ObjRobotGenerator_ExplosionLocs
+		endif
+	endif
 
 ; -------------------------------------------------------------------------

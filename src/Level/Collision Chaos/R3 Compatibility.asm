@@ -404,7 +404,13 @@ ObjRollTunnel		EQU	RollTunnelObject
 	else
 ObjRollTunnel		EQU	RollTunnelObject
 	endif
+	if def(R3_SEMANTIC_ROBOT_GENERATOR)
+		if R3_SEMANTIC_ROBOT_GENERATOR=0
 ObjRobotGenerator	EQU	RobotGeneratorObject
+		endif
+	else
+ObjRobotGenerator	EQU	RobotGeneratorObject
+	endif
 ObjProjector		EQU	ProjectorObject
 	if def(R3_SEMANTIC_ANIMAL)
 		if R3_SEMANTIC_ANIMAL=0
