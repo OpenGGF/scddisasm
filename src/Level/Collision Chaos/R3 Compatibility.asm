@@ -675,7 +675,13 @@ ProcessGfxQueueSlow	EQU	DecompPLCSlow
 LoadGfxList		EQU	LoadPLCImm
 DecompEnigma		EQU	EniDec
 DecompKosinski		EQU	KosDec
+	if def(R3_SEMANTIC_GFX_LISTS)
+		if R3_SEMANTIC_GFX_LISTS=0
 PLCLists		EQU	GfxLists
+		endif
+	else
+PLCLists		EQU	GfxLists
+	endif
 		endif
 	endif
 

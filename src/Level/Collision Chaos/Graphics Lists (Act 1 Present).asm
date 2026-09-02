@@ -4,6 +4,73 @@
 ; Collision Chaos Act 1 Present PLC lists
 ; -------------------------------------------------------------------------
 
+StageDataIndex:
+	if CC_VARIANT=2
+	stageData StageGfx, StageBlocks, StageChunks, 3, 2, $81, 7, 7
+	else
+	stageData StageGfx, StageBlocks, StageChunks, 3, 2, $81, 4, 4
+	endif
+
+	if def(CC_LEGACY_GFX_LISTS_ABI)
+		if CC_LEGACY_GFX_LISTS_ABI<>0
+Art_BigRing		EQU	BigRingGfx
+Art_Block		EQU	BlockGfx
+Art_Bumper		EQU	BumperGfx
+Art_Checkpoint		EQU	CheckpointGfx
+Art_DiagonalSpring	EQU	Spring45Gfx
+Art_Explosions		EQU	ExplosionGfx
+Art_FireShoot		EQU	FireShootGfx
+Art_Flipper		EQU	FlipperGfx
+Art_Flower		EQU	FlowerGfx
+Art_Ga			EQU	GaGfx
+Art_GoalPost		EQU	GoalGfx
+Art_HUD			EQU	HudGfx
+Art_KamaKama		EQU	KamaKamaGfx
+Art_MetalPlatform	EQU	MetalPlatformGfx
+Art_MonitorTimePosts	EQU	MonitorTimeGfx
+Art_OneWayBarrier	EQU	OneWayBarrierGfx
+Art_Points		EQU	PointsGfx
+Art_RetractBlock	EQU	RetractBlockGfx
+Art_Results		EQU	ResultsGfx
+Art_Rings		EQU	RingGfx
+Art_Signpost		EQU	SignpostGfx
+Art_SpikeBomb		EQU	SpikeBombGfx
+Art_SpikeChain		EQU	SpikeChainGfx
+Art_SpikesHV4		EQU	SpikesHV4Gfx
+Art_Springs		EQU	SpringGfx
+Art_Tentou		EQU	TentouGfx
+Art_TitleCard		EQU	TitleCardGfx
+Art_TitleCardText	EQU	TitleCardTextGfx
+		if CC_VARIANT=0
+Art_AmyRose		EQU	AmyRoseGfx
+Art_Animals		EQU	AnimalsGfx
+Art_BouncePlatformAB	EQU	BouncePlatformGfxAB
+Art_MetalSonic		EQU	MetalSonicGfx
+Art_PocketA		EQU	PocketGfxA
+Art_RobotTransportA	EQU	RobotTransportGfxA
+Art_SpikesHV2		EQU	SpikesHV2Gfx
+		elseif CC_VARIANT=1
+Art_Animals		EQU	AnimalsGfx
+Art_BouncePlatform	EQU	BouncePlatformGfxAB
+Art_Hologram		EQU	HologramGfx
+Art_HologramAnimals	EQU	HologramAnimalsGfx
+Art_Pocket		EQU	PocketGfxBC
+Art_RobotTransportB	EQU	RobotTransportGfxB
+Art_Teleporter		EQU	TeleporterGfx
+		elseif CC_VARIANT=2
+Art_Animals		EQU	AnimalsGfx
+Art_BouncePlatform	EQU	BouncePlatformGfxC
+Art_Pocket		EQU	PocketGfxBC
+Art_Teleporter		EQU	TeleporterGfx
+		else
+Art_Animals		EQU	AnimalsGfx
+Art_BouncePlatform	EQU	BouncePlatformGfxD
+Art_Pocket		EQU	PocketGfxD
+Art_Teleporter		EQU	TeleporterGfx
+		endif
+		endif
+	endif
+
 	if CC_VARIANT<>0
 	include	"Level/Collision Chaos/Graphics Lists (Act 1 Variant).asm"
 	else
@@ -227,4 +294,10 @@ PLC_Signpost:
 	dc.l	Art_BigRingFlash
 	dc.w	$7DE0
 
+	endif
+
+	if def(CC_LEGACY_GFX_LISTS_ABI)
+		if CC_LEGACY_GFX_LISTS_ABI<>0
+GfxLists	EQU	PLCLists
+		endif
 	endif

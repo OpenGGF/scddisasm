@@ -3,6 +3,72 @@
 ; Collision Chaos Act 2 time-variant PLC lists
 ; -------------------------------------------------------------------------
 
+StageDataIndex:
+	if CC2_VARIANT=0
+	stageData StageGfx, StageBlocks, StageChunks, 3, 2, $81, 5, 5
+	elseif CC2_VARIANT=2
+	stageData StageGfx, StageBlocks, StageChunks, 3, 2, $81, 7, 7
+	else
+	stageData StageGfx, StageBlocks, StageChunks, 3, 2, $81, 4, 4
+	endif
+
+	if def(CC_LEGACY_GFX_LISTS_ABI)
+		if CC_LEGACY_GFX_LISTS_ABI<>0
+Art_Animals		EQU	AnimalsGfx
+Art_BigRing		EQU	BigRingGfx
+Art_Block		EQU	BlockGfx
+Art_Bumper		EQU	BumperGfx
+Art_Checkpoint		EQU	CheckpointGfx
+Art_DiagonalSpring	EQU	Spring45Gfx
+Art_Explosions		EQU	ExplosionGfx
+Art_FireShoot		EQU	FireShootGfx
+Art_Flipper		EQU	FlipperGfx
+Art_Flower		EQU	FlowerGfx
+Art_Ga			EQU	GaGfx
+Art_GoalPost		EQU	GoalGfx
+Art_HUD			EQU	HudGfx
+Art_KamaKama		EQU	KamaKamaGfx
+Art_MetalPlatform	EQU	MetalPlatformGfx
+Art_MonitorTimePosts	EQU	MonitorTimeGfx
+Art_OneWayBarrier	EQU	OneWayBarrierGfx
+Art_Points		EQU	PointsGfx
+Art_RetractBlock	EQU	RetractBlockGfx
+Art_Results		EQU	ResultsGfx
+Art_Rings		EQU	RingGfx
+Art_RotatePlatform	EQU	RotatePlatformGfx
+Art_Signpost		EQU	SignpostGfx
+Art_SpikeBomb		EQU	SpikeBombGfx
+Art_SpikeChain		EQU	SpikeChainGfx
+Art_SpikesHV4		EQU	SpikesHV4Gfx
+Art_Springs		EQU	SpringGfx
+Art_Teleporter		EQU	TeleporterGfx
+Art_Tentou		EQU	TentouGfx
+Art_TitleCard		EQU	TitleCardGfx
+Art_TitleCardText	EQU	TitleCardTextGfx
+		if CC2_VARIANT=0
+Art_BouncePlatform	EQU	BouncePlatformGfxAB
+Art_GlassBreak		EQU	GlassBreakGfxA
+Art_Pocket		EQU	PocketGfxA
+Art_RobotTransportA	EQU	RobotTransportGfxA
+		elseif CC2_VARIANT=1
+Art_BouncePlatform	EQU	BouncePlatformGfxAB
+Art_GlassBreak		EQU	GlassBreakGfxB
+Art_Hologram		EQU	HologramGfx
+Art_HologramAnimals	EQU	HologramAnimalsGfx
+Art_Pocket		EQU	PocketGfxBC
+Art_RobotTransportB	EQU	RobotTransportGfxB
+		elseif CC2_VARIANT=2
+Art_BouncePlatform	EQU	BouncePlatformGfxC
+Art_GlassBreak		EQU	GlassBreakGfxC
+Art_Pocket		EQU	PocketGfxBC
+		else
+Art_BouncePlatform	EQU	BouncePlatformGfxD
+Art_GlassBreak		EQU	GlassBreakGfxD
+Art_Pocket		EQU	PocketGfxD
+		endif
+		endif
+	endif
+
 PLCLists:
 	dc.w	PLC_Stage-PLCLists
 	dc.w	PLC_Std-PLCLists
@@ -323,3 +389,9 @@ PLC_Signpost:
 	dc.w	$9100
 	dc.l	Art_BigRingFlash
 	dc.w	$7DE0
+
+	if def(CC_LEGACY_GFX_LISTS_ABI)
+		if CC_LEGACY_GFX_LISTS_ABI<>0
+GfxLists	EQU	PLCLists
+		endif
+	endif

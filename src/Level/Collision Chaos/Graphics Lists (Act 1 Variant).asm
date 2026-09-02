@@ -23,7 +23,7 @@ PLCLists:
 	dc.w	PLC_Section0-PLCLists
 	dc.w	PLC_Section0-PLCLists
 	else
-	rept	9
+	rept	12
 	dc.w	PLC_Section0-PLCLists
 	endr
 	endif

@@ -37,11 +37,13 @@ R3_SEMANTIC_ANIMAL	EQU	1
 R3_SEMANTIC_ROBOT_GENERATOR EQU	1
 R3_SEMANTIC_PROJECTOR	EQU	1
 R3_SEMANTIC_ANIM_TILES EQU	1
+R3_SEMANTIC_GFX_LISTS EQU	1
 CC_LEGACY_LEVEL_END_ABI EQU	1
 CC_LEGACY_ANIMAL_ABI	EQU	1
 CC_LEGACY_ROBOT_GENERATOR_ABI EQU	1
 CC_LEGACY_PROJECTOR_ABI EQU	1
 CC_LEGACY_ANIM_TILES_ABI EQU	1
+CC_LEGACY_GFX_LISTS_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -126,5 +128,5 @@ CC_VARIANT	EQU	3
 	include	"Level/_Objects/Results/Main.asm"
 	include	"r3/title_card_data.asm"
 	include	"Level/Collision Chaos/Animated Tiles Update (Act 1 Present).asm"
-	include	"r3/gfx_lists_1d.asm"
+	include	"Level/Collision Chaos/Graphics Lists (Act 1 Present).asm"
 	include	"r3/data_1d.asm"
