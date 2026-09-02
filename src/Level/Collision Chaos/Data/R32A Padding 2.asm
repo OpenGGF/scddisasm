@@ -18,7 +18,8 @@
 ; +$279C-+$27BC  truncated eight-piece legacy demo mapping frame
 ; +$27BC-+$27CF  overlapping ten-entry mapping-offset table
 ; +$27D0-+$27F9  eight-piece legacy demo mapping frame 0
-; +$27FA-+$29FF  retained mapping frames still to be structured
+; +$27FA-+$2827  nine-piece legacy demo mapping frame 1
+; +$2828-+$29FF  retained mapping frames still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -128,7 +129,8 @@ R32ARetainedDemoMappingFragment:
 ; overlapping big-endian table. Offsets are relative to the shared byte.
 R32ARetainedDemoMappingOffsets:
 	dc.w	R32ARetainedDemoMapFrame0-R32ARetainedDemoMappingOffsets
-	dc.w	$003E, $006C, $009A, $00C8
+	dc.w	R32ARetainedDemoMapFrame1-R32ARetainedDemoMappingOffsets
+	dc.w	$006C, $009A, $00C8
 	dc.w	$00EC, $010C, $015E, $01AA, $01F2
 
 ; Eight-piece frame arranged as two columns across four rows. Each piece uses
@@ -145,11 +147,22 @@ R32ARetainedDemoMapFrame0:
 	dc.b	8, 1, $18, 0, 0
 	dc.b	0	; alignment
 
-; First byte of mapping frame 1.
-	dc.b	9, $E8, 9, 0, 5, $F4, $F8, $C, 0, $B, $E4, $F8, 4, 0, $F
-	dc.b	4, 0, $C, $10, $B, $E4, 0, 4, $10, $F, 4, 8, 9, $10, 5, $F4
-	dc.b	$E8, 5, 0, $37, $ED, $F8, 5, 0, $3B, $DD, 8, 5, $10, $37
-	dc.b	$ED, 9, $E8, 9, 0, $11, $F3, $F8, $C, 0, $17, $E3, $F8, 4
+; Nine-piece frame: a six-piece central arrangement plus three pieces offset
+; farther left. The retained bytes do not establish a narrower pose identity.
+R32ARetainedDemoMapFrame1:
+	dc.b	9
+	dc.b	$E8, 9, 0, 5, $F4
+	dc.b	$F8, $C, 0, $B, $E4
+	dc.b	$F8, 4, 0, $F, 4
+	dc.b	0, $C, $10, $B, $E4
+	dc.b	0, 4, $10, $F, 4
+	dc.b	8, 9, $10, 5, $F4
+	dc.b	$E8, 5, 0, $37, $ED
+	dc.b	$F8, 5, 0, $3B, $DD
+	dc.b	8, 5, $10, $37, $ED
+
+; First byte of mapping frame 2.
+	dc.b	9, $E8, 9, 0, $11, $F3, $F8, $C, 0, $17, $E3, $F8, 4
 	dc.b	0, $1B, 3, 0, $C, $10, $17, $E3, 0, 4, $10, $1B, 3, 8, 9
 	dc.b	$10, $11, $F3, $E8, 5, 0, $37, $E6, $F8, 5, 0, $3B, $D8, 8
 	dc.b	5, $10, $37, $E6, 9, $E8, 9, 0, $1D, $ED, $F8, $C, 0, $23
