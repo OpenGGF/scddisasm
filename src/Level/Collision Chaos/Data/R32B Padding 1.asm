@@ -70,7 +70,8 @@
 ; +$0D6A-+$0D77 retained historical Act 3 Bad Future Stage PLC
 ; +$0D78-+$0DB5 retained historical Act 3 Bad Future Main PLC
 ; +$0DB6-+$0DCF retained historical Act 3 Bad Future Section PLC
-; +$0DD0 onward  retained stage/PLC bodies still to be structured
+; +$0DD0-+$0DDD retained historical Act 3 Bad Future Boss PLC
+; +$0DDE onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1363,7 +1364,11 @@ R32BRetainedPalmtreeAct3BadFutureSectionPLC:
 	dc.l	$0023DDE0
 	dc.w	$7400
 R32BRetainedPalmtreeAct3BadFutureBossPLC:
-	dc.b	0, 1, 0, $23, $44, $40, $6E, $60, 0, $22, $EE, $4A, $90, $20
+	dc.w	1			; entry count minus one
+	dc.l	$00234440
+	dc.w	$6E60
+	dc.l	$0022EE4A
+	dc.w	$9020
 
 R32BRetainedPalmtreeAct3BadFutureResultsPLC:
 	dcb.b	3,0
