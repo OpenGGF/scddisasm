@@ -21,7 +21,8 @@
 ; +$27FA-+$2827  nine-piece legacy demo mapping frame 1
 ; +$2828-+$2855  nine-piece legacy demo mapping frame 2
 ; +$2856-+$2883  nine-piece legacy demo mapping frame 3
-; +$2884-+$29FF  retained mapping frames still to be structured
+; +$2884-+$28A7  seven-piece legacy demo mapping frame 4
+; +$28A8-+$29FF  retained mapping frames still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -134,7 +135,7 @@ R32ARetainedDemoMappingOffsets:
 	dc.w	R32ARetainedDemoMapFrame1-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame2-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame3-R32ARetainedDemoMappingOffsets
-	dc.w	$00C8
+	dc.w	R32ARetainedDemoMapFrame4-R32ARetainedDemoMappingOffsets
 	dc.w	$00EC, $010C, $015E, $01AA, $01F2
 
 ; Eight-piece frame arranged as two columns across four rows. Each piece uses
@@ -193,13 +194,20 @@ R32ARetainedDemoMapFrame3:
 	dc.b	$F8, 5, 0, $3B, $D5
 	dc.b	8, 5, $10, $37, $E2
 
-; First byte of mapping frame 4.
-	dc.b	7, $E8, 3, 0, $27, $D8, $E8, 3
-	dc.b	0, $27, $E0, $E8, 3, 0, $27
-	dcb.b	2,$E8
-	dc.b	6, 0, $2B, $F0, $E8, 6, 0, $31
-	dcb.b	2,0
-	dc.b	6, $18, $31, $F0, 0, 6, $18, $2B, 0, 6, $F8, 3, $10, $27
+; Seven-piece frame: three narrow pieces across the upper row, two wider
+; pieces below them, and two lower pieces. No narrower identity is established.
+R32ARetainedDemoMapFrame4:
+	dc.b	7
+	dc.b	$E8, 3, 0, $27, $D8
+	dc.b	$E8, 3, 0, $27, $E0
+	dc.b	$E8, 3, 0, $27, $E8
+	dc.b	$E8, 6, 0, $2B, $F0
+	dc.b	$E8, 6, 0, $31, 0
+	dc.b	0, 6, $18, $31, $F0
+	dc.b	0, 6, $18, $2B, 0
+
+; First byte of mapping frame 5.
+	dc.b	6, $F8, 3, $10, $27
 	dc.b	$D8, $F8, 3, $10, $27, $E0, $E8, 6, 8, $31, $F0, $E8, 6, 8
 	dc.b	$2B
 	dcb.b	2,0
