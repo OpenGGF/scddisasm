@@ -74,7 +74,8 @@
 ; +$0DDE-+$0DE5 retained historical Act 3 Bad Future Results PLC
 ; +$0DE6-+$0DED retained historical Act 3 Bad Future Capsule PLC
 ; +$0DEE-+$0E03 retained truncated Quartz Quadrant break-wall tail
-; +$0E04 onward  retained stage/PLC bodies still to be structured
+; +$0E04-+$0E09 retained historical Act 3 Good Future jump
+; +$0E0A onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1394,7 +1395,10 @@ R32BRetainedQuartzBreakWallVelocities:
 	dc.l	-$3DA12, 0
 	dc.l	-$2F684, $148B0
 
-	dc.b	$4E, $F9, 0, $20, $63, $76
+
+; Historical Act 3 Good Future entry; the live graph has since changed.
+R32BRetainedPalmtreeAct3GoodFutureEntry:
+	jmp	$206376
 	dc.b	3, $23, $8F, $74, 2, $23, $7C, $F2, 0, $21
 	dcb.b	3,0
 	dc.b	$81
