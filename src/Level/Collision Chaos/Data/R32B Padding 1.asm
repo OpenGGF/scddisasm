@@ -45,7 +45,8 @@
 ; +$0A56-+$0AB1 retained Standard PLC
 ; +$0AB2-+$0AC5 retained Section 0 PLC
 ; +$0AC6-+$0B0F retained Section 1 PLC
-; +$0B10 onward  retained stage/PLC bodies still to be structured
+; +$0B10-+$0B53 retained Section 2 PLC
+; +$0B54 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1015,12 +1016,34 @@ R32BRetainedAct1PresentSection1PLC:
 	dc.l	$00235BD6		; Ga
 	dc.w	$8420
 
-	dc.b	0, $A, 0, $23, $4D, $3A, $63
-	dc.b	$C0, 0, $23, $69, $7A, $67, $C0, 0, $23, $67, 2, $6B, $C0
-	dc.b	0, $23, $50, $4A, $6E, $20, 0, $23, $50, $C6, $6F, $20, 0
-	dc.b	$23, $4F, $90, $73, $E0, 0, $23, $65, $C6, $75, $E0, 0, $23
-	dc.b	$68, $A2, $77, $A0, 0, $23, $6A, $C6, $7B, $40, 0, $23, $54
-	dc.b	$52, $7E, $40, 0, $23, $5B, $D6, $84, $20, 0, $B, 0, $23
+
+; Eleven-entry Section 2 PLC; pointers retain their historical absolute values.
+R32BRetainedAct1PresentSection2PLC:
+	dc.w	$A			; entry count minus one
+	dc.l	$00234D3A		; spikes
+	dc.w	$63C0
+	dc.l	$0023697A		; withered robot generator
+	dc.w	$67C0
+	dc.l	$00236702		; bounce platform
+	dc.w	$6BC0
+	dc.l	$0023504A		; rotating platform
+	dc.w	$6E20
+	dc.l	$002350C6		; platform
+	dc.w	$6F20
+	dc.l	$00234F90		; retracting block
+	dc.w	$73E0
+	dc.l	$002365C6		; pocket points
+	dc.w	$75E0
+	dc.l	$002368A2		; spike ball
+	dc.w	$77A0
+	dc.l	$00236AC6		; animals
+	dc.w	$7B40
+	dc.l	$00235452		; KamaKama
+	dc.w	$7E40
+	dc.l	$00235BD6		; Ga
+	dc.w	$8420
+
+	dc.b	0, $B, 0, $23
 	dc.b	$4D, $3A, $63, $C0, 0, $23, $4E, $AC, $67, $C0, 0, $23, $4C
 	dc.b	$14, $69, $C0, 0, $23, $67, 2, $6B, $C0, 0, $23, $50, $4A
 	dc.b	$6E, $20, 0, $23, $50, $C6, $6F, $20, 0, $23, $4F, $90, $73
