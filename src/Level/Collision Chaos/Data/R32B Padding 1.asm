@@ -54,7 +54,8 @@
 ; +$0C06-+$0C13 retained Intro PLC
 ; +$0C14-+$0C1B retained Tentou PLC
 ; +$0C1C-+$0C23 retained Results PLC
-; +$0C24 onward  retained stage/PLC bodies still to be structured
+; +$0C24-+$0C37 retained Signpost PLC
+; +$0C38 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1152,10 +1153,18 @@ R32BRetainedAct1PresentResultsPLC:
 	dc.l	$00230098		; Results art
 	dc.w	$7880
 
-	dc.b	0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2, $91
-	dcb.b	2,0
-	dc.b	$20, $DC, $DE, $7D, $E0, $71
+
+; Three-entry Signpost PLC; pointers retain their historical absolute values.
+R32BRetainedAct1PresentStageSignpostPLC:
+	dc.w	2			; entry count minus one
+	dc.l	$0022FABC		; signpost
+	dc.w	$8780
+	dc.l	$0022F4F2		; big ring
+	dc.w	$9100
+	dc.l	$0020DCDE		; big-ring flash
+	dc.w	$7DE0
+
+	dc.b	$71
 	dcb.b	2,0
 	dc.b	$23, $70, $2A, $74
 	dcb.b	2,0
