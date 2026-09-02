@@ -21,7 +21,7 @@
 ; $20FCE6-$20FDDB  retained DEMO11A Act 1 Present PLC tail and complete bodies
 ; $20FDDC-$20FEBD  retained animated-PLC helpers and metadata
 ; $20FEBE-$20FFE7  static metadata and orphaned stage/PLC graph
-; $20FFE8-$20FFFF  truncated retained PLC fragment
+; $20FFE8-$20FFFF  two truncated retained PLC fragments
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -1210,5 +1210,21 @@ USARetainedOrphanPLCLists:
 	dc.l	$0020BBBC
 	dc.w	$7DE0
 
-	dc.b	$7D, $E0, $00, $23, $D5, $9E, $78, $C0, $00, $23, $C4, $40, $7D, $20
-	dc.b	$00, $23, $D0, $C4, $8B, $A0, $00, $00, $00, $23
+; Tail of a historical PLC whose count, earlier records, and final omitted
+; record pointer precede this slice. The surviving destination is followed by
+; three complete six-byte art-pointer/VRAM-destination records. Longer copies
+; retain the same order, but do not prove the source list or asset identities.
+USARetainedFinalPLCTail:
+	dc.w	$7DE0			; destination; corresponding pointer omitted
+	dc.l	$0023D59E
+	dc.w	$78C0
+	dc.l	$0023C440
+	dc.w	$7D20
+	dc.l	$0023D0C4
+	dc.w	$8BA0
+
+; Start of the following one-record PLC. The chunk boundary truncates its
+; first art pointer after the high word, before its low word and destination.
+USARetainedTruncatedNextPLC:
+	dc.w	0			; one record (count minus one)
+	dc.w	$0023			; high word of truncated art pointer
