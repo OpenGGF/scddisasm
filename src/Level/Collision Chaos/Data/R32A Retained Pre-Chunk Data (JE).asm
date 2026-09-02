@@ -14,7 +14,10 @@
 ; $20FEAA-$20FECB  retained tables between orphaned units (unresolved)
 ; $20FECC-$20FED1  orphaned absolute-jump trampoline
 ; $20FED2-$20FF8B  orphaned Palmtree Panic Act 3 Good Future stage/PLC graph
-; $20FF8C-$20FFFF  truncated tail of a later orphaned PLC graph (unresolved)
+; $20FF8C-$20FFA1  truncated DEMO11A main-PLC suffix
+; $20FFA2-$20FFEB  complete DEMO11A section PLC
+; $20FFEC-$20FFF3  complete DEMO11A Results PLC
+; $20FFF4-$20FFFF  DEMO11A Signpost PLC truncated at the chunk boundary
 ; ------------------------------------------------------------------------------
 
 	dc.b	$DA, $36, $6E, $20, 0, $21, $DA, $B2, $6F, $20, 0, $21, $D9
@@ -1074,19 +1077,55 @@ RetainedPalmtreeAct3GoodFuturePLCLists:
 	dc.l	$0022EE4A
 	dc.w	$9020
 
-; The remaining bytes begin part-way through another historical PLC graph.
-	dc.b	$29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, $B, 0, $23, $3B, $22, $60
-	dcb.b	2,0
-	dc.b	$23, $3F, $3E, $67
-	dcb.b	2,0
-	dc.b	$23, $40, $E2, $69, $A0, 0, $23, $B6, $26, $6C, $C0, 0, $23
-	dc.b	$CD, $C8, $6E, $C0, 0, $23, $D0, 4, $70, $C0, 0, $23, $CA
-	dc.b	$DC, $71, $C0, 0, $23, $B9, $E6, $72, $C0, 0, $22, $F8, $FC
-	dc.b	$75, $C0, 0, $23, $D5, $9E, $78, $C0, 0, $23, $C4, $40, $7D
-	dc.b	$20, 0, $23, $D0, $C4, $8B, $A0
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2
+; This is the exact tail of the Japan/Europe DEMO11A graphics records also
+; retained by later level files. The first four bytes begin midway through an
+; art-address/VRAM pair; the complete records that follow keep their historical
+; absolute pointers because their old asset layout is no longer live here.
+RetainedDemoR11AMainPLCTail:
+	dc.w	$2960, $D000		; suffix of historical $00232960 record
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+RetainedDemoR11ASectionPLC:
+	dc.w	$B
+	dc.l	$00233B22
+	dc.w	$6000
+	dc.l	$00233F3E
+	dc.w	$6700
+	dc.l	$002340E2
+	dc.w	$69A0
+	dc.l	$0023B626
+	dc.w	$6CC0
+	dc.l	$0023CDC8
+	dc.w	$6EC0
+	dc.l	$0023D004
+	dc.w	$70C0
+	dc.l	$0023CADC
+	dc.w	$71C0
+	dc.l	$0023B9E6
+	dc.w	$72C0
+	dc.l	$0022F8FC
+	dc.w	$75C0
+	dc.l	$0023D59E
+	dc.w	$78C0
+	dc.l	$0023C440
+	dc.w	$7D20
+	dc.l	$0023D0C4
+	dc.w	$8BA0
+
+RetainedDemoR11AResultsPLC:
+	dc.w	0
+	dc.l	$00230098
+	dc.w	$7880
+
+; The original three-record Signpost list is cut off by StageChunks after the
+; second art pointer: its VRAM destination and third record are not retained.
+RetainedDemoR11ASignpostPLCPrefix:
+	dc.w	2
+	dc.l	$0022FABC		; signpost art
+	dc.w	$8780
+	dc.l	$0022F4F2		; big-ring art; record truncated here
