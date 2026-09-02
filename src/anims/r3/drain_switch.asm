@@ -3,16 +3,17 @@
 ; ------------------------------------------------------------------------------
 
 .Anims:
-	dc.w	.Anim0-.Anims
-	dc.w	.Anim1-.Anims
+	dc.w	.PressFromAbove-.Anims
+	dc.w	.PressFromBelow-.Anims
 
-.Anim0:
+; Animation records contain a frame delay, frame indices, and an $FF loop marker.
+.PressFromAbove:
 	dc.b	3
 	dc.b	1, 2, 3, 0
 	dc.b	$FF
 	even
 
-.Anim1:
+.PressFromBelow:
 	dc.b	3
 	dc.b	3, 2, 1, 0
 	dc.b	$FF

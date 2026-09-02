@@ -1,22 +1,32 @@
 ; ------------------------------------------------------------------------------
 
+drain_switch.cooldown		equ obj.var_2a	; Frames before another activation
+drain_switch.block_link		equ obj.var_2c	; Linked drain block object slot
+drain_switch.stage		equ obj.var_2e	; Light stage: -2, 0, 2, or 4
+drain_switch.light_1_link	equ obj.var_30	; Newest linked indicator light
+drain_switch.light_2_link	equ obj.var_32	; Middle linked indicator light
+drain_switch.light_3_link	equ obj.var_34	; Oldest linked indicator light
+drain_switch.player_inside	equ obj.var_3e	; Player overlap latch
+drain_switch.player_2_inside	equ obj.var_3f	; Reserved second-player latch
+drain_switch_child.parent_link	equ obj.var_36	; Parent switch object slot
+
 DrainSwitchObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20AA5C(pc,d0.w),d0
-	jsr	off_20AA5C(pc,d0.w)
+	move.w	DrainSwitch_Routines(pc,d0.w),d0
+	jsr	DrainSwitch_Routines(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20AA5C:
-	dc.w	DrainSwitchObject_0_Routine0-*
-	dc.w	DrainSwitchObject_0_Routine2-off_20AA5C
+DrainSwitch_Routines:
+	dc.w	DrainSwitch_Init-*
+	dc.w	DrainSwitch_Main-DrainSwitch_Routines
 
 ; ------------------------------------------------------------------------------
 
-DrainSwitchObject_0_Routine0:
+DrainSwitch_Init:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
@@ -24,118 +34,119 @@ DrainSwitchObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 	move.w	#$443E,obj.sprite_tile(a0)
 	move.l	#DrainSwitchSprites,obj.sprite_data(a0)
-	move.w	#$FFFE,obj.var_2e(a0)
+	move.w	#$FFFE,drain_switch.stage(a0)
 	cmpi.b	#$FF,obj.subtype(a0)
-	bne.s	loc_20AAA6
-	move.w	#$80,obj.var_2a(a0)
-	st	obj.var_3e(a0)
-	st	obj.var_3f(a0)
+	bne.s	.SpawnBlock
+	move.w	#$80,drain_switch.cooldown(a0)
+	st	drain_switch.player_inside(a0)
+	st	drain_switch.player_2_inside(a0)
 
-loc_20AAA6:
+.SpawnBlock:
 	jsr	SpawnObject
-	bne.s	DrainSwitchObject_0_Routine2
-	move.w	a1,obj.var_2c(a0)
-	move.w	a0,obj.var_36(a1)
+	bne.s	DrainSwitch_Main
+	move.w	a1,drain_switch.block_link(a0)
+	move.w	a0,drain_switch_child.parent_link(a1)
 	move.b	obj.id(a0),obj.id(a1)
 	move.b	#1,obj.subtype(a1)
 	move.w	#$380,obj.x(a1)
 	move.w	#$4F8,obj.y(a1)
 
-DrainSwitchObject_0_Routine2:
+DrainSwitch_Main:
 	lea	player_object,a6
-	lea	obj.var_3e(a0),a5
-	bsr.w	sub_20AAF2
-	tst.w	obj.var_2a(a0)
-	beq.s	locret_20AAF0
-	addi.w	#-1,obj.var_2a(a0)
+	lea	drain_switch.player_inside(a0),a5
+	bsr.w	DrainSwitch_CheckPlayer
+	tst.w	drain_switch.cooldown(a0)
+	beq.s	.End
+	addi.w	#-1,drain_switch.cooldown(a0)
 	lea	DrainSwitchAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20AAF0:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20AAF2:
+DrainSwitch_CheckPlayer:
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a6),d0
 	subi.w	#-$10,d0
 	subi.w	#$20,d0
-	bcc.s	loc_20AB3E
+	bcc.s	.Outside
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a6),d0
 	subi.w	#-$10,d0
 	subi.w	#$20,d0
-	bcc.s	loc_20AB3E
+	bcc.s	.Outside
 	tst.b	(a5)
-	bne.s	locret_20AB3C
+	bne.s	.End
 	st	(a5)
 	move.w	#$FF,obj.anim_id(a0)
 	tst.w	obj.y_speed(a6)
-	bpl.s	loc_20AB2E
+	bpl.s	.SetCooldown
 	move.w	#$1FF,obj.anim_id(a0)
 
-loc_20AB2E:
-	move.w	obj.var_2a(a0),d0
-	move.w	#$80,obj.var_2a(a0)
+.SetCooldown:
+	move.w	drain_switch.cooldown(a0),d0
+	move.w	#$80,drain_switch.cooldown(a0)
 	tst.w	d0
-	beq.s	loc_20AB42
+	beq.s	DrainSwitch_AdvanceStage
 
-locret_20AB3C:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20AB3E:
+.Outside:
 	sf	(a5)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20AB42:
-	cmpi.w	#4,obj.var_2e(a0)
-	beq.s	loc_20AB9A
-	addq.w	#2,obj.var_2e(a0)
-	move.w	obj.var_32(a0),obj.var_34(a0)
-	move.w	obj.var_30(a0),obj.var_32(a0)
+DrainSwitch_AdvanceStage:
+	cmpi.w	#4,drain_switch.stage(a0)
+	beq.s	DrainSwitch_Reset
+	addq.w	#2,drain_switch.stage(a0)
+	move.w	drain_switch.light_2_link(a0),drain_switch.light_3_link(a0)
+	move.w	drain_switch.light_1_link(a0),drain_switch.light_2_link(a0)
 	jsr	SpawnObject
-	bne.s	loc_20AB80
-	move.w	a1,obj.var_30(a0)
-	move.w	a0,obj.var_36(a1)
+	bne.s	.CheckRaised
+	move.w	a1,drain_switch.light_1_link(a0)
+	move.w	a0,drain_switch_child.parent_link(a1)
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	#$380,obj.x(a1)
-	move.w	obj.var_2e(a0),d0
-	move.w	word_20AB94(pc,d0.w),obj.y(a1)
+	move.w	drain_switch.stage(a0),d0
+	move.w	DrainSwitch_LightYPositions(pc,d0.w),obj.y(a1)
 
-loc_20AB80:
-	cmpi.w	#4,obj.var_2e(a0)
-	bne.s	locret_20AB92
-	movea.w	obj.var_2c(a0),a1
+.CheckRaised:
+	cmpi.w	#4,drain_switch.stage(a0)
+	bne.s	.End
+	movea.w	drain_switch.block_link(a0),a1
 	move.b	#4,obj.routine(a1)
 
-locret_20AB92:
+.End:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20AB94:
+; Indicator-light Y positions selected by the even stage index 0, 2, or 4.
+DrainSwitch_LightYPositions:
 	dc.w	$498
 	dc.w	$4B0
 	dc.w	$4C8
 
 ; ------------------------------------------------------------------------------
 
-loc_20AB9A:
-	move.w	#-2,obj.var_2e(a0)
-	movea.w	obj.var_30(a0),a1
+DrainSwitch_Reset:
+	move.w	#-2,drain_switch.stage(a0)
+	movea.w	drain_switch.light_1_link(a0),a1
 	move.b	#4,obj.routine(a1)
-	movea.w	obj.var_32(a0),a1
+	movea.w	drain_switch.light_2_link(a0),a1
 	move.b	#4,obj.routine(a1)
-	movea.w	obj.var_34(a0),a1
+	movea.w	drain_switch.light_3_link(a0),a1
 	move.b	#4,obj.routine(a1)
-	movea.w	obj.var_2c(a0),a1
+	movea.w	drain_switch.block_link(a0),a1
 	move.b	#6,obj.routine(a1)
 	rts
 
