@@ -32,6 +32,8 @@ R3_SEMANTIC_DRUM_PLATFORM EQU	1
 CC_LEGACY_DRUM_PLATFORM_ABI EQU	1
 R3_SEMANTIC_KAMA_KAMA	EQU	1
 CC_LEGACY_KAMA_KAMA_ABI EQU	1
+R3_SEMANTIC_LEVEL_END	EQU	1
+CC_LEGACY_LEVEL_END_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -88,7 +90,7 @@ CC_VARIANT	EQU	0
 	include	"objects/r1/float_block.asm"
 	include	"objects/monitor_time.asm"
 	include	"objects/hud_points.asm"
-	include	"objects/stage_end.asm"
+	include	"Level/_Objects/Level End/Main.asm"
 	include	"objects/r3/bumper_flipper.asm"
 	include	"objects/r3/glass_shatter.asm"
 	include	"objects/r3/bumper_platform.asm"

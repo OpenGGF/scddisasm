@@ -74,6 +74,10 @@ oLvlEndTimer	EQU	oVar2A			; Timer
 		if CC_LEGACY_LEVEL_END_ABI<>0
 oResultsTimer	EQU	oVar32
 LevelPaletteID	EQU	StageDataIndex+$E
+LevelEndSpawn		EQU	SpawnObject
+LevelEndMoveGravity	EQU	MoveObjectFall
+LevelEndGetFloorDist	EQU	CheckBlockDown
+LevelEndDespawn		EQU	CheckObjectDespawn
 MapSpr_FlowerCapsule	EQU	CapsuleSprites
 Ani_FlowerCapsule	EQU	CapsuleAnims
 MapSpr_BigRing		EQU	BigRingSprites
@@ -81,6 +85,17 @@ Ani_BigRing		EQU	BigRingAnims
 MapSpr_GoalSignpost	EQU	SignpostSprites
 Ani_Signpost		EQU	SignpostAnims
 		endif
+	endif
+	if !def(CC_LEGACY_LEVEL_END_ABI)
+LevelEndSpawn		EQU	FindObjSlot
+LevelEndMoveGravity	EQU	ObjMoveGrv
+LevelEndGetFloorDist	EQU	ObjGetFloorDist
+LevelEndDespawn		EQU	CheckObjDespawn
+	elseif CC_LEGACY_LEVEL_END_ABI=0
+LevelEndSpawn		EQU	FindObjSlot
+LevelEndMoveGravity	EQU	ObjMoveGrv
+LevelEndGetFloorDist	EQU	ObjGetFloorDist
+LevelEndDespawn		EQU	CheckObjDespawn
 	endif
 
 ; -------------------------------------------------------------------------
@@ -213,7 +228,7 @@ ObjCapsule_Explode:
 	add.w	d0,d0
 	lea	.ExplosionPos(pc,d0.w),a2
 
-	jsr	FindObjSlot			; Spawn explosion
+	jsr	LevelEndSpawn			; Spawn explosion
 	bne.s	.End
 	move.w	#FM_EXPLODE,d0
 	jsr	R43LegacyPlayFMSound
@@ -265,7 +280,7 @@ ObjCapsule_SpawnSeeds:
 	moveq	#0,d1				; Seed velocity table offset
 
 .Spawn:
-	jsr	FindObjSlot			; Spawn seed
+	jsr	LevelEndSpawn			; Spawn seed
 	bne.s	.End
 	move.b	#$15,oID(a1)
 	ori.b	#%00000100,oSprFlags(a1)	; Set sprite flags
@@ -308,8 +323,8 @@ ObjCapsule_Seed:
 	lea	Ani_FlowerCapsule,a1		; Animate sprite
 	jsr	R43LegacyAnimateObject
 
-	jsr	ObjMoveGrv			; Move
-	jsr	ObjGetFloorDist			; Check floor collision
+	jsr	LevelEndMoveGravity		; Move
+	jsr	LevelEndGetFloorDist		; Check floor collision
 	tst.w	d1
 	bpl.s	.End				; If the seed hasn't landed, branch
 
@@ -418,7 +433,7 @@ ObjBigRing:
 	bcc.s	.Proceed			; If so, branch
 
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
-		jmp	CheckObjDespawn		; Check despawn
+		jmp	LevelEndDespawn		; Check despawn
 	else
 		jmp	R43LegacyDeleteObject		; Delete ourselves
 	endif
@@ -491,7 +506,7 @@ ObjBigRing_Main:
 	move.w	#FM_BIGRING,d0			; Play sound
 	jsr	R43LegacyPlayFMSound
 
-	jsr	FindObjSlot			; Spawn flash
+	jsr	LevelEndSpawn			; Spawn flash
 	bne.s	ObjBigRing_Main
 	move.b	#$14,oID(a1)
 	move.w	oX(a0),oX(a1)
@@ -563,7 +578,7 @@ ObjGoalPost:
 	jsr	R43LegacyDrawObject			; Draw sprite
 
 .CheckDespawn:
-	jmp	CheckObjDespawn			; Check despawn
+	jmp	LevelEndDespawn			; Check despawn
 
 ; -------------------------------------------------------------------------
 
@@ -822,7 +837,7 @@ StartResults:
 	move.b	#180,oLvlEndTimer(a0)		; Set (unused) timer
 	addq.b	#2,oRoutine(a0)			; Next routine
 
-	jsr	FindObjSlot			; Spawn results
+	jsr	LevelEndSpawn			; Spawn results
 	move.b	#$3A,oID(a1)
 	move.b	#16,oResultsTimer(a1)		; Set results spawn delay
 	move.b	#1,updateHUDBonus.w		; Update bonus count
