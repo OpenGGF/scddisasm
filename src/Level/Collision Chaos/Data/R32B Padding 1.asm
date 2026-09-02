@@ -84,7 +84,8 @@
 ; +$0EB4-+$0EBB retained historical Act 3 Good Future Results PLC
 ; +$0EBC-+$0EC3 retained historical Act 3 Good Future Capsule PLC
 ; +$0EC4-+$0ED9 retained truncated DEMO11A Main-PLC tail
-; +$0EDA onward  retained stage/PLC bodies still to be structured
+; +$0EDA-+$0F23 retained DEMO11A Section PLC
+; +$0F24 onward retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1501,15 +1502,35 @@ R32BRetainedDemoR11AMainPLCTail:
 	dc.l	$00232E48
 	dc.w	$F5C0
 
-	dc.b	0, $B, 0, $23, $3B, $22, $60
-	dcb.b	2,0
-	dc.b	$23, $3F, $3E, $67
-	dcb.b	2,0
-	dc.b	$23, $40, $E2, $69, $A0, 0, $23, $B6, $26, $6C, $C0, 0, $23
-	dc.b	$CD, $C8, $6E, $C0, 0, $23, $D0, 4, $70, $C0, 0, $23, $CA
-	dc.b	$DC, $71, $C0, 0, $23, $B9, $E6, $72, $C0, 0, $22, $F8, $FC
-	dc.b	$75, $C0, 0, $23, $D5, $9E, $78, $C0, 0, $23, $C4, $40, $7D
-	dc.b	$20, 0, $23, $D0, $C4, $8B, $A0
+
+; Twelve-entry DEMO11A Section PLC.
+R32BRetainedDemoR11ASectionPLC:
+	dc.w	$B			; entry count minus one
+	dc.l	$00233B22
+	dc.w	$6000
+	dc.l	$00233F3E
+	dc.w	$6700
+	dc.l	$002340E2
+	dc.w	$69A0
+	dc.l	$0023B626
+	dc.w	$6CC0
+	dc.l	$0023CDC8
+	dc.w	$6EC0
+	dc.l	$0023D004
+	dc.w	$70C0
+	dc.l	$0023CADC
+	dc.w	$71C0
+	dc.l	$0023B9E6
+	dc.w	$72C0
+	dc.l	$0022F8FC
+	dc.w	$75C0
+	dc.l	$0023D59E
+	dc.w	$78C0
+	dc.l	$0023C440
+	dc.w	$7D20
+	dc.l	$0023D0C4
+	dc.w	$8BA0
+
 	dcb.b	3,0
 	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
 	dc.b	$22, $F4, $F2
