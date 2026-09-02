@@ -81,7 +81,8 @@
 ; +$0E4E-+$0E8B retained historical Act 3 Good Future Main PLC
 ; +$0E8C-+$0EA5 retained historical Act 3 Good Future Section PLC
 ; +$0EA6-+$0EB3 retained historical Act 3 Good Future Boss PLC
-; +$0EB4 onward  retained stage/PLC bodies still to be structured
+; +$0EB4-+$0EBB retained historical Act 3 Good Future Results PLC
+; +$0EBC onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1473,8 +1474,13 @@ R32BRetainedPalmtreeAct3GoodFutureBossPLC:
 	dc.w	$6E60
 	dc.l	$0022EE4A
 	dc.w	$9020
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80
+
+; One-entry historical Act 3 Good Future Results PLC.
+R32BRetainedPalmtreeAct3GoodFutureResultsPLC:
+	dc.w	0			; entry count minus one
+	dc.l	$00230098
+	dc.w	$7880
+
 	dcb.b	3,0
 	dc.b	$22, $EE, $4A, $90, $20, $29, $60, $D0
 	dcb.b	2,0
