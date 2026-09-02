@@ -3,9 +3,10 @@
 ; ------------------------------------------------------------------------------
 
 .Anims:
-	dc.w	.Anim0-.Anims
+	dc.w	.Pulse-.Anims
 
-.Anim0:
+; Delay, visible/empty mapping frames, then loop.
+.Pulse:
 	dc.b	3
 	dc.b	0, 1
 	dc.b	$FF

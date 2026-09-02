@@ -30,25 +30,33 @@ ObjPocket:
 ObjPocket_Parent:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjPocket_Parent_Index(pc,d0.w),d0
-	jsr	ObjPocket_Parent_Index(pc,d0.w)
+	move.w	ObjPocket_Parent_Routines(pc,d0.w),d0
+	jsr	ObjPocket_Parent_Routines(pc,d0.w)
 	jsr	DrawObject
+	if def(CC_LEGACY_POCKET_ABI)
+		if CC_LEGACY_POCKET_ABI<>0
+	jmp	CheckObjectDespawn
+		else
 	jmp	CheckObjDespawn
+		endif
+	else
+	jmp	CheckObjDespawn
+	endif
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Parent_Index:
-	dc.w	ObjPocket_Init-ObjPocket_Parent_Index
-	dc.w	ObjPocket_Routine2-ObjPocket_Parent_Index
-	dc.w	ObjPocket_Routine4-ObjPocket_Parent_Index
-	dc.w	ObjPocket_Routine6-ObjPocket_Parent_Index
-	dc.w	ObjPocket_Routine8-ObjPocket_Parent_Index
-	dc.w	ObjPocket_RoutineA-ObjPocket_Parent_Index
-	dc.w	ObjPocket_RoutineC-ObjPocket_Parent_Index
-	dc.w	ObjPocket_RoutineE-ObjPocket_Parent_Index
-	dc.w	ObjPocket_Routine10-ObjPocket_Parent_Index
-	dc.w	ObjPocket_Routine12-ObjPocket_Parent_Index
-	dc.w	ObjPocket_Routine14-ObjPocket_Parent_Index
+ObjPocket_Parent_Routines:
+	dc.w	ObjPocket_Init-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_WaitForPlayer-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_SpawnEffect-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_Open-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_BeginAward-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_AwardFirstPoints-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_AwardSecondPoints-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_BeginClosing-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_Close-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_ReleasePlayer-ObjPocket_Parent_Routines
+	dc.w	ObjPocket_Cooldown-ObjPocket_Parent_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -85,7 +93,7 @@ ObjPocket_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Routine2:
+ObjPocket_WaitForPlayer:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	tst.w	debugMode
@@ -94,7 +102,7 @@ ObjPocket_Routine2:
 	lea	oPocketCaught(a0),a5
 	bsr.w	ObjPocket_CheckPlayer
 	tst.b	oPocketCaught(a0)
-	bne.w	ObjPocket_Caught
+	bne.w	ObjPocket_CapturePlayer
 
 .End:
 	rts
@@ -224,7 +232,7 @@ ObjPocket_CheckPlayer:
 
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
-ObjPocket_Caught:
+ObjPocket_CapturePlayer:
 	addq.b	#2,oRoutine(a0)
 	move.w	#8,oPocketTimer(a0)
 	move.b	#1,oMapFrame(a0)
@@ -235,7 +243,7 @@ ObjPocket_Caught:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Routine4:
+ObjPocket_SpawnEffect:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -243,7 +251,7 @@ ObjPocket_Routine4:
 	addq.b	#2,oRoutine(a0)
 	move.b	#2,oMapFrame(a0)
 	move.w	#6,oPocketTimer(a0)
-	jsr	FindObjSlot
+	jsr	SpawnObject
 	bne.w	.Delete
 	move.w	a1,oPocketChild(a0)
 	move.w	a0,oPocketParent(a1)
@@ -307,7 +315,7 @@ ObjPocket_Routine4:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Routine6:
+ObjPocket_Open:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -329,7 +337,7 @@ ObjPocket_Routine6:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Routine8:
+ObjPocket_BeginAward:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -351,7 +359,7 @@ ObjPocket_Routine8:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_RoutineA:
+ObjPocket_AwardFirstPoints:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -387,7 +395,7 @@ ObjPocket_RoutineA:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_RoutineC:
+ObjPocket_AwardSecondPoints:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -423,7 +431,7 @@ ObjPocket_RoutineC:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_RoutineE:
+ObjPocket_BeginClosing:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -445,7 +453,7 @@ ObjPocket_RoutineE:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Routine10:
+ObjPocket_Close:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -467,7 +475,7 @@ ObjPocket_Routine10:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Routine12:
+ObjPocket_ReleasePlayer:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -514,7 +522,7 @@ ObjPocket_Routine12:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Routine14:
+ObjPocket_Cooldown:
 	if def(CC_LEGACY_POCKET_ABI)
 		if CC_LEGACY_POCKET_ABI<>0
 	addi.w	#-1,oPocketTimer(a0)
@@ -574,15 +582,15 @@ MapSpr_Pocket1:
 ObjPocket_Child:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjPocket_Child_Index(pc,d0.w),d0
-	jmp	ObjPocket_Child_Index(pc,d0.w)
+	move.w	ObjPocket_Child_Routines(pc,d0.w),d0
+	jmp	ObjPocket_Child_Routines(pc,d0.w)
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Child_Index:
-	dc.w	ObjPocket_Child_Init-ObjPocket_Child_Index
-	dc.w	ObjPocket_Child_Main-ObjPocket_Child_Index
-	dc.w	ObjPocket_Child_Delete-ObjPocket_Child_Index
+ObjPocket_Child_Routines:
+	dc.w	ObjPocket_Child_Init-ObjPocket_Child_Routines
+	dc.w	ObjPocket_Child_FollowParent-ObjPocket_Child_Routines
+	dc.w	ObjPocket_Child_Delete-ObjPocket_Child_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -597,7 +605,7 @@ ObjPocket_Child_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjPocket_Child_Main:
+ObjPocket_Child_FollowParent:
 	movea.w	oPocketParent(a0),a1
 	cmpi.b	#$2F,oID(a1)
 	if def(CC_LEGACY_POCKET_ABI)
