@@ -11,6 +11,26 @@ oCCAnimalPhaseSub	EQU	oVar2F
 oCCAnimalVelocityX	EQU	oVar2C
 oCCAnimalVelocityY	EQU	oVar30
 oCCAnimalParent		EQU	oVar3E
+oCCAnimalParentFlag	EQU	oVar3F
+
+	if def(CC_LEGACY_ANIMAL_ABI)
+		if CC_LEGACY_ANIMAL_ABI<>0
+CCAnimalCalcSine	EQU	SineCosine
+CCAnimalFloorDist	EQU	CheckBlockDown
+CCAnimalDespawn	EQU	CheckObjectDespawn
+CCAnimalDespawn2	EQU	CheckObjectDespawn2
+		else
+CCAnimalCalcSine	EQU	CalcSine
+CCAnimalFloorDist	EQU	ObjGetFloorDist
+CCAnimalDespawn	EQU	CheckObjDespawn
+CCAnimalDespawn2	EQU	CheckObjDespawn2
+		endif
+	else
+CCAnimalCalcSine	EQU	CalcSine
+CCAnimalFloorDist	EQU	ObjGetFloorDist
+CCAnimalDespawn	EQU	CheckObjDespawn
+CCAnimalDespawn2	EQU	CheckObjDespawn2
+	endif
 
 ; -------------------------------------------------------------------------
 
@@ -23,15 +43,15 @@ ObjCCAnimal:
 ObjCCAnimal_Flying:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjCCAnimal_Flying_Index(pc,d0.w),d0
-	jmp	ObjCCAnimal_Flying_Index(pc,d0.w)
+	move.w	ObjCCAnimal_Flying_Routines(pc,d0.w),d0
+	jmp	ObjCCAnimal_Flying_Routines(pc,d0.w)
 
 ; -------------------------------------------------------------------------
 
-ObjCCAnimal_Flying_Index:
-	dc.w	ObjCCAnimal_Flying_Init-ObjCCAnimal_Flying_Index
-	dc.w	ObjCCAnimal_Flying_Main-ObjCCAnimal_Flying_Index
-	dc.w	ObjCCAnimal_Flying_Hologram-ObjCCAnimal_Flying_Index
+ObjCCAnimal_Flying_Routines:
+	dc.w	ObjCCAnimal_Flying_Init-ObjCCAnimal_Flying_Routines
+	dc.w	ObjCCAnimal_Flying_Orbit-ObjCCAnimal_Flying_Routines
+	dc.w	ObjCCAnimal_Flying_Hologram-ObjCCAnimal_Flying_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -59,7 +79,7 @@ ObjCCAnimal_Flying_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjCCAnimal_Flying_Main:
+ObjCCAnimal_Flying_Orbit:
 	moveq	#1,d2
 	moveq	#1,d3
 	bsr.w	ObjCCAnimal_MoveFlying
@@ -79,7 +99,7 @@ ObjCCAnimal_Flying_Main:
 	jsr	AnimateObject
 	jsr	DrawObject
 	move.w	oCCAnimalBaseX(a0),d0
-	jmp	CheckObjDespawn2
+	jmp	CCAnimalDespawn2
 
 ; -------------------------------------------------------------------------
 
@@ -87,7 +107,7 @@ ObjCCAnimal_Flying_Hologram:
 	movea.w	oCCAnimalParent(a0),a1
 	cmpi.b	#$38,oID(a1)
 	bne.w	ObjCCAnimal_Destroy
-	tst.b	oSubtype2(a1)
+	tst.b	oCCAnimalParentFlag(a1)
 	bne.w	ObjCCAnimal_Destroy
 	moveq	#3,d2
 	moveq	#4,d3
@@ -104,7 +124,7 @@ ObjCCAnimal_Flying_Hologram:
 
 ObjCCAnimal_MoveFlying:
 	move.b	oCCAnimalPhase(a0),d0
-	jsr	CalcSine
+	jsr	CCAnimalCalcSine
 	asr.w	d2,d1
 	asr.w	d3,d0
 	add.w	oCCAnimalBaseX(a0),d1
@@ -118,17 +138,17 @@ ObjCCAnimal_MoveFlying:
 ObjCCAnimal_Ground:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjCCAnimal_Ground_Index(pc,d0.w),d0
-	jmp	ObjCCAnimal_Ground_Index(pc,d0.w)
+	move.w	ObjCCAnimal_Ground_Routines(pc,d0.w),d0
+	jmp	ObjCCAnimal_Ground_Routines(pc,d0.w)
 
 ; -------------------------------------------------------------------------
 
-ObjCCAnimal_Ground_Index:
-	dc.w	ObjCCAnimal_Ground_Init-ObjCCAnimal_Ground_Index
-	dc.w	ObjCCAnimal_Ground_Main-ObjCCAnimal_Ground_Index
-	dc.w	ObjCCAnimal_Ground_Main-ObjCCAnimal_Ground_Index
-	dc.w	ObjCCAnimal_Ground_Flip-ObjCCAnimal_Ground_Index
-	dc.w	ObjCCAnimal_Ground_Hologram-ObjCCAnimal_Ground_Index
+ObjCCAnimal_Ground_Routines:
+	dc.w	ObjCCAnimal_Ground_Init-ObjCCAnimal_Ground_Routines
+	dc.w	ObjCCAnimal_Ground_Bounce-ObjCCAnimal_Ground_Routines
+	dc.w	ObjCCAnimal_Ground_Bounce-ObjCCAnimal_Ground_Routines
+	dc.w	ObjCCAnimal_Ground_Turn-ObjCCAnimal_Ground_Routines
+	dc.w	ObjCCAnimal_Ground_Hologram-ObjCCAnimal_Ground_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -150,7 +170,7 @@ ObjCCAnimal_Ground_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjCCAnimal_Ground_Main:
+ObjCCAnimal_Ground_Bounce:
 	move.l	oCCAnimalVelocityX(a0),d0
 	add.l	d0,oX(a0)
 	move.l	oCCAnimalVelocityY(a0),d0
@@ -159,7 +179,7 @@ ObjCCAnimal_Ground_Main:
 	smi	d0
 	addq.b	#1,d0
 	move.b	d0,oMapFrame(a0)
-	jsr	ObjGetFloorDist
+	jsr	CCAnimalFloorDist
 	tst.w	d1
 	bpl.s	ObjCCAnimal_Ground_Draw
 	addq.b	#2,oRoutine(a0)
@@ -168,11 +188,11 @@ ObjCCAnimal_Ground_Main:
 
 ObjCCAnimal_Ground_Draw:
 	jsr	DrawObject
-	jmp	CheckObjDespawn
+	jmp	CCAnimalDespawn
 
 ; -------------------------------------------------------------------------
 
-ObjCCAnimal_Ground_Flip:
+ObjCCAnimal_Ground_Turn:
 	move.b	#2,oRoutine(a0)
 	neg.l	oCCAnimalVelocityX(a0)
 	bsr.s	ObjCCAnimal_XFlip
@@ -184,7 +204,7 @@ ObjCCAnimal_Ground_Hologram:
 	movea.w	oCCAnimalParent(a0),a1
 	cmpi.b	#$38,oID(a1)
 	bne.w	ObjCCAnimal_Destroy
-	tst.b	oSubtype2(a1)
+	tst.b	oCCAnimalParentFlag(a1)
 	bne.w	ObjCCAnimal_Destroy
 	lea	Ani_CCAnimalGround(pc),a1
 	jsr	AnimateObject
@@ -236,5 +256,16 @@ ObjCCAnimal_BaseTileList:
 	dc.w	$797, $3DA, $3DA, 0
 	dc.w	$797, $3DA, $3DA, 0
 	dc.w	0, 0, $3DA
+
+	if def(CC_LEGACY_ANIMAL_ABI)
+		if CC_LEGACY_ANIMAL_ABI<>0
+AnimalObject		EQU	ObjCCAnimal
+AnimalAnims1		EQU	Ani_CCAnimalFlying
+AnimalAnims2		EQU	Ani_CCAnimalGround
+AnimalSprites1		EQU	MapSpr_CCAnimalFlying
+AnimalSprites2		EQU	MapSpr_CCAnimalGround
+AnimalBaseTileTable	EQU	ObjCCAnimal_BaseTileList
+		endif
+	endif
 
 ; -------------------------------------------------------------------------
