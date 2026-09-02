@@ -450,6 +450,7 @@ opaque merely because they use `dc.*`.
 | M241 | Complete | Structure the retained R32B Padding 3 wobble table at `$15AC-$16AB`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M242 | Complete | Structure the retained R32B Padding 3 robot-transport Nemesis stream at `$1C0C-$1DBD`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M243 | Complete | Structure the retained R32B Padding 3 hologram-animals Nemesis stream at `$1DBE-$1F6F`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M244 | Complete | Structure the retained R32B Padding 3 hologram Nemesis stream at `$1F70-$236F`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

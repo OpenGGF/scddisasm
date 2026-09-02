@@ -8,7 +8,8 @@
 ; +$16AC-+$1C0B retained data to be structured
 ; +$1C0C-+$1DBD retained robot-transport Nemesis stream
 ; +$1DBE-+$1F6F retained hologram-animals Nemesis stream
-; +$1F70 onward retained data to be structured
+; +$1F70-+$236F retained hologram Nemesis stream
+; +$2370 onward retained data to be structured
 ;
 ; This slice begins at offset $1990 of the complete R12C graphics stream.
 R32BRetainedR12CGfxNemesisTail:
@@ -474,105 +475,12 @@ R32BRetainedRobotTransportNemesis:
 R32BRetainedHologramAnimalsNemesis:
 	incbin	"gfx/r5/hologram_animals.nem"
 
-	dc.b	0, $33, $80, 5, $F, $15, $14, $25, $10, $36, $2E, $46
-	dc.b	$2A, $56, $2B, $66, $34, $74, 2, $81, 3, 0, $15, $A, $27
-	dc.b	$70, $82, 4, 3, $15, $12, $26, $36, $37, $74, $47, $76, $83
-	dc.b	5, $B, $16, $30, $26, $35, $84, 5, $11, $16, $33, $28, $F4
-	dc.b	$85, 7, $6E, $18, $F2, $86, 5, $16, $17, $78, $27, $7B, $87
-	dc.b	4, 6, $17, $6F, $28, $EE, $88, 5, $E, $16, $27, $28, $F5
-	dc.b	$89
-	dcb.b	2,4
-	dc.b	$16, $26, $28, $EF, $37, $75, $8A, 7, $73, $8B, 7, $71, $18
-	dc.b	$F3, $8C, 6, $31, $17, $72, $8D, 6, $2F, $8F, 6, $32, $FF
-	dc.b	$81, $FE, $CE, $E3, $D6, $E9, $61, $54, $97, $54, $97, $5C
-	dc.b	$AB, $95, $56, $94, $2C, $F4, $95, $2C, $8F, $49, $52, $67
-	dc.b	9, $51, $1C, $3B, $A0, $3B, $AD, $E, $23, $C0, $96, $1E, $6B
-	dc.b	$F, $D9, $79, $AE, $9D, $30, $BB, $A5, $72
-	dcb.b	3,$22
-	dc.b	$FD, $9D, $D8, $67, $AB, $F0, $97, $A6, $A7, $91, $C7, $74
-	dc.b	$56, $6E, $FC, $F9, $C7, $72, $CD, $DF, $AF, $5E, $E5, $9C
-	dcb.b	2,$F9
-	dc.b	$6B, $9E, $E8, $EE, $B2, $67, $2C, $D9, $22, $6A, $35, $A6
-	dc.b	7, $C2, $5A, $9A, $92, $27, $81, $A9, $A2, $7A, $98, $61
-	dc.b	$17, $59, $66, $10, $46, $74, $6B, 3, $11, $13, $B5, $8C
-	dc.b	$44, $FD, $59, $E6, $D2, $F5, $93, $98, $38, $D2, $53, $B0
-	dc.b	$65, $D1, $8D, $C1, $CB, $87, $4E, $24, $44, $BB, $8E, $91
-	dc.b	$C3, $6A, $6E, $CD, $72, $A7, $E9, $62, $B3, $A7, $8F, $28
-	dc.b	$AE, $9E, $3C, $A2, $BA, $7E, $D7, $35, $BD, $7F, $D4, $79
-	dc.b	$E1, $E8, $B7, $ED, $A9, $BD, 7, $4A, $20, $6E, $14, $DE
-	dc.b	$83, $7D, $38, $6F, $52, $78, $EE, $4A, $6F, $9D, $21, $3C
-	dc.b	$C2, $87, $34, $83, $F8, $9E, $1E, $6B, $D, $C2, $FE, $26
-	dc.b	$C0, $F8, $5F, $C4, $21, $82, $2D, $32, $E7, $59, $E5, $CE
-	dc.b	$1C, $8E, $67, $FE, $F0, $DC, $3F, $78, $D6, $9C, $72, $6C
-	dc.b	$5F, $64, $53, $B1, $55, $FC, $31, $E1, $F9, $DF, $D8, $BC
-	dc.b	$5E, $EB, $C5, $C2, $F1, $52
-	dcb.b	2,$88
-	dc.b	$B4, $E4, $21, $C9, $B1, $10, $C6, $D8, $AA, $16, $C5, $57
-	dc.b	$62, $AA, $95, $58
-	dcb.b	4,$22
-	dc.b	$86, $DC, $6A, $92, $EA, $DA, $B9, $56, $C9, $55, $92, $B3
-	dc.b	$8D, $47, $1A, $CE, $35, $4A, $35, $4F, $35, 5, $F3, $E, $4F
-	dc.b	$BD, $57, $FE, $B0, $38, $4F, $BE, $DF, $9D, $17, $FE, $F3
-	dc.b	$FE, $3C, $32, $E6, $29, $E7, $95, $97, $F, $D9, $DC, $B3
-	dcb.b	4,$22
-	dc.b	$AF, $95, $7E, $DA, $EF, $E6, $43, $F8, $3A, $1E, $B5, $1E
-	dc.b	$15, $49, $75, $CA, $B9, $68, $7A, $1E, $87, $A1, $E8, $75
-	dc.b	$AC, $EB, $95, $72, $AB, 3, $7C, $B0, $CD, $74, $D9, $79
-	dc.b	$C3, $A2, $EA, $DB, $43, $2D, $F, $43, $D2, $35, $C4, $EE
-	dc.b	$E7, $97, $11, $E, $7F, $9F, $E2, $90, $FC, $FF, $14, $10
-	dc.b	$E0, $E4, $87, $7C, $F7, $77, $91, $3D, $7A, $7F, $E, $1A
-	dc.b	$E7, $FD, $39, $7A, $6A, $79, $1C, $77, $1A, $CD, $DF, $9F
-	dc.b	$38, $9A, $CD, $DF, $AF, $59, $AC, $E7, $CF, $71, $EB, $9E
-	dc.b	$E8, $9E, $19, $CA, $27, $84, $4D, $5B, $60, $7C, $25, $A9
-	dc.b	$AB, $6C, $D, $5B, $6A, $61, $72, $75, $96, $61, $72, $9D
-	dc.b	$1A, $DB, $2A, $76, $ED, $EA, $F7, $30, $71, $CE, $6E, $DE
-	dc.b	$1A, $51, $63
-	dcb.b	2,$70
-	dc.b	$5F, $4F, $D9, $FF, $4B, 7, $F6, $C1, $9F, $D3, 4, $7F, $65
-	dc.b	$A5, $3A, $2E, $A6, $4A, $D9, $2A, $38, $D6, $71, $22, $2A
-	dc.b	$61, $71, $BF, $3C, $36, $7F, $96, $6B, $93, $FF, $6B, $15
-	dc.b	$9B, $F7, $78, $F2, $8A, $DF, $BB, $C7, $94, $56, $F8, $FE
-	dc.b	$D7, $3D, $7F, $A9, $2C, $3D, $16, $9B, $6A, $6C, $83, $A3
-	dc.b	$D9, 3, $70, $64, $DE, $83, $7A, $7E, $C7, $7A, $BD, $F7
-	dc.b	$23, $FB, $A7, $4A, $7A, $B2, $43, $AD, $CB, $F3, $5D, $C2
-	dc.b	$FF, $35, $C1, $5C, $79, $AE, 2, $FC, $B9, $AE, $B, $CA, $CB
-	dc.b	$68, $6A, $11, $A9, $B5, $11, $B4, $48, $E8, $64
-	dcb.b	3,$44
-	dc.b	$55, $B5, $5B, $D1, $A1, $CF, $2D, $E9, $4E, $7F, $9F, $E2
-	dc.b	$20, $3C, $C5, $D1, $1C, $44, $CF, $89, $D5, $13, $AC, $CB
-	dc.b	$44, 4
-	dcb.b	5,$44
-	dc.b	$55, $E7, $56, $32, $CD, $C3, $95, $E, $D3, $8C, $48
-	dcb.b	2,$88
-	dc.b	$89, 8, $8A, $EE, $42, $1C, $9B, $10, $FF, $D6, $5B, $15
-	dc.b	$7E, $B2, $D8, $A9, $FC, $9B, $15, $53, $16, $C5, $50, $76
-	dc.b	$2A, $BB, $15, $54, $A2
-	dcb.b	4,$22
-	dc.b	$2A, $86, $82, $B1, $7D, $6A, $81, $C6, $A9, $46, $AB, $3A
-	dc.b	$6A, $B, $E6, $1F, $AC, $FC, $EF, $F, $D6, $4E, $A9, $F7
-	dc.b	$FE, $75, $5F, $BC, $FF, $89, $11, $17, $EB, $2A, $6F, $6D
-	dc.b	$F, $EE, $53, $FA, $35, $D9, $15, 1, $7F, 8, $F, $CE, $AA
-	dc.b	2, $F7, $5E, $2E, $17, $8A, $94, $45, $57, $68, $7F, $15
-	dc.b	$EA, $F4, $DA, $6F, $45, $6E, $9F, $F8, $B6, $9F, $77, $ED
-	dc.b	$B7, $4D, $AA, $8D, $5B, $29, $EA, $ED, $F, $E0, $D0, $7F
-	dc.b	$E, $8E, $ED, $44, $ED, $41, $DA, $EF, $D8, $DD, $FB, $88
-	dc.b	$E, $B0, $1D, $60, $3A, $C0, $75, $7B, $AD, $FC, $90, $EF
-	dc.b	$EB, $8F, $F4, $FF, $C4, $F4, $DC, $9F, $8E, $1F, $8E, $99
-	dc.b	$E1, $AF, $17, $EF, $40, $D7, $8B, $FB, $85, $B1, $18, $FB
-	dc.b	$16, $C4, $63, $EC, $3A, $F1, $7F, $A8, $4F, $C7, $F, $C7
-	dc.b	$77, $84, $FD, $74, $CC, $3F, $92, $C8, $3B, $C3, $91, $53
-	dc.b	7, $20, $60, $81, $C8, $A4, $53, $90, $39, $53, $A0, $72
-	dc.b	$2A, $6F, $DB, $89, $9B, $AB, $23, $4C, $A9, $A7, $40, $E4
-	dc.b	9, $3A, 4, $52, $4F, $32, $A6, $77, $FE, $7F, $F3, $FF, $12
-	dc.b	$29, $AB, $DF, $35, $DE, $37, $A4, $3D, $B2, $42, $76, $B3
-	dc.b	$25, $26, $F5, $13, $4F, $33, $83, 9, $9D, $30, $B2, $BA
-	dc.b	$86, $E, $1D, $E1, $38, $4C, $1C, $8A, $98, $39, $15, $30
-	dc.b	$72, $29, $E8, $1C, $9C, $1E, $1C, $8A, $40, $F7, $22, $A6
-	dc.b	$F, $45, $77, $87, $AB, $A8, $78, $FE, $48, $7F, $77, $B7
-	dc.b	$F, $F4, $FF, $C4, $15, $79, $11, $43, $2B, $B2, $2A, $B2
-	dc.b	$22, $2A, $B2, $2A, $65, $6B, $B2, $A6, $4F, $CA, $EB, $5D
-	dc.b	$91, $5C
-	dcb.b	2,0
+
+; Complete retained hologram Nemesis stream.
+R32BRetainedHologramNemesis:
+	incbin	"gfx/hologram.nem"
+
+	dc.b	0
 	dc.b	$D2, 0, $EC, 0, $FC, 1, $C, 4, $E8, $D, 0, $43, $F0, $F8
 	dc.b	$C, 0, $4B, $F0, 0, 8, 0, $4F, $F0, 8, $C, 0, $52, $F0, 0
 	dc.b	2, $E8, 9
