@@ -22,7 +22,8 @@
 ; +$2828-+$2855  nine-piece legacy demo mapping frame 2
 ; +$2856-+$2883  nine-piece legacy demo mapping frame 3
 ; +$2884-+$28A7  seven-piece legacy demo mapping frame 4
-; +$28A8-+$29FF  retained mapping frames still to be structured
+; +$28A8-+$28C7  six-piece legacy demo mapping frame 5
+; +$28C8-+$29FF  retained mapping frames still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -136,7 +137,8 @@ R32ARetainedDemoMappingOffsets:
 	dc.w	R32ARetainedDemoMapFrame2-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame3-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame4-R32ARetainedDemoMappingOffsets
-	dc.w	$00EC, $010C, $015E, $01AA, $01F2
+	dc.w	R32ARetainedDemoMapFrame5-R32ARetainedDemoMappingOffsets
+	dc.w	$010C, $015E, $01AA, $01F2
 
 ; Eight-piece frame arranged as two columns across four rows. Each piece uses
 ; the standard Y, size/shape, tile word, X record, followed by even alignment.
@@ -206,13 +208,19 @@ R32ARetainedDemoMapFrame4:
 	dc.b	0, 6, $18, $31, $F0
 	dc.b	0, 6, $18, $2B, 0
 
-; First byte of mapping frame 5.
-	dc.b	6, $F8, 3, $10, $27
-	dc.b	$D8, $F8, 3, $10, $27, $E0, $E8, 6, 8, $31, $F0, $E8, 6, 8
-	dc.b	$2B
-	dcb.b	2,0
-	dc.b	6, $10, $2B, $F0, 0, 6, $10, $31
-	dcb.b	2,0
+; Six-piece frame: two narrow pieces at the left, two wider upper pieces, and
+; two lower pieces. The standard records are followed by even alignment.
+R32ARetainedDemoMapFrame5:
+	dc.b	6
+	dc.b	$F8, 3, $10, $27, $D8
+	dc.b	$F8, 3, $10, $27, $E0
+	dc.b	$E8, 6, 8, $31, $F0
+	dc.b	$E8, 6, 8, $2B, 0
+	dc.b	0, 6, $10, $2B, $F0
+	dc.b	0, 6, $10, $31, 0
+	dc.b	0	; alignment
+
+; First byte of mapping frame 6.
 	dc.b	$10, $E8, 9, 0, $11, $F3, $F8, $C, 0, $17, $E3, $F8, 4, 0
 	dc.b	$1B, 3, 0, $C, $10, $17, $E3, 0, 4, $10, $1B, 3, 8, 9, $10
 	dc.b	$11, $F3, $E8, 3, 0, $27, $D8, $E8, 3, 0, $27, $E0, $E8, 3
