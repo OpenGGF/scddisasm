@@ -38,7 +38,9 @@
 ; +$095C-+$09C7  retained title-card Act 1-3 mapping frames
 ; +$09C8-+$09EB  retained title-card zone-label mapping frame
 ; +$09EC-+$0A0B  retained title-card zone-number mapping frame
-; +$0A0C onward  retained data still to be structured
+; +$0A0C-+$0A11  retained title-card trampoline
+; +$0A12-+$0A21  retained stage descriptor
+; +$0A22 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -889,11 +891,18 @@ R32BRetainedTitleCardZoneNumber:
 	even
 
 ; Remaining retained title-card trampoline and stage data.
-	dc.b	$4E, $F9, 0, $20, $64, $EC, 3, $23, $7B, $EE, 2
-	dc.b	$23, $6C, $76, 0, $21
-	dcb.b	3,0
-	dc.b	$81
-	dcb.b	2,4
+R32BRetainedTitleCardTrampoline:
+	jmp	$2064EC			; historical title-card return
+
+; Historical Act 1 Present stage descriptor: art pointers, chunk pointer,
+; layout flags, and palette identifiers.
+R32BRetainedAct1PresentStageData:
+	dc.l	$03237BEE		; Nemesis stage art
+	dc.l	$02236C76		; Nemesis stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 4, 4
+
+; Remaining retained stage/PLC data.
 	dc.b	0, $26, 0, $34, 0, $90, 0, $26, 0, $A4, 0, $EE, 1, $32, 1
 	dc.b	$7C, 1, $84, 1, $CE, 1, $D6, 1, $E4, 1, $F2, 0, $90, 0, $90
 	dc.b	0, $90, 1, $FA, 0, $90
