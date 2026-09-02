@@ -12,7 +12,8 @@
 ; +$0100-+$015B  retained Standard PLC
 ; +$015C-+$01AB  retained Section 0 PLC
 ; +$01AC-+$01FB  retained Section 1 PLC
-; +$01FC onward  retained PLC/data bodies still to be structured
+; +$01FC-+$0203  retained Section 2 PLC
+; +$0204 onward  retained PLC/data bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -98,7 +99,8 @@ R32BRetainedAct2PastPLCOffsets:
 	dc.w	R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Section 0
 	dc.w	R32BRetainedAct2PastStagePLC-R32BRetainedAct2PastPLCOffsets	; Stage
 	dc.w	R32BRetainedAct2PastSection1PLC-R32BRetainedAct2PastPLCOffsets
-	dc.w	$0130, $0138	; Sections 2-3
+	dc.w	R32BRetainedAct2PastSection2PLC-R32BRetainedAct2PastPLCOffsets
+	dc.w	$0138	; Section 3
 	dcb.w	4,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Updates 0-3
 	dcb.w	2,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Intro, Tentou
 	dcb.w	3,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets
@@ -209,8 +211,12 @@ R32BRetainedAct2PastSection1PLC:
 	dc.w	$8420
 
 ; Remaining retained PLC/data bodies.
-	dcb.b	3,0
-	dc.b	$23, $69, $7A, $6D, $40
+R32BRetainedAct2PastSection2PLC:
+	dc.w	0			; one entry
+	dc.l	$0023697A		; withered robot generator
+	dc.w	$6D40
+
+; Section 3 and later bodies.
 	dcb.b	3,0
 	dc.b	$23, $52, $46, $6D, $40
 	dcb.b	3,0
