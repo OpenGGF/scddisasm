@@ -69,7 +69,8 @@
 ; +$0D44-+$0D69 retained historical Act 3 Bad Future PLC offset table
 ; +$0D6A-+$0D77 retained historical Act 3 Bad Future Stage PLC
 ; +$0D78-+$0DB5 retained historical Act 3 Bad Future Main PLC
-; +$0DB6 onward  retained stage/PLC bodies still to be structured
+; +$0DB6-+$0DCF retained historical Act 3 Bad Future Section PLC
+; +$0DD0 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1352,11 +1353,15 @@ R32BRetainedPalmtreeAct3BadFutureMainPLC:
 	dc.l	$00232E48
 	dc.w	$F5C0
 R32BRetainedPalmtreeAct3BadFutureSectionPLC:
-	dc.b	0, 3, 0, $23, $3B, $2E, $57, $80, 0, $23
-	dc.b	$54, $50, $6B, $60, 0, $23, $D0, $C6, $6F
-	dcb.b	2,0
-	dc.b	$23, $DD, $E0, $74
-	dcb.b	1,0
+	dc.w	3			; entry count minus one
+	dc.l	$00233B2E
+	dc.w	$5780
+	dc.l	$00235450
+	dc.w	$6B60
+	dc.l	$0023D0C6
+	dc.w	$6F00
+	dc.l	$0023DDE0
+	dc.w	$7400
 R32BRetainedPalmtreeAct3BadFutureBossPLC:
 	dc.b	0, 1, 0, $23, $44, $40, $6E, $60, 0, $22, $EE, $4A, $90, $20
 
