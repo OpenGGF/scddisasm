@@ -5,7 +5,8 @@
 ; are classified incrementally below rather than assumed to be alignment.
 ; +$0000-+$0CB5  nine complete Nemesis streams
 ; +$0CB6-+$0E65  complete normal KamaKama mapping family
-; +$0E66-+$29FF  retained units still to be classified
+; +$0E66-+$0FC1  complete alternate KamaKama mapping family
+; +$0FC2-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -28,88 +29,13 @@ R32ARetainedKamaKamaMappings:
 	include	"sprites/r3/kama_kama_1.asm"
 	dc.b	0	; retained terminal alignment byte
 
-; First byte of the following retained mapping-offset table.
-	dc.b	0
-	dc.b	$10, 0, $34, 0, $68, 0, $82, 0, $B6, 0, $EA, 1, $E, 1, $42
-	dc.b	7, $EC, 4, 0, $21, $EE, $F4
-	dcb.b	2,0
-	dc.b	2, $EE, $F4
-	dcb.b	2,0
-	dc.b	$23, $F6, $FC, 9, 0, $26, $F4, 4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE, $A, $ED, 4, 0, $24, $EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	$23, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $2C, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$2E
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, 5, $EC, 4, 0, $21, $EE, $F4
-	dcb.b	2,0
-	dc.b	2, $EE, $F4
-	dcb.b	2,0
-	dc.b	$23, $F6, $FC, 9, 0, $26, $F4, 4, 5, 0, $15, $FE, $A, $ED
-	dc.b	4, 0, $24, $EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	$23, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $2C, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$2E
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, $A, $ED, 4, 0, $24, $EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	$23, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $2C, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$2E
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, 7, $EC, 4, 0, $21, $EE, $F4
-	dcb.b	2,0
-	dc.b	2, $EE, $F4
-	dcb.b	2,0
-	dc.b	$23, $F6, $FC, 9, 0, $26, $F4, 4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE, $A, $ED, 4, 0, $24, $EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	$23, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $2C, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$2E
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, 5, $EC, 5, 0, 4, $EE, $FC
-	dc.b	9, 0, $26, $F4, 4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE, 7
+; Complete eight-frame alternate KamaKama mapping family. It uses the same
+; piece schema and pose roles as the normal family with alternate tile pieces.
+R32ARetainedAlternateKamaKamaMappings:
+	include	"sprites/r3/kama_kama_2.asm"
+
+; First byte of the following retained unit.
+	dc.b	7
 	dcb.b	3,8
 	dcb.b	3,9
 	dcb.b	3,$A
