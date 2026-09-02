@@ -8,7 +8,12 @@
 ; $20F6EE-$20F973  Results initialization and complete mapping records
 ; $20F974-$20FACD  title-card placement/mapping records and orphan trampoline
 ; $20FACE-$20FCF3  orphaned Act 1 Present stage descriptor and PLC graph
-; $20FCF4-$20FFFF  retained records from later orphaned units (unresolved)
+; $20FCF4-$20FDE9  truncated tail of an earlier orphaned PLC graph (unresolved)
+; $20FDEA-$20FDEF  orphaned absolute-jump trampoline
+; $20FDF0-$20FEA9  orphaned Palmtree Panic Act 3 Bad Future stage/PLC graph
+; $20FEAA-$20FECB  retained tables between orphaned units (unresolved)
+; $20FECC-$20FED1  orphaned absolute-jump trampoline
+; $20FED2-$20FFFF  truncated Palmtree Panic Act 3 Good Future stage/PLC graph
 ; ------------------------------------------------------------------------------
 
 	dc.b	$DA, $36, $6E, $20, 0, $21, $DA, $B2, $6F, $20, 0, $21, $D9
@@ -894,47 +899,100 @@ RetainedAct1PresentPLCLists:
 	dc.b	$23, $28, $76, $78, $80, 0, 2, 0, $23, $22, $9A, $87, $80
 	dc.b	0, $23, $1C, $D0, $91
 	dcb.b	2,0
-	dc.b	$20, $DB, $4A, $7D, $E0, $4E, $F9, 0, $20, $62, $94, 3, $23
-	dc.b	$8E, $82, 2, $23, $7C, $FA, 0, $21
-	dcb.b	3,0
-	dc.b	$81
-	dcb.b	2,5
-	dc.b	0, $26, 0, $34, 0, $72, 0, $26, 0, $8C, 0, $72, 0, $72, 0
-	dc.b	$72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72
-	dc.b	0, $72, 0, $9A, 0, $72, 0, $A2, 0, 1, 0, $23, $8E, $82
-	dcb.b	3,0
-	dc.b	$23, $C8, $5C, $4A
-	dcb.b	2,0
-	dc.b	9, 0, $23, $D, $A2, $6C
-	dcb.b	2,0
-	dc.b	$23, $39, $E4, $7A
-	dcb.b	2,0
-	dc.b	$23, $1E, $2E, $9E, $40, 0, $23, $21, $3A, $A4
-	dcb.b	2,0
-	dc.b	$23, $34, $BC, $AD
-	dcb.b	2,0
-	dcb.b	2,$23
-	dc.b	$5C, $B5
-	dcb.b	2,0
-	dc.b	$23, $29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, 3, 0, $23, $3B, $2E, $57, $80, 0, $23
-	dc.b	$54, $50, $6B, $60, 0, $23, $D0, $C6, $6F
-	dcb.b	2,0
-	dc.b	$23, $DD, $E0, $74
-	dcb.b	2,0
-	dc.b	1, 0, $23, $44, $40, $6E, $60, 0, $22, $EE, $4A, $90, $20
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80
-	dcb.b	3,0
-	dc.b	$22, $EE, $4A, $90, $20
+	dc.b	$20, $DB, $4A, $7D, $E0
+
+RetainedPalmtreeAct3BadFutureEntry:
+	jmp	$206294
+
+; Historical Act 3 Bad Future stage descriptor and PLC graph. The live graph
+; has since changed, so its absolute art pointers remain literal. PLC bodies
+; use a count-minus-one word followed by six-byte art/VRAM records.
+RetainedPalmtreeAct3BadFutureStageData:
+	dc.l	$03238E82		; primary stage art
+	dc.l	$02237CFA		; stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 5, 5		; layout flags and palette IDs
+
+RetainedPalmtreeAct3BadFuturePLCLists:
+	dc.w	.Stage-RetainedPalmtreeAct3BadFuturePLCLists
+	dc.w	.Main-RetainedPalmtreeAct3BadFuturePLCLists
+	dc.w	.Section-RetainedPalmtreeAct3BadFuturePLCLists
+	dc.w	.Stage-RetainedPalmtreeAct3BadFuturePLCLists
+	dc.w	.Boss-RetainedPalmtreeAct3BadFuturePLCLists
+	rept	11
+	dc.w	.Section-RetainedPalmtreeAct3BadFuturePLCLists
+	endr
+	dc.w	.Results-RetainedPalmtreeAct3BadFuturePLCLists
+	dc.w	.Section-RetainedPalmtreeAct3BadFuturePLCLists
+	dc.w	.Capsule-RetainedPalmtreeAct3BadFuturePLCLists
+
+.Stage:
+	dc.w	1
+	dc.l	$00238E82
+	dc.w	0
+	dc.l	$0023C85C
+	dc.w	$4A00
+
+.Main:
+	dc.w	9
+	dc.l	$00230DA2
+	dc.w	$6C00
+	dc.l	$002339E4
+	dc.w	$7A00
+	dc.l	$00231E2E
+	dc.w	$9E40
+	dc.l	$0023213A
+	dc.w	$A400
+	dc.l	$002334BC
+	dc.w	$AD00
+	dc.l	$0023235C
+	dc.w	$B500
+	dc.l	$00232960
+	dc.w	$D000
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+.Section:
+	dc.w	3
+	dc.l	$00233B2E
+	dc.w	$5780
+	dc.l	$00235450
+	dc.w	$6B60
+	dc.l	$0023D0C6
+	dc.w	$6F00
+	dc.l	$0023DDE0
+	dc.w	$7400
+
+.Boss:
+	dc.w	1
+	dc.l	$00234440
+	dc.w	$6E60
+	dc.l	$0022EE4A
+	dc.w	$9020
+
+.Results:
+	dc.w	0
+	dc.l	$00230098
+	dc.w	$7880
+
+.Capsule:
+	dc.w	0
+	dc.l	$0022EE4A
+	dc.w	$9020
 	dcb.b	3,0
 	dc.b	$10, 2, 3, 4
 	dcb.b	3,5
 	dc.b	$FF, $FD, 9, $7C, $FF, $FE, $B7, $50, $FF, $FC, $25, $EE
 	dcb.b	4,0
-	dc.b	$FF, $FD, 9, $7C, 0, 1, $48, $B0, $4E, $F9, 0, $20, $63, $76
+	dc.b	$FF, $FD, 9, $7C, 0, 1, $48, $B0
+
+RetainedPalmtreeAct3GoodFutureEntry:
+	jmp	$206376
+
 	dc.b	3, $23, $8F, $74, 2, $23, $7C, $F2, 0, $21
 	dcb.b	3,0
 	dc.b	$81
