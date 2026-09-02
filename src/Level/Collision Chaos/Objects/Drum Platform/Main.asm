@@ -3,24 +3,24 @@
 ; -------------------------------------------------------------------------
 ; Collision Chaos drum platform object
 ;
-; Subtypes select a starting frame in the bounce cycle. Frames 0-1 use the
-; non-solid state, frames 2-5 use the solid state, and frames 6-17 use the
-; extended non-solid cycle before returning to frame 0.
+; Subtypes select a starting motion step in the bounce cycle. Steps 0-1 use
+; the early non-solid state, steps 2-5 use the solid state, and steps 6-17 use
+; the late non-solid state before returning to step 0.
 ; -------------------------------------------------------------------------
 
 oDrumPlatformBaseX	EQU	oVar32
 oDrumPlatformBaseY	EQU	oVar30
 oDrumPlatformVelocity	EQU	oVar36
-oDrumPlatformTimer	EQU	oVar3A
-oDrumPlatformFrame	EQU	oVar3B
+oDrumPlatformStepTimer	EQU	oVar3A
+oDrumPlatformMotionStep	EQU	oVar3B
 
 ; -------------------------------------------------------------------------
 
 ObjDrumPlatform:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjDrumPlatform_Index(pc,d0.w),d0
-	jsr	ObjDrumPlatform_Index(pc,d0.w)
+	move.w	ObjDrumPlatform_Routines(pc,d0.w),d0
+	jsr	ObjDrumPlatform_Routines(pc,d0.w)
 	jsr	DrawObject
 	move.w	oDrumPlatformBaseX(a0),d0
 	if def(CC_LEGACY_DRUM_PLATFORM_ABI)
@@ -46,15 +46,15 @@ ObjDrumPlatform:
 
 ; -------------------------------------------------------------------------
 
-ObjDrumPlatform_Index:
-	dc.w	ObjDrumPlatform_Init-ObjDrumPlatform_Index
-	dc.w	ObjDrumPlatform_Routine2-ObjDrumPlatform_Index
-	dc.w	ObjDrumPlatform_Routine4-ObjDrumPlatform_Index
-	dc.w	ObjDrumPlatform_Routine6-ObjDrumPlatform_Index
+ObjDrumPlatform_Routines:
+	dc.w	ObjDrumPlatform_Init-ObjDrumPlatform_Routines
+	dc.w	ObjDrumPlatform_EarlyNonSolidCycle-ObjDrumPlatform_Routines
+	dc.w	ObjDrumPlatform_SolidCycle-ObjDrumPlatform_Routines
+	dc.w	ObjDrumPlatform_LateNonSolidCycle-ObjDrumPlatform_Routines
 
 ; -------------------------------------------------------------------------
 
-ObjDrumPlatform_Solid:
+ObjDrumPlatform_CheckTopSolid:
 	btst	#7,oSprFlags(a0)
 	beq.s	.End
 	tst.b	timeZone
@@ -96,7 +96,7 @@ ObjDrumPlatform_Init:
 	move.w	oY(a0),oDrumPlatformBaseY(a0)
 	addq.b	#2,oRoutine(a0)
 	move.b	oSubtype(a0),d0
-	move.b	d0,oDrumPlatformFrame(a0)
+	move.b	d0,oDrumPlatformMotionStep(a0)
 	cmpi.b	#2,d0
 	bcs.s	.End
 	addq.b	#2,oRoutine(a0)
@@ -109,12 +109,12 @@ ObjDrumPlatform_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjDrumPlatform_Routine2:
-	tst.b	oDrumPlatformTimer(a0)
+ObjDrumPlatform_EarlyNonSolidCycle:
+	tst.b	oDrumPlatformStepTimer(a0)
 	bne.s	.Update
 	lea	objPlayerSlot.w,a1
 	jsr	GetOffObject
-	bra.w	ObjDrumPlatform_StartBounce
+	bra.w	ObjDrumPlatform_LoadMotionStep
 
 .Update:
 	tst.b	timeZone
@@ -122,26 +122,26 @@ ObjDrumPlatform_Routine2:
 	tst.b	aniArtTimers
 	bne.s	.End
 	bsr.w	ObjDrumPlatform_ApplyVelocity
-	subq.b	#1,oDrumPlatformTimer(a0)
+	subq.b	#1,oDrumPlatformStepTimer(a0)
 	beq.s	.Next
 
 .End:
 	rts
 
 .Next:
-	addq.b	#1,oDrumPlatformFrame(a0)
-	cmpi.b	#2,oDrumPlatformFrame(a0)
-	bcs.s	ObjDrumPlatform_Routine2
+	addq.b	#1,oDrumPlatformMotionStep(a0)
+	cmpi.b	#2,oDrumPlatformMotionStep(a0)
+	bcs.s	ObjDrumPlatform_EarlyNonSolidCycle
 	addq.b	#2,oRoutine(a0)
 	rts
 
 ; -------------------------------------------------------------------------
 
-ObjDrumPlatform_Routine4:
-	bsr.w	ObjDrumPlatform_Solid
-	tst.b	oDrumPlatformTimer(a0)
+ObjDrumPlatform_SolidCycle:
+	bsr.w	ObjDrumPlatform_CheckTopSolid
+	tst.b	oDrumPlatformStepTimer(a0)
 	bne.s	.Update
-	bra.w	ObjDrumPlatform_StartBounce
+	bra.w	ObjDrumPlatform_LoadMotionStep
 
 .Update:
 	tst.b	timeZone
@@ -149,27 +149,27 @@ ObjDrumPlatform_Routine4:
 	tst.b	aniArtTimers
 	bne.s	.End
 	bsr.w	ObjDrumPlatform_ApplyVelocity
-	subq.b	#1,oDrumPlatformTimer(a0)
+	subq.b	#1,oDrumPlatformStepTimer(a0)
 	beq.s	.Next
 
 .End:
 	rts
 
 .Next:
-	addq.b	#1,oDrumPlatformFrame(a0)
-	cmpi.b	#6,oDrumPlatformFrame(a0)
-	bcs.s	ObjDrumPlatform_Routine4
+	addq.b	#1,oDrumPlatformMotionStep(a0)
+	cmpi.b	#6,oDrumPlatformMotionStep(a0)
+	bcs.s	ObjDrumPlatform_SolidCycle
 	addq.b	#2,oRoutine(a0)
 	rts
 
 ; -------------------------------------------------------------------------
 
-ObjDrumPlatform_Routine6:
-	tst.b	oDrumPlatformTimer(a0)
+ObjDrumPlatform_LateNonSolidCycle:
+	tst.b	oDrumPlatformStepTimer(a0)
 	bne.s	.Update
 	lea	objPlayerSlot.w,a1
 	jsr	GetOffObject
-	bra.w	ObjDrumPlatform_StartBounce
+	bra.w	ObjDrumPlatform_LoadMotionStep
 
 .Update:
 	tst.b	timeZone
@@ -177,17 +177,18 @@ ObjDrumPlatform_Routine6:
 	tst.b	aniArtTimers
 	bne.s	.End
 	bsr.w	ObjDrumPlatform_ApplyVelocity
-	subq.b	#1,oDrumPlatformTimer(a0)
+	subq.b	#1,oDrumPlatformStepTimer(a0)
 	beq.s	.Next
 
 .End:
 	rts
 
 .Next:
-	addq.b	#1,oDrumPlatformFrame(a0)
-	cmpi.b	#$12,oDrumPlatformFrame(a0)
-	bcs.s	ObjDrumPlatform_Routine6
-	clr.w	oDrumPlatformTimer(a0)
+	addq.b	#1,oDrumPlatformMotionStep(a0)
+	cmpi.b	#$12,oDrumPlatformMotionStep(a0)
+	bcs.s	ObjDrumPlatform_LateNonSolidCycle
+	; Clear both the adjacent step timer and motion-step bytes.
+	clr.w	oDrumPlatformStepTimer(a0)
 	move.b	#2,oRoutine(a0)
 	rts
 
@@ -203,22 +204,23 @@ ObjDrumPlatform_ApplyVelocity:
 
 ; -------------------------------------------------------------------------
 
-ObjDrumPlatform_StartBounce:
+ObjDrumPlatform_LoadMotionStep:
 	moveq	#0,d0
-	move.b	oDrumPlatformFrame(a0),d0
+	move.b	oDrumPlatformMotionStep(a0),d0
 	add.b	d0,d0
-	add.b	oDrumPlatformFrame(a0),d0
+	add.b	oDrumPlatformMotionStep(a0),d0
 	lea	ObjDrumPlatform_MotionData(pc,d0.w),a2
 	move.b	(a2)+,oDrumPlatformVelocity(a0)
 	move.b	(a2)+,oYRadius(a0)
 	move.b	(a2)+,oMapFrame(a0)
-	move.b	#4,oDrumPlatformTimer(a0)
+	move.b	#4,oDrumPlatformStepTimer(a0)
 	bra.s	ObjDrumPlatform_SetPriority
 
 ; -------------------------------------------------------------------------
 
 ObjDrumPlatform_MotionData:
-	; velocity, collision radius, mapping frame
+	; Signed whole-pixel velocity (the high byte of 8.8 velocity), collision
+	; radius, and mapping frame. Each record lasts four eligible update ticks.
 	dc.b	1, 8, 0
 	dc.b	5, 8, 1
 	dc.b	6, $C, 2
