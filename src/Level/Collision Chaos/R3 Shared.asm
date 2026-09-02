@@ -19,6 +19,7 @@ R3_SEMANTIC_TENTOU	EQU	1
 CC_LEGACY_TENTOU_ABI	EQU	1
 R3_SEMANTIC_SPIKE_CHAIN EQU	1
 CC_LEGACY_SPIKE_CHAIN_ABI EQU	1
+R3_SEMANTIC_CC_SPIKES	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -103,7 +104,7 @@ CC_VARIANT	EQU	3
 		include	"r3/section_gfx_3d.asm"
 	endif
 
-	include	"objects/r3/spikes.asm"
+	include	"Level/Collision Chaos/Objects/Spikes/Main.asm"
 	include	"objects/r3/block.asm"
 	include	"objects/r3/hidden_block.asm"
 	include	"objects/r3/metal_platform.asm"

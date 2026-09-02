@@ -18,8 +18,8 @@ oSpikesRetracting	EQU	oVar3C
 ObjSpikes:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjSpikes_Index(pc,d0.w),d0
-	jsr	ObjSpikes_Index(pc,d0.w)
+	move.w	ObjSpikes_Routines(pc,d0.w),d0
+	jsr	ObjSpikes_Routines(pc,d0.w)
 	jsr	DrawObject
 
 	moveq	#0,d1
@@ -51,9 +51,9 @@ ObjSpikes:
 
 ; -------------------------------------------------------------------------
 
-ObjSpikes_Index:
-	dc.w	ObjSpikes_Init-ObjSpikes_Index
-	dc.w	ObjSpikes_Main-ObjSpikes_Index
+ObjSpikes_Routines:
+	dc.w	ObjSpikes_Init-ObjSpikes_Routines
+	dc.w	ObjSpikes_Update-ObjSpikes_Routines
 
 ; Width, Y radius, and collision type for each orientation.
 ObjSpikes_Properties:
@@ -92,7 +92,7 @@ ObjSpikes_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjSpikes_Main:
+ObjSpikes_Update:
 	jsr	ObjSpikes_UpdateMovement(pc)
 	tst.b	oMapFrame(a0)
 	beq.s	.CheckTop
