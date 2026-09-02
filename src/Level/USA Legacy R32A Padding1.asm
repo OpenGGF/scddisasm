@@ -9,7 +9,8 @@
 ; $20F420-$20F44B  orphaned Results dispatcher and delayed-load state
 ; $20F44C-$20F517  orphaned Results PLC-wait/object-initialization state
 ; $20F518-$20F551  orphaned Results movement state
-; $20F552-$20FFFF  retained executable/data units (still to be classified)
+; $20F552-$20F605  orphaned Results bonus-tally state
+; $20F606-$20FFFF  retained executable/data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -251,21 +252,62 @@ USARetainedResultsMove:
 	addq.b	#2,oRoutine(a0)
 	bra.s	.CheckDraw
 
-; Start of the bonus-tally state; the split absolute write continues in the
-; following raw bytes and is intentionally left for the next milestone.
 USARetainedResultsBonus:
-	dc.b	$11, $FC, $00, $01
-	dc.b	$F7, $D6, $70, $00, $4A, $78, $F7, $D2, $66, $30, $4A, $78, $F7, $D4, $66, $3A
-	dc.b	$53, $68, $00, $32, $6A, $04, $54, $28, $00, $24, $0C, $68, $00, $1E, $00, $32
-	dc.b	$66, $12, $4A, $39, $00, $FF, $15, $6E, $67, $0A, $30, $3C, $00, $C8, $4E, $B9
-	dc.b	$00, $20, $22, $82, $4E, $F9, $00, $20, $3A, $72, $06, $40, $00, $0A, $04, $78
-	dc.b	$00, $64, $F7, $D2, $4A, $78, $F7, $D4, $67, $0A, $06, $40, $00, $0A, $04, $78
-	dc.b	$00, $64, $F7, $D4, $22, $00, $4A, $78, $F7, $D2, $66, $2A, $4A, $78, $F7, $D4
-	dc.b	$66, $24, $4E, $B9, $00, $20, $22, $1A, $13, $FC, $00, $9A, $00, $A0, $1C, $09
-	dc.b	$4E, $B9, $00, $20, $22, $36, $0C, $68, $00, $2D, $00, $32, $64, $24, $31, $7C
-	dc.b	$00, $2D, $00, $32, $60, $1C, $4A, $68, $00, $32, $67, $04, $53, $68, $00, $32
-	dc.b	$08, $28, $00, $00, $00, $32, $66, $0A, $30, $3C, $00, $BD, $4E, $B9, $00, $20
-	dc.b	$22, $82, $20, $01, $4E, $B9, $00, $20, $A8, $F8, $4E, $F9, $00, $20, $3A, $72
+	move.b	#1,updateHUDBonus.w
+	moveq	#0,d0
+	tst.w	timeBonus.w
+	bne.s	.TimeBonus
+	tst.w	ringBonus.w
+	bne.s	.RingBonus
+	subq.w	#1,oResultsTimer(a0)
+	bpl.s	.CheckWarpSound
+	addq.b	#2,oRoutine(a0)
+.CheckWarpSound:
+	cmpi.w	#30,oResultsTimer(a0)
+	bne.s	.Draw
+	tst.b	specialStage
+	beq.s	.Draw
+	move.w	#FM_SSWARP,d0
+	jsr	$202282
+.Draw:
+	jmp	$203A72
+.TimeBonus:
+	addi.w	#10,d0
+	subi.w	#100,timeBonus.w
+	tst.w	ringBonus.w
+	beq.s	.CheckDone
+.RingBonus:
+	addi.w	#10,d0
+	subi.w	#100,ringBonus.w
+.CheckDone:
+	move.l	d0,d1
+	tst.w	timeBonus.w
+	bne.s	.HaveBonus
+	tst.w	ringBonus.w
+	bne.s	.HaveBonus
+	jsr	$20221A
+	move.b	#FM_KACHING,FMDrvQueue1
+	jsr	$202236
+	cmpi.w	#45,oResultsTimer(a0)
+	bcc.s	.AddPoints
+	move.w	#45,oResultsTimer(a0)
+	bra.s	.AddPoints
+.HaveBonus:
+	tst.w	oResultsTimer(a0)
+	beq.s	.PlayTallySound
+	subq.w	#1,oResultsTimer(a0)
+.PlayTallySound:
+	btst	#0,oResultsTimer(a0)
+	bne.s	.AddPoints
+	move.w	#FM_TALLY,d0
+	jsr	$202282
+.AddPoints:
+	move.l	d1,d0
+	jsr	$20A8F8
+	jmp	$203A72
+
+; The next-level state is the exact boundary for the following milestone.
+USARetainedResultsNextLevel:
 	dc.b	$33, $FC, $00, $02, $00, $FF, $15, $02, $13, $FC, $00, $00, $00, $FF, $15, $22
 	dc.b	$42, $79, $00, $FF, $15, $74, $42, $B9, $00, $FF, $19, $00, $42, $39, $00, $FF
 	dc.b	$15, $6C, $42, $39, $00, $FF, $15, $6D, $42, $39, $00, $FF, $15, $8E, $4A, $39
