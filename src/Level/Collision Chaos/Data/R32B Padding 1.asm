@@ -40,7 +40,8 @@
 ; +$09EC-+$0A0B  retained title-card zone-number mapping frame
 ; +$0A0C-+$0A11  retained title-card trampoline
 ; +$0A12-+$0A21  retained stage descriptor
-; +$0A22 onward  retained data still to be structured
+; +$0A22-+$0A47 retained nineteen-entry stage/PLC offset table
+; +$0A48 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -902,11 +903,30 @@ R32BRetainedAct1PresentStageData:
 	dc.l	$00210000		; stage chunks
 	dc.b	0, $81, 4, 4
 
+; Historical Act 1 Present stage/PLC selection table. Offsets are relative to
+; this table; the copied bodies retain their original absolute asset pointers.
+R32BRetainedAct1PresentPLCLists:
+	dc.w	$0026			; Stage
+	dc.w	$0034			; Standard
+	dc.w	$0090			; Section 0
+	dc.w	$0026			; Stage
+	dc.w	$00A4			; Section 1
+	dc.w	$00EE			; Section 2
+	dc.w	$0132			; Section 3
+	dc.w	$017C			; Update 0
+	dc.w	$0184			; Update 1
+	dc.w	$01CE			; Update 2
+	dc.w	$01D6			; Update 3
+	dc.w	$01E4			; Intro
+	dc.w	$01F2			; Tentou
+	dc.w	$0090			; Section 0
+	dc.w	$0090			; Section 0
+	dc.w	$0090			; Section 0
+	dc.w	$01FA			; Results
+	dc.w	$0090			; Section 0
+	dc.w	$0202			; Signpost
+
 ; Remaining retained stage/PLC data.
-	dc.b	0, $26, 0, $34, 0, $90, 0, $26, 0, $A4, 0, $EE, 1, $32, 1
-	dc.b	$7C, 1, $84, 1, $CE, 1, $D6, 1, $E4, 1, $F2, 0, $90, 0, $90
-	dc.b	0, $90, 1, $FA, 0, $90
-	dcb.b	2,2
 	dc.b	0, 1, 0, $23, $7B, $EE
 	dcb.b	3,0
 	dc.b	$23, $35, $E8, $D9, $60, 0, $E, 0, $22, $F8, $FC, $60
