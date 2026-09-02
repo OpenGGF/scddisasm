@@ -27,7 +27,9 @@
 ; +$291A-+$2965  fifteen-piece legacy demo mapping frame 7
 ; +$2966-+$29A2  twelve-piece legacy demo mapping frame 8
 ; +$29A3-+$29AD  two uncounted piece records and alignment before frame 9
-; +$29AE-+$29FF  retained mapping frame 9 still to be structured
+; +$29AE-+$29EA  twelve-piece legacy demo mapping frame 9
+; +$29EB-+$29F5  two uncounted piece records and alignment
+; +$29F6-+$29FF  unresolved retained terminal word pattern
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -145,7 +147,7 @@ R32ARetainedDemoMappingOffsets:
 	dc.w	R32ARetainedDemoMapFrame6-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame7-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame8-R32ARetainedDemoMappingOffsets
-	dc.w	$01F2
+	dc.w	R32ARetainedDemoMapFrame9-R32ARetainedDemoMappingOffsets
 
 ; Eight-piece frame arranged as two columns across four rows. Each piece uses
 ; the standard Y, size/shape, tile word, X record, followed by even alignment.
@@ -294,25 +296,29 @@ R32ARetainedDemoMapFrame8UncountedTail:
 	dc.b	$F4, 3, $18, $27, $14
 	dc.b	0	; alignment
 
-; First byte of mapping frame 9.
-	dc.b	$C, $E8, 1
-	dcb.b	2,0
-	dcb.b	2,$F8
-	dc.b	8, 0, 2
-	dcb.b	2,$E8
-	dc.b	1, 8
-	dcb.b	2,0
-	dc.b	$F8
-	dcb.b	2,8
-	dc.b	2
-	dcb.b	2,0
-	dc.b	8, $10, 2, $E8, 0, 8, $18, 2, 0, 8, 1, $10, 0, $F8, 8, 1
-	dc.b	$18
-	dcb.b	2,0
-	dc.b	$E8, 6, $10, $2B, 4, $E8, 6, $10, $31, $EC, 0, 6, 8, $2B
-	dc.b	$EC, 0, 6, 8, $31, 4, $F4, 3, $10, $27, $E4, $EC, 3, 8, $27
-	dc.b	$14, 0, $E0
-	dcb.b	3,0
-	dc.b	$E0
-	dcb.b	3,0
-	dc.b	$E0, 0
+; Declared twelve-piece frame: the first eight records repeat frame 8's core
+; arrangement and the final four use horizontally flipped tile attributes.
+R32ARetainedDemoMapFrame9:
+	dc.b	$C
+	dc.b	$E8, 1, 0, 0, $F8
+	dc.b	$F8, 8, 0, 2, $E8
+	dc.b	$E8, 1, 8, 0, 0
+	dc.b	$F8, 8, 8, 2, 0
+	dc.b	0, 8, $10, 2, $E8
+	dc.b	0, 8, $18, 2, 0
+	dc.b	8, 1, $10, 0, $F8
+	dc.b	8, 1, $18, 0, 0
+	dc.b	$E8, 6, $10, $2B, 4
+	dc.b	$E8, 6, $10, $31, $EC
+	dc.b	0, 6, 8, $2B, $EC
+	dc.b	0, 6, 8, $31, 4
+
+; As with frame 8, two valid records follow the declared count. They end with
+; alignment before a separate terminal pattern whose role remains unresolved.
+R32ARetainedDemoMapFrame9UncountedTail:
+	dc.b	$F4, 3, $10, $27, $E4
+	dc.b	$EC, 3, 8, $27, $14
+	dc.b	0	; alignment
+
+R32ARetainedDemoMappingTerminalWords:
+	dc.w	$E000, 0, $E000, 0, $E000
