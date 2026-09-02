@@ -3,9 +3,10 @@
 ; -------------------------------------------------------------------------
 
 .Sprites:
-	dc.w	.Sprite0-.Sprites
+	dc.w	.Platform-.Sprites
 
-.Sprite0:
+; Two five-byte sprite pieces after the piece count.
+.Platform:
 	dc.b	2
 	dc.b	$F0, $F, 0, 0, $E0
 	dc.b	$F0, $F, 8, 0, 0
