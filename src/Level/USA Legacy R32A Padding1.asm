@@ -10,7 +10,8 @@
 ; $20F44C-$20F517  orphaned Results PLC-wait/object-initialization state
 ; $20F518-$20F551  orphaned Results movement state
 ; $20F552-$20F605  orphaned Results bonus-tally state
-; $20F606-$20FFFF  retained executable/data units (still to be classified)
+; $20F606-$20F6DF  orphaned Results next-level state
+; $20F6E0-$20FFFF  retained data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -306,22 +307,61 @@ USARetainedResultsBonus:
 	jsr	$20A8F8
 	jmp	$203A72
 
-; The next-level state is the exact boundary for the following milestone.
 USARetainedResultsNextLevel:
-	dc.b	$33, $FC, $00, $02, $00, $FF, $15, $02, $13, $FC, $00, $00, $00, $FF, $15, $22
-	dc.b	$42, $79, $00, $FF, $15, $74, $42, $B9, $00, $FF, $19, $00, $42, $39, $00, $FF
-	dc.b	$15, $6C, $42, $39, $00, $FF, $15, $6D, $42, $39, $00, $FF, $15, $8E, $4A, $39
-	dc.b	$00, $FF, $0F, $01, $67, $08, $08, $B9, $00, $00, $00, $FF, $15, $1C, $08, $B9
-	dc.b	$00, $01, $00, $FF, $15, $1C, $13, $FC, $00, $01, $00, $FF, $15, $2E, $30, $39
-	dc.b	$00, $FF, $15, $06, $52, $00, $0C, $00, $00, $02, $66, $08, $13, $FC, $00, $02
-	dc.b	$00, $FF, $15, $2E, $0C, $00, $00, $03, $66, $0C, $10, $3C, $00, $00, $06, $40
-	dc.b	$01, $00, $10, $3C, $00, $00, $33, $C0, $00, $FF, $15, $06, $4E, $B9, $00, $20
-	dc.b	$78, $EA, $4E, $B9, $00, $20, $5C, $26, $4E, $B9, $00, $20, $3A, $72, $10, $39
-	dc.b	$00, $FF, $15, $07, $53, $00, $6A, $08, $42, $39, $00, $FF, $15, $90, $4E, $75
-	dc.b	$4A, $39, $00, $FF, $0F, $01, $66, $30, $0C, $39, $00, $7F, $00, $FF, $0F, $20
-	dc.b	$67, $1E, $4A, $39, $00, $FF, $15, $6A, $67, $1E, $42, $39, $00, $FF, $15, $6A
-	dc.b	$01, $F9, $00, $FF, $15, $90, $0C, $39, $00, $03, $00, $FF, $15, $90, $66, $08
-	dc.b	$13, $FC, $00, $01, $00, $FF, $15, $6A, $4E, $75, $00, $CC, $00, $00, $01, $20
+	move.w	#2,levelRestart
+	move.b	#0,spawnMode
+	clr.w	sectionID
+	clr.l	flowerCount
+	clr.b	unkLevelFlag
+	clr.b	projDestroyed
+	clr.b	checkpoint
+	tst.b	timeAttackMode
+	beq.s	.NotTimeAttack
+	bclr	#0,plcLoadFlags
+.NotTimeAttack:
+	bclr	#1,plcLoadFlags
+	move.b	#TIME_PRESENT,timeZone
+	move.w	zoneAct,d0
+	addq.b	#1,d0
+	cmpi.b	#2,d0
+	bne.s	.NotAct3
+	move.b	#TIME_FUTURE,timeZone
+.NotAct3:
+	cmpi.b	#3,d0
+	bne.s	.SetLevel
+	move.b	#0,d0
+	addi.w	#$100,d0
+	move.b	#0,d0
+.SetLevel:
+	move.w	d0,zoneAct
+	jsr	$2078EA
+	jsr	$205C26
+	jsr	$203A72
+	move.b	act,d0
+	subq.b	#1,d0
+	bpl.s	.CheckGoodFuture
+	clr.b	goodFutureFlags
+	rts
+.CheckGoodFuture:
+	tst.b	timeAttackMode
+	bne.s	.End
+	cmpi.b	#%1111111,timeStones
+	beq.s	.SetGoodFuture
+	tst.b	goodFuture
+	beq.s	.End
+	clr.b	goodFuture
+	bset	d0,goodFutureFlags
+	cmpi.b	#%11,goodFutureFlags
+	bne.s	.End
+.SetGoodFuture:
+	move.b	#1,goodFuture
+.End:
+	rts
+
+; The three Results initialization records begin here. Their first three words
+; are retained explicitly at the split raw-line boundary for the next milestone.
+USARetainedResultsInitData:
+	dc.w	204, 0, 288
 	dc.b	$00, $00, $01, $10, $02, $00, $00, $F0, $00, $01, $00, $CC, $00, $00, $01, $20
 	dc.b	$00, $02, $00, $28, $01, $DE, $00, $52, $00, $86, $00, $BA, $00, $1E, $02, $1C
 	dc.b	$00, $48, $00, $7C, $00, $B0, $00, $DA, $01, $CA, $01, $22, $01, $5A, $01, $92
