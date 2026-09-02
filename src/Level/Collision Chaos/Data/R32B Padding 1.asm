@@ -23,7 +23,8 @@
 ; +$0372-+$039D  retained Results dispatcher and delayed-load state
 ; +$039E-+$0469  retained Results PLC-wait and object initialization state
 ; +$046A-+$04A3  retained Results movement state
-; +$04A4 onward  retained data still to be structured
+; +$04A4-+$0557  retained Results bonus-tally state
+; +$0558 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -484,21 +485,61 @@ R32BRetainedResultsMove:
 	bra.s	.CheckDraw
 
 ; Remaining retained Results states and data.
-	dc.b	$11, $FC, 0, 1, $F7, $D6, $70, 0, $4A, $78
-	dc.b	$F7, $D2, $66, $30, $4A, $78, $F7, $D4, $66, $3A, $53, $68
-	dc.b	0, $32, $6A, 4, $54, $28, 0, $24, $C, $68, 0, $1E, 0, $32
-	dc.b	$66, $12, $4A, $39, 0, $FF, $15, $6E, $67, $A, $30, $3C, 0
-	dc.b	$C8, $4E, $B9, 0, $20, $22, $7E, $4E, $F9, 0, $20, $3A, $6E
-	dc.b	6, $40, 0, $A, 4, $78, 0, $64, $F7, $D2, $4A, $78, $F7, $D4
-	dc.b	$67, $A, 6, $40, 0, $A, 4, $78, 0, $64, $F7, $D4, $22, 0
-	dc.b	$4A, $78, $F7, $D2, $66, $2A, $4A, $78, $F7, $D4, $66, $24
-	dc.b	$4E, $B9, 0, $20, $22, $16, $13, $FC, 0, $9A, 0, $A0, $1C
-	dc.b	9, $4E, $B9, 0, $20, $22, $32, $C, $68, 0, $2D, 0, $32, $64
-	dc.b	$24, $31, $7C, 0, $2D, 0, $32, $60, $1C, $4A, $68, 0, $32
-	dc.b	$67, 4, $53, $68, 0, $32, 8, $28
-	dcb.b	3,0
-	dc.b	$32, $66, $A, $30, $3C, 0, $BD, $4E, $B9, 0, $20, $22, $7E
-	dc.b	$20, 1, $4E, $B9, 0, $20, $A9, 6, $4E, $F9, 0, $20, $3A, $6E
+R32BRetainedResultsBonus:
+	move.b	#1,updateHUDBonus.w
+	moveq	#0,d0
+	tst.w	timeBonus.w
+	bne.s	.TimeBonus
+	tst.w	ringBonus.w
+	bne.s	.RingBonus
+	subq.w	#1,oResultsTimer(a0)
+	bpl.s	.CheckWarpSound
+	addq.b	#2,oRoutine(a0)
+.CheckWarpSound:
+	cmpi.w	#30,oResultsTimer(a0)
+	bne.s	.Draw
+	tst.b	specialStage
+	beq.s	.Draw
+	move.w	#FM_SSWARP,d0
+	jsr	$20227E			; historical sound queue routine
+.Draw:
+	jmp	$203A6E			; historical object draw routine
+.TimeBonus:
+	addi.w	#10,d0
+	subi.w	#100,timeBonus.w
+	tst.w	ringBonus.w
+	beq.s	.CheckDone
+.RingBonus:
+	addi.w	#10,d0
+	subi.w	#100,ringBonus.w
+.CheckDone:
+	move.l	d0,d1
+	tst.w	timeBonus.w
+	bne.s	.HaveBonus
+	tst.w	ringBonus.w
+	bne.s	.HaveBonus
+	jsr	$202216			; historical score-finalization routine
+	move.b	#FM_KACHING,FMDrvQueue1
+	jsr	$202232			; historical sound queue routine
+	cmpi.w	#45,oResultsTimer(a0)
+	bcc.s	.AddPoints
+	move.w	#45,oResultsTimer(a0)
+	bra.s	.AddPoints
+.HaveBonus:
+	tst.w	oResultsTimer(a0)
+	beq.s	.PlayTallySound
+	subq.w	#1,oResultsTimer(a0)
+.PlayTallySound:
+	btst	#0,oResultsTimer(a0)
+	bne.s	.AddPoints
+	move.w	#FM_TALLY,d0
+	jsr	$20227E			; historical sound queue routine
+.AddPoints:
+	move.l	d1,d0
+	jsr	$20A906			; historical score-add routine
+	jmp	$203A6E			; historical object draw routine
+
+; Remaining retained Results states and data.
 	dc.b	$33, $FC, 0, 2, 0, $FF, $15, 2, $13, $FC
 	dcb.b	3,0
 	dc.b	$FF, $15, $22, $42, $79, 0, $FF, $15, $74, $42, $B9, 0, $FF

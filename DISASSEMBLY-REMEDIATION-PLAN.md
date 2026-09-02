@@ -383,6 +383,7 @@ opaque merely because they use `dc.*`.
 | M174 | Complete | Structure the retained Results dispatcher and delayed-load state at `$0372-$039D`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M175 | Complete | Structure the retained Results PLC-wait/object initialization state at `$039E-$0469`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M176 | Complete | Structure the retained Results movement state at `$046A-$04A3`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M177 | Complete | Structure the retained Results bonus-tally state at `$04A4-$0557`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
