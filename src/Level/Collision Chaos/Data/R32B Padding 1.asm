@@ -65,7 +65,8 @@
 ; +$0D12-+$0D19 retained DEMO11A graph Results PLC
 ; +$0D1A-+$0D2D retained DEMO11A graph Signpost PLC
 ; +$0D2E-+$0D33 retained historical Act 3 Bad Future jump
-; +$0D34 onward  retained stage/PLC bodies still to be structured
+; +$0D34-+$0D43 retained historical Act 3 Bad Future stage descriptor
+; +$0D44 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1301,11 +1302,14 @@ R32BRetainedDemoR11ACamGraphSignpostPLC:
 R32BRetainedPalmtreeAct3BadFutureEntry:
 	jmp	$206294
 
-	dc.b	3, $23
-	dc.b	$8E, $82, 2, $23, $7C, $FA, 0, $21
-	dcb.b	3,0
-	dc.b	$81
-	dcb.b	2,5
+
+; Historical Act 3 Bad Future stage descriptor; its absolute pointers remain literal.
+R32BRetainedPalmtreeAct3BadFutureStageData:
+	dc.l	$03238E82		; primary stage art
+	dc.l	$02237CFA		; stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 5, 5		; layout flags and palette IDs
+
 	dc.b	0, $26, 0, $34, 0, $72, 0, $26, 0, $8C, 0, $72, 0, $72, 0
 	dc.b	$72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72
 	dc.b	0, $72, 0, $9A, 0, $72, 0, $A2, 0, 1, 0, $23, $8E, $82
