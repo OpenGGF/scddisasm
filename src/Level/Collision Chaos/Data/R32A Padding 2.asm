@@ -10,7 +10,8 @@
 ; +$1100-+$20FF  complete shared collision-row profile map
 ; +$2100-+$241F  complete Collision Chaos Act 1 Past collision-index map
 ; +$2420-+$2467  Collision Chaos Act 1 Past layout pointer table
-; +$2468-+$29FF  retained units still to be classified
+; +$2468-+$2589  Collision Chaos Act 1 Past foreground layout
+; +$258A-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -63,59 +64,12 @@ R32ARetainedAct1PastLayoutPointers:
 	dc.w	$0378, $0378, $0378
 	endr
 
-; First two bytes of the retained foreground layout.
-	dc.b	$2F, 5
-	dcb.b	$A,0
-	dc.b	$15, 8
-	dcb.b	2,0
-	dc.b	2, $5F
-	dcb.b	$2A,0
-	dc.b	$15, $16
-	dcb.b	3,0
-	dc.b	$1A, 2
-	dcb.b	6,0
-	dc.b	3, 8
-	dcb.b	2,0
-	dc.b	$60, 5, 8
-	dcb.b	$13,0
-	dc.b	2, $24, 0, 4, 7, $C, $5F, 0, 2, 5, 8, 0, $2C, 0, $1B, $1F
-	dc.b	$59, $5A, $37, 0, $2C, $60, 5, 8
-	dcb.b	2,0
-	dc.b	$2D, $2E, $16, 2, $1A, 0, 2, 0, $5F
-	dcb.b	2,0
-	dc.b	$24, 2, 0, $24, $1A
-	dcb.b	5,0
-	dc.b	$60, 1, $60, 2, 5, 8, $D, $20
-	dcb.b	2,$12
-	dc.b	6, $16, $24, $28, 0, $1C, $21, $24, $59, $5A, $24, $28, $2D
-	dc.b	$2E, $16, 2, $2C, $22, $24, $59, $5A, $34
-	dcb.b	2,0
-	dc.b	2, 0, $2C
-	dcb.b	5,0
-	dc.b	$1B, 0, 2
-	dcb.b	3,0
-	dcb.b	4,3
-	dc.b	6, 9, $E, $11
-	dcb.b	2,$13
-	dc.b	$15, $17
-	dcb.b	2,$18
-	dc.b	$19, $5B, $21, $25, $26, $27, $29, $2A, $2F, $30, 2, $24
-	dc.b	$28
-	dcb.b	3,$18
-	dc.b	$20, $1D, 2
-	dcb.b	3,0
-	dc.b	$28, 0, $5F, 2, 0, $58, $5B
-	dcb.b	5,0
-	dcb.b	5,$B
-	dc.b	$A, $F, $10, $14, $53
-	dcb.b	2,$14
-	dc.b	$53, $14, $56, $1E, $A
-	dcb.b	3,$23
-	dc.b	$31, $2B, $B, $1E, $64, $33, $32, $14, $56, $14, $56, $1E
-	dcb.b	4,$35
-	dc.b	$36, $39, $33
-	dcb.b	2,$35
-	dc.b	$5C, $5D, $39, $3A, $61, $3A, $61, 6, 2, $65, $68, $65, $68
+; Complete Collision Chaos Act 1 Past foreground layout retained by this
+; historical graph. The layout-pointer table reaches it at offset $0048.
+R32ARetainedAct1PastForeground:
+	incbin	"maps/r31b/foreground.bin"
+; First six bytes of the retained background layout.
+	dc.b	6, 2, $65, $68, $65, $68
 	dc.b	$65, $68, $65, $67, $69, $6A, $6B
 	dcb.b	2,$69
 	dc.b	$6B
