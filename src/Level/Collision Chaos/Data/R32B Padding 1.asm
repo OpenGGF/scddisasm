@@ -6,7 +6,8 @@
 ; +$0000-+$0017  truncated title-card zone-number mapping tail
 ; +$0018-+$00AB  retained animated-tile DMA updater and copy helper
 ; +$00AC-+$00BB  retained animated-tile source pointer table
-; +$00BC onward  retained data graph still to be structured
+; +$00BC-+$00CB  retained Act 2 Past stage descriptor
+; +$00CC onward  retained PLC/data graph still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -76,12 +77,15 @@ R32BRetainedAnimatedTilesSecondSource:
 	dc.l	$0023439A	; frame 1 primary
 	dc.l	$002344DA	; frame 1 secondary
 
-; First bytes of the following retained stage descriptor.
-	dc.b	3, $23, $A2, $F4, 2, $23, $93
-	dc.b	$7E, 0, $21
-	dcb.b	3,0
-	dc.b	$81
-	dcb.b	2,5
+; Complete copied stage descriptor. Historical absolute addresses remain
+; literal because this orphaned graph does not name the current live layout.
+R32BRetainedAct2PastStageData:
+	dc.l	$0323A2F4	; Nemesis stage art
+	dc.l	$0223937E	; Nemesis stage blocks
+	dc.l	$00210000	; stage chunks
+	dc.b	0, $81, 5, 5	; layout flags and palette IDs
+
+; First words of the following retained PLC-offset table.
 	dc.b	0, $26, 0, $34, 0, $90, 0, $26, 0, $E0, 1, $30, 1, $38, 0
 	dc.b	$90, 0, $90, 0, $90, 0, $90, 0, $90, 0, $90, 0, $90, 0, $90
 	dc.b	0, $90, 1, $40, 0, $90, 1, $48, 0, 1, 0, $23, $A2, $F4
