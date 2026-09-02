@@ -13,7 +13,8 @@
 ; $20F606-$20F6DF  orphaned Results next-level state
 ; $20F6E0-$20F6F7  three Results object-initialization records
 ; $20F6F8-$20F71F  four Results mapping-offset tables
-; $20F720-$20FFFF  retained data units (still to be classified)
+; $20F720-$20F7E5  complete Bad-Future Results mapping frames
+; $20F7E6-$20FFFF  retained data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -370,29 +371,77 @@ USARetainedResultsInitData:
 ; Five word offsets per mapping set: header, score panel, and Act 1-3 number
 ; frames. The SSZ3 variants select the alternate score panel only.
 USARetainedResultsBadMappings:
-	dc.w	$0028, $01DE, $0052, $0086, $00BA
+	dc.w	USARetainedResultsBadHeader-USARetainedResultsBadMappings
+	dc.w	$01DE			; standard score frame (not yet structured)
+	dc.w	USARetainedResultsBadAct1-USARetainedResultsBadMappings
+	dc.w	USARetainedResultsBadAct2-USARetainedResultsBadMappings
+	dc.w	USARetainedResultsBadAct3-USARetainedResultsBadMappings
 USARetainedResultsBadSSZ3Mappings:
-	dc.w	$001E, $021C, $0048, $007C, $00B0
+	dc.w	USARetainedResultsBadHeader-USARetainedResultsBadSSZ3Mappings
+	dc.w	$021C			; SSZ3 score frame (not yet structured)
+	dc.w	USARetainedResultsBadAct1-USARetainedResultsBadSSZ3Mappings
+	dc.w	USARetainedResultsBadAct2-USARetainedResultsBadSSZ3Mappings
+	dc.w	USARetainedResultsBadAct3-USARetainedResultsBadSSZ3Mappings
 USARetainedResultsGoodMappings:
 	dc.w	$00DA, $01CA, $0122, $015A, $0192
 USARetainedResultsGoodSSZ3Mappings:
 	dc.w	$00D0, $0208, $0118, $0150, $0188
 
-; First mapping frame; its remaining pieces continue in the next milestone.
-USARetainedResultsBadHeaderPrefix:
-	dc.b	8, $EC, 5, 0, 0, $BC
-	dc.b	$EC, $05, $00, $04, $CC, $EC, $05, $00, $08, $DC, $EC, $01, $00, $0C, $EC, $EC
-	dc.b	$05, $00, $0E, $F4, $EC, $05, $00, $12, $14, $EC, $05, $00, $04, $24, $EC, $05
-	dc.b	$00, $16, $34, $00, $0A, $04, $05, $00, $16, $9C, $04, $05, $00, $1A, $AC, $04
-	dc.b	$05, $00, $1E, $BC, $04, $05, $00, $04, $CC, $04, $05, $00, $22, $DC, $04, $05
-	dc.b	$00, $12, $EC, $04, $05, $00, $1A, $FC, $04, $0D, $00, $26, $1C, $04, $09, $00
-	dc.b	$2E, $3C, $04, $01, $00, $34, $5C, $00, $0A, $04, $05, $00, $16, $9C, $04, $05
-	dc.b	$00, $1A, $AC, $04, $05, $00, $1E, $BC, $04, $05, $00, $04, $CC, $04, $05, $00
-	dc.b	$22, $DC, $04, $05, $00, $12, $EC, $04, $05, $00, $1A, $FC, $04, $0D, $00, $26
-	dc.b	$1C, $04, $09, $00, $2E, $3C, $04, $05, $00, $4A, $5C, $00, $0A, $04, $05, $00
-	dc.b	$16, $9C, $04, $05, $00, $1A, $AC, $04, $05, $00, $1E, $BC, $04, $05, $00, $04
-	dc.b	$CC, $04, $05, $00, $22, $DC, $04, $05, $00, $12, $EC, $04, $05, $00, $1A, $FC
-	dc.b	$04, $0D, $00, $26, $1C, $04, $09, $00, $2E, $3C, $04, $05, $00, $4E, $5C, $00
+; Each frame starts with a piece count followed by five-byte sprite pieces:
+; signed Y, size, tile attributes/index, and signed X. `even` is record padding.
+USARetainedResultsBadHeader:
+	dc.b	8
+	dc.b	$EC, 5, 0, 0, $BC
+	dc.b	$EC, 5, 0, 4, $CC
+	dc.b	$EC, 5, 0, 8, $DC
+	dc.b	$EC, 1, 0, $C, $EC
+	dc.b	$EC, 5, 0, $E, $F4
+	dc.b	$EC, 5, 0, $12, $14
+	dc.b	$EC, 5, 0, 4, $24
+	dc.b	$EC, 5, 0, $16, $34
+	even
+
+USARetainedResultsBadAct1:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 1, 0, $34, $5C
+	even
+
+USARetainedResultsBadAct2:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4A, $5C
+	even
+
+USARetainedResultsBadAct3:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4E, $5C
+	even
 	dc.b	$0E, $EC, $05, $00, $00, $80, $EC, $05, $00, $04, $90, $EC, $05, $00, $08, $A0
 	dc.b	$EC, $01, $00, $0C, $B0, $EC, $05, $00, $0E, $B8, $EC, $05, $00, $36, $D0, $EC
 	dc.b	$05, $00, $3A, $E0, $EC, $05, $00, $3E, $F0, $EC, $05, $00, $42, $00, $EC, $05
