@@ -14,7 +14,8 @@
 ; +$01AC-+$01FB  retained Section 1 PLC
 ; +$01FC-+$0203  retained Section 2 PLC
 ; +$0204-+$020B  retained Section 3 PLC
-; +$020C onward  retained PLC/data bodies still to be structured
+; +$020C-+$0213  retained Results PLC
+; +$0214 onward  retained PLC/data bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -105,7 +106,7 @@ R32BRetainedAct2PastPLCOffsets:
 	dcb.w	4,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Updates 0-3
 	dcb.w	2,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Intro, Tentou
 	dcb.w	3,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets
-	dc.w	$0140	; Results
+	dc.w	R32BRetainedAct2PastResultsPLC-R32BRetainedAct2PastPLCOffsets
 	dc.w	R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Section 0
 	dc.w	$0148	; Signpost
 
@@ -223,9 +224,14 @@ R32BRetainedAct2PastSection3PLC:
 	dc.l	$00235246		; rotating platform
 	dc.w	$6D40
 
-; Results and later bodies.
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
+; Single-entry Results PLC.
+R32BRetainedAct2PastResultsPLC:
+	dc.w	0			; one entry
+	dc.l	$00230098		; Results art
+	dc.w	$7880
+
+; Signpost and later bodies.
+	dc.b	0, 2, 0, $22, $FA, $BC, $87, $80, 0
 	dc.b	$22, $F4, $F2, $91
 	dcb.b	2,0
 	dc.b	$20, $B4, $B0, $7D, $E0, $DA, $36, $6E, $20, 0, $21, $DA
