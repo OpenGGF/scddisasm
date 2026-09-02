@@ -75,7 +75,8 @@
 ; +$0DE6-+$0DED retained historical Act 3 Bad Future Capsule PLC
 ; +$0DEE-+$0E03 retained truncated Quartz Quadrant break-wall tail
 ; +$0E04-+$0E09 retained historical Act 3 Good Future jump
-; +$0E0A onward  retained stage/PLC bodies still to be structured
+; +$0E0A-+$0E19 retained historical Act 3 Good Future stage descriptor
+; +$0E1A onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1399,10 +1400,13 @@ R32BRetainedQuartzBreakWallVelocities:
 ; Historical Act 3 Good Future entry; the live graph has since changed.
 R32BRetainedPalmtreeAct3GoodFutureEntry:
 	jmp	$206376
-	dc.b	3, $23, $8F, $74, 2, $23, $7C, $F2, 0, $21
-	dcb.b	3,0
-	dc.b	$81
-	dcb.b	2,4
+
+; Historical Act 3 Good Future stage descriptor; absolute pointers remain literal.
+R32BRetainedPalmtreeAct3GoodFutureStageData:
+	dc.l	$03238F74		; primary stage art
+	dc.l	$02237CF2		; stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 4, 4		; layout flags and palette IDs
 	dc.b	0, $26, 0, $34, 0, $72, 0, $26, 0, $8C, 0, $72, 0, $72, 0
 	dc.b	$72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72
 	dc.b	0, $72, 0, $9A, 0, $72, 0, $A2, 0, 1, 0, $23, $8F, $74
