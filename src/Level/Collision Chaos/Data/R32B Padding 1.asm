@@ -5,7 +5,8 @@
 ; are classified incrementally below rather than assumed to be alignment.
 ; +$0000-+$0017  truncated title-card zone-number mapping tail
 ; +$0018-+$00AB  retained animated-tile DMA updater and copy helper
-; +$00AC onward  retained data graph still to be structured
+; +$00AC-+$00BB  retained animated-tile source pointer table
+; +$00BC onward  retained data graph still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -65,13 +66,18 @@ R32BRetainedCopyAnimatedTiles:
 	dbf	d0,.Loop
 	rts
 
-; The updater's historical BPL target is the first byte of this data graph,
-; rather than a valid retained instruction boundary. Preserve that anomaly.
+; Historical absolute pointers to the same four Present raw-tile assets named
+; in r3/data_2a.asm. The updater's BPL anomalously targets the table's first
+; byte rather than a valid instruction boundary.
 R32BRetainedAnimatedTilesLegacyBranchTarget:
-	dc.b	0, $23, $45, $9A
+	dc.l	$0023459A	; frame 0 primary
 R32BRetainedAnimatedTilesSecondSource:
-	dc.b	0, $23, $46, $DA, 0, $23
-	dc.b	$43, $9A, 0, $23, $44, $DA, 3, $23, $A2, $F4, 2, $23, $93
+	dc.l	$002346DA	; frame 0 secondary
+	dc.l	$0023439A	; frame 1 primary
+	dc.l	$002344DA	; frame 1 secondary
+
+; First bytes of the following retained stage descriptor.
+	dc.b	3, $23, $A2, $F4, 2, $23, $93
 	dc.b	$7E, 0, $21
 	dcb.b	3,0
 	dc.b	$81
