@@ -407,6 +407,7 @@ opaque merely because they use `dc.*`.
 | M198 | Complete | Structure the retained Section 3 PLC at `$0B54-$0B9D`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M199 | Complete | Structure the retained Update 0 PLC at `$0B9E-$0BA5`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M200 | Complete | Structure the retained Update 1 PLC at `$0BA6-$0BEF`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M201 | Complete | Structure the retained Update 2 PLC at `$0BF0-$0BF7`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

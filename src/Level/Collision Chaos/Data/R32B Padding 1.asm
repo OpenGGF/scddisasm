@@ -49,7 +49,8 @@
 ; +$0B54-+$0B9D retained Section 3 PLC
 ; +$0B9E-+$0BA5 retained Update 0 PLC
 ; +$0BA6-+$0BEF retained Update 1 PLC
-; +$0BF0 onward  retained stage/PLC bodies still to be structured
+; +$0BF0-+$0BF7 retained Update 2 PLC
+; +$0BF8 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1109,8 +1110,14 @@ R32BRetainedAct1PresentUpdate1PLC:
 	dc.w	$7E40
 	dc.l	$00235BD6		; Ga
 	dc.w	$8420
-	dcb.b	3,0
-	dc.b	$23, $69, $7A, $67, $C0, 0, 1, 0, $23, $4E, $AC, $67, $C0
+
+; Single-entry Update 2 PLC; pointer retains its historical absolute value.
+R32BRetainedAct1PresentUpdate2PLC:
+	dc.w	0			; one entry
+	dc.l	$0023697A		; withered robot generator
+	dc.w	$67C0
+
+	dc.b	0, 1, 0, $23, $4E, $AC, $67, $C0
 	dc.b	0, $23, $4C, $14, $69, $C0, 0, 1, 0, $23, $B4, $86, $6B, $C0
 	dc.b	0, $23, $AA, $D8, $7A
 	dcb.b	4,0
