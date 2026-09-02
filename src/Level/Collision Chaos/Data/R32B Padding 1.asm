@@ -58,7 +58,8 @@
 ; +$0C38-+$0C57 retained DEMO11A Cam 4 full-PLC tail
 ; +$0C58-+$0C77 retained DEMO11A Cam 5 full PLC
 ; +$0C78-+$0C9D retained DEMO11A Cam 1 incremental PLC
-; +$0C9E onward  retained stage/PLC bodies still to be structured
+; +$0C9E-+$0CB1 retained DEMO11A Cam 2 incremental PLC
+; +$0CB2 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1215,10 +1216,18 @@ R32BRetainedDemoR11ACam1IncrementalPLC:
 	dc.l	$0023AE02		; 3D ramp/boost art
 	dc.w	$8820
 
-	dc.b	0, 2, 0, $23, $73, $78, $76
-	dcb.b	2,0
-	dc.b	$23, $6E, $46, $81, $20, 0, $23, $79, $50, $85
-	dcb.b	2,0
+
+; Three-entry DEMO11A Palmtree Panic Act 1 Present Cam 2 incremental PLC.
+R32BRetainedDemoR11ACam2IncrementalPLC:
+	dc.w	2			; entry count minus one
+	dc.l	$00237378		; Pata-Bata art
+	dc.w	$7600
+	dc.l	$00236E46		; Anton art
+	dc.w	$8120
+	dc.l	$00237950		; Tamabboh art
+	dc.w	$8500
+
+	dcb.b	1,0
 	dc.b	6, 0, $23, $64, $C2, $6E, $80, 0, $23, $AC, 8, $74
 	dcb.b	2,0
 	dc.b	$23, $73, $78, $76
