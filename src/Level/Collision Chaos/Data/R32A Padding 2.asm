@@ -9,7 +9,8 @@
 ; +$0FC2-+$10FF  final $13E bytes of the shared collision-column profiles
 ; +$1100-+$20FF  complete shared collision-row profile map
 ; +$2100-+$241F  complete Collision Chaos Act 1 Past collision-index map
-; +$2420-+$29FF  retained units still to be classified
+; +$2420-+$2467  Collision Chaos Act 1 Past layout pointer table
+; +$2468-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -51,13 +52,19 @@ R32ARetainedCollisionRowProfiles:
 R32ARetainedAct1PastCollision:
 	incbin	"maps/r31b/collision.bin"
 
-; First byte of the following retained unit, split from the historical zero run.
-	dc.b	0
-	dc.b	$48, 1, $6A, 1, $82, 1, $86, 3, $74, 2, $4E, 2, $52, 3, $74
-	dc.b	3, $74, 3, $78, 3, $78, 3, $78, 0, $48, 1, $6A, 1, $82, 1
-	dc.b	$86, 3, $74, 2, $4E, 2, $52, 3, $74, 3, $74, 3, $78, 3, $78
-	dc.b	3, $78, 0, $48, 1, $6A, 1, $82, 1, $86, 3, $74, 2, $4E, 2
-	dc.b	$52, 3, $74, 3, $74, 3, $78, 3, $78, 3, $78, $2F, 5
+; Three section selections repeat the same twelve foreground/background/null
+; layout offsets. Numeric offsets remain until the retained target bodies below
+; receive stable semantic labels.
+R32ARetainedAct1PastLayoutPointers:
+	rept	3
+	dc.w	$0048, $016A, $0182
+	dc.w	$0186, $0374, $024E
+	dc.w	$0252, $0374, $0374
+	dc.w	$0378, $0378, $0378
+	endr
+
+; First two bytes of the retained foreground layout.
+	dc.b	$2F, 5
 	dcb.b	$A,0
 	dc.b	$15, 8
 	dcb.b	2,0
