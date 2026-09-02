@@ -36,7 +36,9 @@
 ; +$092A-+$0941  retained title-card headline and zone-name frames
 ; +$0942-+$095B  retained title-card subtitle mapping frame
 ; +$095C-+$09C7  retained title-card Act 1-3 mapping frames
-; +$09C8 onward  retained data still to be structured
+; +$09C8-+$09EB  retained title-card zone-label mapping frame
+; +$09EC-+$0A0B  retained title-card zone-number mapping frame
+; +$0A0C onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -863,16 +865,31 @@ R32BRetainedTitleCardAct3:
 	even
 
 ; Remaining retained title-card mapping frames.
-	dc.b	7, $E8, $E, 0, $78, $10
-	dc.b	$E8, $E, 0, $84, $30, $E8, 6, 0, $90, $50, $C8
-	dcb.b	2,0
-	dc.b	$70, 8, $C8, 3, 0, $71, 0, $E8, 2, 0, $75, 0, $F8
-	dcb.b	2,0
-	dc.b	$70, 8, 6, 0, $E, 0, $96, $10, 0, 6, 0, $A2, $30
-	dcb.b	3,0
-	dc.b	$70, 8, 0, 3, 0, $71, 0, $20, 2, 0, $75, 0, $30
-	dcb.b	2,0
-	dc.b	$70, 8, 0, $4E, $F9, 0, $20, $64, $EC, 3, $23, $7B, $EE, 2
+
+R32BRetainedTitleCardZoneLabel:
+	dc.b	7
+	dc.b	$E8, $E, 0, $78, $10
+	dc.b	$E8, $E, 0, $84, $30
+	dc.b	$E8, 6, 0, $90, $50
+	dc.b	$C8, 0, 0, $70, 8
+	dc.b	$C8, 3, 0, $71, 0
+	dc.b	$E8, 2, 0, $75, 0
+	dc.b	$F8, 0, 0, $70, 8
+	even
+
+; Remaining retained title-card mapping frames.
+R32BRetainedTitleCardZoneNumber:
+	dc.b	6
+	dc.b	0, $E, 0, $96, $10
+	dc.b	0, 6, 0, $A2, $30
+	dc.b	0, 0, 0, $70, 8
+	dc.b	0, 3, 0, $71, 0
+	dc.b	$20, 2, 0, $75, 0
+	dc.b	$30, 0, 0, $70, 8
+	even
+
+; Remaining retained title-card trampoline and stage data.
+	dc.b	$4E, $F9, 0, $20, $64, $EC, 3, $23, $7B, $EE, 2
 	dc.b	$23, $6C, $76, 0, $21
 	dcb.b	3,0
 	dc.b	$81

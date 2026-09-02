@@ -396,6 +396,7 @@ opaque merely because they use `dc.*`.
 | M187 | Complete | Structure the retained title-card headline and zone-name frames at `$092A-$0941`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M188 | Complete | Structure the retained title-card subtitle frame at `$0942-$095B`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M189 | Complete | Structure the retained title-card Act 1–3 mapping frames at `$095C-$09C7`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M190 | Complete | Structure the retained title-card zone-label and zone-number mapping frames at `$09C8-$0A0B`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
