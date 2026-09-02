@@ -31,7 +31,8 @@
 ; +$0738-+$0827  retained good-future Results mapping frames
 ; +$0828-+$08B7  retained standard and SSZ3 Results score frames
 ; +$08B8-+$08F7  retained title-card element records
-; +$08F8 onward  retained data still to be structured
+; +$08F8-+$0909  retained title-card mapping-offset table
+; +$090A onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -785,8 +786,12 @@ R32BRetainedTitleCardElements:
 	dc.w	$100, $1D0, $110, $85A	; zone number
 
 ; Remaining retained title-card mappings.
-	dc.b	0, $12, 0, $32, 0, $3E, 0, $4A
-	dc.b	0, $64, 0, $88, 0, $AC, 0, $D0, 0, $F4, 6, $90, $F
+; Backdrop, headline, zone name, subtitle, Acts 1-3, zone label/number.
+R32BRetainedTitleCardMappings:
+	dc.w	$0012, $0032, $003E, $004A, $0064, $0088, $00AC, $00D0, $00F4
+
+; Remaining retained title-card mapping frames.
+	dc.b	6, $90, $F
 	dcb.b	2,0
 	dc.b	$F0, $B0, $F
 	dcb.b	2,0
