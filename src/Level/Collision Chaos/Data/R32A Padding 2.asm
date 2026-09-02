@@ -13,7 +13,8 @@
 ; +$2468-+$2589  Collision Chaos Act 1 Past foreground layout
 ; +$258A-+$25A1  Collision Chaos Act 1 Past background layout
 ; +$25A2-+$25A5  shared null layout
-; +$25A6-+$29FF  retained units still to be classified
+; +$25A6-+$266D  retained Green Hill Zone Act 2 foreground layout
+; +$266E-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -63,7 +64,8 @@ R32ARetainedAct1PastLayoutPointers:
 	dc.w	R32ARetainedAct1PastForeground-R32ARetainedAct1PastLayoutPointers
 	dc.w	R32ARetainedAct1PastBackground-R32ARetainedAct1PastLayoutPointers
 	dc.w	R32ARetainedNullLayout-R32ARetainedAct1PastLayoutPointers
-	dc.w	$0186, $0374, $024E
+	dc.w	R32ARetainedGhz2Foreground-R32ARetainedAct1PastLayoutPointers
+	dc.w	$0374, $024E
 	dc.w	$0252, $0374, $0374
 	dc.w	$0378, $0378, $0378
 	endr
@@ -82,35 +84,14 @@ R32ARetainedAct1PastBackground:
 R32ARetainedNullLayout:
 	incbin	"maps/empty.bin"
 
-; First byte of the following retained layout.
-	dc.b	$20, 5
-	dcb.b	$21,0
-	dc.b	$E, $2B, $16, $1C, 5, $2B, $16, 2, $37
-	dcb.b	$C,0
-	dc.b	$21, 3
+; Complete retained Green Hill Zone Act 2 foreground layout, reached by the
+; table at offset $0186.
+R32ARetainedGhz2Foreground:
+	incbin	"maps/ghz2_foreground.bin"
+; Complete four-byte null layout.
 	dcb.b	4,0
-	dc.b	$21, $31, $24
-	dcb.b	3,0
-	dc.b	$C, $D, 6, $C, $1E, $D, $15, $11, $25, $32, $2B, $B, $2D
-	dc.b	$B5, $2D, 7, $24, $12, $38, $24, $2D, $26, 8, 5, $2B, $B
-	dc.b	$21, $26, $1F, $F
-	dcb.b	3,0
-	dcb.b	4,$1E
-	dc.b	$A, $17
-	dcb.b	2,$1E
-	dcb.b	2,$C
-	dc.b	$D, $19, $11, 8, $17
-	dcb.b	8,$1E
-	dc.b	$18, $D, 8, $23, $11, $20, $25
-	dcb.b	3,$2D
-	dcb.b	$10,$1E
-	dcb.b	5,0
-	dcb.b	2,$1E
-	dc.b	$A, $17, $1E, $11, 8, $1D, 9
-	dcb.b	2,$1E
-	dcb.b	$17,0
-	dcb.b	$A,$1E
-	dcb.b	5,0
+
+; First byte of the following retained layout.
 	dc.b	$2F, 5
 	dcb.b	$E,0
 	dc.b	$2D, $37
