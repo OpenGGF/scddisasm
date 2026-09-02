@@ -4,7 +4,8 @@
 ; The filename preserves the historical `Padding 1` include contract; contents
 ; are classified incrementally below rather than assumed to be alignment.
 ; +$0000-+$0017  truncated title-card zone-number mapping tail
-; +$0018 onward  retained executable/data graph still to be structured
+; +$0018-+$00AB  retained animated-tile DMA updater and copy helper
+; +$00AC onward  retained data graph still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -17,23 +18,59 @@ R32BRetainedTitleCardZoneNumberTail:
 	dc.b	$30, 0, 0, $70, 8
 	dc.b	0			; alignment
 
-; First instruction of the following retained executable fragment.
-	dc.b	$4E, $B9, 0, $20, $64, $DE, $53, $38, $F6, $6C
-	dc.b	$6A
-	dcb.b	2,0
-	dc.b	$86, $11, $FC, 0, $A, $F6, $6C, $70, 0, $10, $38, $F6, $66
-	dc.b	$52, 0, $C
-	dcb.b	2,0
-	dc.b	2, $65, 2, $70, 0, $11, $C0, $F6, $66, $E7, $48, $22, $7B
-	dc.b	0, $68, $24, $7B, 0, $68, $61, $4E, $4B, $F9, 0, $C0, 0, 4
-	dc.b	$2A, $BC, $94, 0, $93, $A0, $2A, $BC, $96, $8C, $95, $C0
-	dc.b	$3A, $BC, $97, $7F, $3A, $BC, $76, $80, $31, $FC, 0, $80
-	dc.b	$F6, $40, $3A, $B8, $F6, $40, $22, $4A, $61, $26, $4B, $F9
-	dc.b	0, $C0, 0, 4, $2A, $BC, $94, 0, $93, $60, $2A, $BC, $96, $8C
-	dc.b	$95, $C0, $3A, $BC, $97, $7F, $3A, $BC, $79, $C0, $31, $FC
-	dc.b	0, $80, $F6, $40, $3A, $B8, $F6, $40, $4E, $75, $47, $F9
-	dc.b	0, $FF, $19, $80, $30, $3C, 0, $BF, $26, $D9, $51, $C8, $FF
-	dc.b	$FC, $4E, $75, 0, $23, $45, $9A, 0, $23, $46, $DA, 0, $23
+; Orphaned animated-tile updater. It advances a ten-tick, two-frame timer,
+; stages two historical PC-indexed sources, and programs two DMA destinations.
+; No live code points at this retained entry.
+R32BRetainedAnimatedTilesUpdate:
+	jsr	$2064DE
+	subq.b	#1,$FFFFF66C.w
+	dc.w	$6A00, $0086	; bpl.w R32BRetainedAnimatedTilesLegacyBranchTarget
+	move.b	#$A,$FFFFF66C.w
+	moveq	#0,d0
+	move.b	$FFFFF666.w,d0
+	addq.b	#1,d0
+	cmpi.b	#2,d0
+	dc.b	$65, $02	; bcs.s .FrameReady
+	moveq	#0,d0
+.FrameReady:
+	move.b	d0,$FFFFF666.w
+	lsl.w	#3,d0
+	dc.w	$227B, $0068	; movea.l branch-target(pc,d0.w),a1
+	dc.w	$247B, $0068	; movea.l second-source(pc,d0.w),a2
+	dc.b	$61, $4E	; bsr.s R32BRetainedCopyAnimatedTiles
+	lea	$C00004,a5
+	move.l	#$940093A0,(a5)
+	move.l	#$968C95C0,(a5)
+	move.w	#$977F,(a5)
+	move.w	#$7680,(a5)
+	move.w	#$80,$FFFFF640.w
+	move.w	$FFFFF640.w,(a5)
+	movea.l	a2,a1
+	dc.b	$61, $26	; bsr.s R32BRetainedCopyAnimatedTiles
+	lea	$C00004,a5
+	move.l	#$94009360,(a5)
+	move.l	#$968C95C0,(a5)
+	move.w	#$977F,(a5)
+	move.w	#$79C0,(a5)
+	move.w	#$80,$FFFFF640.w
+	move.w	$FFFFF640.w,(a5)
+	rts
+
+; Copy 192 longwords to the historical DMA staging buffer.
+R32BRetainedCopyAnimatedTiles:
+	lea	$FF1980,a3
+	move.w	#$BF,d0
+.Loop:
+	move.l	(a1)+,(a3)+
+	dbf	d0,.Loop
+	rts
+
+; The updater's historical BPL target is the first byte of this data graph,
+; rather than a valid retained instruction boundary. Preserve that anomaly.
+R32BRetainedAnimatedTilesLegacyBranchTarget:
+	dc.b	0, $23, $45, $9A
+R32BRetainedAnimatedTilesSecondSource:
+	dc.b	0, $23, $46, $DA, 0, $23
 	dc.b	$43, $9A, 0, $23, $44, $DA, 3, $23, $A2, $F4, 2, $23, $93
 	dc.b	$7E, 0, $21
 	dcb.b	3,0
