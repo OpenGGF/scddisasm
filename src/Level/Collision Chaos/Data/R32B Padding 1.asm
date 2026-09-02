@@ -73,7 +73,8 @@
 ; +$0DD0-+$0DDD retained historical Act 3 Bad Future Boss PLC
 ; +$0DDE-+$0DE5 retained historical Act 3 Bad Future Results PLC
 ; +$0DE6-+$0DED retained historical Act 3 Bad Future Capsule PLC
-; +$0DEE onward  retained stage/PLC bodies still to be structured
+; +$0DEE-+$0E03 retained truncated Quartz Quadrant break-wall tail
+; +$0E04 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1381,12 +1382,19 @@ R32BRetainedPalmtreeAct3BadFutureCapsulePLC:
 	dc.w	0			; entry count minus one
 	dc.l	$0022EE4A
 	dc.w	$9020
-	dcb.b	3,0
-	dc.b	$10, 2, 3, 4
-	dcb.b	3,5
-	dc.b	$FF, $FD, 9, $7C, $FF, $FE, $B7, $50, $FF, $FC, $25, $EE
-	dcb.b	4,0
-	dc.b	$FF, $FD, 9, $7C, 0, 1, $48, $B0, $4E, $F9, 0, $20, $63, $76
+
+; Truncated Quartz Quadrant break-wall fragment tables.
+R32BRetainedQuartzBreakWallYOffsetsTail:
+	dc.w	0, $10
+R32BRetainedQuartzBreakWallFrames:
+	dc.b	2, 3, 4
+	dc.b	5, 5, 5
+R32BRetainedQuartzBreakWallVelocities:
+	dc.l	-$2F684, -$148B0
+	dc.l	-$3DA12, 0
+	dc.l	-$2F684, $148B0
+
+	dc.b	$4E, $F9, 0, $20, $63, $76
 	dc.b	3, $23, $8F, $74, 2, $23, $7C, $F2, 0, $21
 	dcb.b	3,0
 	dc.b	$81

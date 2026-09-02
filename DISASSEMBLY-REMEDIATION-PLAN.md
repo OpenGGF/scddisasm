@@ -431,6 +431,7 @@ opaque merely because they use `dc.*`.
 | M222 | Complete | Structure the retained historical Act 3 Bad Future Boss PLC at `$0DD0-$0DDD`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M223 | Complete | Structure the retained historical Act 3 Bad Future Results PLC at `$0DDE-$0DE5`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M224 | Complete | Structure the retained historical Act 3 Bad Future Capsule PLC at `$0DE6-$0DED`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M225 | Complete | Structure the retained truncated Quartz Quadrant break-wall tail at `$0DEE-$0E03`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
