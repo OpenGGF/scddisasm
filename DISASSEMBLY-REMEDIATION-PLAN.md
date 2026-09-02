@@ -443,6 +443,7 @@ opaque merely because they use `dc.*`.
 | M234 | Complete | Structure the retained historical Act 3 Good Future Capsule PLC at `$0EBC-$0EC3`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M235 | Complete | Structure the retained truncated DEMO11A Main-PLC tail at `$0EC4-$0ED9`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M236 | Complete | Structure the retained DEMO11A Section PLC at `$0EDA-$0F23`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M237 | Complete | Structure the retained DEMO11A Results PLC at `$0F24-$0F2B`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
