@@ -446,6 +446,7 @@ opaque merely because they use `dc.*`.
 | M237 | Complete | Structure the retained DEMO11A Results PLC at `$0F24-$0F2B`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M238 | Complete | Structure the truncated DEMO11A Signpost PLC prefix at `$0F2C-$0F37`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M239 | Complete | Replace the byte-identical R32B post-chunk stream with the structured shared R32A provider. | J/U/E 133/133 each; audit/hygiene clean. |
+| M240 | Complete | Replace the retained R32B Padding 3 prefix with the exact tail of the shared R12C Nemesis graphics stream. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
