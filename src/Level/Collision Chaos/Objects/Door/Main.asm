@@ -6,7 +6,7 @@
 ; The low subtype nibble selects the initial delay. The subtype sign bit
 ; selects which side of the base X position the door opens toward.
 ;
-; CC_LEGACY_DOOR_ABI preserves R31A's custom despawn check and its historical
+; CC_LEGACY_DOOR_ABI preserves the recovered R3 custom despawn check and its
 ; direction-first layout, including the separate PC-relative offset updater
 ; and its call to the player-slot helper supplied later by the drum platform.
 ; -------------------------------------------------------------------------
@@ -17,11 +17,25 @@ oDoorDelay	EQU	oVar3A
 oDoorOffset	EQU	oVar3B
 oDoorTimer	EQU	oVar3C
 
+	if def(CC_LEGACY_DOOR_ABI)
+		if CC_LEGACY_DOOR_ABI<>0
+			if def(R3_SEMANTIC_DRUM_PLATFORM)
+				if R3_SEMANTIC_DRUM_PLATFORM<>0
+DoorLoadPlayerSlot EQU	ObjDrumPlatform_LoadPlayerSlot
+				else
+DoorLoadPlayerSlot EQU	sub_20CF36
+				endif
+			else
+DoorLoadPlayerSlot EQU	sub_20CF36
+			endif
+		endif
+	endif
+
 ObjDoor:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjDoor_Index(pc,d0.w),d0
-	jsr	ObjDoor_Index(pc,d0.w)
+	move.w	ObjDoor_Routines(pc,d0.w),d0
+	jsr	ObjDoor_Routines(pc,d0.w)
 	jsr	DrawObject
 	move.w	oDoorBaseX(a0),d0
 	if def(CC_LEGACY_DOOR_ABI)
@@ -49,13 +63,14 @@ ObjDoor:
 
 ; -------------------------------------------------------------------------
 
-ObjDoor_Index:
-	dc.w	ObjDoor_Init-ObjDoor_Index
-	dc.w	ObjDoor_Main-ObjDoor_Index
+ObjDoor_Routines:
+	dc.w	ObjDoor_Init-ObjDoor_Routines
+	dc.w	ObjDoor_Update-ObjDoor_Routines
 
 ; -------------------------------------------------------------------------
 
-ObjDoor_Delay:
+ObjDoor_InitialDelays:
+	; Stored delay selected by subtype values 0-3.
 	dc.b	0
 	dc.b	30
 	dc.b	60
@@ -75,25 +90,25 @@ ObjDoor_Init:
 	moveq	#0,d0
 	move.b	oSubtype(a0),d0
 	andi.b	#$F,d0
-	move.b	ObjDoor_Delay(pc,d0.w),oDoorDelay(a0)
+	move.b	ObjDoor_InitialDelays(pc,d0.w),oDoorDelay(a0)
 	addq.b	#2,oRoutine(a0)
 
 ; -------------------------------------------------------------------------
 
-ObjDoor_Main:
+ObjDoor_Update:
 	if def(CC_LEGACY_DOOR_ABI)
 		if CC_LEGACY_DOOR_ABI<>0
 	move.b	oSubtype(a0),d0
-	bpl.s	.Right
-	bsr.s	ObjDoor_UpdateOffset
+	bpl.s	.OpenTowardNegativeX
+	bsr.s	ObjDoor_UpdateOpeningOffset
 	moveq	#0,d0
 	move.b	oDoorOffset(a0),d0
 	add.w	oDoorBaseX(a0),d0
 	move.w	d0,oX(a0)
 	bra.s	.Solid
 
-.Right:
-	bsr.s	ObjDoor_UpdateOffset
+.OpenTowardNegativeX:
+	bsr.s	ObjDoor_UpdateOpeningOffset
 	moveq	#0,d0
 	move.b	oDoorOffset(a0),d0
 	neg.w	d0
@@ -108,8 +123,8 @@ ObjDoor_Main:
 
 ; -------------------------------------------------------------------------
 
-ObjDoor_UpdateOffset:
-	bsr.w	ObjDrumPlatform_LoadPlayerSlot
+ObjDoor_UpdateOpeningOffset:
+	bsr.w	DoorLoadPlayerSlot
 	move.w	oY(a1),d0
 	sub.w	oY(a0),d0
 	bcc.s	.Open
@@ -162,12 +177,12 @@ ObjDoor_UpdateOffset:
 	moveq	#0,d0
 	move.b	oDoorOffset(a0),d0
 	tst.b	oSubtype(a0)
-	bpl.s	.Right
+	bpl.s	.OpenTowardNegativeX
 	add.w	oDoorBaseX(a0),d0
 	move.w	d0,oX(a0)
 	bra.s	.Solid
 
-.Right:
+.OpenTowardNegativeX:
 	neg.w	d0
 	add.w	oDoorBaseX(a0),d0
 	move.w	d0,oX(a0)
@@ -205,12 +220,12 @@ ObjDoor_UpdateOffset:
 	moveq	#0,d0
 	move.b	oDoorOffset(a0),d0
 	tst.b	oSubtype(a0)
-	bpl.s	.Right
+	bpl.s	.OpenTowardNegativeX
 	add.w	oDoorBaseX(a0),d0
 	move.w	d0,oX(a0)
 	bra.s	.Solid
 
-.Right:
+.OpenTowardNegativeX:
 	neg.w	d0
 	add.w	oDoorBaseX(a0),d0
 	move.w	d0,oX(a0)
@@ -220,15 +235,16 @@ ObjDoor_UpdateOffset:
 	move.w	oY(a0),d4
 	jmp	TopSolidObject
 	endif
-; End of function ObjDoor_Main
+; End of function ObjDoor_Update
 
 ; -------------------------------------------------------------------------
 
 MapSpr_Door:
 	.Sprites:
-		dc.w	.Sprite0-.Sprites
+		dc.w	.Door-.Sprites
 
-	.Sprite0:
+	; Two five-byte sprite pieces after the piece count.
+	.Door:
 		dc.b	2
 		dc.b	$F8, $D, 0, 0, $E0
 		dc.b	$F8, $D, 8, 0, 0
