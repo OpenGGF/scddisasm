@@ -11,7 +11,9 @@
 ; $20F518-$20F551  orphaned Results movement state
 ; $20F552-$20F605  orphaned Results bonus-tally state
 ; $20F606-$20F6DF  orphaned Results next-level state
-; $20F6E0-$20FFFF  retained data units (still to be classified)
+; $20F6E0-$20F6F7  three Results object-initialization records
+; $20F6F8-$20F71F  four Results mapping-offset tables
+; $20F720-$20FFFF  retained data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -358,14 +360,27 @@ USARetainedResultsNextLevel:
 .End:
 	rts
 
-; The three Results initialization records begin here. Their first three words
-; are retained explicitly at the split raw-line boundary for the next milestone.
+; Three eight-byte records: initial Y, initial X, destination X, then the packed
+; mapping-frame byte (high byte) and unused low byte consumed by initialization.
 USARetainedResultsInitData:
-	dc.w	204, 0, 288
-	dc.b	$00, $00, $01, $10, $02, $00, $00, $F0, $00, $01, $00, $CC, $00, $00, $01, $20
-	dc.b	$00, $02, $00, $28, $01, $DE, $00, $52, $00, $86, $00, $BA, $00, $1E, $02, $1C
-	dc.b	$00, $48, $00, $7C, $00, $B0, $00, $DA, $01, $CA, $01, $22, $01, $5A, $01, $92
-	dc.b	$00, $D0, $02, $08, $01, $18, $01, $50, $01, $88, $08, $EC, $05, $00, $00, $BC
+	dc.w	204, 0,   288, 0
+	dc.w	272, 512, 240, 1
+	dc.w	204, 0,   288, 2
+
+; Five word offsets per mapping set: header, score panel, and Act 1-3 number
+; frames. The SSZ3 variants select the alternate score panel only.
+USARetainedResultsBadMappings:
+	dc.w	$0028, $01DE, $0052, $0086, $00BA
+USARetainedResultsBadSSZ3Mappings:
+	dc.w	$001E, $021C, $0048, $007C, $00B0
+USARetainedResultsGoodMappings:
+	dc.w	$00DA, $01CA, $0122, $015A, $0192
+USARetainedResultsGoodSSZ3Mappings:
+	dc.w	$00D0, $0208, $0118, $0150, $0188
+
+; First mapping frame; its remaining pieces continue in the next milestone.
+USARetainedResultsBadHeaderPrefix:
+	dc.b	8, $EC, 5, 0, 0, $BC
 	dc.b	$EC, $05, $00, $04, $CC, $EC, $05, $00, $08, $DC, $EC, $01, $00, $0C, $EC, $EC
 	dc.b	$05, $00, $0E, $F4, $EC, $05, $00, $12, $14, $EC, $05, $00, $04, $24, $EC, $05
 	dc.b	$00, $16, $34, $00, $0A, $04, $05, $00, $16, $9C, $04, $05, $00, $1A, $AC, $04
