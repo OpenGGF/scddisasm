@@ -63,7 +63,8 @@
 ; +$0CDE-+$0D03 retained DEMO11A Cam 4 incremental PLC
 ; +$0D04-+$0D11 retained DEMO11A Cam 5 incremental PLC
 ; +$0D12-+$0D19 retained DEMO11A graph Results PLC
-; +$0D1A onward  retained stage/PLC bodies still to be structured
+; +$0D1A-+$0D2D retained DEMO11A graph Signpost PLC
+; +$0D2E onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1283,10 +1284,18 @@ R32BRetainedDemoR11ACamGraphResultsPLC:
 	dc.l	$00232876		; Results art
 	dc.w	$7880
 
-	dc.b	0, 2, 0, $23, $22, $9A, $87, $80
-	dc.b	0, $23, $1C, $D0, $91
-	dcb.b	2,0
-	dc.b	$20, $DB, $4A, $7D, $E0, $4E, $F9, 0, $20, $62, $94, 3, $23
+
+; Three-entry DEMO11A Palmtree Panic Act 1 Present graph Signpost PLC.
+R32BRetainedDemoR11ACamGraphSignpostPLC:
+	dc.w	2			; entry count minus one
+	dc.l	$0023229A		; signpost art
+	dc.w	$8780
+	dc.l	$00231CD0		; big-ring art
+	dc.w	$9100
+	dc.l	$0020DB4A		; big-ring flash art (historical address)
+	dc.w	$7DE0
+
+	dc.b	$4E, $F9, 0, $20, $62, $94, 3, $23
 	dc.b	$8E, $82, 2, $23, $7C, $FA, 0, $21
 	dcb.b	3,0
 	dc.b	$81
