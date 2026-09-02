@@ -7,8 +7,8 @@
 ; $20F42E-$20F6ED  orphaned Results executable fragment (structured below)
 ; $20F6EE-$20F973  Results initialization and complete mapping records
 ; $20F974-$20FACD  title-card placement/mapping records and orphan trampoline
-; $20FACE-$20FFFF  retained animation and PLC-like records
-;                  (exact schemas and boundaries still to classify)
+; $20FACE-$20FCF3  orphaned Act 1 Present stage descriptor and PLC graph
+; $20FCF4-$20FFFF  retained records from later orphaned units (unresolved)
 ; ------------------------------------------------------------------------------
 
 	dc.b	$DA, $36, $6E, $20, 0, $21, $DA, $B2, $6F, $20, 0, $21, $D9
@@ -621,73 +621,238 @@ RetainedTitleCardMappings:
 RetainedTitleCardTrampoline:
 	jmp	$2064EC
 
-	dc.b	3, $23, $7B, $EE, 2
-	dc.b	$23, $6C, $76, 0, $21
-	dcb.b	3,0
-	dc.b	$81
-	dcb.b	2,4
-	dc.b	0, $26, 0, $34, 0, $90, 0, $26, 0, $A4, 0, $EE, 1, $32, 1
-	dc.b	$7C, 1, $84, 1, $CE, 1, $D6, 1, $E4, 1, $F2, 0, $90, 0, $90
-	dc.b	0, $90, 1, $FA, 0, $90
-	dcb.b	2,2
-	dc.b	0, 1, 0, $23, $7B, $EE
-	dcb.b	3,0
-	dc.b	$23, $35, $E8, $D9, $60, 0, $E, 0, $22, $F8, $FC, $60
-	dcb.b	2,0
-	dc.b	$23, $D, $A2, $6C
-	dcb.b	2,0
-	dc.b	$23, $39, $8C, $7A
-	dcb.b	2,0
-	dc.b	$23, $60, $D6, $8D, $40, 0, $23, $63, $EC, $92, $A0, 0, $23
-	dc.b	$47, $9A, $93, $A0, 0, $23, $4A, 0, $99, $C0, 0, $23, $1E
-	dc.b	$2E, $9E, $40, 0, $23, $21, $3A, $A4
-	dcb.b	2,0
-	dc.b	$23, $34, $BC, $AD
-	dcb.b	2,0
-	dcb.b	2,$23
-	dc.b	$5C, $B5
-	dcb.b	2,0
-	dc.b	$23, $29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, 2, 0, $23, $57, $F0, $63, $C0, 0, $23
-	dc.b	$4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0, 0, $B, 0
-	dc.b	$23, $4D, $3A, $63, $C0, 0, $23, $4E, $AC, $67, $C0, 0, $23
-	dc.b	$4C, $14, $69, $C0, 0, $23, $67, 2, $6B, $C0, 0, $23, $50
-	dc.b	$4A, $6E, $20, 0, $23, $50, $C6, $6F, $20, 0, $23, $4F, $90
-	dc.b	$73, $E0, 0, $23, $65, $C6, $75, $E0, 0, $23, $68, $A2, $77
-	dc.b	$A0, 0, $23, $6A, $C6, $7B, $40, 0, $23, $54, $52, $7E, $40
-	dc.b	0, $23, $5B, $D6, $84, $20, 0, $A, 0, $23, $4D, $3A, $63
-	dc.b	$C0, 0, $23, $69, $7A, $67, $C0, 0, $23, $67, 2, $6B, $C0
-	dc.b	0, $23, $50, $4A, $6E, $20, 0, $23, $50, $C6, $6F, $20, 0
-	dc.b	$23, $4F, $90, $73, $E0, 0, $23, $65, $C6, $75, $E0, 0, $23
-	dc.b	$68, $A2, $77, $A0, 0, $23, $6A, $C6, $7B, $40, 0, $23, $54
-	dc.b	$52, $7E, $40, 0, $23, $5B, $D6, $84, $20, 0, $B, 0, $23
-	dc.b	$4D, $3A, $63, $C0, 0, $23, $4E, $AC, $67, $C0, 0, $23, $4C
-	dc.b	$14, $69, $C0, 0, $23, $67, 2, $6B, $C0, 0, $23, $50, $4A
-	dc.b	$6E, $20, 0, $23, $50, $C6, $6F, $20, 0, $23, $4F, $90, $73
-	dc.b	$E0, 0, $23, $65, $C6, $75, $E0, 0, $23, $68, $A2, $77, $A0
-	dc.b	0, $23, $6A, $C6, $7B, $40, 0, $23, $54, $52, $7E, $40, 0
-	dc.b	$23, $5B, $D6, $84, $20
-	dcb.b	3,0
-	dc.b	$23, $57, $F0, $63, $C0, 0, $B, 0, $23, $4D, $3A, $63, $C0
-	dc.b	0, $23, $4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0, 0
-	dc.b	$23, $67, 2, $6B, $C0, 0, $23, $50, $4A, $6E, $20, 0, $23
-	dc.b	$50, $C6, $6F, $20, 0, $23, $4F, $90, $73, $E0, 0, $23, $65
-	dc.b	$C6, $75, $E0, 0, $23, $68, $A2, $77, $A0, 0, $23, $6A, $C6
-	dc.b	$7B, $40, 0, $23, $54, $52, $7E, $40, 0, $23, $5B, $D6, $84
-	dc.b	$20
-	dcb.b	3,0
-	dc.b	$23, $69, $7A, $67, $C0, 0, 1, 0, $23, $4E, $AC, $67, $C0
-	dc.b	0, $23, $4C, $14, $69, $C0, 0, 1, 0, $23, $B4, $86, $6B, $C0
-	dc.b	0, $23, $AA, $D8, $7A
-	dcb.b	4,0
-	dc.b	$23, $60, $D6, $8D, $40
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2, $91
-	dcb.b	2,0
-	dc.b	$20, $DC, $DE, $7D, $E0, $71
+; This complete but unreachable snapshot is the Act 1 Present stage descriptor
+; and graphics-loading graph. Its embedded addresses describe the historical
+; layout at the time it was copied; several no longer coincide with today's
+; live symbols, so the pointers remain literal. Each PLC starts with a
+; count-minus-one word followed by six-byte art-address/VRAM-destination pairs.
+RetainedAct1PresentStageData:
+	dc.l	$03237BEE		; Nemesis stage art
+	dc.l	$02236C76		; Nemesis stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 4, 4		; layout flags and palette IDs
+
+RetainedAct1PresentPLCLists:
+	dc.w	.Stage-RetainedAct1PresentPLCLists
+	dc.w	.Standard-RetainedAct1PresentPLCLists
+	dc.w	.Section0-RetainedAct1PresentPLCLists
+	dc.w	.Stage-RetainedAct1PresentPLCLists
+	dc.w	.Section1-RetainedAct1PresentPLCLists
+	dc.w	.Section2-RetainedAct1PresentPLCLists
+	dc.w	.Section3-RetainedAct1PresentPLCLists
+	dc.w	.Update0-RetainedAct1PresentPLCLists
+	dc.w	.Update1-RetainedAct1PresentPLCLists
+	dc.w	.Update2-RetainedAct1PresentPLCLists
+	dc.w	.Update3-RetainedAct1PresentPLCLists
+	dc.w	.Intro-RetainedAct1PresentPLCLists
+	dc.w	.Tentou-RetainedAct1PresentPLCLists
+	rept	3
+	dc.w	.Section0-RetainedAct1PresentPLCLists
+	endr
+	dc.w	.Results-RetainedAct1PresentPLCLists
+	dc.w	.Section0-RetainedAct1PresentPLCLists
+	dc.w	.Signpost-RetainedAct1PresentPLCLists
+
+.Stage:
+	dc.w	1
+	dc.l	$00237BEE
+	dc.w	0
+	dc.l	$002335E8
+	dc.w	$D960
+
+.Standard:
+	dc.w	$E
+	dc.l	$0022F8FC
+	dc.w	$6000
+	dc.l	$00230DA2
+	dc.w	$6C00
+	dc.l	$0023398C
+	dc.w	$7A00
+	dc.l	$002360D6
+	dc.w	$8D40
+	dc.l	$002363EC
+	dc.w	$92A0
+	dc.l	$0023479A
+	dc.w	$93A0
+	dc.l	$00234A00
+	dc.w	$99C0
+	dc.l	$00231E2E
+	dc.w	$9E40
+	dc.l	$0023213A
+	dc.w	$A400
+	dc.l	$002334BC
+	dc.w	$AD00
+	dc.l	$0023235C
+	dc.w	$B500
+	dc.l	$00232960
+	dc.w	$D000
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+.Section0:
+	dc.w	2
+	dc.l	$002357F0
+	dc.w	$63C0
+	dc.l	$00234EAC
+	dc.w	$67C0
+	dc.l	$00234C14
+	dc.w	$69C0
+
+.Section1:
+	dc.w	$B
+	dc.l	$00234D3A
+	dc.w	$63C0
+	dc.l	$00234EAC
+	dc.w	$67C0
+	dc.l	$00234C14
+	dc.w	$69C0
+	dc.l	$00236702
+	dc.w	$6BC0
+	dc.l	$0023504A
+	dc.w	$6E20
+	dc.l	$002350C6
+	dc.w	$6F20
+	dc.l	$00234F90
+	dc.w	$73E0
+	dc.l	$002365C6
+	dc.w	$75E0
+	dc.l	$002368A2
+	dc.w	$77A0
+	dc.l	$00236AC6
+	dc.w	$7B40
+	dc.l	$00235452
+	dc.w	$7E40
+	dc.l	$00235BD6
+	dc.w	$8420
+
+.Section2:
+	dc.w	$A
+	dc.l	$00234D3A
+	dc.w	$63C0
+	dc.l	$0023697A
+	dc.w	$67C0
+	dc.l	$00236702
+	dc.w	$6BC0
+	dc.l	$0023504A
+	dc.w	$6E20
+	dc.l	$002350C6
+	dc.w	$6F20
+	dc.l	$00234F90
+	dc.w	$73E0
+	dc.l	$002365C6
+	dc.w	$75E0
+	dc.l	$002368A2
+	dc.w	$77A0
+	dc.l	$00236AC6
+	dc.w	$7B40
+	dc.l	$00235452
+	dc.w	$7E40
+	dc.l	$00235BD6
+	dc.w	$8420
+
+.Section3:
+	dc.w	$B
+	dc.l	$00234D3A
+	dc.w	$63C0
+	dc.l	$00234EAC
+	dc.w	$67C0
+	dc.l	$00234C14
+	dc.w	$69C0
+	dc.l	$00236702
+	dc.w	$6BC0
+	dc.l	$0023504A
+	dc.w	$6E20
+	dc.l	$002350C6
+	dc.w	$6F20
+	dc.l	$00234F90
+	dc.w	$73E0
+	dc.l	$002365C6
+	dc.w	$75E0
+	dc.l	$002368A2
+	dc.w	$77A0
+	dc.l	$00236AC6
+	dc.w	$7B40
+	dc.l	$00235452
+	dc.w	$7E40
+	dc.l	$00235BD6
+	dc.w	$8420
+
+.Update0:
+	dc.w	0
+	dc.l	$002357F0
+	dc.w	$63C0
+
+.Update1:
+	dc.w	$B
+	dc.l	$00234D3A
+	dc.w	$63C0
+	dc.l	$00234EAC
+	dc.w	$67C0
+	dc.l	$00234C14
+	dc.w	$69C0
+	dc.l	$00236702
+	dc.w	$6BC0
+	dc.l	$0023504A
+	dc.w	$6E20
+	dc.l	$002350C6
+	dc.w	$6F20
+	dc.l	$00234F90
+	dc.w	$73E0
+	dc.l	$002365C6
+	dc.w	$75E0
+	dc.l	$002368A2
+	dc.w	$77A0
+	dc.l	$00236AC6
+	dc.w	$7B40
+	dc.l	$00235452
+	dc.w	$7E40
+	dc.l	$00235BD6
+	dc.w	$8420
+
+.Update2:
+	dc.w	0
+	dc.l	$0023697A
+	dc.w	$67C0
+
+.Update3:
+	dc.w	1
+	dc.l	$00234EAC
+	dc.w	$67C0
+	dc.l	$00234C14
+	dc.w	$69C0
+
+.Intro:
+	dc.w	1
+	dc.l	$0023B486
+	dc.w	$6BC0
+	dc.l	$0023AAD8
+	dc.w	$7A00
+
+.Tentou:
+	dc.w	0
+	dc.l	$002360D6
+	dc.w	$8D40
+
+.Results:
+	dc.w	0
+	dc.l	$00230098
+	dc.w	$7880
+
+.Signpost:
+	dc.w	2
+	dc.l	$0022FABC
+	dc.w	$8780
+	dc.l	$0022F4F2
+	dc.w	$9100
+	dc.l	$0020DCDE
+	dc.w	$7DE0
+
+; Start of a later retained unit, intentionally left for the next milestone.
+	dc.b	$71
 	dcb.b	2,0
 	dc.b	$23, $70, $2A, $74
 	dcb.b	2,0
