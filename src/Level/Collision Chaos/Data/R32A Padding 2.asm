@@ -6,7 +6,8 @@
 ; +$0000-+$0CB5  nine complete Nemesis streams
 ; +$0CB6-+$0E65  complete normal KamaKama mapping family
 ; +$0E66-+$0FC1  complete alternate KamaKama mapping family
-; +$0FC2-+$29FF  retained units still to be classified
+; +$0FC2-+$10FF  final $13E bytes of the shared collision-column profiles
+; +$1100-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -34,47 +35,12 @@ R32ARetainedKamaKamaMappings:
 R32ARetainedAlternateKamaKamaMappings:
 	include	"sprites/r3/kama_kama_2.asm"
 
+; The historical retained stream begins with only the final $13E bytes of the
+; shared 256-profile, 16-byte-per-profile collision-column height map.
+R32ARetainedCollisionColumnTail:
+	incbin	"maps/collision_columns.bin", $EC2, $13E
+
 ; First byte of the following retained unit.
-	dc.b	7
-	dcb.b	3,8
-	dcb.b	3,9
-	dcb.b	3,$A
-	dcb.b	2,$B
-	dcb.b	2,$C
-	dc.b	3, 4, 6, 7, 9, $A, $C, $D, $F
-	dcb.b	7,$10
-	dc.b	5, 6
-	dcb.b	2,7
-	dcb.b	2,8
-	dc.b	9
-	dcb.b	2,$A
-	dc.b	$B
-	dcb.b	2,$C
-	dcb.b	2,$D
-	dc.b	$E, $F, 6
-	dcb.b	3,7
-	dcb.b	3,8
-	dcb.b	3,9
-	dcb.b	4,$A
-	dcb.b	3,$B
-	dcb.b	6,$C
-	dcb.b	6,$D
-	dcb.b	9,$E
-	dcb.b	$A,$F
-	dc.b	$E, $A, 6, 2
-	dcb.b	$C,0
-	dcb.b	4,$10
-	dc.b	$E, $A, 6, 2
-	dcb.b	8,0
-	dcb.b	8,$10
-	dc.b	$E, $A, 6, 2
-	dcb.b	4,0
-	dcb.b	$C,$10
-	dc.b	$E, $A, 6, 2, $B, $C, $D, $E
-	dcb.b	2,$F
-	dcb.b	$A,$10
-	dcb.b	$40,0
-	dcb.b	$50,$10
 	dcb.b	$1F,0
 	dc.b	$10
 	dcb.b	$E,0
