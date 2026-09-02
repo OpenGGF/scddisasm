@@ -444,6 +444,7 @@ opaque merely because they use `dc.*`.
 | M235 | Complete | Structure the retained truncated DEMO11A Main-PLC tail at `$0EC4-$0ED9`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M236 | Complete | Structure the retained DEMO11A Section PLC at `$0EDA-$0F23`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M237 | Complete | Structure the retained DEMO11A Results PLC at `$0F24-$0F2B`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M238 | Complete | Structure the truncated DEMO11A Signpost PLC prefix at `$0F2C-$0F37`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

@@ -86,7 +86,8 @@
 ; +$0EC4-+$0ED9 retained truncated DEMO11A Main-PLC tail
 ; +$0EDA-+$0F23 retained DEMO11A Section PLC
 ; +$0F24-+$0F2B retained DEMO11A Results PLC
-; +$0F2C onward retained stage/PLC bodies still to be structured
+; +$0F2C-+$0F37 retained truncated DEMO11A Signpost PLC prefix
+; +$0F38 onward retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1539,4 +1540,10 @@ R32BRetainedDemoR11AResultsPLC:
 	dc.l	$00230098
 	dc.w	$7880
 
-	dc.b	0, 2, 0, $22, $FA, $BC, $87, $80, 0, $22, $F4, $F2
+; The original three-entry Signpost list is cut off after the second art
+; pointer; its VRAM destination and third record are not retained.
+R32BRetainedDemoR11ASignpostPLCPrefix:
+	dc.w	2			; entry count minus one
+	dc.l	$0022FABC		; signpost art
+	dc.w	$8780
+	dc.l	$0022F4F2		; big-ring art; record truncated here
