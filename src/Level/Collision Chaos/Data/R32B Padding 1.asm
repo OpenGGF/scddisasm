@@ -66,7 +66,8 @@
 ; +$0D1A-+$0D2D retained DEMO11A graph Signpost PLC
 ; +$0D2E-+$0D33 retained historical Act 3 Bad Future jump
 ; +$0D34-+$0D43 retained historical Act 3 Bad Future stage descriptor
-; +$0D44 onward  retained stage/PLC bodies still to be structured
+; +$0D44-+$0D69 retained historical Act 3 Bad Future PLC offset table
+; +$0D6A onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1310,12 +1311,20 @@ R32BRetainedPalmtreeAct3BadFutureStageData:
 	dc.l	$00210000		; stage chunks
 	dc.b	0, $81, 5, 5		; layout flags and palette IDs
 
-	dc.b	0, $26, 0, $34, 0, $72, 0, $26, 0, $8C, 0, $72, 0, $72, 0
-	dc.b	$72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72
-	dc.b	0, $72, 0, $9A, 0, $72, 0, $A2, 0, 1, 0, $23, $8E, $82
+
+; Historical Act 3 Bad Future 19-slot level PLC selection table.
+R32BRetainedPalmtreeAct3BadFuturePLCLists:
+	; Literal byte offsets are retained because some records share continuation bytes.
+	dc.w	$26, $34, $72, $26, $8C	; Stage, Main, Section, Stage, Boss
+	dcb.w	11, $72			; Sections and updates
+	dc.w	$9A, $72, $A2		; Results, Section, Capsule
+
+R32BRetainedPalmtreeAct3BadFutureStagePLC:
+	dc.b	0, 1, 0, $23, $8E, $82
 	dcb.b	3,0
 	dc.b	$23, $C8, $5C, $4A
 	dcb.b	2,0
+R32BRetainedPalmtreeAct3BadFutureMainPLC:
 	dc.b	9, 0, $23, $D, $A2, $6C
 	dcb.b	2,0
 	dc.b	$23, $39, $E4, $7A
@@ -1330,14 +1339,21 @@ R32BRetainedPalmtreeAct3BadFutureStageData:
 	dc.b	$23, $29, $60, $D0
 	dcb.b	2,0
 	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, 3, 0, $23, $3B, $2E, $57, $80, 0, $23
+	dc.b	$2E, $48, $F5, $C0
+R32BRetainedPalmtreeAct3BadFutureSectionPLC:
+	dc.b	0, 3, 0, $23, $3B, $2E, $57, $80, 0, $23
 	dc.b	$54, $50, $6B, $60, 0, $23, $D0, $C6, $6F
 	dcb.b	2,0
 	dc.b	$23, $DD, $E0, $74
-	dcb.b	2,0
-	dc.b	1, 0, $23, $44, $40, $6E, $60, 0, $22, $EE, $4A, $90, $20
+	dcb.b	1,0
+R32BRetainedPalmtreeAct3BadFutureBossPLC:
+	dc.b	0, 1, 0, $23, $44, $40, $6E, $60, 0, $22, $EE, $4A, $90, $20
+
+R32BRetainedPalmtreeAct3BadFutureResultsPLC:
 	dcb.b	3,0
 	dc.b	$23, 0, $98, $78, $80
+
+R32BRetainedPalmtreeAct3BadFutureCapsulePLC:
 	dcb.b	3,0
 	dc.b	$22, $EE, $4A, $90, $20
 	dcb.b	3,0
