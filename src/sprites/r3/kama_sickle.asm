@@ -2,41 +2,42 @@
 ; Sonic CD Disassembly
 ; Six one-piece rotation frames for a thrown sickle. Each piece is
 ; Y, size/shape, tile high byte, tile low byte, X.
+; Each frame begins with its piece count; tile attribute bits encode flips.
 ; ------------------------------------------------------------------------------
 .Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
-	dc.w	.Sprite3-.Sprites
-	dc.w	.Sprite4-.Sprites
-	dc.w	.Sprite5-.Sprites
+	dc.w	.Base-.Sprites
+	dc.w	.Alternate-.Sprites
+	dc.w	.VerticalFlip-.Sprites
+	dc.w	.BothFlips-.Sprites
+	dc.w	.BothFlipsAlternate-.Sprites
+	dc.w	.HorizontalFlip-.Sprites
 
-.Sprite0:
+.Base:
 	dc.b	1
 	dc.b	$F8, 5, 0, $19, $F8
 	even
 
-.Sprite1:
+.Alternate:
 	dc.b	1
 	dc.b	$F8, 5, 0, $1D, $F8
 	even
 
-.Sprite2:
+.VerticalFlip:
 	dc.b	1
 	dc.b	$F8, 5, $10, $19, $F8
 	even
 
-.Sprite3:
+.BothFlips:
 	dc.b	1
 	dc.b	$F8, 5, $18, $19, $F8
 	even
 
-.Sprite4:
+.BothFlipsAlternate:
 	dc.b	1
 	dc.b	$F8, 5, $18, $1D, $F8
 	even
 
-.Sprite5:
+.HorizontalFlip:
 	dc.b	1
 	dc.b	$F8, 5, 8, $19, $F8
 

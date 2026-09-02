@@ -2,18 +2,19 @@
 ; Sonic CD Disassembly
 ; KamaKama normal-variant mapping frames; each piece is
 ; Y, size/shape, tile high byte, tile low byte, X.
+; Each frame begins with its piece count.
 ; ------------------------------------------------------------------------------
 .Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
-	dc.w	.Sprite3-.Sprites
-	dc.w	.Sprite4-.Sprites
-	dc.w	.Sprite5-.Sprites
-	dc.w	.Sprite6-.Sprites
-	dc.w	.Sprite7-.Sprites
+	dc.w	.WalkA-.Sprites
+	dc.w	.WalkB-.Sprites
+	dc.w	.WalkC-.Sprites
+	dc.w	.WalkD-.Sprites
+	dc.w	.Throw-.Sprites
+	dc.w	.WatchA-.Sprites
+	dc.w	.WatchB-.Sprites
+	dc.w	.Recover-.Sprites
 
-.Sprite0:
+.WalkA:
 	dc.b	$A
 	dc.b	$EC, 4, 0, 0, $EE
 	dc.b	$F4, 0, 0, 2, $EE
@@ -27,7 +28,7 @@
 	dc.b	$C, 4, 0, $10, $FE
 	even
 
-.Sprite1:
+.WalkB:
 	dc.b	$A
 	dc.b	$ED, 4, 0, 0, $EE
 	dc.b	$F5, 0, 0, 2, $EE
@@ -41,7 +42,7 @@
 	dc.b	$C, 4, 0, $13, $FE
 	even
 
-.Sprite2:
+.WalkC:
 	dc.b	8
 	dc.b	$EC, 4, 0, 0, $EE
 	dc.b	$F4, 0, 0, 2, $EE
@@ -53,7 +54,7 @@
 	dc.b	4, 5, 0, $15, $FE
 	even
 
-.Sprite3:
+.WalkD:
 	dc.b	$A
 	dc.b	$ED, 4, 0, 0, $EE
 	dc.b	$F5, 0, 0, 2, $EE
@@ -67,7 +68,7 @@
 	dc.b	$C, 4, 0, $13, $FE
 	even
 
-.Sprite4:
+.Throw:
 	dc.b	$A
 	dc.b	$ED, 4, 0, 0, $EE
 	dc.b	$F5, 0, 0, 2, $EE
@@ -81,7 +82,7 @@
 	dc.b	$C, 4, 0, $13, $FE
 	even
 
-.Sprite5:
+.WatchA:
 	dc.b	$C
 	dc.b	$EC, 4, 0, 0, $EE
 	dc.b	$F4, 0, 0, 2, $EE
@@ -97,7 +98,7 @@
 	dc.b	$C, 4, 0, $10, $FE
 	even
 
-.Sprite6:
+.WatchB:
 	dc.b	$C
 	dc.b	$ED, 4, 0, 0, $EE
 	dc.b	$F5, 0, 0, 2, $EE
@@ -113,7 +114,7 @@
 	dc.b	$C, 4, 0, $13, $FE
 	even
 
-.Sprite7:
+.Recover:
 	dc.b	8
 	dc.b	$EC, 5, 0, 4, $EE
 	dc.b	$FC, 1, 0, 8, $F4

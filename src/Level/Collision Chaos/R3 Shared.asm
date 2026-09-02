@@ -30,6 +30,8 @@ R3_SEMANTIC_FIRE_SHOOTER EQU	1
 CC_LEGACY_FIRE_SHOOTER_ABI EQU	1
 R3_SEMANTIC_DRUM_PLATFORM EQU	1
 CC_LEGACY_DRUM_PLATFORM_ABI EQU	1
+R3_SEMANTIC_KAMA_KAMA	EQU	1
+CC_LEGACY_KAMA_KAMA_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -121,7 +123,7 @@ CC_VARIANT	EQU	3
 	include	"Level/Collision Chaos/Objects/Fire Shooter/Main.asm"
 	include	"Level/Collision Chaos/Objects/Drum Platform/Main.asm"
 	include	"Level/Collision Chaos/Object Despawn.asm"
-	include	"objects/r3/kama_kama.asm"
+	include	"Level/Collision Chaos/Objects/KamaKama/Main.asm"
 	include	"objects/stage_end.asm"
 	include	"Level/_Objects/Game Over/Main.asm"
 	include	"Level/_Objects/Title Card/Main.asm"

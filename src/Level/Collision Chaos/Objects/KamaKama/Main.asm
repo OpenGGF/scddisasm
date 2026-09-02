@@ -21,25 +21,46 @@ oKamaSickleDamageTimer	EQU	oVar34
 
 ; -------------------------------------------------------------------------
 
+	if def(CC_LEGACY_KAMA_KAMA_ABI)
+		if CC_LEGACY_KAMA_KAMA_ABI<>0
+KamaKamaSpawn		EQU	SpawnObject
+KamaKamaDespawn	EQU	CheckObjectDespawn
+KamaKamaGetFloorDist	EQU	CheckBlockDown
+KamaSickleDespawn	EQU	CheckObjectDespawn2
+		else
+KamaKamaSpawn		EQU	FindObjSlot
+KamaKamaDespawn	EQU	CheckObjDespawn
+KamaKamaGetFloorDist	EQU	ObjGetFloorDist
+KamaSickleDespawn	EQU	CheckObjDespawn2
+		endif
+	else
+KamaKamaSpawn		EQU	FindObjSlot
+KamaKamaDespawn	EQU	CheckObjDespawn
+KamaKamaGetFloorDist	EQU	ObjGetFloorDist
+KamaSickleDespawn	EQU	CheckObjDespawn2
+	endif
+
+; -------------------------------------------------------------------------
+
 ObjKamaKama:
 	jsr	DestroyOnGoodFuture
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjKamaKama_Index(pc,d0.w),d0
-	jsr	ObjKamaKama_Index(pc,d0.w)
-	jmp	CheckObjDespawn
+	move.w	ObjKamaKama_Routines(pc,d0.w),d0
+	jsr	ObjKamaKama_Routines(pc,d0.w)
+	jmp	KamaKamaDespawn
 ; End of function ObjKamaKama
 
 ; -------------------------------------------------------------------------
 
-ObjKamaKama_Index:
-	dc.w	ObjKamaKama_Init-ObjKamaKama_Index
-	dc.w	ObjKamaKama_Routine2-ObjKamaKama_Index
-	dc.w	ObjKamaKama_Routine4-ObjKamaKama_Index
-	dc.w	ObjKamaKama_Routine6-ObjKamaKama_Index
-	dc.w	ObjKamaKama_Routine8-ObjKamaKama_Index
-	dc.w	ObjKamaKama_RoutineA-ObjKamaKama_Index
-	dc.w	ObjKamaKama_RoutineC-ObjKamaKama_Index
+ObjKamaKama_Routines:
+	dc.w	ObjKamaKama_Init-ObjKamaKama_Routines
+	dc.w	ObjKamaKama_FallToFloor-ObjKamaKama_Routines
+	dc.w	ObjKamaKama_WatchPlayer-ObjKamaKama_Routines
+	dc.w	ObjKamaKama_AttackWait-ObjKamaKama_Routines
+	dc.w	ObjKamaKama_RecoveryWait-ObjKamaKama_Routines
+	dc.w	ObjKamaKama_Walk-ObjKamaKama_Routines
+	dc.w	ObjKamaKama_TurnWait-ObjKamaKama_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -65,7 +86,7 @@ ObjKamaKama_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjKamaKama_Routine2:
+ObjKamaKama_FallToFloor:
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
 		if CC_LEGACY_KAMA_KAMA_ABI<>0
 	jsr	ObjKamaKama_Move(pc)
@@ -75,7 +96,7 @@ ObjKamaKama_Routine2:
 	else
 	jsr	ObjKamaKama_Move
 	endif
-	jsr	ObjGetFloorDist
+	jsr	KamaKamaGetFloorDist
 	tst.w	d1
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
 		if CC_LEGACY_KAMA_KAMA_ABI<>0
@@ -105,7 +126,7 @@ ObjKamaKama_AnimateLegacy:
 
 ; -------------------------------------------------------------------------
 
-ObjKamaKama_Routine4:
+ObjKamaKama_WatchPlayer:
 	btst	#7,oSprFlags(a0)
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
 		if CC_LEGACY_KAMA_KAMA_ABI<>0
@@ -188,7 +209,7 @@ ObjKamaKama_Routine4:
 
 ; -------------------------------------------------------------------------
 
-ObjKamaKama_Routine6:
+ObjKamaKama_AttackWait:
 	subq.w	#1,oKamaKamaTimer(a0)
 	beq.s	.NextRoutine
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
@@ -208,7 +229,7 @@ ObjKamaKama_Routine6:
 
 ; -------------------------------------------------------------------------
 
-ObjKamaKama_Routine8:
+ObjKamaKama_RecoveryWait:
 	subq.w	#1,oKamaKamaTimer(a0)
 	beq.s	.NextRoutine
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
@@ -226,7 +247,7 @@ ObjKamaKama_Routine8:
 
 ; -------------------------------------------------------------------------
 
-ObjKamaKama_RoutineA:
+ObjKamaKama_Walk:
 	move.w	#$100,d0
 	tst.b	oSubtype(a0)
 	bpl.s	.SetSpeed
@@ -271,7 +292,7 @@ ObjKamaKama_RoutineA:
 	endif
 	tst.w	d1
 	bmi.s	.HitWall
-	jsr	ObjGetFloorDist
+	jsr	KamaKamaGetFloorDist
 	tst.w	d1
 	beq.s	.Animate
 	cmpi.w	#7,d1
@@ -297,15 +318,15 @@ ObjKamaKama_RoutineA:
 	addq.b	#2,oRoutine(a0)
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
 		if CC_LEGACY_KAMA_KAMA_ABI=0
-	bra.w	ObjKamaKama_RoutineC
+	bra.w	ObjKamaKama_TurnWait
 		endif
 	else
-	bra.w	ObjKamaKama_RoutineC
+	bra.w	ObjKamaKama_TurnWait
 	endif
 
 ; -------------------------------------------------------------------------
 
-ObjKamaKama_RoutineC:
+ObjKamaKama_TurnWait:
 	subq.w	#1,oKamaKamaTimer(a0)
 	beq.s	.Turn
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
@@ -379,7 +400,7 @@ ObjKamaKama_SpawnSickles:
 	tst.b	oSubtype(a0)
 	bmi.w	.End
 	endif
-	jsr	FindObjSlot
+	jsr	KamaKamaSpawn
 	bne.s	.SpawnSecond
 	move.b	#$25,oID(a1)
 	move.w	a0,oKamaSickleParent(a1)
@@ -400,7 +421,7 @@ ObjKamaKama_SpawnSickles:
 	move.w	d0,oX(a1)
 
 .SpawnSecond:
-	jsr	FindObjSlot
+	jsr	KamaKamaSpawn
 	bne.s	.End
 	move.b	#$25,oID(a1)
 	move.w	a0,oKamaSickleParent(a1)
@@ -437,19 +458,19 @@ Ani_KamaKama:
 ObjKamaSickle:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjKamaSickle_Index(pc,d0.w),d0
-	jsr	ObjKamaSickle_Index(pc,d0.w)
+	move.w	ObjKamaSickle_Routines(pc,d0.w),d0
+	jsr	ObjKamaSickle_Routines(pc,d0.w)
 	jsr	DrawObject
 	move.w	oKamaSickleBaseX(a0),d0
-	jmp	CheckObjDespawn2
+	jmp	KamaSickleDespawn
 ; End of function ObjKamaSickle
 
 ; -------------------------------------------------------------------------
 
-ObjKamaSickle_Index:
-	dc.w	ObjKamaSickle_Init-ObjKamaSickle_Index
-	dc.w	ObjKamaSickle_Main-ObjKamaSickle_Index
-	dc.w	ObjKamaSickle_Attack-ObjKamaSickle_Index
+ObjKamaSickle_Routines:
+	dc.w	ObjKamaSickle_Init-ObjKamaSickle_Routines
+	dc.w	ObjKamaSickle_WaitForLaunch-ObjKamaSickle_Routines
+	dc.w	ObjKamaSickle_Fly-ObjKamaSickle_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -475,7 +496,7 @@ ObjKamaSickle_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjKamaSickle_Main:
+ObjKamaSickle_WaitForLaunch:
 	subq.w	#1,oKamaSickleLaunchDelay(a0)
 	bne.s	.CheckParent
 	addq.b	#2,oRoutine(a0)
@@ -503,7 +524,7 @@ ObjKamaSickle_Main:
 
 ; -------------------------------------------------------------------------
 
-ObjKamaSickle_Attack:
+ObjKamaSickle_Fly:
 	if def(CC_LEGACY_KAMA_KAMA_ABI)
 		if CC_LEGACY_KAMA_KAMA_ABI<>0
 	jsr	ObjKamaKama_Move(pc)
