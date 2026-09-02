@@ -27,7 +27,8 @@
 ; +$0558-+$0631  retained Results next-level state
 ; +$0632-+$0649  retained Results object-initialization records
 ; +$064A-+$0671  retained Results mapping-offset tables
-; +$0672 onward  retained data still to be structured
+; +$0672-+$0737  retained bad-future Results mapping frames
+; +$0738 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -611,23 +612,64 @@ R32BRetainedResultsGoodSSZ3Mappings:
 	dc.w	$00D0, $0208, $0118, $0150, $0188
 
 ; Remaining retained Results mapping frames.
-	dc.b	8, $EC
-	dc.b	5
-	dcb.b	2,0
-	dc.b	$BC, $EC, 5, 0, 4, $CC, $EC, 5, 0, 8, $DC, $EC, 1, 0, $C
-	dcb.b	2,$EC
-	dc.b	5, 0, $E, $F4, $EC, 5, 0, $12, $14, $EC, 5, 0, 4, $24, $EC
-	dc.b	5, 0, $16, $34, 0, $A, 4, 5, 0, $16, $9C, 4, 5, 0, $1A, $AC
-	dc.b	4, 5, 0, $1E, $BC, 4, 5, 0, 4, $CC, 4, 5, 0, $22, $DC, 4
-	dc.b	5, 0, $12, $EC, 4, 5, 0, $1A, $FC, 4, $D, 0, $26, $1C, 4
-	dc.b	9, 0, $2E, $3C, 4, 1, 0, $34, $5C, 0, $A, 4, 5, 0, $16, $9C
-	dc.b	4, 5, 0, $1A, $AC, 4, 5, 0, $1E, $BC, 4, 5, 0, 4, $CC, 4
-	dc.b	5, 0, $22, $DC, 4, 5, 0, $12, $EC, 4, 5, 0, $1A, $FC, 4, $D
-	dc.b	0, $26, $1C, 4, 9, 0, $2E, $3C, 4, 5, 0, $4A, $5C, 0, $A
-	dc.b	4, 5, 0, $16, $9C, 4, 5, 0, $1A, $AC, 4, 5, 0, $1E, $BC, 4
-	dc.b	5, 0, 4, $CC, 4, 5, 0, $22, $DC, 4, 5, 0, $12, $EC, 4, 5
-	dc.b	0, $1A, $FC, 4, $D, 0, $26, $1C, 4, 9, 0, $2E, $3C, 4, 5
-	dc.b	0, $4E, $5C, 0, $E, $EC, 5
+; Each frame has a piece count followed by five-byte sprite pieces:
+; Y offset, size, tile attributes/index, and X offset.
+R32BRetainedResultsBadHeader:
+	dc.b	8
+	dc.b	$EC, 5, 0, 0, $BC
+	dc.b	$EC, 5, 0, 4, $CC
+	dc.b	$EC, 5, 0, 8, $DC
+	dc.b	$EC, 1, 0, $C, $EC
+	dc.b	$EC, 5, 0, $E, $F4
+	dc.b	$EC, 5, 0, $12, $14
+	dc.b	$EC, 5, 0, 4, $24
+	dc.b	$EC, 5, 0, $16, $34
+	even
+
+R32BRetainedResultsBadAct1:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 1, 0, $34, $5C
+	even
+
+R32BRetainedResultsBadAct2:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4A, $5C
+	even
+
+R32BRetainedResultsBadAct3:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4E, $5C
+	even
+
+; Remaining retained Results mapping frames.
+	dc.b	$E, $EC, 5
 	dcb.b	2,0
 	dc.b	$80, $EC, 5, 0, 4, $90, $EC, 5, 0, 8, $A0, $EC, 1, 0, $C
 	dc.b	$B0, $EC, 5, 0, $E, $B8, $EC, 5, 0, $36, $D0, $EC, 5, 0, $3A

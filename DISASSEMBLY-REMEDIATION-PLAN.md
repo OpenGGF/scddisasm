@@ -387,6 +387,7 @@ opaque merely because they use `dc.*`.
 | M178 | Complete | Structure the retained Results next-level state at `$0558-$0631`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M179 | Complete | Structure the three retained Results initialization records at `$0632-$0649`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M180 | Complete | Structure the four retained Results mapping-offset tables at `$064A-$0671`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M181 | Complete | Structure the retained bad-future Results mapping frames at `$0672-$0737`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
