@@ -36,10 +36,12 @@ R3_SEMANTIC_LEVEL_END	EQU	1
 R3_SEMANTIC_ANIMAL	EQU	1
 R3_SEMANTIC_ROBOT_GENERATOR EQU	1
 R3_SEMANTIC_PROJECTOR	EQU	1
+R3_SEMANTIC_ANIM_TILES EQU	1
 CC_LEGACY_LEVEL_END_ABI EQU	1
 CC_LEGACY_ANIMAL_ABI	EQU	1
 CC_LEGACY_ROBOT_GENERATOR_ABI EQU	1
 CC_LEGACY_PROJECTOR_ABI EQU	1
+CC_LEGACY_ANIM_TILES_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -145,11 +147,11 @@ CC_VARIANT	EQU	3
 	include	"Level/Object Time Check.asm"
 
 	if R3_VARIANT=1
-		include	"r3/stage_gfx_animate_3c.asm"
+		include	"Level/Collision Chaos/Animated Tiles Update (Act 1 Present).asm"
 		include	"r3/gfx_lists_3c.asm"
 		include	"r3/data_3c.asm"
 	else
-		include	"r3/stage_gfx_animate_3d.asm"
+		include	"Level/Collision Chaos/Animated Tiles Update (Act 1 Present).asm"
 		include	"r3/gfx_lists_3d.asm"
 		include	"r3/data_3d.asm"
 	endif

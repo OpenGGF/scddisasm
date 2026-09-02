@@ -446,16 +446,20 @@ CollisionChaosByteData:
 byte_233A9A:
 	incbin	"data/r3/byte_233A9A_2a.bin"
 	even
-byte_23439A:
+CCAnimatedTilesPresentFrame1Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_23439A_2a.bin"
 	even
-byte_2344DA:
+CCAnimatedTilesPresentFrame1Secondary:
+	; Raw 4bpp tiles; the updater DMAs all 192 bytes.
 	incbin	"data/r3/byte_2344DA_2a.bin"
 	even
-byte_23459A:
+CCAnimatedTilesPresentFrame0Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_23459A_2a.bin"
 	even
-byte_2346DA:
+CCAnimatedTilesPresentFrame0Secondary:
+	; Raw 4bpp tiles; the updater DMAs all 192 bytes.
 	incbin	"data/r3/byte_2346DA_2a.bin"
 	even
 	elseif CC2_VARIANT=1
@@ -466,29 +470,37 @@ byte_233A9A:
 byte_233A9A:
 	incbin	"data/r3/byte_233A9A_2c.bin"
 	even
-byte_233F1A:
+CCAnimatedTilesGoodFutureFrame1Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_233F1A_2c.bin"
 	even
-byte_23405A:
+CCAnimatedTilesGoodFutureFrame1Secondary:
+	; Raw 4bpp tiles; the updater DMAs all 256 bytes.
 	incbin	"data/r3/byte_23405A_2c.bin"
 	even
-byte_23415A:
+CCAnimatedTilesGoodFutureFrame0Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_23415A_2c.bin"
 	even
-byte_23429A:
+CCAnimatedTilesGoodFutureFrame0Secondary:
+	; Raw 4bpp tile window; the updater DMAs its first 256 bytes.
 	incbin	"data/r3/byte_23429A_2c.bin"
 	even
 	else
-byte_233A9A:
+CCAnimatedTilesBadFutureFrame1Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_233A9A_2d.bin"
 	even
-byte_233BDA:
+CCAnimatedTilesBadFutureFrame1Secondary:
+	; Raw 4bpp tiles; the updater DMAs all 256 bytes.
 	incbin	"data/r3/byte_233BDA_2d.bin"
 	even
-byte_233CDA:
+CCAnimatedTilesBadFutureFrame0Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_233CDA_2d.bin"
 	even
-byte_233E1A:
+CCAnimatedTilesBadFutureFrame0Secondary:
+	; Raw 4bpp tile window; the updater DMAs its first 256 bytes.
 	incbin	"data/r3/byte_233E1A_2d.bin"
 	even
 	endif

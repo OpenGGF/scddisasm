@@ -173,19 +173,23 @@ TitleCardTextGfx:
 	incbin	"gfx/r3/title_card_text.nem"
 	even
 
-byte_233A9A:
+CCAnimatedTilesBadFutureFrame1Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_233A9A_2d.bin"
 	even
 
-byte_233BDA:
+CCAnimatedTilesBadFutureFrame1Secondary:
+	; Raw 4bpp tiles; the updater DMAs all 256 bytes.
 	incbin	"data/r3/byte_233BDA_2d.bin"
 	even
 
-byte_233CDA:
+CCAnimatedTilesBadFutureFrame0Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_233CDA_2d.bin"
 	even
 
-byte_233E1A:
+CCAnimatedTilesBadFutureFrame0Secondary:
+	; Raw 4bpp tile window; the updater DMAs its first 256 bytes.
 	incbin	"data/r3/byte_233E1A_2d.bin"
 	even
 

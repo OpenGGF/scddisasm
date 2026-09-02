@@ -177,19 +177,23 @@ byte_233A9A:
 	incbin	"data/r3/byte_233A9A_2c.bin"
 	even
 
-byte_233F1A:
+CCAnimatedTilesGoodFutureFrame1Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_233F1A_2c.bin"
 	even
 
-byte_23405A:
+CCAnimatedTilesGoodFutureFrame1Secondary:
+	; Raw 4bpp tiles; the updater DMAs all 256 bytes.
 	incbin	"data/r3/byte_23405A_2c.bin"
 	even
 
-byte_23415A:
+CCAnimatedTilesGoodFutureFrame0Primary:
+	; Raw 4bpp tiles; the updater DMAs the first 320 bytes.
 	incbin	"data/r3/byte_23415A_2c.bin"
 	even
 
-byte_23429A:
+CCAnimatedTilesGoodFutureFrame0Secondary:
+	; Raw 4bpp tile window; the updater DMAs its first 256 bytes.
 	incbin	"data/r3/byte_23429A_2c.bin"
 	even
 

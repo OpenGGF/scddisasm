@@ -66,7 +66,13 @@ InitLevelDraw		EQU	InitStageDraw
 	else
 InitLevelDraw		EQU	InitStageDraw
 	endif
+	if def(R3_SEMANTIC_ANIM_TILES)
+		if R3_SEMANTIC_ANIM_TILES=0
 UpdateAnimTiles	EQU	AnimateStageGfx
+		endif
+	else
+UpdateAnimTiles	EQU	AnimateStageGfx
+	endif
 	if def(R3_SEMANTIC_SUB_CPU)
 		if R3_SEMANTIC_SUB_CPU=0
 SubCPUCmd		EQU	SubCpuCommand
