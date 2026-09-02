@@ -9,7 +9,10 @@
 ; +$1C0C-+$1DBD retained robot-transport Nemesis stream
 ; +$1DBE-+$1F6F retained hologram-animals Nemesis stream
 ; +$1F70-+$236F retained hologram Nemesis stream
-; +$2370 onward retained data to be structured
+; +$2370-+$2379 retained five-word legacy mapping offset table suffix
+; +$237A-+$24EB retained legacy mapping/animation records
+; +$24EC-+$2537 retained shared trailing mapping/animation records
+; +$2538-+$2639 retained shared spin-platform rotation-vector table
 ;
 ; This slice begins at offset $1990 of the complete R12C graphics stream.
 R32BRetainedR12CGfxNemesisTail:
@@ -480,8 +483,13 @@ R32BRetainedHologramAnimalsNemesis:
 R32BRetainedHologramNemesis:
 	incbin	"gfx/hologram.nem"
 
-	dc.b	0
-	dc.b	$D2, 0, $EC, 0, $FC, 1, $C, 4, $E8, $D, 0, $43, $F0, $F8
+	; The preceding offset-table entries are outside this retained slice.
+R32BRetainedLegacyMappingOffsets:
+	dc.w	$00D2, $00EC, $00FC, $010C, $04E8
+
+	; Legacy mapping/animation records follow the retained offset words.
+R32BRetainedLegacyMappingData:
+	dc.b	$D, 0, $43, $F0, $F8
 	dc.b	$C, 0, $4B, $F0, 0, 8, 0, $4F, $F0, 8, $C, 0, $52, $F0, 0
 	dc.b	2, $E8, 9
 	dcb.b	2,0
@@ -528,38 +536,12 @@ R32BRetainedHologramNemesis:
 	dc.b	$E8, $E, 8, 3, 0, $18, 8, $10, 0, $E8, 0, $E, $10, 3, $E0
 	dc.b	$18, 8, $18
 	dcb.b	3,0
-	dc.b	$E, $18, 3, 0, 8, $54
-	dcb.b	2,0
-	dc.b	6, 8, $D, 0, $44, $E0, 8, $D, 0, $4C, 0, $18, $C, 0, $20
-	dc.b	$E0, $18, $C, 8, $20, 0, $20, 7, 0, $54, $F0, $20, 7, 8, $54
-	dcb.b	2,0
-	dc.b	1, $F8, 5, 0, $5C, $F8, 1, $F8, 5, 0, $60, $F8, 1, $F8, 5
-	dc.b	0, $64, $F8, 1, $F8, 5, 8, $64, $F8, 1, $F8, 5, 8, $60, $F8
-	dc.b	1, $F8, 5, 8, $5C, $F8, 5, 8, $5C, $F8, $56, $11, $57, $12
-	dc.b	$58, $12, $59, $13, $5A, $13, $5B, $14, $5C, $15, $5D, $16
-	dc.b	$5E, $17, $5F, $18, $60, $19, $61, $1A, $62, $1B, $63, $1C
-	dc.b	$63, $1D, $64, $1E, $64, $1F, $64, $20, $65, $21, $65, $22
-	dc.b	$65, $23, $66, $24, $66, $25, $66, $26, $66, $27, $66, $28
-	dc.b	$66, $29, $66, $2A, $66, $2B, $66, $2C, $66, $2D, $65, $2E
-	dc.b	$65, $2F, $65, $30, $64, $31, $64, $32, $64, $33, $63, $34
-	dc.b	$62, $35, $62, $36, $61, $37, $60, $38, $5F, $39, $5E, $3A
-	dc.b	$5D, $3B, $5C, $3C, $5B, $3C, $5A, $3D, $59, $3D, $58, $3D
-	dc.b	$57, $3E, $56, $3E, $55, $3E, $54, $3F, $53, $3F, $52, $3F
-	dc.b	$51, $3F, $50, $3F, $4F, $3F, $4E, $3F, $4D, $3F, $4C, $3F
-	dc.b	$4B, $3F, $4A, $3F, $49, $3F, $48, $3E, $47, $3E, $46, $3E
-	dc.b	$45, $3D, $44, $3D, $43, $3C, $42, $3C, $41, $3B, $40, $3B
-	dc.b	$3F, $3A, $3E, $3A, $3D, $39, $3C, $39, $3B, $38, $3A, $38
-	dc.b	$39, $37, $38
-	dcb.b	2,$37
-	dcb.b	3,$36
-	dcb.b	2,$35
-	dc.b	$34, $35, $33, $34, $32, $34, $31, $33, $30, $33, $2F, $32
-	dc.b	$2E, $32, $2D, $31, $2C, $31, $2B, $30, $2A, $30, $29, $2F
-	dc.b	$28, $2F, $27, $2E, $26, $2E, $25, $2D, $24, $2D, $23, $2C
-	dc.b	$22, $2C, $21, $2B, $20, $2B, $1F, $2A, $1E, $2A, $1D, $29
-	dc.b	$1C, $29, $1B, $28, $1A, $28, $19, $27, $18, $27, $17, $26
-	dc.b	$16, $26, $15, $25, $14, $25, $13, $24, $12, $24, $11, $23
-	dc.b	$10, $23, $F, $22, $E, $22, $D, $21, $C, $21, $B, $20, $A
-	dc.b	$20, 9, $1F
+	dc.b	$E, $18, 3, 0
+
+	; Shared mapping/animation records complete the retained $2370-$2537 range.
+	include	"Level/Shared Padding3 Mapping Tail.asm"
+
+	; Shared spin-platform rotation-vector pairs complete the retained suffix.
+	include	"Level/Shared Padding3 Rotation Vectors.asm"
 
 ; ------------------------------------------------------------------------------
