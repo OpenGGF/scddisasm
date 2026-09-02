@@ -24,7 +24,8 @@
 ; +$039E-+$0469  retained Results PLC-wait and object initialization state
 ; +$046A-+$04A3  retained Results movement state
 ; +$04A4-+$0557  retained Results bonus-tally state
-; +$0558 onward  retained data still to be structured
+; +$0558-+$0631  retained Results next-level state
+; +$0632 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -540,32 +541,59 @@ R32BRetainedResultsBonus:
 	jmp	$203A6E			; historical object draw routine
 
 ; Remaining retained Results states and data.
-	dc.b	$33, $FC, 0, 2, 0, $FF, $15, 2, $13, $FC
-	dcb.b	3,0
-	dc.b	$FF, $15, $22, $42, $79, 0, $FF, $15, $74, $42, $B9, 0, $FF
-	dc.b	$19, 0, $42, $39, 0, $FF, $15, $6C, $42, $39, 0, $FF, $15
-	dc.b	$6D, $42, $39, 0, $FF, $15, $8E, $4A, $39, 0, $FF, $F, 1
-	dc.b	$67
-	dcb.b	2,8
-	dc.b	$B9
-	dcb.b	3,0
-	dc.b	$FF, $15, $1C, 8, $B9, 0, 1, 0, $FF, $15, $1C, $13, $FC, 0
-	dc.b	1, 0, $FF, $15, $2E, $30, $39, 0, $FF, $15, 6, $52, 0, $C
-	dcb.b	2,0
-	dc.b	2, $66, 8, $13, $FC, 0, 2, 0, $FF, $15, $2E, $C
-	dcb.b	2,0
-	dc.b	3, $66, $C, $10, $3C
-	dcb.b	2,0
-	dc.b	6, $40, 1, 0, $10, $3C
-	dcb.b	2,0
-	dc.b	$33, $C0, 0, $FF, $15, 6, $4E, $B9, 0, $20, $78, $F8, $4E
-	dc.b	$B9, 0, $20, $5C, $34, $4E, $B9, 0, $20, $3A, $6E, $10, $39
-	dc.b	0, $FF, $15, 7, $53, 0, $6A, 8, $42, $39, 0, $FF, $15, $90
-	dc.b	$4E, $75, $4A, $39, 0, $FF, $F, 1, $66, $30, $C, $39, 0, $7F
-	dc.b	0, $FF, $F, $20, $67, $1E, $4A, $39, 0, $FF, $15, $6A, $67
-	dc.b	$1E, $42, $39, 0, $FF, $15, $6A, 1, $F9, 0, $FF, $15, $90
-	dc.b	$C, $39, 0, 3, 0, $FF, $15, $90, $66, 8, $13, $FC, 0, 1, 0
-	dc.b	$FF, $15, $6A, $4E, $75, 0, $CC
+R32BRetainedResultsNextLevel:
+	move.w	#2,levelRestart
+	move.b	#0,spawnMode
+	clr.w	sectionID
+	clr.l	flowerCount
+	clr.b	unkLevelFlag
+	clr.b	projDestroyed
+	clr.b	checkpoint
+	tst.b	timeAttackMode
+	beq.s	.NotTimeAttack
+	bclr	#0,plcLoadFlags
+.NotTimeAttack:
+	bclr	#1,plcLoadFlags
+	move.b	#TIME_PRESENT,timeZone
+	move.w	zoneAct,d0
+	addq.b	#1,d0
+	cmpi.b	#2,d0
+	bne.s	.NotAct3
+	move.b	#TIME_FUTURE,timeZone
+.NotAct3:
+	cmpi.b	#3,d0
+	bne.s	.SetLevel
+	move.b	#0,d0
+	addi.w	#$100,d0
+	move.b	#0,d0
+.SetLevel:
+	move.w	d0,zoneAct
+	jsr	$2078F8			; historical level-load routine
+	jsr	$205C34			; historical object-clear routine
+	jsr	$203A6E			; historical object draw routine
+	move.b	act,d0
+	subq.b	#1,d0
+	bpl.s	.CheckGoodFuture
+	clr.b	goodFutureFlags
+	rts
+.CheckGoodFuture:
+	tst.b	timeAttackMode
+	bne.s	.End
+	cmpi.b	#%1111111,timeStones
+	beq.s	.SetGoodFuture
+	tst.b	goodFuture
+	beq.s	.End
+	clr.b	goodFuture
+	bset	d0,goodFutureFlags
+	cmpi.b	#%11,goodFutureFlags
+	bne.s	.End
+.SetGoodFuture:
+	move.b	#1,goodFuture
+.End:
+	rts
+
+; Remaining retained Results data.
+	dc.b	0, $CC
 	dcb.b	2,0
 	dc.b	1, $20
 	dcb.b	2,0
