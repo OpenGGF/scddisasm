@@ -28,7 +28,8 @@
 ; +$0632-+$0649  retained Results object-initialization records
 ; +$064A-+$0671  retained Results mapping-offset tables
 ; +$0672-+$0737  retained bad-future Results mapping frames
-; +$0738 onward  retained data still to be structured
+; +$0738-+$0827  retained good-future Results mapping frames
+; +$0828 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -669,27 +670,70 @@ R32BRetainedResultsBadAct3:
 	even
 
 ; Remaining retained Results mapping frames.
-	dc.b	$E, $EC, 5
-	dcb.b	2,0
-	dc.b	$80, $EC, 5, 0, 4, $90, $EC, 5, 0, 8, $A0, $EC, 1, 0, $C
-	dc.b	$B0, $EC, 5, 0, $E, $B8, $EC, 5, 0, $36, $D0, $EC, 5, 0, $3A
-	dc.b	$E0, $EC, 5, 0, $3E, $F0, $EC, 5, 0, $42, 0, $EC, 5, 0, $3A
-	dc.b	$20, $EC, 5, 0, $12, $40, $EC, 5, 0, 4, $50, $EC, 5, 0, 4
-	dc.b	$60, $EC, 5, 0, $3E, $70, 0, $B, 4, 5, 0, $46, $90, 4, 5
-	dc.b	0, $22, $A0, 4, 5, 0, $16, $B0, 4, 5, 0, $22, $C0, 4, 5, 0
-	dc.b	$1E, $D0, 4, 5, 0, $42, $E0, 4, 1, 0, $C, 0, 4, 5, 0
-	dcb.b	2,8
-	dc.b	4, $D, 0, $26, $28, 4, 9, 0, $2E, $48, 4, 1, 0, $34, $68
-	dc.b	$B, 4, 5, 0, $46, $90, 4, 5, 0, $22, $A0, 4, 5, 0, $16, $B0
-	dc.b	4, 5, 0, $22, $C0, 4, 5, 0, $1E, $D0, 4, 5, 0, $42, $E0, 4
-	dc.b	1, 0, $C, 0, 4, 5, 0
-	dcb.b	2,8
-	dc.b	4, $D, 0, $26, $28, 4, 9, 0, $2E, $48, 4, 5, 0, $4A, $68
-	dc.b	$B, 4, 5, 0, $46, $90, 4, 5, 0, $22, $A0, 4, 5, 0, $16, $B0
-	dc.b	4, 5, 0, $22, $C0, 4, 5, 0, $1E, $D0, 4, 5, 0, $42, $E0, 4
-	dc.b	1, 0, $C, 0, 4, 5, 0
-	dcb.b	2,8
-	dc.b	4, $D, 0, $26, $28, 4, 9, 0, $2E, $48, 4, 5, 0, $4E, $68
+R32BRetainedResultsGoodHeader:
+	dc.b	$E
+	dc.b	$EC, 5, 0, 0, $80
+	dc.b	$EC, 5, 0, 4, $90
+	dc.b	$EC, 5, 0, 8, $A0
+	dc.b	$EC, 1, 0, $C, $B0
+	dc.b	$EC, 5, 0, $E, $B8
+	dc.b	$EC, 5, 0, $36, $D0
+	dc.b	$EC, 5, 0, $3A, $E0
+	dc.b	$EC, 5, 0, $3E, $F0
+	dc.b	$EC, 5, 0, $42, 0
+	dc.b	$EC, 5, 0, $3A, $20
+	dc.b	$EC, 5, 0, $12, $40
+	dc.b	$EC, 5, 0, 4, $50
+	dc.b	$EC, 5, 0, 4, $60
+	dc.b	$EC, 5, 0, $3E, $70
+	even
+
+R32BRetainedResultsGoodAct1:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 1, 0, $34, $68
+	even
+
+R32BRetainedResultsGoodAct2:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4A, $68
+	even
+
+R32BRetainedResultsGoodAct3:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4E, $68
+	even
+
+; Remaining retained Results mapping frames.
 	dc.b	$E, $E0, $D, 0, $52, $D4, $E0, 1, 0, $5A, $F4, $F8, $D, 0
 	dc.b	$5C, $D4, $F8, $D, 0, $64, $FC, $F8, 5, 0, $6C, $1C, $10
 	dc.b	$D, 0, $70, $D4, $10, $D, 0, $64, $FC, $10, 5, 0, $6C, $1C
