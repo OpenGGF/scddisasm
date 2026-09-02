@@ -30,6 +30,7 @@ bomb.lifetime			equ obj.var_2a	; Frames before automatic detonation
 bomb.x_acceleration		equ obj.var_38	; Horizontal acceleration
 bomb.y_acceleration		equ obj.var_3a	; Vertical acceleration
 bomb.terminal_y_speed		equ obj.var_3c	; Signed vertical speed limit
+exit_barrier.target_frame	equ obj.var_2a	; Final extension frame
 
 ; The two barriers link to each other through 16-bit object-slot addresses.
 ; A collision retracts a barrier; crossing the arena threshold starts the boss.
@@ -1215,33 +1216,33 @@ BombSprites:
 
 ExitBarrierObject:
 	cmpi.b	#4,obj.routine(a0)
-	beq.w	ExitBarrierObject_0_Routine4
+	beq.w	ExitBarrier_Solid
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20EA12(pc,d0.w),d0
-	jmp	off_20EA12(pc,d0.w)
+	move.w	ExitBarrier_Routines(pc,d0.w),d0
+	jmp	ExitBarrier_Routines(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20EA12:
-	dc.w	ExitBarrierObject_0_Routine0-*
-	dc.w	ExitBarrierObject_0_Routine2-off_20EA12
-	dc.w	ExitBarrierObject_0_Routine4-off_20EA12
-	dc.w	ExitBarrierObject_0_Routine6-off_20EA12
+ExitBarrier_Routines:
+	dc.w	ExitBarrier_InitFull-*
+	dc.w	ExitBarrier_Extend-ExitBarrier_Routines
+	dc.w	ExitBarrier_Solid-ExitBarrier_Routines
+	dc.w	ExitBarrier_InitPartial-ExitBarrier_Routines
 
 ; ------------------------------------------------------------------------------
 
-ExitBarrierObject_0_Routine6:
-	move.b	#5,obj.var_2a(a0)
+ExitBarrier_InitPartial:
+	move.b	#5,exit_barrier.target_frame(a0)
 	clr.b	obj.routine(a0)
-	bra.s	loc_20EA2C
+	bra.s	ExitBarrier_InitCommon
 
 ; ------------------------------------------------------------------------------
 
-ExitBarrierObject_0_Routine0:
-	move.b	#7,obj.var_2a(a0)
+ExitBarrier_InitFull:
+	move.b	#7,exit_barrier.target_frame(a0)
 
-loc_20EA2C:
+ExitBarrier_InitCommon:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
@@ -1250,26 +1251,26 @@ loc_20EA2C:
 	move.b	#$48,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 
-ExitBarrierObject_0_Routine2:
+ExitBarrier_Extend:
 	lea	ExitBarrierAnims(pc),a1
 	jsr	AnimateObject
 	move.b	obj.sprite_frame(a0),d0
-	cmp.b	obj.var_2a(a0),d0
-	beq.s	loc_20EA6C
-	bra.s	ExitBarrierObject_0_Routine4
+	cmp.b	exit_barrier.target_frame(a0),d0
+	beq.s	.Finish
+	bra.s	ExitBarrier_Solid
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA6C:
+.Finish:
 	addq.b	#2,obj.routine(a0)
 
-ExitBarrierObject_0_Routine4:
+ExitBarrier_Solid:
 	tst.b	obj.sprite_flags(a0)
-	bpl.s	loc_20EA80
+	bpl.s	.Draw
 	lea	player_object,a1
 	jsr	TopSolidObject
 
-loc_20EA80:
+.Draw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
