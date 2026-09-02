@@ -16,7 +16,8 @@
 ; +$25A6-+$266D  retained Green Hill Zone Act 2 foreground layout
 ; +$266E-+$279B  remaining Act 1 Past table-addressed layout graph
 ; +$279C-+$27BC  truncated eight-piece legacy demo mapping frame
-; +$27BD-+$29FF  retained units still to be classified
+; +$27BC-+$27CF  overlapping ten-entry mapping-offset table
+; +$27D0-+$29FF  retained mapping frames still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -120,11 +121,16 @@ R32ARetainedDemoMappingFragment:
 	dc.b	0, $10, $F8, 0, 2
 	dc.b	$EC, $F, 8, 0, $E8
 	dc.b	$C, $C, 8, $10, $E8
-	dc.b	0, 0	; Y and size/shape bytes of the truncated seventh piece
+	dc.b	0	; Y byte of the truncated seventh piece
 
-; First word of the following retained mapping-offset table.
-	dc.b	$14, 0, $3E, 0, $6C, 0, $9A, 0, $C8, 0, $EC, 1, $C, 1, $5E
-	dc.b	1, $AA, 1, $F2, 8, $E8, 1
+; The size/shape byte of that partial piece is also the first byte of this
+; overlapping big-endian table. Offsets are relative to the shared byte.
+R32ARetainedDemoMappingOffsets:
+	dc.w	$0014, $003E, $006C, $009A, $00C8
+	dc.w	$00EC, $010C, $015E, $01AA, $01F2
+
+; First three bytes of mapping frame 0.
+	dc.b	8, $E8, 1
 	dcb.b	2,0
 	dcb.b	2,$F8
 	dc.b	8, 0, 2
