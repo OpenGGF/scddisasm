@@ -20,7 +20,8 @@
 ; $20FAC0-$20FCE5  orphaned Act 1 Present stage descriptor and PLC graph
 ; $20FCE6-$20FDDB  retained DEMO11A Act 1 Present PLC tail and complete bodies
 ; $20FDDC-$20FEBD  retained animated-PLC helpers and metadata
-; $20FEBE-$20FFFF  retained data units (still to be classified)
+; $20FEBE-$20FFE7  static metadata and orphaned stage/PLC graph
+; $20FFE8-$20FFFF  truncated retained PLC fragment
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -1090,24 +1091,124 @@ USARetainedAnimatedPLCUnit:
 	adda.w	#1,a4
 	moveq	#1,d0
 	rts
-	dc.b	$04, $03, $00, $23, $3C, $0C, $00, $23
-	dc.b	$3D, $0C, $00, $23, $3E, $0C, $03, $02, $00, $23, $3B, $0C, $00, $23, $3B, $8C
-	dc.b	$03, $23, $81, $DC, $02, $23, $6F, $30, $00, $21, $00, $00, $00, $81, $04, $04
-	dc.b	$00, $26, $00, $2E, $00, $8A, $00, $26, $00, $8A, $00, $8A, $00, $8A, $00, $8A
-	dc.b	$00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A, $00, $8A
-	dc.b	$00, $E6, $00, $8A, $00, $EE, $00, $00, $00, $23, $81, $DC, $00, $00, $00, $0E
-	dc.b	$00, $23, $0D, $A2, $6C, $00, $00, $23, $39, $BC, $7A, $00, $00, $23, $CA, $20
-	dc.b	$87, $00, $00, $23, $CC, $94, $8A, $E0, $00, $23, $CF, $F4, $91, $00, $00, $23
-	dc.b	$D4, $58, $95, $00, $00, $23, $D2, $B6, $99, $00, $00, $23, $DC, $52, $9A, $00
-	dc.b	$00, $23, $21, $3A, $A4, $00, $00, $23, $34, $BC, $AD, $00, $00, $23, $23, $5C
-	dc.b	$B5, $00, $00, $23, $29, $60, $D0, $00, $00, $22, $ED, $E6, $D8, $C0, $00, $23
-	dc.b	$37, $32, $DA, $E0, $00, $23, $2E, $48, $F5, $C0, $00, $0E, $00, $22, $F8, $FC
-	dc.b	$57, $80, $00, $23, $43, $78, $5C, $20, $00, $23, $42, $20, $62, $00, $00, $23
-	dc.b	$B1, $74, $68, $00, $00, $23, $C8, $EE, $6B, $00, $00, $23, $B2, $B2, $6D, $40
-	dc.b	$00, $23, $BE, $78, $73, $40, $00, $23, $BE, $CA, $74, $00, $00, $23, $D3, $78
-	dc.b	$75, $00, $00, $23, $D6, $B0, $77, $00, $00, $23, $BD, $98, $7D, $00, $00, $23
-	dc.b	$DB, $7A, $7F, $00, $00, $23, $41, $0C, $80, $00, $00, $23, $C3, $4E, $82, $00
-	dc.b	$00, $23, $C0, $66, $9D, $00, $00, $00, $00, $23, $00, $98, $78, $80, $00, $02
-	dc.b	$00, $22, $FA, $BC, $87, $80, $00, $22, $F4, $F2, $91, $00, $00, $20, $BB, $BC
-	dc.b	$7D, $E0, $7D, $E0, $00, $23, $D5, $9E, $78, $C0, $00, $23, $C4, $40, $7D, $20
+
+; Static helper records begin with reset delay and frame count, followed by
+; longword frame pointers. These two records select three and two frames.
+USARetainedStaticPLCMetadata:
+	dc.b	4, 3
+	dc.l	$00233C0C, $00233D0C, $00233E0C
+.Next:
+	dc.b	3, 2
+	dc.l	$00233B0C, $00233B8C
+
+; Complete but unreachable historical stage-data and graphics-list snapshot.
+; Its source zone/variant is not proven by the retained bytes, so the embedded
+; art addresses remain literal. The 19-entry index has the Stage, Standard,
+; Section, Stage, twelve Section, Results, Section, Signpost selection pattern.
+; Each PLC starts with count-minus-one followed by six-byte pointer/destination
+; records.
+USARetainedOrphanStageData:
+	dc.l	$032381DC		; Nemesis stage art
+	dc.l	$02236F30		; Nemesis stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 4, 4		; layout flags and palette IDs
+
+USARetainedOrphanPLCLists:
+	dc.w	.Stage-USARetainedOrphanPLCLists
+	dc.w	.Standard-USARetainedOrphanPLCLists
+	dc.w	.Section-USARetainedOrphanPLCLists
+	dc.w	.Stage-USARetainedOrphanPLCLists
+	rept	12
+	dc.w	.Section-USARetainedOrphanPLCLists
+	endr
+	dc.w	.Results-USARetainedOrphanPLCLists
+	dc.w	.Section-USARetainedOrphanPLCLists
+	dc.w	.Signpost-USARetainedOrphanPLCLists
+
+.Stage:
+	dc.w	0
+	dc.l	$002381DC
+	dc.w	0
+
+.Standard:
+	dc.w	$E
+	dc.l	$00230DA2
+	dc.w	$6C00
+	dc.l	$002339BC
+	dc.w	$7A00
+	dc.l	$0023CA20
+	dc.w	$8700
+	dc.l	$0023CC94
+	dc.w	$8AE0
+	dc.l	$0023CFF4
+	dc.w	$9100
+	dc.l	$0023D458
+	dc.w	$9500
+	dc.l	$0023D2B6
+	dc.w	$9900
+	dc.l	$0023DC52
+	dc.w	$9A00
+	dc.l	$0023213A
+	dc.w	$A400
+	dc.l	$002334BC
+	dc.w	$AD00
+	dc.l	$0023235C
+	dc.w	$B500
+	dc.l	$00232960
+	dc.w	$D000
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+.Section:
+	dc.w	$E
+	dc.l	$0022F8FC
+	dc.w	$5780
+	dc.l	$00234378
+	dc.w	$5C20
+	dc.l	$00234220
+	dc.w	$6200
+	dc.l	$0023B174
+	dc.w	$6800
+	dc.l	$0023C8EE
+	dc.w	$6B00
+	dc.l	$0023B2B2
+	dc.w	$6D40
+	dc.l	$0023BE78
+	dc.w	$7340
+	dc.l	$0023BECA
+	dc.w	$7400
+	dc.l	$0023D378
+	dc.w	$7500
+	dc.l	$0023D6B0
+	dc.w	$7700
+	dc.l	$0023BD98
+	dc.w	$7D00
+	dc.l	$0023DB7A
+	dc.w	$7F00
+	dc.l	$0023410C
+	dc.w	$8000
+	dc.l	$0023C34E
+	dc.w	$8200
+	dc.l	$0023C066
+	dc.w	$9D00
+
+.Results:
+	dc.w	0
+	dc.l	$00230098
+	dc.w	$7880
+
+.Signpost:
+	dc.w	2
+	dc.l	$0022FABC
+	dc.w	$8780
+	dc.l	$0022F4F2
+	dc.w	$9100
+	dc.l	$0020BBBC
+	dc.w	$7DE0
+
+	dc.b	$7D, $E0, $00, $23, $D5, $9E, $78, $C0, $00, $23, $C4, $40, $7D, $20
 	dc.b	$00, $23, $D0, $C4, $8B, $A0, $00, $00, $00, $23
