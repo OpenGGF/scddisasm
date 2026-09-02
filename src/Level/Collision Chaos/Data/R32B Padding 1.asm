@@ -15,7 +15,8 @@
 ; +$01FC-+$0203  retained Section 2 PLC
 ; +$0204-+$020B  retained Section 3 PLC
 ; +$020C-+$0213  retained Results PLC
-; +$0214 onward  retained PLC/data bodies still to be structured
+; +$0214-+$0227  retained Signpost PLC
+; +$0228 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -108,7 +109,7 @@ R32BRetainedAct2PastPLCOffsets:
 	dcb.w	3,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets
 	dc.w	R32BRetainedAct2PastResultsPLC-R32BRetainedAct2PastPLCOffsets
 	dc.w	R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Section 0
-	dc.w	$0148	; Signpost
+	dc.w	R32BRetainedAct2PastSignpostPLC-R32BRetainedAct2PastPLCOffsets
 
 ; Two-entry Stage PLC. Addresses retain their historical absolute values.
 R32BRetainedAct2PastStagePLC:
@@ -230,11 +231,18 @@ R32BRetainedAct2PastResultsPLC:
 	dc.l	$00230098		; Results art
 	dc.w	$7880
 
-; Signpost and later bodies.
-	dc.b	0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2, $91
-	dcb.b	2,0
-	dc.b	$20, $B4, $B0, $7D, $E0, $DA, $36, $6E, $20, 0, $21, $DA
+; Three-entry Signpost PLC.
+R32BRetainedAct2PastSignpostPLC:
+	dc.w	2			; entry count minus one
+	dc.l	$0022FABC		; signpost
+	dc.w	$8780
+	dc.l	$0022F4F2		; big ring
+	dc.w	$9100
+	dc.l	$0020B4B0		; big-ring flash
+	dc.w	$7DE0
+
+; Remaining retained data.
+	dc.b	$DA, $36, $6E, $20, 0, $21, $DA
 	dc.b	$B2, $6F, $20, 0, $21, $D9, $7C, $73, $E0, 0, $23, $54, $EC
 	dc.b	$75, $E0, 0, $23, $56, 4, $75, $E0, 0, $23, $5B, $D8, $77
 	dc.b	$A0, 0, $23, $6F, $78, $7B, $40, 0, $21, $DE, $3E, $7E, $40
