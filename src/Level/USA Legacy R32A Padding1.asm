@@ -15,7 +15,8 @@
 ; $20F6F8-$20F71F  four Results mapping-offset tables
 ; $20F720-$20F7E5  complete Bad-Future Results mapping frames
 ; $20F7E6-$20F8D5  complete Good-Future Results mapping frames
-; $20F8D6-$20FFFF  retained data units (still to be classified)
+; $20F8D6-$20F965  complete standard and SSZ3 Results score frames
+; $20F966-$20FFFF  retained data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -385,13 +386,13 @@ USARetainedResultsBadSSZ3Mappings:
 	dc.w	USARetainedResultsBadAct3-USARetainedResultsBadSSZ3Mappings
 USARetainedResultsGoodMappings:
 	dc.w	USARetainedResultsGoodHeader-USARetainedResultsGoodMappings
-	dc.w	$01CA			; standard score frame (not yet structured)
+	dc.w	USARetainedResultsScore-USARetainedResultsGoodMappings
 	dc.w	USARetainedResultsGoodAct1-USARetainedResultsGoodMappings
 	dc.w	USARetainedResultsGoodAct2-USARetainedResultsGoodMappings
 	dc.w	USARetainedResultsGoodAct3-USARetainedResultsGoodMappings
 USARetainedResultsGoodSSZ3Mappings:
 	dc.w	USARetainedResultsGoodHeader-USARetainedResultsGoodSSZ3Mappings
-	dc.w	$0208			; SSZ3 score frame (not yet structured)
+	dc.w	USARetainedResultsSSZ3Score-USARetainedResultsGoodSSZ3Mappings
 	dc.w	USARetainedResultsGoodAct1-USARetainedResultsGoodSSZ3Mappings
 	dc.w	USARetainedResultsGoodAct2-USARetainedResultsGoodSSZ3Mappings
 	dc.w	USARetainedResultsGoodAct3-USARetainedResultsGoodSSZ3Mappings
@@ -514,15 +515,42 @@ USARetainedResultsGoodAct3:
 	dc.b	4, 9, 0, $2E, $48
 	dc.b	4, 5, 0, $4E, $68
 	even
-	dc.b	$0E, $E0, $0D, $00, $52, $D4, $E0, $01, $00, $5A, $F4, $F8, $0D, $00, $5C, $D4
-	dc.b	$F8, $0D, $00, $64, $FC, $F8, $05, $00, $6C, $1C, $10, $0D, $00, $70, $D4, $10
-	dc.b	$0D, $00, $64, $FC, $10, $05, $00, $6C, $1C, $F8, $0D, $00, $82, $58, $F8, $01
-	dc.b	$00, $8A, $78, $10, $0D, $00, $78, $58, $10, $01, $00, $80, $78, $E0, $09, $01
-	dc.b	$BF, $48, $E0, $0D, $01, $C5, $60, $00, $0E, $E0, $0D, $00, $52, $D4, $E0, $01
-	dc.b	$00, $5A, $F4, $F8, $0D, $00, $5C, $D4, $F8, $0D, $00, $64, $FC, $F8, $05, $00
-	dc.b	$6C, $1C, $10, $0D, $00, $70, $D4, $10, $0D, $00, $64, $FC, $10, $05, $00, $6C
-	dc.b	$1C, $F8, $0D, $00, $82, $58, $F8, $01, $00, $8A, $78, $10, $0D, $00, $78, $58
-	dc.b	$10, $01, $00, $80, $78, $E0, $09, $02, $91, $48, $E0, $0D, $02, $97, $60, $00
+
+USARetainedResultsScore:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 1, $BF, $48
+	dc.b	$E0, $D, 1, $C5, $60
+	even
+
+USARetainedResultsSSZ3Score:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 2, $91, $48
+	dc.b	$E0, $D, 2, $97, $60
+	even
 	dc.b	$01, $30, $02, $28, $01, $68, $01, $5A, $01, $00, $02, $38, $01, $78, $02, $5A
 	dc.b	$01, $00, $02, $40, $01, $80, $02, $5A, $01, $00, $02, $48, $01, $88, $02, $5A
 	dc.b	$01, $20, $02, $30, $01, $70, $03, $5A, $01, $40, $02, $48, $01, $88, $04, $5A
