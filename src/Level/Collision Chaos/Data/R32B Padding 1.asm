@@ -19,7 +19,8 @@
 ; +$0228-+$025B  retained Act 1 Present section-PLC tail
 ; +$025C-+$0263  retained duplicate Results PLC
 ; +$0264-+$0277  retained duplicate Signpost PLC
-; +$0278 onward  retained data still to be structured
+; +$0278-+$0371  retained title-card executable fragment
+; +$0372 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -258,6 +259,7 @@ R32BRetainedAct1PresentSectionPLCTail:
 	dc.l	$00235604		; Pocket, second part
 	dc.w	$75E0
 	dc.l	$00235BD8		; spike chain
+R32BRetainedTitleCardInitLoopTarget:
 	dc.w	$77A0
 	dc.l	$00236F78		; animals
 	dc.w	$7B40
@@ -282,27 +284,100 @@ R32BRetainedAct1PresentSignpostPLC:
 	dc.l	$0020DC6E		; big-ring flash
 	dc.w	$7DE0
 
-; Retained title-card code and later data.
-	dc.b	$33, $72, $20, 2, 0, $2C, $33, $72
-	dc.b	$20, 4, 0, $2A, $13, $72, $20, 6, 0, $1A, $C, 1, 0, 5, $66
-	dc.b	$A, $16, $39, 0, $FF, $15, 7, $D7, $29, 0, $1A, $13, $72
-	dc.b	$20, 7, 0, $1E, $52, 1, $51, $CE, $FF, $A4, $4E, $75, $70
-	dc.b	8, $32, $28, 0, $2E, $B2, $68, 0, $A, $67, $E, $6C, 2, $44
-	dc.b	$40, $D1, $68, 0, $A, $4E, $F9, 0, $20, $3A, $6E, $58, $28
-	dc.b	0, $24, $4E, $F9, 0, $20, $3A, $6E, $70, 8, $32, $28, 0, $2A
-	dc.b	$B2, $68, 0, 8, $67, $E, $6C, 2, $44, $40, $D1, $68, 0, 8
-	dc.b	$4E, $F9, 0, $20, $3A, $6E, $58, $28, 0, $24, $4E, $F9, 0
-	dc.b	$20, $3A, $6E, $4A, $28, 0, $1E, $67, $A, $53, $28, 0, $1E
-	dc.b	$4E, $F9, 0, $20, $3A, $6E, $70, $10, $32, $28, 0, $30, $B2
-	dc.b	$68, 0, $A, $67, $E, $6C, 2, $44, $40, $D1, $68, 0, $A, $4E
-	dc.b	$F9, 0, $20, $3A, $6E, $58, $28, 0, $24, $11, $FC, 0, 1, $F7
-	dc.b	$44, $70, 2, $4E, $F9, 0, $20, $24, $48, $4A, $28, 0, $1E
-	dc.b	$67, $A, $53, $28, 0, $1E, $4E, $F9, 0, $20, $3A, $6E, $70
-	dc.b	$10, $32, $28, 0, $2C, $B2, $68, 0, 8, $67, $E, $6C, 2, $44
-	dc.b	$40, $D1, $68, 0, 8, $4E, $F9, 0, $20, $3A, $6E, $4E, $F9
-	dc.b	0, $20, $3B, $1A, $4A, $B8, $F6, $80, $66, $E, $42, $38, $F7
-	dc.b	$44, $42, $38, $F7, $CC, $4E, $F9, 0, $20, $3B, $1A, $4E
-	dc.b	$75, $70, 0, $10, $28, 0, $24, $30, $3B, 0, 6, $4E, $FB, 0
+; Orphaned title-card initialization tail and slide states. Historical absolute
+; draw/delete targets remain literal because they do not name the live graph.
+R32BRetainedTitleCardInitTail:
+	move.w	2(a2,d2.w),oVar2C(a1)
+	move.w	4(a2,d2.w),oVar2A(a1)
+	move.b	6(a2,d2.w),oMapFrame(a1)
+	cmpi.b	#5,d1
+	bne.s	.StoreDelay
+	move.b	act,d3
+	add.b	d3,oMapFrame(a1)
+.StoreDelay:
+	move.b	7(a2,d2.w),oAnimTime(a1)
+	addq.b	#1,d1
+	dbf	d6,R32BRetainedTitleCardInitLoopTarget
+	rts
+
+R32BRetainedTitleCardSlideInVert:
+	moveq	#8,d0
+	move.w	oVar2E(a0),d1
+	cmp.w	oYScr(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oYScr(a0)
+	jmp	$203A6E
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	jmp	$203A6E
+
+R32BRetainedTitleCardSlideInHoriz:
+	moveq	#8,d0
+	move.w	oVar2A(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oX(a0)
+	jmp	$203A6E
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	jmp	$203A6E
+
+R32BRetainedTitleCardSlideOutVert:
+	tst.b	oAnimTime(a0)
+	beq.s	.Slide
+	subq.b	#1,oAnimTime(a0)
+	jmp	$203A6E
+.Slide:
+	moveq	#$10,d0
+	move.w	oVar30(a0),d1
+	cmp.w	oYScr(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oYScr(a0)
+	jmp	$203A6E
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	move.b	#1,scrollLock.w
+	moveq	#2,d0
+	jmp	$202448
+
+R32BRetainedTitleCardSlideOutHoriz:
+	tst.b	oAnimTime(a0)
+	beq.s	.Slide
+	subq.b	#1,oAnimTime(a0)
+	jmp	$203A6E
+.Slide:
+	moveq	#$10,d0
+	move.w	oVar2C(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.Delete
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oX(a0)
+	jmp	$203A6E
+.Delete:
+	jmp	$203B1A
+
+R32BRetainedTitleCardWaitPLC:
+	tst.l	plcBuffer.w
+	bne.s	.End
+	clr.b	scrollLock.w
+	clr.b	ctrlLocked.w
+	jmp	$203B1A
+.End:
+	rts
+
+; Retained Results code and later data.
+	dc.b	$70, 0, $10, $28, 0, $24, $30, $3B, 0, 6, $4E, $FB, 0
 	dc.b	2, 0, $A, 0, $1E, 0, $EA, 1, $24, 1, $D8, $53, $28, 0, $32
 	dc.b	$67, 2, $4E, $75, $70, $10, $4E, $B9, 0, $20, $24, $48, $54
 	dc.b	$28, 0, $24, $4A, $B8, $F6, $80, $66, $1C, $C, $79, 5, 2
