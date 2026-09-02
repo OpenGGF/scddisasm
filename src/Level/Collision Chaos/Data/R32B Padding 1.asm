@@ -33,7 +33,8 @@
 ; +$08B8-+$08F7  retained title-card element records
 ; +$08F8-+$0909  retained title-card mapping-offset table
 ; +$090A-+$0929  retained title-card backdrop mapping frame
-; +$092A onward  retained data still to be structured
+; +$092A-+$0941  retained title-card headline and zone-name frames
+; +$0942 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -803,9 +804,20 @@ R32BRetainedTitleCardBackdrop:
 	even
 
 ; Remaining retained title-card mapping frames.
-	dc.b	2, $F8, 9, 0, $10, $E8, 0, 8, 0, $16
-	dcb.b	2,0
-	dc.b	2, $E8, 2, 0, $19, $FC, 0, 2, 0, $1C, $FC, 0, 5, $F8, $D
+R32BRetainedTitleCardHeadline:
+	dc.b	2
+	dc.b	$F8, 9, 0, $10, $E8
+	dc.b	0, 8, 0, $16, 0
+	even
+
+R32BRetainedTitleCardZoneName:
+	dc.b	2
+	dc.b	$E8, 2, 0, $19, $FC
+	dc.b	0, 2, 0, $1C, $FC
+	even
+
+; Remaining retained title-card mapping frames.
+	dc.b	5, $F8, $D
 	dc.b	0, $1F, $B0, $F8, $D, 0, $27, $D0, $F8, $D, 0, $2F, $F0, $F8
 	dc.b	$D, 0, $37, $10, $F8, $D, 0, $3F, $30, 7, $E8, 6, 0, $47
 	dc.b	$E8, 0, 6, $10, $47
