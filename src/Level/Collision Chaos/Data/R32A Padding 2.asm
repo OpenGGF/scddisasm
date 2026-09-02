@@ -1,5 +1,5 @@
 ; ------------------------------------------------------------------------------
-; R32A retained data after the stage blocks/chunks
+; Shared R32A/R32B retained data after the stage blocks/chunks
 ; Recovered from tracked historical assembly; no proprietary binary is included.
 ; The filename preserves the historical `Padding 2` include contract; contents
 ; are classified incrementally below rather than assumed to be alignment.

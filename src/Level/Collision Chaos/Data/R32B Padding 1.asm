@@ -87,7 +87,7 @@
 ; +$0EDA-+$0F23 retained DEMO11A Section PLC
 ; +$0F24-+$0F2B retained DEMO11A Results PLC
 ; +$0F2C-+$0F37 retained truncated DEMO11A Signpost PLC prefix
-; +$0F38 onward retained stage/PLC bodies still to be structured
+; End of retained Padding 1 stream; Padding 2 follows in a separate include.
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
