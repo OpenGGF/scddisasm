@@ -53,7 +53,8 @@
 ; +$0BF8-+$0C05 retained Update 3 PLC
 ; +$0C06-+$0C13 retained Intro PLC
 ; +$0C14-+$0C1B retained Tentou PLC
-; +$0C1C onward  retained stage/PLC bodies still to be structured
+; +$0C1C-+$0C23 retained Results PLC
+; +$0C24 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -302,7 +303,7 @@ R32BRetainedTitleCardInitLoopTarget:
 	dc.w	$8420
 
 ; Duplicate retained Results PLC from the Act 1 Present graph.
-R32BRetainedAct1PresentResultsPLC:
+R32BRetainedAct1PresentStageResultsPLC:
 	dc.w	0			; one entry
 	dc.l	$00230098		; Results art
 	dc.w	$7880
@@ -1144,8 +1145,14 @@ R32BRetainedAct1PresentTentouPLC:
 	dc.w	0			; one entry
 	dc.l	$002360D6		; Tentou art
 	dc.w	$8D40
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
+
+; Single-entry Results PLC; pointer retains its historical absolute value.
+R32BRetainedAct1PresentResultsPLC:
+	dc.w	0			; one entry
+	dc.l	$00230098		; Results art
+	dc.w	$7880
+
+	dc.b	0, 2, 0, $22, $FA, $BC, $87, $80, 0
 	dc.b	$22, $F4, $F2, $91
 	dcb.b	2,0
 	dc.b	$20, $DC, $DE, $7D, $E0, $71
