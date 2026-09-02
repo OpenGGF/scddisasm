@@ -24,7 +24,8 @@
 ; +$2884-+$28A7  seven-piece legacy demo mapping frame 4
 ; +$28A8-+$28C7  six-piece legacy demo mapping frame 5
 ; +$28C8-+$2919  sixteen-piece legacy demo mapping frame 6
-; +$291A-+$29FF  retained mapping frames still to be structured
+; +$291A-+$2965  fifteen-piece legacy demo mapping frame 7
+; +$2966-+$29FF  retained mapping frames still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -140,7 +141,8 @@ R32ARetainedDemoMappingOffsets:
 	dc.w	R32ARetainedDemoMapFrame4-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame5-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame6-R32ARetainedDemoMappingOffsets
-	dc.w	$015E, $01AA, $01F2
+	dc.w	R32ARetainedDemoMapFrame7-R32ARetainedDemoMappingOffsets
+	dc.w	$01AA, $01F2
 
 ; Eight-piece frame arranged as two columns across four rows. Each piece uses
 ; the standard Y, size/shape, tile word, X record, followed by even alignment.
@@ -245,18 +247,28 @@ R32ARetainedDemoMapFrame6:
 	dc.b	8, 5, 0, $37, $E6
 	dc.b	0	; alignment
 
-; First byte of mapping frame 7.
-	dc.b	$F, $E8, 9, 0
-	dc.b	$1D, $ED, $F8, $C, 0, $23, $E5, $F8
-	dcb.b	2,0
-	dc.b	$10, 5, 0, $C, $10, $23, $E5
-	dcb.b	2,0
-	dcb.b	2,$10
-	dc.b	5, 8, 9, $10, $1D, $ED, $F8, 3, $10, $27, $D8, $F8, 3, $10
-	dc.b	$27, $E0, $E8, 6, 8, $31, $F0, $E8, 6, 8, $2B
-	dcb.b	2,0
-	dc.b	6, $10, $2B, $F0, 0, 6, $10, $31, 0, $E8, 5, 0, $37, $E2
-	dc.b	$F8, 5, 0, $3B, $D5, 8, 5, 0, $37, $E2, $C, $E8, 1
+; Fifteen-piece composite frame combining the six-piece arrangement used by
+; frame 3, six pieces used by frame 5, and three farther-left pieces.
+R32ARetainedDemoMapFrame7:
+	dc.b	$F
+	dc.b	$E8, 9, 0, $1D, $ED
+	dc.b	$F8, $C, 0, $23, $E5
+	dc.b	$F8, 0, 0, $10, 5
+	dc.b	0, $C, $10, $23, $E5
+	dc.b	0, 0, $10, $10, 5
+	dc.b	8, 9, $10, $1D, $ED
+	dc.b	$F8, 3, $10, $27, $D8
+	dc.b	$F8, 3, $10, $27, $E0
+	dc.b	$E8, 6, 8, $31, $F0
+	dc.b	$E8, 6, 8, $2B, 0
+	dc.b	0, 6, $10, $2B, $F0
+	dc.b	0, 6, $10, $31, 0
+	dc.b	$E8, 5, 0, $37, $E2
+	dc.b	$F8, 5, 0, $3B, $D5
+	dc.b	8, 5, 0, $37, $E2
+
+; First byte of mapping frame 8.
+	dc.b	$C, $E8, 1
 	dcb.b	2,0
 	dcb.b	2,$F8
 	dc.b	8, 0, 2
