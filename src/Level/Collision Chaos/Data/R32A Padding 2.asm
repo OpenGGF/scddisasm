@@ -14,7 +14,8 @@
 ; +$258A-+$25A1  Collision Chaos Act 1 Past background layout
 ; +$25A2-+$25A5  shared null layout
 ; +$25A6-+$266D  retained Green Hill Zone Act 2 foreground layout
-; +$266E-+$29FF  retained units still to be classified
+; +$266E-+$279B  remaining Act 1 Past table-addressed layout graph
+; +$279C-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -65,9 +66,14 @@ R32ARetainedAct1PastLayoutPointers:
 	dc.w	R32ARetainedAct1PastBackground-R32ARetainedAct1PastLayoutPointers
 	dc.w	R32ARetainedNullLayout-R32ARetainedAct1PastLayoutPointers
 	dc.w	R32ARetainedGhz2Foreground-R32ARetainedAct1PastLayoutPointers
-	dc.w	$0374, $024E
-	dc.w	$0252, $0374, $0374
-	dc.w	$0378, $0378, $0378
+	dc.w	R32ARetainedSharedNullLayout-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedGhz2NullLayout-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedGhz3Foreground-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedSharedNullLayout-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedSharedNullLayout-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedFinalNullLayout-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedFinalNullLayout-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedFinalNullLayout-R32ARetainedAct1PastLayoutPointers
 	endr
 
 ; Complete Collision Chaos Act 1 Past foreground layout retained by this
@@ -88,48 +94,21 @@ R32ARetainedNullLayout:
 ; table at offset $0186.
 R32ARetainedGhz2Foreground:
 	incbin	"maps/ghz2_foreground.bin"
-; Complete four-byte null layout.
-	dcb.b	4,0
+; Null target paired with the retained GHZ2 layout.
+R32ARetainedGhz2NullLayout:
+	incbin	"maps/empty.bin"
 
-; First byte of the following retained layout.
-	dc.b	$2F, 5
-	dcb.b	$E,0
-	dc.b	$2D, $37
-	dcb.b	$2C,0
-	dc.b	$13, $38, $18, $F
-	dcb.b	$23,0
-	dc.b	$13, $38, $24, $14, 0, $13, $38, $27, 2, $1A, $26, $1F, $F
-	dcb.b	2,0
-	dc.b	$14, $21, $2D
-	dcb.b	3,0
-	dc.b	$13
-	dcb.b	2,$33
-	dc.b	$10, $24, $2C
-	dcb.b	$12,0
-	dc.b	$2D, $37, $16, $1B, $23, $25, $1A, 3, 6, $26, $1F
-	dcb.b	3,$1E
-	dc.b	$20, $25, $B5, $31, $1B, $23, $11
-	dcb.b	2,$33
-	dc.b	2, $1A
-	dcb.b	2,$34
-	dc.b	$19, $25, 6, $31, $27, 0, $16, 2, 7, 2, $37
-	dcb.b	3,$2D
-	dcb.b	2,$3C
-	dcb.b	2,$2D
-	dcb.b	3,0
-	dc.b	$1E, $F, $15
-	dcb.b	7,$1E
-	dc.b	$20, $1F
-	dcb.b	6,$1E
-	dc.b	$C, $11, 9
-	dcb.b	2,$34
-	dc.b	$11
-	dcb.b	4,$1E
-	dcb.b	$1D,0
-	dcb.b	2,$1E
-	dc.b	$20, $11, 8, 9, $A, $1D, 9
-	dcb.b	6,$1E
-	dcb.b	$20,0
+; Complete retained Green Hill Zone Act 3 foreground layout.
+R32ARetainedGhz3Foreground:
+	incbin	"maps/ghz3_foreground.bin"
+
+; Shared and final null targets complete the retained table-addressed graph.
+R32ARetainedSharedNullLayout:
+	incbin	"maps/empty.bin"
+R32ARetainedFinalNullLayout:
+	incbin	"maps/empty.bin"
+
+; First byte of the following retained unit.
 	dc.b	8, $F4, $FC, 1, 8, $11, $C, 0, 2, $EC, $F
 	dcb.b	2,0
 	dc.b	$F8
