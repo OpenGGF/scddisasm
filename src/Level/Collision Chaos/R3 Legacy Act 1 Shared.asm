@@ -53,6 +53,7 @@ R3_SEMANTIC_KAMA_KAMA	EQU	1
 R3_SEMANTIC_LEVEL_END	EQU	1
 R3_SEMANTIC_ANIMAL	EQU	1
 R3_SEMANTIC_ROBOT_GENERATOR EQU	1
+R3_SEMANTIC_PROJECTOR	EQU	1
 CC_LEGACY_ROLL_TUNNEL_ABI EQU	1
 CC_LEGACY_BUMPER_FLIPPER_ABI EQU	1
 CC_LEGACY_BUMPER_PLATFORM_ABI EQU	1
@@ -70,6 +71,7 @@ CC_LEGACY_KAMA_KAMA_ABI EQU	1
 CC_LEGACY_LEVEL_END_ABI EQU	1
 CC_LEGACY_ANIMAL_ABI	EQU	1
 CC_LEGACY_ROBOT_GENERATOR_ABI EQU	1
+CC_LEGACY_PROJECTOR_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -145,7 +147,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Objects/Animal/Main.asm"
 	include	"Level/_Objects/Robot Generator/Main.asm"
 	include	"Level/Collision Chaos/Objects/Robot Generator/Tile IDs.asm"
-	include	"objects/r3/projector.asm"
+	include	"Level/Palmtree Panic/Objects/Projector/Main.asm"
 	include	"Level/Object Time Check.asm"
 	include	"Level/_Objects/Game Over/Main.asm"
 	include	"Level/_Objects/Title Card/Main.asm"

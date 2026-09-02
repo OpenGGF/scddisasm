@@ -411,7 +411,13 @@ ObjRobotGenerator	EQU	RobotGeneratorObject
 	else
 ObjRobotGenerator	EQU	RobotGeneratorObject
 	endif
+	if def(R3_SEMANTIC_PROJECTOR)
+		if R3_SEMANTIC_PROJECTOR=0
 ObjProjector		EQU	ProjectorObject
+		endif
+	else
+ObjProjector		EQU	ProjectorObject
+	endif
 	if def(R3_SEMANTIC_ANIMAL)
 		if R3_SEMANTIC_ANIMAL=0
 ObjCCAnimal		EQU	AnimalObject
