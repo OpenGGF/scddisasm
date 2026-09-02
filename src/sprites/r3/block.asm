@@ -3,9 +3,10 @@
 ; -------------------------------------------------------------------------
 
 .Sprites:
-	dc.w	.Sprite0-.Sprites
+	dc.w	.Block-.Sprites
 
-.Sprite0:
+; One five-byte sprite piece after the piece count.
+.Block:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
 

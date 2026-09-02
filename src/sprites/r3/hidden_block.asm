@@ -3,15 +3,16 @@
 ; -------------------------------------------------------------------------
 
 .Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
+	dc.w	.Normal-.Sprites
+	dc.w	.Alternate-.Sprites
 
-.Sprite0:
+; Each frame is one five-byte sprite piece after the piece count.
+.Normal:
 	dc.b	1
 	dc.b	$F0, $F, 0, 0, $F0
 	even
 
-.Sprite1:
+.Alternate:
 	dc.b	1
 	dc.b	$F0, $F, $10, 0, $F0
 

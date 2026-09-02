@@ -16,13 +16,23 @@ oBlockVelocity	EQU	oVar38
 oBlockTimer	EQU	oVar3A
 oBlockDirection	EQU	oVar3B
 
+	if def(CC_LEGACY_BLOCK_ABI)
+		if CC_LEGACY_BLOCK_ABI<>0
+BlockSpawnNext	EQU	SpawnObjectAfter
+		else
+BlockSpawnNext	EQU	FindNextObjSlot
+		endif
+	else
+BlockSpawnNext	EQU	FindNextObjSlot
+	endif
+
 ; -------------------------------------------------------------------------
 
 ObjBlock:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjBlock_Index(pc,d0.w),d0
-	jsr	ObjBlock_Index(pc,d0.w)
+	move.w	ObjBlock_Routines(pc,d0.w),d0
+	jsr	ObjBlock_Routines(pc,d0.w)
 	jsr	DrawObject
 	move.w	oBlockBaseX(a0),d0
 	if def(CC_LEGACY_BLOCK_ABI)
@@ -48,9 +58,9 @@ ObjBlock:
 
 ; -------------------------------------------------------------------------
 
-ObjBlock_Index:
-	dc.w	ObjBlock_Init-ObjBlock_Index
-	dc.w	ObjBlock_Main-ObjBlock_Index
+ObjBlock_Routines:
+	dc.w	ObjBlock_Init-ObjBlock_Routines
+	dc.w	ObjBlock_Update-ObjBlock_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -65,8 +75,8 @@ ObjBlock_Init:
 	move.w	oX(a0),oBlockBaseX(a0)
 	move.w	oY(a0),oBlockBaseY(a0)
 	cmpi.b	#2,oSubtype(a0)
-	bcs.s	ObjBlock_Main
-	jsr	FindNextObjSlot
+	bcs.s	ObjBlock_Update
+	jsr	BlockSpawnNext
 	beq.s	.MakeChild
 	jmp	DeleteObject
 
@@ -83,7 +93,7 @@ ObjBlock_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjBlock_Main:
+ObjBlock_Update:
 	if def(CC_LEGACY_BLOCK_ABI)
 		if CC_LEGACY_BLOCK_ABI<>0
 	bsr.s	ObjBlock_Solid
@@ -182,6 +192,7 @@ ObjBlock_Solid:
 ; -------------------------------------------------------------------------
 
 ObjBlock_MotionData:
+	; Duration, signed 8.8 acceleration, and initial 8.8 velocity.
 	dc.b	$40, -8
 	dc.w	$200
 	dc.b	$40, -8
@@ -204,8 +215,8 @@ MapSpr_Block:
 ObjHiddenBlock:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjHiddenBlock_Index(pc,d0.w),d0
-	jsr	ObjHiddenBlock_Index(pc,d0.w)
+	move.w	ObjHiddenBlock_Routines(pc,d0.w),d0
+	jsr	ObjHiddenBlock_Routines(pc,d0.w)
 	jsr	DrawObject
 	move.w	oHiddenBlockBaseX(a0),d0
 	if def(CC_LEGACY_BLOCK_ABI)
@@ -235,9 +246,9 @@ oHiddenBlockBaseX	EQU	oVar36
 oHiddenBlockBaseY	EQU	oVar32
 oHiddenBlockOffset	EQU	oVar3B
 
-ObjHiddenBlock_Index:
-	dc.w	ObjHiddenBlock_Init-ObjHiddenBlock_Index
-	dc.w	ObjHiddenBlock_Main-ObjHiddenBlock_Index
+ObjHiddenBlock_Routines:
+	dc.w	ObjHiddenBlock_Init-ObjHiddenBlock_Routines
+	dc.w	ObjHiddenBlock_Update-ObjHiddenBlock_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -257,15 +268,15 @@ ObjHiddenBlock_Init:
 	moveq	#0,d0
 	move.b	oSubtype(a0),d0
 	andi.b	#3,d0
-	beq.s	ObjHiddenBlock_Main
+	beq.s	ObjHiddenBlock_Update
 	moveq	#$20,d1
 	cmpi.b	#1,d0
 	beq.s	.MakeChild
 	moveq	#$A,d1
 
 .MakeChild:
-	jsr	FindNextObjSlot
-	bne.s	ObjHiddenBlock_Main
+	jsr	BlockSpawnNext
+	bne.s	ObjHiddenBlock_Update
 	move.b	d1,oID(a1)
 	move.w	oX(a0),oX(a1)
 	move.w	oY(a0),oY(a1)
@@ -273,7 +284,7 @@ ObjHiddenBlock_Init:
 	move.b	#$20,oVar38(a1)
 	move.b	#2,oSubtype(a1)
 	cmpi.b	#$20,d1
-	beq.s	ObjHiddenBlock_Main
+	beq.s	ObjHiddenBlock_Update
 	move.b	#$18,oVar38(a1)
 	move.b	oSubtype(a0),d0
 	andi.b	#1,d0
@@ -283,7 +294,7 @@ ObjHiddenBlock_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjHiddenBlock_Main:
+ObjHiddenBlock_Update:
 	if def(CC_LEGACY_BLOCK_ABI)
 		if CC_LEGACY_BLOCK_ABI<>0
 	jsr	ObjHiddenBlock_Move(pc)
