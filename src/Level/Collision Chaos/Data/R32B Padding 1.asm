@@ -64,7 +64,8 @@
 ; +$0D04-+$0D11 retained DEMO11A Cam 5 incremental PLC
 ; +$0D12-+$0D19 retained DEMO11A graph Results PLC
 ; +$0D1A-+$0D2D retained DEMO11A graph Signpost PLC
-; +$0D2E onward  retained stage/PLC bodies still to be structured
+; +$0D2E-+$0D33 retained historical Act 3 Bad Future jump
+; +$0D34 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1295,7 +1296,12 @@ R32BRetainedDemoR11ACamGraphSignpostPLC:
 	dc.l	$0020DB4A		; big-ring flash art (historical address)
 	dc.w	$7DE0
 
-	dc.b	$4E, $F9, 0, $20, $62, $94, 3, $23
+
+; Historical Act 3 Bad Future entry; the live graph has since changed.
+R32BRetainedPalmtreeAct3BadFutureEntry:
+	jmp	$206294
+
+	dc.b	3, $23
 	dc.b	$8E, $82, 2, $23, $7C, $FA, 0, $21
 	dcb.b	3,0
 	dc.b	$81
