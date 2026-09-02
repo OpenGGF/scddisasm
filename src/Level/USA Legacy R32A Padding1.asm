@@ -19,7 +19,8 @@
 ; $20F966-$20FABF  title-card placement/mapping records and orphan trampoline
 ; $20FAC0-$20FCE5  orphaned Act 1 Present stage descriptor and PLC graph
 ; $20FCE6-$20FDDB  retained DEMO11A Act 1 Present PLC tail and complete bodies
-; $20FDDC-$20FFFF  retained data units (still to be classified)
+; $20FDDC-$20FEBD  retained animated-PLC helpers and metadata
+; $20FEBE-$20FFFF  retained data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -997,21 +998,99 @@ USARetainedDemoR11ACamGraphSignpostPLC:
 	 dc.w	$9100
 	 dc.l	$0020DB3C		; big-ring flash art (historical address)
 	 dc.w	$7DE0
-	dc.b	$FE, $60, $3C, $3C, $00, $1F, $61, $00, $00, $2A
-	dc.b	$66, $24, $4B, $F9, $00, $C0, $00, $04, $2A, $BC, $94, $00, $93, $40, $2A, $BC
-	dc.b	$96, $8C, $95, $C0, $3A, $BC, $97, $7F, $3A, $BC, $55, $40, $31, $FC, $00, $81
-	dc.b	$F6, $40, $3A, $B8, $F6, $40, $4E, $75, $53, $12, $6A, $42, $70, $00, $10, $14
-	dc.b	$52, $00, $B0, $11, $65, $02, $70, $00, $18, $80, $D0, $40, $14, $B1, $00, $02
-	dc.b	$10, $31, $00, $03, $48, $80, $D0, $40, $D0, $40, $72, $00, $12, $11, $D2, $41
-	dc.b	$D0, $41, $22, $71, $00, $02, $47, $F9, $00, $FF, $19, $80, $26, $D9, $51, $CE
-	dc.b	$FF, $FC, $D4, $FC, $00, $01, $D8, $FC, $00, $01, $70, $00, $4E, $75, $D4, $FC
-	dc.b	$00, $01, $D8, $FC, $00, $01, $70, $01, $4E, $75, $04, $00, $04, $00, $09, $01
-	dc.b	$04, $02, $0F, $03, $00, $23, $3F, $0C, $00, $23, $3F, $8C, $00, $23, $40, $0C
-	dc.b	$00, $23, $40, $8C, $53, $12, $6A, $00, $00, $34, $14, $91, $70, $00, $10, $14
-	dc.b	$52, $00, $B0, $29, $00, $01, $65, $02, $70, $00, $18, $80, $D0, $40, $D0, $40
-	dc.b	$22, $71, $00, $02, $47, $F9, $00, $FF, $19, $80, $26, $D9, $51, $CE, $FF, $FC
-	dc.b	$D4, $FC, $00, $01, $D8, $FC, $00, $01, $70, $00, $4E, $75, $D4, $FC, $00, $01
-	dc.b	$D8, $FC, $00, $01, $70, $01, $4E, $75, $04, $03, $00, $23, $3C, $0C, $00, $23
+
+; Retained Palmtree animated-PLC helper family. The leading $FE60 word is the
+; tail of a preceding historical unit, not executable here. The wrapper primes
+; a 32-longword DMA transfer, advances one animated record, and restores the
+; VDP registers. Both helpers consume timer/index bytes through a2/a4, resolve
+; frame pointers through a1, copy through the $FF1980 staging buffer, advance
+; the caller's record pointers, and return 0 after an update or 1 while waiting.
+USARetainedAnimatedPLCUnit:
+	dc.w	$FE60			; Tail word from the preceding legacy routine
+	move.w	#$1F,d6
+	bsr.w	.UpdateAnimatedPLC
+	bne.b	.LegacyReturn
+	lea	$C00004,a5
+	move.l	#$94009340,(a5)
+	move.l	#$968C95C0,(a5)
+	move.w	#$977F,(a5)
+	move.w	#$5540,(a5)
+	move.w	#$81,$FFFFF640.w
+	move.w	$FFFFF640.w,(a5)
+.LegacyReturn:
+	rts
+
+.UpdateAnimatedPLC:
+	subq.b	#1,(a2)
+	bpl.b	.AdvanceAnimated
+	moveq	#0,d0
+	move.b	(a4),d0
+	addq.b	#1,d0
+	cmp.b	(a1),d0
+	bcs.b	.FrameReadyAnimated
+	moveq	#0,d0
+.FrameReadyAnimated:
+	move.b	d0,(a4)
+	add.w	d0,d0
+	move.b	2(a1,d0.w),(a2)
+	move.b	3(a1,d0.w),d0
+	ext.w	d0
+	add.w	d0,d0
+	add.w	d0,d0
+	moveq	#0,d1
+	move.b	(a1),d1
+	add.w	d1,d1
+	add.w	d1,d0
+	movea.l	2(a1,d0.w),a1
+	lea	$FF1980,a3
+.CopyAnimated:
+	move.l	(a1)+,(a3)+
+	dbra	d6,.CopyAnimated
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#0,d0
+	rts
+.AdvanceAnimated:
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#1,d0
+	rts
+
+.AnimatedPLCMetadata:
+	; Frame count, unused byte, four delay/frame-index pairs, then four
+	; historical longword frame pointers selected by the calculated index.
+	dc.w	$0400, $0400, $0901, $0402, $0F03, $0023, $3F0C
+	dc.w	$0023, $3F8C, $0023, $400C, $0023, $408C
+
+.UpdateStaticPLC:
+	subq.b	#1,(a2)
+	bpl.w	.AdvanceStatic
+	move.b	(a1),(a2)
+	moveq	#0,d0
+	move.b	(a4),d0
+	addq.b	#1,d0
+	cmp.b	1(a1),d0
+	bcs.b	.FrameReadyStatic
+	moveq	#0,d0
+.FrameReadyStatic:
+	move.b	d0,(a4)
+	add.w	d0,d0
+	add.w	d0,d0
+	movea.l	2(a1,d0.w),a1
+	lea	$FF1980,a3
+.CopyStatic:
+	move.l	(a1)+,(a3)+
+	dbra	d6,.CopyStatic
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#0,d0
+	rts
+.AdvanceStatic:
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#1,d0
+	rts
+	dc.b	$04, $03, $00, $23, $3C, $0C, $00, $23
 	dc.b	$3D, $0C, $00, $23, $3E, $0C, $03, $02, $00, $23, $3B, $0C, $00, $23, $3B, $8C
 	dc.b	$03, $23, $81, $DC, $02, $23, $6F, $30, $00, $21, $00, $00, $00, $81, $04, $04
 	dc.b	$00, $26, $00, $2E, $00, $8A, $00, $26, $00, $8A, $00, $8A, $00, $8A, $00, $8A
