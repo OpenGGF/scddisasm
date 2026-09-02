@@ -8,7 +8,7 @@
 ; $20F6EE-$20F973  Results initialization and complete mapping records
 ; $20F974-$20FACD  title-card placement/mapping records and orphan trampoline
 ; $20FACE-$20FCF3  orphaned Act 1 Present stage descriptor and PLC graph
-; $20FCF4-$20FDE9  truncated tail of an earlier orphaned PLC graph (unresolved)
+; $20FCF4-$20FDE9  retained DEMO11A Act 1 Present PLC tail and complete bodies
 ; $20FDEA-$20FDEF  orphaned absolute-jump trampoline
 ; $20FDF0-$20FEA9  orphaned Palmtree Panic Act 3 Bad Future stage/PLC graph
 ; $20FEAA-$20FECB  truncated Quartz Quadrant break-wall fragment tables
@@ -860,50 +860,112 @@ RetainedAct1PresentPLCLists:
 	dc.l	$0020DCDE
 	dc.w	$7DE0
 
-; Start of a later retained unit, intentionally left for the next milestone.
-	dc.b	$71
-	dcb.b	2,0
-	dc.b	$23, $70, $2A, $74
-	dcb.b	2,0
-	dc.b	$23, $67, $6C, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23
-	dc.b	$AE, 2, $88, $20, 0, $23, $20, $DA, $9E, $E0, 0, 4, 0, $23
-	dc.b	$F2, $A6, $6E
-	dcb.b	2,0
-	dc.b	$23, $84, $6C, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23
-	dc.b	$AE, 2, $88, $20, 0, $23, $20, $DA, $9E, $E0, 0, 5, 0, $23
-	dc.b	$64, $C2, $6E, $80, 0, $23, $81, $C0, $71
-	dcb.b	2,0
-	dc.b	$23, $70, $2A, $74
-	dcb.b	2,0
-	dc.b	$23, $6E, $46, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23
-	dc.b	$AE, 2, $88, $20, 0, 2, 0, $23, $73, $78, $76
-	dcb.b	2,0
-	dc.b	$23, $6E, $46, $81, $20, 0, $23, $79, $50, $85
-	dcb.b	2,0
-	dc.b	6, 0, $23, $64, $C2, $6E, $80, 0, $23, $AC, 8, $74
-	dcb.b	2,0
-	dc.b	$23, $73, $78, $76
-	dcb.b	2,0
-	dc.b	$23, $68, $12, $7C, $80, 0, $23, $67, $6C, $81, $20, 0, $23
-	dc.b	$5E, $C0, $83
-	dcb.b	2,0
-	dc.b	$23, $79, $50, $85
-	dcb.b	2,0
-	dc.b	5, 0, $23, $6E, $46, $6E
-	dcb.b	2,0
-	dc.b	$23, $81, $C0, $71
-	dcb.b	2,0
-	dc.b	$23, $70, $2A, $74
-	dcb.b	2,0
-	dc.b	$23, $67, $6C, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23
-	dc.b	$AE, 2, $88, $20, 0, 1, 0, $23, $F2, $A6, $6E
-	dcb.b	2,0
-	dc.b	$23, $84, $6C, $81, $20
-	dcb.b	3,0
-	dc.b	$23, $28, $76, $78, $80, 0, 2, 0, $23, $22, $9A, $87, $80
-	dc.b	0, $23, $1C, $D0, $91
-	dcb.b	2,0
-	dc.b	$20, $DB, $4A, $7D, $E0
+; Tail of DEMO11A's Palmtree Panic Act 1 Present Cam 4 Full PLC. The
+; count and Animals art pointer precede this retained slice; only that record's
+; VRAM destination and the five following records survive here. Complete bodies
+; below use a count-minus-one word followed by six-byte art/VRAM records.
+RetainedDemoR11ACam4FullTail:
+	 dc.w	$7100			; Animals destination; art pointer omitted
+	 dc.l	$0023702A		; Mosqui art
+	 dc.w	$7400
+	 dc.l	$0023676C		; spinning-disc art
+	 dc.w	$8120
+	 dc.l	$0023AC7A		; 3D-plant art
+	 dc.w	$8480
+	 dc.l	$0023AE02		; 3D ramp/boost art
+	 dc.w	$8820
+	 dc.l	$002320DA		; goal-post art
+	 dc.w	$9EE0
+
+RetainedDemoR11ACam5FullPLC:
+	 dc.w	4
+	 dc.l	$0023F2A6		; Amy Rose art
+	 dc.w	$6E00
+	 dc.l	$0023846C		; withered robot-generator art
+	 dc.w	$8120
+	 dc.l	$0023AC7A		; 3D-plant art
+	 dc.w	$8480
+	 dc.l	$0023AE02		; 3D ramp/boost art
+	 dc.w	$8820
+	 dc.l	$002320DA		; goal-post art
+	 dc.w	$9EE0
+
+RetainedDemoR11ACam1IncrementalPLC:
+	 dc.w	5
+	 dc.l	$002364C2		; boulder art
+	 dc.w	$6E80
+	 dc.l	$002381C0		; Animals art
+	 dc.w	$7100
+	 dc.l	$0023702A		; Mosqui art
+	 dc.w	$7400
+	 dc.l	$00236E46		; Anton art
+	 dc.w	$8120
+	 dc.l	$0023AC7A		; 3D-plant art
+	 dc.w	$8480
+	 dc.l	$0023AE02		; 3D ramp/boost art
+	 dc.w	$8820
+
+RetainedDemoR11ACam2IncrementalPLC:
+	 dc.w	2
+	 dc.l	$00237378		; Pata-Bata art
+	 dc.w	$7600
+	 dc.l	$00236E46		; Anton art
+	 dc.w	$8120
+	 dc.l	$00237950		; Tamabboh art
+	 dc.w	$8500
+
+RetainedDemoR11ACam3IncrementalPLC:
+	 dc.w	6
+	 dc.l	$002364C2		; boulder art
+	 dc.w	$6E80
+	 dc.l	$0023AC08		; Sonic-hole art
+	 dc.w	$7400
+	 dc.l	$00237378		; Pata-Bata art
+	 dc.w	$7600
+	 dc.l	$00236812		; tunnel-waterfall art
+	 dc.w	$7C80
+	 dc.l	$0023676C		; spinning-disc art
+	 dc.w	$8120
+	 dc.l	$00235EC0		; log-shadow art
+	 dc.w	$8300
+	 dc.l	$00237950		; Tamabboh art
+	 dc.w	$8500
+
+RetainedDemoR11ACam4IncrementalPLC:
+	 dc.w	5
+	 dc.l	$00236E46		; Anton art
+	 dc.w	$6E00
+	 dc.l	$002381C0		; Animals art
+	 dc.w	$7100
+	 dc.l	$0023702A		; Mosqui art
+	 dc.w	$7400
+	 dc.l	$0023676C		; spinning-disc art
+	 dc.w	$8120
+	 dc.l	$0023AC7A		; 3D-plant art
+	 dc.w	$8480
+	 dc.l	$0023AE02		; 3D ramp/boost art
+	 dc.w	$8820
+
+RetainedDemoR11ACam5IncrementalPLC:
+	 dc.w	1
+	 dc.l	$0023F2A6		; Amy Rose art
+	 dc.w	$6E00
+	 dc.l	$0023846C		; withered robot-generator art
+	 dc.w	$8120
+
+RetainedDemoR11ACamGraphResultsPLC:
+	 dc.w	0
+	 dc.l	$00232876		; Results art
+	 dc.w	$7880
+
+RetainedDemoR11ACamGraphSignpostPLC:
+	 dc.w	2
+	 dc.l	$0023229A		; signpost art
+	 dc.w	$8780
+	 dc.l	$00231CD0		; big-ring art
+	 dc.w	$9100
+	 dc.l	$0020DB4A		; big-ring flash art (historical address)
+	 dc.w	$7DE0
 
 RetainedPalmtreeAct3BadFutureEntry:
 	jmp	$206294
