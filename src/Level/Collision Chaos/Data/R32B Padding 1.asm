@@ -56,7 +56,8 @@
 ; +$0C1C-+$0C23 retained Results PLC
 ; +$0C24-+$0C37 retained Signpost PLC
 ; +$0C38-+$0C57 retained DEMO11A Cam 4 full-PLC tail
-; +$0C58 onward  retained stage/PLC bodies still to be structured
+; +$0C58-+$0C77 retained DEMO11A Cam 5 full PLC
+; +$0C78 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1181,11 +1182,22 @@ R32BRetainedDemoR11ACam4FullTail:
 	dc.l	$002320DA		; goal-post art
 	dc.w	$9EE0
 
-	dc.b	0, 4, 0, $23
-	dc.b	$F2, $A6, $6E
-	dcb.b	2,0
-	dc.b	$23, $84, $6C, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23
-	dc.b	$AE, 2, $88, $20, 0, $23, $20, $DA, $9E, $E0, 0, 5, 0, $23
+
+; Five-entry DEMO11A Palmtree Panic Act 1 Present Cam 5 Full PLC.
+R32BRetainedDemoR11ACam5FullPLC:
+	dc.w	4			; entry count minus one
+	dc.l	$0023F2A6		; Amy Rose art
+	dc.w	$6E00
+	dc.l	$0023846C		; withered robot-generator art
+	dc.w	$8120
+	dc.l	$0023AC7A		; 3D-plant art
+	dc.w	$8480
+	dc.l	$0023AE02		; 3D ramp/boost art
+	dc.w	$8820
+	dc.l	$002320DA		; goal-post art
+	dc.w	$9EE0
+
+	dc.b	0, 5, 0, $23
 	dc.b	$64, $C2, $6E, $80, 0, $23, $81, $C0, $71
 	dcb.b	2,0
 	dc.b	$23, $70, $2A, $74
