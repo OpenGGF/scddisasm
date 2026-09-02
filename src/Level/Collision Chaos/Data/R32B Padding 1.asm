@@ -76,7 +76,8 @@
 ; +$0DEE-+$0E03 retained truncated Quartz Quadrant break-wall tail
 ; +$0E04-+$0E09 retained historical Act 3 Good Future jump
 ; +$0E0A-+$0E19 retained historical Act 3 Good Future stage descriptor
-; +$0E1A onward  retained stage/PLC bodies still to be structured
+; +$0E1A-+$0E3F retained historical Act 3 Good Future PLC offset table
+; +$0E40 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1407,9 +1408,15 @@ R32BRetainedPalmtreeAct3GoodFutureStageData:
 	dc.l	$02237CF2		; stage blocks
 	dc.l	$00210000		; stage chunks
 	dc.b	0, $81, 4, 4		; layout flags and palette IDs
-	dc.b	0, $26, 0, $34, 0, $72, 0, $26, 0, $8C, 0, $72, 0, $72, 0
-	dc.b	$72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72
-	dc.b	0, $72, 0, $9A, 0, $72, 0, $A2, 0, 1, 0, $23, $8F, $74
+
+; Historical Act 3 Good Future 19-slot level PLC selection table.
+R32BRetainedPalmtreeAct3GoodFuturePLCLists:
+	; Literal byte offsets are retained because some records share continuation bytes.
+	dc.w	$26, $34, $72, $26, $8C	; Stage, Main, Section, Stage, Boss
+	dcb.w	11, $72			; Sections and updates
+	dc.w	$9A, $72, $A2		; Results, Section, Capsule
+
+	dc.b	0, 1, 0, $23, $8F, $74
 	dcb.b	3,0
 	dc.b	$23, $C4, $FA, $4A, $80, 0, 9, 0, $23, $D, $A2, $6C
 	dcb.b	2,0
