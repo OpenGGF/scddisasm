@@ -47,7 +47,8 @@
 ; +$0AC6-+$0B0F retained Section 1 PLC
 ; +$0B10-+$0B53 retained Section 2 PLC
 ; +$0B54-+$0B9D retained Section 3 PLC
-; +$0B9E onward  retained stage/PLC bodies still to be structured
+; +$0B9E-+$0BA5 retained Update 0 PLC
+; +$0BA6 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1072,8 +1073,14 @@ R32BRetainedAct1PresentSection3PLC:
 	dc.w	$7E40
 	dc.l	$00235BD6		; Ga
 	dc.w	$8420
-	dcb.b	3,0
-	dc.b	$23, $57, $F0, $63, $C0, 0, $B, 0, $23, $4D, $3A, $63, $C0
+
+; Single-entry Update 0 PLC; pointers retain their historical absolute values.
+R32BRetainedAct1PresentUpdate0PLC:
+	dc.w	0			; one entry
+	dc.l	$002357F0		; breakable wall
+	dc.w	$63C0
+
+	dc.b	0, $B, 0, $23, $4D, $3A, $63, $C0
 	dc.b	0, $23, $4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0, 0
 	dc.b	$23, $67, 2, $6B, $C0, 0, $23, $50, $4A, $6E, $20, 0, $23
 	dc.b	$50, $C6, $6F, $20, 0, $23, $4F, $90, $73, $E0, 0, $23, $65
