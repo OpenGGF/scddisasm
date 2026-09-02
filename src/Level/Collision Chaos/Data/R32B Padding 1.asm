@@ -41,7 +41,8 @@
 ; +$0A0C-+$0A11  retained title-card trampoline
 ; +$0A12-+$0A21  retained stage descriptor
 ; +$0A22-+$0A47 retained nineteen-entry stage/PLC offset table
-; +$0A48 onward  retained stage/PLC bodies still to be structured
+; +$0A48-+$0A55 retained Stage PLC
+; +$0A56 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -927,9 +928,16 @@ R32BRetainedAct1PresentPLCLists:
 	dc.w	$0202			; Signpost
 
 ; Remaining retained stage/PLC data.
-	dc.b	0, 1, 0, $23, $7B, $EE
-	dcb.b	3,0
-	dc.b	$23, $35, $E8, $D9, $60, 0, $E, 0, $22, $F8, $FC, $60
+
+; Two-entry Stage PLC; pointers retain their historical absolute values.
+R32BRetainedAct1PresentStagePLC:
+	dc.w	1			; entry count minus one
+	dc.l	$00237BEE		; stage art
+	dc.w	0			; VRAM destination
+	dc.l	$002335E8		; stage blocks
+	dc.w	$D960			; VRAM destination
+
+	dc.b	0, $E, 0, $22, $F8, $FC, $60
 	dcb.b	2,0
 	dc.b	$23, $D, $A2, $6C
 	dcb.b	2,0
