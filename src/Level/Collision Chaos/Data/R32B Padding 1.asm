@@ -7,7 +7,8 @@
 ; +$0018-+$00AB  retained animated-tile DMA updater and copy helper
 ; +$00AC-+$00BB  retained animated-tile source pointer table
 ; +$00BC-+$00CB  retained Act 2 Past stage descriptor
-; +$00CC onward  retained PLC/data graph still to be structured
+; +$00CC-+$00F1  retained nineteen-entry PLC-offset table
+; +$00F2 onward  retained PLC/data bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -85,10 +86,23 @@ R32BRetainedAct2PastStageData:
 	dc.l	$00210000	; stage chunks
 	dc.b	0, $81, 5, 5	; layout flags and palette IDs
 
-; First words of the following retained PLC-offset table.
-	dc.b	0, $26, 0, $34, 0, $90, 0, $26, 0, $E0, 1, $30, 1, $38, 0
-	dc.b	$90, 0, $90, 0, $90, 0, $90, 0, $90, 0, $90, 0, $90, 0, $90
-	dc.b	0, $90, 1, $40, 0, $90, 1, $48, 0, 1, 0, $23, $A2, $F4
+; Standard nineteen-slot level PLC selection table. Numeric offsets remain until
+; the copied bodies below receive stable labels.
+R32BRetainedAct2PastPLCOffsets:
+	dc.w	$0026	; Stage
+	dc.w	$0034	; Standard
+	dc.w	$0090	; Section 0
+	dc.w	$0026	; Stage
+	dc.w	$00E0, $0130, $0138	; Sections 1-3
+	dc.w	$0090, $0090, $0090, $0090	; Updates 0-3
+	dc.w	$0090, $0090	; Intro, Tentou
+	dcb.w	3,$0090	; repeated Section 0
+	dc.w	$0140	; Results
+	dc.w	$0090	; Section 0
+	dc.w	$0148	; Signpost
+
+; First retained PLC body.
+	dc.b	0, 1, 0, $23, $A2, $F4
 	dcb.b	3,0
 	dc.b	$23, $35, $E8, $D9, $60, 0, $E, 0, $22, $F8, $FC, $60
 	dcb.b	2,0
