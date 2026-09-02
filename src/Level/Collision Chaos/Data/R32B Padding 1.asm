@@ -35,7 +35,8 @@
 ; +$090A-+$0929  retained title-card backdrop mapping frame
 ; +$092A-+$0941  retained title-card headline and zone-name frames
 ; +$0942-+$095B  retained title-card subtitle mapping frame
-; +$095C onward  retained data still to be structured
+; +$095C-+$09C7  retained title-card Act 1-3 mapping frames
+; +$09C8 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -828,21 +829,41 @@ R32BRetainedTitleCardSubtitle:
 	even
 
 ; Remaining retained title-card mapping frames.
-	dc.b	7, $E8, 6, 0, $47
-	dc.b	$E8, 0, 6, $10, $47
-	dcb.b	2,$E8
-	dc.b	6, 8, $47, 8, 0, 6, $18, $47, 8, $E8, 4, 0, $4D, $F8, $F0
-	dc.b	7, 0, $4F, $F8, $10, 4, 0, $57, $F8, 7, $E8, 6, 0, $47, $E8
-	dc.b	0, 6, $10, $47
-	dcb.b	2,$E8
-	dc.b	6, 8, $47, 8, 0, 6, 0, $59, 8, $E8, 5, 0, $5F
-	dcb.b	2,$F8
-	dc.b	6, 0, $63, $F8, $10, 4, 0, $57, $F8, 7, $E8, 6, 0, $47, $E8
-	dc.b	0, 6, $10, $47
-	dcb.b	2,$E8
-	dc.b	6, 8, $47, 8, 0, 6, $18, $47, 8, $E8, 5, 0, $5F
-	dcb.b	2,$F8
-	dc.b	5, 0, $69, $F8, 8, 5, $10, $5F, $F8, 7, $E8, $E, 0, $78, $10
+R32BRetainedTitleCardAct1:
+	dc.b	7
+	dc.b	$E8, 6, 0, $47, $E8
+	dc.b	0, 6, $10, $47, $E8
+	dc.b	$E8, 6, 8, $47, 8
+	dc.b	0, 6, $18, $47, 8
+	dc.b	$E8, 4, 0, $4D, $F8
+	dc.b	$F0, 7, 0, $4F, $F8
+	dc.b	$10, 4, 0, $57, $F8
+	even
+
+R32BRetainedTitleCardAct2:
+	dc.b	7
+	dc.b	$E8, 6, 0, $47, $E8
+	dc.b	0, 6, $10, $47, $E8
+	dc.b	$E8, 6, 8, $47, 8
+	dc.b	0, 6, 0, $59, 8
+	dc.b	$E8, 5, 0, $5F, $F8
+	dc.b	$F8, 6, 0, $63, $F8
+	dc.b	$10, 4, 0, $57, $F8
+	even
+
+R32BRetainedTitleCardAct3:
+	dc.b	7
+	dc.b	$E8, 6, 0, $47, $E8
+	dc.b	0, 6, $10, $47, $E8
+	dc.b	$E8, 6, 8, $47, 8
+	dc.b	0, 6, $18, $47, 8
+	dc.b	$E8, 5, 0, $5F, $F8
+	dc.b	$F8, 5, 0, $69, $F8
+	dc.b	8, 5, $10, $5F, $F8
+	even
+
+; Remaining retained title-card mapping frames.
+	dc.b	7, $E8, $E, 0, $78, $10
 	dc.b	$E8, $E, 0, $84, $30, $E8, 6, 0, $90, $50, $C8
 	dcb.b	2,0
 	dc.b	$70, 8, $C8, 3, 0, $71, 0, $E8, 2, 0, $75, 0, $F8
