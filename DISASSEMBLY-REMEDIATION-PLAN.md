@@ -380,6 +380,7 @@ opaque merely because they use `dc.*`.
 | M171 | Complete | Structure the duplicate Results PLC at `$025C-$0263`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M172 | Complete | Structure the duplicate Signpost PLC at `$0264-$0277`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M173 | Complete | Structure the retained title-card executable fragment at `$0278-$0371`. | J/U/E 133/133 each after preserving historical PLC jump target; audit/hygiene clean. |
+| M174 | Complete | Structure the retained Results dispatcher and delayed-load state at `$0372-$039D`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

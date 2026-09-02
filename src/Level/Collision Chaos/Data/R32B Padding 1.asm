@@ -20,7 +20,8 @@
 ; +$025C-+$0263  retained duplicate Results PLC
 ; +$0264-+$0277  retained duplicate Signpost PLC
 ; +$0278-+$0371  retained title-card executable fragment
-; +$0372 onward  retained data still to be structured
+; +$0372-+$039D  retained Results dispatcher and delayed-load state
+; +$039E onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -376,11 +377,31 @@ R32BRetainedTitleCardWaitPLC:
 .End:
 	rts
 
-; Retained Results code and later data.
-	dc.b	$70, 0, $10, $28, 0, $24, $30, $3B, 0, 6, $4E, $FB, 0
-	dc.b	2, 0, $A, 0, $1E, 0, $EA, 1, $24, 1, $D8, $53, $28, 0, $32
-	dc.b	$67, 2, $4E, $75, $70, $10, $4E, $B9, 0, $20, $24, $48, $54
-	dc.b	$28, 0, $24, $4A, $B8, $F6, $80, $66, $1C, $C, $79, 5, 2
+; Orphaned Results dispatcher and delayed PLC-load state. Later state offsets
+; remain numeric until their retained bodies receive labels.
+R32BRetainedResults:
+	moveq	#0,d0
+	move.b	oRoutine(a0),d0
+	move.w	.Index(pc,d0.w),d0
+	jmp	.Index(pc,d0.w)
+.Index:
+	dc.w	$000A			; initialization
+	dc.w	$001E			; wait for PLCs
+	dc.w	$00EA			; movement
+	dc.w	$0124			; bonus tally
+	dc.w	$01D8			; next level
+
+R32BRetainedResultsInit:
+	subq.b	#1,oResultsTimer(a0)
+	beq.s	.LoadPLC
+	rts
+.LoadPLC:
+	moveq	#$10,d0
+	jsr	$202448
+	addq.b	#2,oRoutine(a0)
+
+; Remaining retained Results states and data.
+	dc.b	$4A, $B8, $F6, $80, $66, $1C, $C, $79, 5, 2
 	dc.b	0, $FF, $15, 6, $67, $14, $4D, $F8, $D0, 0, $30, $38, $F7
 	dc.b	0, 6, $40, 1, $50, $B0, $6E, 0, 8, $65, 2, $4E, $75, $45
 	dc.b	$F9, 0, $20, $F6, $EE, $7C, 2, $72, 0, $22, $48, $31, $7C
