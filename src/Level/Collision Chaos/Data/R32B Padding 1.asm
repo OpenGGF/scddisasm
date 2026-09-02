@@ -77,7 +77,8 @@
 ; +$0E04-+$0E09 retained historical Act 3 Good Future jump
 ; +$0E0A-+$0E19 retained historical Act 3 Good Future stage descriptor
 ; +$0E1A-+$0E3F retained historical Act 3 Good Future PLC offset table
-; +$0E40 onward  retained stage/PLC bodies still to be structured
+; +$0E40-+$0E4D retained historical Act 3 Good Future Stage PLC
+; +$0E4E onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1416,9 +1417,17 @@ R32BRetainedPalmtreeAct3GoodFuturePLCLists:
 	dcb.w	11, $72			; Sections and updates
 	dc.w	$9A, $72, $A2		; Results, Section, Capsule
 
-	dc.b	0, 1, 0, $23, $8F, $74
-	dcb.b	3,0
-	dc.b	$23, $C4, $FA, $4A, $80, 0, 9, 0, $23, $D, $A2, $6C
+
+; Two-entry historical Act 3 Good Future Stage PLC.
+R32BRetainedPalmtreeAct3GoodFutureStagePLC:
+	dc.w	1			; entry count minus one
+	dc.l	$00238F74
+	dc.w	0			; VRAM destination
+	dc.l	$0023C4FA
+	dc.w	$4A80			; VRAM destination
+	dc.b	0
+R32BRetainedPalmtreeAct3GoodFutureMainPLC:
+	dc.b	9, 0, $23, $D, $A2, $6C
 	dcb.b	2,0
 	dc.b	$23, $39, $E4, $7A
 	dcb.b	2,0
