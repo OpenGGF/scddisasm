@@ -11,7 +11,8 @@
 ; +$2100-+$241F  complete Collision Chaos Act 1 Past collision-index map
 ; +$2420-+$2467  Collision Chaos Act 1 Past layout pointer table
 ; +$2468-+$2589  Collision Chaos Act 1 Past foreground layout
-; +$258A-+$29FF  retained units still to be classified
+; +$258A-+$25A1  Collision Chaos Act 1 Past background layout
+; +$25A2-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -54,11 +55,12 @@ R32ARetainedAct1PastCollision:
 	incbin	"maps/r31b/collision.bin"
 
 ; Three section selections repeat the same twelve foreground/background/null
-; layout offsets. Numeric offsets remain until the retained target bodies below
-; receive stable semantic labels.
+; layout offsets. Numeric offsets remain only for target bodies not yet given
+; stable semantic labels.
 R32ARetainedAct1PastLayoutPointers:
 	rept	3
-	dc.w	$0048, $016A, $0182
+	dc.w	R32ARetainedAct1PastForeground-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedAct1PastBackground-R32ARetainedAct1PastLayoutPointers, $0182
 	dc.w	$0186, $0374, $024E
 	dc.w	$0252, $0374, $0374
 	dc.w	$0378, $0378, $0378
@@ -68,13 +70,14 @@ R32ARetainedAct1PastLayoutPointers:
 ; historical graph. The layout-pointer table reaches it at offset $0048.
 R32ARetainedAct1PastForeground:
 	incbin	"maps/r31b/foreground.bin"
-; First six bytes of the retained background layout.
-	dc.b	6, 2, $65, $68, $65, $68
-	dc.b	$65, $68, $65, $67, $69, $6A, $6B
-	dcb.b	2,$69
-	dc.b	$6B
-	dcb.b	7,$66
-	dcb.b	5,0
+
+; Complete Collision Chaos Act 1 Past background layout, reached by the layout
+; pointer table at offset $016A.
+R32ARetainedAct1PastBackground:
+	incbin	"maps/r31b/background.bin"
+
+; Complete four-byte null layout begins here.
+	dcb.b	4,0
 	dc.b	$20, 5
 	dcb.b	$21,0
 	dc.b	$E, $2B, $16, $1C, 5, $2B, $16, 2, $37
