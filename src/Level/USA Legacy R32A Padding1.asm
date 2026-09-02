@@ -16,7 +16,8 @@
 ; $20F720-$20F7E5  complete Bad-Future Results mapping frames
 ; $20F7E6-$20F8D5  complete Good-Future Results mapping frames
 ; $20F8D6-$20F965  complete standard and SSZ3 Results score frames
-; $20F966-$20FFFF  retained data units (still to be classified)
+; $20F966-$20FABF  title-card placement/mapping records and orphan trampoline
+; $20FAC0-$20FFFF  retained data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -551,28 +552,115 @@ USARetainedResultsSSZ3Score:
 	dc.b	$E0, 9, 2, $91, $48
 	dc.b	$E0, $D, 2, $97, $60
 	even
-	dc.b	$01, $30, $02, $28, $01, $68, $01, $5A, $01, $00, $02, $38, $01, $78, $02, $5A
-	dc.b	$01, $00, $02, $40, $01, $80, $02, $5A, $01, $00, $02, $48, $01, $88, $02, $5A
-	dc.b	$01, $20, $02, $30, $01, $70, $03, $5A, $01, $40, $02, $48, $01, $88, $04, $5A
-	dc.b	$01, $00, $01, $D0, $01, $10, $07, $5A, $01, $00, $01, $D0, $01, $10, $08, $5A
-	dc.b	$00, $12, $00, $32, $00, $3E, $00, $4A, $00, $64, $00, $88, $00, $AC, $00, $D0
-	dc.b	$00, $F4, $06, $90, $0F, $00, $00, $F0, $B0, $0F, $00, $00, $F0, $D0, $0F, $00
-	dc.b	$00, $F0, $F0, $0F, $00, $00, $F0, $10, $0F, $00, $00, $F0, $30, $0F, $00, $00
-	dc.b	$F0, $00, $02, $F8, $09, $00, $10, $E8, $00, $08, $00, $16, $00, $00, $02, $E8
-	dc.b	$02, $00, $19, $FC, $00, $02, $00, $1C, $FC, $00, $05, $F8, $0D, $00, $1F, $B0
-	dc.b	$F8, $0D, $00, $27, $D0, $F8, $0D, $00, $2F, $F0, $F8, $0D, $00, $37, $10, $F8
-	dc.b	$0D, $00, $3F, $30, $07, $E8, $06, $00, $47, $E8, $00, $06, $10, $47, $E8, $E8
-	dc.b	$06, $08, $47, $08, $00, $06, $18, $47, $08, $E8, $04, $00, $4D, $F8, $F0, $07
-	dc.b	$00, $4F, $F8, $10, $04, $00, $57, $F8, $07, $E8, $06, $00, $47, $E8, $00, $06
-	dc.b	$10, $47, $E8, $E8, $06, $08, $47, $08, $00, $06, $00, $59, $08, $E8, $05, $00
-	dc.b	$5F, $F8, $F8, $06, $00, $63, $F8, $10, $04, $00, $57, $F8, $07, $E8, $06, $00
-	dc.b	$47, $E8, $00, $06, $10, $47, $E8, $E8, $06, $08, $47, $08, $00, $06, $18, $47
-	dc.b	$08, $E8, $05, $00, $5F, $F8, $F8, $05, $00, $69, $F8, $08, $05, $10, $5F, $F8
-	dc.b	$07, $E8, $0E, $00, $78, $10, $E8, $0E, $00, $84, $30, $E8, $06, $00, $90, $50
-	dc.b	$C8, $00, $00, $70, $08, $C8, $03, $00, $71, $00, $E8, $02, $00, $75, $00, $F8
-	dc.b	$00, $00, $70, $08, $06, $00, $0E, $00, $96, $10, $00, $06, $00, $A2, $30, $00
-	dc.b	$00, $00, $70, $08, $00, $03, $00, $71, $00, $20, $02, $00, $75, $00, $30, $00
-	dc.b	$00, $70, $08, $00, $4E, $F9, $00, $20, $64, $DE, $03, $23, $7B, $EE, $02, $23
+
+; Eight-byte records: initial Y, initial X, destination X, then the mapping
+; frame and slide-out delay packed into the final word. Frame 2 is reused by
+; three independently positioned zone-name objects; frame 4 is offset by the
+; act number at runtime to select frames 4 through 6.
+USARetainedTitleCardElements:
+	dc.w	$130, $228, $168, $15A	; headline
+	dc.w	$100, $238, $178, $25A	; zone-name placement 1
+	dc.w	$100, $240, $180, $25A	; zone-name placement 2
+	dc.w	$100, $248, $188, $25A	; zone-name placement 3
+	dc.w	$120, $230, $170, $35A	; subtitle
+	dc.w	$140, $248, $188, $45A	; act-dependent number
+	dc.w	$100, $1D0, $110, $75A	; zone label
+	dc.w	$100, $1D0, $110, $85A	; zone number
+
+USARetainedTitleCardMappings:
+	dc.w	.Backdrop-USARetainedTitleCardMappings
+	dc.w	.Headline-USARetainedTitleCardMappings
+	dc.w	.ZoneName-USARetainedTitleCardMappings
+	dc.w	.Subtitle-USARetainedTitleCardMappings
+	dc.w	.Act1-USARetainedTitleCardMappings
+	dc.w	.Act2-USARetainedTitleCardMappings
+	dc.w	.Act3-USARetainedTitleCardMappings
+	dc.w	.ZoneLabel-USARetainedTitleCardMappings
+	dc.w	.ZoneNumber-USARetainedTitleCardMappings
+
+; Each frame starts with a piece count followed by five-byte sprite pieces:
+; Y offset, size, tile attributes, tile index, and X offset.
+.Backdrop:
+	dc.b	6
+	dc.b	$90, $F, 0, 0, $F0
+	dc.b	$B0, $F, 0, 0, $F0
+	dc.b	$D0, $F, 0, 0, $F0
+	dc.b	$F0, $F, 0, 0, $F0
+	dc.b	$10, $F, 0, 0, $F0
+	dc.b	$30, $F, 0, 0, $F0
+	even
+.Headline:
+	dc.b	2
+	dc.b	$F8, 9, 0, $10, $E8
+	dc.b	0, 8, 0, $16, 0
+	even
+.ZoneName:
+	dc.b	2
+	dc.b	$E8, 2, 0, $19, $FC
+	dc.b	0, 2, 0, $1C, $FC
+	even
+.Subtitle:
+	dc.b	5
+	dc.b	$F8, $D, 0, $1F, $B0
+	dc.b	$F8, $D, 0, $27, $D0
+	dc.b	$F8, $D, 0, $2F, $F0
+	dc.b	$F8, $D, 0, $37, $10
+	dc.b	$F8, $D, 0, $3F, $30
+	even
+.Act1:
+	dc.b	7
+	dc.b	$E8, 6, 0, $47, $E8
+	dc.b	0, 6, $10, $47, $E8
+	dc.b	$E8, 6, 8, $47, 8
+	dc.b	0, 6, $18, $47, 8
+	dc.b	$E8, 4, 0, $4D, $F8
+	dc.b	$F0, 7, 0, $4F, $F8
+	dc.b	$10, 4, 0, $57, $F8
+	even
+.Act2:
+	dc.b	7
+	dc.b	$E8, 6, 0, $47, $E8
+	dc.b	0, 6, $10, $47, $E8
+	dc.b	$E8, 6, 8, $47, 8
+	dc.b	0, 6, 0, $59, 8
+	dc.b	$E8, 5, 0, $5F, $F8
+	dc.b	$F8, 6, 0, $63, $F8
+	dc.b	$10, 4, 0, $57, $F8
+	even
+.Act3:
+	dc.b	7
+	dc.b	$E8, 6, 0, $47, $E8
+	dc.b	0, 6, $10, $47, $E8
+	dc.b	$E8, 6, 8, $47, 8
+	dc.b	0, 6, $18, $47, 8
+	dc.b	$E8, 5, 0, $5F, $F8
+	dc.b	$F8, 5, 0, $69, $F8
+	dc.b	8, 5, $10, $5F, $F8
+	even
+.ZoneLabel:
+	dc.b	7
+	dc.b	$E8, $E, 0, $78, $10
+	dc.b	$E8, $E, 0, $84, $30
+	dc.b	$E8, 6, 0, $90, $50
+	dc.b	$C8, 0, 0, $70, 8
+	dc.b	$C8, 3, 0, $71, 0
+	dc.b	$E8, 2, 0, $75, 0
+	dc.b	$F8, 0, 0, $70, 8
+	even
+.ZoneNumber:
+	dc.b	6
+	dc.b	0, $E, 0, $96, $10
+	dc.b	0, 6, 0, $A2, $30
+	dc.b	0, 0, 0, $70, 8
+	dc.b	0, 3, 0, $71, 0
+	dc.b	$20, 2, 0, $75, 0
+	dc.b	$30, 0, 0, $70, 8
+	even
+
+USARetainedTitleCardTrampoline:
+	jmp	$2064DE
+
+	dc.b	$03, $23, $7B, $EE, $02, $23
 	dc.b	$6C, $76, $00, $21, $00, $00, $00, $81, $04, $04, $00, $26, $00, $34, $00, $90
 	dc.b	$00, $26, $00, $A4, $00, $EE, $01, $32, $01, $7C, $01, $84, $01, $CE, $01, $D6
 	dc.b	$01, $E4, $01, $F2, $00, $90, $00, $90, $00, $90, $01, $FA, $00, $90, $02, $02
