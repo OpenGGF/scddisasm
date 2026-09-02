@@ -22,7 +22,8 @@
 ; +$0278-+$0371  retained title-card executable fragment
 ; +$0372-+$039D  retained Results dispatcher and delayed-load state
 ; +$039E-+$0469  retained Results PLC-wait and object initialization state
-; +$046A onward  retained data still to be structured
+; +$046A-+$04A3  retained Results movement state
+; +$04A4 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -457,11 +458,33 @@ R32BRetainedResultsWaitPLC:
 	rts
 
 ; Remaining retained Results states and data.
-	dc.b	$4A, $68, 0, $32, $67, 4, $53, $68, 0, $32, $70, 8, $32
-	dc.b	$28, 0, $2A, $B2, $68, 0, 8, $67, $18, $6C, 2, $44, $40, $D1
-	dc.b	$68, 0, 8, $C, $68, 1, $60, 0, $32, $64, 6, $4E, $F9, 0, $20
-	dc.b	$3A, $6E, $4E, $75, $4A, $28, 0, $1A, $66, $EA, $54, $28
-	dc.b	0, $24, $60, $E4, $11, $FC, 0, 1, $F7, $D6, $70, 0, $4A, $78
+R32BRetainedResultsMove:
+	tst.w	oResultsTimer(a0)
+	beq.s	.MoveX
+	subq.w	#1,oResultsTimer(a0)
+.MoveX:
+	moveq	#8,d0
+	move.w	oResultsDestX(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.AtDestX
+	bge.s	.AddX
+	neg.w	d0
+.AddX:
+	add.w	d0,oX(a0)
+.CheckDraw:
+	cmpi.w	#352,oResultsTimer(a0)
+	bcc.s	.End
+	jmp	$203A6E			; historical object draw routine
+.End:
+	rts
+.AtDestX:
+	tst.b	oMapFrame(a0)
+	bne.s	.CheckDraw
+	addq.b	#2,oRoutine(a0)
+	bra.s	.CheckDraw
+
+; Remaining retained Results states and data.
+	dc.b	$11, $FC, 0, 1, $F7, $D6, $70, 0, $4A, $78
 	dc.b	$F7, $D2, $66, $30, $4A, $78, $F7, $D4, $66, $3A, $53, $68
 	dc.b	0, $32, $6A, 4, $54, $28, 0, $24, $C, $68, 0, $1E, 0, $32
 	dc.b	$66, $12, $4A, $39, 0, $FF, $15, $6E, $67, $A, $30, $3C, 0
