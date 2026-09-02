@@ -390,6 +390,7 @@ opaque merely because they use `dc.*`.
 | M181 | Complete | Structure the retained bad-future Results mapping frames at `$0672-$0737`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M182 | Complete | Structure the retained good-future Results mapping frames at `$0738-$0827`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M183 | Complete | Structure the retained standard and SSZ3 Results score frames at `$0828-$08B7`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M184 | Complete | Structure the eight retained title-card element records at `$08B8-$08F7`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

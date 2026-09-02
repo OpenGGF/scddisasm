@@ -30,7 +30,8 @@
 ; +$0672-+$0737  retained bad-future Results mapping frames
 ; +$0738-+$0827  retained good-future Results mapping frames
 ; +$0828-+$08B7  retained standard and SSZ3 Results score frames
-; +$08B8 onward  retained data still to be structured
+; +$08B8-+$08F7  retained title-card element records
+; +$08F8 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -772,11 +773,19 @@ R32BRetainedResultsSSZ3Score:
 	even
 
 ; Remaining retained title-card data.
-	dc.b	1, $30, 2, $28, 1, $68, 1, $5A, 1
-	dc.b	0, 2, $38, 1, $78, 2, $5A, 1, 0, 2, $40, 1, $80, 2, $5A, 1
-	dc.b	0, 2, $48, 1, $88, 2, $5A, 1, $20, 2, $30, 1, $70, 3, $5A
-	dc.b	1, $40, 2, $48, 1, $88, 4, $5A, 1, 0, 1, $D0, 1, $10, 7, $5A
-	dc.b	1, 0, 1, $D0, 1, $10, 8, $5A, 0, $12, 0, $32, 0, $3E, 0, $4A
+; Initial Y, initial X, destination X, then mapping frame and slide delay.
+R32BRetainedTitleCardElements:
+	dc.w	$130, $228, $168, $15A	; headline
+	dc.w	$100, $238, $178, $25A	; zone-name placement 1
+	dc.w	$100, $240, $180, $25A	; zone-name placement 2
+	dc.w	$100, $248, $188, $25A	; zone-name placement 3
+	dc.w	$120, $230, $170, $35A	; subtitle
+	dc.w	$140, $248, $188, $45A	; act-dependent number
+	dc.w	$100, $1D0, $110, $75A	; zone label
+	dc.w	$100, $1D0, $110, $85A	; zone number
+
+; Remaining retained title-card mappings.
+	dc.b	0, $12, 0, $32, 0, $3E, 0, $4A
 	dc.b	0, $64, 0, $88, 0, $AC, 0, $D0, 0, $F4, 6, $90, $F
 	dcb.b	2,0
 	dc.b	$F0, $B0, $F
