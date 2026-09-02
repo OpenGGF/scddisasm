@@ -21,7 +21,8 @@
 ; +$0264-+$0277  retained duplicate Signpost PLC
 ; +$0278-+$0371  retained title-card executable fragment
 ; +$0372-+$039D  retained Results dispatcher and delayed-load state
-; +$039E onward  retained data still to be structured
+; +$039E-+$0469  retained Results PLC-wait and object initialization state
+; +$046A onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -400,26 +401,63 @@ R32BRetainedResultsInit:
 	jsr	$202448
 	addq.b	#2,oRoutine(a0)
 
+R32BRetainedResultsWaitPLC:
+	tst.l	plcBuffer.w
+	bne.s	.End
+	cmpi.w	#$502,zoneAct
+	beq.s	.LoadResults
+	lea	objPlayerSlot.w,a6
+	move.w	cameraX.w,d0
+	addi.w	#336,d0
+	cmp.w	oX(a6),d0
+	bcs.s	.LoadResults
+.End:
+	rts
+.LoadResults:
+	lea	$20F6EE,a2		; historical initialization records
+	moveq	#2,d6
+	moveq	#0,d1
+	movea.l	a0,a1
+	move.w	#360,oResultsTimer(a0)
+	bra.s	.InitLoop
+.Loop:
+	jsr	$207B0A			; historical object allocator
+.InitLoop:
+	move.w	#360,oResultsTimer(a1)
+	move.b	#$3A,oID(a1)
+	move.b	#4,oRoutine(a1)
+	move.w	#$83C4,oTile(a1)
+	cmpi.w	#$502,zoneAct
+	bne.s	.NotSSZ3
+	move.w	#$82F2,oTile(a1)
+	move.l	#$20F710,oMap(a1)	; bad-future SSZ3 mappings
+	tst.b	goodFuture
+	beq.s	.GotMaps
+	move.l	#$20F724,oMap(a1)	; good-future SSZ3 mappings
+	bra.s	.GotMaps
+.NotSSZ3:
+	move.l	#$20F706,oMap(a1)	; bad-future mappings
+	tst.b	goodFuture
+	beq.s	.GotMaps
+	move.l	#$20F71A,oMap(a1)	; good-future mappings
+.GotMaps:
+	move.w	d1,d2
+	lsl.w	#3,d2
+	move.w	(a2,d2.w),oYScr(a1)
+	move.w	2(a2,d2.w),oX(a1)
+	move.w	4(a2,d2.w),oResultsDestX(a1)
+	move.b	7(a2,d2.w),oMapFrame(a1)
+	cmpi.b	#2,d1
+	bne.s	.GotFrame
+	move.b	act,d2
+	add.b	d2,oMapFrame(a1)
+.GotFrame:
+	addq.b	#1,d1
+	dbf	d6,.Loop
+	rts
+
 ; Remaining retained Results states and data.
-	dc.b	$4A, $B8, $F6, $80, $66, $1C, $C, $79, 5, 2
-	dc.b	0, $FF, $15, 6, $67, $14, $4D, $F8, $D0, 0, $30, $38, $F7
-	dc.b	0, 6, $40, 1, $50, $B0, $6E, 0, 8, $65, 2, $4E, $75, $45
-	dc.b	$F9, 0, $20, $F6, $EE, $7C, 2, $72, 0, $22, $48, $31, $7C
-	dc.b	1, $68, 0, $32, $60, 6, $4E, $B9, 0, $20, $7B, $A, $33, $7C
-	dc.b	1, $68, 0, $32, $13, $7C, 0, $3A
-	dcb.b	2,0
-	dc.b	$13, $7C, 0, 4, 0, $24, $33, $7C, $83, $C4, 0, 2, $C, $79
-	dc.b	5, 2, 0, $FF, $15, 6, $66, $20, $33, $7C, $82, $F2, 0, 2
-	dc.b	$23, $7C, 0, $20, $F7, $10, 0, 4, $4A, $39, 0, $FF, $15, $6A
-	dc.b	$67, $22, $23, $7C, 0, $20, $F7, $24, 0, 4, $60, $18, $23
-	dc.b	$7C, 0, $20, $F7, 6, 0, 4, $4A, $39, 0, $FF, $15, $6A, $67
-	dc.b	8, $23, $7C, 0, $20, $F7, $1A, 0, 4, $34, 1, $E7, $4A, $33
-	dc.b	$72, $20
-	dcb.b	2,0
-	dc.b	$A, $33, $72, $20, 2, 0, 8, $33, $72, $20, 4, 0, $2A, $13
-	dc.b	$72, $20, 7, 0, $1A, $C, 1, 0, 2, $66, $A, $14, $39, 0, $FF
-	dc.b	$15, 7, $D5, $29, 0, $1A, $52, 1, $51, $CE, $FF, $70, $4E
-	dc.b	$75, $4A, $68, 0, $32, $67, 4, $53, $68, 0, $32, $70, 8, $32
+	dc.b	$4A, $68, 0, $32, $67, 4, $53, $68, 0, $32, $70, 8, $32
 	dc.b	$28, 0, $2A, $B2, $68, 0, 8, $67, $18, $6C, 2, $44, $40, $D1
 	dc.b	$68, 0, 8, $C, $68, 1, $60, 0, $32, $64, 6, $4E, $F9, 0, $20
 	dc.b	$3A, $6E, $4E, $75, $4A, $28, 0, $1A, $66, $EA, $54, $28
