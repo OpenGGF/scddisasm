@@ -7,7 +7,8 @@
 ; $20F312-$20F325  complete retained Signpost PLC
 ; $20F326-$20F41F  orphaned title-card executable fragment
 ; $20F420-$20F44B  orphaned Results dispatcher and delayed-load state
-; $20F44C-$20FFFF  retained executable/data units (still to be classified)
+; $20F44C-$20F517  orphaned Results PLC-wait/object-initialization state
+; $20F518-$20FFFF  retained executable/data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -169,22 +170,64 @@ USARetainedResultsInit:
 	jsr	LoadPLC
 	addq.b	#2,oRoutine(a0)
 
-; The next state is the exact boundary for the following milestone.
 USARetainedResultsWaitPLC:
-	dc.b	$4A, $B8, $F6, $80, $66, $1C, $0C, $79, $05, $02
-	dc.b	$00, $FF, $15, $06, $67, $14, $4D, $F8, $D0, $00, $30, $38, $F7, $00, $06, $40
-	dc.b	$01, $50, $B0, $6E, $00, $08, $65, $02, $4E, $75, $45, $F9, $00, $20, $F6, $E0
-	dc.b	$7C, $02, $72, $00, $22, $48, $31, $7C, $01, $E0, $00, $32, $60, $06, $4E, $B9
-	dc.b	$00, $20, $7A, $FC, $33, $7C, $01, $E0, $00, $32, $13, $7C, $00, $3A, $00, $00
-	dc.b	$13, $7C, $00, $04, $00, $24, $33, $7C, $83, $C4, $00, $02, $0C, $79, $05, $02
-	dc.b	$00, $FF, $15, $06, $66, $20, $33, $7C, $82, $F2, $00, $02, $23, $7C, $00, $20
-	dc.b	$F7, $02, $00, $04, $4A, $39, $00, $FF, $15, $6A, $67, $22, $23, $7C, $00, $20
-	dc.b	$F7, $16, $00, $04, $60, $18, $23, $7C, $00, $20, $F6, $F8, $00, $04, $4A, $39
-	dc.b	$00, $FF, $15, $6A, $67, $08, $23, $7C, $00, $20, $F7, $0C, $00, $04, $34, $01
-	dc.b	$E7, $4A, $33, $72, $20, $00, $00, $0A, $33, $72, $20, $02, $00, $08, $33, $72
-	dc.b	$20, $04, $00, $2A, $13, $72, $20, $07, $00, $1A, $0C, $01, $00, $02, $66, $0A
-	dc.b	$14, $39, $00, $FF, $15, $07, $D5, $29, $00, $1A, $52, $01, $51, $CE, $FF, $70
-	dc.b	$4E, $75, $4A, $68, $00, $32, $67, $04, $53, $68, $00, $32, $70, $08, $32, $28
+	tst.l	plcBuffer.w
+	bne.s	.End
+	cmpi.w	#$502,zoneAct
+	beq.s	.LoadResults
+	lea	objPlayerSlot.w,a6
+	move.w	cameraX.w,d0
+	addi.w	#336,d0
+	cmp.w	oX(a6),d0
+	bcs.s	.LoadResults
+.End:
+	rts
+.LoadResults:
+	lea	$20F6E0,a2		; historical initialization records
+	moveq	#2,d6
+	moveq	#0,d1
+	movea.l	a0,a1
+	move.w	#480,oResultsTimer(a0)	; USA display duration
+	bra.s	.InitLoop
+.Loop:
+	jsr	$207AFC			; historical object allocator
+.InitLoop:
+	move.w	#480,oResultsTimer(a1)
+	move.b	#$3A,oID(a1)
+	move.b	#4,oRoutine(a1)
+	move.w	#$83C4,oTile(a1)
+	cmpi.w	#$502,zoneAct
+	bne.s	.NotSSZ3
+	move.w	#$82F2,oTile(a1)
+	move.l	#$20F702,oMap(a1)	; bad-future SSZ3 mappings
+	tst.b	goodFuture
+	beq.s	.GotMaps
+	move.l	#$20F716,oMap(a1)	; good-future SSZ3 mappings
+	bra.s	.GotMaps
+.NotSSZ3:
+	move.l	#$20F6F8,oMap(a1)	; bad-future mappings
+	tst.b	goodFuture
+	beq.s	.GotMaps
+	move.l	#$20F70C,oMap(a1)	; good-future mappings
+.GotMaps:
+	move.w	d1,d2
+	lsl.w	#3,d2
+	move.w	(a2,d2.w),oYScr(a1)
+	move.w	2(a2,d2.w),oX(a1)
+	move.w	4(a2,d2.w),oResultsDestX(a1)
+	move.b	7(a2,d2.w),oMapFrame(a1)
+	cmpi.b	#2,d1
+	bne.s	.GotFrame
+	move.b	act,d2
+	add.b	d2,oMapFrame(a1)
+.GotFrame:
+	addq.b	#1,d1
+	dbf	d6,.Loop
+	rts
+
+; The movement state is the exact boundary for the following milestone.
+USARetainedResultsMove:
+	dc.b	$4A, $68, $00, $32, $67, $04, $53, $68, $00, $32, $70, $08, $32, $28
 	dc.b	$00, $2A, $B2, $68, $00, $08, $67, $18, $6C, $02, $44, $40, $D1, $68, $00, $08
 	dc.b	$0C, $68, $01, $D8, $00, $32, $64, $06, $4E, $F9, $00, $20, $3A, $72, $4E, $75
 	dc.b	$4A, $28, $00, $1A, $66, $EA, $54, $28, $00, $24, $60, $E4, $11, $FC, $00, $01
