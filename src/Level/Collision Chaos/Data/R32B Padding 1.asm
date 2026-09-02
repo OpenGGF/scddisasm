@@ -51,7 +51,8 @@
 ; +$0BA6-+$0BEF retained Update 1 PLC
 ; +$0BF0-+$0BF7 retained Update 2 PLC
 ; +$0BF8-+$0C05 retained Update 3 PLC
-; +$0C06 onward  retained stage/PLC bodies still to be structured
+; +$0C06-+$0C13 retained Intro PLC
+; +$0C14 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1127,9 +1128,16 @@ R32BRetainedAct1PresentUpdate3PLC:
 	dc.l	$00234C14		; metal platform
 	dc.w	$69C0
 
-	dc.b	0, 1, 0, $23, $B4, $86, $6B, $C0
-	dc.b	0, $23, $AA, $D8, $7A
-	dcb.b	4,0
+
+; Two-entry Intro PLC; pointers retain their historical absolute values.
+R32BRetainedAct1PresentIntroPLC:
+	dc.w	1			; entry count minus one
+	dc.l	$0023B486		; intro art
+	dc.w	$6BC0
+	dc.l	$0023AAD8		; intro text
+	dc.w	$7A00
+
+	dcb.b	3,0
 	dc.b	$23, $60, $D6, $8D, $40
 	dcb.b	3,0
 	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
