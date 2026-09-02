@@ -1,24 +1,24 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
-; Fire-shooter mappings: emitter cap, two full flame frames, two projectile
-; directions, and the shared empty burnout frame (referenced twice).
+; Fire-shooter mappings. Nonempty frames contain five-byte sprite pieces after
+; the piece count. Both final table entries select the shared empty frame.
 
 .Sprites:
-	dc.w	.Sprite0-.Sprites
-	dc.w	.Sprite1-.Sprites
-	dc.w	.Sprite2-.Sprites
-	dc.w	.Sprite3-.Sprites
-	dc.w	.Sprite4-.Sprites
-	dc.w	.Sprite5-.Sprites
-	dc.w	.Sprite5-.Sprites
+	dc.w	.Emitter-.Sprites
+	dc.w	.FlameA-.Sprites
+	dc.w	.FlameB-.Sprites
+	dc.w	.ProjectileLeft-.Sprites
+	dc.w	.ProjectileRight-.Sprites
+	dc.w	.Empty-.Sprites
+	dc.w	.Empty-.Sprites
 
-.Sprite0:
+.Emitter:
 	dc.b	1
 	dc.b	$FC, $C, 0, $E, $F0
 	even
 
-.Sprite1:
+.FlameA:
 	dc.b	7
 	dc.b	$EC, $C, 0, 0, $F0
 	dc.b	$F4, 4, 0, 4, $F0
@@ -29,7 +29,7 @@
 	dc.b	$C, 4, 8, $C, 0
 	even
 
-.Sprite2:
+.FlameB:
 	dc.b	7
 	dc.b	$EC, $C, 0, $12, $F0
 	dc.b	$F4, 4, 0, 4, $F0
@@ -40,20 +40,21 @@
 	dc.b	$C, 4, 8, $C, 0
 	even
 
-.Sprite3:
+.ProjectileLeft:
 	dc.b	2
 	dc.b	$F8, 4, 0, $16, $F8
 	dc.b	0, 4, $10, $16, $F8
 	even
 
-.Sprite4:
+.ProjectileRight:
 	dc.b	2
 	dc.b	$F8, 4, 8, $16, $F8
 	dc.b	0, 4, $18, $16, $F8
 	even
 
-.Sprite5:
+.Empty:
 	dc.b	0
+	; Ignored five-byte zero record retained as mapping-table tail padding.
 	dc.b	0, 0, 0, 0, 0
 
 ; ------------------------------------------------------------------------------

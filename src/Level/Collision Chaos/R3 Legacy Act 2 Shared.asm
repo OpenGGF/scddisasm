@@ -26,6 +26,8 @@ R3_SEMANTIC_METAL_PLATFORM EQU	1
 CC_LEGACY_METAL_PLATFORM_ABI EQU	1
 R3_SEMANTIC_DOOR	EQU	1
 CC_LEGACY_DOOR_ABI	EQU	1
+R3_SEMANTIC_FIRE_SHOOTER EQU	1
+CC_LEGACY_FIRE_SHOOTER_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -96,7 +98,7 @@ CC_VARIANT	EQU	0
 	include	"Level/Collision Chaos/Objects/Block/Main.asm"
 	include	"Level/Collision Chaos/Objects/Metal Platform/Main.asm"
 	include	"Level/Collision Chaos/Objects/Door/Main.asm"
-	include	"objects/r3/fire_shooter.asm"
+	include	"Level/Collision Chaos/Objects/Fire Shooter/Main.asm"
 	include	"objects/r3/drum_platform.asm"
 	include	"r3/object_despawn.asm"
 	include	"objects/r3/kama_kama.asm"

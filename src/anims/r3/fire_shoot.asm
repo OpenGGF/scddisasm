@@ -1,41 +1,41 @@
 ; ------------------------------------------------------------------------------
 ; Sonic CD Disassembly
 ; ------------------------------------------------------------------------------
-; Fire-shooter animation scripts: idle flame, two charging directions, and
-; the two directional projectile burnout loops.
+; Fire-shooter animation scripts. Each record is a frame delay, mapping-frame
+; sequence, and $FF restart command.
 
 .Anims:
-	dc.w	.Anim0-.Anims
-	dc.w	.Anim1-.Anims
-	dc.w	.Anim2-.Anims
-	dc.w	.Anim3-.Anims
-	dc.w	.Anim4-.Anims
+	dc.w	.Flame-.Anims
+	dc.w	.ProjectileLeft-.Anims
+	dc.w	.ProjectileRight-.Anims
+	dc.w	.BurnoutLeft-.Anims
+	dc.w	.BurnoutRight-.Anims
 
-.Anim0:
+.Flame:
 	dc.b	2
 	dc.b	1, 2
 	dc.b	$FF
 	even
 
-.Anim1:
+.ProjectileLeft:
 	dc.b	2
 	dc.b	3, 5
 	dc.b	$FF
 	even
 
-.Anim2:
+.ProjectileRight:
 	dc.b	2
 	dc.b	4, 5
 	dc.b	$FF
 	even
 
-.Anim3:
+.BurnoutLeft:
 	dc.b	0
 	dc.b	3, 6, 5, 6
 	dc.b	$FF
 	even
 
-.Anim4:
+.BurnoutRight:
 	dc.b	0
 	dc.b	4, 6, 5, 6
 	dc.b	$FF
