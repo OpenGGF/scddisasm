@@ -377,6 +377,7 @@ opaque merely because they use `dc.*`.
 | M168 | Complete | Structure the R32B Results PLC at `$020C-$0213`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M169 | Complete | Structure the R32B Signpost PLC at `$0214-$0227`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M170 | Complete | Structure the retained Act 1 Present section-PLC tail at `$0228-$025B`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M171 | Complete | Structure the duplicate Results PLC at `$025C-$0263`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

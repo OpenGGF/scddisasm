@@ -17,7 +17,8 @@
 ; +$020C-+$0213  retained Results PLC
 ; +$0214-+$0227  retained Signpost PLC
 ; +$0228-+$025B  retained Act 1 Present section-PLC tail
-; +$025C onward  retained data still to be structured
+; +$025C-+$0263  retained duplicate Results PLC
+; +$0264 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -264,9 +265,14 @@ R32BRetainedAct1PresentSectionPLCTail:
 	dc.l	$00234C14		; Ga
 	dc.w	$8420
 
+; Duplicate retained Results PLC from the Act 1 Present graph.
+R32BRetainedAct1PresentResultsPLC:
+	dc.w	0			; one entry
+	dc.l	$00230098		; Results art
+	dc.w	$7880
+
 ; Remaining retained data.
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
+	dc.b	0, 2, 0, $22, $FA, $BC, $87, $80, 0
 	dc.b	$22, $F4, $F2, $91
 	dcb.b	2,0
 	dc.b	$20, $DC, $6E, $7D, $E0, $33, $72, $20, 2, 0, $2C, $33, $72
