@@ -2,10 +2,11 @@
 ; USA Collision Chaos R32A data before StageChunks
 ; Recovered as source-level assembly data; no binary padding file is used.
 ;
-; $20F2E4-$20F317  retained Collision Chaos Act 1 Present section-PLC tail
-; $20F318-$20F31F  complete retained Results PLC
-; $20F320-$20F333  complete retained Signpost PLC
-; $20F334-$20FFFF  retained executable/data units (still to be classified)
+; $20F2D6-$20F309  retained Collision Chaos Act 1 Present section-PLC tail
+; $20F30A-$20F311  complete retained Results PLC
+; $20F312-$20F325  complete retained Signpost PLC
+; $20F326-$20F41F  orphaned title-card executable fragment
+; $20F420-$20FFFF  retained executable/data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -48,22 +49,106 @@ USARetainedAct1PresentSignpostPLC:
 	dc.w	$9100
 	dc.l	$0020DC60		; big-ring flash art (USA historical address)
 	dc.w	$7DE0
-	dc.b	$33, $72, $20, $02, $00, $2C, $33, $72, $20, $04, $00, $2A, $13, $72, $20, $06
-	dc.b	$00, $1A, $0C, $01, $00, $05, $66, $0A, $16, $39, $00, $FF, $15, $07, $D7, $29
-	dc.b	$00, $1A, $13, $72, $20, $07, $00, $1E, $52, $01, $51, $CE, $FF, $A4, $4E, $75
-	dc.b	$70, $08, $32, $28, $00, $2E, $B2, $68, $00, $0A, $67, $0E, $6C, $02, $44, $40
-	dc.b	$D1, $68, $00, $0A, $4E, $F9, $00, $20, $3A, $72, $58, $28, $00, $24, $4E, $F9
-	dc.b	$00, $20, $3A, $72, $70, $08, $32, $28, $00, $2A, $B2, $68, $00, $08, $67, $0E
-	dc.b	$6C, $02, $44, $40, $D1, $68, $00, $08, $4E, $F9, $00, $20, $3A, $72, $58, $28
-	dc.b	$00, $24, $4E, $F9, $00, $20, $3A, $72, $4A, $28, $00, $1E, $67, $0A, $53, $28
-	dc.b	$00, $1E, $4E, $F9, $00, $20, $3A, $72, $70, $10, $32, $28, $00, $30, $B2, $68
-	dc.b	$00, $0A, $67, $0E, $6C, $02, $44, $40, $D1, $68, $00, $0A, $4E, $F9, $00, $20
-	dc.b	$3A, $72, $58, $28, $00, $24, $11, $FC, $00, $01, $F7, $44, $70, $02, $4E, $F9
-	dc.b	$00, $20, $24, $4C, $4A, $28, $00, $1E, $67, $0A, $53, $28, $00, $1E, $4E, $F9
-	dc.b	$00, $20, $3A, $72, $70, $10, $32, $28, $00, $2C, $B2, $68, $00, $08, $67, $0E
-	dc.b	$6C, $02, $44, $40, $D1, $68, $00, $08, $4E, $F9, $00, $20, $3A, $72, $4E, $F9
-	dc.b	$00, $20, $3B, $1E, $4A, $B8, $F6, $80, $66, $0E, $42, $38, $F7, $44, $42, $38
-	dc.b	$F7, $CC, $4E, $F9, $00, $20, $3B, $1E, $4E, $75, $70, $00, $10, $28, $00, $24
+
+; Orphaned copy of the title-card initialization tail and slide states. No
+; live code points to these entries. Its DBF target deliberately lands in the
+; preceding retained PLC record, while the historical draw/delete addresses no
+; longer identify current semantic entry points and therefore remain literal.
+USARetainedTitleCardInitTail:
+	move.w	2(a2,d2.w),oVar2C(a1)
+	move.w	4(a2,d2.w),oVar2A(a1)
+	move.b	6(a2,d2.w),oMapFrame(a1)
+	cmpi.b	#5,d1
+	bne.s	.StoreDelay
+	move.b	act,d3
+	add.b	d3,oMapFrame(a1)
+.StoreDelay:
+	move.b	7(a2,d2.w),oAnimTime(a1)
+	addq.b	#1,d1
+	dbf	d6,USARetainedTitleCardInitLoopTarget
+	rts
+
+USARetainedTitleCardSlideInVert:
+	moveq	#8,d0
+	move.w	oVar2E(a0),d1
+	cmp.w	oYScr(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oYScr(a0)
+	jmp	$203A72
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	jmp	$203A72
+
+USARetainedTitleCardSlideInHoriz:
+	moveq	#8,d0
+	move.w	oVar2A(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oX(a0)
+	jmp	$203A72
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	jmp	$203A72
+
+USARetainedTitleCardSlideOutVert:
+	tst.b	oAnimTime(a0)
+	beq.s	.Slide
+	subq.b	#1,oAnimTime(a0)
+	jmp	$203A72
+.Slide:
+	moveq	#$10,d0
+	move.w	oVar30(a0),d1
+	cmp.w	oYScr(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oYScr(a0)
+	jmp	$203A72
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	move.b	#1,scrollLock.w
+	moveq	#2,d0
+	jmp	LoadPLC
+
+USARetainedTitleCardSlideOutHoriz:
+	tst.b	oAnimTime(a0)
+	beq.s	.Slide
+	subq.b	#1,oAnimTime(a0)
+	jmp	$203A72
+.Slide:
+	moveq	#$10,d0
+	move.w	oVar2C(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.Delete
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oX(a0)
+	jmp	$203A72
+.Delete:
+	jmp	$203B1E
+
+USARetainedTitleCardWaitPLC:
+	tst.l	plcBuffer.w
+	bne.s	.End
+	clr.b	scrollLock.w
+	clr.b	ctrlLocked.w
+	jmp	$203B1E
+.End:
+	rts
+
+; Start of the following retained Results dispatcher. Its continuation remains
+; deliberately bounded for the next milestone.
+USARetainedResultsPrefix:
+	moveq	#0,d0
+	move.b	oRoutine(a0),d0
 	dc.b	$30, $3B, $00, $06, $4E, $FB, $00, $02, $00, $0A, $00, $1E, $00, $EA, $01, $24
 	dc.b	$01, $D8, $53, $28, $00, $32, $67, $02, $4E, $75, $70, $10, $4E, $B9, $00, $20
 	dc.b	$24, $4C, $54, $28, $00, $24, $4A, $B8, $F6, $80, $66, $1C, $0C, $79, $05, $02
