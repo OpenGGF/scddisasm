@@ -29,7 +29,8 @@
 ; +$064A-+$0671  retained Results mapping-offset tables
 ; +$0672-+$0737  retained bad-future Results mapping frames
 ; +$0738-+$0827  retained good-future Results mapping frames
-; +$0828 onward  retained data still to be structured
+; +$0828-+$08B7  retained standard and SSZ3 Results score frames
+; +$08B8 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -734,17 +735,44 @@ R32BRetainedResultsGoodAct3:
 	even
 
 ; Remaining retained Results mapping frames.
-	dc.b	$E, $E0, $D, 0, $52, $D4, $E0, 1, 0, $5A, $F4, $F8, $D, 0
-	dc.b	$5C, $D4, $F8, $D, 0, $64, $FC, $F8, 5, 0, $6C, $1C, $10
-	dc.b	$D, 0, $70, $D4, $10, $D, 0, $64, $FC, $10, 5, 0, $6C, $1C
-	dc.b	$F8, $D, 0, $82, $58, $F8, 1, 0, $8A, $78, $10, $D, 0, $78
-	dc.b	$58, $10, 1, 0, $80, $78, $E0, 9, 1, $BF, $48, $E0, $D, 1
-	dc.b	$C5, $60, 0, $E, $E0, $D, 0, $52, $D4, $E0, 1, 0, $5A, $F4
-	dc.b	$F8, $D, 0, $5C, $D4, $F8, $D, 0, $64, $FC, $F8, 5, 0, $6C
-	dc.b	$1C, $10, $D, 0, $70, $D4, $10, $D, 0, $64, $FC, $10, 5, 0
-	dc.b	$6C, $1C, $F8, $D, 0, $82, $58, $F8, 1, 0, $8A, $78, $10
-	dc.b	$D, 0, $78, $58, $10, 1, 0, $80, $78, $E0, 9, 2, $91, $48
-	dc.b	$E0, $D, 2, $97, $60, 0, 1, $30, 2, $28, 1, $68, 1, $5A, 1
+R32BRetainedResultsScore:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 1, $BF, $48
+	dc.b	$E0, $D, 1, $C5, $60
+	even
+
+R32BRetainedResultsSSZ3Score:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 2, $91, $48
+	dc.b	$E0, $D, 2, $97, $60
+	even
+
+; Remaining retained title-card data.
+	dc.b	1, $30, 2, $28, 1, $68, 1, $5A, 1
 	dc.b	0, 2, $38, 1, $78, 2, $5A, 1, 0, 2, $40, 1, $80, 2, $5A, 1
 	dc.b	0, 2, $48, 1, $88, 2, $5A, 1, $20, 2, $30, 1, $70, 3, $5A
 	dc.b	1, $40, 2, $48, 1, $88, 4, $5A, 1, 0, 1, $D0, 1, $10, 7, $5A
