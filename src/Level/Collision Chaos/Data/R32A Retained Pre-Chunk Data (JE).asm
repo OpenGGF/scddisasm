@@ -5,8 +5,8 @@
 ; $20F2E4-$20F333  retained data tail (still to be classified)
 ; $20F334-$20F42D  orphaned title-card executable fragment (structured below)
 ; $20F42E-$20F6ED  orphaned Results executable fragment (structured below)
-; $20F6EE-$20F72D  Results initialization and mapping-offset tables
-; $20F72E-$20FFFF  retained mappings, animation, and PLC-like records
+; $20F6EE-$20F973  Results initialization and complete mapping records
+; $20F974-$20FFFF  retained mappings, animation, and PLC-like records
 ;                  (exact schemas and boundaries still to classify)
 ; ------------------------------------------------------------------------------
 
@@ -332,65 +332,188 @@ RetainedResultsInitData:
 	dc.w	272, 512, 240, 1
 	dc.w	204, 0,   288, 2
 
-; Five frame offsets per mapping set. The frame bodies beginning at $20F72E
-; remain to be structured.
+; Five frame offsets per mapping set.
 RetainedResultsBadMappings:
-	dc.w	$28, $1DE, $52, $86, $BA
+	dc.w	RetainedResultsBadHeader-RetainedResultsBadMappings
+	dc.w	RetainedResultsScore-RetainedResultsBadMappings
+	dc.w	RetainedResultsBadAct1-RetainedResultsBadMappings
+	dc.w	RetainedResultsBadAct2-RetainedResultsBadMappings
+	dc.w	RetainedResultsBadAct3-RetainedResultsBadMappings
 RetainedResultsBadSSZ3Mappings:
-	dc.w	$1E, $21C, $48, $7C, $B0
+	dc.w	RetainedResultsBadHeader-RetainedResultsBadSSZ3Mappings
+	dc.w	RetainedResultsSSZ3Score-RetainedResultsBadSSZ3Mappings
+	dc.w	RetainedResultsBadAct1-RetainedResultsBadSSZ3Mappings
+	dc.w	RetainedResultsBadAct2-RetainedResultsBadSSZ3Mappings
+	dc.w	RetainedResultsBadAct3-RetainedResultsBadSSZ3Mappings
 RetainedResultsGoodMappings:
-	dc.w	$DA, $1CA, $122, $15A, $192
+	dc.w	RetainedResultsGoodHeader-RetainedResultsGoodMappings
+	dc.w	RetainedResultsScore-RetainedResultsGoodMappings
+	dc.w	RetainedResultsGoodAct1-RetainedResultsGoodMappings
+	dc.w	RetainedResultsGoodAct2-RetainedResultsGoodMappings
+	dc.w	RetainedResultsGoodAct3-RetainedResultsGoodMappings
 RetainedResultsGoodSSZ3Mappings:
-	dc.w	$D0, $208, $118, $150, $188
+	dc.w	RetainedResultsGoodHeader-RetainedResultsGoodSSZ3Mappings
+	dc.w	RetainedResultsSSZ3Score-RetainedResultsGoodSSZ3Mappings
+	dc.w	RetainedResultsGoodAct1-RetainedResultsGoodSSZ3Mappings
+	dc.w	RetainedResultsGoodAct2-RetainedResultsGoodSSZ3Mappings
+	dc.w	RetainedResultsGoodAct3-RetainedResultsGoodSSZ3Mappings
 
-	dc.b	8, $EC
-	dc.b	5
-	dcb.b	2,0
-	dc.b	$BC, $EC, 5, 0, 4, $CC, $EC, 5, 0, 8, $DC, $EC, 1, 0, $C
-	dcb.b	2,$EC
-	dc.b	5, 0, $E, $F4, $EC, 5, 0, $12, $14, $EC, 5, 0, 4, $24, $EC
-	dc.b	5, 0, $16, $34, 0, $A, 4, 5, 0, $16, $9C, 4, 5, 0, $1A, $AC
-	dc.b	4, 5, 0, $1E, $BC, 4, 5, 0, 4, $CC, 4, 5, 0, $22, $DC, 4
-	dc.b	5, 0, $12, $EC, 4, 5, 0, $1A, $FC, 4, $D, 0, $26, $1C, 4
-	dc.b	9, 0, $2E, $3C, 4, 1, 0, $34, $5C, 0, $A, 4, 5, 0, $16, $9C
-	dc.b	4, 5, 0, $1A, $AC, 4, 5, 0, $1E, $BC, 4, 5, 0, 4, $CC, 4
-	dc.b	5, 0, $22, $DC, 4, 5, 0, $12, $EC, 4, 5, 0, $1A, $FC, 4, $D
-	dc.b	0, $26, $1C, 4, 9, 0, $2E, $3C, 4, 5, 0, $4A, $5C, 0, $A
-	dc.b	4, 5, 0, $16, $9C, 4, 5, 0, $1A, $AC, 4, 5, 0, $1E, $BC, 4
-	dc.b	5, 0, 4, $CC, 4, 5, 0, $22, $DC, 4, 5, 0, $12, $EC, 4, 5
-	dc.b	0, $1A, $FC, 4, $D, 0, $26, $1C, 4, 9, 0, $2E, $3C, 4, 5
-	dc.b	0, $4E, $5C, 0, $E, $EC, 5
-	dcb.b	2,0
-	dc.b	$80, $EC, 5, 0, 4, $90, $EC, 5, 0, 8, $A0, $EC, 1, 0, $C
-	dc.b	$B0, $EC, 5, 0, $E, $B8, $EC, 5, 0, $36, $D0, $EC, 5, 0, $3A
-	dc.b	$E0, $EC, 5, 0, $3E, $F0, $EC, 5, 0, $42, 0, $EC, 5, 0, $3A
-	dc.b	$20, $EC, 5, 0, $12, $40, $EC, 5, 0, 4, $50, $EC, 5, 0, 4
-	dc.b	$60, $EC, 5, 0, $3E, $70, 0, $B, 4, 5, 0, $46, $90, 4, 5
-	dc.b	0, $22, $A0, 4, 5, 0, $16, $B0, 4, 5, 0, $22, $C0, 4, 5, 0
-	dc.b	$1E, $D0, 4, 5, 0, $42, $E0, 4, 1, 0, $C, 0, 4, 5, 0
-	dcb.b	2,8
-	dc.b	4, $D, 0, $26, $28, 4, 9, 0, $2E, $48, 4, 1, 0, $34, $68
-	dc.b	$B, 4, 5, 0, $46, $90, 4, 5, 0, $22, $A0, 4, 5, 0, $16, $B0
-	dc.b	4, 5, 0, $22, $C0, 4, 5, 0, $1E, $D0, 4, 5, 0, $42, $E0, 4
-	dc.b	1, 0, $C, 0, 4, 5, 0
-	dcb.b	2,8
-	dc.b	4, $D, 0, $26, $28, 4, 9, 0, $2E, $48, 4, 5, 0, $4A, $68
-	dc.b	$B, 4, 5, 0, $46, $90, 4, 5, 0, $22, $A0, 4, 5, 0, $16, $B0
-	dc.b	4, 5, 0, $22, $C0, 4, 5, 0, $1E, $D0, 4, 5, 0, $42, $E0, 4
-	dc.b	1, 0, $C, 0, 4, 5, 0
-	dcb.b	2,8
-	dc.b	4, $D, 0, $26, $28, 4, 9, 0, $2E, $48, 4, 5, 0, $4E, $68
-	dc.b	$E, $E0, $D, 0, $52, $D4, $E0, 1, 0, $5A, $F4, $F8, $D, 0
-	dc.b	$5C, $D4, $F8, $D, 0, $64, $FC, $F8, 5, 0, $6C, $1C, $10
-	dc.b	$D, 0, $70, $D4, $10, $D, 0, $64, $FC, $10, 5, 0, $6C, $1C
-	dc.b	$F8, $D, 0, $82, $58, $F8, 1, 0, $8A, $78, $10, $D, 0, $78
-	dc.b	$58, $10, 1, 0, $80, $78, $E0, 9, 1, $BF, $48, $E0, $D, 1
-	dc.b	$C5, $60, 0, $E, $E0, $D, 0, $52, $D4, $E0, 1, 0, $5A, $F4
-	dc.b	$F8, $D, 0, $5C, $D4, $F8, $D, 0, $64, $FC, $F8, 5, 0, $6C
-	dc.b	$1C, $10, $D, 0, $70, $D4, $10, $D, 0, $64, $FC, $10, 5, 0
-	dc.b	$6C, $1C, $F8, $D, 0, $82, $58, $F8, 1, 0, $8A, $78, $10
-	dc.b	$D, 0, $78, $58, $10, 1, 0, $80, $78, $E0, 9, 2, $91, $48
-	dc.b	$E0, $D, 2, $97, $60, 0, 1, $30, 2, $28, 1, $68, 1, $5A, 1
+; Each frame starts with a piece count followed by five-byte sprite pieces:
+; Y offset, size, tile attributes, tile index, and X offset.
+RetainedResultsBadHeader:
+	dc.b	8
+	dc.b	$EC, 5, 0, 0, $BC
+	dc.b	$EC, 5, 0, 4, $CC
+	dc.b	$EC, 5, 0, 8, $DC
+	dc.b	$EC, 1, 0, $C, $EC
+	dc.b	$EC, 5, 0, $E, $F4
+	dc.b	$EC, 5, 0, $12, $14
+	dc.b	$EC, 5, 0, 4, $24
+	dc.b	$EC, 5, 0, $16, $34
+	even
+
+RetainedResultsBadAct1:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 1, 0, $34, $5C
+	even
+
+RetainedResultsBadAct2:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4A, $5C
+	even
+
+RetainedResultsBadAct3:
+	dc.b	$A
+	dc.b	4, 5, 0, $16, $9C
+	dc.b	4, 5, 0, $1A, $AC
+	dc.b	4, 5, 0, $1E, $BC
+	dc.b	4, 5, 0, 4, $CC
+	dc.b	4, 5, 0, $22, $DC
+	dc.b	4, 5, 0, $12, $EC
+	dc.b	4, 5, 0, $1A, $FC
+	dc.b	4, $D, 0, $26, $1C
+	dc.b	4, 9, 0, $2E, $3C
+	dc.b	4, 5, 0, $4E, $5C
+	even
+
+RetainedResultsGoodHeader:
+	dc.b	$E
+	dc.b	$EC, 5, 0, 0, $80
+	dc.b	$EC, 5, 0, 4, $90
+	dc.b	$EC, 5, 0, 8, $A0
+	dc.b	$EC, 1, 0, $C, $B0
+	dc.b	$EC, 5, 0, $E, $B8
+	dc.b	$EC, 5, 0, $36, $D0
+	dc.b	$EC, 5, 0, $3A, $E0
+	dc.b	$EC, 5, 0, $3E, $F0
+	dc.b	$EC, 5, 0, $42, 0
+	dc.b	$EC, 5, 0, $3A, $20
+	dc.b	$EC, 5, 0, $12, $40
+	dc.b	$EC, 5, 0, 4, $50
+	dc.b	$EC, 5, 0, 4, $60
+	dc.b	$EC, 5, 0, $3E, $70
+	even
+
+RetainedResultsGoodAct1:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 1, 0, $34, $68
+	even
+
+RetainedResultsGoodAct2:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4A, $68
+	even
+
+RetainedResultsGoodAct3:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4E, $68
+	even
+
+RetainedResultsScore:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 1, $BF, $48
+	dc.b	$E0, $D, 1, $C5, $60
+	even
+
+RetainedResultsSSZ3Score:
+	dc.b	$E
+	dc.b	$E0, $D, 0, $52, $D4
+	dc.b	$E0, 1, 0, $5A, $F4
+	dc.b	$F8, $D, 0, $5C, $D4
+	dc.b	$F8, $D, 0, $64, $FC
+	dc.b	$F8, 5, 0, $6C, $1C
+	dc.b	$10, $D, 0, $70, $D4
+	dc.b	$10, $D, 0, $64, $FC
+	dc.b	$10, 5, 0, $6C, $1C
+	dc.b	$F8, $D, 0, $82, $58
+	dc.b	$F8, 1, 0, $8A, $78
+	dc.b	$10, $D, 0, $78, $58
+	dc.b	$10, 1, 0, $80, $78
+	dc.b	$E0, 9, 2, $91, $48
+	dc.b	$E0, $D, 2, $97, $60
+	even
+
+	dc.b	1, $30, 2, $28, 1, $68, 1, $5A, 1
 	dc.b	0, 2, $38, 1, $78, 2, $5A, 1, 0, 2, $40, 1, $80, 2, $5A, 1
 	dc.b	0, 2, $48, 1, $88, 2, $5A, 1, $20, 2, $30, 1, $70, 3, $5A
 	dc.b	1, $40, 2, $48, 1, $88, 4, $5A, 1, 0, 1, $D0, 1, $10, 7, $5A
