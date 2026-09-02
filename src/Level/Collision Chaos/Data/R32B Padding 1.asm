@@ -42,7 +42,8 @@
 ; +$0A12-+$0A21  retained stage descriptor
 ; +$0A22-+$0A47 retained nineteen-entry stage/PLC offset table
 ; +$0A48-+$0A55 retained Stage PLC
-; +$0A56 onward  retained stage/PLC bodies still to be structured
+; +$0A56-+$0AB1 retained Standard PLC
+; +$0AB2 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -937,25 +938,42 @@ R32BRetainedAct1PresentStagePLC:
 	dc.l	$002335E8		; stage blocks
 	dc.w	$D960			; VRAM destination
 
-	dc.b	0, $E, 0, $22, $F8, $FC, $60
-	dcb.b	2,0
-	dc.b	$23, $D, $A2, $6C
-	dcb.b	2,0
-	dc.b	$23, $39, $8C, $7A
-	dcb.b	2,0
-	dc.b	$23, $60, $D6, $8D, $40, 0, $23, $63, $EC, $92, $A0, 0, $23
-	dc.b	$47, $9A, $93, $A0, 0, $23, $4A, 0, $99, $C0, 0, $23, $1E
-	dc.b	$2E, $9E, $40, 0, $23, $21, $3A, $A4
-	dcb.b	2,0
-	dc.b	$23, $34, $BC, $AD
-	dcb.b	2,0
-	dcb.b	2,$23
-	dc.b	$5C, $B5
-	dcb.b	2,0
-	dc.b	$23, $29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, 2, 0, $23, $57, $F0, $63, $C0, 0, $23
+
+; Fifteen-entry Standard PLC; pointers retain their historical absolute values.
+R32BRetainedAct1PresentStandardPLC:
+	dc.w	$E			; entry count minus one
+	dc.l	$0022F8FC		; animals
+	dc.w	$6000
+	dc.l	$00230DA2		; title card
+	dc.w	$6C00
+	dc.l	$0023398C		; title-card text
+	dc.w	$7A00
+	dc.l	$002360D6		; Tentou
+	dc.w	$8D40
+	dc.l	$002363EC		; spike bomb
+	dc.w	$92A0
+	dc.l	$0023479A		; flipper
+	dc.w	$93A0
+	dc.l	$00234A00		; bumper
+	dc.w	$99C0
+	dc.l	$00231E2E		; diagonal spring
+	dc.w	$9E40
+	dc.l	$0023213A		; springs
+	dc.w	$A400
+	dc.l	$002334BC		; HUD
+	dc.w	$AD00
+	dc.l	$0023235C		; monitor and time posts
+	dc.w	$B500
+	dc.l	$00232960		; explosions
+	dc.w	$D000
+	dc.l	$0022EDE6		; points
+	dc.w	$D8C0
+	dc.l	$00233732		; flower
+	dc.w	$DAE0
+	dc.l	$00232E48		; rings
+	dc.w	$F5C0
+
+	dc.b	0, 2, 0, $23, $57, $F0, $63, $C0, 0, $23
 	dc.b	$4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0, 0, $B, 0
 	dc.b	$23, $4D, $3A, $63, $C0, 0, $23, $4E, $AC, $67, $C0, 0, $23
 	dc.b	$4C, $14, $69, $C0, 0, $23, $67, 2, $6B, $C0, 0, $23, $50
