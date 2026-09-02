@@ -83,7 +83,8 @@
 ; +$0EA6-+$0EB3 retained historical Act 3 Good Future Boss PLC
 ; +$0EB4-+$0EBB retained historical Act 3 Good Future Results PLC
 ; +$0EBC-+$0EC3 retained historical Act 3 Good Future Capsule PLC
-; +$0EC4 onward  retained stage/PLC bodies still to be structured
+; +$0EC4-+$0ED9 retained truncated DEMO11A Main-PLC tail
+; +$0EDA onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1489,10 +1490,18 @@ R32BRetainedPalmtreeAct3GoodFutureCapsulePLC:
 	dc.l	$0022EE4A
 	dc.w	$9020
 
-	dc.b	$29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, $B, 0, $23, $3B, $22, $60
+
+; Truncated DEMO11A Main-PLC tail; the first record begins mid-entry.
+R32BRetainedDemoR11AMainPLCTail:
+	dc.w	$2960, $D000
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+	dc.b	0, $B, 0, $23, $3B, $22, $60
 	dcb.b	2,0
 	dc.b	$23, $3F, $3E, $67
 	dcb.b	2,0
