@@ -11,7 +11,8 @@
 ; +$00F2-+$00FF  retained Stage PLC
 ; +$0100-+$015B  retained Standard PLC
 ; +$015C-+$01AB  retained Section 0 PLC
-; +$01AC onward  retained PLC/data bodies still to be structured
+; +$01AC-+$01FB  retained Section 1 PLC
+; +$01FC onward  retained PLC/data bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -96,7 +97,8 @@ R32BRetainedAct2PastPLCOffsets:
 	dc.w	R32BRetainedAct2PastStandardPLC-R32BRetainedAct2PastPLCOffsets	; Standard
 	dc.w	R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Section 0
 	dc.w	R32BRetainedAct2PastStagePLC-R32BRetainedAct2PastPLCOffsets	; Stage
-	dc.w	$00E0, $0130, $0138	; Sections 1-3
+	dc.w	R32BRetainedAct2PastSection1PLC-R32BRetainedAct2PastPLCOffsets
+	dc.w	$0130, $0138	; Sections 2-3
 	dcb.w	4,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Updates 0-3
 	dcb.w	2,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets	; Intro, Tentou
 	dcb.w	3,R32BRetainedAct2PastSection0PLC-R32BRetainedAct2PastPLCOffsets
@@ -176,14 +178,37 @@ R32BRetainedAct2PastSection0PLC:
 	dc.l	$00235BD6		; Ga
 	dc.w	$8420
 
+; Thirteen-entry second section PLC.
+R32BRetainedAct2PastSection1PLC:
+	dc.w	$C			; entry count minus one
+	dc.l	$00234D3A		; spikes
+	dc.w	$63C0
+	dc.l	$00234EAC		; block
+	dc.w	$67C0
+	dc.l	$00234C14		; metal platform
+	dc.w	$69C0
+	dc.l	$00236702		; bounce platform
+	dc.w	$6BC0
+	dc.l	$00235246		; rotating platform
+	dc.w	$6D40
+	dc.l	$002367D6		; smashed glass
+	dc.w	$7160
+	dc.l	$00234F90		; retracting block
+	dc.w	$73E0
+	dc.l	$002364AE		; teleporter
+	dc.w	$75E0
+	dc.l	$002365C6		; pocket points
+	dc.w	$75E0
+	dc.l	$002368A2		; spike ball
+	dc.w	$77A0
+	dc.l	$00236AC6		; animals
+	dc.w	$7B40
+	dc.l	$00235452		; KamaKama
+	dc.w	$7E40
+	dc.l	$00235BD6		; Ga
+	dc.w	$8420
+
 ; Remaining retained PLC/data bodies.
-	dc.b	0, $C, 0, $23, $4D, $3A, $63
-	dc.b	$C0, 0, $23, $4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0
-	dc.b	0, $23, $67, 2, $6B, $C0, 0, $23, $52, $46, $6D, $40, 0, $23
-	dc.b	$67, $D6, $71, $60, 0, $23, $4F, $90, $73, $E0, 0, $23, $64
-	dc.b	$AE, $75, $E0, 0, $23, $65, $C6, $75, $E0, 0, $23, $68, $A2
-	dc.b	$77, $A0, 0, $23, $6A, $C6, $7B, $40, 0, $23, $54, $52, $7E
-	dc.b	$40, 0, $23, $5B, $D6, $84, $20
 	dcb.b	3,0
 	dc.b	$23, $69, $7A, $6D, $40
 	dcb.b	3,0
