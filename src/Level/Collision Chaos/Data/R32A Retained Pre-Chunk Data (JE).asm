@@ -11,7 +11,7 @@
 ; $20FCF4-$20FDE9  truncated tail of an earlier orphaned PLC graph (unresolved)
 ; $20FDEA-$20FDEF  orphaned absolute-jump trampoline
 ; $20FDF0-$20FEA9  orphaned Palmtree Panic Act 3 Bad Future stage/PLC graph
-; $20FEAA-$20FECB  retained tables between orphaned units (unresolved)
+; $20FEAA-$20FECB  truncated Quartz Quadrant break-wall fragment tables
 ; $20FECC-$20FED1  orphaned absolute-jump trampoline
 ; $20FED2-$20FF8B  orphaned Palmtree Panic Act 3 Good Future stage/PLC graph
 ; $20FF8C-$20FFA1  truncated DEMO11A main-PLC suffix
@@ -987,12 +987,20 @@ RetainedPalmtreeAct3BadFuturePLCLists:
 	dc.w	0
 	dc.l	$0022EE4A
 	dc.w	$9020
-	dcb.b	3,0
-	dc.b	$10, 2, 3, 4
-	dcb.b	3,5
-	dc.b	$FF, $FD, 9, $7C, $FF, $FE, $B7, $50, $FF, $FC, $25, $EE
-	dcb.b	4,0
-	dc.b	$FF, $FD, 9, $7C, 0, 1, $48, $B0
+
+; Tail of the Quartz Quadrant break-wall fragment tables. The original first
+; Y-offset word (-$10) is outside this retained slice; the two remaining words
+; place the centre and lower fragments. A nonzero subtype selects the second
+; three-byte frame set. Each velocity row is signed 16.16 X followed by Y.
+RetainedQuartzBreakWallYOffsetsTail:
+	dc.w	0, $10
+RetainedQuartzBreakWallFrames:
+	dc.b	2, 3, 4
+	dc.b	5, 5, 5
+RetainedQuartzBreakWallVelocities:
+	dc.l	-$2F684, -$148B0
+	dc.l	-$3DA12, 0
+	dc.l	-$2F684, $148B0
 
 RetainedPalmtreeAct3GoodFutureEntry:
 	jmp	$206376
