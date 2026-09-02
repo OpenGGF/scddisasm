@@ -19,7 +19,8 @@
 ; +$27BC-+$27CF  overlapping ten-entry mapping-offset table
 ; +$27D0-+$27F9  eight-piece legacy demo mapping frame 0
 ; +$27FA-+$2827  nine-piece legacy demo mapping frame 1
-; +$2828-+$29FF  retained mapping frames still to be structured
+; +$2828-+$2855  nine-piece legacy demo mapping frame 2
+; +$2856-+$29FF  retained mapping frames still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -130,7 +131,8 @@ R32ARetainedDemoMappingFragment:
 R32ARetainedDemoMappingOffsets:
 	dc.w	R32ARetainedDemoMapFrame0-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame1-R32ARetainedDemoMappingOffsets
-	dc.w	$006C, $009A, $00C8
+	dc.w	R32ARetainedDemoMapFrame2-R32ARetainedDemoMappingOffsets
+	dc.w	$009A, $00C8
 	dc.w	$00EC, $010C, $015E, $01AA, $01F2
 
 ; Eight-piece frame arranged as two columns across four rows. Each piece uses
@@ -161,11 +163,22 @@ R32ARetainedDemoMapFrame1:
 	dc.b	$F8, 5, 0, $3B, $DD
 	dc.b	8, 5, $10, $37, $ED
 
-; First byte of mapping frame 2.
-	dc.b	9, $E8, 9, 0, $11, $F3, $F8, $C, 0, $17, $E3, $F8, 4
-	dc.b	0, $1B, 3, 0, $C, $10, $17, $E3, 0, 4, $10, $1B, 3, 8, 9
-	dc.b	$10, $11, $F3, $E8, 5, 0, $37, $E6, $F8, 5, 0, $3B, $D8, 8
-	dc.b	5, $10, $37, $E6, 9, $E8, 9, 0, $1D, $ED, $F8, $C, 0, $23
+; Nine-piece frame with the same record arrangement as frame 1 and different
+; tile words/X positions. The retained bytes do not identify a narrower pose.
+R32ARetainedDemoMapFrame2:
+	dc.b	9
+	dc.b	$E8, 9, 0, $11, $F3
+	dc.b	$F8, $C, 0, $17, $E3
+	dc.b	$F8, 4, 0, $1B, 3
+	dc.b	0, $C, $10, $17, $E3
+	dc.b	0, 4, $10, $1B, 3
+	dc.b	8, 9, $10, $11, $F3
+	dc.b	$E8, 5, 0, $37, $E6
+	dc.b	$F8, 5, 0, $3B, $D8
+	dc.b	8, 5, $10, $37, $E6
+
+; First byte of mapping frame 3.
+	dc.b	9, $E8, 9, 0, $1D, $ED, $F8, $C, 0, $23
 	dc.b	$E5, $F8
 	dcb.b	2,0
 	dc.b	$10, 5, 0, $C, $10, $23, $E5
