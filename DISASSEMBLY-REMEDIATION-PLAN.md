@@ -448,6 +448,7 @@ opaque merely because they use `dc.*`.
 | M239 | Complete | Replace the byte-identical R32B post-chunk stream with the structured shared R32A provider. | J/U/E 133/133 each; audit/hygiene clean. |
 | M240 | Complete | Replace the retained R32B Padding 3 prefix with the exact tail of the shared R12C Nemesis graphics stream. | J/U/E 133/133 each; audit/hygiene clean. |
 | M241 | Complete | Structure the retained R32B Padding 3 wobble table at `$15AC-$16AB`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M242 | Complete | Structure the retained R32B Padding 3 robot-transport Nemesis stream at `$1C0C-$1DBD`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

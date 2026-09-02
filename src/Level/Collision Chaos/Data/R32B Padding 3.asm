@@ -5,7 +5,9 @@
 ; +$0000-+$1205 retained tail of the shared R12C Nemesis graphics stream
 ; +$1206-+$15AB retained data to be structured
 ; +$15AC-+$16AB retained wobble table
-; +$16AC onward retained data to be structured
+; +$16AC-+$1C0B retained data to be structured
+; +$1C0C-+$1DBD retained robot-transport Nemesis stream
+; +$1DBE onward retained data to be structured
 ;
 ; This slice begins at offset $1990 of the complete R12C graphics stream.
 R32BRetainedR12CGfxNemesisTail:
@@ -460,49 +462,13 @@ R32BRetainedWobbleTable:
 	dc.b	$44, $98, $B1, $42, $C1, $66, $8F, $FC, $20, $85, $4A, $14
 	dc.b	$10, $92, $51, $36, $2C, $50, $B3, $AB, $72, $2A, $1D, $8A
 	dc.b	$95, $9A, $89, $A8, $2B, $25, $A, $FF, $B2, $9A, $BA, $C2
-	dc.b	$55, $61, $40, $59, $B0, $98, 0, $17, $80, 5, $12, $17, $76
-	dc.b	$27, $7A, $36, $32, $46, $2F, $55, $13, $65, $F, $74, 4, $81
-	dc.b	4, 6, $15, $14, $26, $35, $37, $6F, $46, $33, $57, $6E, $67
-	dc.b	$7B, $76, $36, $86, 3, 0, $16, $31, $87, 4, 2, $17, $77, $28
-	dc.b	$FA, $36, $2E, $46, $2A, $88, 4, 3, $15, $10, $26, $39, $36
-	dc.b	$2B, $89, 5, $E, $15, $16, $26, $3A, $37, $79, $8B, 5, $11
-	dc.b	$8C, $18, $F9, $8D, 8, $F8, $16, $38, $8E, 6, $30, $16, $34
-	dc.b	$8F, 4, 5, $17, $78, $FF
-	dcb.b	4,$44
-	dc.b	$47, $C5, $E7, $38, $4E, $C8, $88, $8F, $29, $93, $91
-	dcb.b	3,$11
-	dc.b	$E7, $7F, $3E, $B9, $23, $F5, $9E, $5B, $EF, $D7, $F3, $6B
-	dc.b	$1F, $DF, $C5, $62, $B1, $FD, $7C, 8, $EE
-	dcb.b	2,$32
-	dc.b	$3F, $AF, $FC, $C9, $DB, $BA, $A3, $99, $CD, $8B, $A8, $E6
-	dc.b	$36, $3B, $53, $A6, $EA, $9E, $B3
-	dcb.b	2,$44
-	dc.b	$4C, $AB, $95, $64, $65, 2, $3B, $8E, $A1, $FD, $70, $43
-	dc.b	$6D, $FC, $7C, $E7, $C7, $E3, $3F, $BF, $8F, $F7, $F1, $A8
-	dc.b	$10, $B8, $16, $3F, $F9, $DB, $77, $5B, $DC, $61, $9D, $4B
-	dc.b	$31, $B9, $9C, $CE, $A1, $66, $E6, $12, $D7, $8F, $9E, $D4
-	dc.b	$E3, $E7, $D6, $77, $BA, $13, $71, $E5, $5C, $AB, $23, $28
-	dc.b	$11, $DC, $75, $F, $EB, $82, $1B, $6F, $D3, $8C, $F4, $F8
-	dc.b	$AF, $22, $32, $AE, $57, $19, $40, $85, $46, 8, $55, $B7
-	dc.b	$1A, $6F, $F8, $D3, $3C, $AB, $95, $64, $65, 2, $3B, $8E
-	dc.b	$A1, $FD, $70, $43, $6D, $DA, $7B, $C2, $BC, $88, $CA, $B9
-	dc.b	$5C, $65, 2, $15, $18, $21, $56, $DA, $6E, $C3, $DF, $6C
-	dc.b	$66, $A1, $EA, $88, $AF
-	dcb.b	2,$F0
-	dc.b	$F5, $B, $78, $5B, $D6, $6A, $F5, $9F, $8B, $D4, $3C, $2C
-	dc.b	$F1, $9A, $87, $84, $78, $7A, $87, $AC, $FC, $4D, $5E, $AF
-	dc.b	$57, $85, $78, $59, $AC, $C2, $DE, $A2, $78, $A4, $83, $C8
-	dc.b	$4D, $8A, $F7, $37, $7C, $AB, $CA, $B9, $43, $B7, $EA, $E4
-	dc.b	$E8, $4B, $59, $58, $E5, $66, $95, $8D, $D8, $F9, $36, $81
-	dc.b	$75, $DD, $9C, $5E, $7B, $B4, $7C, $C1, $A3, $E6, $D, $19
-	dc.b	$6E, $8A, $5F, $CF, $6F, $E4, $5B, $92, $76, $A4, $7D, $F3
-	dc.b	$23, $2A, $1C, $56, $2B, $4B, $2C, $56, $34, $D3, $DE, $1D
-	dc.b	$33, $87, $8E, $E3, $F9, $E5, $FC, $F8, $B4, $7C, $7E, $AE
-	dc.b	$9F, $AB, $DE, $71, $D5, $D0, $F2, $D6, $A2, $73, $DB, $EB
-	dc.b	$5A, $A9, $50, $FF, $38, $FF, $BB, $B9, $BB, 6, $C2, $D0
-	dc.b	$2C, $1B, $F, $62, $CD, $87, $C5, 6, $DF, $C9, $83, $1D, $D6
-	dc.b	$68, $7D, $6B, $68, $16, $E7, $18
-	dcb.b	2,0
+	dc.b	$55, $61, $40, $59, $B0, $98
+
+; Complete retained robot-transport Nemesis stream.
+R32BRetainedRobotTransportNemesis:
+	incbin	"gfx/robot_transport_b.nem"
+
+	dc.b	0
 	dc.b	$14, $80, 5, $12, $15, $13, $26, $2E, $36, $32, $45, $18
 	dc.b	$58, $F8, $66, $3A, $74, 3, $81
 	dcb.b	2,4
