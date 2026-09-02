@@ -1,13 +1,24 @@
 ; ------------------------------------------------------------------------------
-; R32B source-level padding 1
+; R32B retained data before the stage blocks/chunks
 ; Recovered from tracked historical assembly; no proprietary binary is included.
+; The filename preserves the historical `Padding 1` include contract; contents
+; are classified incrementally below rather than assumed to be alignment.
+; +$0000-+$0017  truncated title-card zone-number mapping tail
+; +$0018 onward  retained executable/data graph still to be structured
 ; ------------------------------------------------------------------------------
 
-	dc.b	0, $A2, $30
-	dcb.b	3,0
-	dc.b	$70, 8, 0, 3, 0, $71, 0, $20, 2, 0, $75, 0, $30
-	dcb.b	2,0
-	dc.b	$70, 8, 0, $4E, $B9, 0, $20, $64, $DE, $53, $38, $F6, $6C
+; The count, first complete piece, and first two bytes of piece 2 precede this
+; retained range. Four complete standard Y/size/tile/X records then remain.
+R32BRetainedTitleCardZoneNumberTail:
+	dc.b	0, $A2, $30		; tile high/low and X of piece 2
+	dc.b	0, 0, 0, $70, 8
+	dc.b	0, 3, 0, $71, 0
+	dc.b	$20, 2, 0, $75, 0
+	dc.b	$30, 0, 0, $70, 8
+	dc.b	0			; alignment
+
+; First instruction of the following retained executable fragment.
+	dc.b	$4E, $B9, 0, $20, $64, $DE, $53, $38, $F6, $6C
 	dc.b	$6A
 	dcb.b	2,0
 	dc.b	$86, $11, $FC, 0, $A, $F6, $6C, $70, 0, $10, $38, $F6, $66
