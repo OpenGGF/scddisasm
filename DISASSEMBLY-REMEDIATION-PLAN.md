@@ -420,6 +420,7 @@ opaque merely because they use `dc.*`.
 | M211 | Complete | Structure the retained DEMO11A Cam 3 incremental PLC at `$0CB2-$0CDD`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M212 | Complete | Structure the retained DEMO11A Cam 4 incremental PLC at `$0CDE-$0D03`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M213 | Complete | Structure the retained DEMO11A Cam 5 incremental PLC at `$0D04-$0D11`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M214 | Complete | Structure the retained DEMO11A graph Results PLC at `$0D12-$0D19`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

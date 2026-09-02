@@ -61,7 +61,9 @@
 ; +$0C9E-+$0CB1 retained DEMO11A Cam 2 incremental PLC
 ; +$0CB2-+$0CDD retained DEMO11A Cam 3 incremental PLC
 ; +$0CDE-+$0D03 retained DEMO11A Cam 4 incremental PLC
-; +$0D04 onward  retained stage/PLC bodies still to be structured
+; +$0D04-+$0D11 retained DEMO11A Cam 5 incremental PLC
+; +$0D12-+$0D19 retained DEMO11A graph Results PLC
+; +$0D1A onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1274,8 +1276,14 @@ R32BRetainedDemoR11ACam5IncrementalPLC:
 	dc.l	$0023846C		; withered robot-generator art
 	dc.w	$8120
 
-	dcb.b	3,0
-	dc.b	$23, $28, $76, $78, $80, 0, 2, 0, $23, $22, $9A, $87, $80
+
+; One-entry DEMO11A Palmtree Panic Act 1 Present graph Results PLC.
+R32BRetainedDemoR11ACamGraphResultsPLC:
+	dc.w	0			; entry count minus one
+	dc.l	$00232876		; Results art
+	dc.w	$7880
+
+	dc.b	0, 2, 0, $23, $22, $9A, $87, $80
 	dc.b	0, $23, $1C, $D0, $91
 	dcb.b	2,0
 	dc.b	$20, $DB, $4A, $7D, $E0, $4E, $F9, 0, $20, $62, $94, 3, $23
