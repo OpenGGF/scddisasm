@@ -57,7 +57,8 @@
 ; +$0C24-+$0C37 retained Signpost PLC
 ; +$0C38-+$0C57 retained DEMO11A Cam 4 full-PLC tail
 ; +$0C58-+$0C77 retained DEMO11A Cam 5 full PLC
-; +$0C78 onward  retained stage/PLC bodies still to be structured
+; +$0C78-+$0C9D retained DEMO11A Cam 1 incremental PLC
+; +$0C9E onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1197,13 +1198,24 @@ R32BRetainedDemoR11ACam5FullPLC:
 	dc.l	$002320DA		; goal-post art
 	dc.w	$9EE0
 
-	dc.b	0, 5, 0, $23
-	dc.b	$64, $C2, $6E, $80, 0, $23, $81, $C0, $71
-	dcb.b	2,0
-	dc.b	$23, $70, $2A, $74
-	dcb.b	2,0
-	dc.b	$23, $6E, $46, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23
-	dc.b	$AE, 2, $88, $20, 0, 2, 0, $23, $73, $78, $76
+
+; Six-entry DEMO11A Palmtree Panic Act 1 Present Cam 1 incremental PLC.
+R32BRetainedDemoR11ACam1IncrementalPLC:
+	dc.w	5			; entry count minus one
+	dc.l	$002364C2		; boulder art
+	dc.w	$6E80
+	dc.l	$002381C0		; Animals art
+	dc.w	$7100
+	dc.l	$0023702A		; Mosqui art
+	dc.w	$7400
+	dc.l	$00236E46		; Anton art
+	dc.w	$8120
+	dc.l	$0023AC7A		; 3D-plant art
+	dc.w	$8480
+	dc.l	$0023AE02		; 3D ramp/boost art
+	dc.w	$8820
+
+	dc.b	0, 2, 0, $23, $73, $78, $76
 	dcb.b	2,0
 	dc.b	$23, $6E, $46, $81, $20, 0, $23, $79, $50, $85
 	dcb.b	2,0

@@ -415,6 +415,7 @@ opaque merely because they use `dc.*`.
 | M206 | Complete | Structure the retained Signpost PLC at `$0C24-$0C37`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M207 | Complete | Structure the retained DEMO11A Cam 4 full-PLC tail at `$0C38-$0C57`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M208 | Complete | Structure the retained DEMO11A Cam 5 full PLC at `$0C58-$0C77`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M209 | Complete | Structure the retained DEMO11A Cam 1 incremental PLC at `$0C78-$0C9D`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
