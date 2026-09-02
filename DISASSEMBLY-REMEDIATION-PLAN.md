@@ -437,6 +437,7 @@ opaque merely because they use `dc.*`.
 | M228 | Complete | Structure the retained historical Act 3 Good Future 19-slot PLC offset table at `$0E1A-$0E3F`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M229 | Complete | Structure the retained historical Act 3 Good Future Stage PLC at `$0E40-$0E4D`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M230 | Complete | Structure the retained historical Act 3 Good Future Main PLC at `$0E4E-$0E8B`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M231 | Complete | Structure the retained historical Act 3 Good Future Section PLC at `$0E8C-$0EA5`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
