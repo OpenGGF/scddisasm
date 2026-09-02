@@ -370,6 +370,7 @@ opaque merely because they use `dc.*`.
 | M161 | Complete | Structure the nineteen-entry R32B PLC-offset table at `$00CC-$00F1`; expose its first body at `$00F2`. | First offset proves table size; standard PLC slot contract corroborates roles; J/U/E 133/133 each; audit/hygiene clean. |
 | M162 | Complete | Structure the R32B Stage PLC at `$00F2-$00FF`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M163 | Complete | Structure the R32B Standard PLC at `$0100-$015B`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M164 | Complete | Structure the R32B Section 0 PLC at `$015C-$01AB`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
