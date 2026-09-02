@@ -18,7 +18,8 @@
 ; +$0214-+$0227  retained Signpost PLC
 ; +$0228-+$025B  retained Act 1 Present section-PLC tail
 ; +$025C-+$0263  retained duplicate Results PLC
-; +$0264 onward  retained data still to be structured
+; +$0264-+$0277  retained duplicate Signpost PLC
+; +$0278 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -271,11 +272,18 @@ R32BRetainedAct1PresentResultsPLC:
 	dc.l	$00230098		; Results art
 	dc.w	$7880
 
-; Remaining retained data.
-	dc.b	0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2, $91
-	dcb.b	2,0
-	dc.b	$20, $DC, $6E, $7D, $E0, $33, $72, $20, 2, 0, $2C, $33, $72
+; Duplicate retained Signpost PLC from the Act 1 Present graph.
+R32BRetainedAct1PresentSignpostPLC:
+	dc.w	2			; entry count minus one
+	dc.l	$0022FABC		; signpost
+	dc.w	$8780
+	dc.l	$0022F4F2		; big ring
+	dc.w	$9100
+	dc.l	$0020DC6E		; big-ring flash
+	dc.w	$7DE0
+
+; Retained title-card code and later data.
+	dc.b	$33, $72, $20, 2, 0, $2C, $33, $72
 	dc.b	$20, 4, 0, $2A, $13, $72, $20, 6, 0, $1A, $C, 1, 0, 5, $66
 	dc.b	$A, $16, $39, 0, $FF, $15, 7, $D7, $29, 0, $1A, $13, $72
 	dc.b	$20, 7, 0, $1E, $52, 1, $51, $CE, $FF, $A4, $4E, $75, $70
