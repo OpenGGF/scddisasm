@@ -6,7 +6,8 @@
 ; $20F30A-$20F311  complete retained Results PLC
 ; $20F312-$20F325  complete retained Signpost PLC
 ; $20F326-$20F41F  orphaned title-card executable fragment
-; $20F420-$20FFFF  retained executable/data units (still to be classified)
+; $20F420-$20F44B  orphaned Results dispatcher and delayed-load state
+; $20F44C-$20FFFF  retained executable/data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -144,14 +145,33 @@ USARetainedTitleCardWaitPLC:
 .End:
 	rts
 
-; Start of the following retained Results dispatcher. Its continuation remains
-; deliberately bounded for the next milestone.
-USARetainedResultsPrefix:
+; Start of an orphaned Results state machine. No live code points to this
+; dispatcher. Table entries are byte-routine offsets relative to .Index; the
+; later destinations remain numeric until their raw bodies are recovered.
+USARetainedResults:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	dc.b	$30, $3B, $00, $06, $4E, $FB, $00, $02, $00, $0A, $00, $1E, $00, $EA, $01, $24
-	dc.b	$01, $D8, $53, $28, $00, $32, $67, $02, $4E, $75, $70, $10, $4E, $B9, $00, $20
-	dc.b	$24, $4C, $54, $28, $00, $24, $4A, $B8, $F6, $80, $66, $1C, $0C, $79, $05, $02
+	move.w	.Index(pc,d0.w),d0
+	jmp	.Index(pc,d0.w)
+.Index:
+	dc.w	USARetainedResultsInit-.Index
+	dc.w	$001E			; PLC-wait state
+	dc.w	$00EA			; movement state
+	dc.w	$0124			; bonus-tally state
+	dc.w	$01D8			; next-level state
+
+USARetainedResultsInit:
+	subq.b	#1,oResultsTimer(a0)
+	beq.s	.LoadPLC
+	rts
+.LoadPLC:
+	moveq	#$10,d0
+	jsr	LoadPLC
+	addq.b	#2,oRoutine(a0)
+
+; The next state is the exact boundary for the following milestone.
+USARetainedResultsWaitPLC:
+	dc.b	$4A, $B8, $F6, $80, $66, $1C, $0C, $79, $05, $02
 	dc.b	$00, $FF, $15, $06, $67, $14, $4D, $F8, $D0, $00, $30, $38, $F7, $00, $06, $40
 	dc.b	$01, $50, $B0, $6E, $00, $08, $65, $02, $4E, $75, $45, $F9, $00, $20, $F6, $E0
 	dc.b	$7C, $02, $72, $00, $22, $48, $31, $7C, $01, $E0, $00, $32, $60, $06, $4E, $B9
