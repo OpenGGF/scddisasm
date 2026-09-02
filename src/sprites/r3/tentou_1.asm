@@ -3,11 +3,13 @@
 ; ------------------------------------------------------------------------------
 
 .Sprites:
-	dc.w .Sprite0-.Sprites
-	dc.w .Sprite1-.Sprites
-	dc.w .Sprite2-.Sprites
+	dc.w .FlightA-.Sprites
+	dc.w .FlightB-.Sprites
+	dc.w .FlightC-.Sprites
 
-.Sprite0:
+; Each frame starts with a piece count, followed by five-byte sprite pieces:
+; Y offset, size, tile attributes, tile index, and X offset.
+.FlightA:
 	dc.b 7
 	dc.b $F0, 8, 0, 0, $F8
 	dc.b $F8, $C, 0, 3, $F0
@@ -18,7 +20,7 @@
 	dc.b 8, 4, 0, $D, $F8
 	even
 
-.Sprite1:
+.FlightB:
 	dc.b 7
 	dc.b $F0, $D, 0, $F, $F0
 	dc.b 0, 4, 0, 7, $F0
@@ -29,7 +31,7 @@
 	dc.b 8, 0, 0, $19, 8
 	even
 
-.Sprite2:
+.FlightC:
 	dc.b 7
 	dc.b $F0, $D, 0, $1A, $F0
 	dc.b 0, 4, 0, 7, $F0

@@ -3,9 +3,10 @@
 ; ------------------------------------------------------------------------------
 
 .Anims:
-	dc.w .Anim0-.Anims
+	dc.w .Flash-.Anims
 
-.Anim0:
+; Delay, two fuse frames, then loop.
+.Flash:
 	dc.b 1
 	dc.b 0, 1
 	dc.b $FF

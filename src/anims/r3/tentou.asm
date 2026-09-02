@@ -3,9 +3,10 @@
 ; ------------------------------------------------------------------------------
 
 .Anims:
-	dc.w .Anim0-.Anims
+	dc.w .Flight-.Anims
 
-.Anim0:
+; Delay, three flight frames, then loop.
+.Flight:
 	dc.b 3
 	dc.b 0, 1, 2
 	dc.b $FF

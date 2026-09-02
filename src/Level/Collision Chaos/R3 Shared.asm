@@ -15,6 +15,8 @@ R3_SEMANTIC_RESULTS	EQU	1
 R3_SEMANTIC_TELEPORTER EQU	1
 R3_SEMANTIC_POCKET	EQU	1
 CC_LEGACY_POCKET_ABI	EQU	1
+R3_SEMANTIC_TENTOU	EQU	1
+CC_LEGACY_TENTOU_ABI	EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -90,7 +92,7 @@ CC_VARIANT	EQU	3
 	include	"Level/Collision Chaos/Objects/Pocket/Main.asm"
 	include	"objects/r3/drain_switch.asm"
 	include	"objects/r3/drain_block.asm"
-	include	"objects/r3/tentou.asm"
+	include	"Level/Collision Chaos/Objects/Tentou/Main.asm"
 	include	"objects/r3/spike_chain.asm"
 
 	if R3_VARIANT=1

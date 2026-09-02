@@ -10,6 +10,25 @@ oTentouBaseY	EQU	oVar32
 oTentouPhase	EQU	oVar36
 oTentouHorizontalVelocity	EQU	oVar2A
 
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+TentouGetFloorDist	EQU	CheckBlockDown
+TentouGetLeftWallDist	EQU	CheckBlockLeft
+TentouGetRightWallDist	EQU	CheckBlockRight
+TentouGetFloorDist2	EQU	CheckBlockDown2
+		else
+TentouGetFloorDist	EQU	ObjGetFloorDist
+TentouGetLeftWallDist	EQU	ObjGetLWallDist
+TentouGetRightWallDist	EQU	ObjGetRWallDist
+TentouGetFloorDist2	EQU	ObjGetFloorDist2
+		endif
+	else
+TentouGetFloorDist	EQU	ObjGetFloorDist
+TentouGetLeftWallDist	EQU	ObjGetLWallDist
+TentouGetRightWallDist	EQU	ObjGetRWallDist
+TentouGetFloorDist2	EQU	ObjGetFloorDist2
+	endif
+
 ; -------------------------------------------------------------------------
 
 ObjTentou:
@@ -39,22 +58,30 @@ ObjTentou_Parent:
 	jsr	DestroyOnGoodFuture
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjTentou_Parent_Index(pc,d0.w),d0
-	jsr	ObjTentou_Parent_Index(pc,d0.w)
+	move.w	ObjTentou_Parent_Routines(pc,d0.w),d0
+	jsr	ObjTentou_Parent_Routines(pc,d0.w)
 	lea	Ani_Tentou(pc),a1
 	jsr	AnimateObject
 	jsr	DrawObject
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+	jmp	CheckObjectDespawn
+		else
 	jmp	CheckObjDespawn
+		endif
+	else
+	jmp	CheckObjDespawn
+	endif
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Parent_Index:
-	dc.w	ObjTentou_Init-ObjTentou_Parent_Index
-	dc.w	ObjTentou_Routine2-ObjTentou_Parent_Index
-	dc.w	ObjTentou_Routine4-ObjTentou_Parent_Index
-	dc.w	ObjTentou_Routine6-ObjTentou_Parent_Index
-	dc.w	ObjTentou_Routine8-ObjTentou_Parent_Index
-	dc.w	ObjTentou_RoutineA-ObjTentou_Parent_Index
+ObjTentou_Parent_Routines:
+	dc.w	ObjTentou_Init-ObjTentou_Parent_Routines
+	dc.w	ObjTentou_FindFloor-ObjTentou_Parent_Routines
+	dc.w	ObjTentou_WaitForPlayer-ObjTentou_Parent_Routines
+	dc.w	ObjTentou_Move-ObjTentou_Parent_Routines
+	dc.w	ObjTentou_RiseAfterWall-ObjTentou_Parent_Routines
+	dc.w	ObjTentou_CrossGap-ObjTentou_Parent_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -77,9 +104,9 @@ ObjTentou_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Routine2:
+ObjTentou_FindFloor:
 	addi.l	#$10000,oY(a0)
-	jsr	ObjGetFloorDist
+	jsr	TentouGetFloorDist
 	subq.w	#8,d1
 	bgt.s	.End
 	sub.w	d1,oY(a0)
@@ -96,7 +123,7 @@ ObjTentou_Routine2:
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Routine4:
+ObjTentou_WaitForPlayer:
 	bsr.w	ObjTentou_Bob
 	lea	objPlayerSlot.w,a1
 	move.w	oY(a0),d0
@@ -123,7 +150,7 @@ ObjTentou_Routine4:
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Routine6:
+ObjTentou_Move:
 	move.l	oTentouHorizontalVelocity(a0),d0
 	add.l	d0,oX(a0)
 	move.l	oTentouBaseY(a0),oY(a0)
@@ -131,38 +158,38 @@ ObjTentou_Routine6:
 	move.b	oXRadius(a0),d3
 	if def(CC_LEGACY_TENTOU_ABI)
 		if CC_LEGACY_TENTOU_ABI<>0
-	lea	ObjGetLWallDist,a1
+	lea	TentouGetLeftWallDist,a1
 	tst.l	oTentouHorizontalVelocity(a0)
 	bmi.s	.CheckWall
-	lea	ObjGetRWallDist,a1
+	lea	TentouGetRightWallDist,a1
 
 .CheckWall:
 	jsr	(a1)
 		else
 	tst.l	oTentouHorizontalVelocity(a0)
 	bmi.s	.CheckLeft
-	jsr	ObjGetRWallDist
+	jsr	TentouGetRightWallDist
 	bra.s	.CheckWall
 
 .CheckLeft:
-	jsr	ObjGetLWallDist
+	jsr	TentouGetLeftWallDist
 
 .CheckWall:
 		endif
 	else
 	tst.l	oTentouHorizontalVelocity(a0)
 	bmi.s	.CheckLeft
-	jsr	ObjGetRWallDist
+	jsr	TentouGetRightWallDist
 	bra.s	.CheckWall
 
 .CheckLeft:
-	jsr	ObjGetLWallDist
+	jsr	TentouGetLeftWallDist
 
 .CheckWall:
 	endif
 	tst.w	d1
 	bmi.s	.HitWall
-	jsr	ObjGetFloorDist
+	jsr	TentouGetFloorDist
 	cmpi.w	#$10,d1
 	bge.s	.HitFloor
 	subq.w	#8,d1
@@ -173,7 +200,15 @@ ObjTentou_Routine6:
 	beq.s	.End
 	andi.w	#$7F,oTentouPhase(a0)
 	bne.s	.End
+	if def(CC_LEGACY_TENTOU_ABI)
+		if CC_LEGACY_TENTOU_ABI<>0
+	jsr	SpawnObject
+		else
 	jsr	FindObjSlot
+		endif
+	else
+	jsr	FindObjSlot
+	endif
 	bne.s	.End
 	move.b	oID(a0),oID(a1)
 	move.l	oX(a0),oX(a1)
@@ -196,13 +231,13 @@ ObjTentou_Routine6:
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Routine8:
+ObjTentou_RiseAfterWall:
 	addi.l	#-$8000,oY(a0)
 	rts
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_RoutineA:
+ObjTentou_CrossGap:
 	move.l	oTentouHorizontalVelocity(a0),d0
 	add.l	d0,oX(a0)
 	move.w	oX(a0),d3
@@ -215,7 +250,7 @@ ObjTentou_RoutineA:
 	add.w	d4,d3
 
 .CheckFloor:
-	jsr	ObjGetFloorDist2
+	jsr	TentouGetFloorDist2
 	cmpi.w	#$10,d1
 	blt.s	.End
 	addi.b	#-8,oRoutine(a0)
@@ -299,18 +334,18 @@ MapSpr_Tentou2:
 ObjTentou_Bomb:
 	moveq	#0,d0
 	move.b	oRoutine(a0),d0
-	move.w	ObjTentou_Bomb_Index(pc,d0.w),d0
-	jsr	ObjTentou_Bomb_Index(pc,d0.w)
+	move.w	ObjTentou_Bomb_Routines(pc,d0.w),d0
+	jsr	ObjTentou_Bomb_Routines(pc,d0.w)
 	jmp	DrawObject
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Bomb_Index:
-	dc.w	ObjTentou_Bomb_Init-ObjTentou_Bomb_Index
-	dc.w	ObjTentou_Bomb_Routine2-ObjTentou_Bomb_Index
-	dc.w	ObjTentou_Bomb_Routine4-ObjTentou_Bomb_Index
-	dc.w	ObjTentou_Bomb_Routine6-ObjTentou_Bomb_Index
-	dc.w	ObjTentou_Bomb_Explode-ObjTentou_Bomb_Index
+ObjTentou_Bomb_Routines:
+	dc.w	ObjTentou_Bomb_Init-ObjTentou_Bomb_Routines
+	dc.w	ObjTentou_Bomb_Fall-ObjTentou_Bomb_Routines
+	dc.w	ObjTentou_Bomb_Arm-ObjTentou_Bomb_Routines
+	dc.w	ObjTentou_Bomb_Fuse-ObjTentou_Bomb_Routines
+	dc.w	ObjTentou_Bomb_Explode-ObjTentou_Bomb_Routines
 
 ; -------------------------------------------------------------------------
 
@@ -327,11 +362,11 @@ ObjTentou_Bomb_Init:
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Bomb_Routine2:
+ObjTentou_Bomb_Fall:
 	tst.b	oColStatus(a0)
 	bne.s	ObjTentou_Bomb_Explode
 	addi.l	#$10000,oY(a0)
-	jsr	ObjGetFloorDist
+	jsr	TentouGetFloorDist
 	tst.w	d1
 	bpl.s	.End
 	add.w	d1,oY(a0)
@@ -343,7 +378,7 @@ ObjTentou_Bomb_Routine2:
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Bomb_Routine4:
+ObjTentou_Bomb_Arm:
 	tst.b	oColStatus(a0)
 	bne.s	ObjTentou_Bomb_Explode
 	if def(CC_LEGACY_TENTOU_ABI)
@@ -364,7 +399,7 @@ ObjTentou_Bomb_Routine4:
 
 ; -------------------------------------------------------------------------
 
-ObjTentou_Bomb_Routine6:
+ObjTentou_Bomb_Fuse:
 	tst.b	oColStatus(a0)
 	bne.s	ObjTentou_Bomb_Explode
 	if def(CC_LEGACY_TENTOU_ABI)

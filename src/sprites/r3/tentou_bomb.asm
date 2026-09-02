@@ -3,15 +3,16 @@
 ; ------------------------------------------------------------------------------
 
 .Sprites:
-	dc.w .Sprite0-.Sprites
-	dc.w .Sprite1-.Sprites
+	dc.w .FuseA-.Sprites
+	dc.w .FuseB-.Sprites
 
-.Sprite0:
+; Each frame is one five-byte sprite piece after the piece count.
+.FuseA:
 	dc.b 1
 	dc.b $F8, 5, 0, 0, $F8
 	even
 
-.Sprite1:
+.FuseB:
 	dc.b 1
 	dc.b $F8, 5, 0, 4, $F8
 
