@@ -32,7 +32,8 @@
 ; +$0828-+$08B7  retained standard and SSZ3 Results score frames
 ; +$08B8-+$08F7  retained title-card element records
 ; +$08F8-+$0909  retained title-card mapping-offset table
-; +$090A onward  retained data still to be structured
+; +$090A-+$0929  retained title-card backdrop mapping frame
+; +$092A onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -791,20 +792,18 @@ R32BRetainedTitleCardMappings:
 	dc.w	$0012, $0032, $003E, $004A, $0064, $0088, $00AC, $00D0, $00F4
 
 ; Remaining retained title-card mapping frames.
-	dc.b	6, $90, $F
-	dcb.b	2,0
-	dc.b	$F0, $B0, $F
-	dcb.b	2,0
-	dc.b	$F0, $D0, $F
-	dcb.b	2,0
-	dcb.b	2,$F0
-	dc.b	$F
-	dcb.b	2,0
-	dc.b	$F0, $10, $F
-	dcb.b	2,0
-	dc.b	$F0, $30, $F
-	dcb.b	2,0
-	dc.b	$F0, 0, 2, $F8, 9, 0, $10, $E8, 0, 8, 0, $16
+R32BRetainedTitleCardBackdrop:
+	dc.b	6
+	dc.b	$90, $F, 0, 0, $F0
+	dc.b	$B0, $F, 0, 0, $F0
+	dc.b	$D0, $F, 0, 0, $F0
+	dc.b	$F0, $F, 0, 0, $F0
+	dc.b	$10, $F, 0, 0, $F0
+	dc.b	$30, $F, 0, 0, $F0
+	even
+
+; Remaining retained title-card mapping frames.
+	dc.b	2, $F8, 9, 0, $10, $E8, 0, 8, 0, $16
 	dcb.b	2,0
 	dc.b	2, $E8, 2, 0, $19, $FC, 0, 2, 0, $1C, $FC, 0, 5, $F8, $D
 	dc.b	0, $1F, $B0, $F8, $D, 0, $27, $D0, $F8, $D, 0, $2F, $F0, $F8
