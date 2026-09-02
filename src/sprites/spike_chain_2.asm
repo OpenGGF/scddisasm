@@ -3,8 +3,10 @@
 ; ------------------------------------------------------------------------------
 
 .Sprites:
-	dc.w	.Sprite0-.Sprites
-.Sprite0:
+	dc.w	.Spike-.Sprites
+
+; One five-byte sprite piece: Y offset, size, tile attributes/index, X offset.
+.Spike:
 	dc.b	1
 	dc.b	$F8, 5, 0, 4, $F8
 

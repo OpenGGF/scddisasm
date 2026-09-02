@@ -17,6 +17,8 @@ R3_SEMANTIC_POCKET	EQU	1
 CC_LEGACY_POCKET_ABI	EQU	1
 R3_SEMANTIC_TENTOU	EQU	1
 CC_LEGACY_TENTOU_ABI	EQU	1
+R3_SEMANTIC_SPIKE_CHAIN EQU	1
+CC_LEGACY_SPIKE_CHAIN_ABI EQU	1
 
 	include	"Level/Initialization.asm"
 	include	"Level/Collision Chaos/R3 Compatibility.asm"
@@ -80,7 +82,7 @@ CC_VARIANT	EQU	2
 	include	"Level/Collision Chaos/Objects/Teleporter/Main.asm"
 	include	"Level/Collision Chaos/Objects/Pocket/Main.asm"
 	include	"Level/Collision Chaos/Objects/Tentou/Main.asm"
-	include	"objects/r3/spike_chain.asm"
+	include	"Level/Collision Chaos/Objects/Spike Chain/Main.asm"
 	include	"r3/section_gfx_2c.asm"
 	include	"objects/r3/spikes.asm"
 	include	"objects/r3/block.asm"
