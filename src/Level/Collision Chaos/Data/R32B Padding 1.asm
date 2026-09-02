@@ -9,7 +9,8 @@
 ; +$00BC-+$00CB  retained Act 2 Past stage descriptor
 ; +$00CC-+$00F1  retained nineteen-entry PLC-offset table
 ; +$00F2-+$00FF  retained Stage PLC
-; +$0100 onward  retained PLC/data bodies still to be structured
+; +$0100-+$015B  retained Standard PLC
+; +$015C onward  retained PLC/data bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -91,7 +92,7 @@ R32BRetainedAct2PastStageData:
 ; the copied bodies below receive stable labels.
 R32BRetainedAct2PastPLCOffsets:
 	dc.w	R32BRetainedAct2PastStagePLC-R32BRetainedAct2PastPLCOffsets	; Stage
-	dc.w	$0034	; Standard
+	dc.w	R32BRetainedAct2PastStandardPLC-R32BRetainedAct2PastPLCOffsets	; Standard
 	dc.w	$0090	; Section 0
 	dc.w	R32BRetainedAct2PastStagePLC-R32BRetainedAct2PastPLCOffsets	; Stage
 	dc.w	$00E0, $0130, $0138	; Sections 1-3
@@ -110,26 +111,42 @@ R32BRetainedAct2PastStagePLC:
 	dc.l	$002335E8
 	dc.w	$D960			; VRAM destination
 
+; Fifteen-entry common PLC. Addresses retain their historical absolute values.
+R32BRetainedAct2PastStandardPLC:
+	dc.w	$E			; entry count minus one
+	dc.l	$0022F8FC		; animals
+	dc.w	$6000
+	dc.l	$00230DA2		; title card
+	dc.w	$6C00
+	dc.l	$0023398C		; title-card text
+	dc.w	$7A00
+	dc.l	$002360D6		; Tentou
+	dc.w	$8D40
+	dc.l	$002363EC		; spike bomb
+	dc.w	$92A0
+	dc.l	$0023479A		; flipper
+	dc.w	$93A0
+	dc.l	$00234A00		; bumper
+	dc.w	$99C0
+	dc.l	$00231E2E		; diagonal spring
+	dc.w	$9E40
+	dc.l	$0023213A		; springs
+	dc.w	$A400
+	dc.l	$002334BC		; HUD
+	dc.w	$AD00
+	dc.l	$0023235C		; monitor and time posts
+	dc.w	$B500
+	dc.l	$00232960		; explosions
+	dc.w	$D000
+	dc.l	$0022EDE6		; points
+	dc.w	$D8C0
+	dc.l	$00233732		; flower
+	dc.w	$DAE0
+	dc.l	$00232E48		; rings
+	dc.w	$F5C0
+
 ; Remaining retained PLC/data bodies.
-	dc.b	0, $E, 0, $22, $F8, $FC, $60
-	dcb.b	2,0
-	dc.b	$23, $D, $A2, $6C
-	dcb.b	2,0
-	dc.b	$23, $39, $8C, $7A
-	dcb.b	2,0
-	dc.b	$23, $60, $D6, $8D, $40, 0, $23, $63, $EC, $92, $A0, 0, $23
-	dc.b	$47, $9A, $93, $A0, 0, $23, $4A, 0, $99, $C0, 0, $23, $1E
-	dc.b	$2E, $9E, $40, 0, $23, $21, $3A, $A4
-	dcb.b	2,0
-	dc.b	$23, $34, $BC, $AD
-	dcb.b	2,0
-	dcb.b	2,$23
-	dc.b	$5C, $B5
-	dcb.b	2,0
-	dc.b	$23, $29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, $C, 0, $23, $4D, $3A, $63, $C0, 0
+	dc.b	0, $C, 0, $23, $4D, $3A, $63, $C0, 0
 	dc.b	$23, $4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0, 0, $23
 	dc.b	$67, 2, $6B, $C0, 0, $23, $69, $7A, $6D, $40, 0, $23, $67
 	dc.b	$D6, $71, $60, 0, $23, $4F, $90, $73, $E0, 0, $23, $64, $AE
