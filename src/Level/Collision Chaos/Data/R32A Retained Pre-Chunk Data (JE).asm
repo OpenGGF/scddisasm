@@ -4,8 +4,9 @@
 ;
 ; $20F2E4-$20F333  retained data tail (still to be classified)
 ; $20F334-$20F42D  orphaned title-card executable fragment (structured below)
-; $20F42E-$20F6ED  orphaned Results executable fragment (still to recover)
-; $20F6EE-$20FFFF  retained mappings, animation, and PLC-like records
+; $20F42E-$20F6ED  orphaned Results executable fragment (structured below)
+; $20F6EE-$20F72D  Results initialization and mapping-offset tables
+; $20F72E-$20FFFF  retained mappings, animation, and PLC-like records
 ;                  (exact schemas and boundaries still to classify)
 ; ------------------------------------------------------------------------------
 
@@ -116,82 +117,233 @@ RetainedTitleCardWaitPLC:
 .End:
 	rts
 
-	dc.b	$70, 0, $10, $28, 0, $24, $30, $3B, 0, 6, $4E, $FB, 0
-	dc.b	2, 0, $A, 0, $1E, 0, $EA, 1, $24, 1, $D8, $53, $28, 0, $32
-	dc.b	$67, 2, $4E, $75, $70, $10, $4E, $B9, 0, $20, $24, $48, $54
-	dc.b	$28, 0, $24, $4A, $B8, $F6, $80, $66, $1C, $C, $79, 5, 2
-	dc.b	0, $FF, $15, 6, $67, $14, $4D, $F8, $D0, 0, $30, $38, $F7
-	dc.b	0, 6, $40, 1, $50, $B0, $6E, 0, 8, $65, 2, $4E, $75, $45
-	dc.b	$F9, 0, $20, $F6, $EE, $7C, 2, $72, 0, $22, $48, $31, $7C
-	dc.b	1, $68, 0, $32, $60, 6, $4E, $B9, 0, $20, $7B, $A, $33, $7C
-	dc.b	1, $68, 0, $32, $13, $7C, 0, $3A
-	dcb.b	2,0
-	dc.b	$13, $7C, 0, 4, 0, $24, $33, $7C, $83, $C4, 0, 2, $C, $79
-	dc.b	5, 2, 0, $FF, $15, 6, $66, $20, $33, $7C, $82, $F2, 0, 2
-	dc.b	$23, $7C, 0, $20, $F7, $10, 0, 4, $4A, $39, 0, $FF, $15, $6A
-	dc.b	$67, $22, $23, $7C, 0, $20, $F7, $24, 0, 4, $60, $18, $23
-	dc.b	$7C, 0, $20, $F7, 6, 0, 4, $4A, $39, 0, $FF, $15, $6A, $67
-	dc.b	8, $23, $7C, 0, $20, $F7, $1A, 0, 4, $34, 1, $E7, $4A, $33
-	dc.b	$72, $20
-	dcb.b	2,0
-	dc.b	$A, $33, $72, $20, 2, 0, 8, $33, $72, $20, 4, 0, $2A, $13
-	dc.b	$72, $20, 7, 0, $1A, $C, 1, 0, 2, $66, $A, $14, $39, 0, $FF
-	dc.b	$15, 7, $D5, $29, 0, $1A, $52, 1, $51, $CE, $FF, $70, $4E
-	dc.b	$75, $4A, $68, 0, $32, $67, 4, $53, $68, 0, $32, $70, 8, $32
-	dc.b	$28, 0, $2A, $B2, $68, 0, 8, $67, $18, $6C, 2, $44, $40, $D1
-	dc.b	$68, 0, 8, $C, $68, 1, $60, 0, $32, $64, 6, $4E, $F9, 0, $20
-	dc.b	$3A, $6E, $4E, $75, $4A, $28, 0, $1A, $66, $EA, $54, $28
-	dc.b	0, $24, $60, $E4, $11, $FC, 0, 1, $F7, $D6, $70, 0, $4A, $78
-	dc.b	$F7, $D2, $66, $30, $4A, $78, $F7, $D4, $66, $3A, $53, $68
-	dc.b	0, $32, $6A, 4, $54, $28, 0, $24, $C, $68, 0, $1E, 0, $32
-	dc.b	$66, $12, $4A, $39, 0, $FF, $15, $6E, $67, $A, $30, $3C, 0
-	dc.b	$C8, $4E, $B9, 0, $20, $22, $7E, $4E, $F9, 0, $20, $3A, $6E
-	dc.b	6, $40, 0, $A, 4, $78, 0, $64, $F7, $D2, $4A, $78, $F7, $D4
-	dc.b	$67, $A, 6, $40, 0, $A, 4, $78, 0, $64, $F7, $D4, $22, 0
-	dc.b	$4A, $78, $F7, $D2, $66, $2A, $4A, $78, $F7, $D4, $66, $24
-	dc.b	$4E, $B9, 0, $20, $22, $16, $13, $FC, 0, $9A, 0, $A0, $1C
-	dc.b	9, $4E, $B9, 0, $20, $22, $32, $C, $68, 0, $2D, 0, $32, $64
-	dc.b	$24, $31, $7C, 0, $2D, 0, $32, $60, $1C, $4A, $68, 0, $32
-	dc.b	$67, 4, $53, $68, 0, $32, 8, $28
-	dcb.b	3,0
-	dc.b	$32, $66, $A, $30, $3C, 0, $BD, $4E, $B9, 0, $20, $22, $7E
-	dc.b	$20, 1, $4E, $B9, 0, $20, $A9, 6, $4E, $F9, 0, $20, $3A, $6E
-	dc.b	$33, $FC, 0, 2, 0, $FF, $15, 2, $13, $FC
-	dcb.b	3,0
-	dc.b	$FF, $15, $22, $42, $79, 0, $FF, $15, $74, $42, $B9, 0, $FF
-	dc.b	$19, 0, $42, $39, 0, $FF, $15, $6C, $42, $39, 0, $FF, $15
-	dc.b	$6D, $42, $39, 0, $FF, $15, $8E, $4A, $39, 0, $FF, $F, 1
-	dc.b	$67
-	dcb.b	2,8
-	dc.b	$B9
-	dcb.b	3,0
-	dc.b	$FF, $15, $1C, 8, $B9, 0, 1, 0, $FF, $15, $1C, $13, $FC, 0
-	dc.b	1, 0, $FF, $15, $2E, $30, $39, 0, $FF, $15, 6, $52, 0, $C
-	dcb.b	2,0
-	dc.b	2, $66, 8, $13, $FC, 0, 2, 0, $FF, $15, $2E, $C
-	dcb.b	2,0
-	dc.b	3, $66, $C, $10, $3C
-	dcb.b	2,0
-	dc.b	6, $40, 1, 0, $10, $3C
-	dcb.b	2,0
-	dc.b	$33, $C0, 0, $FF, $15, 6, $4E, $B9, 0, $20, $78, $F8, $4E
-	dc.b	$B9, 0, $20, $5C, $34, $4E, $B9, 0, $20, $3A, $6E, $10, $39
-	dc.b	0, $FF, $15, 7, $53, 0, $6A, 8, $42, $39, 0, $FF, $15, $90
-	dc.b	$4E, $75, $4A, $39, 0, $FF, $F, 1, $66, $30, $C, $39, 0, $7F
-	dc.b	0, $FF, $F, $20, $67, $1E, $4A, $39, 0, $FF, $15, $6A, $67
-	dc.b	$1E, $42, $39, 0, $FF, $15, $6A, 1, $F9, 0, $FF, $15, $90
-	dc.b	$C, $39, 0, 3, 0, $FF, $15, $90, $66, 8, $13, $FC, 0, 1, 0
-	dc.b	$FF, $15, $6A, $4E, $75, 0, $CC
-	dcb.b	2,0
-	dc.b	1, $20
-	dcb.b	2,0
-	dc.b	1, $10, 2
-	dcb.b	2,0
-	dc.b	$F0, 0, 1, 0, $CC
-	dcb.b	2,0
-	dc.b	1, $20, 0, 2, 0, $28, 1, $DE, 0, $52, 0, $86, 0, $BA, 0, $1E
-	dc.b	2, $1C, 0, $48, 0, $7C, 0, $B0, 0, $DA, 1, $CA, 1, $22, 1
-	dc.b	$5A, 1, $92, 0, $D0, 2, 8, 1, $18, 1, $50, 1, $88, 8, $EC
+; This is an orphaned copy of the Results state machine. Its internal branches
+; and tables remain coherent, but no live code points at the dispatcher. Calls
+; and jumps retain their historical absolute operands because several no longer
+; match the entry addresses of today's semantic service routines.
+RetainedResults:
+	moveq	#0,d0
+	move.b	oRoutine(a0),d0
+	move.w	.Index(pc,d0.w),d0
+	jmp	.Index(pc,d0.w)
+.Index:
+	dc.w	RetainedResultsInit-.Index
+	dc.w	RetainedResultsWaitPLC-.Index
+	dc.w	RetainedResultsMove-.Index
+	dc.w	RetainedResultsBonus-.Index
+	dc.w	RetainedResultsNextLevel-.Index
+
+RetainedResultsInit:
+	subq.b	#1,oResultsTimer(a0)
+	beq.s	.LoadPLC
+	rts
+.LoadPLC:
+	moveq	#$10,d0
+	jsr	LoadPLC
+	addq.b	#2,oRoutine(a0)
+
+RetainedResultsWaitPLC:
+	tst.l	plcBuffer.w
+	bne.s	.End
+	cmpi.w	#$502,zoneAct
+	beq.s	.LoadResults
+	lea	objPlayerSlot.w,a6
+	move.w	cameraX.w,d0
+	addi.w	#336,d0
+	cmp.w	oX(a6),d0
+	bcs.s	.LoadResults
+.End:
+	rts
+.LoadResults:
+	lea	RetainedResultsInitData,a2
+	moveq	#2,d6
+	moveq	#0,d1
+	movea.l	a0,a1
+	move.w	#360,oResultsTimer(a0)
+	bra.s	.InitLoop
+.Loop:
+	jsr	$207B0A
+.InitLoop:
+	move.w	#360,oResultsTimer(a1)
+	move.b	#$3A,oID(a1)
+	move.b	#4,oRoutine(a1)
+	move.w	#$83C4,oTile(a1)
+	cmpi.w	#$502,zoneAct
+	bne.s	.NotSSZ3
+	move.w	#$82F2,oTile(a1)
+	move.l	#RetainedResultsBadSSZ3Mappings,oMap(a1)
+	tst.b	goodFuture
+	beq.s	.GotMaps
+	move.l	#RetainedResultsGoodSSZ3Mappings,oMap(a1)
+	bra.s	.GotMaps
+.NotSSZ3:
+	move.l	#RetainedResultsBadMappings,oMap(a1)
+	tst.b	goodFuture
+	beq.s	.GotMaps
+	move.l	#RetainedResultsGoodMappings,oMap(a1)
+.GotMaps:
+	move.w	d1,d2
+	lsl.w	#3,d2
+	move.w	(a2,d2.w),oYScr(a1)
+	move.w	2(a2,d2.w),oX(a1)
+	move.w	4(a2,d2.w),oResultsDestX(a1)
+	move.b	7(a2,d2.w),oMapFrame(a1)
+	cmpi.b	#2,d1
+	bne.s	.GotFrame
+	move.b	act,d2
+	add.b	d2,oMapFrame(a1)
+.GotFrame:
+	addq.b	#1,d1
+	dbf	d6,.Loop
+	rts
+
+RetainedResultsMove:
+	tst.w	oResultsTimer(a0)
+	beq.s	.MoveX
+	subq.w	#1,oResultsTimer(a0)
+.MoveX:
+	moveq	#8,d0
+	move.w	oResultsDestX(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.AtDestX
+	bge.s	.AddX
+	neg.w	d0
+.AddX:
+	add.w	d0,oX(a0)
+.CheckDraw:
+	cmpi.w	#352,oResultsTimer(a0)
+	bcc.s	.End
+	jmp	$203A6E
+.End:
+	rts
+.AtDestX:
+	tst.b	oMapFrame(a0)
+	bne.s	.CheckDraw
+	addq.b	#2,oRoutine(a0)
+	bra.s	.CheckDraw
+
+RetainedResultsBonus:
+	move.b	#1,updateHUDBonus.w
+	moveq	#0,d0
+	tst.w	timeBonus.w
+	bne.s	.TimeBonus
+	tst.w	ringBonus.w
+	bne.s	.RingBonus
+	subq.w	#1,oResultsTimer(a0)
+	bpl.s	.CheckWarpSound
+	addq.b	#2,oRoutine(a0)
+.CheckWarpSound:
+	cmpi.w	#30,oResultsTimer(a0)
+	bne.s	.Draw
+	tst.b	specialStage
+	beq.s	.Draw
+	move.w	#FM_SSWARP,d0
+	jsr	$20227E
+.Draw:
+	jmp	$203A6E
+.TimeBonus:
+	addi.w	#10,d0
+	subi.w	#100,timeBonus.w
+	tst.w	ringBonus.w
+	beq.s	.CheckDone
+.RingBonus:
+	addi.w	#10,d0
+	subi.w	#100,ringBonus.w
+.CheckDone:
+	move.l	d0,d1
+	tst.w	timeBonus.w
+	bne.s	.HaveBonus
+	tst.w	ringBonus.w
+	bne.s	.HaveBonus
+	jsr	$202216
+	move.b	#FM_KACHING,FMDrvQueue1
+	jsr	$202232
+	cmpi.w	#45,oResultsTimer(a0)
+	bcc.s	.AddPoints
+	move.w	#45,oResultsTimer(a0)
+	bra.s	.AddPoints
+.HaveBonus:
+	tst.w	oResultsTimer(a0)
+	beq.s	.PlayTallySound
+	subq.w	#1,oResultsTimer(a0)
+.PlayTallySound:
+	btst	#0,oResultsTimer(a0)
+	bne.s	.AddPoints
+	move.w	#FM_TALLY,d0
+	jsr	$20227E
+.AddPoints:
+	move.l	d1,d0
+	jsr	$20A906
+	jmp	$203A6E
+
+RetainedResultsNextLevel:
+	move.w	#2,levelRestart
+	move.b	#0,spawnMode
+	clr.w	sectionID
+	clr.l	flowerCount
+	clr.b	unkLevelFlag
+	clr.b	projDestroyed
+	clr.b	checkpoint
+	tst.b	timeAttackMode
+	beq.s	.NotTimeAttack
+	bclr	#0,plcLoadFlags
+.NotTimeAttack:
+	bclr	#1,plcLoadFlags
+	move.b	#TIME_PRESENT,timeZone
+	move.w	zoneAct,d0
+	addq.b	#1,d0
+	cmpi.b	#2,d0
+	bne.s	.NotAct3
+	move.b	#TIME_FUTURE,timeZone
+.NotAct3:
+	cmpi.b	#3,d0
+	bne.s	.SetLevel
+	move.b	#0,d0
+	addi.w	#$100,d0
+	move.b	#0,d0
+.SetLevel:
+	move.w	d0,zoneAct
+	jsr	$2078F8
+	jsr	$205C34
+	jsr	$203A6E
+	move.b	act,d0
+	subq.b	#1,d0
+	bpl.s	.CheckGoodFuture
+	clr.b	goodFutureFlags
+	rts
+.CheckGoodFuture:
+	tst.b	timeAttackMode
+	bne.s	.End
+	cmpi.b	#%1111111,timeStones
+	beq.s	.SetGoodFuture
+	tst.b	goodFuture
+	beq.s	.End
+	clr.b	goodFuture
+	bset	d0,goodFutureFlags
+	cmpi.b	#%11,goodFutureFlags
+	bne.s	.End
+.SetGoodFuture:
+	move.b	#1,goodFuture
+.End:
+	rts
+
+RetainedResultsInitData:
+	dc.w	204, 0,   288, 0
+	dc.w	272, 512, 240, 1
+	dc.w	204, 0,   288, 2
+
+; Five frame offsets per mapping set. The frame bodies beginning at $20F72E
+; remain to be structured.
+RetainedResultsBadMappings:
+	dc.w	$28, $1DE, $52, $86, $BA
+RetainedResultsBadSSZ3Mappings:
+	dc.w	$1E, $21C, $48, $7C, $B0
+RetainedResultsGoodMappings:
+	dc.w	$DA, $1CA, $122, $15A, $192
+RetainedResultsGoodSSZ3Mappings:
+	dc.w	$D0, $208, $118, $150, $188
+
+	dc.b	8, $EC
 	dc.b	5
 	dcb.b	2,0
 	dc.b	$BC, $EC, 5, 0, 4, $CC, $EC, 5, 0, 8, $DC, $EC, 1, 0, $C
