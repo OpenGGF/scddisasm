@@ -14,7 +14,7 @@ Padding1:
 	elseif CC_VARIANT=2
 	include	"Level/Collision Chaos/Data/R31C Pre-Chunks (Non-USA).asm"
 	else
-	include	"Level/Collision Chaos/Data/R32A Padding 1.asm"
+	include	"Level/Collision Chaos/Data/R32A Retained Pre-Chunk Data (JE).asm"
 	endif
 
 LevelDataIndex:

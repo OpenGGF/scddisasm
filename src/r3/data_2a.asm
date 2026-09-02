@@ -8,7 +8,7 @@ Padding1:
 	if REGION=USA
 		include	"Level/USA Legacy R32A Padding1.asm"
 	else
-		include	"Level/Collision Chaos/Data/R32A Padding 1.asm"
+		include	"Level/Collision Chaos/Data/R32A Retained Pre-Chunk Data (JE).asm"
 	endif
 
 StageChunks:

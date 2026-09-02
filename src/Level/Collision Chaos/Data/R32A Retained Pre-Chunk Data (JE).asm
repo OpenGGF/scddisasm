@@ -1,36 +1,122 @@
 ; ------------------------------------------------------------------------------
-; R32A source-level padding 1
+; R32A Japan/Europe retained data before the $210000 chunk boundary
 ; Recovered from tracked historical assembly; no proprietary binary is included.
+;
+; $20F2E4-$20F333  retained data tail (still to be classified)
+; $20F334-$20F42D  orphaned title-card executable fragment (structured below)
+; $20F42E-$20F6ED  orphaned Results executable fragment (still to recover)
+; $20F6EE-$20FFFF  retained mappings, animation, and PLC-like records
+;                  (exact schemas and boundaries still to classify)
 ; ------------------------------------------------------------------------------
 
 	dc.b	$DA, $36, $6E, $20, 0, $21, $DA, $B2, $6F, $20, 0, $21, $D9
 	dc.b	$7C, $73, $E0, 0, $23, $54, $EC, $75, $E0, 0, $23, $56, 4
-	dc.b	$75, $E0, 0, $23, $5B, $D8, $77, $A0, 0, $23, $6F, $78, $7B
+	dc.b	$75, $E0, 0, $23, $5B, $D8
+RetainedTitleCardInitLoopTarget:
+	dc.b	$77, $A0, 0, $23, $6F, $78, $7B
 	dc.b	$40, 0, $21, $DE, $3E, $7E, $40, 0, $23, $4C, $14, $84, $20
 	dcb.b	3,0
 	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
 	dc.b	$22, $F4, $F2, $91
 	dcb.b	2,0
-	dc.b	$20, $DC, $6E, $7D, $E0, $33, $72, $20, 2, 0, $2C, $33, $72
-	dc.b	$20, 4, 0, $2A, $13, $72, $20, 6, 0, $1A, $C, 1, 0, 5, $66
-	dc.b	$A, $16, $39, 0, $FF, $15, 7, $D7, $29, 0, $1A, $13, $72
-	dc.b	$20, 7, 0, $1E, $52, 1, $51, $CE, $FF, $A4, $4E, $75, $70
-	dc.b	8, $32, $28, 0, $2E, $B2, $68, 0, $A, $67, $E, $6C, 2, $44
-	dc.b	$40, $D1, $68, 0, $A, $4E, $F9, 0, $20, $3A, $6E, $58, $28
-	dc.b	0, $24, $4E, $F9, 0, $20, $3A, $6E, $70, 8, $32, $28, 0, $2A
-	dc.b	$B2, $68, 0, 8, $67, $E, $6C, 2, $44, $40, $D1, $68, 0, 8
-	dc.b	$4E, $F9, 0, $20, $3A, $6E, $58, $28, 0, $24, $4E, $F9, 0
-	dc.b	$20, $3A, $6E, $4A, $28, 0, $1E, $67, $A, $53, $28, 0, $1E
-	dc.b	$4E, $F9, 0, $20, $3A, $6E, $70, $10, $32, $28, 0, $30, $B2
-	dc.b	$68, 0, $A, $67, $E, $6C, 2, $44, $40, $D1, $68, 0, $A, $4E
-	dc.b	$F9, 0, $20, $3A, $6E, $58, $28, 0, $24, $11, $FC, 0, 1, $F7
-	dc.b	$44, $70, 2, $4E, $F9, 0, $20, $24, $48, $4A, $28, 0, $1E
-	dc.b	$67, $A, $53, $28, 0, $1E, $4E, $F9, 0, $20, $3A, $6E, $70
-	dc.b	$10, $32, $28, 0, $2C, $B2, $68, 0, 8, $67, $E, $6C, 2, $44
-	dc.b	$40, $D1, $68, 0, 8, $4E, $F9, 0, $20, $3A, $6E, $4E, $F9
-	dc.b	0, $20, $3B, $1A, $4A, $B8, $F6, $80, $66, $E, $42, $38, $F7
-	dc.b	$44, $42, $38, $F7, $CC, $4E, $F9, 0, $20, $3B, $1A, $4E
-	dc.b	$75, $70, 0, $10, $28, 0, $24, $30, $3B, 0, 6, $4E, $FB, 0
+	dc.b	$20, $DC, $6E, $7D, $E0
+
+; This is an orphaned copy of the end of title-card initialization followed by
+; its slide routines. No live code points at these entries. The copied DBF
+; target lands in the retained PLC bytes above, and the historical absolute
+; draw/delete targets no longer identify routine entries, so those operands are
+; deliberately kept literal rather than exposed as callable symbols.
+RetainedTitleCardInitTail:
+	move.w	2(a2,d2.w),oVar2C(a1)
+	move.w	4(a2,d2.w),oVar2A(a1)
+	move.b	6(a2,d2.w),oMapFrame(a1)
+	cmpi.b	#5,d1
+	bne.s	.StoreDelay
+	move.b	act,d3
+	add.b	d3,oMapFrame(a1)
+.StoreDelay:
+	move.b	7(a2,d2.w),oAnimTime(a1)
+	addq.b	#1,d1
+	dbf	d6,RetainedTitleCardInitLoopTarget
+	rts
+
+RetainedTitleCardSlideInVert:
+	moveq	#8,d0
+	move.w	oVar2E(a0),d1
+	cmp.w	oYScr(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oYScr(a0)
+	jmp	$203A6E
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	jmp	$203A6E
+
+RetainedTitleCardSlideInHoriz:
+	moveq	#8,d0
+	move.w	oVar2A(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oX(a0)
+	jmp	$203A6E
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	jmp	$203A6E
+
+RetainedTitleCardSlideOutVert:
+	tst.b	oAnimTime(a0)
+	beq.s	.Slide
+	subq.b	#1,oAnimTime(a0)
+	jmp	$203A6E
+.Slide:
+	moveq	#$10,d0
+	move.w	oVar30(a0),d1
+	cmp.w	oYScr(a0),d1
+	beq.s	.Advance
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oYScr(a0)
+	jmp	$203A6E
+.Advance:
+	addq.b	#4,oRoutine(a0)
+	move.b	#1,scrollLock.w
+	moveq	#2,d0
+	jmp	LoadPLC
+
+RetainedTitleCardSlideOutHoriz:
+	tst.b	oAnimTime(a0)
+	beq.s	.Slide
+	subq.b	#1,oAnimTime(a0)
+	jmp	$203A6E
+.Slide:
+	moveq	#$10,d0
+	move.w	oVar2C(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.Delete
+	bge.s	.Move
+	neg.w	d0
+.Move:
+	add.w	d0,oX(a0)
+	jmp	$203A6E
+.Delete:
+	jmp	$203B1A
+
+RetainedTitleCardWaitPLC:
+	tst.l	plcBuffer.w
+	bne.s	.End
+	clr.b	scrollLock.w
+	clr.b	ctrlLocked.w
+	jmp	$203B1A
+.End:
+	rts
+
+	dc.b	$70, 0, $10, $28, 0, $24, $30, $3B, 0, 6, $4E, $FB, 0
 	dc.b	2, 0, $A, 0, $1E, 0, $EA, 1, $24, 1, $D8, $53, $28, 0, $32
 	dc.b	$67, 2, $4E, $75, $70, $10, $4E, $B9, 0, $20, $24, $48, $54
 	dc.b	$28, 0, $24, $4A, $B8, $F6, $80, $66, $1C, $C, $79, 5, 2

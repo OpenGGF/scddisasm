@@ -10,7 +10,7 @@
 
 Padding1:
 	if CC2_VARIANT=0
-	include	"Level/Collision Chaos/Data/R32A Padding 1.asm"
+	include	"Level/Collision Chaos/Data/R32A Retained Pre-Chunk Data (JE).asm"
 	elseif CC2_VARIANT=1
 	include	"Level/Collision Chaos/Data/R32B Padding 1.asm"
 	elseif CC2_VARIANT=2
