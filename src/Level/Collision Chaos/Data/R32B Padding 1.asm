@@ -26,7 +26,8 @@
 ; +$04A4-+$0557  retained Results bonus-tally state
 ; +$0558-+$0631  retained Results next-level state
 ; +$0632-+$0649  retained Results object-initialization records
-; +$064A onward  retained data still to be structured
+; +$064A-+$0671  retained Results mapping-offset tables
+; +$0672 onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -599,10 +600,18 @@ R32BRetainedResultsInitData:
 	dc.w	272, 512, 240, 1
 	dc.w	204, 0,   288, 2
 
-; Remaining retained Results mapping data.
-	dc.b	0, $28, 1, $DE, 0, $52, 0, $86, 0, $BA, 0, $1E
-	dc.b	2, $1C, 0, $48, 0, $7C, 0, $B0, 0, $DA, 1, $CA, 1, $22, 1
-	dc.b	$5A, 1, $92, 0, $D0, 2, 8, 1, $18, 1, $50, 1, $88, 8, $EC
+; Five frame offsets per mapping set: header, score, Act 1, Act 2, Act 3.
+R32BRetainedResultsBadMappings:
+	dc.w	$0028, $01DE, $0052, $0086, $00BA
+R32BRetainedResultsBadSSZ3Mappings:
+	dc.w	$001E, $021C, $0048, $007C, $00B0
+R32BRetainedResultsGoodMappings:
+	dc.w	$00DA, $01CA, $0122, $015A, $0192
+R32BRetainedResultsGoodSSZ3Mappings:
+	dc.w	$00D0, $0208, $0118, $0150, $0188
+
+; Remaining retained Results mapping frames.
+	dc.b	8, $EC
 	dc.b	5
 	dcb.b	2,0
 	dc.b	$BC, $EC, 5, 0, 4, $CC, $EC, 5, 0, 8, $DC, $EC, 1, 0, $C
