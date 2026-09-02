@@ -7,7 +7,8 @@
 ; +$15AC-+$16AB retained wobble table
 ; +$16AC-+$1C0B retained data to be structured
 ; +$1C0C-+$1DBD retained robot-transport Nemesis stream
-; +$1DBE onward retained data to be structured
+; +$1DBE-+$1F6F retained hologram-animals Nemesis stream
+; +$1F70 onward retained data to be structured
 ;
 ; This slice begins at offset $1990 of the complete R12C graphics stream.
 R32BRetainedR12CGfxNemesisTail:
@@ -468,54 +469,12 @@ R32BRetainedWobbleTable:
 R32BRetainedRobotTransportNemesis:
 	incbin	"gfx/robot_transport_b.nem"
 
-	dc.b	0
-	dc.b	$14, $80, 5, $12, $15, $13, $26, $2E, $36, $32, $45, $18
-	dc.b	$58, $F8, $66, $3A, $74, 3, $81
-	dcb.b	2,4
-	dc.b	$16, $34, $82, 4, 5, $16, $35, $27, $7B, $83, 4, 6, $16, $38
-	dc.b	$28, $FB, $84, 6, $3C, $85, 5, $15, $16, $33, $86, 4, 7, $87
-	dc.b	6, $2F, $88, 7, $77, $8A, 6, $37, $8B, 4, 2, $14, 8, $25
-	dc.b	$16
-	dcb.b	2,$36
-	dc.b	$8C, $18, $F9, $8D, 3, 0, $15, $14, $26, $39, $8F, 7, $76
-	dc.b	$17, $7A, $FF, $3F, $86, $35, $E9, $AE, $6A, $C9, $5A, $6B
-	dc.b	$9E, $AD, $35, $CD, $95, $A6, $B9, $B2, $B4, $95, $97, $35
-	dc.b	$65, $6C, $D6, $BA, $CE, $AF, $56, $AA, $CF, $B2, $E6, $CB
-	dc.b	$2F, $4B, $FA, $19, $A7, $AF, $84, $B6, $3F, $42, $67, $36
-	dc.b	$F2, $BE, $71
-	dcb.b	2,$3F
-	dc.b	$8A, $D2, $FE, $2B, $D5, $BF, $4A, $D7, $BD, $FC
-	dcb.b	2,$57
-	dc.b	$4B, $D5, $BD, $BA, $5E, $BF, $6A, $E9, $7A, $F1, $F2, $AF
-	dc.b	$D9, $35, $F9, $D7, $D6, $9E, $E0, $CC, $CF, $A6, $35, $E9
-	dc.b	$BE, $15, $BE, $15, $97, $A, $CA, $D2, $E2, $5E, $F8, $CD
-	dc.b	$B5, $9D, $7F, $66, $B3, $CF, $EE, $B3, $ED, $9F, $DC, $BD
-	dc.b	$12, $66, $D2, $EC, $49, $2D, $2B, $2E, $C4, $93, $54, $96
-	dc.b	$86, $78, $6F, $2B, $E7, $13, $F3, $F8, $AD, $2F, $E2, $BD
-	dc.b	$5B, $F4, $AD, $7B, $DF, $C5, $75, $74, $BD, $5B, $DB, $A5
-	dc.b	$EB, $F6, $AE, $97, $EA, $DF, $2A, $FD, $91, $97, $E7, $5F
-	dc.b	$4A, $9E, $E0, $E4, $DD, $57, $A4
-	dcb.b	3,$33
-	dc.b	$C4, $65, $14, $BA, $39, $BA, $96, $98, $B6, $93, $8D, $32
-	dc.b	$24
-	dcb.b	3,$33
-	dc.b	$32, $A6, $B, $7A, $63, $FB, $77, $73, $69, $FF, $36, $24
-	dc.b	$2D, $42, $90, $24, $81, 0, $A5, $A7, $24, $2E, $48, 5, $70
-	dc.b	$B0, $B8, $59, $32, $8A, $64, 8, $16, $49, $63, $FE, $6D
-	dc.b	$C0, $A8, $42, $62, 1, $38, $95, $22, $F7, $EE, $36, $74
-	dc.b	$EE, $36, $74, $EE, $23, $72
-	dcb.b	2,$74
-	dc.b	$2F, $D5, $17, $E5, $B7, $2F, $F5, 2, $FE, $54, $93, $9C
-	dc.b	$88, $10, $C9, $37, $18, 9, $F0, $41, $C, $CC, $CF, $AD, $AE
-	dc.b	$2A, $6D, $28, $A5, $A7, $1C, $94, $D2, $D4, $B9, $36, $CB
-	dc.b	$48, $C0, $D3, 2, $31, $42, $E8, $19, $99, $E4, $54, $C1
-	dc.b	$6F, $4C, $6D, $8A, $46, $54, $B5, $C0, $B9, $29, $82, $D0
-	dc.b	$85, $87, $FE, $FF, $96, $3F, $35, $B0, $B7, $EF, $4C, $CC
-	dc.b	$F2, $FE, $6D, $C0, $A8, $42, $62, 1, $38, $95, $22, $F7
-	dc.b	$EE, $36, $74, $EE, $36, $74, $EE, $23, $72
-	dcb.b	2,$74
-	dc.b	5, $F9, $A2, $FC, $B6, $F6, 9, $C9, $F, $F5, $CB, $F9, $A4
-	dc.b	$60, 0, $33, $80, 5, $F, $15, $14, $25, $10, $36, $2E, $46
+
+; Complete retained hologram-animals Nemesis stream.
+R32BRetainedHologramAnimalsNemesis:
+	incbin	"gfx/r5/hologram_animals.nem"
+
+	dc.b	0, $33, $80, 5, $F, $15, $14, $25, $10, $36, $2E, $46
 	dc.b	$2A, $56, $2B, $66, $34, $74, 2, $81, 3, 0, $15, $A, $27
 	dc.b	$70, $82, 4, 3, $15, $12, $26, $36, $37, $74, $47, $76, $83
 	dc.b	5, $B, $16, $30, $26, $35, $84, 5, $11, $16, $33, $28, $F4
