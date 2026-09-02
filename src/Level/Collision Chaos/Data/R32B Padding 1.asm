@@ -55,7 +55,8 @@
 ; +$0C14-+$0C1B retained Tentou PLC
 ; +$0C1C-+$0C23 retained Results PLC
 ; +$0C24-+$0C37 retained Signpost PLC
-; +$0C38 onward  retained stage/PLC bodies still to be structured
+; +$0C38-+$0C57 retained DEMO11A Cam 4 full-PLC tail
+; +$0C58 onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1164,12 +1165,23 @@ R32BRetainedAct1PresentStageSignpostPLC:
 	dc.l	$0020DCDE		; big-ring flash
 	dc.w	$7DE0
 
-	dc.b	$71
-	dcb.b	2,0
-	dc.b	$23, $70, $2A, $74
-	dcb.b	2,0
-	dc.b	$23, $67, $6C, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23
-	dc.b	$AE, 2, $88, $20, 0, $23, $20, $DA, $9E, $E0, 0, 4, 0, $23
+
+; Tail of DEMO11A Palmtree Panic Act 1 Present Cam 4 Full PLC; the count and
+; Animals art pointer precede this retained range.
+R32BRetainedDemoR11ACam4FullTail:
+	dc.w	$7100			; Animals destination; art pointer omitted
+	dc.l	$0023702A		; Mosqui art
+	dc.w	$7400
+	dc.l	$0023676C		; spinning-disc art
+	dc.w	$8120
+	dc.l	$0023AC7A		; 3D-plant art
+	dc.w	$8480
+	dc.l	$0023AE02		; 3D ramp/boost art
+	dc.w	$8820
+	dc.l	$002320DA		; goal-post art
+	dc.w	$9EE0
+
+	dc.b	0, 4, 0, $23
 	dc.b	$F2, $A6, $6E
 	dcb.b	2,0
 	dc.b	$23, $84, $6C, $81, $20, 0, $23, $AC, $7A, $84, $80, 0, $23

@@ -413,6 +413,7 @@ opaque merely because they use `dc.*`.
 | M204 | Complete | Structure the retained Tentou PLC at `$0C14-$0C1B`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M205 | Complete | Structure the retained Results PLC at `$0C1C-$0C23`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M206 | Complete | Structure the retained Signpost PLC at `$0C24-$0C37`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M207 | Complete | Structure the retained DEMO11A Cam 4 full-PLC tail at `$0C38-$0C57`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
