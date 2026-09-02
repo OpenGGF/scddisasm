@@ -13,7 +13,8 @@
 ; $20FDF0-$20FEA9  orphaned Palmtree Panic Act 3 Bad Future stage/PLC graph
 ; $20FEAA-$20FECB  retained tables between orphaned units (unresolved)
 ; $20FECC-$20FED1  orphaned absolute-jump trampoline
-; $20FED2-$20FFFF  truncated Palmtree Panic Act 3 Good Future stage/PLC graph
+; $20FED2-$20FF8B  orphaned Palmtree Panic Act 3 Good Future stage/PLC graph
+; $20FF8C-$20FFFF  truncated tail of a later orphaned PLC graph (unresolved)
 ; ------------------------------------------------------------------------------
 
 	dc.b	$DA, $36, $6E, $20, 0, $21, $DA, $B2, $6F, $20, 0, $21, $D9
@@ -993,38 +994,88 @@ RetainedPalmtreeAct3BadFuturePLCLists:
 RetainedPalmtreeAct3GoodFutureEntry:
 	jmp	$206376
 
-	dc.b	3, $23, $8F, $74, 2, $23, $7C, $F2, 0, $21
-	dcb.b	3,0
-	dc.b	$81
-	dcb.b	2,4
-	dc.b	0, $26, 0, $34, 0, $72, 0, $26, 0, $8C, 0, $72, 0, $72, 0
-	dc.b	$72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72, 0, $72
-	dc.b	0, $72, 0, $9A, 0, $72, 0, $A2, 0, 1, 0, $23, $8F, $74
-	dcb.b	3,0
-	dc.b	$23, $C4, $FA, $4A, $80, 0, 9, 0, $23, $D, $A2, $6C
-	dcb.b	2,0
-	dc.b	$23, $39, $E4, $7A
-	dcb.b	2,0
-	dc.b	$23, $1E, $2E, $9E, $40, 0, $23, $21, $3A, $A4
-	dcb.b	2,0
-	dc.b	$23, $34, $BC, $AD
-	dcb.b	2,0
-	dcb.b	2,$23
-	dc.b	$5C, $B5
-	dcb.b	2,0
-	dc.b	$23, $29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, 3, 0, $23, $3B, $2E, $57, $80, 0, $23
-	dc.b	$54, $50, $6B, $60, 0, $23, $D3, $92, $6F
-	dcb.b	2,0
-	dc.b	$23, $E0, $4C, $74
-	dcb.b	2,0
-	dc.b	1, 0, $23, $44, $40, $6E, $60, 0, $22, $EE, $4A, $90, $20
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80
-	dcb.b	3,0
-	dc.b	$22, $EE, $4A, $90, $20, $29, $60, $D0
+; Historical Act 3 Good Future stage descriptor and PLC graph. It has the
+; same six roles as the preceding Bad Future snapshot but different stage and
+; section art. Absolute pointers again describe the historical layout.
+RetainedPalmtreeAct3GoodFutureStageData:
+	dc.l	$03238F74		; primary stage art
+	dc.l	$02237CF2		; stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 4, 4		; layout flags and palette IDs
+
+RetainedPalmtreeAct3GoodFuturePLCLists:
+	dc.w	.Stage-RetainedPalmtreeAct3GoodFuturePLCLists
+	dc.w	.Main-RetainedPalmtreeAct3GoodFuturePLCLists
+	dc.w	.Section-RetainedPalmtreeAct3GoodFuturePLCLists
+	dc.w	.Stage-RetainedPalmtreeAct3GoodFuturePLCLists
+	dc.w	.Boss-RetainedPalmtreeAct3GoodFuturePLCLists
+	rept	11
+	dc.w	.Section-RetainedPalmtreeAct3GoodFuturePLCLists
+	endr
+	dc.w	.Results-RetainedPalmtreeAct3GoodFuturePLCLists
+	dc.w	.Section-RetainedPalmtreeAct3GoodFuturePLCLists
+	dc.w	.Capsule-RetainedPalmtreeAct3GoodFuturePLCLists
+
+.Stage:
+	dc.w	1
+	dc.l	$00238F74
+	dc.w	0
+	dc.l	$0023C4FA
+	dc.w	$4A80
+
+.Main:
+	dc.w	9
+	dc.l	$00230DA2
+	dc.w	$6C00
+	dc.l	$002339E4
+	dc.w	$7A00
+	dc.l	$00231E2E
+	dc.w	$9E40
+	dc.l	$0023213A
+	dc.w	$A400
+	dc.l	$002334BC
+	dc.w	$AD00
+	dc.l	$0023235C
+	dc.w	$B500
+	dc.l	$00232960
+	dc.w	$D000
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+.Section:
+	dc.w	3
+	dc.l	$00233B2E
+	dc.w	$5780
+	dc.l	$00235450
+	dc.w	$6B60
+	dc.l	$0023D392
+	dc.w	$6F00
+	dc.l	$0023E04C
+	dc.w	$7400
+
+.Boss:
+	dc.w	1
+	dc.l	$00234440
+	dc.w	$6E60
+	dc.l	$0022EE4A
+	dc.w	$9020
+
+.Results:
+	dc.w	0
+	dc.l	$00230098
+	dc.w	$7880
+
+.Capsule:
+	dc.w	0
+	dc.l	$0022EE4A
+	dc.w	$9020
+
+; The remaining bytes begin part-way through another historical PLC graph.
+	dc.b	$29, $60, $D0
 	dcb.b	2,0
 	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
 	dc.b	$2E, $48, $F5, $C0, 0, $B, 0, $23, $3B, $22, $60
