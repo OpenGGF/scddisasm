@@ -2,7 +2,8 @@
 ; Sonic CD Disassembly
 ; -------------------------------------------------------------------------
 
-.Sprites:
-	dc.w	.Sprites-.Sprites
+; The inactive retail object has one empty mapping frame.
+.Empty:
+	dc.w	.Empty-.Empty
 
 ; -------------------------------------------------------------------------
