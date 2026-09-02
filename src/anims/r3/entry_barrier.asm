@@ -3,15 +3,16 @@
 ; ------------------------------------------------------------------------------
 
 .Anims:
-	dc.w	.Anim0-.Anims
-	dc.w	.Anim1-.Anims
+	dc.w	.Stationary-.Anims
+	dc.w	.Transition-.Anims
 
-.Anim0:
+; Animation records contain a frame delay, frame indices, and an $FF loop marker.
+.Stationary:
 	dc.b	$7F
 	dc.b	0
 	dc.b	$FF
 
-.Anim1:
+.Transition:
 	dc.b	0
 	dc.b	0, 1
 	dc.b	$FF
