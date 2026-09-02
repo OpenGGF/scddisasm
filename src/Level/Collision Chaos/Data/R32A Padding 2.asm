@@ -25,7 +25,9 @@
 ; +$28A8-+$28C7  six-piece legacy demo mapping frame 5
 ; +$28C8-+$2919  sixteen-piece legacy demo mapping frame 6
 ; +$291A-+$2965  fifteen-piece legacy demo mapping frame 7
-; +$2966-+$29FF  retained mapping frames still to be structured
+; +$2966-+$29A2  twelve-piece legacy demo mapping frame 8
+; +$29A3-+$29AD  two uncounted piece records and alignment before frame 9
+; +$29AE-+$29FF  retained mapping frame 9 still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -142,7 +144,8 @@ R32ARetainedDemoMappingOffsets:
 	dc.w	R32ARetainedDemoMapFrame5-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame6-R32ARetainedDemoMappingOffsets
 	dc.w	R32ARetainedDemoMapFrame7-R32ARetainedDemoMappingOffsets
-	dc.w	$01AA, $01F2
+	dc.w	R32ARetainedDemoMapFrame8-R32ARetainedDemoMappingOffsets
+	dc.w	$01F2
 
 ; Eight-piece frame arranged as two columns across four rows. Each piece uses
 ; the standard Y, size/shape, tile word, X record, followed by even alignment.
@@ -267,25 +270,32 @@ R32ARetainedDemoMapFrame7:
 	dc.b	$F8, 5, 0, $3B, $D5
 	dc.b	8, 5, 0, $37, $E2
 
-; First byte of mapping frame 8.
+; Declared twelve-piece frame: the first eight records form a two-column,
+; four-row arrangement and the final four form a wider two-by-two arrangement.
+R32ARetainedDemoMapFrame8:
+	dc.b	$C
+	dc.b	$E8, 1, 0, 0, $F8
+	dc.b	$F8, 8, 0, 2, $E8
+	dc.b	$E8, 1, 8, 0, 0
+	dc.b	$F8, 8, 8, 2, 0
+	dc.b	0, 8, $10, 2, $E8
+	dc.b	0, 8, $18, 2, 0
+	dc.b	8, 1, $10, 0, $F8
+	dc.b	8, 1, $18, 0, 0
+	dc.b	$E8, 6, 0, $2B, $EC
+	dc.b	$E8, 6, 0, $31, 4
+	dc.b	0, 6, $18, $2B, 4
+	dc.b	0, 6, $18, $31, $EC
+
+; These two valid piece records lie inside frame 8's table-bounded span but
+; follow its declared count. Retain the anomaly explicitly, including padding.
+R32ARetainedDemoMapFrame8UncountedTail:
+	dc.b	$EC, 3, 0, $27, $E4
+	dc.b	$F4, 3, $18, $27, $14
+	dc.b	0	; alignment
+
+; First byte of mapping frame 9.
 	dc.b	$C, $E8, 1
-	dcb.b	2,0
-	dcb.b	2,$F8
-	dc.b	8, 0, 2
-	dcb.b	2,$E8
-	dc.b	1, 8
-	dcb.b	2,0
-	dc.b	$F8
-	dcb.b	2,8
-	dc.b	2
-	dcb.b	2,0
-	dc.b	8, $10, 2, $E8, 0, 8, $18, 2, 0, 8, 1, $10, 0, $F8, 8, 1
-	dc.b	$18
-	dcb.b	2,0
-	dc.b	$E8, 6, 0, $2B, $EC, $E8, 6, 0, $31, 4, 0, 6, $18, $2B, 4
-	dc.b	0, 6, $18, $31
-	dcb.b	2,$EC
-	dc.b	3, 0, $27, $E4, $F4, 3, $18, $27, $14, 0, $C, $E8, 1
 	dcb.b	2,0
 	dcb.b	2,$F8
 	dc.b	8, 0, 2
