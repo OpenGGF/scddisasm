@@ -8,7 +8,8 @@
 ; $20F326-$20F41F  orphaned title-card executable fragment
 ; $20F420-$20F44B  orphaned Results dispatcher and delayed-load state
 ; $20F44C-$20F517  orphaned Results PLC-wait/object-initialization state
-; $20F518-$20FFFF  retained executable/data units (still to be classified)
+; $20F518-$20F551  orphaned Results movement state
+; $20F552-$20FFFF  retained executable/data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -225,12 +226,35 @@ USARetainedResultsWaitPLC:
 	dbf	d6,.Loop
 	rts
 
-; The movement state is the exact boundary for the following milestone.
 USARetainedResultsMove:
-	dc.b	$4A, $68, $00, $32, $67, $04, $53, $68, $00, $32, $70, $08, $32, $28
-	dc.b	$00, $2A, $B2, $68, $00, $08, $67, $18, $6C, $02, $44, $40, $D1, $68, $00, $08
-	dc.b	$0C, $68, $01, $D8, $00, $32, $64, $06, $4E, $F9, $00, $20, $3A, $72, $4E, $75
-	dc.b	$4A, $28, $00, $1A, $66, $EA, $54, $28, $00, $24, $60, $E4, $11, $FC, $00, $01
+	tst.w	oResultsTimer(a0)
+	beq.s	.MoveX
+	subq.w	#1,oResultsTimer(a0)
+.MoveX:
+	moveq	#8,d0
+	move.w	oResultsDestX(a0),d1
+	cmp.w	oX(a0),d1
+	beq.s	.AtDestX
+	bge.s	.AddX
+	neg.w	d0
+.AddX:
+	add.w	d0,oX(a0)
+.CheckDraw:
+	cmpi.w	#472,oResultsTimer(a0)	; USA display threshold
+	bcc.s	.End
+	jmp	$203A72
+.End:
+	rts
+.AtDestX:
+	tst.b	oMapFrame(a0)
+	bne.s	.CheckDraw
+	addq.b	#2,oRoutine(a0)
+	bra.s	.CheckDraw
+
+; Start of the bonus-tally state; the split absolute write continues in the
+; following raw bytes and is intentionally left for the next milestone.
+USARetainedResultsBonus:
+	dc.b	$11, $FC, $00, $01
 	dc.b	$F7, $D6, $70, $00, $4A, $78, $F7, $D2, $66, $30, $4A, $78, $F7, $D4, $66, $3A
 	dc.b	$53, $68, $00, $32, $6A, $04, $54, $28, $00, $24, $0C, $68, $00, $1E, $00, $32
 	dc.b	$66, $12, $4A, $39, $00, $FF, $15, $6E, $67, $0A, $30, $3C, $00, $C8, $4E, $B9
