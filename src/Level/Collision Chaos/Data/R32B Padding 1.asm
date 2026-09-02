@@ -16,7 +16,8 @@
 ; +$0204-+$020B  retained Section 3 PLC
 ; +$020C-+$0213  retained Results PLC
 ; +$0214-+$0227  retained Signpost PLC
-; +$0228 onward  retained data still to be structured
+; +$0228-+$025B  retained Act 1 Present section-PLC tail
+; +$025C onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -241,12 +242,29 @@ R32BRetainedAct2PastSignpostPLC:
 	dc.l	$0020B4B0		; big-ring flash
 	dc.w	$7DE0
 
+; Tail of an Act 1 Present section PLC. The count, preceding records, and high
+; half of the first pointer lie outside this retained range.
+R32BRetainedAct1PresentSectionPLCTail:
+	dc.w	$DA36			; low half of one-way-barrier pointer
+	dc.w	$6E20
+	dc.l	$0021DAB2		; fire shooter
+	dc.w	$6F20
+	dc.l	$0021D97C		; retracting block
+	dc.w	$73E0
+	dc.l	$002354EC		; Pocket, first part
+	dc.w	$75E0
+	dc.l	$00235604		; Pocket, second part
+	dc.w	$75E0
+	dc.l	$00235BD8		; spike chain
+	dc.w	$77A0
+	dc.l	$00236F78		; animals
+	dc.w	$7B40
+	dc.l	$0021DE3E		; KamaKama
+	dc.w	$7E40
+	dc.l	$00234C14		; Ga
+	dc.w	$8420
+
 ; Remaining retained data.
-	dc.b	$DA, $36, $6E, $20, 0, $21, $DA
-	dc.b	$B2, $6F, $20, 0, $21, $D9, $7C, $73, $E0, 0, $23, $54, $EC
-	dc.b	$75, $E0, 0, $23, $56, 4, $75, $E0, 0, $23, $5B, $D8, $77
-	dc.b	$A0, 0, $23, $6F, $78, $7B, $40, 0, $21, $DE, $3E, $7E, $40
-	dc.b	0, $23, $4C, $14, $84, $20
 	dcb.b	3,0
 	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
 	dc.b	$22, $F4, $F2, $91
