@@ -1,8 +1,8 @@
-; Eight expansion frames used by the big-ring flash animation. Each frame is
-; a piece count followed by five-byte records: Y, size/shape, tile high byte,
-; tile low byte, and X. Frames 0-7 progress from the compact ring flash to the
-; full-screen burst.
-
+; ------------------------------------------------------------------------------
+; Sonic CD Disassembly
+; Eight expanding big-ring flash frames. Each frame begins with a piece count, followed by five-byte pieces: Y, size/shape, tile high byte, tile low byte, X.
+; Even-length frames retain one zero alignment byte where required.
+; ------------------------------------------------------------------------------
 .Map:
 	dc.w	.Flash0-.Map
 	dc.w	.Flash1-.Map
@@ -13,403 +13,110 @@
 	dc.w	.Flash6-.Map
 	dc.w	.Flash7-.Map
 
-.Flash0:	dc.b	6
-	dc.b	$E0 ; à
-	dc.b	  8
-	dc.b	  0
-	dc.b	  0
-	dc.b	  0
-	dc.b	$E8 ; è
-	dc.b	  1
-	dc.b	  0
-	dc.b	  3
-	dc.b	  0
-	dc.b	$E8 ; è
-	dc.b	 $A
-	dc.b	  0
-	dc.b	  5
-	dc.b	  8
-	dc.b	  0
-	dc.b	 $A
+.Flash0:
+	dc.b	6
+	dc.b	$E0, 8, 0, 0, 0
+	dc.b	$E8, 1, 0, 3, 0
+	dc.b	$E8, $A, 0, 5, 8
+	dc.b	0, $A, $10, 5, 8
+	dc.b	8, 1, $10, 3, 0
+	dc.b	$18, 8, $10, 0, 0
+	even
+
+.Flash1:
+	dc.b	6
+	dc.b	$E0, 2, 0, $E, $F0
+	dc.b	$E0, $F, 0, $11, $F8
+	dc.b	$E8, 2, 0, $21, $18
+	dc.b	0, 2, $10, $21, $18
+	dc.b	0, $F, $10, $11, $F8
+	dc.b	8, 2, $10, $E, $F0
+	even
+
+.Flash2:
+	dc.b	$A
+	dc.b	$E0, 7, 0, $24, $E8
+	dc.b	$E0, $D, 0, $2C, $F8
+	dc.b	$F0, 5, 0, $34, $F8
+	dc.b	$F0, 5, 0, $34, 8
+	dc.b	$E8, 2, 0, $B, $18
+	dc.b	0, 2, $10, $B, $18
+	dc.b	0, 5, 0, $34, 8
+	dc.b	0, 5, 0, $34, $F8
+	dc.b	$10, $D, $10, $2C, $F8
+	dc.b	0, 7, $10, $24, $E8
+	even
+
+.Flash3:
 	dc.b	$10
-	dc.b	  5
-	dc.b	  8
-	dc.b	  8
-	dc.b	  1
-	dc.b	$10
-	dc.b	  3
-	dc.b	  0
-	dc.b	$18
-	dc.b	  8
-	dc.b	$10
-	dc.b	  0
-	dc.b	  0
-	dc.b	  0
-.Flash1:	dc.b	  6
-	dc.b	$E0 ; à
-	dc.b	  2
-	dc.b	  0
-	dc.b	 $E
-	dc.b	$F0 ; ð
-	dc.b	$E0 ; à
-	dc.b	 $F
-	dc.b	  0
+	dc.b	$E0, 0, 8, 2, $E8
+	dc.b	$E0, 0, 0, 2, $10
+	dc.b	$E8, 6, 0, $38, $E0
+	dc.b	$E0, 5, 8, $2E, $F0
+	dc.b	$E0, 5, 0, $2E, 0
+	dc.b	$F0, 5, 0, $34, $F0
+	dc.b	$F0, 5, 0, $34, 0
+	dc.b	$E8, 6, 8, $38, $10
+	dc.b	0, 6, $10, $38, $E0
+	dc.b	$18, 0, $18, 2, $E8
+	dc.b	0, 5, 0, $34, $F0
+	dc.b	$10, 5, $18, $2E, $F0
+	dc.b	0, 5, 0, $34, 0
+	dc.b	$10, 5, $10, $2E, 0
+	dc.b	$18, 0, $10, 2, $10
+	dc.b	0, 6, $18, $38, $10
+	even
+
+.Flash4:
+	dc.b	$A
+	dc.b	$E8, 2, 8, $B, $E0
+	dc.b	$E0, $D, 8, $2C, $E8
+	dc.b	$F0, 5, 0, $34, $E8
+	dc.b	$F0, 5, 0, $34, $F8
+	dc.b	$E0, 7, 8, $24, 8
+	dc.b	0, 2, $18, $B, $E0
+	dc.b	0, 5, 0, $34, $E8
+	dc.b	0, 5, 0, $34, $F8
+	dc.b	$10, $D, $18, $2C, $E8
+	dc.b	0, 7, $18, $24, 8
+	even
+
+.Flash5:
+	dc.b	6
+	dc.b	$E8, 2, 8, $21, $E0
+	dc.b	$E0, $F, 8, $11, $E8
+	dc.b	$E0, 2, 8, $E, 8
+	dc.b	0, 2, $18, $21, $E0
+	dc.b	0, $F, $18, $11, $E8
+	dc.b	8, 2, $18, $E, 8
+	even
+
+.Flash6:
+	dc.b	6
+	dc.b	$E0, 8, 8, 0, $E8
+	dc.b	$E8, 1, 8, 3, $F8
+	dc.b	$E8, $A, 8, 5, $E0
+	dc.b	0, $A, $18, 5, $E0
+	dc.b	8, 1, $18, 3, $F8
+	dc.b	$18, 8, $18, 0, $E8
+	even
+
+.Flash7:
 	dc.b	$11
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	  2
-	dc.b	  0
-	dc.b	$21 ; !
-	dc.b	$18
-	dc.b	  0
-	dc.b	  2
-	dc.b	$10
-	dc.b	$21 ; !
-	dc.b	$18
-	dc.b	  0
-	dc.b	 $F
-	dc.b	$10
-	dc.b	$11
-	dc.b	$F8 ; ø
-	dc.b	  8
-	dc.b	  2
-	dc.b	$10
-	dc.b	 $E
-	dc.b	$F0 ; ð
-	dc.b	  0
-.Flash2:	dc.b	 $A
-	dc.b	$E0 ; à
-	dc.b	  7
-	dc.b	  0
-	dc.b	$24 ; $
-	dc.b	$E8 ; è
-	dc.b	$E0 ; à
-	dc.b	 $D
-	dc.b	  0
-	dc.b	$2C ; ,
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$F8 ; ø
-	dc.b	$F0 ; ð
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	  8
-	dc.b	$E8 ; è
-	dc.b	  2
-	dc.b	  0
-	dc.b	 $B
-	dc.b	$18
-	dc.b	  0
-	dc.b	  2
-	dc.b	$10
-	dc.b	 $B
-	dc.b	$18
-	dc.b	  0
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	  8
-	dc.b	  0
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$F8 ; ø
-	dc.b	$10
-	dc.b	 $D
-	dc.b	$10
-	dc.b	$2C ; ,
-	dc.b	$F8 ; ø
-	dc.b	  0
-	dc.b	  7
-	dc.b	$10
-	dc.b	$24 ; $
-	dc.b	$E8 ; è
-	dc.b	  0
-.Flash3:	dc.b	$10
-	dc.b	$E0 ; à
-	dc.b	  0
-	dc.b	  8
-	dc.b	  2
-	dc.b	$E8 ; è
-	dc.b	$E0 ; à
-	dc.b	  0
-	dc.b	  0
-	dc.b	  2
-	dc.b	$10
-	dc.b	$E8 ; è
-	dc.b	  6
-	dc.b	  0
-	dc.b	$38 ; 8
-	dc.b	$E0 ; à
-	dc.b	$E0 ; à
-	dc.b	  5
-	dc.b	  8
-	dc.b	$2E ; .
-	dc.b	$F0 ; ð
-	dc.b	$E0 ; à
-	dc.b	  5
-	dc.b	  0
-	dc.b	$2E ; .
-	dc.b	  0
-	dc.b	$F0 ; ð
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$F0 ; ð
-	dc.b	$F0 ; ð
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	  0
-	dc.b	$E8 ; è
-	dc.b	  6
-	dc.b	  8
-	dc.b	$38 ; 8
-	dc.b	$10
-	dc.b	  0
-	dc.b	  6
-	dc.b	$10
-	dc.b	$38 ; 8
-	dc.b	$E0 ; à
-	dc.b	$18
-	dc.b	  0
-	dc.b	$18
-	dc.b	  2
-	dc.b	$E8 ; è
-	dc.b	  0
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$F0 ; ð
-	dc.b	$10
-	dc.b	  5
-	dc.b	$18
-	dc.b	$2E ; .
-	dc.b	$F0 ; ð
-	dc.b	  0
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	  0
-	dc.b	$10
-	dc.b	  5
-	dc.b	$10
-	dc.b	$2E ; .
-	dc.b	  0
-	dc.b	$18
-	dc.b	  0
-	dc.b	$10
-	dc.b	  2
-	dc.b	$10
-	dc.b	  0
-	dc.b	  6
-	dc.b	$18
-	dc.b	$38 ; 8
-	dc.b	$10
-	dc.b	  0
-.Flash4:	dc.b	 $A
-	dc.b	$E8 ; è
-	dc.b	  2
-	dc.b	  8
-	dc.b	 $B
-	dc.b	$E0 ; à
-	dc.b	$E0 ; à
-	dc.b	 $D
-	dc.b	  8
-	dc.b	$2C ; ,
-	dc.b	$E8 ; è
-	dc.b	$F0 ; ð
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$E8 ; è
-	dc.b	$F0 ; ð
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$F8 ; ø
-	dc.b	$E0 ; à
-	dc.b	  7
-	dc.b	  8
-	dc.b	$24 ; $
-	dc.b	  8
-	dc.b	  0
-	dc.b	  2
-	dc.b	$18
-	dc.b	 $B
-	dc.b	$E0 ; à
-	dc.b	  0
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$E8 ; è
-	dc.b	  0
-	dc.b	  5
-	dc.b	  0
-	dc.b	$34 ; 4
-	dc.b	$F8 ; ø
-	dc.b	$10
-	dc.b	 $D
-	dc.b	$18
-	dc.b	$2C ; ,
-	dc.b	$E8 ; è
-	dc.b	  0
-	dc.b	  7
-	dc.b	$18
-	dc.b	$24 ; $
-	dc.b	  8
-	dc.b	  0
-.Flash5:	dc.b	  6
-	dc.b	$E8 ; è
-	dc.b	  2
-	dc.b	  8
-	dc.b	$21 ; !
-	dc.b	$E0 ; à
-	dc.b	$E0 ; à
-	dc.b	 $F
-	dc.b	  8
-	dc.b	$11
-	dc.b	$E8 ; è
-	dc.b	$E0 ; à
-	dc.b	  2
-	dc.b	  8
-	dc.b	 $E
-	dc.b	  8
-	dc.b	  0
-	dc.b	  2
-	dc.b	$18
-	dc.b	$21 ; !
-	dc.b	$E0 ; à
-	dc.b	  0
-	dc.b	 $F
-	dc.b	$18
-	dc.b	$11
-	dc.b	$E8 ; è
-	dc.b	  8
-	dc.b	  2
-	dc.b	$18
-	dc.b	 $E
-	dc.b	  8
-	dc.b	  0
-.Flash6:	dc.b	  6
-	dc.b	$E0 ; à
-	dc.b	  8
-	dc.b	  8
-	dc.b	  0
-	dc.b	$E8 ; è
-	dc.b	$E8 ; è
-	dc.b	  1
-	dc.b	  8
-	dc.b	  3
-	dc.b	$F8 ; ø
-	dc.b	$E8 ; è
-	dc.b	 $A
-	dc.b	  8
-	dc.b	  5
-	dc.b	$E0 ; à
-	dc.b	  0
-	dc.b	 $A
-	dc.b	$18
-	dc.b	  5
-	dc.b	$E0 ; à
-	dc.b	  8
-	dc.b	  1
-	dc.b	$18
-	dc.b	  3
-	dc.b	$F8 ; ø
-	dc.b	$18
-	dc.b	  8
-	dc.b	$18
-	dc.b	  0
-	dc.b	$E8 ; è
-	dc.b	  0
-.Flash7:	dc.b	$11
-	dc.b	$E0 ; à
-	dc.b	  4
-	dc.b	  0
-	dc.b	$3E ; >
-	dc.b	  0
-	dc.b	$E8 ; è
-	dc.b	  9
-	dc.b	  0
-	dc.b	$40 ; .
-	dc.b	  0
-	dc.b	$E8 ; è
-	dc.b	  0
-	dc.b	  0
-	dc.b	$46 ; F
-	dc.b	$18
-	dc.b	$F8 ; ø
-	dc.b	  4
-	dc.b	  0
-	dc.b	$47 ; G
-	dc.b	$10
-	dc.b	  0
-	dc.b	  4
-	dc.b	$10
-	dc.b	$47 ; G
-	dc.b	$10
-	dc.b	  8
-	dc.b	  9
-	dc.b	$10
-	dc.b	$40 ; .
-	dc.b	  0
-	dc.b	$10
-	dc.b	  0
-	dc.b	$10
-	dc.b	$46 ; F
-	dc.b	$18
-	dc.b	$18
-	dc.b	  4
-	dc.b	$10
-	dc.b	$3E ; >
-	dc.b	  0
-	dc.b	$E0 ; à
-	dc.b	  4
-	dc.b	  8
-	dc.b	$3E ; >
-	dc.b	$F0 ; ð
-	dc.b	$E8 ; è
-	dc.b	  0
-	dc.b	  8
-	dc.b	$46 ; F
-	dc.b	$E0 ; à
-	dc.b	$E8 ; è
-	dc.b	  9
-	dc.b	  8
-	dc.b	$40 ; .
-	dc.b	$E8 ; è
-	dc.b	$F8 ; ø
-	dc.b	  4
-	dc.b	  8
-	dc.b	$47 ; G
-	dc.b	$E0 ; à
-	dc.b	  0
-	dc.b	  4
-	dc.b	$18
-	dc.b	$47 ; G
-	dc.b	$E0 ; à
-	dc.b	$10
-	dc.b	  0
-	dc.b	$18
-	dc.b	$46 ; F
-	dc.b	$E0 ; à
-	dc.b	  8
-	dc.b	  9
-	dc.b	$18
-	dc.b	$40 ; .
-	dc.b	$E8 ; è
-	dc.b	$18
-	dc.b	  4
-	dc.b	$18
-	dc.b	$3E ; >
-	dc.b	$F0 ; ð
-	dc.b	$F8 ; ø
-	dc.b	  5
-	dc.b	  0
-	dc.b	$49 ; I
-	dc.b	$F8 ; ø
+	dc.b	$E0, 4, 0, $3E, 0
+	dc.b	$E8, 9, 0, $40, 0
+	dc.b	$E8, 0, 0, $46, $18
+	dc.b	$F8, 4, 0, $47, $10
+	dc.b	0, 4, $10, $47, $10
+	dc.b	8, 9, $10, $40, 0
+	dc.b	$10, 0, $10, $46, $18
+	dc.b	$18, 4, $10, $3E, 0
+	dc.b	$E0, 4, 8, $3E, $F0
+	dc.b	$E8, 0, 8, $46, $E0
+	dc.b	$E8, 9, 8, $40, $E8
+	dc.b	$F8, 4, 8, $47, $E0
+	dc.b	0, 4, $18, $47, $E0
+	dc.b	$10, 0, $18, $46, $E0
+	dc.b	8, 9, $18, $40, $E8
+	dc.b	$18, 4, $18, $3E, $F0
+	dc.b	$F8, 5, 0, $49, $F8

@@ -1,15 +1,10 @@
+; ------------------------------------------------------------------------------
+; Signpost spin animation: delay, observable face/turn-frame sequence, restart.
+; The final zero byte is alignment after the $FF command.
+; ------------------------------------------------------------------------------
 .Anim:
-	dc.w	.0-.Anim
-.0:
-	dc.b   1
-	dc.b   0
-	dc.b   1
-	dc.b   2
-	dc.b   4
-	dc.b   3
-	dc.b   3
-	dc.b   1
-	dc.b   2
-	dc.b   4
-	dc.b $FF
-	dc.b   0
+	dc.w	.Spin-.Anim
+
+.Spin:
+	dc.b	1, 0, 1, 2, 4, 3, 3, 1, 2, 4, $FF
+	even

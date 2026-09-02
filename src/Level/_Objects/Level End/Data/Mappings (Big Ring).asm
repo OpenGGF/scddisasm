@@ -1,173 +1,58 @@
+; ------------------------------------------------------------------------------
+; Sonic CD Disassembly
+; Four big-ring rotation frames. Each frame begins with a piece count, followed by five-byte pieces: Y, size/shape, tile high byte, tile low byte, X.
+; Even-length frames retain one zero alignment byte where required.
+; ------------------------------------------------------------------------------
 .Map:
-	dc.w .unk_23F172-.Map
-	dc.w .unk_23F1A6-.Map
-	dc.w .unk_23F1DA-.Map
-	dc.w .unk_23F1E6-.Map
-.unk_23F172:	dc.b  $A
-		dc.b $E0 ; à
-		dc.b   9
-		dc.b   0
-		dc.b   0
-		dc.b $E8 ; è
-		dc.b $E0 ; à
-		dc.b   9
-		dc.b   0
-		dc.b   6
-		dc.b   0
-		dc.b $E8 ; è
-		dc.b   0
-		dc.b   0
-		dc.b  $C
-		dc.b $E0 ; à
-		dc.b $E8 ; è
-		dc.b   0
-		dc.b   0
-		dc.b  $D
-		dc.b $18
-		dc.b $F0 ; ð
-		dc.b   7
-		dc.b   0
-		dc.b  $E
-		dc.b $E0 ; à
-		dc.b $10
-		dc.b   0
-		dc.b   0
-		dc.b $16
-		dc.b $E0 ; à
-		dc.b $10
-		dc.b   9
-		dc.b   0
-		dc.b $17
-		dc.b $E8 ; è
-		dc.b $10
-		dc.b   9
-		dc.b   0
-		dc.b $1D
-		dc.b   0
-		dc.b $10
-		dc.b   0
-		dc.b   0
-		dc.b $23 ; #
-		dc.b $18
-		dc.b $F0 ; ð
-		dc.b   7
-		dc.b   0
-		dc.b $24 ; $
-		dc.b $10
-		dc.b   0
-.unk_23F1A6:	dc.b  $A
-		dc.b $E0 ; à
-		dc.b  $D
-		dc.b   0
-		dc.b $2C ; ,
-		dc.b $F0 ; ð
-		dc.b $E8 ; è
-		dc.b   0
-		dc.b   0
-		dc.b $34 ; 4
-		dc.b $E8 ; è
-		dc.b $F0 ; ð
-		dc.b   7
-		dc.b   0
-		dc.b $35 ; 5
-		dc.b $E8 ; è
-		dc.b $10
-		dc.b   0
-		dc.b   0
-		dc.b $3D ; =
-		dc.b $E8 ; è
-		dc.b $10
-		dc.b  $D
-		dc.b   0
-		dc.b $3E ; >
-		dc.b $F0 ; ð
-		dc.b $E8 ; è
-		dc.b   0
-		dc.b   0
-		dc.b $46 ; F
-		dc.b $10
-		dc.b $F0 ; ð
-		dc.b   0
-		dc.b   0
-		dc.b $47 ; G
-		dc.b   0
-		dc.b $F0 ; ð
-		dc.b   7
-		dc.b   0
-		dc.b $48 ; H
-		dc.b   8
-		dc.b   8
-		dc.b   0
-		dc.b   0
-		dc.b $50 ; P
-		dc.b   0
-		dc.b $10
-		dc.b   0
-		dc.b   0
-		dc.b $51 ; Q
-		dc.b $10
-		dc.b   0
-.unk_23F1DA:	dc.b   2
-		dc.b $E0 ; à
-		dc.b  $B
-		dc.b   0
-		dc.b $52 ; R
-		dc.b $F4 ; ô
-		dc.b   0
-		dc.b  $B
-		dc.b   0
-		dc.b $5E ; ^
-		dc.b $F4 ; ô
-		dc.b   0
-.unk_23F1E6:	dc.b  $A
-		dc.b $E0 ; à
-		dc.b  $D
-		dc.b   8
-		dc.b $2C ; ,
-		dc.b $F0 ; ð
-		dc.b $E8 ; è
-		dc.b   0
-		dc.b   8
-		dc.b $34 ; 4
-		dc.b $10
-		dc.b $F0 ; ð
-		dc.b   7
-		dc.b   8
-		dc.b $35 ; 5
-		dc.b   8
-		dc.b $10
-		dc.b   0
-		dc.b   8
-		dc.b $3D ; =
-		dc.b $10
-		dc.b $10
-		dc.b  $D
-		dc.b   8
-		dc.b $3E ; >
-		dc.b $F0 ; ð
-		dc.b $E8 ; è
-		dc.b   0
-		dc.b   8
-		dc.b $46 ; F
-		dc.b $E8 ; è
-		dc.b $F0 ; ð
-		dc.b   0
-		dc.b   8
-		dc.b $47 ; G
-		dc.b $F8 ; ø
-		dc.b $F0 ; ð
-		dc.b   7
-		dc.b   8
-		dc.b $48 ; H
-		dc.b $E8 ; è
-		dc.b   8
-		dc.b   0
-		dc.b   8
-		dc.b $50 ; P
-		dc.b $F8 ; ø
-		dc.b $10
-		dc.b   0
-		dc.b   8
-		dc.b $51 ; Q
-		dc.b $E8 ; è
-		dc.b   0
+	dc.w	.RingA-.Map
+	dc.w	.RingB-.Map
+	dc.w	.RingEdge-.Map
+	dc.w	.RingC-.Map
+
+.RingA:
+	dc.b	$A
+	dc.b	$E0, 9, 0, 0, $E8
+	dc.b	$E0, 9, 0, 6, 0
+	dc.b	$E8, 0, 0, $C, $E0
+	dc.b	$E8, 0, 0, $D, $18
+	dc.b	$F0, 7, 0, $E, $E0
+	dc.b	$10, 0, 0, $16, $E0
+	dc.b	$10, 9, 0, $17, $E8
+	dc.b	$10, 9, 0, $1D, 0
+	dc.b	$10, 0, 0, $23, $18
+	dc.b	$F0, 7, 0, $24, $10
+	even
+
+.RingB:
+	dc.b	$A
+	dc.b	$E0, $D, 0, $2C, $F0
+	dc.b	$E8, 0, 0, $34, $E8
+	dc.b	$F0, 7, 0, $35, $E8
+	dc.b	$10, 0, 0, $3D, $E8
+	dc.b	$10, $D, 0, $3E, $F0
+	dc.b	$E8, 0, 0, $46, $10
+	dc.b	$F0, 0, 0, $47, 0
+	dc.b	$F0, 7, 0, $48, 8
+	dc.b	8, 0, 0, $50, 0
+	dc.b	$10, 0, 0, $51, $10
+	even
+
+.RingEdge:
+	dc.b	2
+	dc.b	$E0, $B, 0, $52, $F4
+	dc.b	0, $B, 0, $5E, $F4
+	even
+
+.RingC:
+	dc.b	$A
+	dc.b	$E0, $D, 8, $2C, $F0
+	dc.b	$E8, 0, 8, $34, $10
+	dc.b	$F0, 7, 8, $35, 8
+	dc.b	$10, 0, 8, $3D, $10
+	dc.b	$10, $D, 8, $3E, $F0
+	dc.b	$E8, 0, 8, $46, $E8
+	dc.b	$F0, 0, 8, $47, $F8
+	dc.b	$F0, 7, 8, $48, $E8
+	dc.b	8, 0, 8, $50, $F8
+	dc.b	$10, 0, 8, $51, $E8
+	even

@@ -1,211 +1,81 @@
+; ------------------------------------------------------------------------------
+; Sonic CD Disassembly
+; Flower-capsule and released-seed frames. Each frame begins with a piece count, followed by five-byte pieces: Y, size/shape, tile high byte, tile low byte, X.
+; Even-length frames retain one zero alignment byte where required.
+; ------------------------------------------------------------------------------
 .Map:
-	dc.w .unk_23C954-.Map
-	dc.w .unk_23C992-.Map
-	dc.w .unk_23C9D0-.Map
-	dc.w .unk_23C9F0-.Map
-	dc.w .unk_23C9F6-.Map
-	dc.w .unk_23C9FC-.Map
-	dc.w .unk_23CA02-.Map
-	dc.w .unk_23CA08-.Map
-	dc.w .unk_23CA0E-.Map
-.unk_23C954:
-	dc.b  $C
-	dc.b $E0 ; a
-	dc.b   1
-	dc.b   0
-	dc.b   0
-	dc.b $F8 ; °
-	dc.b $E0 ; a
-	dc.b   1
-	dc.b   8
-	dc.b   0
-	dc.b   0
-	dc.b $F0 ; =
-	dc.b   8
-	dc.b   0
-	dc.b   2
-	dc.b $E8 ; F
-	dc.b $F0 ; =
-	dc.b   8
-	dc.b   0
-	dc.b   5
-	dc.b   0
-	dc.b $F8 ; °
-	dc.b  $D
-	dc.b   0
-	dc.b   8
-	dc.b $E0 ; a
-	dc.b $F8 ; °
-	dc.b  $D
-	dc.b   0
-	dc.b $10
-	dc.b   0
-	dc.b   8
-	dc.b  $D
-	dc.b   0
-	dc.b $18
-	dc.b $E0 ; a
-	dc.b   8
-	dc.b  $D
-	dc.b   8
-	dc.b $18
-	dc.b   0
-	dc.b $18
-	dc.b  $C
-	dc.b   0
-	dc.b $20
-	dc.b $E0 ; a
-	dc.b $18
-	dc.b  $C
-	dc.b   8
-	dc.b $20
-	dc.b   0
-	dc.b $20
-	dc.b   7
-	dc.b   0
-	dc.b $54 ; T
-	dc.b $F0 ; =
-	dc.b $20
-	dc.b   7
-	dc.b   8
-	dc.b $54 ; T
-	dc.b   0
-	dc.b   0
-.unk_23C992:
-	dc.b  $C
-	dc.b $E0 ; a
-	dc.b   1
-	dc.b   0
-	dc.b $24 ; $
-	dc.b $F8 ; °
-	dc.b $E0 ; a
-	dc.b   1
-	dc.b   8
-	dc.b $24 ; $
-	dc.b   0
-	dc.b $F0 ; =
-	dc.b   8
-	dc.b   0
-	dc.b $26 ; &
-	dc.b $E8 ; F
-	dc.b $F0 ; =
-	dc.b   8
-	dc.b   0
-	dc.b $29 ; )
-	dc.b   0
-	dc.b $F8 ; °
-	dc.b  $D
-	dc.b   0
-	dc.b $2C ; ,
-	dc.b $E0 ; a
-	dc.b $F8 ; °
-	dc.b  $D
-	dc.b   0
-	dc.b $34 ; 4
-	dc.b   0
-	dc.b   8
-	dc.b  $D
-	dc.b   0
-	dc.b $3C ; <
-	dc.b $E0 ; a
-	dc.b   8
-	dc.b  $D
-	dc.b   8
-	dc.b $3C ; <
-	dc.b   0
-	dc.b $18
-	dc.b  $C
-	dc.b   0
-	dc.b $20
-	dc.b $E0 ; a
-	dc.b $18
-	dc.b  $C
-	dc.b   8
-	dc.b $20
-	dc.b   0
-	dc.b $20
-	dc.b   7
-	dc.b   0
-	dc.b $54 ; T
-	dc.b $F0 ; =
-	dc.b $20
-	dc.b   7
-	dc.b   8
-	dc.b $54 ; T
-	dc.b   0
-	dc.b   0
-.unk_23C9D0:
-	dc.b   6
-	dc.b   8
-	dc.b  $D
-	dc.b   0
-	dc.b $44 ; D
-	dc.b $E0 ; a
-	dc.b   8
-	dc.b  $D
-	dc.b   0
-	dc.b $4C ; L
-	dc.b   0
-	dc.b $18
-	dc.b  $C
-	dc.b   0
-	dc.b $20
-	dc.b $E0 ; a
-	dc.b $18
-	dc.b  $C
-	dc.b   8
-	dc.b $20
-	dc.b   0
-	dc.b $20
-	dc.b   7
-	dc.b   0
-	dc.b $54 ; T
-	dc.b $F0 ; =
-	dc.b $20
-	dc.b   7
-	dc.b   8
-	dc.b $54 ; T
-	dc.b   0
-	dc.b   0
-.unk_23C9F0:
-	dc.b   1
-	dc.b $F8 ; °
-	dc.b   5
-	dc.b   0
-	dc.b $5C ; \
-	dc.b $F8 ; °
-.unk_23C9F6:
-	dc.b   1
-	dc.b $F8 ; °
-	dc.b   5
-	dc.b   0
-	dc.b $60 ; `
-	dc.b $F8 ; °
-.unk_23C9FC:
-	dc.b   1
-	dc.b $F8 ; °
-	dc.b   5
-	dc.b   0
-	dc.b $64 ; d
-	dc.b $F8 ; °
-.unk_23CA02:
-	dc.b   1
-	dc.b $F8 ; °
-	dc.b   5
-	dc.b   8
-	dc.b $64 ; d
-	dc.b $F8 ; °
-.unk_23CA08:
-	dc.b   1
-	dc.b $F8 ; °
-	dc.b   5
-	dc.b   8
-	dc.b $60 ; `
-	dc.b $F8 ; °
-.unk_23CA0E:
-	dc.b   1
-	dc.b $F8 ; °
-	dc.b   5
-	dc.b   8
-	dc.b $5C ; \
-	dc.b $F8 ; °
+	dc.w	.IntactA-.Map
+	dc.w	.IntactB-.Map
+	dc.w	.Broken-.Map
+	dc.w	.SeedA-.Map
+	dc.w	.SeedB-.Map
+	dc.w	.SeedC-.Map
+	dc.w	.SeedD-.Map
+	dc.w	.SeedE-.Map
+	dc.w	.SeedF-.Map
+
+.IntactA:
+	dc.b	$C
+	dc.b	$E0, 1, 0, 0, $F8
+	dc.b	$E0, 1, 8, 0, 0
+	dc.b	$F0, 8, 0, 2, $E8
+	dc.b	$F0, 8, 0, 5, 0
+	dc.b	$F8, $D, 0, 8, $E0
+	dc.b	$F8, $D, 0, $10, 0
+	dc.b	8, $D, 0, $18, $E0
+	dc.b	8, $D, 8, $18, 0
+	dc.b	$18, $C, 0, $20, $E0
+	dc.b	$18, $C, 8, $20, 0
+	dc.b	$20, 7, 0, $54, $F0
+	dc.b	$20, 7, 8, $54, 0
+	even
+
+.IntactB:
+	dc.b	$C
+	dc.b	$E0, 1, 0, $24, $F8
+	dc.b	$E0, 1, 8, $24, 0
+	dc.b	$F0, 8, 0, $26, $E8
+	dc.b	$F0, 8, 0, $29, 0
+	dc.b	$F8, $D, 0, $2C, $E0
+	dc.b	$F8, $D, 0, $34, 0
+	dc.b	8, $D, 0, $3C, $E0
+	dc.b	8, $D, 8, $3C, 0
+	dc.b	$18, $C, 0, $20, $E0
+	dc.b	$18, $C, 8, $20, 0
+	dc.b	$20, 7, 0, $54, $F0
+	dc.b	$20, 7, 8, $54, 0
+	even
+
+.Broken:
+	dc.b	6
+	dc.b	8, $D, 0, $44, $E0
+	dc.b	8, $D, 0, $4C, 0
+	dc.b	$18, $C, 0, $20, $E0
+	dc.b	$18, $C, 8, $20, 0
+	dc.b	$20, 7, 0, $54, $F0
+	dc.b	$20, 7, 8, $54, 0
+	even
+
+.SeedA:
+	dc.b	1
+	dc.b	$F8, 5, 0, $5C, $F8
+
+.SeedB:
+	dc.b	1
+	dc.b	$F8, 5, 0, $60, $F8
+
+.SeedC:
+	dc.b	1
+	dc.b	$F8, 5, 0, $64, $F8
+
+.SeedD:
+	dc.b	1
+	dc.b	$F8, 5, 8, $64, $F8
+
+.SeedE:
+	dc.b	1
+	dc.b	$F8, 5, 8, $60, $F8
+
+.SeedF:
+	dc.b	1
+	dc.b	$F8, 5, 8, $5C, $F8
