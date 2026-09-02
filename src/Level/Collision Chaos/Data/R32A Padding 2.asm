@@ -15,7 +15,8 @@
 ; +$25A2-+$25A5  shared null layout
 ; +$25A6-+$266D  retained Green Hill Zone Act 2 foreground layout
 ; +$266E-+$279B  remaining Act 1 Past table-addressed layout graph
-; +$279C-+$29FF  retained units still to be classified
+; +$279C-+$27BC  truncated eight-piece legacy demo mapping frame
+; +$27BD-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -108,15 +109,20 @@ R32ARetainedSharedNullLayout:
 R32ARetainedFinalNullLayout:
 	incbin	"maps/empty.bin"
 
-; First byte of the following retained unit.
-	dc.b	8, $F4, $FC, 1, 8, $11, $C, 0, 2, $EC, $F
-	dcb.b	2,0
-	dc.b	$F8
-	dcb.b	2,$C
-	dc.b	0, $10, $F8, 0, 2, $EC, $F, 8, 0, $E8
-	dcb.b	2,$C
-	dc.b	8, $10, $E8
-	dcb.b	2,0
+; Truncated legacy demo sprite-mapping frame. It declares eight five-byte
+; pieces but retains only six complete pieces and the Y and size/shape bytes of
+; piece seven.
+R32ARetainedDemoMappingFragment:
+	dc.b	8
+	dc.b	$F4, $FC, 1, 8, $11
+	dc.b	$C, 0, 2, $EC, $F
+	dc.b	0, 0, $F8, $C, $C
+	dc.b	0, $10, $F8, 0, 2
+	dc.b	$EC, $F, 8, 0, $E8
+	dc.b	$C, $C, 8, $10, $E8
+	dc.b	0, 0	; Y and size/shape bytes of the truncated seventh piece
+
+; First word of the following retained mapping-offset table.
 	dc.b	$14, 0, $3E, 0, $6C, 0, $9A, 0, $C8, 0, $EC, 1, $C, 1, $5E
 	dc.b	1, $AA, 1, $F2, 8, $E8, 1
 	dcb.b	2,0
