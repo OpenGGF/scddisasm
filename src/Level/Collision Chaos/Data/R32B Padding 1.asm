@@ -52,7 +52,8 @@
 ; +$0BF0-+$0BF7 retained Update 2 PLC
 ; +$0BF8-+$0C05 retained Update 3 PLC
 ; +$0C06-+$0C13 retained Intro PLC
-; +$0C14 onward  retained stage/PLC bodies still to be structured
+; +$0C14-+$0C1B retained Tentou PLC
+; +$0C1C onward  retained stage/PLC bodies still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -1137,8 +1138,12 @@ R32BRetainedAct1PresentIntroPLC:
 	dc.l	$0023AAD8		; intro text
 	dc.w	$7A00
 
-	dcb.b	3,0
-	dc.b	$23, $60, $D6, $8D, $40
+
+; Single-entry Tentou PLC; pointer retains its historical absolute value.
+R32BRetainedAct1PresentTentouPLC:
+	dc.w	0			; one entry
+	dc.l	$002360D6		; Tentou art
+	dc.w	$8D40
 	dcb.b	3,0
 	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
 	dc.b	$22, $F4, $F2, $91
