@@ -14,7 +14,8 @@
 ; $20F6E0-$20F6F7  three Results object-initialization records
 ; $20F6F8-$20F71F  four Results mapping-offset tables
 ; $20F720-$20F7E5  complete Bad-Future Results mapping frames
-; $20F7E6-$20FFFF  retained data units (still to be classified)
+; $20F7E6-$20F8D5  complete Good-Future Results mapping frames
+; $20F8D6-$20FFFF  retained data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
 ; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
@@ -383,9 +384,17 @@ USARetainedResultsBadSSZ3Mappings:
 	dc.w	USARetainedResultsBadAct2-USARetainedResultsBadSSZ3Mappings
 	dc.w	USARetainedResultsBadAct3-USARetainedResultsBadSSZ3Mappings
 USARetainedResultsGoodMappings:
-	dc.w	$00DA, $01CA, $0122, $015A, $0192
+	dc.w	USARetainedResultsGoodHeader-USARetainedResultsGoodMappings
+	dc.w	$01CA			; standard score frame (not yet structured)
+	dc.w	USARetainedResultsGoodAct1-USARetainedResultsGoodMappings
+	dc.w	USARetainedResultsGoodAct2-USARetainedResultsGoodMappings
+	dc.w	USARetainedResultsGoodAct3-USARetainedResultsGoodMappings
 USARetainedResultsGoodSSZ3Mappings:
-	dc.w	$00D0, $0208, $0118, $0150, $0188
+	dc.w	USARetainedResultsGoodHeader-USARetainedResultsGoodSSZ3Mappings
+	dc.w	$0208			; SSZ3 score frame (not yet structured)
+	dc.w	USARetainedResultsGoodAct1-USARetainedResultsGoodSSZ3Mappings
+	dc.w	USARetainedResultsGoodAct2-USARetainedResultsGoodSSZ3Mappings
+	dc.w	USARetainedResultsGoodAct3-USARetainedResultsGoodSSZ3Mappings
 
 ; Each frame starts with a piece count followed by five-byte sprite pieces:
 ; signed Y, size, tile attributes/index, and signed X. `even` is record padding.
@@ -442,21 +451,69 @@ USARetainedResultsBadAct3:
 	dc.b	4, 9, 0, $2E, $3C
 	dc.b	4, 5, 0, $4E, $5C
 	even
-	dc.b	$0E, $EC, $05, $00, $00, $80, $EC, $05, $00, $04, $90, $EC, $05, $00, $08, $A0
-	dc.b	$EC, $01, $00, $0C, $B0, $EC, $05, $00, $0E, $B8, $EC, $05, $00, $36, $D0, $EC
-	dc.b	$05, $00, $3A, $E0, $EC, $05, $00, $3E, $F0, $EC, $05, $00, $42, $00, $EC, $05
-	dc.b	$00, $3A, $20, $EC, $05, $00, $12, $40, $EC, $05, $00, $04, $50, $EC, $05, $00
-	dc.b	$04, $60, $EC, $05, $00, $3E, $70, $00, $0B, $04, $05, $00, $46, $90, $04, $05
-	dc.b	$00, $22, $A0, $04, $05, $00, $16, $B0, $04, $05, $00, $22, $C0, $04, $05, $00
-	dc.b	$1E, $D0, $04, $05, $00, $42, $E0, $04, $01, $00, $0C, $00, $04, $05, $00, $08
-	dc.b	$08, $04, $0D, $00, $26, $28, $04, $09, $00, $2E, $48, $04, $01, $00, $34, $68
-	dc.b	$0B, $04, $05, $00, $46, $90, $04, $05, $00, $22, $A0, $04, $05, $00, $16, $B0
-	dc.b	$04, $05, $00, $22, $C0, $04, $05, $00, $1E, $D0, $04, $05, $00, $42, $E0, $04
-	dc.b	$01, $00, $0C, $00, $04, $05, $00, $08, $08, $04, $0D, $00, $26, $28, $04, $09
-	dc.b	$00, $2E, $48, $04, $05, $00, $4A, $68, $0B, $04, $05, $00, $46, $90, $04, $05
-	dc.b	$00, $22, $A0, $04, $05, $00, $16, $B0, $04, $05, $00, $22, $C0, $04, $05, $00
-	dc.b	$1E, $D0, $04, $05, $00, $42, $E0, $04, $01, $00, $0C, $00, $04, $05, $00, $08
-	dc.b	$08, $04, $0D, $00, $26, $28, $04, $09, $00, $2E, $48, $04, $05, $00, $4E, $68
+
+USARetainedResultsGoodHeader:
+	dc.b	$E
+	dc.b	$EC, 5, 0, 0, $80
+	dc.b	$EC, 5, 0, 4, $90
+	dc.b	$EC, 5, 0, 8, $A0
+	dc.b	$EC, 1, 0, $C, $B0
+	dc.b	$EC, 5, 0, $E, $B8
+	dc.b	$EC, 5, 0, $36, $D0
+	dc.b	$EC, 5, 0, $3A, $E0
+	dc.b	$EC, 5, 0, $3E, $F0
+	dc.b	$EC, 5, 0, $42, 0
+	dc.b	$EC, 5, 0, $3A, $20
+	dc.b	$EC, 5, 0, $12, $40
+	dc.b	$EC, 5, 0, 4, $50
+	dc.b	$EC, 5, 0, 4, $60
+	dc.b	$EC, 5, 0, $3E, $70
+	even
+
+USARetainedResultsGoodAct1:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 1, 0, $34, $68
+	even
+
+USARetainedResultsGoodAct2:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4A, $68
+	even
+
+USARetainedResultsGoodAct3:
+	dc.b	$B
+	dc.b	4, 5, 0, $46, $90
+	dc.b	4, 5, 0, $22, $A0
+	dc.b	4, 5, 0, $16, $B0
+	dc.b	4, 5, 0, $22, $C0
+	dc.b	4, 5, 0, $1E, $D0
+	dc.b	4, 5, 0, $42, $E0
+	dc.b	4, 1, 0, $C, 0
+	dc.b	4, 5, 0, 8, 8
+	dc.b	4, $D, 0, $26, $28
+	dc.b	4, 9, 0, $2E, $48
+	dc.b	4, 5, 0, $4E, $68
+	even
 	dc.b	$0E, $E0, $0D, $00, $52, $D4, $E0, $01, $00, $5A, $F4, $F8, $0D, $00, $5C, $D4
 	dc.b	$F8, $0D, $00, $64, $FC, $F8, $05, $00, $6C, $1C, $10, $0D, $00, $70, $D4, $10
 	dc.b	$0D, $00, $64, $FC, $10, $05, $00, $6C, $1C, $F8, $0D, $00, $82, $58, $F8, $01
