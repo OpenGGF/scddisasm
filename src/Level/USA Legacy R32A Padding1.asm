@@ -1,13 +1,53 @@
 ; ------------------------------------------------------------------------------
 ; USA Collision Chaos R32A data before StageChunks
 ; Recovered as source-level assembly data; no binary padding file is used.
+;
+; $20F2E4-$20F317  retained Collision Chaos Act 1 Present section-PLC tail
+; $20F318-$20F31F  complete retained Results PLC
+; $20F320-$20F333  complete retained Signpost PLC
+; $20F334-$20FFFF  retained executable/data units (still to be classified)
 ; ------------------------------------------------------------------------------
 
-	dc.b	$DA, $36, $6E, $20, $00, $21, $DA, $B2, $6F, $20, $00, $21, $D9, $7C, $73, $E0
-	dc.b	$00, $23, $54, $EC, $75, $E0, $00, $23, $56, $04, $75, $E0, $00, $23, $5B, $D8
-	dc.b	$77, $A0, $00, $23, $6F, $78, $7B, $40, $00, $21, $DE, $3E, $7E, $40, $00, $23
-	dc.b	$4C, $14, $84, $20, $00, $00, $00, $23, $00, $98, $78, $80, $00, $02, $00, $22
-	dc.b	$FA, $BC, $87, $80, $00, $22, $F4, $F2, $91, $00, $00, $20, $DC, $60, $7D, $E0
+; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
+; destinations and record order match the live Section 1 list from the one-way
+; barrier through Ga, except that this snapshot splits Pocket art into two
+; records at the same destination. The count, preceding records, and high half
+; of the first art pointer are outside the retained range. Historical absolute
+; art addresses remain literal because they do not name the current graph.
+USARetainedAct1PresentSectionPLCTail:
+	dc.w	$DA36			; low half of one-way-barrier art pointer
+	dc.w	$6E20
+	dc.l	$0021DAB2		; fire-shooter art
+	dc.w	$6F20
+	dc.l	$0021D97C		; retracting-block art
+	dc.w	$73E0
+	dc.l	$002354EC		; Pocket art, first part
+	dc.w	$75E0
+	dc.l	$00235604		; Pocket art, second part
+	dc.w	$75E0
+	dc.l	$00235BD8		; spike-chain art
+USARetainedTitleCardInitLoopTarget:
+	dc.w	$77A0
+	dc.l	$00236F78		; Animals art
+	dc.w	$7B40
+	dc.l	$0021DE3E		; Kama-Kama art
+	dc.w	$7E40
+	dc.l	$00234C14		; Ga art
+	dc.w	$8420
+
+USARetainedAct1PresentResultsPLC:
+	dc.w	0
+	dc.l	$00230098		; Results art
+	dc.w	$7880
+
+USARetainedAct1PresentSignpostPLC:
+	dc.w	2
+	dc.l	$0022FABC		; signpost art
+	dc.w	$8780
+	dc.l	$0022F4F2		; big-ring art
+	dc.w	$9100
+	dc.l	$0020DC60		; big-ring flash art (USA historical address)
+	dc.w	$7DE0
 	dc.b	$33, $72, $20, $02, $00, $2C, $33, $72, $20, $04, $00, $2A, $13, $72, $20, $06
 	dc.b	$00, $1A, $0C, $01, $00, $05, $66, $0A, $16, $39, $00, $FF, $15, $07, $D7, $29
 	dc.b	$00, $1A, $13, $72, $20, $07, $00, $1E, $52, $01, $51, $CE, $FF, $A4, $4E, $75
