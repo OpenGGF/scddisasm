@@ -266,42 +266,7 @@ StageCollision:
 	even
 
 StageMaps:
-	dc.w	StageMapFg-*
-	dc.w	StageMapBg-StageMaps
-	dc.w	StageMapNull-StageMaps
-	dc.w	StageMapUnk1-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk3-StageMaps
-	dc.w	StageMapUnk4-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapFg-StageMaps
-	dc.w	StageMapBg-StageMaps
-	dc.w	StageMapNull-StageMaps
-	dc.w	StageMapUnk1-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk3-StageMaps
-	dc.w	StageMapUnk4-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapFg-StageMaps
-	dc.w	StageMapBg-StageMaps
-	dc.w	StageMapNull-StageMaps
-	dc.w	StageMapUnk1-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk3-StageMaps
-	dc.w	StageMapUnk4-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk2-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapUnk5-StageMaps
-	dc.w	StageMapUnk5-StageMaps
+	include	"Level/Collision Chaos/Layout Pointer Table (Act 2 Variant).asm"
 
 StageMapFg:
 	incbin	"maps/r32a/foreground.bin"
@@ -315,23 +280,23 @@ StageMapNull:
 	incbin	"maps/empty.bin"
 	even
 
-StageMapUnk1:
+StageMapGHZ2:
 	incbin	"maps/ghz2_foreground.bin"
 	even
 
-StageMapUnk3:
+StageMapGHZ2Null:
 	incbin	"maps/empty.bin"
 	even
 
-StageMapUnk4:
+StageMapGHZ3:
 	incbin	"maps/ghz3_foreground.bin"
 	even
 
-StageMapUnk2:
+StageMapSharedNull:
 	incbin	"maps/empty.bin"
 	even
 
-StageMapUnk5:
+StageMapFinalRowNull:
 	incbin	"maps/empty.bin"
 	even
 
