@@ -12,7 +12,8 @@
 ; +$2420-+$2467  Collision Chaos Act 1 Past layout pointer table
 ; +$2468-+$2589  Collision Chaos Act 1 Past foreground layout
 ; +$258A-+$25A1  Collision Chaos Act 1 Past background layout
-; +$25A2-+$29FF  retained units still to be classified
+; +$25A2-+$25A5  shared null layout
+; +$25A6-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -60,7 +61,8 @@ R32ARetainedAct1PastCollision:
 R32ARetainedAct1PastLayoutPointers:
 	rept	3
 	dc.w	R32ARetainedAct1PastForeground-R32ARetainedAct1PastLayoutPointers
-	dc.w	R32ARetainedAct1PastBackground-R32ARetainedAct1PastLayoutPointers, $0182
+	dc.w	R32ARetainedAct1PastBackground-R32ARetainedAct1PastLayoutPointers
+	dc.w	R32ARetainedNullLayout-R32ARetainedAct1PastLayoutPointers
 	dc.w	$0186, $0374, $024E
 	dc.w	$0252, $0374, $0374
 	dc.w	$0378, $0378, $0378
@@ -76,8 +78,11 @@ R32ARetainedAct1PastForeground:
 R32ARetainedAct1PastBackground:
 	incbin	"maps/r31b/background.bin"
 
-; Complete four-byte null layout begins here.
-	dcb.b	4,0
+; Complete shared four-byte null layout, reached by the table at offset $0182.
+R32ARetainedNullLayout:
+	incbin	"maps/empty.bin"
+
+; First byte of the following retained layout.
 	dc.b	$20, 5
 	dcb.b	$21,0
 	dc.b	$E, $2B, $16, $1C, 5, $2B, $16, 2, $37
