@@ -3,6 +3,9 @@
 ; Recovered from tracked historical assembly; no proprietary binary is included.
 ; The filename preserves the historical `Padding 2` include contract; contents
 ; are classified incrementally below rather than assumed to be alignment.
+; +$0000-+$0CB5  nine complete Nemesis streams
+; +$0CB6-+$0E65  complete normal KamaKama mapping family
+; +$0E66-+$29FF  retained units still to be classified
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -19,127 +22,14 @@ R32ARetainedNemesisArt:
 	incbin	"gfx/r3/kama_kama.nem"		; +$083E, $39E bytes
 	incbin	"gfx/spikes_hv2.nem"		; +$0BDC, $DA bytes
 
-; First byte of the following retained unit.
+; Complete eight-frame normal KamaKama mapping family. The shared source
+; documents the count-prefixed five-byte piece schema and all pose roles.
+R32ARetainedKamaKamaMappings:
+	include	"sprites/r3/kama_kama_1.asm"
+	dc.b	0	; retained terminal alignment byte
+
+; First byte of the following retained mapping-offset table.
 	dc.b	0
-	dc.b	$10, 0, $44, 0, $78, 0, $A2, 0, $D6, 1, $A, 1, $48, 1, $86
-	dc.b	$A, $EC, 4
-	dcb.b	2,0
-	dc.b	$EE, $F4
-	dcb.b	2,0
-	dc.b	2, $EE, $F4
-	dcb.b	2,0
-	dc.b	3, $F6, $FC, 1, 0, 8, $F4, $FC, 4, 0, $A, $FC, 4
-	dcb.b	2,0
-	dc.b	$C, $FC, 4
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE, 0, $A, $ED, 4
-	dcb.b	2,0
-	dc.b	$EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	3, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $A, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, 8, $EC, 4
-	dcb.b	2,0
-	dc.b	$EE, $F4
-	dcb.b	2,0
-	dc.b	2, $EE, $F4
-	dcb.b	2,0
-	dc.b	3, $F6, $FC, 1, 0, 8, $F4, $FC, 4, 0, $A, $FC, 4
-	dcb.b	2,0
-	dc.b	$C, $FC, 4
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dc.b	5, 0, $15, $FE, 0, $A, $ED, 4
-	dcb.b	2,0
-	dc.b	$EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	3, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $A, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, $A, $ED, 4
-	dcb.b	2,0
-	dc.b	$EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	3, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $A, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, $C, $EC, 4
-	dcb.b	2,0
-	dc.b	$EE, $F4
-	dcb.b	2,0
-	dc.b	2, $EE, $F4
-	dcb.b	2,0
-	dc.b	3, $F6, $F4, 5, 8, $19, $F0, $F6, 5, 8, $19, $E8, $FC, 1
-	dc.b	0, 8, $F4, $FC, 4, 0, $A, $FC, 4
-	dcb.b	2,0
-	dc.b	$C, $FC, 4
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE, 0, $C, $ED, 4
-	dcb.b	2,0
-	dc.b	$EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	3
-	dcb.b	2,$F6
-	dc.b	5, 8, $19, $F0, $F5, 5, 8, $19, $E8, $FD, 1, 0, 8, $F4, $FD
-	dc.b	4, 0, $A, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, 8, $EC, 5, 0, 4, $EE, $FC
-	dc.b	1, 0, 8, $F4, $FC, 4, 0, $A, $FC, 4
-	dcb.b	2,0
-	dc.b	$C, $FC, 4
-	dcb.b	2,0
-	dc.b	$D
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE
-	dcb.b	2,0
 	dc.b	$10, 0, $34, 0, $68, 0, $82, 0, $B6, 0, $EA, 1, $E, 1, $42
 	dc.b	7, $EC, 4, 0, $21, $EE, $F4
 	dcb.b	2,0
