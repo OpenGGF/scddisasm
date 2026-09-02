@@ -2,7 +2,9 @@
 ; R32A Japan/Europe retained data before the $210000 chunk boundary
 ; Recovered from tracked historical assembly; no proprietary binary is included.
 ;
-; $20F2E4-$20F333  retained data tail (still to be classified)
+; $20F2E4-$20F317  retained Collision Chaos Act 1 Present section-PLC tail
+; $20F318-$20F31F  complete retained Results PLC
+; $20F320-$20F333  complete retained Signpost PLC
 ; $20F334-$20F42D  orphaned title-card executable fragment (structured below)
 ; $20F42E-$20F6ED  orphaned Results executable fragment (structured below)
 ; $20F6EE-$20F973  Results initialization and complete mapping records
@@ -20,17 +22,46 @@
 ; $20FFF4-$20FFFF  DEMO11A Signpost PLC truncated at the chunk boundary
 ; ------------------------------------------------------------------------------
 
-	dc.b	$DA, $36, $6E, $20, 0, $21, $DA, $B2, $6F, $20, 0, $21, $D9
-	dc.b	$7C, $73, $E0, 0, $23, $54, $EC, $75, $E0, 0, $23, $56, 4
-	dc.b	$75, $E0, 0, $23, $5B, $D8
+; Tail of a historical Collision Chaos Act 1 Present section PLC. Its VRAM
+; destinations and record order match the live Section 1 list from the one-way
+; barrier through Ga, except that this snapshot splits Pocket art into two
+; records at the same destination. The count, preceding records, and high half
+; of the first art pointer are outside the retained range. Historical absolute
+; art addresses remain literal because they do not name the current graph.
+RetainedAct1PresentSectionPLCTail:
+		dc.w	$DA36			; low half of one-way-barrier art pointer
+		dc.w	$6E20
+		dc.l	$0021DAB2		; fire-shooter art
+		dc.w	$6F20
+		dc.l	$0021D97C		; retracting-block art
+		dc.w	$73E0
+		dc.l	$002354EC		; Pocket art, first part
+		dc.w	$75E0
+		dc.l	$00235604		; Pocket art, second part
+		dc.w	$75E0
+		dc.l	$00235BD8		; spike-chain art
 RetainedTitleCardInitLoopTarget:
-	dc.b	$77, $A0, 0, $23, $6F, $78, $7B
-	dc.b	$40, 0, $21, $DE, $3E, $7E, $40, 0, $23, $4C, $14, $84, $20
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2, $91
-	dcb.b	2,0
-	dc.b	$20, $DC, $6E, $7D, $E0
+		dc.w	$77A0
+		dc.l	$00236F78		; Animals art
+		dc.w	$7B40
+		dc.l	$0021DE3E		; Kama-Kama art
+		dc.w	$7E40
+		dc.l	$00234C14		; Ga art
+		dc.w	$8420
+
+RetainedAct1PresentResultsPLC:
+		dc.w	0
+		dc.l	$00230098		; Results art
+		dc.w	$7880
+
+RetainedAct1PresentSignpostPLC:
+		dc.w	2
+		dc.l	$0022FABC		; signpost art
+		dc.w	$8780
+		dc.l	$0022F4F2		; big-ring art
+		dc.w	$9100
+		dc.l	$0020DC6E		; big-ring flash art (historical address)
+		dc.w	$7DE0
 
 ; This is an orphaned copy of the end of title-card initialization followed by
 ; its slide routines. No live code points at these entries. The copied DBF
