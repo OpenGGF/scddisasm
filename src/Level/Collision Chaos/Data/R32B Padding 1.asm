@@ -1265,9 +1265,15 @@ R32BRetainedDemoR11ACam4IncrementalPLC:
 	dc.l	$0023AE02		; 3D ramp/boost art
 	dc.w	$8820
 
-	dc.b	0, 1, 0, $23, $F2, $A6, $6E
-	dcb.b	2,0
-	dc.b	$23, $84, $6C, $81, $20
+
+; Two-entry DEMO11A Palmtree Panic Act 1 Present Cam 5 incremental PLC.
+R32BRetainedDemoR11ACam5IncrementalPLC:
+	dc.w	1			; entry count minus one
+	dc.l	$0023F2A6		; Amy Rose art
+	dc.w	$6E00
+	dc.l	$0023846C		; withered robot-generator art
+	dc.w	$8120
+
 	dcb.b	3,0
 	dc.b	$23, $28, $76, $78, $80, 0, 2, 0, $23, $22, $9A, $87, $80
 	dc.b	0, $23, $1C, $D0, $91
