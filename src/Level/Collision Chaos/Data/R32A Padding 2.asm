@@ -29,7 +29,7 @@
 ; +$29A3-+$29AD  two uncounted piece records and alignment before frame 9
 ; +$29AE-+$29EA  twelve-piece legacy demo mapping frame 9
 ; +$29EB-+$29F5  two uncounted piece records and alignment
-; +$29F6-+$29FF  unresolved retained terminal word pattern
+; +$29F6-+$29FF  two post-alignment uncounted piece records
 ; ------------------------------------------------------------------------------
 
 ; The first $CB6 bytes are nine complete Nemesis streams retained verbatim in
@@ -314,11 +314,14 @@ R32ARetainedDemoMapFrame9:
 	dc.b	0, 6, 8, $31, 4
 
 ; As with frame 8, two valid records follow the declared count. They end with
-; alignment before a separate terminal pattern whose role remains unresolved.
+; alignment before a second uncounted pair at the end of the retained family.
 R32ARetainedDemoMapFrame9UncountedTail:
 	dc.b	$F4, 3, $10, $27, $E4
 	dc.b	$EC, 3, 8, $27, $14
 	dc.b	0	; alignment
 
-R32ARetainedDemoMappingTerminalWords:
-	dc.w	$E000, 0, $E000, 0, $E000
+; These bytes also split exactly into standard Y, size/shape, tile word, X
+; records. Matching retained copies reproduce the same post-alignment anomaly.
+R32ARetainedDemoMapFrame9PostAlignmentTail:
+	dc.b	$E0, 0, 0, 0, $E0
+	dc.b	0, 0, 0, $E0, 0
