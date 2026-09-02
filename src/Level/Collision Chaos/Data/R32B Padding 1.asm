@@ -25,7 +25,8 @@
 ; +$046A-+$04A3  retained Results movement state
 ; +$04A4-+$0557  retained Results bonus-tally state
 ; +$0558-+$0631  retained Results next-level state
-; +$0632 onward  retained data still to be structured
+; +$0632-+$0649  retained Results object-initialization records
+; +$064A onward  retained data still to be structured
 ; ------------------------------------------------------------------------------
 
 ; The count, first complete piece, and first two bytes of piece 2 precede this
@@ -592,16 +593,14 @@ R32BRetainedResultsNextLevel:
 .End:
 	rts
 
-; Remaining retained Results data.
-	dc.b	0, $CC
-	dcb.b	2,0
-	dc.b	1, $20
-	dcb.b	2,0
-	dc.b	1, $10, 2
-	dcb.b	2,0
-	dc.b	$F0, 0, 1, 0, $CC
-	dcb.b	2,0
-	dc.b	1, $20, 0, 2, 0, $28, 1, $DE, 0, $52, 0, $86, 0, $BA, 0, $1E
+; Y position, initial X position, destination X position, and mapping frame.
+R32BRetainedResultsInitData:
+	dc.w	204, 0,   288, 0
+	dc.w	272, 512, 240, 1
+	dc.w	204, 0,   288, 2
+
+; Remaining retained Results mapping data.
+	dc.b	0, $28, 1, $DE, 0, $52, 0, $86, 0, $BA, 0, $1E
 	dc.b	2, $1C, 0, $48, 0, $7C, 0, $B0, 0, $DA, 1, $CA, 1, $22, 1
 	dc.b	$5A, 1, $92, 0, $D0, 2, 8, 1, $18, 1, $50, 1, $88, 8, $EC
 	dc.b	5
