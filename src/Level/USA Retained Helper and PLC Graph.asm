@@ -104,24 +104,130 @@ USARetainedSharedStaticPLCMetadata:
 	dc.b	3, 2
 	dc.l	$00233B0C, $00233B8C
 
-; Orphan stage descriptor, PLC index, and retained PLC lists.
-USARetainedOrphanStagePLCGraph:
-	dc.w	$0323, $81DC, $0223, $6F30, $0021, $0000, $0081, $0404
-	dc.w	$0026, $002E, $008A, $0026, $008A, $008A, $008A, $008A
-	dc.w	$008A, $008A, $008A, $008A, $008A, $008A, $008A, $008A
-	dc.w	$00E6, $008A, $00EE, $0000, $0023, $81DC, $0000, $000E
-	dc.w	$0023, $0DA2, $6C00, $0023, $39BC, $7A00, $0023, $CA20
-	dc.w	$8700, $0023, $CC94, $8AE0, $0023, $CFF4, $9100, $0023
-	dc.w	$D458, $9500, $0023, $D2B6, $9900, $0023, $DC52, $9A00
-	dc.w	$0023, $213A, $A400, $0023, $34BC, $AD00, $0023, $235C
-	dc.w	$B500, $0023, $2960, $D000, $0022, $EDE6, $D8C0, $0023
-	dc.w	$3732, $DAE0, $0023, $2E48, $F5C0, $000E, $0022, $F8FC
-	dc.w	$5780, $0023, $4378, $5C20, $0023, $4220, $6200, $0023
-	dc.w	$B174, $6800, $0023, $C8EE, $6B00, $0023, $B2B2, $6D40
-	dc.w	$0023, $BE78, $7340, $0023, $BECA, $7400, $0023, $D378
-	dc.w	$7500, $0023, $D6B0, $7700, $0023, $BD98, $7D00, $0023
-	dc.w	$DB7A, $7F00, $0023, $410C, $8000, $0023, $C34E, $8200
-	dc.w	$0023, $C066, $9D00, $0000, $0023, $0098, $7880, $0002
-	dc.w	$0022, $FABC, $8780, $0022, $F4F2, $9100, $0020, $BBBC
-	dc.w	$7DE0, $7DE0, $0023, $D59E, $78C0, $0023, $C440, $7D20
-	dc.w	$0023, $D0C4, $8BA0, $0000, $0023
+; Complete but unreachable historical stage-data and graphics-list snapshot.
+; Its source zone/variant is not proven by the retained bytes, so the embedded
+; art addresses remain literal. The 19-entry index has the Stage, Standard,
+; Section, Stage, twelve Section, Results, Section, Signpost selection pattern.
+; Each PLC starts with count-minus-one followed by six-byte pointer/destination
+; records.
+USARetainedSharedOrphanStageData:
+	dc.l	$032381DC		; Nemesis stage art
+	dc.l	$02236F30		; Nemesis stage blocks
+	dc.l	$00210000		; stage chunks
+	dc.b	0, $81, 4, 4		; layout flags and palette IDs
+
+USARetainedSharedOrphanPLCLists:
+	dc.w	.Stage-USARetainedSharedOrphanPLCLists
+	dc.w	.Standard-USARetainedSharedOrphanPLCLists
+	dc.w	.Section-USARetainedSharedOrphanPLCLists
+	dc.w	.Stage-USARetainedSharedOrphanPLCLists
+	rept	12
+	dc.w	.Section-USARetainedSharedOrphanPLCLists
+	endr
+	dc.w	.Results-USARetainedSharedOrphanPLCLists
+	dc.w	.Section-USARetainedSharedOrphanPLCLists
+	dc.w	.Signpost-USARetainedSharedOrphanPLCLists
+
+.Stage:
+	dc.w	0
+	dc.l	$002381DC
+	dc.w	0
+
+.Standard:
+	dc.w	$E
+	dc.l	$00230DA2
+	dc.w	$6C00
+	dc.l	$002339BC
+	dc.w	$7A00
+	dc.l	$0023CA20
+	dc.w	$8700
+	dc.l	$0023CC94
+	dc.w	$8AE0
+	dc.l	$0023CFF4
+	dc.w	$9100
+	dc.l	$0023D458
+	dc.w	$9500
+	dc.l	$0023D2B6
+	dc.w	$9900
+	dc.l	$0023DC52
+	dc.w	$9A00
+	dc.l	$0023213A
+	dc.w	$A400
+	dc.l	$002334BC
+	dc.w	$AD00
+	dc.l	$0023235C
+	dc.w	$B500
+	dc.l	$00232960
+	dc.w	$D000
+	dc.l	$0022EDE6
+	dc.w	$D8C0
+	dc.l	$00233732
+	dc.w	$DAE0
+	dc.l	$00232E48
+	dc.w	$F5C0
+
+.Section:
+	dc.w	$E
+	dc.l	$0022F8FC
+	dc.w	$5780
+	dc.l	$00234378
+	dc.w	$5C20
+	dc.l	$00234220
+	dc.w	$6200
+	dc.l	$0023B174
+	dc.w	$6800
+	dc.l	$0023C8EE
+	dc.w	$6B00
+	dc.l	$0023B2B2
+	dc.w	$6D40
+	dc.l	$0023BE78
+	dc.w	$7340
+	dc.l	$0023BECA
+	dc.w	$7400
+	dc.l	$0023D378
+	dc.w	$7500
+	dc.l	$0023D6B0
+	dc.w	$7700
+	dc.l	$0023BD98
+	dc.w	$7D00
+	dc.l	$0023DB7A
+	dc.w	$7F00
+	dc.l	$0023410C
+	dc.w	$8000
+	dc.l	$0023C34E
+	dc.w	$8200
+	dc.l	$0023C066
+	dc.w	$9D00
+
+.Results:
+	dc.w	0
+	dc.l	$00230098
+	dc.w	$7880
+
+.Signpost:
+	dc.w	2
+	dc.l	$0022FABC
+	dc.w	$8780
+	dc.l	$0022F4F2
+	dc.w	$9100
+	dc.l	$0020BBBC
+	dc.w	$7DE0
+
+; Tail of a historical PLC whose count, earlier records, and final omitted
+; record pointer precede this slice. The surviving destination is followed by
+; three complete six-byte art-pointer/VRAM-destination records. Longer copies
+; retain the same order, but do not prove the source list or asset identities.
+USARetainedSharedFinalPLCTail:
+	dc.w	$7DE0			; destination; corresponding pointer omitted
+	dc.l	$0023D59E
+	dc.w	$78C0
+	dc.l	$0023C440
+	dc.w	$7D20
+	dc.l	$0023D0C4
+	dc.w	$8BA0
+
+; Start of the following one-record PLC. The chunk boundary truncates its
+; first art pointer after the high word, before its low word and destination.
+USARetainedSharedTruncatedNextPLC:
+	dc.w	0			; one record (count minus one)
+	dc.w	$0023			; high word of truncated art pointer
