@@ -2832,6 +2832,8 @@ L_FF3950:
 	movem.l (a7)+, d1
 L_FF3954:
 	rts
+; Stream eight rotated passes of a RAM buffer to the VDP.
+TimeAttack_UploadRotatedVdpData:
 L_FF3956:
 	movem.l d0-d3/a0-a3, -(a7)
 L_FF395A:
