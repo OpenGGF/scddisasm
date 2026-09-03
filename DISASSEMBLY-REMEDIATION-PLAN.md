@@ -457,6 +457,7 @@ opaque merely because they use `dc.*`.
 | M248 | Complete | Reuse the shared R32C Padding 3 mapping/animation tail and spin-platform rotation-vector table at `$2540-$268D`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M249 | Complete | Replace the exact shared collision-row profile map in R32C Padding 2 at `$01C2-$11C1` with its named binary asset. | J/U/E 133/133 each; audit/hygiene clean. |
 | M250 | Complete | Replace the exact retained Act 1 Past collision-index map in R32C Padding 2 at `$11C2-$14E1` with its named binary asset. | J/U/E 133/133 each; audit/hygiene clean. |
+| M251 | Complete | Replace the exact retained Act 1 Past foreground layout in R32C Padding 2 at `$152A-$164B` with its named binary asset. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
