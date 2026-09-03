@@ -1041,6 +1041,8 @@ L_FF297E:
 	rts
 	dc.l	$08390007,$00A1200F,$67F64E75,$08390007,$00A1200F,$66F64E75,$08390001,$00A12003,$661208F9,$000100A1,$20030839,$000100A1,$200367F6
 	dc.b	$4E,$75
+; Select the previous time period and animate the selection change.
+TimeAttack_SelectPreviousTimePeriod:
 L_FF29B6:
 	tst.w $ff3468.l
 L_FF29BC:
@@ -1059,6 +1061,8 @@ L_FF29D8:
 	moveq #$f8, d7
 L_FF29DA:
 	bra.b L_FF2A00
+; Select the next time period and animate the selection change.
+TimeAttack_SelectNextTimePeriod:
 L_FF29DC:
 	tst.w $ff3468.l
 L_FF29E2:
@@ -1075,6 +1079,8 @@ L_FF29F6:
 	move.w #$0, $ff3478.l
 L_FF29FE:
 	moveq #$8, d7
+; Animate the time-period selection transition.
+TimeAttack_AnimateTimePeriodChange:
 L_FF2A00:
 	moveq #$0, d0
 L_FF2A02:
@@ -1101,6 +1107,8 @@ L_FF2A38:
 	clr.w $ff3472.l
 L_FF2A3E:
 	rts
+; Apply one frame of the time-period selection animation.
+TimeAttack_UpdateTimePeriodAnimationFrame:
 L_FF2A40:
 	move.w d6, d0
 L_FF2A42:

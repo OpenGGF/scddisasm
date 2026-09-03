@@ -509,6 +509,7 @@ opaque merely because they use `dc.*`.
 | M300 | Complete | Share the byte-identical USA Quartz Quadrant Act 1 stage-object map table across R51A-R51D. | J/U/E 133/133 each; audit/hygiene clean. |
 | M301 | Complete | Add semantic entry aliases and concise purpose comments for five Time Attack Sub CPU/VDP synchronization helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M302 | Complete | Add concise semantic aliases for three Time Attack VDP data-transfer helpers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M303 | In progress | Add concise semantic aliases for the Time Attack time-period selection and animation helpers. | Validation pending. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
