@@ -472,6 +472,7 @@ opaque merely because they use `dc.*`.
 | M263 | Complete | Reuse the complete R31C non-USA pre-chunk provider for the byte-identical R32C Padding 1 tail at `$015E-$0E29`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M264 | Complete | Structure the R32C Padding 1 `$0000-$015D` prefix as its retained Act 2/Act 1 PLC record groups. | J/U/E 133/133 each; audit/hygiene clean. |
 | M265 | Complete | Structure the unique R32D Padding 1 `$0000-$002F` prefix as its retained Act 1 PLC tail, Results PLC, and Signpost PLC. | J/U/E 133/133 each; audit/hygiene clean. |
+| M266 | Complete | Reuse USA R32C Padding 1 for the byte-identical USA R32D tail at `$0030-$0E67`, with a named USA R32D PLC prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
