@@ -1287,6 +1287,8 @@ L_FF2BC8:
 	addi.l #$1800000, d1
 L_FF2BCE:
 	bra.w L_FF2F94
+; Prepare the selected stage or period's graphics buffers.
+TimeAttack_PrepareSelectionGraphics:
 L_FF2BD2:
 	tst.w $ff3468.l
 L_FF2BD8:
