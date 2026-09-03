@@ -61,7 +61,7 @@ ThankYou_ClearWorkRamLoop:
 	if REGION=USA
 	move.w	#$2a30, $FFFFBA80.w
 	endif
-	lea.l	L_FF38CE(pc), a0
+	lea.l	ThankYou_InitialPaletteState(pc), a0
 	lea.l	$FFFFB680.w, a1
 	moveq	#$1f, d7
 ThankYou_InitializeDisplayStateLoop:
@@ -620,25 +620,25 @@ L_FF3734:
 	dc.b	$60,$00,$FD,$58
 ; Initialize the Mega Drive VDP, I/O, and Z80 interfaces.
 ThankYou_InitMegaDrive:
-	lea.l	L_FF394E(pc), a0
+	lea.l	ThankYou_VdpRegisterTable(pc), a0
 	move.w	#$8000, d0
 	moveq	#$12, d7
-L_FF37B4:
+ThankYou_InitMegaDriveVdpLoop:
 	move.b	(a0)+, d0
 	move.w	d0, $c00004.l
 	addi.w	#$100, d0
-	dbra	d7, L_FF37B4
+	dbra	d7, ThankYou_InitMegaDriveVdpLoop
 	moveq	#$40, d0
 	move.b	d0, $a10009.l
 	move.b	d0, $a1000b.l
 	move.b	d0, $a1000d.l
 	move.b	#$c0, $a10003.l
-	bra.b	L_FF381A
+	bra.b	ThankYou_InitMegaDriveZ80AndVdp
 	dc.b	$33,$FC,$01,$00,$00,$A1,$12,$00,$61,$00,$01,$76,$43,$F9,$00,$A0
 	dc.b	$00,$00,$12,$FC,$00,$F3,$12,$FC,$00,$F3,$12,$FC,$00,$C3,$12,$FC
 	dc.b	$00,$00,$12,$FC,$00,$00,$33,$FC,$00,$00,$00,$A1,$12,$00,$E0,$18
 	dc.b	$33,$FC,$01,$00,$00,$A1,$12,$00
-L_FF381A:
+ThankYou_InitMegaDriveZ80AndVdp:
 	bsr.w	ThankYou_HaltZ80
 	lea.l	$c00004.l, a6
 	move.w	#$8f01, (a6)
@@ -646,36 +646,37 @@ L_FF381A:
 	move.w	#$9780, (a6)
 	move.l	#$40000080, (a6)
 	move.w	#$0, $c00000.l
-L_FF3840:
+ThankYou_InitMegaDriveVdpWait:
 	btst.b	#$1, $1(a6)
-	bne.b	L_FF3840
+	bne.b	ThankYou_InitMegaDriveVdpWait
 	move.l	#$40000000, (a6)
 	move.w	#$0, $c00000.l
 	move.w	#$8f02, (a6)
 	nop
 	move.l	#$40000003, $c00004.l
 	move.w	#$7ff, d7
-L_FF386A:
+ThankYou_InitMegaDriveClearVramLoop:
 	move.w	#$6ff, $c00000.l
-	dbra	d7, L_FF386A
+	dbra	d7, ThankYou_InitMegaDriveClearVramLoop
 	move.l	#$60000003, $c00004.l
 	move.w	#$7ff, d7
-L_FF3884:
+ThankYou_InitMegaDriveClearVramMirrorLoop:
 	move.w	#$6ff, $c00000.l
-	dbra	d7, L_FF3884
+	dbra	d7, ThankYou_InitMegaDriveClearVramMirrorLoop
 	move.l	#$c0000000, $c00004.l
-	lea.l	L_FF38CE(pc), a0
+	lea.l	ThankYou_InitialPaletteState(pc), a0
 	moveq	#$0, d0
 	moveq	#$1f, d7
-L_FF38A2:
+ThankYou_InitMegaDriveClearVdpLoop:
 	move.l	d0, $c00000.l
-	dbra	d7, L_FF38A2
+	dbra	d7, ThankYou_InitMegaDriveClearVdpLoop
 	move.l	#$40000010, $c00004.l
 	move.l	#$0, $c00000.l
 	bsr.w	ThankYou_ReleaseZ80
 	move.w	#$8134, $ff0f16.l
 	rts
-L_FF38CE:
+; Initial palette/state words copied into the Thank You work area.
+ThankYou_InitialPaletteState:
 	dc.b	$00
 	dc.b	$00,$00,$00,$06,$28,$08,$4A,$0E,$6E,$0E,$8E,$0E,$EE,$0A,$AA,$08
 	dc.b	$88,$04,$44,$08,$AE,$00,$6C,$00,$C2,$00,$80,$08,$06,$00,$0E,$00
@@ -685,7 +686,8 @@ L_FF38CE:
 	dc.b	$00,$00,$66,$00,$AA,$00,$EE,$00,$00,$00,$00,$00,$00,$00,$00,$00
 	dc.b	$00,$00,$00,$08,$22,$0A,$44,$0C,$66,$0E,$88,$0E,$EE,$0A,$AA,$08
 	dc.b	$88,$04,$44,$08,$AE,$04,$6A,$00,$0E,$00,$08,$00,$00,$00,$EE
-L_FF394E:
+; VDP register values written during hardware initialization.
+ThankYou_VdpRegisterTable:
 	dc.b	$04
 	dc.b	$34,$30,$00,$07,$5E,$00,$00,$00,$00,$00,$00,$81,$34,$00,$02,$01
 	dc.b	$00,$00,$00
@@ -693,9 +695,9 @@ L_FF394E:
 ThankYou_HaltZ80:
 	move.w	sr, $FFFFBA50.w
 	move.w	#$100, $a11100.l
-L_FF396E:
+ThankYou_HaltZ80WaitLoop:
 	btst.b	#$0, $a11100.l
-	bne.b	L_FF396E
+	bne.b	ThankYou_HaltZ80WaitLoop
 	rts
 ; Release the Z80 and restore the saved interrupt mask.
 ThankYou_ReleaseZ80:
