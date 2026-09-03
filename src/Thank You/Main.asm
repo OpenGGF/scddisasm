@@ -31,19 +31,20 @@ Start:
 	move.l	d0, $a1201c.l
 	move.b	d0, $a1200e.l
 	move.w	d0, $FFFFBA5C.w
-	bsr.w	WaitSubCPUStart
-	bsr.w	GiveWordRAMAccess
-	bsr.w	WaitSubCPUStop
+	bsr.w	ThankYou_WaitSubCpuStart
+	bsr.w	ThankYou_GiveWordRamAccess
+	bsr.w	ThankYou_WaitSubCpuStop
 	lea.l	$FFFF9000.w, a0
 	moveq	#$0, d0
 	move.w	#$1aff, d7
-L_FF2042:
+; Clear the object workspace before graphics initialization.
+ThankYou_ClearWorkRamLoop:
 	move.l	d0, (a0)+
-	dbra	d7, L_FF2042
+	dbra	d7, ThankYou_ClearWorkRamLoop
 	move.w	#$f000, $a1201e.l
-	bsr.w	InitMD
-	bsr.w	LoadFirstGraphics
-	bsr.w	LoadSecondGraphics
+	bsr.w	ThankYou_InitMegaDrive
+	bsr.w	ThankYou_LoadFirstGraphics
+	bsr.w	ThankYou_LoadSecondGraphics
 	move.l	#$4030201, d0
 	jsr	ThankYou_LoadNemesisGraphics.l
 	moveq	#$5, d0
@@ -63,32 +64,32 @@ L_FF2042:
 	lea.l	L_FF38CE(pc), a0
 	lea.l	$FFFFB680.w, a1
 	moveq	#$1f, d7
-L_FF20BA:
+ThankYou_InitializeDisplayStateLoop:
 	move.l	(a0)+, (a1)+
-	dbra	d7, L_FF20BA
-L_FF20C0:
+	dbra	d7, ThankYou_InitializeDisplayStateLoop
+ThankYou_CommandLoop:
 	moveq	#$0, d0
 	move.w	$FFFFBA5C.w, d0
 	add.w	d0, d0
-	lea.l	CommandTable.l, a0
+	lea.l	ThankYou_CommandTable.l, a0
 	move.w	(a0, d0.w), d0
 	jsr	(a0, d0.w)
 	tst.b	$FFFFBA40.w
-	beq.b	L_FF20C0
+	beq.b	ThankYou_CommandLoop
 	bsr.w	ThankYou_FadeInitializedPalettes
-	bsr.w	StopSubCPU
+	bsr.w	ThankYou_StopSubCpu
 	nop
 	nop
 	nop
 	rts
-CommandTable:
+ThankYou_CommandTable:
 	dc.b	$00
 	dc.b	$04,$00,$3C
-MainLoop:
+ThankYou_MainLoop:
 	bsr.w	ThankYou_UpdateDisplay
-	bne.b	MainLoop
-	bsr.w	BuildObjectList
-	bsr.w	WritePalette
+	bne.b	ThankYou_MainLoop
+	bsr.w	ThankYou_BuildObjectList
+	bsr.w	ThankYou_WritePalette
 	lea.l	$FFFFBA64.w, a4
 	move.w	#$258, (a4)+
 	move.l	#$0, (a4)+
@@ -98,59 +99,62 @@ MainLoop:
 	move.w	#$1, $FFFFBA5C.w
 	bsr.w	ThankYou_FadeInPalettes
 	rts
-UpdateFrame:
+ThankYou_UpdateFrame:
 	bsr.w	ThankYou_CheckExitSignal
 	bsr.w	ThankYou_UpdateObjectTimers
 	bsr.w	ThankYou_UpdateObjects
 	bsr.w	ThankYou_WaitForVBlank
 	rts
 	dc.b	$4E,$BA,$13,$44,$70,$00,$4E,$75
-BuildObjectList:
+; Seed the object pool from the static screen object descriptors.
+ThankYou_BuildObjectList:
 	lea.l	$200190.l, a0
 	moveq	#$3, d1
-	bsr.w	InsertObject
+	bsr.w	ThankYou_InsertObject
 	lea.l	$200194.l, a0
 	moveq	#$2, d1
-	bsr.w	InsertObject
+	bsr.w	ThankYou_InsertObject
 	lea.l	$200198.l, a0
 	moveq	#$1, d1
-	bsr.w	InsertObject
+	bsr.w	ThankYou_InsertObject
 	moveq	#$0, d0
 	move.w	#$ffff, d1
 	lea.l	$FFFF9000.w, a0
 	moveq	#$53, d7
-L_FF2172:
+ThankYou_BuildObjectListScanLoop:
 	cmp.w	$4(a0), d1
-	bgt.b	L_FF2180
+	bgt.b	ThankYou_BuildObjectListBestFound
 	move.l	$0(a0), d0
 	move.w	$4(a0), d1
-L_FF2180:
+ThankYou_BuildObjectListBestFound:
 	addq.l	#$6, a0
-	dbra	d7, L_FF2172
+	dbra	d7, ThankYou_BuildObjectListScanLoop
 	rts
-InsertObject:
+; Insert one descriptor batch into the object pool.
+ThankYou_InsertObject:
 	moveq	#$1b, d7
-L_FF218A:
+ThankYou_InsertObjectDescriptorLoop:
 	move.l	(a0), d0
 	lea.l	$FFFF9000.w, a1
 	moveq	#$53, d6
-L_FF2192:
+ThankYou_InsertObjectSlotLoop:
 	cmp.l	$0(a1), d0
-	beq.b	L_FF219E
+	beq.b	ThankYou_InsertObjectStore
 	tst.l	$0(a1)
-	bne.b	L_FF21A8
-L_FF219E:
+	bne.b	ThankYou_InsertObjectNextSlot
+ThankYou_InsertObjectStore:
 	move.l	d0, $0(a1)
 	add.w	d1, $4(a1)
-	bra.b	L_FF21B0
-L_FF21A8:
+	bra.b	ThankYou_InsertObjectNextDescriptor
+ThankYou_InsertObjectNextSlot:
 	lea.l	$6(a1), a1
-	dbra	d6, L_FF2192
-L_FF21B0:
+	dbra	d6, ThankYou_InsertObjectSlotLoop
+ThankYou_InsertObjectNextDescriptor:
 	adda.l	#$c, a0
-	dbra	d7, L_FF218A
+	dbra	d7, ThankYou_InsertObjectDescriptorLoop
 	rts
-WritePalette:
+; Write the three palette blocks selected by the display state.
+ThankYou_WritePalette:
 	lea.l	$c00004.l, a2
 	move.w	#$c149, d5
 	move.l	#$462a0003, d3
@@ -173,15 +177,15 @@ WritePalette:
 ThankYou_WritePaletteBlock:
 	moveq	#$2, d7
 	cmpi.w	#$11, d2
-	bne.b	L_FF2208
+	bne.b	ThankYou_WritePaletteExtendedBlock
 	moveq	#$3, d7
-L_FF2208:
+ThankYou_WritePaletteExtendedBlock:
 	add.w	d2, d2
 	lea.l	L_FF67D0.l, a0
 	lea.l	(a0, d2.w), a1
 	adda.w	(a1), a0
 	move.l	d7, d6
-L_FF2218:
+ThankYou_WritePaletteBlockLoop:
 	move.l	d3, (a2)
 	move.w	(a0)+, d4
 	add.w	d5, d4
@@ -190,17 +194,18 @@ L_FF2218:
 	add.w	d5, d4
 	move.w	d4, $c00000.l
 	addi.l	#$800000, d3
-	dbra	d6, L_FF2218
+	dbra	d6, ThankYou_WritePaletteBlockLoop
 	rts
-StopSubCPU:
+; Stop the Sub CPU and wait for its acknowledgement.
+ThankYou_StopSubCpu:
 	bset.b	#$6, $a1200e.l
-	bsr.w	GiveWordRAMAccess
+	bsr.w	ThankYou_GiveWordRamAccess
 	nop
 	nop
 	nop
-L_FF224C:
+ThankYou_StopSubCpuWaitLoop:
 	btst.b	#$6, $a1200f.l
-	beq.b	L_FF224C
+	beq.b	ThankYou_StopSubCpuWaitLoop
 	bclr.b	#$6, $a1200e.l
 	nop
 	nop
@@ -209,51 +214,55 @@ L_FF224C:
 ; Set the exit flag when the Sub CPU reports a stop signal.
 ThankYou_CheckExitSignal:
 	btst.b	#$7, $a1201f.l
-	beq.b	L_FF2278
+	beq.b	ThankYou_CheckExitSignalBit7
 	move.b	#$1, $FFFFBA40.w
-	bra.b	L_FF22AC
-L_FF2278:
+	bra.b	ThankYou_CheckExitSignalDone
+ThankYou_CheckExitSignalBit7:
 	btst.b	#$6, $a1201f.l
-	beq.b	L_FF228A
+	beq.b	ThankYou_CheckExitSignalBit6
 	move.b	#$1, $FFFFBA40.w
-	bra.b	L_FF22AC
-L_FF228A:
+	bra.b	ThankYou_CheckExitSignalDone
+ThankYou_CheckExitSignalBit6:
 	btst.b	#$4, $a1201f.l
-	beq.b	L_FF229C
+	beq.b	ThankYou_CheckExitSignalBit4
 	move.b	#$1, $FFFFBA40.w
-	bra.b	L_FF22AC
-L_FF229C:
+	bra.b	ThankYou_CheckExitSignalDone
+ThankYou_CheckExitSignalBit4:
 	btst.b	#$5, $a1201f.l
-	beq.b	L_FF22AC
+	beq.b	ThankYou_CheckExitSignalDone
 	move.b	#$1, $FFFFBA40.w
-L_FF22AC:
+ThankYou_CheckExitSignalDone:
 	rts
 	dc.b	$33,$FC,$00,$01,$00,$A1,$20,$12,$4A,$79,$00,$A1,$20,$22,$67,$F8
 	dc.b	$33,$FC,$00,$00,$00,$A1,$20,$12,$4A,$79,$00,$A1,$20,$22,$66,$F8
 	dc.b	$4E,$75
-GiveWordRAMAccess:
+; Acquire Word RAM ownership from the Sub CPU.
+ThankYou_GiveWordRamAccess:
 	btst.b	#$1, $a12003.l
-	bne.b	L_FF22EC
-L_FF22DA:
+	bne.b	ThankYou_GiveWordRamAccessDone
+ThankYou_GiveWordRamAccessLoop:
 	bset.b	#$1, $a12003.l
 	btst.b	#$1, $a12003.l
-	beq.b	L_FF22DA
-L_FF22EC:
+	beq.b	ThankYou_GiveWordRamAccessLoop
+ThankYou_GiveWordRamAccessDone:
 	rts
 ; Wait until the Sub CPU ready bit is asserted.
 ThankYou_WaitSubCpuReady:
 	btst.b	#$0, $a12003.l
 	beq.b	ThankYou_WaitSubCpuReady
 	rts
-WaitSubCPUStart:
+; Wait for the Sub CPU start flag.
+ThankYou_WaitSubCpuStart:
 	btst.b	#$7, $a1200f.l
-	beq.b	WaitSubCPUStart
+	beq.b	ThankYou_WaitSubCpuStart
 	rts
-WaitSubCPUStop:
+; Wait for the Sub CPU stop flag to clear.
+ThankYou_WaitSubCpuStop:
 	btst.b	#$7, $a1200f.l
-	bne.b	WaitSubCPUStop
+	bne.b	ThankYou_WaitSubCpuStop
 	rts
-LoadFirstGraphics:
+; Load the first Thank You graphics set.
+ThankYou_LoadFirstGraphics:
 	move.l	#$40200000, $c00004.l
 	lea.l	$210452.l, a0
 	bsr.w	ThankYou_DecodeNemesisToVdp
@@ -264,7 +273,8 @@ LoadFirstGraphics:
 	dc.b	$20,$3C,$40,$00,$00,$03,$32,$3C,$00,$1B,$24,$80,$34,$3C,$00,$27
 	dc.b	$36,$19,$D6,$46,$33,$C3,$00,$C0,$00,$00,$51,$CA,$FF,$F4,$06,$80
 	dc.b	$00,$80,$00,$00,$51,$C9,$FF,$E4,$4E,$75
-LoadSecondGraphics:
+; Load the second Thank You graphics set.
+ThankYou_LoadSecondGraphics:
 	move.l	#$53600000, $c00004.l
 	lea.l	$210aaa.l, a0
 	bsr.w	ThankYou_DecodeNemesisToVdp
@@ -436,7 +446,7 @@ ThankYou_DispatchDisplayCommand:
 	bsr.w	ThankYou_CheckDisplayUpdatePending
 	bne.b	L_FF351E
 	move.b	$ff0f1f.l, $200028.l
-	jsr	GiveWordRAMAccess.l
+	jsr	ThankYou_GiveWordRamAccess.l
 	jsr	ThankYou_WaitSubCpuReady.l
 	bra.b	L_FF3522
 L_FF351E:
@@ -608,7 +618,8 @@ L_FF3734:
 	dc.l	$00FF22EE-ThankYouEarlyShift
 	dc.b	$13,$FC,$00,$09,$00,$20,$00,$20
 	dc.b	$60,$00,$FD,$58
-InitMD:
+; Initialize the Mega Drive VDP, I/O, and Z80 interfaces.
+ThankYou_InitMegaDrive:
 	lea.l	L_FF394E(pc), a0
 	move.w	#$8000, d0
 	moveq	#$12, d7

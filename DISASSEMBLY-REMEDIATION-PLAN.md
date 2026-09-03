@@ -577,6 +577,7 @@ opaque merely because they use `dc.*`.
 | M364 | Complete | Canonicalize the Thank You Enigma decoder's upload loops, stream table, and dispatch handlers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M365 | Complete | Canonicalize the Thank You object-pool searches, list rebuild, and sprite-queue pipeline. | J/U/E 133/133 each; audit/hygiene clean. |
 | M366 | Complete | Canonicalize the Thank You object-timer update loop and its interval/jump tables. | J/U/E 133/133 each; audit/hygiene clean. |
+| M367 | Complete | Canonicalize the Thank You startup, command loop, object-list initialization, and graphics-loader callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
