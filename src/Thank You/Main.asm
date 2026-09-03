@@ -100,7 +100,7 @@ MainLoop:
 	rts
 UpdateFrame:
 	bsr.w	ThankYou_CheckExitSignal
-	bsr.w	UpdateObjectTimers
+	bsr.w	ThankYou_UpdateObjectTimers
 	bsr.w	ThankYou_UpdateObjects
 	bsr.w	ThankYou_WaitForVBlank
 	rts
@@ -1692,29 +1692,30 @@ ThankYou_ClearObject:
 	bra.w	FillObject
 	dc.b	$43,$F8,$92,$00,$72,$00,$70,$3F,$4E,$BA,$F6,$1A,$51,$C8,$FF,$FA
 	dc.b	$4E,$75
-UpdateObjectTimers:
+; Update object timers and dispatch expired timer actions.
+ThankYou_UpdateObjectTimers:
 	lea.l	$FFFFBA64.w, a2
 	moveq	#$7, d5
 	cmpi.b	#$2, $FFFFBA7B.w
-	bne.b	L_FF45F0
+	bne.b	ThankYou_UpdateObjectTimersLoop
 	subq.w	#$1, d5
-L_FF45F0:
+ThankYou_UpdateObjectTimersLoop:
 	subq.w	#$1, (a2)
-	bcs.b	L_FF45FE
+	bcs.b	ThankYou_UpdateObjectTimersExpired
 	adda.w	#$2, a2
-	dbra	d5, L_FF45F0
+	dbra	d5, ThankYou_UpdateObjectTimersLoop
 	rts
-L_FF45FE:
+ThankYou_UpdateObjectTimersExpired:
 	move.w	d5, d0
 	add.w	d0, d0
 	add.w	d0, d0
 	cmpi.b	#$2, $FFFFBA7B.w
-	beq.b	L_FF4612
-	lea.l	L_FF4640(pc, d0.w), a1
-	bra.b	L_FF4616
-L_FF4612:
-	lea.l	L_FF4660(pc, d0.w), a1
-L_FF4616:
+	beq.b	ThankYou_UpdateObjectTimersAlternateTable
+	lea.l	ThankYou_ObjectTimerBaseTable(pc, d0.w), a1
+	bra.b	ThankYou_UpdateObjectTimersApplyInterval
+ThankYou_UpdateObjectTimersAlternateTable:
+	lea.l	ThankYou_ObjectTimerRangeTable(pc, d0.w), a1
+ThankYou_UpdateObjectTimersApplyInterval:
 	move.w	(a1)+, (a2)
 	movem.l	d5/a1-a2, -(a7)
 	jsr	Random(pc)
@@ -1727,17 +1728,20 @@ L_FF4616:
 	add.w	d0, (a2)
 	move.w	d5, d0
 	add.w	d0, d0
-	move.w	ObjectJumpTable(pc, d0.w), d0
-	jmp	ObjectJumpTable(pc, d0.w)
-L_FF4640:
+	move.w	ThankYou_ObjectTimerJumpTable(pc, d0.w), d0
+	jmp	ThankYou_ObjectTimerJumpTable(pc, d0.w)
+; Base timer intervals for the standard region.
+ThankYou_ObjectTimerBaseTable:
 	dc.b	$00
 	dc.b	$78,$00,$B4,$00,$B4,$01,$2C,$00,$F0,$02,$58,$02,$D0,$07,$08,$03
 	dc.b	$48,$08,$E8,$02,$58,$08,$70,$00,$F0,$02,$58,$01,$2C,$02,$58
-L_FF4660:
+; Timer interval ranges for the alternate region.
+ThankYou_ObjectTimerRangeTable:
 	dc.b	$00
 	dc.b	$0A,$00,$19,$00,$0F,$00,$14,$00,$0A,$00,$19,$00,$14,$00,$32,$00
 	dc.b	$1E,$00,$3C,$00,$14,$00,$3C,$00,$28,$00,$46,$03,$84,$05,$DC
-ObjectJumpTable:
+; Encoded timer-expiry action jump table.
+ThankYou_ObjectTimerJumpTable:
 	ori.b	#$56, (a6)+
 	ori.w	#$2c, -(a4)
 	dc.l	$003A0048
