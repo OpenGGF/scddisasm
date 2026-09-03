@@ -75,7 +75,7 @@ L_FF20C0:
 	jsr	(a0, d0.w)
 	tst.b	$FFFFBA40.w
 	beq.b	L_FF20C0
-	bsr.w	L_FF3EE4
+	bsr.w	ThankYou_FadeInitializedPalettes
 	bsr.w	StopSubCPU
 	nop
 	nop
@@ -101,8 +101,8 @@ MainLoop:
 UpdateFrame:
 	bsr.w	L_FF2266
 	bsr.w	UpdateObjectTimers
-	bsr.w	L_FF436C
-	bsr.w	L_FF3CDA
+	bsr.w	ThankYou_UpdateObjects
+	bsr.w	ThankYou_WaitForVBlank
 	rts
 	dc.b	$4E,$BA,$13,$44,$70,$00,$4E,$75
 BuildObjectList:
@@ -1091,8 +1091,8 @@ L_FF3E60:
 	move.w	#$15, d4
 L_FF3E6A:
 	move.b	#$a, $FFFFBA42.w
-	bsr.w	L_FF3CDA
-	bsr.b	L_FF3E7C
+	bsr.w	ThankYou_WaitForVBlank
+	bsr.b	ThankYou_AnimatePalette
 	dbra	d4, L_FF3E6A
 	rts
 ; Step the active palette toward its target colors.
@@ -1106,7 +1106,7 @@ L_FF3E7C:
 	adda.w	d0, a1
 	move.b	$FFFFBA5B.w, d0
 L_FF3E92:
-	bsr.b	L_FF3EB8
+	bsr.b	ThankYou_StepPaletteEntry
 	dbra	d0, L_FF3E92
 	bra.b	FadePalette
 	dc.b	$70,$00,$41,$F8,$B7,$00,$43,$F8,$B7,$80,$10,$38,$BA,$5A,$D0,$C0
@@ -1146,8 +1146,8 @@ L_FF3EE4:
 	move.w	#$15, d4
 L_FF3EEE:
 	move.b	#$a, $FFFFBA42.w
-	bsr.w	L_FF3CDA
-	bsr.b	L_FF3F00
+	bsr.w	ThankYou_WaitForVBlank
+	bsr.b	ThankYou_FadePalettesToBlack
 	dbra	d4, L_FF3EEE
 	rts
 ; Fade both work palettes to black.
@@ -1159,7 +1159,7 @@ L_FF3F00:
 	adda.w	d0, a0
 	move.b	$FFFFBA5B.w, d0
 L_FF3F10:
-	bsr.b	L_FF3F2E
+	bsr.b	ThankYou_DarkenPaletteEntry
 	dbra	d0, L_FF3F10
 	moveq	#$0, d0
 	lea.l	$FFFFB700.w, a0
@@ -1167,7 +1167,7 @@ L_FF3F10:
 	adda.w	d0, a0
 	move.b	$FFFFBA5B.w, d0
 L_FF3F26:
-	bsr.b	L_FF3F2E
+	bsr.b	ThankYou_DarkenPaletteEntry
 	dbra	d0, L_FF3F26
 	rts
 ; Decrease one palette entry's RGB channels.
