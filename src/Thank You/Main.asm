@@ -861,6 +861,8 @@ L_FF3BB4:
 	jsr	L_FF3988(pc)
 	movem.l	(a7)+, d0-d7/a0-a6
 	rte
+; Advance the idle-frame counter when no VDP update is pending.
+ThankYou_VIntIdleUpdate:
 L_FF3BC2:
 	addq.l	#$1, $FFFFBA56.w
 	move.b	$FFFFBA4B.w, $FFFFBA56.w
