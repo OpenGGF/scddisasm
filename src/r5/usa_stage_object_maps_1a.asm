@@ -1,4 +1,4 @@
-; USA R5A stage-object map data.
+; Shared USA R5 Act 1 stage-object map data.
 ;
 ; The table is emitted as source bytes so the USA layout does not depend on
 ; an incbin of the comparison binary.
@@ -241,4 +241,3 @@ StageObjects:
 
 StageObjectsNull:
 	dc.w	$FFFF, 0, 0
-
