@@ -505,6 +505,7 @@ opaque merely because they use `dc.*`.
 | M296 | Complete | Reuse the R61CD Padding 3 tail through R61C’s bridge, then reuse that bridge for the byte-identical R62C shared-prefix suffix at `$0628-$08EB`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M297 | Complete | Reuse the shared signed rotation-vector provider for the byte-identical suffixes of R61, USA DEMO82A, R13, and R82A retail/JE Padding 3 tails. | J/U/E 133/133 each; audit/hygiene clean. |
 | M298 | Complete | Share the byte-identical Japan/Europe R72A/R72C Padding 3 continuation through the R72A provider. | J/U/E 133/133 each; audit/hygiene clean. |
+| M299 | Complete | Reuse the complete R62C non-USA Padding 2 stream for R62B after its unique `$0200` prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
