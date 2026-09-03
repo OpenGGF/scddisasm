@@ -1489,6 +1489,8 @@ L_FF2D56:
 	bsr.w L_FF2DB6
 L_FF2D5A:
 	rts
+; Convert the frame field of a time record to centiseconds.
+TimeAttack_NormalizeTimeFrames:
 L_FF2D5C:
 	movem.l d0, -(a7)
 L_FF2D60:
@@ -1505,6 +1507,8 @@ L_FF2D72:
 	movem.l (a7)+, d0
 L_FF2D76:
 	rts
+; Add a packed time value to the displayed time record.
+TimeAttack_AddTimeValue:
 L_FF2D78:
 	movem.l d0-d1, -(a7)
 L_FF2D7C:
@@ -1545,6 +1549,8 @@ L_FF2DB0:
 	movem.l (a7)+, d0-d1
 L_FF2DB4:
 	rts
+; Render a time record's digits to the VDP.
+TimeAttack_RenderTimeRecord:
 L_FF2DB6:
 	movem.l d0-d3/a1-a4, -(a7)
 L_FF2DBA:
