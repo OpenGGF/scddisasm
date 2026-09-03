@@ -2242,6 +2242,8 @@ L_FF338A:
 L_FF338E:
 	rts
 	dc.l	$4A390020,$0000670E,$588F33FC,$FFFF00FF,$34746000,$F5564E75
+; Wait for the requested number of V-blank transfer slots.
+TimeAttack_WaitFrames:
 L_FF33A8:
 	movem.l d0, -(a7)
 L_FF33AC:
@@ -2282,6 +2284,8 @@ L_FF33F8:
 	move.w #$88, d0
 L_FF33FC:
 	bra.w L_FF3400
+; Send a command through the Sub CPU mailbox and wait for its acknowledgement.
+TimeAttack_SendSubCpuCommand:
 L_FF3400:
 	move.w d0, $a12010.l
 L_FF3406:
@@ -2304,12 +2308,16 @@ L_FF342C:
 	bne.b L_FF341E
 L_FF342E:
 	rts
+; Wait until the Sub CPU ready bit is asserted.
+TimeAttack_WaitSubCpuReady:
 L_FF3430:
 	btst.b #$0, $a12003.l
 L_FF3438:
 	beq.b L_FF3430
 L_FF343A:
 	rts
+; Request the Sub CPU handoff and wait until the request bit is set.
+TimeAttack_RequestSubCpu:
 L_FF343C:
 	bset.b #$1, $a12003.l
 L_FF3444:
@@ -2319,6 +2327,8 @@ L_FF344C:
 L_FF344E:
 	rts
 	dc.l	$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000
+; Wait for the VDP transfer busy counter to clear.
+TimeAttack_WaitVdpTransfer:
 L_FF3480:
 	tst.w $ff3730.l
 L_FF3486:

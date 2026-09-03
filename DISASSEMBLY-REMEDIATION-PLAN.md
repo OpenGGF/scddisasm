@@ -507,6 +507,7 @@ opaque merely because they use `dc.*`.
 | M298 | Complete | Share the byte-identical Japan/Europe R72A/R72C Padding 3 continuation through the R72A provider. | J/U/E 133/133 each; audit/hygiene clean. |
 | M299 | Complete | Reuse the complete R62C non-USA Padding 2 stream for R62B after its unique `$0200` prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 | M300 | Complete | Share the byte-identical USA Quartz Quadrant Act 1 stage-object map table across R51A-R51D. | J/U/E 133/133 each; audit/hygiene clean. |
+| M301 | Complete | Add semantic entry aliases and concise purpose comments for five Time Attack Sub CPU/VDP synchronization helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
