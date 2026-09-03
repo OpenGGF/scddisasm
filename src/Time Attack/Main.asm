@@ -2565,6 +2565,8 @@ L_FF3660:
 	dc.l	$0E680A0E,$004E00CE,$04220406,$000004EA,$0EA40E2E,$000E008E,$04220406,$000000CE,$0C4E0E0A,$060E004E,$04220406,$0000008E,$08E80E68,$0A0E000E,$04220406,$0000004E
 	dc.l	$04EA0EA4,$0E2E060E,$04220406,$00000000
 	dc.b	$FF,$00
+; Raise palette channels toward the selected target palette.
+TimeAttack_FadePaletteIn:
 L_FF3736:
 	move.w #$7, d6
 L_FF373A:
@@ -2639,6 +2641,8 @@ L_FF379C:
 	move.w #$6, $ff3730.l
 L_FF37A4:
 	bra.w L_FF3480
+; Lower palette channels toward black for the selection transition.
+TimeAttack_FadePaletteOut:
 L_FF37A8:
 	moveq #$7, d6
 L_FF37AA:
