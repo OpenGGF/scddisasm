@@ -28,7 +28,7 @@ L_FF2018:
 L_FF201E:
 	move.l d0, $a1201c.l
 L_FF2024:
-	bsr.w L_FF38EE
+	bsr.w TimeAttack_HaltZ80
 L_FF2028:
 	moveq #$40, d0
 L_FF202A:
@@ -40,7 +40,7 @@ L_FF2036:
 L_FF203C:
 	move.b #$c0, $a10003.l
 L_FF2044:
-	bsr.w L_FF390C
+	bsr.w TimeAttack_ReleaseZ80
 L_FF2048:
 	lea.l $ffaa00.l, a0
 L_FF204E:
@@ -72,7 +72,7 @@ L_FF207C:
 L_FF2080:
 	pea.l $ff5238.l
 L_FF2086:
-	bsr.w L_FF3806
+	bsr.w TimeAttack_SetVdpRegisters
 L_FF208A:
 	lea.l $4(a7), a7
 L_FF208E:
@@ -198,7 +198,7 @@ L_FF21EC:
 L_FF21F6:
 	bsr.w L_FF4F78
 L_FF21FA:
-	bsr.w L_FF38EE
+	bsr.w TimeAttack_HaltZ80
 L_FF21FE:
 	lea.l $c00004.l, a5
 L_FF2204:
@@ -214,7 +214,7 @@ L_FF2218:
 L_FF2220:
 	move.w $ffaa5c.l, (a5)
 L_FF2226:
-	bsr.w L_FF390C
+	bsr.w TimeAttack_ReleaseZ80
 L_FF222A:
 	lea.l $210000.l, a0
 L_FF2230:
@@ -236,7 +236,7 @@ L_FF2254:
 L_FF225A:
 	pea.l $ffce60.l
 L_FF2260:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF2264:
 	lea.l $14(a7), a7
 L_FF2268:
@@ -362,7 +362,7 @@ L_FF2360:
 L_FF2366:
 	pea.l $ffd300.l
 L_FF236C:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF2370:
 	lea.l $14(a7), a7
 L_FF2374:
@@ -376,7 +376,7 @@ L_FF2386:
 L_FF238C:
 	pea.l $ffd500.l
 L_FF2392:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF2396:
 	lea.l $14(a7), a7
 L_FF239A:
@@ -664,7 +664,7 @@ L_FF2616:
 L_FF261C:
 	pea.l $ffd700.l
 L_FF2622:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF2626:
 	lea.l $14(a7), a7
 L_FF262A:
@@ -692,7 +692,7 @@ L_FF2658:
 L_FF265E:
 	pea.l $ffdb80.l
 L_FF2664:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF2668:
 	lea.l $14(a7), a7
 L_FF266C:
@@ -714,7 +714,7 @@ L_FF2694:
 L_FF2696:
 	pea.l (a0)
 L_FF2698:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF269C:
 	lea.l $14(a7), a7
 L_FF26A0:
@@ -1190,7 +1190,7 @@ L_FF2AFE:
 L_FF2B00:
 	pea.l (a0, d0.w)
 L_FF2B04:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF2B08:
 	lea.l $14(a7), a7
 L_FF2B0C:
@@ -1378,7 +1378,7 @@ L_FF2C5C:
 L_FF2C62:
 	move.l #$120, -(a7)
 L_FF2C68:
-	bsr.w L_FF3956
+	bsr.w TimeAttack_UploadRotatedVdpData
 L_FF2C6C:
 	adda.l #$c, a7
 L_FF2C72:
@@ -1808,7 +1808,7 @@ L_FF2FF6:
 L_FF2FF8:
 	move.l #$0, -(a7)
 L_FF2FFE:
-	bsr.w L_FF382C
+	bsr.w TimeAttack_FillVdpRect
 L_FF3002:
 	lea.l $14(a7), a7
 L_FF3006:
@@ -1838,7 +1838,7 @@ L_FF303A:
 L_FF303C:
 	move.l d1, -(a7)
 L_FF303E:
-	bsr.w L_FF382C
+	bsr.w TimeAttack_FillVdpRect
 L_FF3042:
 	lea.l $14(a7), a7
 L_FF3046:
@@ -1856,7 +1856,7 @@ L_FF3060:
 L_FF3062:
 	move.l d1, -(a7)
 L_FF3064:
-	bsr.w L_FF382C
+	bsr.w TimeAttack_FillVdpRect
 L_FF3068:
 	lea.l $14(a7), a7
 L_FF306C:
@@ -1896,7 +1896,7 @@ L_FF30AA:
 L_FF30AC:
 	pea.l (a0)
 L_FF30AE:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF30B2:
 	lea.l $14(a7), a7
 L_FF30B6:
@@ -1964,7 +1964,7 @@ L_FF3126:
 L_FF3128:
 	pea.l (a0)
 L_FF312A:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF312E:
 	lea.l $14(a7), a7
 L_FF3132:
@@ -2284,7 +2284,7 @@ L_FF337E:
 L_FF3380:
 	pea.l (a1)
 L_FF3382:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF3386:
 	lea.l $14(a7), a7
 L_FF338A:
@@ -2437,7 +2437,7 @@ L_FF3506:
 ; DMA the primary work buffer to VRAM at $C000.
 TimeAttack_VIntDmaPrimaryBuffer:
 L_FF350A:
-	bsr.w L_FF38EE
+	bsr.w TimeAttack_HaltZ80
 L_FF350E:
 	lea.l $c00004.l, a5
 L_FF3514:
@@ -2453,13 +2453,13 @@ L_FF3528:
 L_FF3530:
 	move.w $ffaa5c.l, (a5)
 L_FF3536:
-	bsr.w L_FF390C
+	bsr.w TimeAttack_ReleaseZ80
 L_FF353A:
 	bra.w L_FF3596
 ; DMA the secondary work buffer to VRAM at $C060 and refresh its strip.
 TimeAttack_VIntDmaSecondaryBuffer:
 L_FF353E:
-	bsr.w L_FF38EE
+	bsr.w TimeAttack_HaltZ80
 L_FF3542:
 	lea.l $c00004.l, a5
 L_FF3548:
@@ -2475,7 +2475,7 @@ L_FF355C:
 L_FF3564:
 	move.w $ffaa5c.l, (a5)
 L_FF356A:
-	bsr.w L_FF390C
+	bsr.w TimeAttack_ReleaseZ80
 L_FF356E:
 	move.l #$11, -(a7)
 L_FF3574:
@@ -2487,7 +2487,7 @@ L_FF3580:
 L_FF3586:
 	pea.l $ffce60.l
 L_FF358C:
-	bsr.w L_FF385C
+	bsr.w TimeAttack_CopyVdpRect
 L_FF3590:
 	lea.l $14(a7), a7
 L_FF3594:
@@ -2495,11 +2495,11 @@ L_FF3594:
 ; Latch held and newly pressed controller bits after each VDP transfer.
 TimeAttack_UpdateControllerState:
 L_FF3596:
-	bsr.w L_FF38EE
+	bsr.w TimeAttack_HaltZ80
 L_FF359A:
-	bsr.w L_FF391E
+	bsr.w TimeAttack_ReadController1
 L_FF359E:
-	bsr.w L_FF390C
+	bsr.w TimeAttack_ReleaseZ80
 L_FF35A2:
 	move.b $ff3734.l, d1
 L_FF35A8:
@@ -2553,7 +2553,7 @@ L_FF3610:
 L_FF3612:
 	move.l (a0)+, (a1)+
 L_FF3614:
-	bsr.w L_FF38EE
+	bsr.w TimeAttack_HaltZ80
 L_FF3618:
 	lea.l $c00004.l, a5
 L_FF361E:
@@ -2569,7 +2569,7 @@ L_FF3632:
 L_FF363A:
 	move.w $ffaa5c.l, (a5)
 L_FF3640:
-	bsr.w L_FF390C
+	bsr.w TimeAttack_ReleaseZ80
 L_FF3644:
 	addq.w #$1, $ff3732.l
 L_FF364A:
