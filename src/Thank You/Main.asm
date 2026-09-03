@@ -1523,8 +1523,8 @@ L_FF4362:
 ThankYou_UpdateObjects:
 L_FF436C:
 	lea.l	$FFFF9200.w, a0
-	bsr.b	L_FF437C
-	bsr.w	ObjectListFunctions
+	bsr.b	ThankYou_ProcessActiveObjects
+	bsr.w	ThankYou_RebuildObjectLists
 	bsr.w	BuildSpriteQueue
 	rts
 ; Process each occupied object slot.
@@ -1535,7 +1535,7 @@ L_FF437E:
 	move.w	(a0), d0
 	beq.b	L_FF438C
 	movem.l	d7/a0, -(a7)
-	bsr.b	L_FF4396
+	bsr.b	ThankYou_DispatchObjectHandler
 	movem.l	(a7)+, d7/a0
 L_FF438C:
 	lea.l	$40(a0), a0

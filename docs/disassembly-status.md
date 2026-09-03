@@ -143,7 +143,7 @@ validated separately against a regional CHD.
 | `PTEST.BIN` | `FMV/Sub (Pencil Test).asm` | S | Mostly semantic | Mostly classified | Residual unknown fields/tables | Mostly classified | J/U/E | J/U/E 2026-09-01 | Inventory residual labels and data |
 | `PTEST.MMD` | `FMV/Main (Pencil Test).asm` | S | Mostly semantic | Mostly classified | Residual unknown fields/tables | Mostly classified | J/U/E | J/U/E 2026-09-01 | Inventory residual labels and data |
 | `THANKS_D.BIN` | `Thank You/Data.asm` | S | N/A | Classified compressed graphics | No executable code | Classified | J/U/E | J/U/E 2026-09-01 | Document the data format and round trip |
-| `THANKS_M.MMD` | `Thank You/Main.asm` | H | Partial | Opaque/mixed | 163 address labels and large declaration regions; display-state, hardware, palette, startup, object, screen-data, fade, dispatch, decoder, and object-list families now use semantic callers | Mixed | J/U/E | J/U/E 2026-09-03 (M355) | Recover one Thank You routine/data family |
+| `THANKS_M.MMD` | `Thank You/Main.asm` | H | Partial | Opaque/mixed | 163 address labels and large declaration regions; display-state, hardware, palette, startup, object, screen-data, fade, dispatch, decoder, and object-list families now use semantic callers | Mixed | J/U/E | J/U/E 2026-09-03 (M356) | Recover one Thank You routine/data family |
 | `THANKS_S.BIN` | `Thank You/Sub.asm` | S | Mostly semantic | Mostly classified | Residual unknown fields/tables | Mostly classified | J/U/E | J/U/E 2026-09-01 | Inventory residual labels and data |
 | `VM____.MMD` | `Visual Mode/Main.asm` | S | Mostly semantic | Mostly classified | Residual unknown fields/tables | Mostly classified | J/U/E | J/U/E 2026-09-01 | Inventory residual labels and data |
 
