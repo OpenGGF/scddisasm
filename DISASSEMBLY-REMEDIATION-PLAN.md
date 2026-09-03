@@ -591,6 +591,7 @@ opaque merely because they use `dc.*`.
 | M378 | Complete | Canonicalize the ending-FMV event-stream emitter and initial VDP/Word RAM clear loops. | J/U/E 133/133 each; audit/hygiene clean. |
 | M379 | Complete | Canonicalize the ending-FMV VBlank transfer branches, common tail, and animation table aliases. | J/U/E 133/133 each; audit/hygiene clean. |
 | M380 | Complete | Canonicalize the ending-FMV Word RAM swap, joypad reader, and name-table clear loops. | J/U/E 133/133 each; audit/hygiene clean. |
+| M381 | Complete | Canonicalize the ending-FMV command-dispatch state handlers and Word RAM transfer-descriptor family. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

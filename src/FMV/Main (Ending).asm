@@ -182,6 +182,7 @@ Ending_WaitTimerPoll:
 	bne.b	Ending_WaitTimerPoll
 	rts
 ; Offsets for ending-FMV main-loop state handlers.
+; Entries intentionally land on the command-stage transfer setup points below.
 Ending_MainStateDispatchTable:
 MainDispatchTable:
 	if REGION=USA
@@ -239,382 +240,288 @@ MainDispatchTable:
 ; Dispatch the active ending-FMV command from Word RAM.
 Ending_DispatchWordRamCommand:
 	lea.l	$200000.l, a0
-L_FF21D8:
+	; Reset the command index before inspecting the Word RAM tag.
+Ending_DispatchWordRamCommandResetIndex:
 	clr.w	$FFFFc080.w
-L_FF21DC:
 	cmpi.w	#$3038, (a0)
-L_FF21E0:
-	beq.b	L_FF2206
-L_FF21E2:
+	beq.b	Ending_DispatchWordRamCommandCopyPayload
 	cmpi.w	#$3135, (a0)
-L_FF21E6:
 	beq.w	Ending_LoadWordRamCommandBlock
-L_FF21EA:
 	cmpi.w	#$5352, (a0)
-L_FF21EE:
 	beq.w	Ending_LoadTimeAttackData
-L_FF21F2:
 	cmpi.w	#$4e4f, (a0)
-L_FF21F6:
 	beq.w	Ending_StartEventPlaybackWait
-L_FF21FA:
 	cmpi.w	#$5253, (a0)
-L_FF21FE:
 	beq.w	Ending_RequestEventPlaybackStop
-L_FF2202:
+	; Unknown tags fall through to the same payload-copy path.
 	nop
-L_FF2204:
 	nop
-L_FF2206:
+
+Ending_DispatchWordRamCommandCopyPayload:
 	lea.l	$10(a0), a0
-L_FF220A:
+
+Ending_DispatchWordRamCommandCopyToWorkspace:
 	lea.l	$FFFFc000.w, a1
-L_FF220E:
 	lea.l	$20(a1), a2
-L_FF2212:
 	moveq	#$7, d7
-L_FF2214:
+Ending_DispatchWordRamCommandSavePreviousBlock:
 	move.l	(a1)+, (a2)+
-L_FF2216:
-	dbra	d7, L_FF2214
-L_FF221A:
+	dbra	d7, Ending_DispatchWordRamCommandSavePreviousBlock
 	lea.l	$FFFFc000.w, a1
-L_FF221E:
 	moveq	#$7, d7
-L_FF2220:
+Ending_DispatchWordRamCommandLoadCurrentBlock:
 	move.l	(a0)+, (a1)+
-L_FF2222:
-	dbra	d7, L_FF2220
-L_FF2226:
+	dbra	d7, Ending_DispatchWordRamCommandLoadCurrentBlock
 	move.w	#$5, $FFFFfa40.w
-L_FF222C:
 	move.w	#$10, $FFFFc086.w
-L_FF2232:
 	move.l	#$7a000000, d0
-L_FF2238:
+
+Ending_DispatchWordRamCommandSelectTransfer:
 	btst.b	#$0, $FFFFc081.w
-L_FF223E:
-	beq.b	L_FF2266
-L_FF2240:
+	beq.b	Ending_QueueCommandTransfer960
 	move.w	#$8, $FFFFc086.w
-L_FF2246:
 	move.w	#$1, $FFFFfa40.w
-L_FF224C:
 	move.l	#$42000000, d0
-L_FF2252:
-	bra.b	L_FF2266
-L_FF2254:
+	bra.b	Ending_QueueCommandTransfer960
+
+Ending_QueueAlternateCommandTransfer:
 	move.w	#$2, $FFFFfa40.w
-L_FF225A:
 	move.w	#$a, $FFFFc086.w
-L_FF2260:
 	move.l	#$54c00000, d0
-L_FF2266:
+
+Ending_QueueCommandTransfer960:
 	lea.l	$FFFF8000.w, a2
-L_FF226A:
 	move.w	#$1, (a2)+
-L_FF226E:
 	move.l	d0, (a2)+
-L_FF2270:
 	move.l	a0, (a2)+
-L_FF2272:
 	move.w	#$960, (a2)+
-L_FF2276:
 	lea.l	$12c0(a0), a0
-L_FF227A:
 	move.l	a0, $FFFFc082.w
-L_FF227E:
 	rts
-L_FF2280:
+
+Ending_QueueCommandTransferFromState12:
 	move.w	#$6, $FFFFfa40.w
-L_FF2286:
 	move.w	#$12, $FFFFc086.w
-L_FF228C:
 	move.l	#$4cc00001, d0
-L_FF2292:
-	bra.b	L_FF2266
-L_FF2294:
+	bra.b	Ending_QueueCommandTransfer960
+
+Ending_QueueCommandTransferFromState14:
 	move.w	#$7, $FFFFfa40.w
-L_FF229A:
 	move.w	#$14, $FFFFc086.w
-L_FF22A0:
 	move.l	#$5f800001, d0
-L_FF22A6:
-	bra.b	L_FF22BA
-L_FF22A8:
+	bra.b	Ending_QueueCommandTransfer940
+
+Ending_QueueCommandTransferFromState0C:
 	move.w	#$3, $FFFFfa40.w
-L_FF22AE:
 	move.w	#$c, $FFFFc086.w
-L_FF22B4:
 	move.l	#$67800000, d0
-L_FF22BA:
+
+Ending_QueueCommandTransfer940:
 	lea.l	$FFFF8000.w, a2
-L_FF22BE:
 	move.w	#$1, (a2)+
-L_FF22C2:
 	move.l	d0, (a2)+
-L_FF22C4:
 	move.l	a0, (a2)+
-L_FF22C6:
 	move.w	#$940, (a2)+
-L_FF22CA:
 	lea.l	$1280(a0), a0
-L_FF22CE:
 	move.l	a0, $FFFFc082.w
-L_FF22D2:
 	rts
-L_FF22D4:
+
+Ending_AdvanceCommandStateFromState0E:
 	move.w	#$4, $FFFFfa40.w
 	if REGION=EUROPE
-	bra.b	L_FF22EE
+	bra.b	Ending_AdvanceCommandState
 
 	; Europe uses the short command-4 path and retains the alternate
 	; clear-and-skip path before the common command-8 handler.
 	clr.w	$FFFFfa40.w
-	bra.b	L_FF22EE
+	bra.b	Ending_AdvanceCommandState
 	else
-L_FF22DA:
 	move.w	#$e, $FFFFc086.w
-L_FF22E0:
 	rts
-L_FF22E2:
+
+Ending_AdvanceCommandStateAfterClear:
 	clr.w	$FFFFfa40.w
-L_FF22E6:
-	bra.b	L_FF22EE
+	bra.b	Ending_AdvanceCommandState
 	endif
-L_FF22E8:
+
+Ending_AdvanceCommandStateFromState08:
 	move.w	#$8, $FFFFfa40.w
-L_FF22EE:
+
+Ending_AdvanceCommandState:
 	bsr.w	L_FF25A2
-L_FF22F2:
 	clr.w	$FFFFfa40.w
-L_FF22F6:
 	addq.w	#$1, $FFFFc080.w
-L_FF22FA:
 	cmpi.w	#$8, $FFFFc080.w
-L_FF2300:
-	bpl.b	L_FF230A
-L_FF2302:
+	bpl.b	Ending_AdvanceCommandStateComplete
 	move.w	#$18, $FFFFc086.w
-L_FF2308:
 	rts
-L_FF230A:
+
+Ending_AdvanceCommandStateComplete:
 	bsr.w	Ending_WaitWordRamSwap
-L_FF230E:
 	move.w	#$4, $FFFFc086.w
-L_FF2314:
 	move.l	(a7)+, d0
-L_FF2316:
 	bra.w	Ending_MainStateLoop
-L_FF231A:
+
+Ending_CommandState1A:
 	move.w	#$1a, $FFFFc086.w
-L_FF2320:
 	rts
-L_FF2322:
+
+Ending_CommandState1C:
 	if REGION=EUROPE
 	move.w	#$6, $FFFFc086.w
 	else
 	move.w	#$1c, $FFFFc086.w
 	endif
-L_FF2328:
 	rts
-L_FF232A:
+
+Ending_CommandState06:
 	move.w	#$6, $FFFFc086.w
-L_FF2330:
+
+Ending_CommandState06Return:
 	rts
 ; Load a Word RAM command block for the next ending state.
 Ending_LoadWordRamCommandBlock:
 	lea.l	$200000.l, a0
-L_FF2338:
+	; Reset the command index and inspect the next Word RAM tag.
+Ending_LoadWordRamCommandBlockResetIndex:
 	clr.w	$FFFFc080.w
-L_FF233C:
 	cmpi.w	#$3135, (a0)
-L_FF2340:
-	beq.b	BeginTimeAttack
-L_FF2342:
+	beq.b	Ending_LoadWordRamCommandBlockTransfer
 	cmpi.w	#$3038, (a0)
-L_FF2346:
 	beq.w	Ending_DispatchWordRamCommand
-L_FF234A:
 	cmpi.w	#$5352, (a0)
-L_FF234E:
 	beq.w	Ending_LoadTimeAttackData
-L_FF2352:
 	cmpi.w	#$4e4f, (a0)
-L_FF2356:
 	beq.w	Ending_StartEventPlaybackWait
-L_FF235A:
 	cmpi.w	#$5253, (a0)
-L_FF235E:
 	beq.w	Ending_RequestEventPlaybackStop
-L_FF2362:
+
+Ending_LoadWordRamCommandBlockJapanUnknownTagLoop:
 	if REGION=JAPAN
-	bra.b	L_FF2362
+	bra.b	Ending_LoadWordRamCommandBlockJapanUnknownTagLoop
 	endif
-BeginTimeAttack:
+
+Ending_LoadWordRamCommandBlockTransfer:
 	lea.l	$10(a0), a0
-L_FF2366:
+
+Ending_LoadWordRamCommandBlockCopyToWorkspace:
 	lea.l	$FFFFc000.w, a1
-L_FF236A:
 	moveq	#$7, d7
-L_FF236C:
+Ending_LoadWordRamCommandBlockCopyLoop:
 	move.l	(a0)+, (a1)+
-L_FF236E:
-	dbra	d7, L_FF236C
-L_FF2372:
+	dbra	d7, Ending_LoadWordRamCommandBlockCopyLoop
 	lea.l	$FFFF8000.w, a2
-L_FF2376:
 	move.w	#$1, (a2)+
-L_FF237A:
 	move.l	#$42000000, d0
-L_FF2380:
 	move.l	d0, (a2)+
-L_FF2382:
 	move.l	a0, (a2)+
-L_FF2384:
 	lea.l	$12c0(a0), a0
-L_FF2388:
 	move.l	a0, $FFFFc082.w
-L_FF238C:
 	addq.w	#$1, $FFFFc080.w
-L_FF2390:
 	move.w	#$28, $FFFFc086.w
-L_FF2396:
 	move.w	#$9, $FFFFfa40.w
-L_FF239C:
 	rts
-L_FF239E:
+
+Ending_CommandState2A:
 	move.w	#$2a, $FFFFc086.w
-L_FF23A4:
 	cmpi.w	#$f, $FFFFc080.w
-L_FF23AA:
-	blt.b	L_FF23BA
-L_FF23AC:
+	blt.b	Ending_CommandState2AContinue
 	clr.w	$FFFFc080.w
-L_FF23B0:
+
+Ending_CommandState24:
 	move.w	#$24, $FFFFc086.w
-L_FF23B6:
 	bsr.w	Ending_WaitWordRamSwap
-L_FF23BA:
+
+Ending_CommandState2AContinue:
 	rts
-L_FF23BC:
+
+Ending_CommandState2C:
 	move.w	#$2c, $FFFFc086.w
 	if REGION=EUROPE
 	cmpi.w	#$3, $FFFFc080.w
-	beq.b	EuropeCommand26
+	beq.b	Ending_CommandState26Europe
 	cmpi.w	#$6, $FFFFc080.w
-	beq.b	EuropeCommand26
+	beq.b	Ending_CommandState26Europe
 	cmpi.w	#$9, $FFFFc080.w
-	beq.b	EuropeCommand26
+	beq.b	Ending_CommandState26Europe
 	cmpi.w	#$c, $FFFFc080.w
-	beq.b	EuropeCommand26
+	beq.b	Ending_CommandState26Europe
 	move.w	#$26, $FFFFc086.w
-EuropeCommand26:
+
+Ending_CommandState26Europe:
 	rts
 	move.w	#$26, $FFFFc086.w
 	rts
 	else
-L_FF23C2:
+
+Ending_CommandState2CReturn:
 	rts
-L_FF23C4:
+
+Ending_CommandState26:
 	move.w	#$26, $FFFFc086.w
-L_FF23CA:
+
+Ending_CommandState26Return:
 	rts
 	endif
 ; Load the ending time-attack transfer block.
 Ending_LoadTimeAttackData:
 	lea.l	$10(a0), a0
-L_FF23D0:
 	lea.l	$FFFFc000.w, a1
-L_FF23D4:
 	lea.l	EndingTimeAttackData(pc), a2
-L_FF23D8:
 	moveq	#$7, d7
-L_FF23DA:
+Ending_LoadTimeAttackDataCopyLoop:
 	move.l	(a2)+, (a1)+
-L_FF23DC:
-	dbra	d7, L_FF23DA
-L_FF23E0:
+	dbra	d7, Ending_LoadTimeAttackDataCopyLoop
 	move.w	#$a, $FFFFfa40.w
-L_FF23E6:
 	move.w	#$30, $FFFFc086.w
-L_FF23EC:
 	rts
-L_FF23EE:
+
+Ending_TimeAttackTransferState32:
 	lea.l	$FFFF8000.w, a2
-L_FF23F2:
 	move.w	#$1, (a2)+
-L_FF23F6:
 	move.l	#$54c00000, d0
-L_FF23FC:
 	move.l	d0, (a2)+
-L_FF23FE:
 	move.l	a0, (a2)+
-L_FF2400:
 	move.w	#$b40, (a2)+
-L_FF2404:
 	lea.l	$1680(a0), a0
-L_FF2408:
 	move.w	#$32, $FFFFc086.w
-L_FF240E:
 	move.w	#$7, $FFFFfa40.w
-L_FF2414:
 	rts
-L_FF2416:
+
+Ending_TimeAttackTransferState34:
 	lea.l	$FFFF8000.w, a2
-L_FF241A:
 	move.w	#$1, (a2)+
-L_FF241E:
 	move.l	#$6b400000, d0
-L_FF2424:
 	move.l	d0, (a2)+
-L_FF2426:
 	move.l	a0, (a2)+
-L_FF2428:
 	move.w	#$b40, (a2)+
-L_FF242C:
 	lea.l	$1680(a0), a0
-L_FF2430:
 	move.w	#$34, $FFFFc086.w
-L_FF2436:
 	rts
-L_FF2438:
+
+Ending_TimeAttackTransferState36:
 	lea.l	$FFFF8000.w, a2
-L_FF243C:
 	move.w	#$1, (a2)+
-L_FF2440:
 	move.l	#$41c00001, d0
-L_FF2446:
 	move.l	d0, (a2)+
-L_FF2448:
 	move.l	a0, (a2)+
-L_FF244A:
 	move.w	#$b40, (a2)+
-L_FF244E:
 	lea.l	$1680(a0), a0
-L_FF2452:
 	move.w	#$36, $FFFFc086.w
-L_FF2458:
 	rts
-L_FF245A:
+
+Ending_TimeAttackTransferState38:
 	lea.l	$FFFF8000.w, a2
-L_FF245E:
 	move.w	#$1, (a2)+
-L_FF2462:
 	move.l	#$58400001, d0
-L_FF2468:
 	move.l	d0, (a2)+
-L_FF246A:
 	move.l	a0, (a2)+
-L_FF246C:
 	move.w	#$b40, (a2)+
-L_FF2470:
 	lea.l	$1680(a0), a0
-L_FF2474:
 	move.w	#$38, $FFFFc086.w
-L_FF247A:
 	rts
-L_FF247C:
+
+Ending_TimeAttackTransferState3A:
 	if REGION<>USA
 	lea.l	$FFFF8000.w, a2
 	move.w	#$1, (a2)+
@@ -625,9 +532,9 @@ L_FF247C:
 	lea.l	$1680(a0), a0
 	endif
 	move.w	#$3a, $FFFFc086.w
-L_FF2482:
 	rts
-L_FF2484:
+
+Ending_TimeAttackTransferState3C:
 	if REGION<>USA
 	lea.l	$FFFF8000.w, a2
 	move.w	#$1, (a2)+
@@ -638,7 +545,6 @@ L_FF2484:
 	lea.l	$B40(a0), a0
 	endif
 	move.w	#$3c, $FFFFc086.w
-L_FF248A:
 	rts
 ; Initialize event-stream playback state.
 Ending_StartEventPlayback:
