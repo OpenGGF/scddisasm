@@ -1491,12 +1491,16 @@ L_FF4362:
 	lea.l	$40(a0), a0
 	dbra	d7, L_FF4346
 	rts
+; Update active objects, rebuild their lists, and queue their sprites.
+ThankYou_UpdateObjects:
 L_FF436C:
 	lea.l	$FFFF9200.w, a0
 	bsr.b	L_FF437C
 	bsr.w	ObjectListFunctions
 	bsr.w	BuildSpriteQueue
 	rts
+; Process each occupied object slot.
+ThankYou_ProcessActiveObjects:
 L_FF437C:
 	moveq	#$3f, d7
 L_FF437E:
@@ -1509,6 +1513,8 @@ L_FF438C:
 	lea.l	$40(a0), a0
 	dbra	d7, L_FF437E
 	rts
+; Dispatch an object's handler and clear it when requested.
+ThankYou_DispatchObjectHandler:
 L_FF4396:
 	add.w	d0, d0
 	add.w	d0, d0
