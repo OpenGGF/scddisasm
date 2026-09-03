@@ -405,7 +405,7 @@ ThankYou_UpdateDisplay:
 	dc.l	$600002E6
 ; Enter the encoded display-command handler wrapper.
 ThankYou_DispatchDisplayCommandWrapper:
-	bra.w	L_FF3734
+	bra.w	ThankYou_SelectScreenDataA
 	dc.w	$4EB9
 	dc.l	$00FF22EE-ThankYouEarlyShift
 	dc.w	$41F9
@@ -601,7 +601,8 @@ ThankYou_SelectScreenData2:
 	dc.l	$13FC0004
 	dc.l	$00200020
 	dc.l	$6000FDCE
-L_FF3734:
+; Select screen-data command $A and dispatch it.
+ThankYou_SelectScreenDataA:
 	jsr	ThankYou_WaitSubCpuReady.l
 	move.b	#$a, $200020.l
 	bra.w	ThankYou_DispatchDisplayCommand
