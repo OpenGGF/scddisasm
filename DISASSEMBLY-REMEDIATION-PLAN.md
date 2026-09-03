@@ -531,6 +531,7 @@ opaque merely because they use `dc.*`.
 | M322 | Complete | Name the Thank You Sub CPU-ready wait loop. | J/U/E 133/133 each; audit/hygiene clean. |
 | M323 | Complete | Name the Thank You Z80 halt/release helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M324 | Complete | Name the Thank You controller reader. | J/U/E 133/133 each; audit/hygiene clean. |
+| M325 | Complete | Name the Time Attack controller state latch. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

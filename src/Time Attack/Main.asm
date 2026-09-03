@@ -2464,6 +2464,8 @@ L_FF3590:
 	lea.l $14(a7), a7
 L_FF3594:
 	rts
+; Latch held and newly pressed controller bits after each VDP transfer.
+TimeAttack_UpdateControllerState:
 L_FF3596:
 	bsr.w L_FF38EE
 L_FF359A:
