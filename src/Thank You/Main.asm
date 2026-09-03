@@ -242,6 +242,8 @@ L_FF22DA:
 	beq.b	L_FF22DA
 L_FF22EC:
 	rts
+; Wait until the Sub CPU ready bit is asserted.
+ThankYou_WaitSubCpuReady:
 L_FF22EE:
 	btst.b	#$0, $a12003.l
 	beq.b	L_FF22EE
