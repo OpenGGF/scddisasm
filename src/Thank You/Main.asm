@@ -745,19 +745,20 @@ ThankYou_ReadController:
 	dc.l	$F00B4E75
 	dc.l	$11C0F00C
 	dc.b	$4E,$75
-SoundAndInterruptFunctions:
+; Forward pending sound commands while the Z80 is halted.
+ThankYou_SoundAndInterruptFunctions:
 	jsr	ThankYou_HaltZ80.l
 	tst.b	$FFFFF00B.w
-	beq.b	L_FF3A26
+	beq.b	ThankYou_SoundCommandFallback
 	move.b	$FFFFF00B.w, $a01c09.l
 	move.b	#$0, $FFFFF00B.w
-	bra.b	L_FF3A3A
-L_FF3A26:
+	bra.b	ThankYou_SoundCommandDone
+ThankYou_SoundCommandFallback:
 	tst.b	$FFFFF00C.w
-	beq.b	L_FF3A3A
+	beq.b	ThankYou_SoundCommandDone
 	move.b	$FFFFF00C.w, $a01c09.l
 	move.b	#$0, $FFFFF00C.w
-L_FF3A3A:
+ThankYou_SoundCommandDone:
 	jmp	ThankYou_ReleaseZ80.l
 VInterrupt:
 	movem.l	d0-d7/a0-a6, -(a7)
@@ -779,18 +780,18 @@ VInterrupt:
 	move.l	#$7c000002, (a6)
 	move.w	$FFFFA300.w, $c00000.l
 	cmpi.b	#$2, $FFFFBA7B.w
-	bne.b	L_FF3AAE
+	bne.b	ThankYou_VInterruptObjectTimerCheck
 	subq.w	#$1, $FFFFBA7C.w
-	bgt.b	L_FF3AAE
+	bgt.b	ThankYou_VInterruptObjectTimerCheck
 	move.b	#$0, $FFFFBA7B.w
-L_FF3AAE:
+ThankYou_VInterruptObjectTimerCheck:
 	subq.w	#$1, $FFFFBA78.w
-	bgt.b	L_FF3AE2
+	bgt.b	ThankYou_VInterruptUpdateDisplayAnimations
 	lea.l	$FFFF9200.w, a0
 	tst.w	$0(a0)
-	beq.b	L_FF3AC4
+	beq.b	ThankYou_VInterruptScheduleObjectTimer
 	move.b	#$1, $FFFFBA7B.w
-L_FF3AC4:
+ThankYou_VInterruptScheduleObjectTimer:
 	move.w	#$384, $FFFFBA7C.w
 	jsr	Random(pc)
 	andi.l	#$7fff, d0
@@ -798,15 +799,16 @@ L_FF3AC4:
 	swap	d0
 	addi.w	#$2000, d0
 	move.w	d0, $FFFFBA78.w
-L_FF3AE2:
+; Update palette and object animation state for the next frame.
+ThankYou_VInterruptUpdateDisplayAnimations:
 	tst.b	$FFFFBA40.w
-	bne.b	L_FF3B66
+	bne.b	ThankYou_VInterruptWritePalette
 	subq.w	#$1, $FFFFBA46.w
-	bhi.b	L_FF3B2A
+	bhi.b	ThankYou_VInterruptPaletteTimer
 	cmpi.w	#$1f, $FFFFBA44.w
-	blt.b	L_FF3AFC
+	blt.b	ThankYou_VInterruptPaletteSequence
 	move.w	#$0, $FFFFBA44.w
-L_FF3AFC:
+ThankYou_VInterruptPaletteSequence:
 	lea.l	PaletteSequence.l, a0
 	move.w	$FFFFBA44.w, d0
 	add.w	d0, d0
@@ -817,16 +819,16 @@ L_FF3AFC:
 	adda.w	(a2), a1
 	lea.l	$FFFFB620.w, a0
 	moveq	#$b, d7
-L_FF3B24:
+ThankYou_VInterruptCopyObjectAnimation:
 	move.l	(a1)+, (a0)+
-	dbra	d7, L_FF3B24
-L_FF3B2A:
+	dbra	d7, ThankYou_VInterruptCopyObjectAnimation
+ThankYou_VInterruptPaletteTimer:
 	subq.w	#$1, $FFFFBA76.w
-	bhi.b	L_FF3B66
+	bhi.b	ThankYou_VInterruptWritePalette
 	cmpi.w	#$2, $FFFFBA74.w
-	blt.b	L_FF3B3E
+	blt.b	ThankYou_VInterruptPaletteAnimation
 	move.w	#$0, $FFFFBA74.w
-L_FF3B3E:
+ThankYou_VInterruptPaletteAnimation:
 	move.w	#$14, $FFFFBA76.w
 	move.w	$FFFFBA74.w, d0
 	add.w	d0, d0
@@ -836,10 +838,10 @@ L_FF3B3E:
 	adda.w	(a2), a1
 	lea.l	$FFFFB650.w, a0
 	moveq	#$3, d7
-L_FF3B60:
+ThankYou_VInterruptCopyPaletteAnimation:
 	move.l	(a1)+, (a0)+
-	dbra	d7, L_FF3B60
-L_FF3B66:
+	dbra	d7, ThankYou_VInterruptCopyPaletteAnimation
+ThankYou_VInterruptWritePalette:
 	lea.l	$c00004.l, a6
 	move.l	#$93409400, (a6)
 	move.l	#$950096db, (a6)
@@ -849,18 +851,18 @@ L_FF3B66:
 	move.w	(a7)+, (a6)
 	move.l	#$c0000000, (a6)
 	move.w	$FFFFB600.w, $c00000.l
-	jsr	SoundAndInterruptFunctions.l
+	jsr	ThankYou_SoundAndInterruptFunctions.l
 	bsr.w	ThankYou_ReleaseZ80
 	tst.w	$FFFFBA4C.w
-	beq.b	L_FF3BA8
+	beq.b	ThankYou_VInterruptRegionTimer
 	subq.w	#$1, $FFFFBA4C.w
-L_FF3BA8:
+ThankYou_VInterruptRegionTimer:
 	if REGION=USA
 	subq.w	#$1, $FFFFBA80.w
-	bgt.b	L_FF3BB4
+	bgt.b	ThankYou_VInterruptFinish
 	move.b	#$1, $FFFFBA40.w
 	endif
-L_FF3BB4:
+ThankYou_VInterruptFinish:
 	addq.w	#$1, $FFFFBA4E.w
 	jsr	ThankYou_ReadController(pc)
 	movem.l	(a7)+, d0-d7/a0-a6
