@@ -482,6 +482,7 @@ opaque merely because they use `dc.*`.
 | M273 | Complete | Reuse the complete R31C Padding 3 provider for the byte-identical R31B/R31D suffixes, beginning at `$2730` and `$00D2`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M274 | Complete | Reuse the complete R31C Padding 3 provider for the byte-identical R32A Padding 3 suffix at `$07C4-$2E21`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M275 | Complete | Reuse the complete R32C Padding 3 provider for the byte-identical R32D Padding 3 suffix at `$006C-$26F9`, preserving the R32D-specific prefix. | J/U/E 133/133 each; audit/hygiene clean. |
+| M276 | Complete | Share the R31C Padding 3 suffix with R32C/R32D, preserving each variant's prefix and the named mapping/rotation tail providers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
