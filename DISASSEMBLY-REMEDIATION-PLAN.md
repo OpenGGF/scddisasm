@@ -551,6 +551,7 @@ opaque merely because they use `dc.*`.
 | M341 | Complete | Name the Thank You object-slot searches and list rebuild helper. | J/U/E 133/133 each; audit/hygiene clean. |
 | M342 | Complete | Classify the Time Attack time-record tile maps. | J/U/E 133/133 each; audit/hygiene clean. |
 | M343 | Complete | Name the Time Attack Sub CPU command wrappers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M344 | Complete | Name the Time Attack palette channel-step helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

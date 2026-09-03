@@ -2627,6 +2627,8 @@ L_FF3768:
 	dbra d6, L_FF3762
 L_FF376C:
 	rts
+; Move one selected palette channel toward its target values.
+TimeAttack_StepPaletteChannelIn:
 L_FF376E:
 	lea.l $ffd0a0.l, a1
 L_FF3774:
@@ -2703,6 +2705,8 @@ L_FF37CE:
 	dbra d6, L_FF37CA
 L_FF37D2:
 	rts
+; Reduce one selected palette channel toward black.
+TimeAttack_StepPaletteChannelOut:
 L_FF37D4:
 	lea.l $ffd0a0.l, a1
 L_FF37DA:
