@@ -522,6 +522,7 @@ opaque merely because they use `dc.*`.
 | M313 | Complete | Add semantic aliases for the Time Attack Nemesis decoder output variants. | J/U/E 133/133 each; audit/hygiene clean. |
 | M314 | Complete | Add a concise semantic alias for the Time Attack Enigma RAM decoder. | J/U/E 133/133 each; audit/hygiene clean. |
 | M315 | Complete | Name the Time Attack Enigma bitstream helpers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M316 | Complete | Name the Time Attack paired record renderer. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

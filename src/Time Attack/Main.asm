@@ -1729,6 +1729,8 @@ L_FF2F5E:
 L_FF2F62:
 	rts
 	dc.l	$02BA02BB,$02BA02BA,$02BC02BD,$02BA02BE,$02BA02BA,$02BF02C0,$02C202C3,$02C402C5,$02C602C7,$02C802C9,$02CA02CB,$02C102C1
+; Render two time records into the prepared tile buffer.
+TimeAttack_RenderTimeRecordsToBuffer:
 L_FF2F94:
 	movem.l d0-d4/a1-a4, -(a7)
 L_FF2F98:
