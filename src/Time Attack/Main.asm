@@ -1139,6 +1139,8 @@ L_FF2A62:
 	move.w (a0, d0.w), d0
 L_FF2A66:
 	jmp (a0, d0.w)
+; Dispatch offsets for each time-period animation frame.
+TimeAttack_TimePeriodAnimationDispatchTable:
 AnimationDispatchTable:
 	dc.b	$00,$44
 	dc.l	$00440044,$00440044,$00460044,$0044004E,$00440044,$00A40044,$00440044,$00440044,$00440044,$00440044,$00440044,$00A40044,$00440044,$00440044,$004E0044,$00440046
@@ -2391,6 +2393,8 @@ L_FF34B8:
 	movem.l (a7)+, d0-d7/a0-a6
 L_FF34BC:
 	rte
+; Dispatch offsets for VInterrupt transfer slots.
+TimeAttack_VIntTransferDispatchTable:
 ReadDispatchTable:
 	dc.b	$00,$2A
 	dc.l	$002A004C,$00120080,$00B000FE,$010600D8
