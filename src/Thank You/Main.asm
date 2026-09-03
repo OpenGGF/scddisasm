@@ -793,7 +793,7 @@ ThankYou_VInterruptObjectTimerCheck:
 	move.b	#$1, $FFFFBA7B.w
 ThankYou_VInterruptScheduleObjectTimer:
 	move.w	#$384, $FFFFBA7C.w
-	jsr	Random(pc)
+	jsr	ThankYou_Random(pc)
 	andi.l	#$7fff, d0
 	divs.w	#$1000, d0
 	swap	d0
@@ -873,7 +873,8 @@ ThankYou_VIntIdleUpdate:
 	move.b	$FFFFBA4B.w, $FFFFBA56.w
 	movem.l	(a7)+, d0-d7/a0-a6
 	rte
-FillLongs:
+; Fill sixteen longwords with the value in d1.
+ThankYou_FillLongs:
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
@@ -890,7 +891,8 @@ FillLongs:
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
-FillObject:
+; Clear one object-sized block with the value in d1.
+ThankYou_FillObject:
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
@@ -908,7 +910,8 @@ FillObject:
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
 	rts
-FillVDP:
+; Fill a fixed VDP destination block with the value in d1.
+ThankYou_FillVdp:
 	move.l	d1, (a1)
 	move.l	d1, (a1)
 	move.l	d1, (a1)
@@ -942,7 +945,8 @@ FillVDP:
 	move.l	d1, (a1)
 	move.l	d1, (a1)
 	rts
-CopyLongs:
+; Copy thirty-two longwords from a1 to a2.
+ThankYou_CopyLongs:
 	move.l	(a1)+, (a2)+
 	move.l	(a1)+, (a2)+
 	move.l	(a1)+, (a2)+
@@ -976,7 +980,8 @@ CopyLongs:
 	move.l	(a1)+, (a2)+
 	move.l	(a1)+, (a2)+
 	rts
-CopyLongsFixed:
+; Copy thirty-two longwords to a fixed a2 destination.
+ThankYou_CopyLongsFixed:
 	move.l	(a1)+, (a2)
 	move.l	(a1)+, (a2)
 	move.l	(a1)+, (a2)
@@ -1012,22 +1017,24 @@ CopyLongsFixed:
 	rts
 ; Trigger a V-blank service and wait for it to finish.
 ThankYou_WaitForVBlank:
-L_FF3CDA:
+ThankYou_WaitForVBlankTrigger:
 	move.b	#$1, $FFFFBA42.w
 	move.w	#$2500, sr
-L_FF3CE4:
+ThankYou_WaitForVBlankLoop:
 	tst.b	$FFFFBA42.w
-	bne.b	L_FF3CE4
+	bne.b	ThankYou_WaitForVBlankLoop
 	rts
-SetVSRAMMode:
+; Select the VSRAM transfer mode for the Sub CPU.
+ThankYou_SetVsramMode:
 	move.w	#$ff00, $a1201e.l
 	rts
-Random:
+; Advance and return the Thank You pseudo-random sequence.
+ThankYou_Random:
 	move.l	d1, -(a7)
 	move.l	$FFFFBA52.w, d1
-	bne.b	L_FF3D04
+	bne.b	ThankYou_RandomSeedReady
 	move.l	#$2a6d365a, d1
-L_FF3D04:
+ThankYou_RandomSeedReady:
 	move.l	d1, d0
 	asl.l	#$2, d1
 	add.l	d0, d1
@@ -1041,24 +1048,26 @@ L_FF3D04:
 	move.l	d1, $FFFFBA52.w
 	move.l	(a7)+, d1
 	rts
-CalcSine:
+; Calculate sine and cosine components for the supplied angle.
+ThankYou_CalculateSine:
 	addi.w	#$80, d3
 	andi.w	#$1ff, d3
 	move.w	d3, d4
 	btst	#$7, d3
-	beq.b	L_FF3D32
+	beq.b	ThankYou_CalculateSineMagnitude
 	not.w	d4
-L_FF3D32:
+ThankYou_CalculateSineMagnitude:
 	andi.w	#$7f, d4
 	add.w	d4, d4
-	move.w	SineTable(pc, d4.w), d4
+	move.w	ThankYou_SineTable(pc, d4.w), d4
 	btst	#$8, d3
-	beq.b	L_FF3D44
+	beq.b	ThankYou_CalculateSineDone
 	neg.w	d4
-L_FF3D44:
+ThankYou_CalculateSineDone:
 	move.w	d4, d3
 	rts
-SineTable:
+; Quarter-wave sine samples indexed by ThankYou_CalculateSine.
+ThankYou_SineTable:
 	dc.b	$00
 	dc.b	$00,$00,$03,$00,$06,$00,$09,$00,$0C,$00,$0F,$00,$12,$00,$16,$00
 	dc.b	$19,$00,$1C,$00,$1F,$00,$22,$00,$25,$00,$28,$00,$2B,$00,$2F,$00
@@ -1704,7 +1713,7 @@ ThankYou_AdvanceObjectAnimationDone:
 ThankYou_ClearObject:
 	movea.l	a0, a1
 	moveq	#$0, d1
-	bra.w	FillObject
+	bra.w	ThankYou_FillObject
 	dc.b	$43,$F8,$92,$00,$72,$00,$70,$3F,$4E,$BA,$F6,$1A,$51,$C8,$FF,$FA
 	dc.b	$4E,$75
 ; Update object timers and dispatch expired timer actions.
@@ -1733,7 +1742,7 @@ ThankYou_UpdateObjectTimersAlternateTable:
 ThankYou_UpdateObjectTimersApplyInterval:
 	move.w	(a1)+, (a2)
 	movem.l	d5/a1-a2, -(a7)
-	jsr	Random(pc)
+	jsr	ThankYou_Random(pc)
 	movem.l	(a7)+, d5/a1-a2
 	andi.l	#$ffff, d0
 	moveq	#$0, d1
