@@ -169,6 +169,8 @@ WritePalette:
 	andi.w	#$ff, d2
 	bsr.w	L_FF21FE
 	rts
+; Write one palette block to the VDP.
+ThankYou_WritePaletteBlock:
 L_FF21FE:
 	moveq	#$2, d7
 	cmpi.w	#$11, d2

@@ -526,6 +526,7 @@ opaque merely because they use `dc.*`.
 | M317 | Complete | Correct and complete the Time Attack tile/record helper aliases. | J/U/E 133/133 each; audit/hygiene clean. |
 | M318 | Complete | Name the Time Attack selection input handler. | J/U/E 133/133 each; audit/hygiene clean. |
 | M319 | Complete | Name the Time Attack record preparation routine. | J/U/E 133/133 each; audit/hygiene clean. |
+| M320 | Complete | Name the Thank You palette-block writer. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
