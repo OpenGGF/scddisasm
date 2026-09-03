@@ -500,6 +500,7 @@ opaque merely because they use `dc.*`.
 | M291 | Complete | Reuse the R62C non-USA Padding 3 continuation for byte-identical R62B/R72A/R72C suffixes at `$027A`, `$01CA`, and `$01CA`, preserving each prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 | M292 | Complete | Use R72A Padding 2 as the shared non-USA tail for R72C, and for R62C/R62B after `$0200`/`$0400` prefixes. | J/U/E 133/133 each; audit/hygiene clean. |
 | M293 | Complete | Reuse the R72A packed Padding 3 prefix provider for the byte-identical R72C suffix at `$04E4-$08B5`, preserving the R72C prefix. | J/U/E 133/133 each; audit/hygiene clean. |
+| M294 | Complete | Reuse the R73C Padding 2 provider for the byte-identical R81 suffix at `$194B-$21FF`, preserving the R81 prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
