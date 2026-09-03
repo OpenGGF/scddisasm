@@ -172,7 +172,10 @@ Every agent working on this plan must follow these rules:
     milestone. Do not mark the milestone complete until its required checks
     pass and its commit is present on the remote.
 12. Never weaken the displayless build safety rules to make an assembler run.
-    Report a missing prerequisite or known headless tool limitation instead.
+   Report a missing prerequisite or known headless tool limitation instead.
+13. Keep governance edits to this plan (milestone sizing, agent workflow, or
+   validation policy) in a separate documentation-only milestone and commit;
+   do not bundle them with source remediation.
 
 Commit subjects should describe the semantic result, for example:
 
@@ -554,6 +557,7 @@ opaque merely because they use `dc.*`.
 | M344 | Complete | Name the Time Attack palette channel-step helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M345 | Complete | Name the ending-FMV main-state table and Word RAM command router. | J/U/E 133/133 each; audit/hygiene clean. |
 | M346 | Complete | Correct the Time Attack digit-map boundary and route M342–M344 consumers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M347 | Complete | Record the governance rule that separates process edits from source milestones. | Documentation-only; diff/audit checks clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
