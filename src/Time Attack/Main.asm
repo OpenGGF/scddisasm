@@ -3270,6 +3270,8 @@ L_FF5172:
 	movem.l (a7)+, d0-d7/a1-a5
 L_FF5176:
 	rts
+; Read one Enigma-coded word from the current bitstream.
+TimeAttack_ReadEnigmaWord:
 L_FF5178:
 	move.w a3, d3
 L_FF517A:
@@ -3403,6 +3405,8 @@ L_FF520C:
 L_FF5210:
 	ori.b #$3f, (a7)+
 	dc.l	$007F00FF,$01FF03FF,$07FF0FFF,$1FFF3FFF,$7FFFFFFF
+; Refill the Enigma bit buffer when fewer than nine bits remain.
+TimeAttack_RefillEnigmaBits:
 L_FF5228:
 	sub.w d0, d6
 L_FF522A:
