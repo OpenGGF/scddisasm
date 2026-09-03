@@ -1179,20 +1179,21 @@ L_FF3F5A:
 ThankYou_LoadNemesisGraphics:
 	lea.l	$c00004.l, a5
 	moveq	#$3, d2
-L_FF3F66:
+ThankYou_LoadNemesisGraphicsLoop:
 	moveq	#$0, d1
 	move.b	d0, d1
-	beq.b	L_FF3F7E
+	beq.b	ThankYou_LoadNemesisGraphicsNext
 	lsl.w	#$3, d1
-	lea.l	L_FF3F86(pc), a0
+	lea.l	ThankYou_NemesisStreamTable(pc), a0
 	move.l	-$8(a0, d1.w), (a5)
 	movea.l	-$4(a0, d1.w), a0
 	jsr	ThankYou_DecodeNemesisToVdp(pc)
-L_FF3F7E:
+ThankYou_LoadNemesisGraphicsNext:
 	ror.l	#$8, d0
-	dbra	d2, L_FF3F66
+	dbra	d2, ThankYou_LoadNemesisGraphicsLoop
 	rts
-L_FF3F86:
+; Nemesis stream descriptors: VDP destination followed by source pointer.
+ThankYou_NemesisStreamTable:
 	dc.b	$69
 	dc.b	$20,$00,$00,$00,$21,$00,$00,$44,$E0,$00,$01,$00,$21,$16,$F0,$78
 	dc.b	$E0,$00,$01,$00,$21,$2E,$70,$57,$20,$00,$02,$00,$21,$3C,$F0,$70
@@ -1200,19 +1201,20 @@ L_FF3F86:
 ; Decode one Nemesis stream directly into VDP tiles.
 ThankYou_DecodeNemesisToVdp:
 	movem.l	d0-d7/a0-a1/a3-a5, -(a7)
-	lea.l	L_FF4078.l, a3
+	lea.l	ThankYou_WriteNemesisTile.l, a3
 	lea.l	$c00000.l, a4
-	bra.b	L_FF3FCA
+	bra.b	ThankYou_DecodeNemesisStream
 	dc.l	$48E7FFDC
 	dc.l	$47F900FF
-	dc.w	$408E-ThankYouFullShift
-L_FF3FCA:
+	dc.w	ThankYou_WriteNemesisTileAdvance-$FF0000
+; Initialize the Nemesis code table and bitstream state.
+ThankYou_DecodeNemesisStream:
 	lea.l	$FFFFA600.w, a1
 	move.w	(a0)+, d2
 	lsl.w	#$1, d2
-	bcc.b	L_FF3FD8
+	bcc.b	ThankYou_DecodeNemesisCodeTableReady
 	adda.w	#$a, a3
-L_FF3FD8:
+ThankYou_DecodeNemesisCodeTableReady:
 	lsl.w	#$2, d2
 	movea.w	d2, a5
 	moveq	#$8, d3
@@ -1237,44 +1239,48 @@ ThankYou_DecodeNemesisCode:
 	move.w	d5, d1
 	lsr.w	d7, d1
 	cmpi.b	#$fc, d1
-	bcc.b	L_FF404C
+	bcc.b	ThankYou_DecodeNemesisLongCode
 	andi.w	#$ff, d1
 	add.w	d1, d1
 	move.b	(a1, d1.w), d0
 	ext.w	d0
 	sub.w	d0, d6
 	cmpi.w	#$9, d6
-	bcc.b	L_FF4028
+	bcc.b	ThankYou_DecodeNemesisRunLength
 	addq.w	#$8, d6
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
-L_FF4028:
+; Extract the run length and pixel value from a short codeword.
+ThankYou_DecodeNemesisRunLength:
 	move.b	$1(a1, d1.w), d1
 	move.w	d1, d0
 	andi.w	#$f, d1
 	andi.w	#$f0, d0
-L_FF4036:
+; Append decoded pixels to the current four-bit tile word.
+ThankYou_DecodeNemesisBuildRun:
 	lsr.w	#$4, d0
-L_FF4038:
+ThankYou_DecodeNemesisAppendPixel:
 	lsl.l	#$4, d4
 	or.b	d1, d4
 	subq.w	#$1, d3
-	bne.b	L_FF4046
+	bne.b	ThankYou_DecodeNemesisContinueRun
 	jmp	(a3)
-L_FF4042:
+; Reset the pixel accumulator after one tile has been emitted.
+ThankYou_DecodeNemesisResetRun:
 	moveq	#$0, d4
 	moveq	#$8, d3
-L_FF4046:
-	dbra	d0, L_FF4038
+ThankYou_DecodeNemesisContinueRun:
+	dbra	d0, ThankYou_DecodeNemesisAppendPixel
 	bra.b	ThankYou_DecodeNemesisCode
-L_FF404C:
+; Decode the alternate long Nemesis codeword form.
+ThankYou_DecodeNemesisLongCode:
 	subq.w	#$6, d6
 	cmpi.w	#$9, d6
-	bcc.b	L_FF405A
+	bcc.b	ThankYou_DecodeNemesisLongRun
 	addq.w	#$8, d6
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
-L_FF405A:
+ThankYou_DecodeNemesisLongRun:
 	subq.w	#$7, d6
 	move.w	d5, d1
 	lsr.w	d6, d1
@@ -1282,43 +1288,48 @@ L_FF405A:
 	andi.w	#$f, d1
 	andi.w	#$70, d0
 	cmpi.w	#$9, d6
-	bcc.b	L_FF4036
+	bcc.b	ThankYou_DecodeNemesisBuildRun
 	addq.w	#$8, d6
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
-	bra.b	L_FF4036
-L_FF4078:
+	bra.b	ThankYou_DecodeNemesisBuildRun
+; Emit a decoded Nemesis tile without advancing the VDP address.
+ThankYou_WriteNemesisTile:
 	dc.b	$28
 	dc.b	$84,$53,$4D,$38,$0D,$66,$C2,$4E,$75
-L_FF4082:
+; Emit a decoded Nemesis tile by XORing the current VDP word.
+ThankYou_WriteNemesisXorTile:
 	eor.l	d4, d2
 	move.l	d2, (a4)
 	subq.w	#$1, a5
 	move.w	a5, d4
-	bne.b	L_FF4042
+	bne.b	ThankYou_DecodeNemesisResetRun
 	rts
-L_FF408E:
+; Emit a decoded Nemesis tile and advance the VDP address.
+ThankYou_WriteNemesisTileAdvance:
 	move.l	d4, (a4)+
 	subq.w	#$1, a5
 	move.w	a5, d4
-	bne.b	L_FF4042
+	bne.b	ThankYou_DecodeNemesisResetRun
 	rts
+; Emit a decoded Nemesis tile by XORing and advancing the VDP word.
+ThankYou_WriteNemesisXorTileAdvance:
 	dc.l	$B98228C2
 	dc.l	$534D380D
 	dc.l	$66A04E75
 ; Read one Nemesis control byte and update the decode table.
 ThankYou_ReadNemesisByte:
 	move.b	(a0)+, d0
-L_FF40A6:
+ThankYou_ReadNemesisTableByte:
 	cmpi.b	#$ff, d0
-	bne.b	L_FF40AE
+	bne.b	ThankYou_ReadNemesisTableHeader
 	rts
-L_FF40AE:
+ThankYou_ReadNemesisTableHeader:
 	move.w	d0, d7
-L_FF40B0:
+ThankYou_ReadNemesisTableEntry:
 	move.b	(a0)+, d0
 	cmpi.b	#$80, d0
-	bcc.b	L_FF40A6
+	bcc.b	ThankYou_ReadNemesisTableByte
 	move.b	d0, d1
 	andi.w	#$f, d7
 	andi.w	#$70, d1
@@ -1329,23 +1340,25 @@ L_FF40B0:
 	or.w	d1, d7
 	moveq	#$8, d1
 	sub.w	d0, d1
-	bne.b	L_FF40DE
+	bne.b	ThankYou_ReadNemesisTableExpand
 	move.b	(a0)+, d0
 	add.w	d0, d0
 	move.w	d7, (a1, d0.w)
-	bra.b	L_FF40B0
-L_FF40DE:
+	bra.b	ThankYou_ReadNemesisTableEntry
+; Expand a variable-length code across its lookup-table slots.
+ThankYou_ReadNemesisTableExpand:
 	move.b	(a0)+, d0
 	lsl.w	d1, d0
 	add.w	d0, d0
 	moveq	#$1, d5
 	lsl.w	d1, d5
 	subq.w	#$1, d5
-L_FF40EA:
+	; Fill each table slot covered by this code length.
+ThankYou_ReadNemesisTableExpandLoop:
 	move.w	d7, (a1, d0.w)
 	addq.w	#$2, d0
-	dbra	d5, L_FF40EA
-	bra.b	L_FF40B0
+	dbra	d5, ThankYou_ReadNemesisTableExpandLoop
+	bra.b	ThankYou_ReadNemesisTableEntry
 ; Decode an Enigma stream into VDP tiles.
 ThankYou_DecodeEnigmaToVdp:
 	andi.l	#$ffff, d0
