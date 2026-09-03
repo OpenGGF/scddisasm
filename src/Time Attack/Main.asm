@@ -1967,6 +1967,8 @@ L_FF3132:
 	movem.l (a7)+, d0-d1/a0
 L_FF3136:
 	rts
+; Animate the selected record row into its new ranking position.
+TimeAttack_AnimateRecordInsertion:
 L_FF3138:
 	moveq #$0, d0
 L_FF313A:
