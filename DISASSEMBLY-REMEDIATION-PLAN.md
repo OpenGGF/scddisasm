@@ -452,6 +452,7 @@ opaque merely because they use `dc.*`.
 | M243 | Complete | Structure the retained R32B Padding 3 hologram-animals Nemesis stream at `$1DBE-$1F6F`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M244 | Complete | Structure the retained R32B Padding 3 hologram Nemesis stream at `$1F70-$236F`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M245 | Complete | Classify the retained R32B Padding 3 legacy mapping/animation suffix and reuse the shared spin-platform rotation-vector table at `$2370-$2639`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M246 | Complete | Structure the retained R32B Padding 3 legacy animation offset table and records at `$1206-$15AB`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

@@ -3,7 +3,7 @@
 ; Recovered from tracked historical assembly; no proprietary binary is included.
 ; ------------------------------------------------------------------------------
 ; +$0000-+$1205 retained tail of the shared R12C Nemesis graphics stream
-; +$1206-+$15AB retained data to be structured
+; +$1206-+$15AB retained legacy animation offset table and records
 ; +$15AC-+$16AB retained wobble table
 ; +$16AC-+$1C0B retained data to be structured
 ; +$1C0C-+$1DBD retained robot-transport Nemesis stream
@@ -18,9 +18,13 @@
 R32BRetainedR12CGfxNemesisTail:
 	incbin	"maps/r12c/gfx.nem", $1990, $1206
 
-	dc.b	0, $12, 0, $1A
-	dc.b	0, $20, 0, $3A, 0, $54, 0, $6E, 0, $7A, 0, $B4, 0, $EE
-	dcb.b	2,1
+	; Shared legacy R72 animation-tail offset table; its first entries precede
+	; this retained slice in the complete stream.
+R32BRetainedLegacyAnimationOffsets:
+	dc.w	$0012, $001A, $0020, $003A, $0054, $006E, $007A, $00B4, $00EE, $0101
+
+	; Legacy animation records follow the retained offset table.
+R32BRetainedLegacyAnimationData:
 	dc.b	0, 2, 0, 3, 0, $FF, 5, 4, 5, 6, 7, $FF, 0
 	dcb.b	2,4
 	dc.b	0
