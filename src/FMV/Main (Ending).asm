@@ -33,9 +33,9 @@ L_FF202C:
 L_FF2036:
 	move.b	#$0, $a1200e.l
 L_FF203E:
-	bsr.w	L_FF2596
+	bsr.w	Ending_WaitSubCpuOwnership
 L_FF2042:
-	bsr.w	L_FF25BC
+	bsr.w	Ending_InitializePaletteAndFont
 L_FF2046:
 	lea.l	$c00000.l, a5
 L_FF204C:
@@ -53,11 +53,11 @@ L_FF2068:
 L_FF206A:
 	dbra	d7, L_FF2068
 L_FF206E:
-	bsr.w	L_FF2588
+	bsr.w	Ending_ClearCommandWorkspace
 L_FF2072:
-	bsr.w	L_FF254C
+	bsr.w	Ending_ClearInitialVdpRows
 L_FF2076:
-	bsr.w	L_FF27B8
+	bsr.w	Ending_ClearVdpNameTables
 L_FF207A:
 	move.w	#$0, $a12012.l
 L_FF2082:
@@ -762,6 +762,8 @@ L_FF2546:
 	clr.w	$FFFFc088.w
 L_FF254A:
 	rts
+; Clear the initial ending-FMV VDP tile rows.
+Ending_ClearInitialVdpRows:
 L_FF254C:
 	moveq	#$10, d4
 L_FF254E:
@@ -796,6 +798,8 @@ L_FF2582:
 	dbra	d2, L_FF2570
 L_FF2586:
 	rts
+; Clear the ending-FMV command workspace in RAM.
+Ending_ClearCommandWorkspace:
 L_FF2588:
 	moveq	#$1f, d7
 L_FF258A:
@@ -806,10 +810,12 @@ L_FF2590:
 	dbra	d7, L_FF258E
 L_FF2594:
 	rts
+; Wait for the Sub CPU to grant the ending-FMV Word RAM handshake.
+Ending_WaitSubCpuOwnership:
 L_FF2596:
 	btst.b	#$2, $a12003.l
 L_FF259E:
-	beq.b	L_FF2596
+	beq.b	Ending_WaitSubCpuOwnership
 L_FF25A0:
 	rts
 L_FF25A2:
@@ -824,6 +830,8 @@ L_FF25B2:
 	bset.b	#$2, $a1200e.l
 L_FF25BA:
 	rts
+; Initialize ending-FMV palette, font tiles, and VDP state.
+Ending_InitializePaletteAndFont:
 L_FF25BC:
 	lea.l	EndingPaletteData(pc), a1
 L_FF25C0:
@@ -992,6 +1000,8 @@ L_FF27AE:
 	bclr.b	#$0, $a1200e.l
 L_FF27B6:
 	rts
+; Clear the ending-FMV VDP name-table planes.
+Ending_ClearVdpNameTables:
 L_FF27B8:
 	lea.l	$c00000.l, a6
 L_FF27BE:
@@ -1276,9 +1286,9 @@ L_FF2A04:
 L_FF2A0A:
 	bra.w	L_FF2898
 L_FF2A0E:
-	bsr.w	L_FF254C
+	bsr.w	Ending_ClearInitialVdpRows
 L_FF2A12:
-	bsr.w	L_FF2588
+	bsr.w	Ending_ClearCommandWorkspace
 L_FF2A16:
 	move.l	#$c0000000, $c00004.l
 L_FF2A20:

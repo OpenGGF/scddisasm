@@ -561,6 +561,7 @@ opaque merely because they use `dc.*`.
 | M348 | Complete | Route the remaining Time Attack Sub CPU wrapper callers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M349 | Complete | Route the Time Attack VDP-transfer wait call graph through its semantic helper. | J/U/E 133/133 each; audit/hygiene clean. |
 | M350 | Complete | Route the Time Attack VDP, Z80, controller, and rotated-upload helper callers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M351 | Complete | Name the ending-FMV startup VDP/workspace initialization family and update its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
