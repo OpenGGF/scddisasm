@@ -207,6 +207,8 @@ L_FF224C:
 	nop
 	nop
 	rts
+; Set the exit flag when the Sub CPU reports a stop signal.
+ThankYou_CheckExitSignal:
 L_FF2266:
 	btst.b	#$7, $a1201f.l
 	beq.b	L_FF2278
