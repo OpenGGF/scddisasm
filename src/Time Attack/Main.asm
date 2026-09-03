@@ -2779,6 +2779,8 @@ L_FF388C:
 	dc.l	$FC704CEF,$010F0028,$C18843F9,$00C00004,$45F900C0,$0000D643,$3A034843,$22813802,$2648349B,$51CCFFFC,$D283D1C5,$51C8FFEE,$4CDF0E3F,$4E7545F9,$00C00004,$47F900C0
 	dc.l	$0000287C,$00800000,$24803801,$3A19DA43,$368551CC,$FFF8D08C,$51CAFFEE
 	dc.b	$4E,$75
+; Halt the Z80 and save the current interrupt mask.
+TimeAttack_HaltZ80:
 L_FF38EE:
 	move.w sr, $ff391c.l
 L_FF38F4:
@@ -2791,6 +2793,8 @@ L_FF3908:
 	bne.b L_FF3900
 L_FF390A:
 	rts
+; Release the Z80 and restore the saved interrupt mask.
+TimeAttack_ReleaseZ80:
 L_FF390C:
 	move.w #$0, $a11100.l
 L_FF3914:
@@ -2798,6 +2802,8 @@ L_FF3914:
 L_FF391A:
 	rts
 	dc.b	$00,$00
+; Read the multiplexed player-one controller state.
+TimeAttack_ReadController1:
 L_FF391E:
 	movem.l d1, -(a7)
 L_FF3922:
