@@ -499,20 +499,20 @@ ThankYou_AdvanceDisplayStatePending:
 ; Probe the cartridge/CD signatures and return the hardware status.
 ThankYou_ProbeHardwareSignatures:
 	btst.b	#$7, $400001.l
-	beq.b	L_FF35E4
+	beq.b	ThankYou_ProbeHardwareCartridgePath
 	lea.l	$400010.l, a0
-	lea.l	L_FF36B4.l, a1
+	lea.l	ThankYou_CartridgeSignature.l, a1
 	moveq	#$2, d0
-L_FF35CC:
+ThankYou_ProbeHardwareCdSignatureLoop:
 	cmpm.l	(a0)+, (a1)+
-	bne.b	L_FF35E4
-	dbra	d0, L_FF35CC
+	bne.b	ThankYou_ProbeHardwareCartridgePath
+	dbra	d0, ThankYou_ProbeHardwareCdSignatureLoop
 	movea.l	#$fffffdae, a0
 	jsr	$400020.l
-	bra.w	L_FF36A8
-L_FF35E4:
+	bra.w	ThankYou_ProbeHardwareSuccess
+ThankYou_ProbeHardwareCartridgePath:
 	btst.b	#$7, $400001.l
-	bne.w	L_FF36B0
+	bne.w	ThankYou_ProbeHardwareFailure
 	move.b	$400001.l, d0
 	andi.l	#$7, d0
 	move.l	#$2000, d1
@@ -522,58 +522,60 @@ L_FF35E4:
 	adda.l	d1, a2
 	movea.l	a2, a0
 	adda.w	#$60, a0
-	lea.l	L_FF36B4.l, a1
+	lea.l	ThankYou_CartridgeSignature.l, a1
 	movep.l	$1(a0), d1
 	cmp.l	(a1), d1
-	bne.w	L_FF366E
+	bne.w	ThankYou_ProbeHardwareWritableTest
 	movep.l	$9(a0), d1
 	cmp.l	$4(a1), d1
-	bne.w	L_FF366E
+	bne.w	ThankYou_ProbeHardwareWritableTest
 	movep.l	$11(a0), d1
 	cmp.l	$8(a1), d1
-	bne.w	L_FF366E
+	bne.w	ThankYou_ProbeHardwareWritableTest
 	movea.l	a2, a0
 	adda.w	#$40, a0
-	lea.l	L_FF36C0.l, a1
+	lea.l	ThankYou_CdRomSignature.l, a1
 	movep.l	$1(a0), d1
 	cmp.l	(a1), d1
-	bne.w	L_FF366E
+	bne.w	ThankYou_ProbeHardwareWritableTest
 	movep.l	$9(a0), d1
 	cmp.l	$4(a1), d1
-	bne.w	L_FF366E
+	bne.w	ThankYou_ProbeHardwareWritableTest
 	movep.l	$11(a0), d1
 	cmp.l	$8(a1), d1
-	bne.w	L_FF366E
-	bra.w	L_FF36A8
-L_FF366E:
+	bne.w	ThankYou_ProbeHardwareWritableTest
+	bra.w	ThankYou_ProbeHardwareSuccess
+ThankYou_ProbeHardwareWritableTest:
 	bset.b	#$0, $7fffff.l
 	lea.l	$600001.l, a0
 	move.b	(a0), d0
 	move.b	#$5a, (a0)
 	cmpi.b	#$5a, (a0)
-	bne.b	L_FF369E
+	bne.b	ThankYou_ProbeHardwareWritableTestFailed
 	move.b	#$a5, (a0)
 	cmpi.b	#$a5, (a0)
-	bne.b	L_FF369E
+	bne.b	ThankYou_ProbeHardwareWritableTestFailed
 	move.b	d0, (a0)
 	bclr.b	#$0, $7fffff.l
-	bra.b	L_FF36AC
-L_FF369E:
+	bra.b	ThankYou_ProbeHardwareSuccessAfterWritable
+ThankYou_ProbeHardwareWritableTestFailed:
 	bclr.b	#$0, $7fffff.l
-	bra.b	L_FF36B0
-L_FF36A8:
+	bra.b	ThankYou_ProbeHardwareFailure
+ThankYou_ProbeHardwareSuccess:
 	moveq	#$0, d0
 	rts
-L_FF36AC:
+ThankYou_ProbeHardwareSuccessAfterWritable:
 	moveq	#$0, d0
 	rts
-L_FF36B0:
+ThankYou_ProbeHardwareFailure:
 	moveq	#$ff, d0
 	rts
-L_FF36B4:
+; Cartridge signature used by the hardware probe.
+ThankYou_CartridgeSignature:
 	dc.b	$52
 	dc.b	$41,$4D,$5F,$43,$41,$52,$54,$52,$49,$44,$47
-L_FF36C0:
+; Sega CD signature used by the hardware probe.
+ThankYou_CdRomSignature:
 	dc.b	$53
 	dc.b	$45,$47,$41,$5F,$43,$44,$5F,$52,$4F,$4D,$00,$2F,$00
 	dc.w	$4EB9
