@@ -466,6 +466,7 @@ opaque merely because they use `dc.*`.
 | M257 | Complete | Replace the retained GHZ2/GHZ3 fallback foreground layouts in R32D Padding 2 at `$15E4-$16AB` and `$16B0-$17D1` with their named binary assets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M258 | Complete | Replace the exact shared Wacky Workbench legacy collision/layout/mapping suffix in R32D Padding 2 at `$17DA-$1A3D` with its named provider. | J/U/E 133/133 each; audit/hygiene clean. |
 | M259 | Complete | Replace the exact retained collision-column height-map tail in R32D Padding 2 at `$0000-$013D` with its named partial asset. | J/U/E 133/133 each; audit/hygiene clean. |
+| M260 | Complete | Extract the shared R33 collision-geometry metadata block at `$0200-$0283` as a named asset and reuse it for the R32C Padding 2 prefix at `$0000-$0083`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

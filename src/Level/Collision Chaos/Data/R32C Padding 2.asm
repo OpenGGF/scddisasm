@@ -1,6 +1,8 @@
 ; ------------------------------------------------------------------------------
 ; R32C source-level padding 2
 ; Recovered from tracked historical assembly; no proprietary binary is included.
+; +$0000-+$0083 shared R33 collision-geometry metadata block
+; +$0084-+$01C1 retained collision-column height-map tail
 ; +$01C2-+$11C1 retained shared collision-row profile map
 ; +$11C2-+$14E1 retained Act 1 Past collision-index map
 ; +$152A-+$164B retained Act 1 Past foreground layout
@@ -8,39 +10,10 @@
 ; +$1734-+$1855 retained GHZ3 fallback foreground layout
 ; +$185E-+$1AC1 retained shared Wacky Workbench legacy suffix
 ; ------------------------------------------------------------------------------
-
-	dc.b	$2E
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, 7, $EC, 4, 0, $21, $EE, $F4
-	dcb.b	2,0
-	dc.b	2, $EE, $F4
-	dcb.b	2,0
-	dc.b	$23, $F6, $FC, 9, 0, $26, $F4, 4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE, $A, $ED, 4, 0, $24, $EE, $F5
-	dcb.b	2,0
-	dc.b	2, $EE, $F5
-	dcb.b	2,0
-	dc.b	$23, $F6, $FD, 1, 0, 8, $F4, $FD, 4, 0, $2C, $FC, 5
-	dcb.b	2,0
-	dc.b	$C, $FC, 5
-	dcb.b	2,0
-	dc.b	$2E
-	dcb.b	2,4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$12, 6, $C, 4, 0, $13, $FE, 0, 5, $EC, 5, 0, 4, $EE, $FC
-	dc.b	9, 0, $26, $F4, 4
-	dcb.b	2,0
-	dc.b	$E, $FE, 4
-	dcb.b	2,0
-	dc.b	$F, 6, $C, 4, 0, $10, $FE, 7
+; Complete shared 132-byte R33 collision-geometry metadata block.
+R32CRetainedCollisionGeometryMetadata:
+	incbin	"maps/r33_collision_geometry.bin"
+	dc.b	7
 	dcb.b	3,8
 	dcb.b	3,9
 	dcb.b	3,$A
