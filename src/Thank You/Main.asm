@@ -1455,6 +1455,8 @@ L_FF41F8:
 	dc.b	$60,$24,$7C,$10,$60,$D8,$00,$01,$00,$03,$00,$07,$00,$0F,$00,$1F
 	dc.b	$00,$3F,$00,$7F,$00,$FF,$01,$FF,$03,$FF,$07,$FF,$0F,$FF,$1F,$FF
 	dc.b	$3F,$FF,$7F,$FF,$FF,$FF
+; Refill the Enigma decoder bit buffer when fewer than nine bits remain.
+ThankYou_RefillEnigmaBits:
 ReadSine:
 	sub.w	d0, d6
 	cmpi.w	#$9, d6

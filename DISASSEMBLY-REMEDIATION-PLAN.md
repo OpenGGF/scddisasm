@@ -546,6 +546,7 @@ opaque merely because they use `dc.*`.
 | M337 | Complete | Name the Time Attack selection-highlight tile helper. | J/U/E 133/133 each; audit/hygiene clean. |
 | M338 | Complete | Name the Time Attack selection tile-block uploader. | J/U/E 133/133 each; audit/hygiene clean. |
 | M339 | Complete | Name the Time Attack record-insertion animation helper. | J/U/E 133/133 each; audit/hygiene clean. |
+| M340 | Complete | Correctly classify the Thank You Enigma bit-buffer refill helper. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
