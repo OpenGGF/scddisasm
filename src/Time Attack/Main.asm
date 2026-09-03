@@ -2380,12 +2380,16 @@ L_FF34BC:
 ReadDispatchTable:
 	dc.b	$00,$2A
 	dc.l	$002A004C,$00120080,$00B000FE,$010600D8
+; Write the current transfer value to the VDP and finish the interrupt slot.
+TimeAttack_VIntWriteTransferValue:
 L_FF34D0:
 	move.l #$40020010, $c00004.l
 L_FF34DA:
 	move.w $ff3470.l, $c00000.l
 L_FF34E4:
 	bra.w L_FF3596
+; Write the paired display coordinates to the VDP and finish the slot.
+TimeAttack_VIntWriteDisplayPair:
 L_FF34E8:
 	move.l #$70000002, $c00004.l
 L_FF34F2:
@@ -2394,6 +2398,8 @@ L_FF34FC:
 	move.w $ff346a.l, $c00000.l
 L_FF3506:
 	bra.w L_FF3596
+; DMA the primary work buffer to VRAM at $C000.
+TimeAttack_VIntDmaPrimaryBuffer:
 L_FF350A:
 	bsr.w L_FF38EE
 L_FF350E:
@@ -2414,6 +2420,8 @@ L_FF3536:
 	bsr.w L_FF390C
 L_FF353A:
 	bra.w L_FF3596
+; DMA the secondary work buffer to VRAM at $C060 and refresh its strip.
+TimeAttack_VIntDmaSecondaryBuffer:
 L_FF353E:
 	bsr.w L_FF38EE
 L_FF3542:
