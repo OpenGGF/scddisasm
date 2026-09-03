@@ -16,7 +16,7 @@
 		Start, 0, VInterrupt
 
 Start:
-	jmp	L_FF2020.l
+	jmp	Ending_StartupInitialize.l
 VInterrupt:
 	jmp	Ending_VBlankInterrupt.l
 	dc.l	$0000C040
@@ -24,7 +24,8 @@ VInterrupt:
 	dc.l	$6E672041
 	dc.l	$6E696D61
 	dc.l	$69746F6E
-L_FF2020:
+; Initialize ending-FMV work RAM, VDP state, and Sub CPU ownership.
+Ending_StartupInitialize:
 	clr.w	$FFFFfa40.w
 L_FF2024:
 	bclr.b	#$1, $a1200e.l
@@ -48,10 +49,10 @@ L_FF2060:
 	lea.l	$FFFF8000.w, a0
 L_FF2064:
 	move.w	#$fff, d7
-L_FF2068:
+Ending_ClearWorkRamLoop:
 	clr.l	(a0)+
 L_FF206A:
-	dbra	d7, L_FF2068
+	dbra	d7, Ending_ClearWorkRamLoop
 L_FF206E:
 	bsr.w	Ending_ClearCommandWorkspace
 L_FF2072:
@@ -70,18 +71,18 @@ L_FF2092:
 	bset.b	#$6, $FFFFfa47.w
 L_FF2098:
 	move.w	$FFFFfa46.w, $c00004.l
-L_FF20A0:
+Ending_WaitSubCpuStartLoop:
 	btst.b	#$7, $a1200f.l
 L_FF20A8:
-	bne.b	L_FF20A0
+	bne.b	Ending_WaitSubCpuStartLoop
 L_FF20AA:
 	btst.b	#$7, $a1200f.l
 L_FF20B2:
-	bne.b	L_FF20A0
+	bne.b	Ending_WaitSubCpuStartLoop
 L_FF20B4:
 	btst.b	#$7, $a1200f.l
 L_FF20BC:
-	bne.b	L_FF20A0
+	bne.b	Ending_WaitSubCpuStartLoop
 L_FF20BE:
 	bclr.b	#$1, $a1200e.l
 L_FF20C6:
@@ -92,7 +93,7 @@ L_FF20D2:
 	clr.w	$FFFFfa40.w
 L_FF20D6:
 	move.w	#$4, $FFFFc086.w
-L_FF20DC:
+Ending_MainStateLoop:
 	moveq	#$0, d0
 L_FF20DE:
 	move.w	$FFFFc086.w, d0
@@ -107,25 +108,25 @@ L_FF20EC:
 L_FF20F0:
 	btst.b	#$1, $a1200f.l
 L_FF20F8:
-	beq.b	L_FF20DC
+	beq.b	Ending_MainStateLoop
 L_FF20FA:
 	btst.b	#$1, $a1200f.l
 L_FF2102:
-	beq.b	L_FF20DC
+	beq.b	Ending_MainStateLoop
 L_FF2104:
 	btst.b	#$1, $a1200f.l
 L_FF210C:
-	beq.b	L_FF20DC
+	beq.b	Ending_MainStateLoop
 L_FF210E:
 	move.l	#$c0000000, $c00004.l
 L_FF2118:
 	moveq	#$0, d0
 L_FF211A:
 	moveq	#$f, d7
-L_FF211C:
+Ending_ClearVdpRowWordsLoop:
 	move.w	d0, (a5)
 L_FF211E:
-	dbra	d7, L_FF211C
+	dbra	d7, Ending_ClearVdpRowWordsLoop
 L_FF2122:
 	bsr.b	Ending_WaitForSubCpuCompletion
 L_FF2124:
@@ -138,10 +139,10 @@ L_FF2132:
 	moveq	#$0, d0
 L_FF2134:
 	moveq	#$3f, d7
-L_FF2136:
+Ending_ClearObjectWorkLoop:
 	move.l	d0, (a1)+
 L_FF2138:
-	dbra	d7, L_FF2136
+	dbra	d7, Ending_ClearObjectWorkLoop
 L_FF213C:
 	move.w	#$46a, $56(a2)
 L_FF2142:
@@ -150,40 +151,35 @@ L_FF2148:
 	jmp	L_FFC100.l
 ; Wait for the Sub CPU to finish before leaving the ending FMV.
 Ending_WaitForSubCpuCompletion:
-L_FF214E:
 	clr.w	$FFFFfa40.w
 L_FF2152:
 	move.w	#$3c, d1
-L_FF2156:
+Ending_WaitForSubCpuCompletionTickLoop:
 	bsr.w	Ending_WaitTimerTick
 L_FF215A:
-	dbra	d1, L_FF2156
+	dbra	d1, Ending_WaitForSubCpuCompletionTickLoop
 L_FF215E:
 	bset.b	#$4, $a1200e.l
-L_FF2166:
+Ending_WaitForSubCpuCompletionPoll:
 	btst.b	#$1, $a1200f.l
 L_FF216E:
-	bne.b	L_FF2166
+	bne.b	Ending_WaitForSubCpuCompletionPoll
 L_FF2170:
 	btst.b	#$1, $a1200f.l
 L_FF2178:
-	bne.b	L_FF2166
+	bne.b	Ending_WaitForSubCpuCompletionPoll
 L_FF217A:
 	btst.b	#$1, $a1200f.l
 L_FF2182:
-	bne.b	L_FF2166
+	bne.b	Ending_WaitForSubCpuCompletionPoll
 L_FF2184:
 	rts
 ; Trigger the timer tick used by the ending-FMV main loop.
 Ending_WaitTimerTick:
-L_FF2186:
 	move.b	#$1, $FFFFfa00.w
 Ending_WaitTimerPoll:
-L_FF218C:
 	tst.b	$FFFFfa00.w
-L_FF2190:
 	bne.b	Ending_WaitTimerPoll
-L_FF2192:
 	rts
 ; Offsets for ending-FMV main-loop state handlers.
 Ending_MainStateDispatchTable:
@@ -410,7 +406,7 @@ L_FF230E:
 L_FF2314:
 	move.l	(a7)+, d0
 L_FF2316:
-	bra.w	L_FF20DC
+	bra.w	Ending_MainStateLoop
 L_FF231A:
 	move.w	#$1a, $FFFFc086.w
 L_FF2320:
