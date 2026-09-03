@@ -684,6 +684,8 @@ L_FF394E:
 	dc.b	$04
 	dc.b	$34,$30,$00,$07,$5E,$00,$00,$00,$00,$00,$00,$81,$34,$00,$02,$01
 	dc.b	$00,$00,$00
+; Halt the Z80 and save the current interrupt mask.
+ThankYou_HaltZ80:
 L_FF3962:
 	move.w	sr, $FFFFBA50.w
 	move.w	#$100, $a11100.l
@@ -691,6 +693,8 @@ L_FF396E:
 	btst.b	#$0, $a11100.l
 	bne.b	L_FF396E
 	rts
+; Release the Z80 and restore the saved interrupt mask.
+ThankYou_ReleaseZ80:
 L_FF397A:
 	move.w	#$0, $a11100.l
 	move.w	$FFFFBA50.w, sr
