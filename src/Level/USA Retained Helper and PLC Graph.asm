@@ -1,30 +1,109 @@
-; USA retained animated/static helper and orphan PLC graph.
-; Shared by the Palmtree Panic USA padding stream and Collision Chaos R32C/D.
-; Relative ranges: helper $000-$0E1, static metadata $0E2-$0F9, graph $0FA-$223.
+; Shared USA retained animated/static helper and orphan PLC graph.
+; Used by Palmtree Panic USA padding and Collision Chaos R32C/R32D.
+; The helper routines are source-level 68000; the graph remains typed words.
 ; ------------------------------------------------------------------------------
 USARetainedHelperAndGraph:
-; Retained animated/static helper machine code and animated metadata.
-	dc.w	$FE60, $3C3C, $001F, $6100, $002A, $6624, $4BF9, $00C0
-	dc.w	$0004, $2ABC, $9400, $9340, $2ABC, $968C, $95C0, $3ABC
-	dc.w	$977F, $3ABC, $5540, $31FC, $0081, $F640, $3AB8, $F640
-	dc.w	$4E75, $5312, $6A42, $7000, $1014, $5200, $B011, $6502
-	dc.w	$7000, $1880, $D040, $14B1, $0002, $1031, $0003, $4880
-	dc.w	$D040, $D040, $7200, $1211, $D241, $D041, $2271, $0002
-	dc.w	$47F9, $00FF, $1980, $26D9, $51CE, $FFFC, $D4FC, $0001
-	dc.w	$D8FC, $0001, $7000, $4E75, $D4FC, $0001, $D8FC, $0001
-	dc.w	$7001, $4E75, $0400, $0400, $0901, $0402, $0F03, $0023
-	dc.w	$3F0C, $0023, $3F8C, $0023, $400C, $0023, $408C, $5312
-	dc.w	$6A00, $0034, $1491, $7000, $1014, $5200, $B029, $0001
-	dc.w	$6502, $7000, $1880, $D040, $D040, $2271, $0002, $47F9
-	dc.w	$00FF, $1980, $26D9, $51CE, $FFFC, $D4FC, $0001, $D8FC
-	dc.w	$0001, $7000, $4E75, $D4FC, $0001, $D8FC, $0001, $7001
-	dc.w	$4E75
-; Static PLC metadata: reset/frame counts followed by frame pointers.
-USARetainedStaticPLCMetadata:
+; Shared retained animated-PLC helper family. The leading $FE60 word is the
+; tail of a preceding historical unit, not executable here. The wrapper primes
+; a 32-longword DMA transfer, advances one animated record, and restores the
+; VDP registers. Both helpers consume timer/index bytes through a2/a4, resolve
+; frame pointers through a1, copy through the $FF1980 staging buffer, advance
+; the caller's record pointers, and return 0 after an update or 1 while waiting.
+USARetainedSharedAnimatedPLCUnit:
+	dc.w	$FE60			; Tail word from the preceding legacy routine
+	move.w	#$1F,d6
+	bsr.w	.UpdateAnimatedPLC
+	bne.b	.LegacyReturn
+	lea	$C00004,a5
+	move.l	#$94009340,(a5)
+	move.l	#$968C95C0,(a5)
+	move.w	#$977F,(a5)
+	move.w	#$5540,(a5)
+	move.w	#$81,$FFFFF640.w
+	move.w	$FFFFF640.w,(a5)
+.LegacyReturn:
+	rts
+
+.UpdateAnimatedPLC:
+	subq.b	#1,(a2)
+	bpl.b	.AdvanceAnimated
+	moveq	#0,d0
+	move.b	(a4),d0
+	addq.b	#1,d0
+	cmp.b	(a1),d0
+	bcs.b	.FrameReadyAnimated
+	moveq	#0,d0
+.FrameReadyAnimated:
+	move.b	d0,(a4)
+	add.w	d0,d0
+	move.b	2(a1,d0.w),(a2)
+	move.b	3(a1,d0.w),d0
+	ext.w	d0
+	add.w	d0,d0
+	add.w	d0,d0
+	moveq	#0,d1
+	move.b	(a1),d1
+	add.w	d1,d1
+	add.w	d1,d0
+	movea.l	2(a1,d0.w),a1
+	lea	$FF1980,a3
+.CopyAnimated:
+	move.l	(a1)+,(a3)+
+	dbra	d6,.CopyAnimated
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#0,d0
+	rts
+.AdvanceAnimated:
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#1,d0
+	rts
+
+.AnimatedPLCMetadata:
+	; Frame count, unused byte, four delay/frame-index pairs, then four
+	; historical longword frame pointers selected by the calculated index.
+	dc.w	$0400, $0400, $0901, $0402, $0F03, $0023, $3F0C
+	dc.w	$0023, $3F8C, $0023, $400C, $0023, $408C
+
+.UpdateStaticPLC:
+	subq.b	#1,(a2)
+	bpl.w	.AdvanceStatic
+	move.b	(a1),(a2)
+	moveq	#0,d0
+	move.b	(a4),d0
+	addq.b	#1,d0
+	cmp.b	1(a1),d0
+	bcs.b	.FrameReadyStatic
+	moveq	#0,d0
+.FrameReadyStatic:
+	move.b	d0,(a4)
+	add.w	d0,d0
+	add.w	d0,d0
+	movea.l	2(a1,d0.w),a1
+	lea	$FF1980,a3
+.CopyStatic:
+	move.l	(a1)+,(a3)+
+	dbra	d6,.CopyStatic
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#0,d0
+	rts
+.AdvanceStatic:
+	adda.w	#1,a2
+	adda.w	#1,a4
+	moveq	#1,d0
+	rts
+
+; Static helper records begin with reset delay and frame count, followed by
+; longword frame pointers. These two records select three and two frames.
+USARetainedSharedStaticPLCMetadata:
 	dc.b	4, 3
 	dc.l	$00233C0C, $00233D0C, $00233E0C
+.Next:
 	dc.b	3, 2
 	dc.l	$00233B0C, $00233B8C
+
 ; Orphan stage descriptor, PLC index, and retained PLC lists.
 USARetainedOrphanStagePLCGraph:
 	dc.w	$0323, $81DC, $0223, $6F30, $0021, $0000, $0081, $0404

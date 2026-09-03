@@ -476,6 +476,7 @@ opaque merely because they use `dc.*`.
 | M267 | Complete | Structure the USA R32C Padding 1 `$0000-$015D` retained PLC prefix, preserving its two USA-specific big-ring pointers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M268 | Complete | Reuse the exact USA R31C Padding 1 stream embedded in USA R32C Padding 1 at `$015E-$0C13`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M269 | Complete | Reuse the exact USA R32C Padding 1 suffix at `$0C14-$0E37` as a shared USA retained helper/metadata provider for the Palmtree Panic USA padding stream. | J/U/E 133/133 each; audit/hygiene clean. |
+| M270 | Complete | Structure the shared retained helper and static PLC metadata as 68000 source, preserving the orphan stage/PLC graph as a named typed-word block. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
