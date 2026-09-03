@@ -538,6 +538,7 @@ opaque merely because they use `dc.*`.
 | M329 | Complete | Name the Time Attack selection graphics preparer. | J/U/E 133/133 each; audit/hygiene clean. |
 | M330 | Complete | Name the Thank You idle VInterrupt path. | J/U/E 133/133 each; audit/hygiene clean. |
 | M331 | Complete | Name the Thank You screen-data command dispatcher. | J/U/E 133/133 each; audit/hygiene clean. |
+| M332 | Complete | Name the Thank You palette fade-in routine. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

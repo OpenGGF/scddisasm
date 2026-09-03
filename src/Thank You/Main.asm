@@ -1073,6 +1073,8 @@ SineTable:
 	dc.b	$F5,$00,$F6,$00,$F7,$00,$F7,$00,$F8,$00,$F9,$00,$FA,$00,$FA,$00
 	dc.b	$FB,$00,$FB,$00,$FC,$00,$FC,$00,$FD,$00,$FD,$00,$FE,$00,$FE,$00
 	dc.b	$FE,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$01,$00
+; Initialize the active palette and fade it in over successive V-blanks.
+ThankYou_FadeInPalettes:
 PaletteFunctions:
 	move.w	#$3f, $FFFFBA5A.w
 	moveq	#$0, d0
