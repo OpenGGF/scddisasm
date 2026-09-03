@@ -1,6 +1,7 @@
 ; ------------------------------------------------------------------------------
 ; R32D source-level padding 2
 ; Recovered from tracked historical assembly; no proprietary binary is included.
+; +$0000-+$013D retained collision-column height-map tail
 ; +$013E-+$113D retained shared collision-row profile map
 ; +$113E-+$145D retained Act 1 Past collision-index map
 ; +$14A6-+$15C7 retained Act 1 Past foreground layout
@@ -8,48 +9,9 @@
 ; +$16B0-+$17D1 retained GHZ3 fallback foreground layout
 ; +$17DA-+$1A3D retained shared Wacky Workbench legacy suffix
 ; ------------------------------------------------------------------------------
-
-	dc.b	7
-	dcb.b	3,8
-	dcb.b	3,9
-	dcb.b	3,$A
-	dcb.b	2,$B
-	dcb.b	2,$C
-	dc.b	3, 4, 6, 7, 9, $A, $C, $D, $F
-	dcb.b	7,$10
-	dc.b	5, 6
-	dcb.b	2,7
-	dcb.b	2,8
-	dc.b	9
-	dcb.b	2,$A
-	dc.b	$B
-	dcb.b	2,$C
-	dcb.b	2,$D
-	dc.b	$E, $F, 6
-	dcb.b	3,7
-	dcb.b	3,8
-	dcb.b	3,9
-	dcb.b	4,$A
-	dcb.b	3,$B
-	dcb.b	6,$C
-	dcb.b	6,$D
-	dcb.b	9,$E
-	dcb.b	$A,$F
-	dc.b	$E, $A, 6, 2
-	dcb.b	$C,0
-	dcb.b	4,$10
-	dc.b	$E, $A, 6, 2
-	dcb.b	8,0
-	dcb.b	8,$10
-	dc.b	$E, $A, 6, 2
-	dcb.b	4,0
-	dcb.b	$C,$10
-	dc.b	$E, $A, 6, 2, $B, $C, $D, $E
-	dcb.b	2,$F
-	dcb.b	$A,$10
-	dcb.b	$40,0
-	dcb.b	$50,$10
-; Complete shared 256-profile collision-row map (sixteen bytes per profile).
+; Complete retained $13E-byte tail of the shared collision-column height map.
+R32DRetainedCollisionColumnTail:
+	incbin	"maps/collision_columns.bin", $EC2, $13E
 R32DRetainedCollisionRowProfiles:
 	incbin	"maps/collision_rows.bin"
 
