@@ -485,6 +485,7 @@ opaque merely because they use `dc.*`.
 | M276 | Complete | Share the R31C Padding 3 suffix with R32C/R32D, preserving each variant's prefix and the named mapping/rotation tail providers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M277 | Complete | Reuse the complete R31C Padding 3 provider for the byte-identical R12D Padding 3 suffix at `$0026-$2683`, preserving the R12D-specific prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 | M278 | Complete | Structure the R12C Padding 3 `$0BAE-$0CFB` mapping/animation and rotation-vector tail with the existing named providers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M279 | Complete | Reuse the structured R12C Padding 3 provider for the byte-identical final `$193E-$2639` of the R31C shared suffix. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
