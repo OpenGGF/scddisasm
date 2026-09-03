@@ -5,9 +5,13 @@
 ; +$0084-+$01C1 retained collision-column height-map tail
 ; +$01C2-+$11C1 retained shared collision-row profile map
 ; +$11C2-+$14E1 retained Act 1 Past collision-index map
+; +$14E2-+$1529 Act 1 Past relative layout-pointer table
 ; +$152A-+$164B retained Act 1 Past foreground layout
+; +$164C-+$1663 Act 1 Past background layout; +$1664-+$1667 null layout
 ; +$1668-+$172F retained GHZ2 fallback foreground layout
+; +$1730-+$1733 GHZ2 null layout
 ; +$1734-+$1855 retained GHZ3 fallback foreground layout
+; +$1856-+$185D shared/final null layouts
 ; +$185E-+$1AC1 retained shared Wacky Workbench legacy suffix
 ; ------------------------------------------------------------------------------
 ; Complete shared 132-byte R33 collision-geometry metadata block.
@@ -60,36 +64,48 @@ R32CRetainedCollisionRowProfiles:
 ; Complete 800-byte Collision Chaos Act 1 Past block collision-index map.
 R32CRetainedAct1PastCollision:
 	incbin	"maps/r31b/collision.bin"
-
-	dcb.b	1,0
-	dc.b	$48, 1, $6A, 1, $82, 1, $86, 3, $74, 2, $4E, 2, $52, 3, $74
-	dc.b	3, $74, 3, $78, 3, $78, 3, $78, 0, $48, 1, $6A, 1, $82, 1
-	dc.b	$86, 3, $74, 2, $4E, 2, $52, 3, $74, 3, $74, 3, $78, 3, $78
-	dc.b	3, $78, 0, $48, 1, $6A, 1, $82, 1, $86, 3, $74, 2, $4E, 2
-	dc.b	$52, 3, $74, 3, $74, 3, $78, 3, $78, 3, $78
+; Three repeated 12-entry tables of offsets relative to this block.
+R32CRetainedAct1PastLayoutPointers:
+	rept	3
+		dc.w	R32CRetainedAct1PastForeground-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedAct1PastBackground-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedNullLayout-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedGHZ2Foreground-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedSharedNullLayout-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedGHZ2NullLayout-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedGHZ3Foreground-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedSharedNullLayout-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedSharedNullLayout-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedFinalNullLayout-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedFinalNullLayout-R32CRetainedAct1PastLayoutPointers
+		dc.w	R32CRetainedFinalNullLayout-R32CRetainedAct1PastLayoutPointers
+	endr
 
 ; Complete retained 290-byte Collision Chaos Act 1 Past foreground layout.
 R32CRetainedAct1PastForeground:
 	incbin	"maps/r31b/foreground.bin"
-
-	dc.b	6, 2, $65, $68, $65, $68
-	dc.b	$65, $68, $65, $67, $69, $6A, $6B
-	dcb.b	2,$69
-	dc.b	$6B
-	dcb.b	7,$66
-	dcb.b	5,0
+; Complete retained 24-byte Collision Chaos Act 1 Past background layout.
+R32CRetainedAct1PastBackground:
+	incbin	"maps/r31b/background.bin"
+; Complete shared four-byte null layout.
+R32CRetainedNullLayout:
+	incbin	"maps/empty.bin"
 
 ; Complete retained 200-byte Green Hill Zone Act 2 fallback foreground layout.
 R32CRetainedGHZ2Foreground:
 	incbin	"maps/ghz2_foreground.bin"
-
-	dc.b	0, 0, 0, 0
+; Complete four-byte null layout paired with the retained GHZ2 foreground.
+R32CRetainedGHZ2NullLayout:
+	incbin	"maps/empty.bin"
 
 ; Complete retained 290-byte Green Hill Zone Act 3 fallback foreground layout.
 R32CRetainedGHZ3Foreground:
 	incbin	"maps/ghz3_foreground.bin"
-
-	dc.b	0, 0, 0, 0, 0, 0, 0, 0
+; Complete shared and final four-byte null layouts.
+R32CRetainedSharedNullLayout:
+	incbin	"maps/empty.bin"
+R32CRetainedFinalNullLayout:
+	incbin	"maps/empty.bin"
 ; Complete shared Wacky Workbench legacy collision/layout/mapping suffix.
 R32CRetainedWackyLegacySuffix:
 	include	"Level/Wacky Workbench/Data/Legacy Padding 2/Suffix 139C.asm"
