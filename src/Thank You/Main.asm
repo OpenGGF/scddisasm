@@ -1073,6 +1073,8 @@ L_FF3E6A:
 	bsr.b	L_FF3E7C
 	dbra	d4, L_FF3E6A
 	rts
+; Step the active palette toward its target colors.
+ThankYou_AnimatePalette:
 L_FF3E7C:
 	moveq	#$0, d0
 	lea.l	$FFFFB600.w, a0
@@ -1089,6 +1091,8 @@ L_FF3E92:
 	dc.b	$D2,$C0,$10,$38,$BA,$5B,$61,$06,$51,$C8,$FF,$FC
 FadePalette:
 	rts
+; Move one palette entry toward its target color values.
+ThankYou_StepPaletteEntry:
 L_FF3EB8:
 	move.w	(a1)+, d2
 	move.w	(a0), d3
@@ -1122,6 +1126,8 @@ L_FF3EEE:
 	bsr.b	L_FF3F00
 	dbra	d4, L_FF3EEE
 	rts
+; Fade both work palettes to black.
+ThankYou_FadePalettesToBlack:
 L_FF3F00:
 	moveq	#$0, d0
 	lea.l	$FFFFB600.w, a0
@@ -1140,6 +1146,8 @@ L_FF3F26:
 	bsr.b	L_FF3F2E
 	dbra	d0, L_FF3F26
 	rts
+; Decrease one palette entry's RGB channels.
+ThankYou_DarkenPaletteEntry:
 L_FF3F2E:
 	move.w	(a0), d2
 	beq.b	L_FF3F5A
