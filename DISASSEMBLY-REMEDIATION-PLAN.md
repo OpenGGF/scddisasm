@@ -553,6 +553,7 @@ opaque merely because they use `dc.*`.
 | M343 | Complete | Name the Time Attack Sub CPU command wrappers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M344 | Complete | Name the Time Attack palette channel-step helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M345 | Complete | Name the ending-FMV main-state table and Word RAM command router. | J/U/E 133/133 each; audit/hygiene clean. |
+| M346 | Complete | Correct the Time Attack digit-map boundary and route M342–M344 consumers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

@@ -258,7 +258,7 @@ L_FF227E:
 L_FF2282:
 	move.w d0, $ff3476.l
 L_FF2288:
-	bsr.w L_FF33C8
+	bsr.w TimeAttack_SendSubCpuCommandWithReadyWait
 L_FF228C:
 	clr.w $ff347c.l
 L_FF2292:
@@ -394,7 +394,7 @@ L_FF23AE:
 L_FF23B2:
 	move.w #$4d, d1
 L_FF23B6:
-	lea.l $ff2e5a.l, a0
+		lea.l TimeAttack_TimeDigitTileMap.l, a0
 L_FF23BC:
 	or.w d0, (a0)+
 L_FF23BE:
@@ -838,7 +838,7 @@ L_FF27B2:
 L_FF27B6:
 	lea.l $4(a7), a7
 L_FF27BA:
-	bsr.w L_FF33C8
+		bsr.w TimeAttack_SendSubCpuCommandWithReadyWait
 L_FF27BE:
 	bsr.w L_FF31B2
 L_FF27C2:
@@ -1120,7 +1120,7 @@ L_FF2A48:
 L_FF2A4A:
 	rts
 L_FF2A4C:
-	lea.l AnimationDispatchTable.l, a0
+	lea.l TimeAttack_TimePeriodAnimationDispatchTable.l, a0
 L_FF2A52:
 	move.w d6, d0
 L_FF2A54:
@@ -1661,9 +1661,9 @@ L_FF2E54:
 	movem.l (a7)+, d0-d3/a1-a4
 L_FF2E58:
 	rts
-	dc.b	$42,$CC
 	; Tile indices used to render individual time digits.
 	TimeAttack_TimeDigitTileMap:
+	dc.b	$42,$CC
 	dc.l	$42CD42CE,$42CF42D0,$42D142D2,$42D342D4,$42D542CD,$42D642D7,$42D842D9,$42E842E8,$42D842E9,$42EA42EB,$42EC42ED,$42EE42D6,$42D642EF,$42D642EF,$42F042FF,$43004301
 	dc.l	$43024303,$43004304,$43054306,$42CC42DA,$42DB42DC,$42DD42DE,$42DF42E0,$42E142E2,$42E342E4,$42E542E6,$42E742F1,$42F242F3,$42F442DB,$42F542F6,$42F742F8,$42F942FA
 	dc.l	$42FB42FC,$42FD42FE,$430742FA,$43084309,$430A430B,$430C42CC
@@ -1673,7 +1673,7 @@ TimeAttack_RenderTimeRecordsToBuffer:
 L_FF2EF6:
 	movem.l d0-d3/a1-a3, -(a7)
 L_FF2EFA:
-	lea.l $ff2f64(pc), a3
+	lea.l TimeAttack_TimeRecordTileMap(pc), a3
 L_FF2EFE:
 	moveq #$20, d2
 L_FF2F00:
@@ -1754,7 +1754,7 @@ L_FF2F98:
 L_FF2F9E:
 	lea.l $c00000.l, a2
 L_FF2FA4:
-	lea.l $ff2e5a(pc), a3
+	lea.l TimeAttack_TimeDigitTileMap(pc), a3
 L_FF2FA8:
 	move.l #$800000, d0
 L_FF2FAE:
@@ -2404,7 +2404,7 @@ L_FF34A4:
 L_FF34AA:
 	move.w L_FF34BC(pc, d0.w), d0
 L_FF34AE:
-	jsr ReadDispatchTable(pc, d0.w)
+	jsr TimeAttack_VIntTransferDispatchTable(pc, d0.w)
 L_FF34B2:
 	addq.w #$1, $ffaa5a.l
 L_FF34B8:
@@ -2596,7 +2596,7 @@ L_FF373A:
 L_FF373C:
 	moveq #$8, d1
 L_FF373E:
-	bsr.w L_FF376E
+	bsr.w TimeAttack_StepPaletteChannelIn
 L_FF3742:
 	addq.w #$2, d0
 L_FF3744:
@@ -2608,7 +2608,7 @@ L_FF374C:
 L_FF374E:
 	moveq #$4, d1
 L_FF3750:
-	bsr.w L_FF376E
+	bsr.w TimeAttack_StepPaletteChannelIn
 L_FF3754:
 	addq.w #$2, d0
 L_FF3756:
@@ -2620,7 +2620,7 @@ L_FF375E:
 L_FF3760:
 	moveq #$0, d1
 L_FF3762:
-	bsr.w L_FF376E
+	bsr.w TimeAttack_StepPaletteChannelIn
 L_FF3766:
 	addq.w #$2, d0
 L_FF3768:
@@ -2674,7 +2674,7 @@ L_FF37AA:
 L_FF37AC:
 	moveq #$0, d1
 L_FF37AE:
-	bsr.b L_FF37D4
+	bsr.b TimeAttack_StepPaletteChannelOut
 L_FF37B0:
 	addq.w #$2, d0
 L_FF37B2:
@@ -2686,7 +2686,7 @@ L_FF37B8:
 L_FF37BA:
 	moveq #$4, d1
 L_FF37BC:
-	bsr.b L_FF37D4
+	bsr.b TimeAttack_StepPaletteChannelOut
 L_FF37BE:
 	addq.w #$2, d0
 L_FF37C0:
@@ -2698,7 +2698,7 @@ L_FF37C6:
 L_FF37C8:
 	moveq #$8, d1
 L_FF37CA:
-	bsr.b L_FF37D4
+	bsr.b TimeAttack_StepPaletteChannelOut
 L_FF37CC:
 	addq.w #$2, d0
 L_FF37CE:
