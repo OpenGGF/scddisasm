@@ -454,6 +454,7 @@ opaque merely because they use `dc.*`.
 | M245 | Complete | Classify the retained R32B Padding 3 legacy mapping/animation suffix and reuse the shared spin-platform rotation-vector table at `$2370-$2639`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M246 | Complete | Structure the retained R32B Padding 3 legacy animation offset table and records at `$1206-$15AB`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M247 | Complete | Structure the retained R32B Padding 3 legacy animation sequence, mapping offsets, and records at `$16AC-$1C0B`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M248 | Complete | Reuse the shared R32C Padding 3 mapping/animation tail and spin-platform rotation-vector table at `$2540-$268D`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
