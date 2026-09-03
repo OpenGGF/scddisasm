@@ -18,7 +18,7 @@
 Start:
 	jmp	L_FF2020.l
 VInterrupt:
-	jmp	PrimaryVInterrupt.l
+	jmp	Ending_VBlankInterrupt.l
 	dc.l	$0000C040
 	dc.l	$456E6469
 	dc.l	$6E672041
@@ -29,7 +29,7 @@ L_FF2020:
 L_FF2024:
 	bclr.b	#$1, $a1200e.l
 L_FF202C:
-	move.l	#PrimaryVInterrupt, $fffd08.l
+	move.l	#Ending_VBlankInterrupt, $fffd08.l
 L_FF2036:
 	move.b	#$0, $a1200e.l
 L_FF203E:
@@ -662,6 +662,8 @@ L_FF24BE:
 	st.b	$FFFFc094.w
 L_FF24C2:
 	bra.w	L_FF274E
+; Advance the ending event stream and emit its next VDP block.
+Ending_ProcessEventStream:
 L_FF24C6:
 	move.l	$FFFFc08a.w, d0
 	if REGION=JAPAN
@@ -1035,6 +1037,8 @@ L_FF27F2:
 L_FF27F6:
 	rts
 L_FF27F8:
+	; Process one ending-FMV VBlank and its pending transfers.
+	Ending_VBlankInterrupt:
 	PrimaryVInterrupt:
 	movem.l	d0-d7/a0-a6, -(a7)
 L_FF27FC:
@@ -1056,9 +1060,10 @@ L_FF281C:
 L_FF2820:
 	add.w	d0, d0
 L_FF2822:
-	move.w	VBlankDispatchTable(pc, d0.w), d0
+	move.w	Ending_VBlankDispatchTable(pc, d0.w), d0
 L_FF2826:
-	jmp	VBlankDispatchTable(pc, d0.w)
+	jmp	Ending_VBlankDispatchTable(pc, d0.w)
+Ending_VBlankDispatchTable:
 VBlankDispatchTable:
 	dc.l	$006E0018
 	dc.l	$00500050
@@ -1141,7 +1146,7 @@ L_FF28DA:
 L_FF28DE:
 	add.w	d0, d0
 L_FF28E0:
-	movem.w	VBlankTableData(pc, d0.w), d0-d1
+	movem.w	Ending_VBlankTileAnimationTable(pc, d0.w), d0-d1
 L_FF28E6:
 	tst.w	d0
 L_FF28E8:
@@ -1163,7 +1168,7 @@ L_FF2908:
 L_FF290C:
 	beq.b	L_FF2924
 L_FF290E:
-	jsr	L_FF24C6(pc)
+	jsr	Ending_ProcessEventStream(pc)
 L_FF2912:
 	move.l	#$40000010, $c00004.l
 L_FF291C:
@@ -1174,6 +1179,8 @@ L_FF2924:
 	movem.l	(a7)+, d0-d7/a0-a6
 L_FF2928:
 	rte
+; Per-frame tile words written by the ending VBlank handler.
+Ending_VBlankTileAnimationTable:
 VBlankTableData:
 	dc.l	$00000000
 	dc.l	$00000022
