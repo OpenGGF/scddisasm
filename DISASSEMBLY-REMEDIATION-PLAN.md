@@ -519,6 +519,7 @@ opaque merely because they use `dc.*`.
 | M310 | Complete | Add concise semantic aliases for the Time Attack VDP transfer primitives. | J/U/E 133/133 each; audit/hygiene clean. |
 | M311 | Complete | Add concise semantic aliases for the Time Attack Z80 and controller I/O helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M312 | Complete | Add a concise semantic alias for the Time Attack rotated VDP upload helper. | J/U/E 133/133 each; audit/hygiene clean. |
+| M313 | Complete | Add semantic aliases for the Time Attack Nemesis decoder output variants. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
