@@ -2,6 +2,7 @@
 ; R32D source-level padding 2
 ; Recovered from tracked historical assembly; no proprietary binary is included.
 ; +$013E-+$113D retained shared collision-row profile map
+; +$113E-+$145D retained Act 1 Past collision-index map
 ; ------------------------------------------------------------------------------
 
 	dc.b	7
@@ -48,95 +49,10 @@
 R32DRetainedCollisionRowProfiles:
 	incbin	"maps/collision_rows.bin"
 
-	dcb.b	2,0
-	dcb.b	8,$51
-	dc.b	0
-	dcb.b	9,$51
-	dc.b	$40
-	dcb.b	$F,$51
-	dc.b	$18
-	dcb.b	$D,$51
-	dc.b	$39, $3A, $3B, $28
-	dcb.b	6,$51
-	dc.b	$24, $25, $26, $27, $50, $2F, $30, $37
-	dcb.b	6,$51
-	dc.b	$29, $3E, $31, $51, $38, $51, $50, $3F, $3C, $51, $3D, $3E
-	dc.b	$38, $51, $37
-	dcb.b	2,$51
-	dc.b	$3D, $31, $51, $50, $3F, $3C, $39, $3A, $3B, $24, $25, $26
-	dc.b	$27, $28, $29, $50, $51, $2F, $30
-	dcb.b	8,$51
-	dc.b	$38, $31
-	dcb.b	4,$51
-	dc.b	$37, $2F, $30, $28, $29, $24, $25, $26, $27, $51, $17, $51
-	dc.b	$55, $2F, $28, $29, $26, $27, $51, $11, $19, $1A, $1B, $4F
-	dc.b	$1F, $1E, $3D, $3E, $4E, $1D, 0, $1C, $1D, $1C, $1D, 0, $51
-	dc.b	$16, $3E, $17, 0
-	dcb.b	4,$51
-	dcb.b	7,0
-	dc.b	$51, $1C, $1D, $51
-	dcb.b	$A,0
-	dcb.b	$C,$51
-	dcb.b	8,0
-	dcb.b	2,$51
-	dcb.b	3,0
-	dc.b	$51
-	dcb.b	2,0
-	dcb.b	3,$51
-	dcb.b	3,0
-	dc.b	$50
-	dcb.b	3,0
-	dcb.b	2,$51
-	dc.b	$1C, $1D, $1C, $1D
-	dcb.b	4,0
-	dcb.b	2,$51
-	dc.b	$1A, $16, $17
-	dcb.b	7,0
-	dcb.b	3,$51
-	dcb.b	$E,0
-	dcb.b	2,$51
-	dcb.b	$D0,0
-	dcb.b	3,$51
-	dc.b	0
-	dcb.b	2,$51
-	dcb.b	7,0
-	dcb.b	$A,$51
-	dcb.b	$B,0
-	dcb.b	$B,$51
-	dc.b	$1F, $1E
-	dcb.b	6,$51
-	dcb.b	7,0
-	dcb.b	3,$51
-	dc.b	0, $51
-	dcb.b	2,0
-	dcb.b	2,$51
-	dcb.b	3,0
-	dcb.b	2,$51
-	dcb.b	3,0
-	dc.b	$51
-	dcb.b	9,0
-	dcb.b	$12,$51
-	dc.b	$27, $50
-	dcb.b	$A,$51
-	dc.b	$50
-	dcb.b	3,$51
-	dc.b	$38, $31, $37, $2F, $30, $28, $29, $24, $25, $26, $27, $51
-	dc.b	$55, $11, $19, $1A, $4F
-	dcb.b	2,$1C
-	dc.b	$1D, 0, $16, $17
-	dcb.b	3,$51
-	dcb.b	3,0
-	dc.b	$50, $1C, $1D, $1C, $1D, $1A, $16, $17
-	dcb.b	2,0
-	dcb.b	$D,$51
-	dc.b	$1C, $1D
-	dcb.b	2,$51
-	dc.b	0, $51
-	dcb.b	2,0
-	dcb.b	4,$51
-	dcb.b	$1A,0
-	dcb.b	3,$51
-	dcb.b	$6E,0
+; Complete retained 800-byte Collision Chaos Act 1 Past block collision-index map.
+R32DRetainedAct1PastCollision:
+	incbin	"maps/r31b/collision.bin"
+	dcb.b	1,0
 	dc.b	$48, 1, $6A, 1, $82, 1, $86, 3, $74, 2, $4E, 2, $52, 3, $74
 	dc.b	3, $74, 3, $78, 3, $78, 3, $78, 0, $48, 1, $6A, 1, $82, 1
 	dc.b	$86, 3, $74, 2, $4E, 2, $52, 3, $74, 3, $74, 3, $78, 3, $78
