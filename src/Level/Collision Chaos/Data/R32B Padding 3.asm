@@ -5,7 +5,7 @@
 ; +$0000-+$1205 retained tail of the shared R12C Nemesis graphics stream
 ; +$1206-+$15AB retained legacy animation offset table and records
 ; +$15AC-+$16AB retained wobble table
-; +$16AC-+$1C0B retained data to be structured
+; +$16AC-+$1C0B retained legacy animation sequence, mapping offsets, and records
 ; +$1C0C-+$1DBD retained robot-transport Nemesis stream
 ; +$1DBE-+$1F6F retained hologram-animals Nemesis stream
 ; +$1F70-+$236F retained hologram Nemesis stream
@@ -310,7 +310,14 @@ R32BRetainedLegacyAnimationData:
 R32BRetainedWobbleTable:
 	incbin	"data/wobble.bin"
 
-	dc.b	0, 2, 3, 2, 3, $FF, 0, 8, 0, $1E, 0, $2A, 0, $36, 4, $E8
+	; Legacy animation sequence and its retained mapping-offset table.
+R32BRetainedSecondaryAnimationSequence:
+	dc.b	0, 2, 3, 2, 3, $FF
+R32BRetainedSecondaryMappingOffsets:
+	dc.w	$0008, $001E, $002A, $0036, $04E8
+
+	; Legacy mapping records follow the retained offset words.
+R32BRetainedSecondaryMappingData:
 	dc.b	3
 	dcb.b	2,0
 	dc.b	$F8, $E8, 3, 8
