@@ -147,9 +147,10 @@ Every agent working on this plan must follow these rules:
 
 1. Read `AGENTS.md`, this document, the current status inventory, `make.sh` or
    `make.bat`, and the latest relevant commits before editing.
-2. Work on one bounded milestone at a time. A milestone should normally cover
-   one executable range, one routine family, one data format, or one set of
-   outputs that necessarily share the same source.
+2. Work on one bounded milestone at a time. Prefer a cohesive routine/data
+   family or shared source cluster (typically several related symbols) over a
+   one-line comment or isolated alias. Keep a milestone small enough to
+   understand, validate, commit, and push as one change.
 3. Trace every changed fragment to its true assembly entry points and all
    regional or compile-time variants before editing.
 4. Preserve byte output. Prefer symbol aliases, labels, macros, comments, and
@@ -547,6 +548,7 @@ opaque merely because they use `dc.*`.
 | M338 | Complete | Name the Time Attack selection tile-block uploader. | J/U/E 133/133 each; audit/hygiene clean. |
 | M339 | Complete | Name the Time Attack record-insertion animation helper. | J/U/E 133/133 each; audit/hygiene clean. |
 | M340 | Complete | Correctly classify the Thank You Enigma bit-buffer refill helper. | J/U/E 133/133 each; audit/hygiene clean. |
+| M341 | Complete | Name the Thank You object-slot searches and list rebuild helper. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
@@ -598,9 +600,9 @@ Within the active graphs:
    - ending FMV main CPU program; and
    - Thank You main CPU program.
 
-For a large program, one semantic routine family is one milestone. Do not wait
-for the entire program to be understood before committing and pushing useful,
-verified progress.
+For a large program, group several closely related semantic routines into one
+milestone when they share callers or data. Do not wait for the entire program
+to be understood before committing and pushing useful, verified progress.
 
 ### Track D: Classify and restructure data
 
@@ -661,13 +663,15 @@ Use the following as the goal for a fresh instance:
 > `DISASSEMBLY-REMEDIATION-PLAN.md`. Begin by reading `AGENTS.md`, the plan, the
 > current progress ledger, `docs/disassembly-status.md` if it exists, and the
 > latest relevant commits. Ignore Backup RAM work. Work autonomously on one
-> bounded milestone at a time, preserving byte-exact Japan/USA/Europe output.
-> For every milestone, trace the real entry points and shared consumers,
-> implement semantic naming/structure/documentation or data classification,
-> run the required narrow and regional validation, update the status matrix and
-> milestone ledger, inspect repository hygiene, commit with an imperative
-> subject, push immediately to the current upstream branch, and verify the
-> remote commit before beginning the next milestone. Do not treat unexplained
-> `dc.*` emission as semantic completion, but allow binary assets when their
-> format and role are documented. Continue until the plan's completion criteria
-> are met or a genuine external prerequisite blocks further progress.
+> cohesive milestone at a time—prefer a related routine/data family or shared
+> source cluster over an isolated comment—while preserving byte-exact
+> Japan/USA/Europe output. For every milestone, trace the real entry points and
+> shared consumers, implement semantic naming/structure/documentation or data
+> classification, run the required narrow and regional validation, update the
+> status matrix and milestone ledger, inspect repository hygiene, commit with an
+> imperative subject, push immediately to the current upstream branch, and
+> verify the remote commit before beginning the next milestone. Do not treat
+> unexplained `dc.*` emission as semantic completion, but allow binary assets
+> when their format and role are documented. Continue until the plan's
+> completion criteria are met or a genuine external prerequisite blocks further
+> progress.

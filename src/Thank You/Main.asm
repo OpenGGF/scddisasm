@@ -1466,6 +1466,8 @@ ReadSine:
 	move.b	(a0)+, d5
 L_FF42DE:
 	rts
+; Find the first empty object slot in the secondary object pool.
+ThankYou_FindFirstEmptyObject:
 ObjectSearchFunctions:
 	lea.l	$FFFF92C0.w, a1
 	move.w	#$3c, d0
@@ -1476,6 +1478,8 @@ L_FF42E8:
 	dbra	d0, L_FF42E8
 L_FF42F4:
 	rts
+; Find the first active object slot in the primary object pool.
+ThankYou_FindFirstActiveObject:
 L_FF42F6:
 	lea.l	$FFFF9200.w, a1
 	move.w	#$3c, d0
@@ -1486,6 +1490,8 @@ L_FF42FE:
 	dbra	d0, L_FF42FE
 L_FF430A:
 	rts
+; Rebuild the per-priority linked lists for active objects.
+ThankYou_RebuildObjectLists:
 ObjectListFunctions:
 	lea.l	$FFFF9200.w, a0
 	lea.l	$FFFFBA00.w, a1
