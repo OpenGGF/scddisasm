@@ -492,6 +492,7 @@ opaque merely because they use `dc.*`.
 | M283 | Complete | Reuse the complete R31C non-USA pre-chunk provider for the byte-identical R31B suffix at `$0008-$0CD3`, preserving the R31B prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 | M284 | Complete | Reuse the complete R52A non-USA pre-chunk provider for the byte-identical R52B suffix at `$00A0-$06C3`, preserving the R52B prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 | M285 | Complete | Reuse the complete R52B non-USA pre-chunk provider for the byte-identical R52C/R52D suffixes at `$0156-$0819` and `$005E-$0721`, preserving each prefix. | J/U/E 133/133 each; audit/hygiene clean. |
+| M286 | Complete | Reuse the R41B non-USA pre-chunk provider for the byte-identical R41C suffix at `$0428-$0A8D`; have R41D reuse R41C after its `$0012` prefix. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
