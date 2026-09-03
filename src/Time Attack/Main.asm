@@ -1867,6 +1867,8 @@ L_FF30B6:
 	movem.l (a7)+, d0/d7/a0
 L_FF30BA:
 	rts
+; Build the VDP destination command for the current region and stage.
+TimeAttack_BuildStageVdpCommand:
 L_FF30BC:
 	movem.l d0, -(a7)
 L_FF30C0:
@@ -1891,6 +1893,8 @@ L_FF30E6:
 	movem.l (a7)+, d0
 L_FF30EA:
 	rts
+; Upload the selected stage/animation table through the VDP transfer helper.
+TimeAttack_UploadIndexedStageData:
 L_FF30EC:
 	movem.l d0-d1/a0, -(a7)
 L_FF30F0:
@@ -2213,6 +2217,8 @@ L_FF3358:
 	move.b #$0, (a6, d0.w)
 L_FF335E:
 	rts
+; Upload the selected two-row tile block to its VDP destination.
+TimeAttack_UploadVdpTileBlock:
 L_FF3360:
 	movem.l a1, -(a7)
 L_FF3364:
