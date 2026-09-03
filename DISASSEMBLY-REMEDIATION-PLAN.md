@@ -513,6 +513,7 @@ opaque merely because they use `dc.*`.
 | M304 | Complete | Add concise semantic aliases for the Time Attack clock conversion, accumulation, and VDP rendering helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M305 | Complete | Add concise semantic aliases for the Thank You display-state dispatcher and hardware probe helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M306 | Complete | Add concise semantic aliases for the Thank You palette animation helpers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M307 | Complete | Add concise semantic aliases for the Thank You V-blank, palette fade-out, and Nemesis loading helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

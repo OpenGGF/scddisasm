@@ -991,6 +991,8 @@ CopyLongsFixed:
 	move.l	(a1)+, (a2)
 	move.l	(a1)+, (a2)
 	rts
+; Trigger a V-blank service and wait for it to finish.
+ThankYou_WaitForVBlank:
 L_FF3CDA:
 	move.b	#$1, $FFFFBA42.w
 	move.w	#$2500, sr
@@ -1117,6 +1119,8 @@ L_FF3EDC:
 L_FF3EE0:
 	addq.w	#$2, a0
 	rts
+; Fade the initialized work palettes down to black.
+ThankYou_FadeInitializedPalettes:
 L_FF3EE4:
 	move.w	#$3f, $FFFFBA5A.w
 	move.w	#$15, d4
@@ -1171,6 +1175,8 @@ L_FF3F4C:
 L_FF3F5A:
 	addq.w	#$2, a0
 	rts
+; Load up to four Nemesis graphics streams into the VDP.
+ThankYou_LoadNemesisGraphics:
 L_FF3F5E:
 	lea.l	$c00004.l, a5
 	moveq	#$3, d2
