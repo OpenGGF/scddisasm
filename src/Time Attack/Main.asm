@@ -2081,6 +2081,8 @@ L_FF3228:
 	bsr.w L_FF2F94
 L_FF322C:
 	rts
+; Apply controller input to the selected period or stage entry.
+TimeAttack_HandleSelectionInput:
 L_FF322E:
 	btst.b #$2, $ff3734.l
 L_FF3236:
