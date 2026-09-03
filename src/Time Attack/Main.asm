@@ -2308,6 +2308,8 @@ L_FF33C2:
 	movem.l (a7)+, d0
 L_FF33C6:
 	rts
+; Select the regional Sub CPU command, send it, and wait for readiness.
+TimeAttack_SendSubCpuCommandWithReadyWait:
 L_FF33C8:
 	bsr.w L_FF343C
 L_FF33CC:
@@ -2322,6 +2324,8 @@ L_FF33DE:
 	bsr.w L_FF3400
 L_FF33E2:
 	bra.w L_FF3430
+; Select and send the regional Sub CPU command without an extra wait.
+TimeAttack_SendSubCpuCommandNoWait:
 L_FF33E6:
 	bsr.w L_FF343C
 L_FF33EA:
