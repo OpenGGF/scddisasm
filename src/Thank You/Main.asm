@@ -157,21 +157,20 @@ WritePalette:
 	lsr.l	#$8, d0
 	move.w	d0, d2
 	andi.w	#$ff, d2
-	bsr.w	L_FF21FE
+	bsr.w	ThankYou_WritePaletteBlock
 	move.l	#$46260003, d3
 	lsr.l	#$8, d0
 	move.w	d0, d2
 	andi.w	#$ff, d2
-	bsr.w	L_FF21FE
+	bsr.w	ThankYou_WritePaletteBlock
 	move.l	#$46220003, d3
 	lsr.l	#$8, d0
 	move.w	d0, d2
 	andi.w	#$ff, d2
-	bsr.w	L_FF21FE
+	bsr.w	ThankYou_WritePaletteBlock
 	rts
 ; Write one palette block to the VDP.
 ThankYou_WritePaletteBlock:
-L_FF21FE:
 	moveq	#$2, d7
 	cmpi.w	#$11, d2
 	bne.b	L_FF2208
@@ -209,7 +208,6 @@ L_FF224C:
 	rts
 ; Set the exit flag when the Sub CPU reports a stop signal.
 ThankYou_CheckExitSignal:
-L_FF2266:
 	btst.b	#$7, $a1201f.l
 	beq.b	L_FF2278
 	move.b	#$1, $FFFFBA40.w
@@ -244,7 +242,6 @@ L_FF22EC:
 	rts
 ; Wait until the Sub CPU ready bit is asserted.
 ThankYou_WaitSubCpuReady:
-L_FF22EE:
 	btst.b	#$0, $a12003.l
 	beq.b	ThankYou_WaitSubCpuReady
 	rts
@@ -291,7 +288,6 @@ LoadSecondGraphics:
 	dc.b	$4E,$75
 ; Dispatch the selected screen-data command and store its result.
 ThankYou_DispatchScreenDataCommand:
-ScreenData:
 	moveq	#$0, d0
 	move.b	$200020.l, d0
 	beq.b	L_FF2408
@@ -386,13 +382,11 @@ L_FF240A:
 	dc.b	$61,$00,$00,$16,$66,$02,$42,$00,$13,$C0,$00,$20,$00,$26,$4E,$75
 ; Return whether the display-update path is currently pending.
 ThankYou_CheckDisplayUpdatePending:
-DisplayFunctions:
 	tst.b	$200026.l
 	rts
 	dc.b	$4A,$39,$00,$20,$00,$27,$4E,$75
 ; Run the per-frame display and screen-state update sequence.
 ThankYou_UpdateDisplay:
-L_FF346A:
 	bsr.w	ThankYou_AdvanceDisplayState
 	bsr.w	ThankYou_ResetDisplayCommand
 	bsr.w	L_FF347C
@@ -421,7 +415,6 @@ L_FF347C:
 	dc.l	$002A4E75
 ; Reset display command state and install the SONICCD marker.
 ThankYou_ResetDisplayCommand:
-L_FF34C4:
 	move.b	#$0, $200029.l
 	move.w	#$c, $20002a.l
 	lea.l	L_FF34DC.l, a0
@@ -440,7 +433,6 @@ L_FF34E8:
 	rts
 ; Dispatch the pending display command or scripted screen-data command.
 ThankYou_DispatchDisplayCommand:
-L_FF3500:
 	bsr.w	ThankYou_CheckDisplayUpdatePending
 	bne.b	L_FF351E
 	move.b	$ff0f1f.l, $200028.l
@@ -454,7 +446,6 @@ L_FF3522:
 	rts
 ; Advance the display state and return its transition result.
 ThankYou_AdvanceDisplayState:
-L_FF352A:
 	jsr	ThankYou_WaitSubCpuReady.l
 	bsr.w	L_FF35B4
 	bne.w	L_FF355A
@@ -583,7 +574,6 @@ L_FF36C0:
 	dc.b	$10,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$00
 ; Select screen-data command 2 and dispatch it.
 ThankYou_SelectScreenData2:
-L_FF36FE:
 	jsr	ThankYou_WaitSubCpuReady.l
 	move.b	#$2, $200020.l
 	bra.w	ThankYou_DispatchDisplayCommand
@@ -690,7 +680,6 @@ L_FF394E:
 	dc.b	$00,$00,$00
 ; Halt the Z80 and save the current interrupt mask.
 ThankYou_HaltZ80:
-L_FF3962:
 	move.w	sr, $FFFFBA50.w
 	move.w	#$100, $a11100.l
 L_FF396E:
@@ -699,13 +688,11 @@ L_FF396E:
 	rts
 ; Release the Z80 and restore the saved interrupt mask.
 ThankYou_ReleaseZ80:
-L_FF397A:
 	move.w	#$0, $a11100.l
 	move.w	$FFFFBA50.w, sr
 	rts
 ; Read controller buttons and update the communication bytes.
 ThankYou_ReadController:
-L_FF3988:
 	lea.l	$a1201e.l, a0
 	lea.l	$a10003.l, a1
 	move.b	#$0, (a1)
@@ -867,7 +854,6 @@ L_FF3BB4:
 	rte
 ; Advance the idle-frame counter when no VDP update is pending.
 ThankYou_VIntIdleUpdate:
-L_FF3BC2:
 	addq.l	#$1, $FFFFBA56.w
 	move.b	$FFFFBA4B.w, $FFFFBA56.w
 	movem.l	(a7)+, d0-d7/a0-a6
@@ -1077,7 +1063,6 @@ SineTable:
 	dc.b	$FE,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$01,$00
 ; Initialize the active palette and fade it in over successive V-blanks.
 ThankYou_FadeInPalettes:
-PaletteFunctions:
 	move.w	#$3f, $FFFFBA5A.w
 	moveq	#$0, d0
 	lea.l	$FFFFB600.w, a0
@@ -1097,7 +1082,6 @@ L_FF3E6A:
 	rts
 ; Step the active palette toward its target colors.
 ThankYou_AnimatePalette:
-L_FF3E7C:
 	moveq	#$0, d0
 	lea.l	$FFFFB600.w, a0
 	lea.l	$FFFFB680.w, a1
@@ -1115,7 +1099,6 @@ FadePalette:
 	rts
 ; Move one palette entry toward its target color values.
 ThankYou_StepPaletteEntry:
-L_FF3EB8:
 	move.w	(a1)+, d2
 	move.w	(a0), d3
 	cmp.w	d2, d3
@@ -1141,7 +1124,6 @@ L_FF3EE0:
 	rts
 ; Fade the initialized work palettes down to black.
 ThankYou_FadeInitializedPalettes:
-L_FF3EE4:
 	move.w	#$3f, $FFFFBA5A.w
 	move.w	#$15, d4
 L_FF3EEE:
@@ -1152,7 +1134,6 @@ L_FF3EEE:
 	rts
 ; Fade both work palettes to black.
 ThankYou_FadePalettesToBlack:
-L_FF3F00:
 	moveq	#$0, d0
 	lea.l	$FFFFB600.w, a0
 	move.b	$FFFFBA5A.w, d0
@@ -1172,7 +1153,6 @@ L_FF3F26:
 	rts
 ; Decrease one palette entry's RGB channels.
 ThankYou_DarkenPaletteEntry:
-L_FF3F2E:
 	move.w	(a0), d2
 	beq.b	L_FF3F5A
 	move.w	d2, d1
@@ -1197,7 +1177,6 @@ L_FF3F5A:
 	rts
 ; Load up to four Nemesis graphics streams into the VDP.
 ThankYou_LoadNemesisGraphics:
-L_FF3F5E:
 	lea.l	$c00004.l, a5
 	moveq	#$3, d2
 L_FF3F66:
@@ -1468,7 +1447,6 @@ L_FF42DE:
 	rts
 ; Find the first empty object slot in the secondary object pool.
 ThankYou_FindFirstEmptyObject:
-ObjectSearchFunctions:
 	lea.l	$FFFF92C0.w, a1
 	move.w	#$3c, d0
 L_FF42E8:
@@ -1492,7 +1470,6 @@ L_FF430A:
 	rts
 ; Rebuild the per-priority linked lists for active objects.
 ThankYou_RebuildObjectLists:
-ObjectListFunctions:
 	lea.l	$FFFF9200.w, a0
 	lea.l	$FFFFBA00.w, a1
 	move.w	#$b800, $0(a1)
@@ -1521,7 +1498,6 @@ L_FF4362:
 	rts
 ; Update active objects, rebuild their lists, and queue their sprites.
 ThankYou_UpdateObjects:
-L_FF436C:
 	lea.l	$FFFF9200.w, a0
 	bsr.b	ThankYou_ProcessActiveObjects
 	bsr.w	ThankYou_RebuildObjectLists
@@ -1529,7 +1505,6 @@ L_FF436C:
 	rts
 ; Process each occupied object slot.
 ThankYou_ProcessActiveObjects:
-L_FF437C:
 	moveq	#$3f, d7
 L_FF437E:
 	move.w	(a0), d0
@@ -1543,7 +1518,6 @@ L_FF438C:
 	rts
 ; Dispatch an object's handler and clear it when requested.
 ThankYou_DispatchObjectHandler:
-L_FF4396:
 	add.w	d0, d0
 	add.w	d0, d0
 	movea.l	ObjectHandlerPointers-4(pc, d0.w), a1
