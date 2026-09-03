@@ -510,7 +510,7 @@ opaque merely because they use `dc.*`.
 | M301 | Complete | Add semantic entry aliases and concise purpose comments for five Time Attack Sub CPU/VDP synchronization helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M302 | Complete | Add concise semantic aliases for three Time Attack VDP data-transfer helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M303 | Complete | Add concise semantic aliases for the Time Attack time-period selection and animation helpers. | J/U/E 133/133 each; audit/hygiene clean. |
-| M304 | In progress | Add concise semantic aliases for the Time Attack clock conversion, accumulation, and VDP rendering helpers. | Validation pending. |
+| M304 | Complete | Add concise semantic aliases for the Time Attack clock conversion, accumulation, and VDP rendering helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
