@@ -238,7 +238,6 @@ MainDispatchTable:
 	endif
 ; Dispatch the active ending-FMV command from Word RAM.
 Ending_DispatchWordRamCommand:
-L_FF21D2:
 	lea.l	$200000.l, a0
 L_FF21D8:
 	clr.w	$FFFFc080.w
@@ -249,19 +248,19 @@ L_FF21E0:
 L_FF21E2:
 	cmpi.w	#$3135, (a0)
 L_FF21E6:
-	beq.w	L_FF2332
+	beq.w	Ending_LoadWordRamCommandBlock
 L_FF21EA:
 	cmpi.w	#$5352, (a0)
 L_FF21EE:
-	beq.w	L_FF23CC
+	beq.w	Ending_LoadTimeAttackData
 L_FF21F2:
 	cmpi.w	#$4e4f, (a0)
 L_FF21F6:
-	beq.w	L_FF24B4
+	beq.w	Ending_StartEventPlaybackWait
 L_FF21FA:
 	cmpi.w	#$5253, (a0)
 L_FF21FE:
-	beq.w	L_FF24B8
+	beq.w	Ending_RequestEventPlaybackStop
 L_FF2202:
 	nop
 L_FF2204:
@@ -425,7 +424,6 @@ L_FF2330:
 	rts
 ; Load a Word RAM command block for the next ending state.
 Ending_LoadWordRamCommandBlock:
-L_FF2332:
 	lea.l	$200000.l, a0
 L_FF2338:
 	clr.w	$FFFFc080.w
@@ -440,15 +438,15 @@ L_FF2346:
 L_FF234A:
 	cmpi.w	#$5352, (a0)
 L_FF234E:
-	beq.w	L_FF23CC
+	beq.w	Ending_LoadTimeAttackData
 L_FF2352:
 	cmpi.w	#$4e4f, (a0)
 L_FF2356:
-	beq.w	L_FF24B4
+	beq.w	Ending_StartEventPlaybackWait
 L_FF235A:
 	cmpi.w	#$5253, (a0)
 L_FF235E:
-	beq.w	L_FF24B8
+	beq.w	Ending_RequestEventPlaybackStop
 L_FF2362:
 	if REGION=JAPAN
 	bra.b	L_FF2362
@@ -525,7 +523,6 @@ L_FF23CA:
 	endif
 ; Load the ending time-attack transfer block.
 Ending_LoadTimeAttackData:
-L_FF23CC:
 	lea.l	$10(a0), a0
 L_FF23D0:
 	lea.l	$FFFFc000.w, a1
@@ -645,7 +642,6 @@ L_FF248A:
 	rts
 ; Initialize event-stream playback state.
 Ending_StartEventPlayback:
-L_FF248C:
 	move.w	#$0, $FFFFfa40.w
 L_FF2492:
 	move.w	#$24, $FFFFc086.w
@@ -661,11 +657,10 @@ L_FF24AC:
 	lea.l	EndingEventData(pc), a2
 L_FF24B0:
 	move.l	a2, $FFFFc090.w
-L_FF24B4:
+Ending_StartEventPlaybackWait:
 	bra.w	Ending_WaitWordRamSwap
 ; Signal the event-stream playback stop condition.
 Ending_RequestEventPlaybackStop:
-L_FF24B8:
 	move.w	#$b, $FFFFfa40.w
 L_FF24BE:
 	st.b	$FFFFc094.w
@@ -673,7 +668,6 @@ L_FF24C2:
 	bra.w	Ending_WaitWordRamSwap
 ; Advance the ending event stream and emit its next VDP block.
 Ending_ProcessEventStream:
-L_FF24C6:
 	move.l	$FFFFc08a.w, d0
 	if REGION=JAPAN
 	addi.l	#$A000, d0
