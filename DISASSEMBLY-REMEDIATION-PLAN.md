@@ -569,6 +569,7 @@ opaque merely because they use `dc.*`.
 | M356 | Complete | Route the Thank You object-update pipeline through semantic callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M357 | Complete | Route the Thank You display/screen-data pipeline through semantic callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M358 | Complete | Route the Thank You Z80 and controller hardware callers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M359 | Complete | Route the Thank You startup graphics, palette, and frame-exit callers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

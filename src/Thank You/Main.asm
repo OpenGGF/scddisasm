@@ -45,9 +45,9 @@ L_FF2042:
 	bsr.w	LoadFirstGraphics
 	bsr.w	LoadSecondGraphics
 	move.l	#$4030201, d0
-	jsr	L_FF3F5E.l
+	jsr	ThankYou_LoadNemesisGraphics.l
 	moveq	#$5, d0
-	jsr	L_FF3F5E.l
+	jsr	ThankYou_LoadNemesisGraphics.l
 	bset.b	#$6, $ff0f17.l
 	move.w	$ff0f16.l, $c00004.l
 	lea.l	PaletteSequence.l, a0
@@ -96,10 +96,10 @@ MainLoop:
 	move.l	#$0, (a4)+
 	move.w	#$258, (a4)+
 	move.w	#$1, $FFFFBA5C.w
-	bsr.w	PaletteFunctions
+	bsr.w	ThankYou_FadeInPalettes
 	rts
 UpdateFrame:
-	bsr.w	L_FF2266
+	bsr.w	ThankYou_CheckExitSignal
 	bsr.w	UpdateObjectTimers
 	bsr.w	ThankYou_UpdateObjects
 	bsr.w	ThankYou_WaitForVBlank
