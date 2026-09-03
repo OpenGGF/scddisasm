@@ -1783,6 +1783,8 @@ L_FF2FD2:
 	movem.l (a7)+, d0-d4/a1-a4
 L_FF2FD6:
 	rts
+; Draw or clear the tile highlight around the current selection.
+TimeAttack_DrawSelectionHighlight:
 L_FF2FD8:
 	tst.w d0
 L_FF2FDA:

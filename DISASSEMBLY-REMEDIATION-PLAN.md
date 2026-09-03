@@ -543,6 +543,7 @@ opaque merely because they use `dc.*`.
 | M334 | Complete | Name the Time Attack animation and VInterrupt dispatch tables. | J/U/E 133/133 each; audit/hygiene clean. |
 | M335 | Complete | Name the Thank You display-update state check. | J/U/E 133/133 each; audit/hygiene clean. |
 | M336 | Complete | Name the Time Attack record-initials entry loop and display refresh. | J/U/E 133/133 each; audit/hygiene clean. |
+| M337 | Complete | Name the Time Attack selection-highlight tile helper. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
