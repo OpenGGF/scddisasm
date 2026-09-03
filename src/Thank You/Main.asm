@@ -1472,24 +1472,23 @@ ThankYou_RefillEnigmaBitsDone:
 ThankYou_FindFirstEmptyObject:
 	lea.l	$FFFF92C0.w, a1
 	move.w	#$3c, d0
-L_FF42E8:
+ThankYou_FindFirstEmptyObjectLoop:
 	tst.w	(a1)
-	beq.b	L_FF42F4
+	beq.b	ThankYou_FindFirstEmptyObjectDone
 	lea.l	$40(a1), a1
-	dbra	d0, L_FF42E8
-L_FF42F4:
+	dbra	d0, ThankYou_FindFirstEmptyObjectLoop
+ThankYou_FindFirstEmptyObjectDone:
 	rts
 ; Find the first active object slot in the primary object pool.
 ThankYou_FindFirstActiveObject:
-L_FF42F6:
 	lea.l	$FFFF9200.w, a1
 	move.w	#$3c, d0
-L_FF42FE:
+ThankYou_FindFirstActiveObjectLoop:
 	tst.w	(a1)
-	bne.b	L_FF430A
+	bne.b	ThankYou_FindFirstActiveObjectDone
 	lea.l	$40(a1), a1
-	dbra	d0, L_FF42FE
-L_FF430A:
+	dbra	d0, ThankYou_FindFirstActiveObjectLoop
+ThankYou_FindFirstActiveObjectDone:
 	rts
 ; Rebuild the per-priority linked lists for active objects.
 ThankYou_RebuildObjectLists:
@@ -1504,9 +1503,9 @@ ThankYou_RebuildObjectLists:
 	move.w	#$0, $FFFFB900.w
 	move.w	#$0, $FFFFB980.w
 	moveq	#$3f, d7
-L_FF4346:
+ThankYou_RebuildObjectListsLoop:
 	tst.w	$0(a0)
-	beq.b	L_FF4362
+	beq.b	ThankYou_RebuildObjectListsNext
 	moveq	#$0, d0
 	move.b	$34(a0), d0
 	add.w	d0, d0
@@ -1515,29 +1514,29 @@ L_FF4346:
 	move.w	a0, (a3)+
 	move.w	#$0, (a3)
 	move.w	a3, (a2)
-L_FF4362:
+ThankYou_RebuildObjectListsNext:
 	lea.l	$40(a0), a0
-	dbra	d7, L_FF4346
+	dbra	d7, ThankYou_RebuildObjectListsLoop
 	rts
 ; Update active objects, rebuild their lists, and queue their sprites.
 ThankYou_UpdateObjects:
 	lea.l	$FFFF9200.w, a0
 	bsr.b	ThankYou_ProcessActiveObjects
 	bsr.w	ThankYou_RebuildObjectLists
-	bsr.w	BuildSpriteQueue
+	bsr.w	ThankYou_BuildSpriteQueue
 	rts
 ; Process each occupied object slot.
 ThankYou_ProcessActiveObjects:
 	moveq	#$3f, d7
-L_FF437E:
+ThankYou_ProcessActiveObjectsLoop:
 	move.w	(a0), d0
-	beq.b	L_FF438C
+	beq.b	ThankYou_ProcessActiveObjectsNext
 	movem.l	d7/a0, -(a7)
 	bsr.b	ThankYou_DispatchObjectHandler
 	movem.l	(a7)+, d7/a0
-L_FF438C:
+ThankYou_ProcessActiveObjectsNext:
 	lea.l	$40(a0), a0
-	dbra	d7, L_FF437E
+	dbra	d7, ThankYou_ProcessActiveObjectsLoop
 	rts
 ; Dispatch an object's handler and clear it when requested.
 ThankYou_DispatchObjectHandler:
@@ -1546,9 +1545,9 @@ ThankYou_DispatchObjectHandler:
 	movea.l	ObjectHandlerPointers-4(pc, d0.w), a1
 	jsr	(a1)
 	btst.b	#$4, $2e(a0)
-	beq.b	ObjectProcessEnd
-	bsr.w	ClearObject
-ObjectProcessEnd:
+	beq.b	ThankYou_ObjectProcessEnd
+	bsr.w	ThankYou_ClearObject
+ThankYou_ObjectProcessEnd:
 	rts
 ObjectHandlerPointers:
 	if REGION=USA
@@ -1584,7 +1583,8 @@ ObjectHandlerPointers:
 	dc.w	$317C,$0000
 	endif
 	dc.b	$00,$00,$4E,$75
-BuildSpriteQueue:
+; Build the VDP sprite queue from the priority-linked object lists.
+ThankYou_BuildSpriteQueue:
 	lea.l	$FFFFA300.w, a1
 	clr.l	(a1)+
 	clr.l	(a1)+
@@ -1597,50 +1597,50 @@ BuildSpriteQueue:
 	move.w	#$b980, $6(a3)
 	moveq	#$0, d3
 	moveq	#$3, d7
-L_FF44E0:
+ThankYou_BuildSpriteQueuePriorityLoop:
 	move.w	d3, d0
 	add.w	d0, d0
 	lea.l	(a3, d0.w), a4
 	movea.w	(a4), a4
-L_FF44EA:
+ThankYou_BuildSpriteQueueObjectLoop:
 	tst.w	(a4)
 	movea.w	(a4)+, a0
-	bne.b	L_FF44FA
+	bne.b	ThankYou_BuildSpriteQueueObjectFound
 	addq.w	#$1, d3
-	dbra	d7, L_FF44E0
-	bra.w	BuildSpriteQueueEnd
-L_FF44FA:
+	dbra	d7, ThankYou_BuildSpriteQueuePriorityLoop
+	bra.w	ThankYou_BuildSpriteQueueEnd
+ThankYou_BuildSpriteQueueObjectFound:
 	tst.w	$0(a0)
-	beq.w	L_FF458E
+	beq.w	ThankYou_BuildSpriteQueueNextObject
 	movea.l	$2a(a0), a2
-	bsr.w	AdvanceObjectAnimation
+	bsr.w	ThankYou_AdvanceObjectAnimation
 	move.w	$26(a0), d0
 	add.w	d0, d0
 	add.w	d0, d0
 	adda.w	$4(a2, d0.w), a2
 	move.w	(a2)+, d6
-L_FF4518:
+ThankYou_BuildSpriteQueueSpriteLoop:
 	moveq	#$0, d4
 	move.w	$4(a0), d0
 	btst.b	#$7, $2e(a0)
-	beq.b	L_FF4530
+	beq.b	ThankYou_BuildSpriteQueueNormalX
 	sub.w	$6(a2), d0
 	bset	#$b, d4
-	bra.b	L_FF4534
-L_FF4530:
+	bra.b	ThankYou_BuildSpriteQueueXReady
+ThankYou_BuildSpriteQueueNormalX:
 	sub.w	$4(a2), d0
-L_FF4534:
+ThankYou_BuildSpriteQueueXReady:
 	addi.w	#$80, d0
 	move.w	d0, $6(a1)
 	move.w	$8(a0), d0
 	btst.b	#$6, $2e(a0)
-	beq.b	L_FF4552
+	beq.b	ThankYou_BuildSpriteQueueNormalY
 	sub.w	$a(a2), d0
 	bset	#$c, d4
-	bra.b	L_FF4556
-L_FF4552:
+	bra.b	ThankYou_BuildSpriteQueueYReady
+ThankYou_BuildSpriteQueueNormalY:
 	sub.w	$8(a2), d0
-L_FF4556:
+ThankYou_BuildSpriteQueueYReady:
 	addi.w	#$80, d0
 	move.w	d0, $0(a1)
 	addq.w	#$1, d5
@@ -1649,42 +1649,44 @@ L_FF4556:
 	move.w	d0, $2(a1)
 	move.w	$28(a0), d0
 	btst.b	#$5, $2e(a0)
-	beq.b	L_FF457A
+	beq.b	ThankYou_BuildSpriteQueueAttributesReady
 	bset	#$f, d0
-L_FF457A:
+ThankYou_BuildSpriteQueueAttributesReady:
 	add.w	$2(a2), d0
 	eor.w	d4, d0
 	move.w	d0, $4(a1)
 	addq.l	#$8, a1
 	adda.w	#$c, a2
-	dbra	d6, L_FF4518
-L_FF458E:
+	dbra	d6, ThankYou_BuildSpriteQueueSpriteLoop
+ThankYou_BuildSpriteQueueNextObject:
 	nop
 	nop
 	nop
-	bra.w	L_FF44EA
-BuildSpriteQueueEnd:
+	bra.w	ThankYou_BuildSpriteQueueObjectLoop
+ThankYou_BuildSpriteQueueEnd:
 	tst.w	d5
-	beq.b	L_FF45A2
+	beq.b	ThankYou_BuildSpriteQueueDone
 	move.b	#$0, -$5(a1)
-L_FF45A2:
+ThankYou_BuildSpriteQueueDone:
 	rts
-AdvanceObjectAnimation:
+; Advance one object's animation frame and timer.
+ThankYou_AdvanceObjectAnimation:
 	subq.w	#$1, $24(a0)
-	bhi.b	L_FF45C4
+	bhi.b	ThankYou_AdvanceObjectAnimationDone
 	move.w	$26(a0), d0
 	addq.w	#$1, d0
 	cmp.w	(a2), d0
-	bcs.b	L_FF45B6
+	bcs.b	ThankYou_AdvanceObjectAnimationFrameReady
 	moveq	#$0, d0
-L_FF45B6:
+ThankYou_AdvanceObjectAnimationFrameReady:
 	move.w	d0, $26(a0)
 	add.w	d0, d0
 	add.w	d0, d0
 	move.w	$2(a2, d0.w), $24(a0)
-L_FF45C4:
+ThankYou_AdvanceObjectAnimationDone:
 	rts
-ClearObject:
+; Clear the current object slot through the shared object filler.
+ThankYou_ClearObject:
 	movea.l	a0, a1
 	moveq	#$0, d1
 	bra.w	FillObject
