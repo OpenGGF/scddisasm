@@ -348,7 +348,7 @@ L_FF2338:
 L_FF233E:
 	move.w #$3, $ff347c.l
 L_FF2346:
-	bsr.w L_FF33E6
+	bsr.w TimeAttack_SendSubCpuCommandNoWait
 L_FF234A:
 	bsr.w L_FF2C74
 L_FF234E:
@@ -834,7 +834,7 @@ L_FF27A8:
 L_FF27AC:
 	move.l #$f, -(a7)
 L_FF27B2:
-	bsr.w L_FF33A8
+	bsr.w TimeAttack_WaitFrames
 L_FF27B6:
 	lea.l $4(a7), a7
 L_FF27BA:
@@ -844,15 +844,15 @@ L_FF27BE:
 L_FF27C2:
 	movea.l $ff3450.l, a0
 L_FF27C8:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF27CC:
 	move.l $2002a0.l, (a0)
 L_FF27D2:
-	bsr.w L_FF33E6
+	bsr.w TimeAttack_SendSubCpuCommandNoWait
 L_FF27D6:
 	move.l #$f, -(a7)
 L_FF27DC:
-	bsr.w L_FF33A8
+	bsr.w TimeAttack_WaitFrames
 L_FF27E0:
 	lea.l $4(a7), a7
 L_FF27E4:
@@ -982,7 +982,7 @@ L_FF28F6:
 L_FF28FA:
 	move.w #$e, d0
 L_FF28FE:
-	bsr.w L_FF3400
+	bsr.w TimeAttack_SendSubCpuCommand
 L_FF2902:
 	moveq #$0, d0
 L_FF2904:
@@ -1250,7 +1250,7 @@ L_FF2B72:
 L_FF2B76:
 	bsr.w L_FF2DB6
 L_FF2B7A:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF2B7E:
 	lea.l $200150.l, a0
 L_FF2B84:
@@ -1464,7 +1464,7 @@ L_FF2D12:
 L_FF2D14:
 	bset.b #$3, $ff0f1d.l
 L_FF2D1C:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF2D20:
 	move.b $ff0f1d.l, $2002a8.l
 L_FF2D2A:
@@ -2068,7 +2068,7 @@ L_FF31DA:
 L_FF31DC:
 	move.w #$0, $ffaa5a.l
 L_FF31E4:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF31E8:
 	move.l $2002a0.l, $ff3460.l
 L_FF31F2:
@@ -2096,7 +2096,7 @@ L_FF3218:
 L_FF321C:
 	bra.b L_FF31F6
 L_FF321E:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF3222:
 	lea.l $2002a0.l, a0
 L_FF3228:
@@ -2170,7 +2170,7 @@ L_FF329A:
 L_FF329C:
 	bra.w L_FF32D8
 L_FF32A0:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF32A4:
 	lea.l $2002a0.l, a6
 L_FF32AA:
@@ -2198,7 +2198,7 @@ L_FF32CE:
 L_FF32D6:
 	rts
 L_FF32D8:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF32DC:
 	move.l $2002a0.l, $ff3460.l
 L_FF32E6:
@@ -2220,7 +2220,7 @@ L_FF3300:
 L_FF3302:
 	move.b #$1, (a6)
 L_FF3306:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF330A:
 	move.l $2002a0.l, $ff3460.l
 L_FF3314:
@@ -2238,7 +2238,7 @@ L_FF3326:
 L_FF332A:
 	bne.b L_FF3342
 L_FF332C:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF3330:
 	lea.l $2002a0.l, a5
 L_FF3336:
@@ -2254,7 +2254,7 @@ L_FF3346:
 L_FF334A:
 	lea.l $ff3460(pc), a6
 L_FF334E:
-	bsr.w L_FF3430
+	bsr.w TimeAttack_WaitSubCpuReady
 L_FF3352:
 	move.l $2002a0.l, (a6)
 L_FF3358:
@@ -2311,7 +2311,7 @@ L_FF33C6:
 ; Select the regional Sub CPU command, send it, and wait for readiness.
 TimeAttack_SendSubCpuCommandWithReadyWait:
 L_FF33C8:
-	bsr.w L_FF343C
+	bsr.w TimeAttack_RequestSubCpu
 L_FF33CC:
 	move.w #$8b, d0
 L_FF33D0:
@@ -2321,13 +2321,13 @@ L_FF33D8:
 L_FF33DA:
 	move.w #$87, d0
 L_FF33DE:
-	bsr.w L_FF3400
+	bsr.w TimeAttack_SendSubCpuCommand
 L_FF33E2:
-	bra.w L_FF3430
+	bra.w TimeAttack_WaitSubCpuReady
 ; Select and send the regional Sub CPU command without an extra wait.
 TimeAttack_SendSubCpuCommandNoWait:
 L_FF33E6:
-	bsr.w L_FF343C
+	bsr.w TimeAttack_RequestSubCpu
 L_FF33EA:
 	move.w #$8c, d0
 L_FF33EE:
@@ -2337,7 +2337,7 @@ L_FF33F6:
 L_FF33F8:
 	move.w #$88, d0
 L_FF33FC:
-	bra.w L_FF3400
+	bra.w TimeAttack_SendSubCpuCommand
 ; Send a command through the Sub CPU mailbox and wait for its acknowledgement.
 TimeAttack_SendSubCpuCommand:
 L_FF3400:
@@ -2367,7 +2367,7 @@ TimeAttack_WaitSubCpuReady:
 L_FF3430:
 	btst.b #$0, $a12003.l
 L_FF3438:
-	beq.b L_FF3430
+	beq.b TimeAttack_WaitSubCpuReady
 L_FF343A:
 	rts
 ; Request the Sub CPU handoff and wait until the request bit is set.
@@ -2377,7 +2377,7 @@ L_FF343C:
 L_FF3444:
 	btst.b #$1, $a12003.l
 L_FF344C:
-	beq.b L_FF343C
+	beq.b TimeAttack_RequestSubCpu
 L_FF344E:
 	rts
 	dc.l	$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000
