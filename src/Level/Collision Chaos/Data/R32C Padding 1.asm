@@ -1,52 +1,11 @@
 ; ------------------------------------------------------------------------------
 ; R32C source-level padding 1
 ; Recovered from tracked historical assembly; no proprietary binary is included.
-; +$0000-+$015D unique prefix; +$015E-+$0E29 shared R31C non-USA pre-chunk data
+; +$0000-+$015D retained Act 2/Act 1 PLC record prefix
+; +$015E-+$0E29 shared R31C non-USA pre-chunk data
 ; ------------------------------------------------------------------------------
 
-	dc.b	0, $23, $63, $EC, $92, $A0, 0, $23, $47, $9A, $93, $A0, 0
-	dc.b	$23, $4A, 0, $99, $C0, 0, $23, $1E, $2E, $9E, $40, 0, $23
-	dc.b	$21, $3A, $A4
-	dcb.b	2,0
-	dc.b	$23, $34, $BC, $AD
-	dcb.b	2,0
-	dcb.b	2,$23
-	dc.b	$5C, $B5
-	dcb.b	2,0
-	dc.b	$23, $29, $60, $D0
-	dcb.b	2,0
-	dc.b	$22, $ED, $E6, $D8, $C0, 0, $23, $37, $32, $DA, $E0, 0, $23
-	dc.b	$2E, $48, $F5, $C0, 0, $C, 0, $23, $4D, $3A, $63, $C0, 0
-	dc.b	$23, $4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0, 0, $23
-	dc.b	$67, 2, $6B, $C0, 0, $23, $69, $7A, $6D, $40, 0, $23, $67
-	dc.b	$D6, $71, $60, 0, $23, $4F, $90, $73, $E0, 0, $23, $64, $AE
-	dc.b	$75, $E0, 0, $23, $65, $C6, $75, $E0, 0, $23, $68, $A2, $77
-	dc.b	$A0, 0, $23, $6A, $C6, $7B, $40, 0, $23, $54, $52, $7E, $40
-	dc.b	0, $23, $5B, $D6, $84, $20, 0, $C, 0, $23, $4D, $3A, $63
-	dc.b	$C0, 0, $23, $4E, $AC, $67, $C0, 0, $23, $4C, $14, $69, $C0
-	dc.b	0, $23, $67, 2, $6B, $C0, 0, $23, $52, $46, $6D, $40, 0, $23
-	dc.b	$67, $D6, $71, $60, 0, $23, $4F, $90, $73, $E0, 0, $23, $64
-	dc.b	$AE, $75, $E0, 0, $23, $65, $C6, $75, $E0, 0, $23, $68, $A2
-	dc.b	$77, $A0, 0, $23, $6A, $C6, $7B, $40, 0, $23, $54, $52, $7E
-	dc.b	$40, 0, $23, $5B, $D6, $84, $20
-	dcb.b	3,0
-	dc.b	$23, $69, $7A, $6D, $40
-	dcb.b	3,0
-	dc.b	$23, $52, $46, $6D, $40
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2, $91
-	dcb.b	2,0
-	dc.b	$20, $B4, $B0, $7D, $E0, $DA, $36, $6E, $20, 0, $21, $DA
-	dc.b	$B2, $6F, $20, 0, $21, $D9, $7C, $73, $E0, 0, $23, $54, $EC
-	dc.b	$75, $E0, 0, $23, $56, 4, $75, $E0, 0, $23, $5B, $D8, $77
-	dc.b	$A0, 0, $23, $6F, $78, $7B, $40, 0, $21, $DE, $3E, $7E, $40
-	dc.b	0, $23, $4C, $14, $84, $20
-	dcb.b	3,0
-	dc.b	$23, 0, $98, $78, $80, 0, 2, 0, $22, $FA, $BC, $87, $80, 0
-	dc.b	$22, $F4, $F2, $91
-	dcb.b	2,0
-	dc.b	$20, $DC, $6E, $7D, $E0
+	include	"Level/Collision Chaos/Data/R32C Padding1 PLC Prefix.asm"
 ; Complete shared R31C non-USA pre-chunk data.
 R32CRetainedSharedR31CPreChunks:
 	include	"Level/Collision Chaos/Data/R31C Pre-Chunks (Non-USA).asm"

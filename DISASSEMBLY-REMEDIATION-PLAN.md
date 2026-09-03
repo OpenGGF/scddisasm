@@ -470,6 +470,7 @@ opaque merely because they use `dc.*`.
 | M261 | Complete | Structure the R32C/R32D Act 1 Past relative layout-pointer tables and their background/null targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M262 | Complete | Reuse the complete R32C Padding 1 provider for the byte-identical R32D Padding 1 tail at `$0030-$0E59`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M263 | Complete | Reuse the complete R31C non-USA pre-chunk provider for the byte-identical R32C Padding 1 tail at `$015E-$0E29`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M264 | Complete | Structure the R32C Padding 1 `$0000-$015D` prefix as its retained Act 2/Act 1 PLC record groups. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
