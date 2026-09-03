@@ -1375,6 +1375,8 @@ L_FF2C6C:
 	adda.l #$c, a7
 L_FF2C72:
 	rts
+; Prepare the selected stage's time records for display.
+TimeAttack_PrepareTimeAttackRecords:
 L_FF2C74:
 	lea.l $200000.l, a0
 L_FF2C7A:
