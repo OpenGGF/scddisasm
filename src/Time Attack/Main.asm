@@ -1859,6 +1859,8 @@ L_FF306C:
 	movem.l (a7)+, d1/d7
 L_FF3070:
 	rts
+; Upload the selected stage or period's tile block to the VDP.
+TimeAttack_UploadSelectionTileBlock:
 L_FF3072:
 	movem.l d0/d7/a0, -(a7)
 L_FF3076:
