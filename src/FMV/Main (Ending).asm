@@ -662,9 +662,9 @@ Ending_StartEventPlaybackWait:
 ; Signal the event-stream playback stop condition.
 Ending_RequestEventPlaybackStop:
 	move.w	#$b, $FFFFfa40.w
-L_FF24BE:
+Ending_RequestEventPlaybackStopSetFlag:
 	st.b	$FFFFc094.w
-L_FF24C2:
+Ending_RequestEventPlaybackStopWait:
 	bra.w	Ending_WaitWordRamSwap
 ; Advance the ending event stream and emit its next VDP block.
 Ending_ProcessEventStream:
@@ -674,7 +674,7 @@ Ending_ProcessEventStream:
 	elseif REGION=EUROPE
 	addi.l	#$C000, d0
 	else
-L_FF24CA:
+Ending_ProcessEventStreamRegionOffset:
 	addi.l	#$9100, d0
 	endif
 L_FF24D0:
@@ -688,7 +688,7 @@ L_FF24D8:
 L_FF24DC:
 	cmpi.w	#$8, d1
 L_FF24E0:
-	blt.b	L_FF2544
+	blt.b	Ending_ProcessEventStreamReturn
 L_FF24E2:
 	swap	d0
 L_FF24E4:
@@ -728,7 +728,7 @@ L_FF2514:
 L_FF2516:
 	cmpi.w	#$ffff, d0
 L_FF251A:
-	beq.b	L_FF2546
+	beq.b	Ending_ProcessEventStreamDone
 L_FF251C:
 	moveq	#$28, d6
 L_FF251E:
@@ -744,32 +744,31 @@ L_FF2528:
 L_FF252A:
 	cmpi.w	#$ffff, d0
 L_FF252E:
-	beq.b	L_FF2536
+	beq.b	Ending_ProcessEventStreamPad
 L_FF2530:
 	move.w	d0, (a5)
 L_FF2532:
 	subq.w	#$1, d6
 L_FF2534:
 	bra.b	L_FF2528
-L_FF2536:
+Ending_ProcessEventStreamPad:
 	moveq	#$0, d0
-L_FF2538:
-	bra.b	L_FF253C
-L_FF253A:
+Ending_ProcessEventStreamClearWord:
+	bra.b	Ending_ProcessEventStreamClearLoopCheck
+Ending_ProcessEventStreamClearLoop:
 	move.w	d0, (a5)
-L_FF253C:
-	dbra	d6, L_FF253A
-L_FF2540:
+Ending_ProcessEventStreamClearLoopCheck:
+	dbra	d6, Ending_ProcessEventStreamClearLoop
+Ending_ProcessEventStreamStoreCursor:
 	move.l	a2, $FFFFc090.w
-L_FF2544:
+Ending_ProcessEventStreamReturn:
 	rts
-L_FF2546:
+Ending_ProcessEventStreamDone:
 	clr.w	$FFFFc088.w
-L_FF254A:
+	; Return after consuming the end marker.
 	rts
 ; Clear the initial ending-FMV VDP tile rows.
 Ending_ClearInitialVdpRows:
-L_FF254C:
 	moveq	#$10, d4
 L_FF254E:
 	move.l	#$46080003, d0
@@ -777,8 +776,7 @@ L_FF2554:
 	move.w	#$1f, d1
 L_FF2558:
 	move.w	#$d, d2
-L_FF255C:
-	bsr.b	L_FF2570
+	bsr.b	Ending_ClearInitialVdpRowsWriteBlock
 L_FF255E:
 	move.w	#$1d0, d4
 L_FF2562:
@@ -787,41 +785,33 @@ L_FF2568:
 	move.w	#$1f, d1
 L_FF256C:
 	move.w	#$d, d2
-L_FF2570:
+Ending_ClearInitialVdpRowsWriteBlock:
 	move.l	d0, (a4)
 L_FF2572:
 	move.l	d1, d3
-L_FF2574:
+Ending_ClearInitialVdpRowsColumnLoop:
 	move.w	d4, (a5)
 L_FF2576:
 	addq.w	#$1, d4
-L_FF2578:
-	dbra	d3, L_FF2574
+	dbra	d3, Ending_ClearInitialVdpRowsColumnLoop
 L_FF257C:
 	addi.l	#$1000000, d0
-L_FF2582:
-	dbra	d2, L_FF2570
-L_FF2586:
+	dbra	d2, Ending_ClearInitialVdpRowsWriteBlock
+
 	rts
 ; Clear the ending-FMV command workspace in RAM.
 Ending_ClearCommandWorkspace:
-L_FF2588:
 	moveq	#$1f, d7
-L_FF258A:
 	lea.l	$FFFFc000.w, a1
-L_FF258E:
+Ending_ClearCommandWorkspaceLongLoop:
 	clr.l	(a1)+
-L_FF2590:
-	dbra	d7, L_FF258E
-L_FF2594:
+	dbra	d7, Ending_ClearCommandWorkspaceLongLoop
+
 	rts
 ; Wait for the Sub CPU to grant the ending-FMV Word RAM handshake.
 Ending_WaitSubCpuOwnership:
-L_FF2596:
 	btst.b	#$2, $a12003.l
-L_FF259E:
 	beq.b	Ending_WaitSubCpuOwnership
-L_FF25A0:
 	rts
 L_FF25A2:
 	tst.b	$ff0f23.l
