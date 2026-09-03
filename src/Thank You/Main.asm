@@ -638,7 +638,7 @@ L_FF37B4:
 	dc.b	$00,$00,$12,$FC,$00,$00,$33,$FC,$00,$00,$00,$A1,$12,$00,$E0,$18
 	dc.b	$33,$FC,$01,$00,$00,$A1,$12,$00
 L_FF381A:
-	bsr.w	L_FF3962
+	bsr.w	ThankYou_HaltZ80
 	lea.l	$c00004.l, a6
 	move.w	#$8f01, (a6)
 	move.l	#$93ff94ff, (a6)
@@ -671,7 +671,7 @@ L_FF38A2:
 	dbra	d7, L_FF38A2
 	move.l	#$40000010, $c00004.l
 	move.l	#$0, $c00000.l
-	bsr.w	L_FF397A
+	bsr.w	ThankYou_ReleaseZ80
 	move.w	#$8134, $ff0f16.l
 	rts
 L_FF38CE:
@@ -746,7 +746,7 @@ L_FF3988:
 	dc.l	$11C0F00C
 	dc.b	$4E,$75
 SoundAndInterruptFunctions:
-	jsr	L_FF3962.l
+	jsr	ThankYou_HaltZ80.l
 	tst.b	$FFFFF00B.w
 	beq.b	L_FF3A26
 	move.b	$FFFFF00B.w, $a01c09.l
@@ -758,7 +758,7 @@ L_FF3A26:
 	move.b	$FFFFF00C.w, $a01c09.l
 	move.b	#$0, $FFFFF00C.w
 L_FF3A3A:
-	jmp	L_FF397A.l
+	jmp	ThankYou_ReleaseZ80.l
 VInterrupt:
 	movem.l	d0-d7/a0-a6, -(a7)
 	move.b	#$1, $a12000.l
@@ -768,7 +768,7 @@ VInterrupt:
 	lea.l	$c00004.l, a1
 	lea.l	$c00000.l, a2
 	move.w	(a1), d0
-	jsr	L_FF3962(pc)
+	jsr	ThankYou_HaltZ80(pc)
 	lea.l	$c00004.l, a6
 	move.l	#$93409401, (a6)
 	move.l	#$958096d1, (a6)
@@ -850,7 +850,7 @@ L_FF3B66:
 	move.l	#$c0000000, (a6)
 	move.w	$FFFFB600.w, $c00000.l
 	jsr	SoundAndInterruptFunctions.l
-	bsr.w	L_FF397A
+	bsr.w	ThankYou_ReleaseZ80
 	tst.w	$FFFFBA4C.w
 	beq.b	L_FF3BA8
 	subq.w	#$1, $FFFFBA4C.w
@@ -862,7 +862,7 @@ L_FF3BA8:
 	endif
 L_FF3BB4:
 	addq.w	#$1, $FFFFBA4E.w
-	jsr	L_FF3988(pc)
+	jsr	ThankYou_ReadController(pc)
 	movem.l	(a7)+, d0-d7/a0-a6
 	rte
 ; Advance the idle-frame counter when no VDP update is pending.
