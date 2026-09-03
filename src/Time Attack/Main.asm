@@ -1656,6 +1656,8 @@ L_FF2E58:
 	dc.l	$43024303,$43004304,$43054306,$42CC42DA,$42DB42DC,$42DD42DE,$42DF42E0,$42E142E2,$42E342E4,$42E542E6,$42E742F1,$42F242F3,$42F442DB,$42F542F6,$42F742F8,$42F942FA
 	dc.l	$42FB42FC,$42FD42FE,$430742FA,$43084309,$430A430B,$430C42CC
 	dc.b	$42,$CC
+; Render two time records into the prepared tile buffer.
+TimeAttack_RenderTimeRecordsToBuffer:
 L_FF2EF6:
 	movem.l d0-d3/a1-a3, -(a7)
 L_FF2EFA:
@@ -1729,8 +1731,8 @@ L_FF2F5E:
 L_FF2F62:
 	rts
 	dc.l	$02BA02BB,$02BA02BA,$02BC02BD,$02BA02BE,$02BA02BA,$02BF02C0,$02C202C3,$02C402C5,$02C602C7,$02C802C9,$02CA02CB,$02C102C1
-; Render two time records into the prepared tile buffer.
-TimeAttack_RenderTimeRecordsToBuffer:
+; Upload a compact 3x2 tile block from RAM to the VDP.
+TimeAttack_UploadCompactTileBlock:
 L_FF2F94:
 	movem.l d0-d4/a1-a4, -(a7)
 L_FF2F98:
