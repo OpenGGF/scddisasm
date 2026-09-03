@@ -699,6 +699,8 @@ L_FF397A:
 	move.w	#$0, $a11100.l
 	move.w	$FFFFBA50.w, sr
 	rts
+; Read controller buttons and update the communication bytes.
+ThankYou_ReadController:
 L_FF3988:
 	lea.l	$a1201e.l, a0
 	lea.l	$a10003.l, a1
