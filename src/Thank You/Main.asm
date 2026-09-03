@@ -400,10 +400,11 @@ ThankYou_CheckDisplayUpdatePending:
 ThankYou_UpdateDisplay:
 	bsr.w	ThankYou_AdvanceDisplayState
 	bsr.w	ThankYou_ResetDisplayCommand
-	bsr.w	L_FF347C
+	bsr.w	ThankYou_DispatchDisplayCommandWrapper
 	rts
 	dc.l	$600002E6
-L_FF347C:
+; Enter the encoded display-command handler wrapper.
+ThankYou_DispatchDisplayCommandWrapper:
 	bra.w	L_FF3734
 	dc.w	$4EB9
 	dc.l	$00FF22EE-ThankYouEarlyShift
@@ -428,12 +429,13 @@ L_FF347C:
 ThankYou_ResetDisplayCommand:
 	move.b	#$0, $200029.l
 	move.w	#$c, $20002a.l
-	lea.l	L_FF34DC.l, a0
-	bra.b	L_FF34E8
-L_FF34DC:
+	lea.l	ThankYou_ScreenMarker.l, a0
+	bra.b	ThankYou_WriteScreenMarker
+; Marker copied into the screen-data workspace.
+ThankYou_ScreenMarker:
 	dc.b	$53
 	dc.b	$4F,$4E,$49,$43,$43,$44,$5F,$5F,$5F,$5F,$00
-L_FF34E8:
+ThankYou_WriteScreenMarker:
 	movem.l	a0-a1, -(a7)
 	movea.l	#$200030, a1
 	move.l	(a0)+, (a1)+
@@ -445,58 +447,57 @@ L_FF34E8:
 ; Dispatch the pending display command or scripted screen-data command.
 ThankYou_DispatchDisplayCommand:
 	bsr.w	ThankYou_CheckDisplayUpdatePending
-	bne.b	L_FF351E
+	bne.b	ThankYou_DispatchDisplayCommandScreenData
 	move.b	$ff0f1f.l, $200028.l
 	jsr	ThankYou_GiveWordRamAccess.l
 	jsr	ThankYou_WaitSubCpuReady.l
-	bra.b	L_FF3522
-L_FF351E:
+	bra.b	ThankYou_DispatchDisplayCommandResult
+ThankYou_DispatchDisplayCommandScreenData:
 	bsr.w	ThankYou_DispatchScreenDataCommand
-L_FF3522:
+ThankYou_DispatchDisplayCommandResult:
 	tst.b	$200021.l
 	rts
 ; Advance the display state and return its transition result.
 ThankYou_AdvanceDisplayState:
 	jsr	ThankYou_WaitSubCpuReady.l
-	bsr.w	L_FF35B4
-	bne.w	L_FF355A
+	bsr.w	ThankYou_ProbeHardwareSignatures
+	bne.w	ThankYou_AdvanceDisplayStateAbort
 	move.b	#$1, $200026.l
 	move.b	#$1, $200020.l
 	bsr.b	ThankYou_DispatchDisplayCommand
 	tst.b	$200021.l
-	beq.b	L_FF3564
+	beq.b	ThankYou_AdvanceDisplayStateContinue
 	tst.w	$200024.l
-	bne.b	L_FF35AE
-L_FF355A:
+	bne.b	ThankYou_AdvanceDisplayStatePending
+ThankYou_AdvanceDisplayStateAbort:
 	move.b	#$0, $200027.l
-	bra.b	L_FF3570
-L_FF3564:
+	bra.b	ThankYou_AdvanceDisplayStateSecondPass
+ThankYou_AdvanceDisplayStateContinue:
 	bsr.w	ThankYou_SelectScreenData2
 	move.b	#$1, $200027.l
-L_FF3570:
+ThankYou_AdvanceDisplayStateSecondPass:
 	move.b	#$0, $200026.l
 	move.b	#$1, $200020.l
 	bsr.w	ThankYou_DispatchDisplayCommand
 	tst.b	$200021.l
-	bne.b	L_FF35A8
+	bne.b	ThankYou_AdvanceDisplayStateFailed
 	bsr.w	ThankYou_SelectScreenData2
 	tst.b	$200027.l
-	beq.b	L_FF359E
+	beq.b	ThankYou_AdvanceDisplayStateComplete
 	move.w	#$0, d0
 	rts
-L_FF359E:
+ThankYou_AdvanceDisplayStateComplete:
 	move.w	#$1, d0
 	move.w	#$0, d1
 	rts
-L_FF35A8:
+ThankYou_AdvanceDisplayStateFailed:
 	move.w	#$ffff, d0
 	rts
-L_FF35AE:
+ThankYou_AdvanceDisplayStatePending:
 	move.w	#$fffe, d0
 	rts
 ; Probe the cartridge/CD signatures and return the hardware status.
 ThankYou_ProbeHardwareSignatures:
-L_FF35B4:
 	btst.b	#$7, $400001.l
 	beq.b	L_FF35E4
 	lea.l	$400010.l, a0
