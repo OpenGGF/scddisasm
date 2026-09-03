@@ -574,6 +574,7 @@ opaque merely because they use `dc.*`.
 | M361 | Complete | Make the connected Thank You semantic routine and table labels canonical. | J/U/E 133/133 each; audit/hygiene clean. |
 | M362 | Complete | Canonicalize the Thank You Nemesis/Enigma decoder entry points and shared bit readers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M363 | Complete | Canonicalize the Thank You Nemesis decoder's internal control flow, tile writers, and table reader. | J/U/E 133/133 each; audit/hygiene clean. |
+| M364 | Complete | Canonicalize the Thank You Enigma decoder's upload loops, stream table, and dispatch handlers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

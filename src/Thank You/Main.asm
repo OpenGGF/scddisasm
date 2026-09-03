@@ -1363,7 +1363,7 @@ ThankYou_ReadNemesisTableExpandLoop:
 ThankYou_DecodeEnigmaToVdp:
 	andi.l	#$ffff, d0
 	mulu.w	#$e, d0
-	lea.l	L_FF4142.l, a1
+	lea.l	ThankYou_EnigmaStreamTable.l, a1
 	adda.w	d0, a1
 	movea.l	(a1)+, a0
 	move.w	(a1)+, d0
@@ -1376,16 +1376,18 @@ ThankYou_DecodeEnigmaToVdp:
 	move.l	(a1), d0
 	lea.l	$FFFFA800.w, a0
 	movea.l	#$c00000, a1
-L_FF4128:
+; Upload decoded Enigma tile rows to the VDP.
+ThankYou_UploadEnigmaTilesLoop:
 	move.l	d0, $c00004.l
 	move.w	d3, d1
-L_FF4130:
+ThankYou_UploadEnigmaTileWords:
 	move.w	(a0)+, (a1)
-	dbra	d1, L_FF4130
+	dbra	d1, ThankYou_UploadEnigmaTileWords
 	addi.l	#$800000, d0
-	dbra	d2, L_FF4128
+	dbra	d2, ThankYou_UploadEnigmaTilesLoop
 	rts
-L_FF4142:
+; Enigma stream descriptors: source pointer, dimensions, and VDP base.
+ThankYou_EnigmaStreamTable:
 	dc.b	$00
 	dc.b	$21,$0A,$1C,$C0,$01,$00,$27,$00,$1B,$40,$00,$00,$03,$00,$21,$15
 	dc.b	$40,$20,$9B,$00,$27,$00,$1B,$60,$00,$00,$03
@@ -1408,7 +1410,8 @@ ThankYou_DecodeEnigmaToRam:
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
 	moveq	#$10, d6
-L_FF4182:
+; Decode the next Enigma word and dispatch its command.
+ThankYou_DecodeEnigmaLoop:
 	moveq	#$7, d0
 	move.w	d6, d7
 	sub.w	d0, d7
@@ -1417,27 +1420,30 @@ L_FF4182:
 	andi.w	#$7f, d1
 	move.w	d1, d2
 	cmpi.w	#$40, d1
-	bcc.b	L_FF419C
+	bcc.b	ThankYou_DecodeEnigmaCodeReady
 	moveq	#$6, d0
 	lsr.w	#$1, d2
-L_FF419C:
+
+ThankYou_DecodeEnigmaCodeReady:
 	bsr.w	ThankYou_RefillEnigmaBits
 	andi.w	#$f, d2
 	lsr.w	#$4, d1
 	add.w	d1, d1
-	jmp	L_FF41F8(pc, d1.w)
-L_FF41AC:
+	jmp	ThankYou_DecodeEnigmaDispatchTable(pc, d1.w)
+; Repeat one decoded word across the requested run length.
+ThankYou_DecodeEnigmaRepeatWord:
 	move.w	a2, (a1)+
 	addq.w	#$1, a2
-	dbra	d2, L_FF41AC
-	bra.b	L_FF4182
+	dbra	d2, ThankYou_DecodeEnigmaRepeatWord
+	bra.b	ThankYou_DecodeEnigmaLoop
 	dc.b	$32,$CC,$51,$CA,$FF,$FC,$60,$C4,$61,$00,$00,$60,$32,$C1,$51,$CA
 	dc.b	$FF,$FC,$60,$B8,$61,$00,$00,$54,$32,$C1,$52,$41,$51,$CA,$FF,$FA
 	dc.b	$60,$AA,$61,$00,$00,$46,$32,$C1,$53,$41,$51,$CA,$FF,$FA,$60,$9C
 	dc.b	$0C,$42,$00,$0F,$67,$1C,$61,$00,$00,$32,$32,$C1,$51,$CA,$FF,$F8
 	dc.b	$60,$8A
-L_FF41F8:
-	bra.b	L_FF41AC
+; Enigma command jump table (encoded branch handlers follow).
+ThankYou_DecodeEnigmaDispatchTable:
+	bra.b	ThankYou_DecodeEnigmaRepeatWord
 	dc.b	$60,$B0,$60,$B8,$60,$B6,$60,$BC,$60,$C6,$60,$D2,$60,$DE,$53,$48
 	dc.b	$0C,$46,$00,$10,$66,$02,$53,$48,$30,$08,$E2,$48,$64,$02,$52,$48
 	dc.b	$4C,$DF,$3E,$FF,$4E,$75,$36,$0B,$12,$04,$D2,$01,$64,$0A,$53,$46
