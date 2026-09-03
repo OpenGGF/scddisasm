@@ -563,6 +563,7 @@ opaque merely because they use `dc.*`.
 | M350 | Complete | Route the Time Attack VDP, Z80, controller, and rotated-upload helper callers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M351 | Complete | Name the ending-FMV startup VDP/workspace initialization family and update its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M352 | Complete | Name the ending-FMV VBlank dispatcher, animation table, and event-stream renderer. | J/U/E 133/133 each; audit/hygiene clean. |
+| M353 | Complete | Name the ending-FMV timer tick and Word RAM synchronization helpers and update their callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

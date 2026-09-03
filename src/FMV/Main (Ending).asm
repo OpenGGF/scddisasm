@@ -87,7 +87,7 @@ L_FF20BE:
 L_FF20C6:
 	bclr.b	#$4, $a1200e.l
 L_FF20CE:
-	bsr.w	L_FF274E
+	bsr.w	Ending_WaitWordRamSwap
 L_FF20D2:
 	clr.w	$FFFFfa40.w
 L_FF20D6:
@@ -103,7 +103,7 @@ L_FF20E6:
 L_FF20EA:
 	jsr	(a1)
 L_FF20EC:
-	bsr.w	L_FF2186
+	bsr.w	Ending_WaitTimerTick
 L_FF20F0:
 	btst.b	#$1, $a1200f.l
 L_FF20F8:
@@ -127,7 +127,7 @@ L_FF211C:
 L_FF211E:
 	dbra	d7, L_FF211C
 L_FF2122:
-	bsr.b	L_FF214E
+	bsr.b	Ending_WaitForSubCpuCompletion
 L_FF2124:
 	clr.b	$a1200e.l
 L_FF212A:
@@ -148,12 +148,14 @@ L_FF2142:
 	move.w	#$ee, $5e(a2)
 L_FF2148:
 	jmp	L_FFC100.l
+; Wait for the Sub CPU to finish before leaving the ending FMV.
+Ending_WaitForSubCpuCompletion:
 L_FF214E:
 	clr.w	$FFFFfa40.w
 L_FF2152:
 	move.w	#$3c, d1
 L_FF2156:
-	bsr.w	L_FF2186
+	bsr.w	Ending_WaitTimerTick
 L_FF215A:
 	dbra	d1, L_FF2156
 L_FF215E:
@@ -172,12 +174,15 @@ L_FF2182:
 	bne.b	L_FF2166
 L_FF2184:
 	rts
+; Trigger the timer tick used by the ending-FMV main loop.
+Ending_WaitTimerTick:
 L_FF2186:
 	move.b	#$1, $FFFFfa00.w
+Ending_WaitTimerPoll:
 L_FF218C:
 	tst.b	$FFFFfa00.w
 L_FF2190:
-	bne.b	L_FF218C
+	bne.b	Ending_WaitTimerPoll
 L_FF2192:
 	rts
 ; Offsets for ending-FMV main-loop state handlers.
@@ -399,7 +404,7 @@ L_FF2302:
 L_FF2308:
 	rts
 L_FF230A:
-	bsr.w	L_FF274E
+	bsr.w	Ending_WaitWordRamSwap
 L_FF230E:
 	move.w	#$4, $FFFFc086.w
 L_FF2314:
@@ -493,7 +498,7 @@ L_FF23AC:
 L_FF23B0:
 	move.w	#$24, $FFFFc086.w
 L_FF23B6:
-	bsr.w	L_FF274E
+	bsr.w	Ending_WaitWordRamSwap
 L_FF23BA:
 	rts
 L_FF23BC:
@@ -655,13 +660,13 @@ L_FF24AC:
 L_FF24B0:
 	move.l	a2, $FFFFc090.w
 L_FF24B4:
-	bra.w	L_FF274E
+	bra.w	Ending_WaitWordRamSwap
 L_FF24B8:
 	move.w	#$b, $FFFFfa40.w
 L_FF24BE:
 	st.b	$FFFFc094.w
 L_FF24C2:
-	bra.w	L_FF274E
+	bra.w	Ending_WaitWordRamSwap
 ; Advance the ending event stream and emit its next VDP block.
 Ending_ProcessEventStream:
 L_FF24C6:
@@ -962,6 +967,8 @@ ReadJoypad:
 	and.b	d1, d0
 	move.b	d0, (a0)+
 	rts
+; Wait for the Word RAM ownership exchange to complete.
+Ending_WaitWordRamSwap:
 L_FF274E:
 	btst.b	#$1, $a1200f.l
 L_FF2756:
@@ -969,19 +976,19 @@ L_FF2756:
 L_FF2758:
 	btst.b	#$0, $a1200f.l
 L_FF2760:
-	beq.b	L_FF274E
+	beq.b	Ending_WaitWordRamSwap
 L_FF2762:
 	btst.b	#$0, $a1200f.l
 L_FF276A:
-	beq.b	L_FF274E
+	beq.b	Ending_WaitWordRamSwap
 L_FF276C:
 	btst.b	#$0, $a1200f.l
 L_FF2774:
-	beq.b	L_FF274E
+	beq.b	Ending_WaitWordRamSwap
 L_FF2776:
 	btst.b	#$2, $a1200e.l
 L_FF277E:
-	bne.b	L_FF274E
+	bne.b	Ending_WaitWordRamSwap
 L_FF2780:
 	bclr.b	#$1, $a12003.l
 L_FF2788:
