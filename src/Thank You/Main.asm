@@ -181,7 +181,7 @@ ThankYou_WritePaletteBlock:
 	moveq	#$3, d7
 ThankYou_WritePaletteExtendedBlock:
 	add.w	d2, d2
-	lea.l	L_FF67D0.l, a0
+	lea.l	ThankYou_PaletteBlockTable.l, a0
 	lea.l	(a0, d2.w), a1
 	adda.w	(a1), a0
 	move.l	d7, d6
@@ -1098,15 +1098,15 @@ ThankYou_FadeInPalettes:
 	adda.w	d0, a0
 	moveq	#$0, d1
 	move.b	$FFFFBA5B.w, d0
-L_FF3E60:
+ThankYou_FadeInPalettesClearLoop:
 	move.w	d1, (a0)+
-	dbra	d0, L_FF3E60
+	dbra	d0, ThankYou_FadeInPalettesClearLoop
 	move.w	#$15, d4
-L_FF3E6A:
+ThankYou_FadeInPalettesLoop:
 	move.b	#$a, $FFFFBA42.w
 	bsr.w	ThankYou_WaitForVBlank
 	bsr.b	ThankYou_AnimatePalette
-	dbra	d4, L_FF3E6A
+	dbra	d4, ThankYou_FadeInPalettesLoop
 	rts
 ; Step the active palette toward its target colors.
 ThankYou_AnimatePalette:
@@ -1117,48 +1117,48 @@ ThankYou_AnimatePalette:
 	adda.w	d0, a0
 	adda.w	d0, a1
 	move.b	$FFFFBA5B.w, d0
-L_FF3E92:
+ThankYou_AnimatePaletteLoop:
 	bsr.b	ThankYou_StepPaletteEntry
-	dbra	d0, L_FF3E92
-	bra.b	FadePalette
+	dbra	d0, ThankYou_AnimatePaletteLoop
+	bra.b	ThankYou_AnimatePaletteDone
 	dc.b	$70,$00,$41,$F8,$B7,$00,$43,$F8,$B7,$80,$10,$38,$BA,$5A,$D0,$C0
 	dc.b	$D2,$C0,$10,$38,$BA,$5B,$61,$06,$51,$C8,$FF,$FC
-FadePalette:
+ThankYou_AnimatePaletteDone:
 	rts
 ; Move one palette entry toward its target color values.
 ThankYou_StepPaletteEntry:
 	move.w	(a1)+, d2
 	move.w	(a0), d3
 	cmp.w	d2, d3
-	beq.b	L_FF3EE0
+	beq.b	ThankYou_StepPaletteEntryUnchanged
 	move.w	d3, d1
 	addi.w	#$200, d1
 	cmp.w	d2, d1
-	bhi.b	L_FF3ECE
+	bhi.b	ThankYou_StepPaletteEntryMediumStep
 	move.w	d1, (a0)+
 	rts
-L_FF3ECE:
+ThankYou_StepPaletteEntryMediumStep:
 	move.w	d3, d1
 	addi.w	#$20, d1
 	cmp.w	d2, d1
-	bhi.b	L_FF3EDC
+	bhi.b	ThankYou_StepPaletteEntrySmallStep
 	move.w	d1, (a0)+
 	rts
-L_FF3EDC:
+ThankYou_StepPaletteEntrySmallStep:
 	addq.w	#$2, (a0)+
 	rts
-L_FF3EE0:
+ThankYou_StepPaletteEntryUnchanged:
 	addq.w	#$2, a0
 	rts
 ; Fade the initialized work palettes down to black.
 ThankYou_FadeInitializedPalettes:
 	move.w	#$3f, $FFFFBA5A.w
 	move.w	#$15, d4
-L_FF3EEE:
+ThankYou_FadeInitializedPalettesLoop:
 	move.b	#$a, $FFFFBA42.w
 	bsr.w	ThankYou_WaitForVBlank
 	bsr.b	ThankYou_FadePalettesToBlack
-	dbra	d4, L_FF3EEE
+	dbra	d4, ThankYou_FadeInitializedPalettesLoop
 	rts
 ; Fade both work palettes to black.
 ThankYou_FadePalettesToBlack:
@@ -1167,40 +1167,40 @@ ThankYou_FadePalettesToBlack:
 	move.b	$FFFFBA5A.w, d0
 	adda.w	d0, a0
 	move.b	$FFFFBA5B.w, d0
-L_FF3F10:
+ThankYou_FadePalettesToBlackFirstLoop:
 	bsr.b	ThankYou_DarkenPaletteEntry
-	dbra	d0, L_FF3F10
+	dbra	d0, ThankYou_FadePalettesToBlackFirstLoop
 	moveq	#$0, d0
 	lea.l	$FFFFB700.w, a0
 	move.b	$FFFFBA5A.w, d0
 	adda.w	d0, a0
 	move.b	$FFFFBA5B.w, d0
-L_FF3F26:
+ThankYou_FadePalettesToBlackSecondLoop:
 	bsr.b	ThankYou_DarkenPaletteEntry
-	dbra	d0, L_FF3F26
+	dbra	d0, ThankYou_FadePalettesToBlackSecondLoop
 	rts
 ; Decrease one palette entry's RGB channels.
 ThankYou_DarkenPaletteEntry:
 	move.w	(a0), d2
-	beq.b	L_FF3F5A
+	beq.b	ThankYou_DarkenPaletteEntryDone
 	move.w	d2, d1
 	andi.w	#$e, d1
-	beq.b	L_FF3F3E
+	beq.b	ThankYou_DarkenPaletteEntryMediumChannel
 	subq.w	#$2, (a0)+
 	rts
-L_FF3F3E:
+ThankYou_DarkenPaletteEntryMediumChannel:
 	move.w	d2, d1
 	andi.w	#$e0, d1
-	beq.b	L_FF3F4C
+	beq.b	ThankYou_DarkenPaletteEntryLargeChannel
 	subi.w	#$20, (a0)+
 	rts
-L_FF3F4C:
+ThankYou_DarkenPaletteEntryLargeChannel:
 	move.w	d2, d1
 	andi.w	#$e00, d1
-	beq.b	L_FF3F5A
+	beq.b	ThankYou_DarkenPaletteEntryDone
 	subi.w	#$200, (a0)+
 	rts
-L_FF3F5A:
+ThankYou_DarkenPaletteEntryDone:
 	addq.w	#$2, a0
 	rts
 ; Load up to four Nemesis graphics streams into the VDP.
@@ -2471,7 +2471,8 @@ ThankYou_ObjectTimerJumpTable:
 	dcb.b	$6, 0
 	dc.l	$06000042
 	dcb.b	$8, 0
-L_FF67D0:
+; Palette block offsets and color indices used by the fade routines.
+ThankYou_PaletteBlockTable:
 	dc.b	$00
 	dc.b	$00,$01,$88,$01,$94,$01,$A0,$01,$AC,$01,$B8,$01,$C4,$01,$D0,$01
 	dc.b	$DC,$01,$E8,$01,$F4,$00,$4C,$00,$70,$00,$7C,$00,$88,$00,$58,$00

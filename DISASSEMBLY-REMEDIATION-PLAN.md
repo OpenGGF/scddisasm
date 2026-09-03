@@ -584,6 +584,7 @@ opaque merely because they use `dc.*`.
 | M371 | Complete | Canonicalize the Thank You screen-data dispatcher branches and command-offset table. | J/U/E 133/133 each; audit/hygiene clean. |
 | M372 | Complete | Canonicalize the Thank You display-state transition branches and screen-marker setup. | J/U/E 133/133 each; audit/hygiene clean. |
 | M373 | Complete | Canonicalize the Thank You hardware-signature probe, result exits, and signature data. | J/U/E 133/133 each; audit/hygiene clean. |
+| M374 | Complete | Canonicalize the Thank You palette fade/animation internals and palette data table. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
