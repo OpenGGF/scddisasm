@@ -463,6 +463,7 @@ opaque merely because they use `dc.*`.
 | M254 | Complete | Replace the exact shared collision-row profile map in R32D Padding 2 at `$013E-$113D` with its named binary asset. | J/U/E 133/133 each; audit/hygiene clean. |
 | M255 | Complete | Replace the exact retained Act 1 Past collision-index map in R32D Padding 2 at `$113E-$145D` with its named binary asset. | J/U/E 133/133 each; audit/hygiene clean. |
 | M256 | Complete | Replace the exact retained Act 1 Past foreground layout in R32D Padding 2 at `$14A6-$15C7` with its named binary asset. | J/U/E 133/133 each; audit/hygiene clean. |
+| M257 | Complete | Replace the retained GHZ2/GHZ3 fallback foreground layouts in R32D Padding 2 at `$15E4-$16AB` and `$16B0-$17D1` with their named binary assets. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
