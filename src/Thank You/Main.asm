@@ -300,27 +300,28 @@ ThankYou_LoadSecondGraphics:
 ThankYou_DispatchScreenDataCommand:
 	moveq	#$0, d0
 	move.b	$200020.l, d0
-	beq.b	L_FF2408
+	beq.b	ThankYou_ScreenDataCommandDone
 	subq.w	#$1, d0
 	cmpi.w	#$9, d0
-	bcc.b	L_FF23EE
+	bcc.b	ThankYou_ScreenDataCommandFailed
 	add.w	d0, d0
-	lea.l	L_FF240A.l, a0
+	lea.l	ThankYou_ScreenDataCommandTable.l, a0
 	move.w	(a0, d0.w), d0
 	moveq	#$0, d1
 	jsr	(a0, d0.w)
-	bcs.b	L_FF23EE
+	bcs.b	ThankYou_ScreenDataCommandFailed
 	move.b	#$0, $200021.l
-	bra.b	L_FF23F6
-L_FF23EE:
+	bra.b	ThankYou_ScreenDataCommandStoreResult
+ThankYou_ScreenDataCommandFailed:
 	move.b	#$ff, $200021.l
-L_FF23F6:
+ThankYou_ScreenDataCommandStoreResult:
 	move.w	d0, $200022.l
 	move.w	d1, $200024.l
 	clr.b	$200020.l
-L_FF2408:
+ThankYou_ScreenDataCommandDone:
 	rts
-L_FF240A:
+; Relative entry offsets for the screen-data command handlers.
+ThankYou_ScreenDataCommandTable:
 	dc.b	$00
 	dc.b	$12,$00,$24,$00,$30,$00,$4A,$00,$6C,$00,$90,$00,$AA,$00,$B0,$00
 	dc.b	$D6,$41,$F9
