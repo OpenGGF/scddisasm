@@ -1,8 +1,8 @@
 
 ; ------------------------------------------------------------------------------
-; R72A-specific non-USA Padding 3 prefix; R62C provides the shared continuation.
+; Shared R72A/R72C non-USA Padding 3 continuation; R62C provides the tail.
 ; Recovered from tracked historical assembly; no proprietary binary is included.
-; +$0000-+$01C9 R72A-specific packed records
+; +$0000-+$01C9 shared R72A/R72C packed records
 ; +$01CA-+$1E49 shared R62C non-USA continuation
 ; ------------------------------------------------------------------------------
 	dc.b	$7F, $65, $A5, $3A, $2E, $A6, $4A, $D9, $2A, $38, $D6, $71, $22, $2A, $61, $71

@@ -413,7 +413,7 @@ Padding3:
 	if REGION=USA
 		include	"Level/USA Legacy R72 Graphics Tail Corrected.asm"
 	else
-		include	"Level/Stardust Speedway/Data/R72C Padding3 Non-USA Continuation.asm"
+		include	"Level/Stardust Speedway/Data/R72A Padding3 Non-USA Continuation.asm"
 		include	"Level/Shared Non-USA Padding3 Mapping Suffix.asm"
 	endif
 	include	"Level/Shared Padding3 Mapping Tail.asm"
