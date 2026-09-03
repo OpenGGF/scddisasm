@@ -380,6 +380,8 @@ DisplayFunctions:
 	tst.b	$200026.l
 	rts
 	dc.b	$4A,$39,$00,$20,$00,$27,$4E,$75
+; Run the per-frame display and screen-state update sequence.
+ThankYou_UpdateDisplay:
 L_FF346A:
 	bsr.w	L_FF352A
 	bsr.w	L_FF34C4
@@ -407,6 +409,8 @@ L_FF347C:
 	dc.l	$002933FC
 	dc.l	$000B0020
 	dc.l	$002A4E75
+; Reset display command state and install the SONICCD marker.
+ThankYou_ResetDisplayCommand:
 L_FF34C4:
 	move.b	#$0, $200029.l
 	move.w	#$c, $20002a.l
@@ -424,6 +428,8 @@ L_FF34E8:
 	move.b	(a0)+, (a1)+
 	movem.l	(a7)+, a0-a1
 	rts
+; Dispatch the pending display command or scripted screen-data command.
+ThankYou_DispatchDisplayCommand:
 L_FF3500:
 	bsr.w	DisplayFunctions
 	bne.b	L_FF351E
@@ -436,6 +442,8 @@ L_FF351E:
 L_FF3522:
 	tst.b	$200021.l
 	rts
+; Advance the display state and return its transition result.
+ThankYou_AdvanceDisplayState:
 L_FF352A:
 	jsr	L_FF22EE.l
 	bsr.w	L_FF35B4
@@ -474,6 +482,8 @@ L_FF35A8:
 L_FF35AE:
 	move.w	#$fffe, d0
 	rts
+; Probe the cartridge/CD signatures and return the hardware status.
+ThankYou_ProbeHardwareSignatures:
 L_FF35B4:
 	btst.b	#$7, $400001.l
 	beq.b	L_FF35E4
@@ -561,6 +571,8 @@ L_FF36C0:
 	dc.l	$00FF36F2-ThankYouEarlyShift
 	dc.b	$61,$00,$FE,$04,$13,$FC,$00,$08,$00,$20,$00,$20,$60,$00,$FE
 	dc.b	$10,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$2A,$00
+; Select screen-data command 2 and dispatch it.
+ThankYou_SelectScreenData2:
 L_FF36FE:
 	jsr	L_FF22EE.l
 	move.b	#$2, $200020.l
