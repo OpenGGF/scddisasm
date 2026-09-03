@@ -4,6 +4,8 @@
 ; +$01C2-+$11C1 retained shared collision-row profile map
 ; +$11C2-+$14E1 retained Act 1 Past collision-index map
 ; +$152A-+$164B retained Act 1 Past foreground layout
+; +$1668-+$172F retained GHZ2 fallback foreground layout
+; +$1734-+$1855 retained GHZ3 fallback foreground layout
 ; ------------------------------------------------------------------------------
 
 	dc.b	$2E
@@ -102,72 +104,18 @@ R32CRetainedAct1PastForeground:
 	dc.b	$6B
 	dcb.b	7,$66
 	dcb.b	5,0
-	dc.b	$20, 5
-	dcb.b	$21,0
-	dc.b	$E, $2B, $16, $1C, 5, $2B, $16, 2, $37
-	dcb.b	$C,0
-	dc.b	$21, 3
-	dcb.b	4,0
-	dc.b	$21, $31, $24
-	dcb.b	3,0
-	dc.b	$C, $D, 6, $C, $1E, $D, $15, $11, $25, $32, $2B, $B, $2D
-	dc.b	$B5, $2D, 7, $24, $12, $38, $24, $2D, $26, 8, 5, $2B, $B
-	dc.b	$21, $26, $1F, $F
-	dcb.b	3,0
-	dcb.b	4,$1E
-	dc.b	$A, $17
-	dcb.b	2,$1E
-	dcb.b	2,$C
-	dc.b	$D, $19, $11, 8, $17
-	dcb.b	8,$1E
-	dc.b	$18, $D, 8, $23, $11, $20, $25
-	dcb.b	3,$2D
-	dcb.b	$10,$1E
-	dcb.b	5,0
-	dcb.b	2,$1E
-	dc.b	$A, $17, $1E, $11, 8, $1D, 9
-	dcb.b	2,$1E
-	dcb.b	$17,0
-	dcb.b	$A,$1E
-	dcb.b	5,0
-	dc.b	$2F, 5
-	dcb.b	$E,0
-	dc.b	$2D, $37
-	dcb.b	$2C,0
-	dc.b	$13, $38, $18, $F
-	dcb.b	$23,0
-	dc.b	$13, $38, $24, $14, 0, $13, $38, $27, 2, $1A, $26, $1F, $F
-	dcb.b	2,0
-	dc.b	$14, $21, $2D
-	dcb.b	3,0
-	dc.b	$13
-	dcb.b	2,$33
-	dc.b	$10, $24, $2C
-	dcb.b	$12,0
-	dc.b	$2D, $37, $16, $1B, $23, $25, $1A, 3, 6, $26, $1F
-	dcb.b	3,$1E
-	dc.b	$20, $25, $B5, $31, $1B, $23, $11
-	dcb.b	2,$33
-	dc.b	2, $1A
-	dcb.b	2,$34
-	dc.b	$19, $25, 6, $31, $27, 0, $16, 2, 7, 2, $37
-	dcb.b	3,$2D
-	dcb.b	2,$3C
-	dcb.b	2,$2D
-	dcb.b	3,0
-	dc.b	$1E, $F, $15
-	dcb.b	7,$1E
-	dc.b	$20, $1F
-	dcb.b	6,$1E
-	dc.b	$C, $11, 9
-	dcb.b	2,$34
-	dc.b	$11
-	dcb.b	4,$1E
-	dcb.b	$1D,0
-	dcb.b	2,$1E
-	dc.b	$20, $11, 8, 9, $A, $1D, 9
-	dcb.b	6,$1E
-	dcb.b	$20,0
+
+; Complete retained 200-byte Green Hill Zone Act 2 fallback foreground layout.
+R32CRetainedGHZ2Foreground:
+	incbin	"maps/ghz2_foreground.bin"
+
+	dc.b	0, 0, 0, 0
+
+; Complete retained 290-byte Green Hill Zone Act 3 fallback foreground layout.
+R32CRetainedGHZ3Foreground:
+	incbin	"maps/ghz3_foreground.bin"
+
+	dc.b	0, 0, 0, 0, 0, 0, 0, 0
 	dc.b	8, $F4, $FC, 1, 8, $11, $C, 0, 2, $EC, $F
 	dcb.b	2,0
 	dc.b	$F8
