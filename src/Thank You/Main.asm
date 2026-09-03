@@ -289,6 +289,8 @@ LoadSecondGraphics:
 	dc.l	$00800000
 	dc.l	$51C9FFE4
 	dc.b	$4E,$75
+; Dispatch the selected screen-data command and store its result.
+ThankYou_DispatchScreenDataCommand:
 ScreenData:
 	moveq	#$0, d0
 	move.b	$200020.l, d0
