@@ -567,6 +567,7 @@ opaque merely because they use `dc.*`.
 | M354 | Complete | Name the ending-FMV command-block and event-playback lifecycle handlers and update their dispatch references. | J/U/E 133/133 each; audit/hygiene clean. |
 | M355 | Complete | Route the Thank You palette fade/step call graph through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M356 | Complete | Route the Thank You object-update pipeline through semantic callers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M357 | Complete | Route the Thank You display/screen-data pipeline through semantic callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

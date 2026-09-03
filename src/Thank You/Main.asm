@@ -85,7 +85,7 @@ CommandTable:
 	dc.b	$00
 	dc.b	$04,$00,$3C
 MainLoop:
-	bsr.w	L_FF346A
+	bsr.w	ThankYou_UpdateDisplay
 	bne.b	MainLoop
 	bsr.w	BuildObjectList
 	bsr.w	WritePalette
@@ -246,7 +246,7 @@ L_FF22EC:
 ThankYou_WaitSubCpuReady:
 L_FF22EE:
 	btst.b	#$0, $a12003.l
-	beq.b	L_FF22EE
+	beq.b	ThankYou_WaitSubCpuReady
 	rts
 WaitSubCPUStart:
 	btst.b	#$7, $a1200f.l
@@ -393,8 +393,8 @@ DisplayFunctions:
 ; Run the per-frame display and screen-state update sequence.
 ThankYou_UpdateDisplay:
 L_FF346A:
-	bsr.w	L_FF352A
-	bsr.w	L_FF34C4
+	bsr.w	ThankYou_AdvanceDisplayState
+	bsr.w	ThankYou_ResetDisplayCommand
 	bsr.w	L_FF347C
 	rts
 	dc.l	$600002E6
@@ -441,26 +441,26 @@ L_FF34E8:
 ; Dispatch the pending display command or scripted screen-data command.
 ThankYou_DispatchDisplayCommand:
 L_FF3500:
-	bsr.w	DisplayFunctions
+	bsr.w	ThankYou_CheckDisplayUpdatePending
 	bne.b	L_FF351E
 	move.b	$ff0f1f.l, $200028.l
 	jsr	GiveWordRAMAccess.l
-	jsr	L_FF22EE.l
+	jsr	ThankYou_WaitSubCpuReady.l
 	bra.b	L_FF3522
 L_FF351E:
-	bsr.w	ScreenData
+	bsr.w	ThankYou_DispatchScreenDataCommand
 L_FF3522:
 	tst.b	$200021.l
 	rts
 ; Advance the display state and return its transition result.
 ThankYou_AdvanceDisplayState:
 L_FF352A:
-	jsr	L_FF22EE.l
+	jsr	ThankYou_WaitSubCpuReady.l
 	bsr.w	L_FF35B4
 	bne.w	L_FF355A
 	move.b	#$1, $200026.l
 	move.b	#$1, $200020.l
-	bsr.b	L_FF3500
+	bsr.b	ThankYou_DispatchDisplayCommand
 	tst.b	$200021.l
 	beq.b	L_FF3564
 	tst.w	$200024.l
@@ -469,15 +469,15 @@ L_FF355A:
 	move.b	#$0, $200027.l
 	bra.b	L_FF3570
 L_FF3564:
-	bsr.w	L_FF36FE
+	bsr.w	ThankYou_SelectScreenData2
 	move.b	#$1, $200027.l
 L_FF3570:
 	move.b	#$0, $200026.l
 	move.b	#$1, $200020.l
-	bsr.w	L_FF3500
+	bsr.w	ThankYou_DispatchDisplayCommand
 	tst.b	$200021.l
 	bne.b	L_FF35A8
-	bsr.w	L_FF36FE
+	bsr.w	ThankYou_SelectScreenData2
 	tst.b	$200027.l
 	beq.b	L_FF359E
 	move.w	#$0, d0
@@ -584,9 +584,9 @@ L_FF36C0:
 ; Select screen-data command 2 and dispatch it.
 ThankYou_SelectScreenData2:
 L_FF36FE:
-	jsr	L_FF22EE.l
+	jsr	ThankYou_WaitSubCpuReady.l
 	move.b	#$2, $200020.l
-	bra.w	L_FF3500
+	bra.w	ThankYou_DispatchDisplayCommand
 	dc.w	$4EB9
 	dc.l	$00FF22EE-ThankYouEarlyShift
 	dc.w	$13FC
@@ -598,9 +598,9 @@ L_FF36FE:
 	dc.l	$00200020
 	dc.l	$6000FDCE
 L_FF3734:
-	jsr	L_FF22EE.l
+	jsr	ThankYou_WaitSubCpuReady.l
 	move.b	#$a, $200020.l
-	bra.w	L_FF3500
+	bra.w	ThankYou_DispatchDisplayCommand
 	dc.w	$4EB9
 	dc.l	$00FF22EE-ThankYouEarlyShift
 	dc.b	$13,$FC,$00,$05,$00,$20,$00,$20,$61,$00,$FD,$AA,$66,$04,$61,$00
@@ -763,7 +763,7 @@ VInterrupt:
 	movem.l	d0-d7/a0-a6, -(a7)
 	move.b	#$1, $a12000.l
 	tst.b	$FFFFBA42.w
-	beq.w	L_FF3BC2
+	beq.w	ThankYou_VIntIdleUpdate
 	move.b	#$0, $FFFFBA42.w
 	lea.l	$c00004.l, a1
 	lea.l	$c00000.l, a2
