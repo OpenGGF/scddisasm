@@ -1141,7 +1141,6 @@ L_FF2A66:
 	jmp (a0, d0.w)
 ; Dispatch offsets for each time-period animation frame.
 TimeAttack_TimePeriodAnimationDispatchTable:
-AnimationDispatchTable:
 	dc.b	$00,$44
 	dc.l	$00440044,$00440044,$00460044,$0044004E,$00440044,$00A40044,$00440044,$00440044,$00440044,$00440044,$00440044,$00A40044,$00440044,$00440044,$004E0044,$00440046
 	dc.b	$00,$44
@@ -2294,7 +2293,6 @@ L_FF338E:
 	dc.l	$4A390020,$0000670E,$588F33FC,$FFFF00FF,$34746000,$F5564E75
 ; Wait for the requested number of V-blank transfer slots.
 TimeAttack_WaitFrames:
-L_FF33A8:
 	movem.l d0, -(a7)
 L_FF33AC:
 	movem.l $8(a7), d0
@@ -2310,7 +2308,6 @@ L_FF33C6:
 	rts
 ; Select the regional Sub CPU command, send it, and wait for readiness.
 TimeAttack_SendSubCpuCommandWithReadyWait:
-L_FF33C8:
 	bsr.w TimeAttack_RequestSubCpu
 L_FF33CC:
 	move.w #$8b, d0
@@ -2326,7 +2323,6 @@ L_FF33E2:
 	bra.w TimeAttack_WaitSubCpuReady
 ; Select and send the regional Sub CPU command without an extra wait.
 TimeAttack_SendSubCpuCommandNoWait:
-L_FF33E6:
 	bsr.w TimeAttack_RequestSubCpu
 L_FF33EA:
 	move.w #$8c, d0
@@ -2340,7 +2336,6 @@ L_FF33FC:
 	bra.w TimeAttack_SendSubCpuCommand
 ; Send a command through the Sub CPU mailbox and wait for its acknowledgement.
 TimeAttack_SendSubCpuCommand:
-L_FF3400:
 	move.w d0, $a12010.l
 L_FF3406:
 	move.w $a12020.l, d0
@@ -2364,7 +2359,6 @@ L_FF342E:
 	rts
 ; Wait until the Sub CPU ready bit is asserted.
 TimeAttack_WaitSubCpuReady:
-L_FF3430:
 	btst.b #$0, $a12003.l
 L_FF3438:
 	beq.b TimeAttack_WaitSubCpuReady
@@ -2372,7 +2366,6 @@ L_FF343A:
 	rts
 ; Request the Sub CPU handoff and wait until the request bit is set.
 TimeAttack_RequestSubCpu:
-L_FF343C:
 	bset.b #$1, $a12003.l
 L_FF3444:
 	btst.b #$1, $a12003.l
@@ -2383,7 +2376,6 @@ L_FF344E:
 	dc.l	$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000
 ; Wait for the VDP transfer busy counter to clear.
 TimeAttack_WaitVdpTransfer:
-L_FF3480:
 	tst.w $ff3730.l
 L_FF3486:
 	bne.b TimeAttack_WaitVdpTransfer
@@ -2413,7 +2405,6 @@ L_FF34BC:
 	rte
 ; Dispatch offsets for VInterrupt transfer slots.
 TimeAttack_VIntTransferDispatchTable:
-ReadDispatchTable:
 	dc.b	$00,$2A
 	dc.l	$002A004C,$00120080,$00B000FE,$010600D8
 ; Write the current transfer value to the VDP and finish the interrupt slot.
@@ -2629,7 +2620,6 @@ L_FF376C:
 	rts
 ; Move one selected palette channel toward its target values.
 TimeAttack_StepPaletteChannelIn:
-L_FF376E:
 	lea.l $ffd0a0.l, a1
 L_FF3774:
 	lea.l $ff524c.l, a2
@@ -2707,7 +2697,6 @@ L_FF37D2:
 	rts
 ; Reduce one selected palette channel toward black.
 TimeAttack_StepPaletteChannelOut:
-L_FF37D4:
 	lea.l $ffd0a0.l, a1
 L_FF37DA:
 	moveq #$3f, d7
@@ -2741,7 +2730,6 @@ L_FF3802:
 	bra.w TimeAttack_WaitVdpTransfer
 ; Initialize all VDP registers from the 19-byte register table.
 TimeAttack_SetVdpRegisters:
-L_FF3806:
 	movem.l d0-d1/a0, -(a7)
 L_FF380A:
 	movem.l $10(a7), a0
@@ -2763,7 +2751,6 @@ L_FF382A:
 	rts
 ; Fill a VDP rectangle with one word.
 TimeAttack_FillVdpRect:
-L_FF382C:
 	movem.l d0-d5/a1-a2, -(a7)
 L_FF3830:
 	movem.l $24(a7), d0-d4
@@ -2793,7 +2780,6 @@ L_FF385A:
 	rts
 ; Copy a word rectangle from RAM to the VDP.
 TimeAttack_CopyVdpRect:
-L_FF385C:
 	movem.l d0-d4/a0-a2, -(a7)
 L_FF3860:
 	movem.l $24(a7), d0-d3/a0
@@ -2829,7 +2815,6 @@ L_FF388C:
 	dc.b	$4E,$75
 ; Halt the Z80 and save the current interrupt mask.
 TimeAttack_HaltZ80:
-L_FF38EE:
 	move.w sr, $ff391c.l
 L_FF38F4:
 	move.w #$2700, sr
@@ -2843,7 +2828,6 @@ L_FF390A:
 	rts
 ; Release the Z80 and restore the saved interrupt mask.
 TimeAttack_ReleaseZ80:
-L_FF390C:
 	move.w #$0, $a11100.l
 L_FF3914:
 	move.w $ff391c.l, sr
@@ -2852,7 +2836,6 @@ L_FF391A:
 	dc.b	$00,$00
 ; Read the multiplexed player-one controller state.
 TimeAttack_ReadController1:
-L_FF391E:
 	movem.l d1, -(a7)
 L_FF3922:
 	move.b #$0, $a10003.l
@@ -2882,7 +2865,6 @@ L_FF3954:
 	rts
 ; Stream eight rotated passes of a RAM buffer to the VDP.
 TimeAttack_UploadRotatedVdpData:
-L_FF3956:
 	movem.l d0-d3/a0-a3, -(a7)
 L_FF395A:
 	movem.l $24(a7), d0/a0-a1
