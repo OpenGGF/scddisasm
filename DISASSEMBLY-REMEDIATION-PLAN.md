@@ -480,6 +480,7 @@ opaque merely because they use `dc.*`.
 | M271 | Complete | Structure the shared orphan stage descriptor and PLC graph with typed fields and a label-relative 19-entry selector table. | J/U/E 133/133 each; audit/hygiene clean. |
 | M272 | Complete | Reuse the shared helper/PLC graph provider for the byte-identical USA R32A retained block. | J/U/E 133/133 each; audit/hygiene clean. |
 | M273 | Complete | Reuse the complete R31C Padding 3 provider for the byte-identical R31B/R31D suffixes, beginning at `$2730` and `$00D2`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M274 | Complete | Reuse the complete R31C Padding 3 provider for the byte-identical R32A Padding 3 suffix at `$07C4-$2E21`. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
