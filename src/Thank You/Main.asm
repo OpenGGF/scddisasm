@@ -384,6 +384,8 @@ L_FF240A:
 	dc.b	$19,$1F,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 	dcb.b	$B, 0
 	dc.b	$61,$00,$00,$16,$66,$02,$42,$00,$13,$C0,$00,$20,$00,$26,$4E,$75
+; Return whether the display-update path is currently pending.
+ThankYou_CheckDisplayUpdatePending:
 DisplayFunctions:
 	tst.b	$200026.l
 	rts
