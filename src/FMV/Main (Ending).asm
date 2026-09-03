@@ -180,6 +180,8 @@ L_FF2190:
 	bne.b	L_FF218C
 L_FF2192:
 	rts
+; Offsets for ending-FMV main-loop state handlers.
+Ending_MainStateDispatchTable:
 MainDispatchTable:
 	if REGION=USA
 	dc.l	$019C019C
@@ -233,6 +235,8 @@ MainDispatchTable:
 	dc.l	$0308032A
 	dc.w	$034C
 	endif
+; Dispatch the active ending-FMV command from Word RAM.
+Ending_DispatchWordRamCommand:
 L_FF21D2:
 	lea.l	$200000.l, a0
 L_FF21D8:
