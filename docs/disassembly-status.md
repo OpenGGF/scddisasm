@@ -132,7 +132,7 @@ validated separately against a regional CHD.
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `ATTACK.BIN` | `Time Attack/Sub.asm` | S | Mostly semantic | Mostly classified | Residual unknown fields/tables | Mostly classified | J/U/E | J/U/E 2026-09-01 | Inventory residual labels and data |
-| `ATTACK.MMD` | `Time Attack/Main.asm` | L | Legacy | Opaque/mixed | About 1,600 address labels and a packed suffix; synchronization, VDP, period, time, and VInterrupt helpers now have semantic aliases | Mixed | J/U/E | J/U/E 2026-09-03 (M309) | Recover one Time Attack routine family |
+| `ATTACK.MMD` | `Time Attack/Main.asm` | L | Legacy | Opaque/mixed | About 1,600 address labels and a packed suffix; synchronization, VDP, period, time, VInterrupt, and transfer helpers now have semantic aliases | Mixed | J/U/E | J/U/E 2026-09-03 (M310) | Recover one Time Attack routine family |
 | `BADEND.BIN` | `FMV/Sub (Ending).asm` | S | Mostly semantic | Mostly classified | Residual unknown fields/tables | Mostly classified | J/U/E DATAFILE=1 | J/U/E 2026-09-01 | Inventory residual labels and data |
 | `COME__.MMD` | `Comin Soon/Main.asm` | S | Mostly semantic | Mostly classified | Residual unknown fields/tables | Mostly classified | J/U/E | J/U/E 2026-09-01 | Inventory residual labels and data |
 | `ENDING.MMD` | `FMV/Main (Ending).asm` | L | Legacy | Opaque/mixed | 822 address labels and a large source-emitted image | Mixed | J/U/E | J/U/E 2026-09-01 | Recover one ending-FMV routine/data family |

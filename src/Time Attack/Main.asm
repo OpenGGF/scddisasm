@@ -2691,6 +2691,8 @@ L_FF37FA:
 	move.w #$6, $ff3730.l
 L_FF3802:
 	bra.w L_FF3480
+; Initialize all VDP registers from the 19-byte register table.
+TimeAttack_SetVdpRegisters:
 L_FF3806:
 	movem.l d0-d1/a0, -(a7)
 L_FF380A:
@@ -2711,6 +2713,8 @@ L_FF3826:
 	movem.l (a7)+, d0-d1/a0
 L_FF382A:
 	rts
+; Fill a VDP rectangle with one word.
+TimeAttack_FillVdpRect:
 L_FF382C:
 	movem.l d0-d5/a1-a2, -(a7)
 L_FF3830:
@@ -2739,6 +2743,8 @@ L_FF3856:
 	movem.l (a7)+, d0-d5/a1-a2
 L_FF385A:
 	rts
+; Copy a word rectangle from RAM to the VDP.
+TimeAttack_CopyVdpRect:
 L_FF385C:
 	movem.l d0-d4/a0-a2, -(a7)
 L_FF3860:
