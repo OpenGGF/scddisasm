@@ -68,7 +68,7 @@ L_FF2070:
 L_FF2074:
 	move.w #$6, $ff3730.l
 L_FF207C:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF2080:
 	pea.l $ff5238.l
 L_FF2086:
@@ -410,7 +410,7 @@ L_FF23D2:
 L_FF23DA:
 	move.w #$2, $ff3730.l
 L_FF23E2:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF23E6:
 	move.w #$8174, $c00004.l
 L_FF23EE:
@@ -458,7 +458,7 @@ L_FF244A:
 L_FF2450:
 	move.w #$2, $ff3730.l
 L_FF2458:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF245C:
 	st.b $ff347e.l
 L_FF2462:
@@ -482,7 +482,7 @@ L_FF2482:
 L_FF2486:
 	move.w #$e, $ff3730.l
 L_FF248E:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF2492:
 	tst.w $ff346c.l
 L_FF2498:
@@ -520,7 +520,7 @@ L_FF24D2:
 L_FF24D4:
 	move.w #$10, $ff3730.l
 L_FF24DC:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF24E0:
 	dbra d7, L_FF24D4
 L_FF24E4:
@@ -600,13 +600,13 @@ L_FF2572:
 L_FF2576:
 	move.w #$10, $ff3730.l
 L_FF257E:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF2582:
 	move.w #$0, $ffaa5a.l
 L_FF258A:
 	move.w #$10, $ff3730.l
 L_FF2592:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF2596:
 	bra.w L_FF2492
 L_FF259A:
@@ -626,7 +626,7 @@ L_FF25B8:
 L_FF25BE:
 	move.w #$4, $ff3730.l
 L_FF25C6:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF25CA:
 	bra.w L_FF2492
 L_FF25CE:
@@ -724,7 +724,7 @@ L_FF26A4:
 L_FF26A8:
 	move.w #$10, $ff3730.l
 L_FF26B0:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF26B4:
 	moveq #$f8, d0
 L_FF26B6:
@@ -752,7 +752,7 @@ L_FF26E2:
 L_FF26E8:
 	move.w #$10, $ff3730.l
 L_FF26F0:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF26F4:
 	bra.w L_FF26C8
 L_FF26F8:
@@ -802,7 +802,7 @@ L_FF2758:
 L_FF275E:
 	move.w #$10, $ff3730.l
 L_FF2766:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF276A:
 	bra.w L_FF273E
 L_FF276E:
@@ -828,7 +828,7 @@ L_FF279A:
 L_FF279C:
 	move.w #$e, $ff3730.l
 L_FF27A4:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF27A8:
 	bsr.w L_FF3138
 L_FF27AC:
@@ -954,7 +954,7 @@ L_FF28B0:
 L_FF28B4:
 	move.w #$10, $ff3730.l
 L_FF28BC:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF28C0:
 	dbra d7, L_FF28A6
 L_FF28C4:
@@ -976,7 +976,7 @@ L_FF28E6:
 L_FF28EA:
 	move.w #$10, $ff3730.l
 L_FF28F2:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF28F6:
 	bra.w L_FF2810
 L_FF28FA:
@@ -1098,7 +1098,7 @@ L_FF2A1A:
 L_FF2A20:
 	move.w #$8, $ff3730.l
 L_FF2A28:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF2A2C:
 	dbra d6, L_FF2A10
 L_FF2A30:
@@ -1370,7 +1370,7 @@ L_FF2C4A:
 L_FF2C4C:
 	move.w d0, $ff3730.l
 L_FF2C52:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF2C56:
 	pea.l $ffaa60.l
 L_FF2C5C:
@@ -2028,7 +2028,7 @@ L_FF3192:
 L_FF3196:
 	move.w #$10, $ff3730.l
 L_FF319E:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF31A2:
 	tst.b $ff3735.l
 L_FF31A8:
@@ -2092,7 +2092,7 @@ L_FF320E:
 L_FF3210:
 	move.w #$10, $ff3730.l
 L_FF3218:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF321C:
 	bra.b L_FF31F6
 L_FF321E:
@@ -2301,7 +2301,7 @@ L_FF33AC:
 L_FF33B2:
 	move.w #$10, $ff3730.l
 L_FF33BA:
-	bsr.w L_FF3480
+	bsr.w TimeAttack_WaitVdpTransfer
 L_FF33BE:
 	dbra d0, L_FF33B2
 L_FF33C2:
@@ -2386,7 +2386,7 @@ TimeAttack_WaitVdpTransfer:
 L_FF3480:
 	tst.w $ff3730.l
 L_FF3486:
-	bne.b L_FF3480
+	bne.b TimeAttack_WaitVdpTransfer
 L_FF3488:
 	rts
 VInterrupt:
@@ -2664,7 +2664,7 @@ L_FF3798:
 L_FF379C:
 	move.w #$6, $ff3730.l
 L_FF37A4:
-	bra.w L_FF3480
+	bra.w TimeAttack_WaitVdpTransfer
 ; Lower palette channels toward black for the selection transition.
 TimeAttack_FadePaletteOut:
 L_FF37A8:
@@ -2738,7 +2738,7 @@ L_FF37F6:
 L_FF37FA:
 	move.w #$6, $ff3730.l
 L_FF3802:
-	bra.w L_FF3480
+	bra.w TimeAttack_WaitVdpTransfer
 ; Initialize all VDP registers from the 19-byte register table.
 TimeAttack_SetVdpRegisters:
 L_FF3806:
