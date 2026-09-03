@@ -1151,6 +1151,8 @@ L_FF2AB2:
 	bsr.w L_FF30EC
 L_FF2AB6:
 	rts
+; Upload the selected stage or period title tile row.
+TimeAttack_UploadSelectionTitleRow:
 L_FF2AB8:
 	move.l #$1, -(a7)
 L_FF2ABE:
