@@ -572,6 +572,7 @@ opaque merely because they use `dc.*`.
 | M359 | Complete | Route the Thank You startup graphics, palette, and frame-exit callers through semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M360 | Complete | Make the connected Time Attack semantic routine and table labels canonical. | J/U/E 133/133 each; audit/hygiene clean. |
 | M361 | Complete | Make the connected Thank You semantic routine and table labels canonical. | J/U/E 133/133 each; audit/hygiene clean. |
+| M362 | Complete | Canonicalize the Thank You Nemesis/Enigma decoder entry points and shared bit readers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

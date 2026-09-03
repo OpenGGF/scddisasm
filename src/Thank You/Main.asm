@@ -256,9 +256,9 @@ WaitSubCPUStop:
 LoadFirstGraphics:
 	move.l	#$40200000, $c00004.l
 	lea.l	$210452.l, a0
-	bsr.w	NemesisDisplayDecode
+	bsr.w	ThankYou_DecodeNemesisToVdp
 	moveq	#$0, d0
-	jsr	EnigmaDecode(pc)
+	jsr	ThankYou_DecodeEnigmaToVdp(pc)
 	rts
 	dc.b	$45,$F9,$00,$C0,$00,$04,$43,$F9,$00,$21,$0A,$1C,$3C,$3C,$C0,$01
 	dc.b	$20,$3C,$40,$00,$00,$03,$32,$3C,$00,$1B,$24,$80,$34,$3C,$00,$27
@@ -267,9 +267,9 @@ LoadFirstGraphics:
 LoadSecondGraphics:
 	move.l	#$53600000, $c00004.l
 	lea.l	$210aaa.l, a0
-	bsr.w	NemesisDisplayDecode
+	bsr.w	ThankYou_DecodeNemesisToVdp
 	moveq	#$1, d0
-	jsr	EnigmaDecode(pc)
+	jsr	ThankYou_DecodeEnigmaToVdp(pc)
 	rts
 	dc.l	$45F900C0
 	dc.l	$000443F9
@@ -1187,7 +1187,7 @@ L_FF3F66:
 	lea.l	L_FF3F86(pc), a0
 	move.l	-$8(a0, d1.w), (a5)
 	movea.l	-$4(a0, d1.w), a0
-	jsr	NemesisDisplayDecode(pc)
+	jsr	ThankYou_DecodeNemesisToVdp(pc)
 L_FF3F7E:
 	ror.l	#$8, d0
 	dbra	d2, L_FF3F66
@@ -1197,7 +1197,8 @@ L_FF3F86:
 	dc.b	$20,$00,$00,$00,$21,$00,$00,$44,$E0,$00,$01,$00,$21,$16,$F0,$78
 	dc.b	$E0,$00,$01,$00,$21,$2E,$70,$57,$20,$00,$02,$00,$21,$3C,$F0,$70
 	dc.b	$A0,$00,$02,$00,$21,$57,$C4
-NemesisDisplayDecode:
+; Decode one Nemesis stream directly into VDP tiles.
+ThankYou_DecodeNemesisToVdp:
 	movem.l	d0-d7/a0-a1/a3-a5, -(a7)
 	lea.l	L_FF4078.l, a3
 	lea.l	$c00000.l, a4
@@ -1217,19 +1218,20 @@ L_FF3FD8:
 	moveq	#$8, d3
 	moveq	#$0, d2
 	moveq	#$0, d4
-	jsr	ReadNemesisByte(pc)
+	jsr	ThankYou_ReadNemesisByte(pc)
 	move.b	(a0)+, d5
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
 	move.w	#$10, d6
-	bsr.b	L_FF4000
+	bsr.b	ThankYou_DecodeNemesisCode
 	nop
 	nop
 	nop
 	nop
 	movem.l	(a7)+, d0-d7/a0-a1/a3-a5
 	rts
-L_FF4000:
+; Decode one Nemesis codeword and emit its pixel run.
+ThankYou_DecodeNemesisCode:
 	move.w	d6, d7
 	subq.w	#$8, d7
 	move.w	d5, d1
@@ -1264,7 +1266,7 @@ L_FF4042:
 	moveq	#$8, d3
 L_FF4046:
 	dbra	d0, L_FF4038
-	bra.b	L_FF4000
+	bra.b	ThankYou_DecodeNemesisCode
 L_FF404C:
 	subq.w	#$6, d6
 	cmpi.w	#$9, d6
@@ -1304,7 +1306,8 @@ L_FF408E:
 	dc.l	$B98228C2
 	dc.l	$534D380D
 	dc.l	$66A04E75
-ReadNemesisByte:
+; Read one Nemesis control byte and update the decode table.
+ThankYou_ReadNemesisByte:
 	move.b	(a0)+, d0
 L_FF40A6:
 	cmpi.b	#$ff, d0
@@ -1343,7 +1346,8 @@ L_FF40EA:
 	addq.w	#$2, d0
 	dbra	d5, L_FF40EA
 	bra.b	L_FF40B0
-EnigmaDecode:
+; Decode an Enigma stream into VDP tiles.
+ThankYou_DecodeEnigmaToVdp:
 	andi.l	#$ffff, d0
 	mulu.w	#$e, d0
 	lea.l	L_FF4142.l, a1
@@ -1352,7 +1356,7 @@ EnigmaDecode:
 	move.w	(a1)+, d0
 	move.l	a1, -(a7)
 	lea.l	$FFFFA800.w, a1
-	bsr.w	ReadEnigmaData
+	bsr.w	ThankYou_DecodeEnigmaToRam
 	movea.l	(a7)+, a1
 	move.w	(a1)+, d3
 	move.w	(a1)+, d2
@@ -1372,7 +1376,8 @@ L_FF4142:
 	dc.b	$00
 	dc.b	$21,$0A,$1C,$C0,$01,$00,$27,$00,$1B,$40,$00,$00,$03,$00,$21,$15
 	dc.b	$40,$20,$9B,$00,$27,$00,$1B,$60,$00,$00,$03
-ReadEnigmaData:
+; Decode Enigma words into the caller-provided RAM buffer.
+ThankYou_DecodeEnigmaToRam:
 	nop
 	nop
 	movem.l	d0-d7/a1-a5, -(a7)
@@ -1403,7 +1408,7 @@ L_FF4182:
 	moveq	#$6, d0
 	lsr.w	#$1, d2
 L_FF419C:
-	bsr.w	ReadSine
+	bsr.w	ThankYou_RefillEnigmaBits
 	andi.w	#$f, d2
 	lsr.w	#$4, d1
 	add.w	d1, d1
@@ -1436,14 +1441,13 @@ L_FF41F8:
 	dc.b	$3F,$FF,$7F,$FF,$FF,$FF
 ; Refill the Enigma decoder bit buffer when fewer than nine bits remain.
 ThankYou_RefillEnigmaBits:
-ReadSine:
 	sub.w	d0, d6
 	cmpi.w	#$9, d6
-	bcc.b	L_FF42DE
+	bcc.b	ThankYou_RefillEnigmaBitsDone
 	addq.w	#$8, d6
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
-L_FF42DE:
+ThankYou_RefillEnigmaBitsDone:
 	rts
 ; Find the first empty object slot in the secondary object pool.
 ThankYou_FindFirstEmptyObject:
