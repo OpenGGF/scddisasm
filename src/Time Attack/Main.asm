@@ -2486,6 +2486,8 @@ L_FF35B4:
 	move.b d2, $ff3735.l
 L_FF35BA:
 	rts
+; Advance the animated tile-strip transfer for the active selection.
+TimeAttack_VIntAdvanceTileAnimation:
 L_FF35BC:
 	move.w #$0, $ff3732.l
 L_FF35C4:
