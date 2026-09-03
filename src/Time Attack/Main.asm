@@ -1193,6 +1193,8 @@ L_FF2B08:
 	lea.l $14(a7), a7
 L_FF2B0C:
 	rts
+; Render the selected stage or period's three-record time table.
+TimeAttack_RenderSelectedTimeTable:
 L_FF2B0E:
 	lea.l $200000.l, a0
 L_FF2B14:
