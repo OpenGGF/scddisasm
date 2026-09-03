@@ -930,7 +930,8 @@ EndingPaletteData:
 	dc.l	$8F029003
 	dc.l	$91009200
 	dc.w	$0000
-ReadJoypad:
+; Read one controller port and update its edge-state bytes.
+Ending_ReadJoypad:
 	lea.l	$FFFFFA4A.w, a0
 	lea.l	$A10003.l, a1
 	bsr.b	.ReadPort
@@ -957,10 +958,8 @@ ReadJoypad:
 	rts
 ; Wait for the Word RAM ownership exchange to complete.
 Ending_WaitWordRamSwap:
-L_FF274E:
 	btst.b	#$1, $a1200f.l
-L_FF2756:
-	bne.b	L_FF27B6
+	bne.b	Ending_WaitWordRamSwapDone
 L_FF2758:
 	btst.b	#$0, $a1200f.l
 L_FF2760:
@@ -981,21 +980,16 @@ L_FF2780:
 	bclr.b	#$1, $a12003.l
 L_FF2788:
 	bset.b	#$0, $a1200e.l
-L_FF2790:
+Ending_WaitWordRamSwapPoll:
 	btst.b	#$1, $a12003.l
-L_FF2798:
-	bne.b	L_FF2790
-L_FF279A:
+	bne.b	Ending_WaitWordRamSwapPoll
 	btst.b	#$1, $a12003.l
-L_FF27A2:
-	bne.b	L_FF2790
-L_FF27A4:
+	bne.b	Ending_WaitWordRamSwapPoll
 	btst.b	#$1, $a12003.l
-L_FF27AC:
-	bne.b	L_FF2790
+	bne.b	Ending_WaitWordRamSwapPoll
 L_FF27AE:
 	bclr.b	#$0, $a1200e.l
-L_FF27B6:
+Ending_WaitWordRamSwapDone:
 	rts
 ; Clear the ending-FMV VDP name-table planes.
 Ending_ClearVdpNameTables:
@@ -1007,29 +1001,27 @@ L_FF27C8:
 	moveq	#$0, d0
 L_FF27CA:
 	moveq	#$7, d7
-L_FF27CC:
+Ending_ClearVdpNameTablesInitialLoop:
 	move.l	d0, (a6)
-L_FF27CE:
-	dbra	d7, L_FF27CC
+	dbra	d7, Ending_ClearVdpNameTablesInitialLoop
 L_FF27D2:
 	move.l	#$60000002, d0
 L_FF27D8:
 	move.w	#$27, d1
 L_FF27DC:
 	move.w	#$1b, d2
-L_FF27E0:
+Ending_ClearVdpNameTablesPlaneLoop:
 	move.l	d0, (a4)
-L_FF27E2:
+Ending_ClearVdpNameTablesRowCount:
 	move.l	d1, d3
-L_FF27E4:
+Ending_ClearVdpNameTablesRowLoop:
 	move.w	#$0, (a5)
-L_FF27E8:
-	dbra	d3, L_FF27E4
+	dbra	d3, Ending_ClearVdpNameTablesRowLoop
 L_FF27EC:
 	addi.l	#$1000000, d0
-L_FF27F2:
-	dbra	d2, L_FF27E0
-L_FF27F6:
+	dbra	d2, Ending_ClearVdpNameTablesPlaneLoop
+
+	; Return after both VDP name-table planes have been cleared.
 	rts
 ; Process one ending-FMV VBlank and its pending transfers.
 Ending_VBlankInterrupt:
@@ -1108,7 +1100,7 @@ Ending_VBlankAfterTransfer:
 L_FF289E:
 	move.w	$FFFFfa46.w, $c00004.l
 L_FF28A6:
-	jsr	ReadJoypad(pc)
+	jsr	Ending_ReadJoypad(pc)
 L_FF28AA:
 	addq.w	#$1, $FFFFfa44.w
 L_FF28AE:
