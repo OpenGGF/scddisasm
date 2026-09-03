@@ -1031,17 +1031,14 @@ L_FF27F2:
 	dbra	d2, L_FF27E0
 L_FF27F6:
 	rts
-L_FF27F8:
-	; Process one ending-FMV VBlank and its pending transfers.
-	Ending_VBlankInterrupt:
-	PrimaryVInterrupt:
+; Process one ending-FMV VBlank and its pending transfers.
+Ending_VBlankInterrupt:
 	movem.l	d0-d7/a0-a6, -(a7)
 L_FF27FC:
 	move.b	#$1, $a12000.l
 L_FF2804:
 	tst.b	$FFFFfa00.w
-L_FF2808:
-	beq.w	L_FF2908
+	beq.w	Ending_VBlankNoTimer
 L_FF280C:
 	clr.b	$FFFFfa00.w
 L_FF2810:
@@ -1066,17 +1063,16 @@ VBlankDispatchTable:
 	dc.l	$00500050
 	dc.l	$00500128
 	dc.l	$016201E4
-L_FF2842:
+Ending_VBlankRenderFrame:
 	move.l	#$64000003, $c00004.l
 L_FF284C:
 	move.l	#$2000000, (a5)
-L_FF2852:
-	bra.b	L_FF2864
-L_FF2854:
+	bra.b	Ending_VBlankTransferCommon
+Ending_VBlankRenderBlankFrame:
 	move.l	#$64000003, $c00004.l
 L_FF285E:
 	move.l	#$0, (a5)
-L_FF2864:
+Ending_VBlankTransferCommon:
 	move.l	#$c0000000, $c00004.l
 L_FF286E:
 	moveq	#$f, d7
@@ -1094,8 +1090,7 @@ L_FF2880:
 	clr.w	(a0)+
 L_FF2882:
 	tst.w	d7
-L_FF2884:
-	beq.b	L_FF2898
+	beq.b	Ending_VBlankAfterTransfer
 L_FF2886:
 	move.l	(a0)+, d0
 L_FF2888:
@@ -1108,7 +1103,7 @@ L_FF2890:
 	jsr	$2d4.w
 L_FF2894:
 	movem.l	(a7)+, d7/a0
-L_FF2898:
+Ending_VBlankAfterTransfer:
 	bset.b	#$6, $FFFFfa47.w
 L_FF289E:
 	move.w	$FFFFfa46.w, $c00004.l
@@ -1118,16 +1113,13 @@ L_FF28AA:
 	addq.w	#$1, $FFFFfa44.w
 L_FF28AE:
 	tst.b	$FFFFc094.w
-L_FF28B2:
-	beq.b	L_FF2908
+	beq.b	Ending_VBlankNoTimer
 L_FF28B4:
 	cmpi.w	#$2c, $FFFFfa44.w
-L_FF28BA:
-	blt.b	L_FF2908
+	blt.b	Ending_VBlankNoTimer
 L_FF28BC:
 	btst.b	#$0, $FFFFfa45.w
-L_FF28C2:
-	bne.b	L_FF2908
+	bne.b	Ending_VBlankNoTimer
 L_FF28C4:
 	move.l	#$40000010, $c00004.l
 L_FF28CE:
@@ -1144,8 +1136,7 @@ L_FF28E0:
 	movem.w	Ending_VBlankTileAnimationTable(pc, d0.w), d0-d1
 L_FF28E6:
 	tst.w	d0
-L_FF28E8:
-	bmi.b	L_FF2904
+	bmi.b	Ending_VBlankClearEventStop
 L_FF28EA:
 	move.l	#$c0560000, $c00004.l
 L_FF28F4:
@@ -1155,13 +1146,12 @@ L_FF28F6:
 L_FF2900:
 	move.w	d1, (a5)
 L_FF2902:
-	bra.b	L_FF2908
-L_FF2904:
+	bra.b	Ending_VBlankNoTimer
+Ending_VBlankClearEventStop:
 	clr.w	$FFFFc094.w
-L_FF2908:
+Ending_VBlankNoTimer:
 	tst.b	$FFFFc088.w
-L_FF290C:
-	beq.b	L_FF2924
+	beq.b	Ending_VBlankReturn
 L_FF290E:
 	jsr	Ending_ProcessEventStream(pc)
 L_FF2912:
@@ -1170,13 +1160,12 @@ L_FF291C:
 	move.w	#$0, (a5)
 L_FF2920:
 	move.w	$FFFFc08a.w, (a5)
-L_FF2924:
+Ending_VBlankReturn:
 	movem.l	(a7)+, d0-d7/a0-a6
 L_FF2928:
 	rte
 ; Per-frame tile words written by the ending VBlank handler.
 Ending_VBlankTileAnimationTable:
-VBlankTableData:
 	dc.l	$00000000
 	dc.l	$00000022
 	dc.l	$00000044
@@ -1220,7 +1209,7 @@ L_FF2982:
 L_FF2984:
 	dbra	d7, L_FF2982
 L_FF2988:
-	bra.w	L_FF2898
+	bra.w	Ending_VBlankAfterTransfer
 L_FF298C:
 	lea.l	$c00004.l, a4
 L_FF2992:
@@ -1286,7 +1275,7 @@ L_FF2A00:
 L_FF2A04:
 	move.w	#$7, $FFFFfa40.w
 L_FF2A0A:
-	bra.w	L_FF2898
+	bra.w	Ending_VBlankAfterTransfer
 L_FF2A0E:
 	bsr.w	Ending_ClearInitialVdpRows
 L_FF2A12:
@@ -1412,7 +1401,7 @@ L_FF2AFA:
 L_FF2AFE:
 	clr.w	$FFFFfa44.w
 L_FF2B02:
-	bra.w	L_FF2898
+	bra.w	Ending_VBlankAfterTransfer
 EndingAnimationData:
 	dc.l	$00100011
 	dc.l	$00120013

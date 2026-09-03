@@ -589,6 +589,7 @@ opaque merely because they use `dc.*`.
 | M376 | Complete | Canonicalize the ending-FMV startup/teardown loops and timer-wait control flow. | J/U/E 133/133 each; audit/hygiene clean. |
 | M377 | Complete | Canonicalize ending-FMV command-loader and event-lifecycle entry aliases and branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M378 | Complete | Canonicalize the ending-FMV event-stream emitter and initial VDP/Word RAM clear loops. | J/U/E 133/133 each; audit/hygiene clean. |
+| M379 | Complete | Canonicalize the ending-FMV VBlank transfer branches, common tail, and animation table aliases. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
