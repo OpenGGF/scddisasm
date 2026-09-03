@@ -2029,6 +2029,8 @@ L_FF31AC:
 	bsr.w L_FF3360
 L_FF31B0:
 	rts
+; Let the player edit the three initials for a newly earned record.
+TimeAttack_EnterRecordInitials:
 L_FF31B2:
 	moveq #$0, d0
 L_FF31B4:
@@ -2217,6 +2219,8 @@ L_FF331C:
 	moveq #$b, d2
 L_FF331E:
 	rts
+; Refresh the initials-entry tiles and blink the active character.
+TimeAttack_UpdateInitialsEntryDisplay:
 L_FF3320:
 	move.w $ffaa5a.l, d7
 L_FF3326:
