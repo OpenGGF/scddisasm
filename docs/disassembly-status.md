@@ -207,7 +207,7 @@ validated separately against a regional CHD.
 | `R52C__.MMD` | `Level/Quartz Quadrant/Act 2 Good Future.asm` | H | Partial | Mixed | Hybrid common/objects/rN graph and packed/retained data; R52B pre-chunks shared after `$0156` prefix | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-03 (M285) | Converge this zone graph, then classify data |
 | `R52D__.MMD` | `Level/Quartz Quadrant/Act 2 Bad Future.asm` | H | Partial | Mixed | Hybrid common/objects/rN graph and packed/retained data; R52B pre-chunks shared after `$005E` prefix | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-03 (M285) | Converge this zone graph, then classify data |
 | `R53C__.MMD` | `Level/Quartz Quadrant/Act 3 Good Future.asm` | H | Partial | Mixed | Hybrid common/objects/rN graph and packed/retained data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-01 | Converge this zone graph, then classify data |
-| `R53D__.MMD` | `Level/Quartz Quadrant/Act 3 Bad Future.asm` | H | Partial | Mixed | Hybrid common/objects/rN graph and packed/retained data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-01 | Converge this zone graph, then classify data |
+| `R53D__.MMD` | `Level/Quartz Quadrant/Act 3 Bad Future.asm` | H | Partial | Mixed | Hybrid common/objects/rN graph and packed/retained data; R52 Padding 2 shared after `$0800` prefix | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-03 (M288) | Converge this zone graph, then classify data |
 
 ### Levels — Wacky Workbench
 
