@@ -97,7 +97,7 @@ L_FF20DC:
 L_FF20DE:
 	move.w	$FFFFc086.w, d0
 L_FF20E2:
-	lea.l	MainDispatchTable(pc), a1
+	lea.l	Ending_MainStateDispatchTable(pc), a1
 L_FF20E6:
 	adda.w	(a1, d0.w), a1
 L_FF20EA:
@@ -427,6 +427,8 @@ L_FF232A:
 	move.w	#$6, $FFFFc086.w
 L_FF2330:
 	rts
+; Load a Word RAM command block for the next ending state.
+Ending_LoadWordRamCommandBlock:
 L_FF2332:
 	lea.l	$200000.l, a0
 L_FF2338:
@@ -438,7 +440,7 @@ L_FF2340:
 L_FF2342:
 	cmpi.w	#$3038, (a0)
 L_FF2346:
-	beq.w	L_FF21D2
+	beq.w	Ending_DispatchWordRamCommand
 L_FF234A:
 	cmpi.w	#$5352, (a0)
 L_FF234E:
@@ -525,6 +527,8 @@ L_FF23C4:
 L_FF23CA:
 	rts
 	endif
+; Load the ending time-attack transfer block.
+Ending_LoadTimeAttackData:
 L_FF23CC:
 	lea.l	$10(a0), a0
 L_FF23D0:
@@ -643,6 +647,8 @@ L_FF2484:
 	move.w	#$3c, $FFFFc086.w
 L_FF248A:
 	rts
+; Initialize event-stream playback state.
+Ending_StartEventPlayback:
 L_FF248C:
 	move.w	#$0, $FFFFfa40.w
 L_FF2492:
@@ -661,6 +667,8 @@ L_FF24B0:
 	move.l	a2, $FFFFc090.w
 L_FF24B4:
 	bra.w	Ending_WaitWordRamSwap
+; Signal the event-stream playback stop condition.
+Ending_RequestEventPlaybackStop:
 L_FF24B8:
 	move.w	#$b, $FFFFfa40.w
 L_FF24BE:
