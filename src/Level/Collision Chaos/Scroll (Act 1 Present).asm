@@ -242,12 +242,12 @@ bgWaterDeform	EQU	updateHUDBonus+2
 LevelScroll:
 	lea	objPlayerSlot.w,a6
 	tst.b	scrollLock.w
-	beq.s	loc_2029A4
+	beq.s	CollisionChaos_Act1Present_ScrollProcess
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2029A4:
+CollisionChaos_Act1Present_ScrollProcess:
 	clr.w	scrollFlags.w
 	clr.w	scrollFlagsBg.w
 	clr.w	scrollFlagsBg2.w
@@ -294,13 +294,13 @@ loc_2029A4:
 	move.w	#$218,d0
 	move.w	#$520,d1
 	sub.w	cameraY.w,d1
-	bcs.s	loc_202A1C
+	bcs.s	CollisionChaos_Act1Present_ScrollSetBackgroundY
 	lsr.w	#1,d1
 	sub.w	d1,d0
-	bpl.s	loc_202A1C
+	bpl.s	CollisionChaos_Act1Present_ScrollSetBackgroundY
 	moveq	#0,d0
 
-loc_202A1C:
+CollisionChaos_Act1Present_ScrollSetBackgroundY:
 	bsr.w	SetVertiScrollFlagsBG2
 	move.w	cameraBgY.w,vscrollScreen+2.w
 	move.w	cameraBgY.w,cameraBg2Y.w
@@ -329,13 +329,13 @@ loc_202A1C:
 	moveq	#$3F,d6
 	moveq	#0,d1
 
-loc_202AA8:
+CollisionChaos_Act1Present_ScrollBuildDeformCurve:
 	move.w	d1,d2
 	mulu.w	#$400,d2
 	addi.l	#$8000,d2
 	add.l	d2,(a2)+
 	addq.b	#1,d1
-	dbf	d6,loc_202AA8
+	dbf	d6,CollisionChaos_Act1Present_ScrollBuildDeformCurve
 	move.w	cameraX.w,d0
 	neg.w	d0
 	swap	d0
@@ -353,73 +353,73 @@ loc_202AA8:
 	moveq	#6,d6
 	lea	deformBuffer+$14A.w,a1
 
-loc_202AE8:
+CollisionChaos_Act1Present_ScrollBuildPerspectiveCurve:
 	move.w	d3,d0
 	neg.w	d0
 	move.w	d0,-(a1)
 	swap	d3
 	add.l	d2,d3
 	swap	d3
-	dbf	d6,loc_202AE8
+	dbf	d6,CollisionChaos_Act1Present_ScrollBuildPerspectiveCurve
 	lea	deformBuffer+$14A.w,a1
 	move.w	cameraBgX.w,d0
 	neg.w	d0
 	moveq	#2,d6
 
-loc_202B04:
+CollisionChaos_Act1Present_ScrollWriteBgXRows:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202B04
+	dbf	d6,CollisionChaos_Act1Present_ScrollWriteBgXRows
 	move.w	cameraBg3X.w,d0
 	neg.w	d0
 	moveq	#3,d6
 
-loc_202B12:
+CollisionChaos_Act1Present_ScrollWriteBg3XRows:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202B12
+	dbf	d6,CollisionChaos_Act1Present_ScrollWriteBg3XRows
 	lea	deformBuffer.w,a2
 	moveq	#$E,d6
 
-loc_202B1E:
+CollisionChaos_Act1Present_ScrollBuildDeformRows:
 	move.l	(a2)+,d1
 	swap	d1
 	add.w	cameraBgX.w,d1
 	neg.w	d1
 	moveq	#0,d5
-	lea	unk_202BFE,a3
+	lea	CollisionChaos_Act1Present_ScrollRowRepeatCounts,a3
 	move.b	(a3,d6.w),d5
 
-loc_202B34:
+CollisionChaos_Act1Present_ScrollWriteDeformRow:
 	move.w	d1,(a1)+
-	dbf	d5,loc_202B34
-	dbf	d6,loc_202B1E
+	dbf	d5,CollisionChaos_Act1Present_ScrollWriteDeformRow
+	dbf	d6,CollisionChaos_Act1Present_ScrollBuildDeformRows
 	move.w	cameraBgX.w,d0
 	neg.w	d0
 	moveq	#5,d6
 
-loc_202B46:
+CollisionChaos_Act1Present_ScrollWriteBgXRowsTail:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202B46
+	dbf	d6,CollisionChaos_Act1Present_ScrollWriteBgXRowsTail
 	move.w	cameraBg3X.w,d0
 	neg.w	d0
 	moveq	#3,d6
 
-loc_202B54:
+CollisionChaos_Act1Present_ScrollWriteBg3XRowsTail:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202B54
+	dbf	d6,CollisionChaos_Act1Present_ScrollWriteBg3XRowsTail
 	move.w	cameraBg2X.w,d0
 	neg.w	d0
 	moveq	#7,d6
 
-loc_202B62:
+CollisionChaos_Act1Present_ScrollWriteBg2XRows:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202B62
+	dbf	d6,CollisionChaos_Act1Present_ScrollWriteBg2XRows
 	move.w	cameraBgX.w,d0
 	neg.w	d0
 	moveq	#3,d6
 
-loc_202B70:
+CollisionChaos_Act1Present_ScrollWriteBgXRowsFinal:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202B70
+	dbf	d6,CollisionChaos_Act1Present_ScrollWriteBgXRowsFinal
 	move.w	cameraBgX.w,d0
 	move.w	cameraX.w,d2
 	sub.w	d0,d2
@@ -433,21 +433,21 @@ loc_202B70:
 	moveq	#9,d6
 	move.w	cameraBgX.w,d3
 
-loc_202B96:
+CollisionChaos_Act1Present_ScrollBuildPerspectiveRows:
 	move.w	d3,d0
 	neg.w	d0
 	move.w	d0,(a1)+
 	swap	d3
 	add.l	d2,d3
 	swap	d3
-	dbf	d6,loc_202B96
+	dbf	d6,CollisionChaos_Act1Present_ScrollBuildPerspectiveRows
 	move.w	cameraBgX.w,d0
 	neg.w	d0
 	moveq	#7,d6
 
-loc_202BAE:
+CollisionChaos_Act1Present_ScrollWriteBgXRowsAfterPerspective:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202BAE
+	dbf	d6,CollisionChaos_Act1Present_ScrollWriteBgXRowsAfterPerspective
 	lea	hscroll.w,a1
 	lea	deformBuffer+$13C.w,a2
 	move.w	cameraBgY.w,d0
@@ -460,25 +460,25 @@ loc_202BAE:
 	moveq	#$57,d1
 	moveq	#$1D,d5
 	sub.w	d3,d1
-	bcs.s	loc_202BFA
+	bcs.s	CollisionChaos_Act1Present_ScrollWaterRows
 	cmpi.w	#$1B,d1
-	bcs.s	loc_202BDE
+	bcs.s	CollisionChaos_Act1Present_ScrollWaterRowsSetup
 	moveq	#$1C,d1
 
-loc_202BDE:
+CollisionChaos_Act1Present_ScrollWaterRowsSetup:
 	sub.w	d1,d5
 	lea	(a2,d0.w),a2
-	lea	word_202C0E,a3
+	lea	CollisionChaos_Act1Present_ScrollWaterRowBounds,a3
 	lea	WobbleTable,a4
 	addi.w	#$40,bgWaterDeform
-	bsr.w	sub_202C64
+	bsr.w	CollisionChaos_Act1Present_ScrollWriteWaterRows
 
-loc_202BFA:
-	bra.w	loc_202C14
+CollisionChaos_Act1Present_ScrollWaterRows:
+	bra.w	CollisionChaos_Act1Present_ScrollWriteWaterRowsMain
 
 ; ------------------------------------------------------------------------------
 
-unk_202BFE:
+CollisionChaos_Act1Present_ScrollRowRepeatCounts:
 	dc.b	1
 	dc.b	3
 	dc.b	1
@@ -496,14 +496,14 @@ unk_202BFE:
 	dc.b	1
 	dc.b	0
 
-word_202C0E:
+CollisionChaos_Act1Present_ScrollWaterRowBounds:
 	dc.w	$38
 	dc.w	$250
 	dc.w	$7FFF
 
 ; ------------------------------------------------------------------------------
 
-loc_202C14:
+CollisionChaos_Act1Present_ScrollWriteWaterRowsMain:
 	move.w	d5,d1
 	lsl.w	#3,d1
 	subq.w	#1,d1
@@ -511,7 +511,7 @@ loc_202C14:
 	move.b	bgWaterDeform,d5
 	sub.w	cameraBgY.w,d4
 
-loc_202C26:
+CollisionChaos_Act1Present_ScrollWriteWaterRow:
 	move.l	(a2)+,d2
 	swap	d2
 	add.w	cameraBgX.w,d2
@@ -520,7 +520,7 @@ loc_202C26:
 	move.w	#$5C0,d3
 	sub.w	cameraY.w,d3
 	cmp.w	d3,d4
-	bcs.s	loc_202C58
+	bcs.s	CollisionChaos_Act1Present_ScrollWriteWaterRowStore
 	andi.w	#$7F,d5
 	move.w	d5,d6
 	add.w	d6,d6
@@ -532,40 +532,40 @@ loc_202C26:
 	move.w	d3,d0
 	swap	d0
 
-loc_202C58:
+CollisionChaos_Act1Present_ScrollWriteWaterRowStore:
 	move.l	d0,(a1)+
 	addq.w	#1,d4
 	addq.w	#1,d5
-	dbf	d1,loc_202C26
+	dbf	d1,CollisionChaos_Act1Present_ScrollWriteWaterRow
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_202C64:
+CollisionChaos_Act1Present_ScrollWriteWaterRows:
 	cmp.w	(a3),d4
-	bcc.s	loc_202C9A
+	bcc.s	CollisionChaos_Act1Present_ScrollWaterRowsPastBoundary
 
-loc_202C68:
+CollisionChaos_Act1Present_ScrollWaterRowsAlign:
 	andi.w	#7,d2
 	addq.w	#8,d4
 	sub.w	d2,d4
 	add.w	d2,d2
 	move.w	(a2)+,d0
-	jmp	loc_202C84(pc,d2.w)
+	jmp	CollisionChaos_Act1Present_ScrollWaterRowsWriteRun(pc,d2.w)
 
 ; ------------------------------------------------------------------------------
 
-loc_202C78:
+CollisionChaos_Act1Present_ScrollWaterRowsRunLoop:
 	tst.w	d1
-	bmi.s	locret_202C98
+	bmi.s	CollisionChaos_Act1Present_ScrollWaterRowsReturn
 	cmp.w	(a3),d4
-	bcc.s	loc_202CB4
+	bcc.s	CollisionChaos_Act1Present_ScrollWaterRowsNextBoundary
 
-loc_202C80:
+CollisionChaos_Act1Present_ScrollWaterRowsLoadRunValue:
 	move.w	(a2)+,d0
 	addq.w	#8,d4
 
-loc_202C84:
+CollisionChaos_Act1Present_ScrollWaterRowsWriteRun:
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
@@ -574,41 +574,41 @@ loc_202C84:
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
-	dbf	d1,loc_202C78
+	dbf	d1,CollisionChaos_Act1Present_ScrollWaterRowsRunLoop
 
-locret_202C98:
+CollisionChaos_Act1Present_ScrollWaterRowsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202C9A:
+CollisionChaos_Act1Present_ScrollWaterRowsPastBoundary:
 	move.w	(a3)+,d3
 	addi.w	#$18,d3
 	sub.w	d4,d3
-	bgt.s	loc_202CBE
+	bgt.s	CollisionChaos_Act1Present_ScrollWaterRowsInterpolate
 	cmp.w	(a3),d4
-	bcs.s	loc_202C68
+	bcs.s	CollisionChaos_Act1Present_ScrollWaterRowsAlign
 	move.w	(a3)+,d3
 	addi.w	#$18,d3
 	sub.w	d4,d3
-	ble.s	loc_202C68
-	bra.s	loc_202CBE
+	ble.s	CollisionChaos_Act1Present_ScrollWaterRowsAlign
+	bra.s	CollisionChaos_Act1Present_ScrollWaterRowsInterpolate
 
 ; ------------------------------------------------------------------------------
 
-loc_202CB4:
+CollisionChaos_Act1Present_ScrollWaterRowsNextBoundary:
 	move.w	(a3)+,d3
 	addi.w	#$18,d3
 	sub.w	d4,d3
-	ble.s	loc_202C80
+	ble.s	CollisionChaos_Act1Present_ScrollWaterRowsLoadRunValue
 
-loc_202CBE:
+CollisionChaos_Act1Present_ScrollWaterRowsInterpolate:
 	subq.w	#1,d3
 	move.w	d3,d6
 	moveq	#0,d2
 	move.b	bgWaterDeform,d2
 
-loc_202CC8:
+CollisionChaos_Act1Present_ScrollWaterRowsInterpolateLoop:
 	andi.w	#$FF,d2
 	move.b	(a4,d2.w),d0
 	ext.w	d0
@@ -617,14 +617,14 @@ loc_202CC8:
 	move.l	d0,(a1)+
 	addq.w	#1,d4
 	addq.w	#1,d2
-	dbf	d3,loc_202CC8
+	dbf	d3,CollisionChaos_Act1Present_ScrollWaterRowsInterpolateLoop
 	lsr.w	#3,d6
 
-loc_202CE4:
+CollisionChaos_Act1Present_ScrollWaterRowsWriteRunValue:
 	move.w	(a2)+,d0
 	subq.w	#1,d1
-	dbf	d6,loc_202CE4
-	bra.s	loc_202C78
+	dbf	d6,CollisionChaos_Act1Present_ScrollWaterRowsWriteRunValue
+	bra.s	CollisionChaos_Act1Present_ScrollWaterRowsRunLoop
 
 ; -------------------------------------------------------------------------
 ; Scroll the camera horizontally
