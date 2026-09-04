@@ -3,23 +3,24 @@
 CrusherObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20D092(pc,d0.w),d0
-	jsr	off_20D092(pc,d0.w)
+	move.w	CrusherRoutineTable(pc,d0.w),d0
+	jsr	CrusherRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20D092:
+; Crusher routine pointers.
+CrusherRoutineTable:
 	dc.w	CrusherObject_0_Routine0-*
-	dc.w	CrusherObject_0_Routine2-off_20D092
-	dc.w	CrusherObject_0_Routine4-off_20D092
-	dc.w	CrusherObject_0_Routine6-off_20D092
-	dc.w	CrusherObject_0_Routine8-off_20D092
+	dc.w	CrusherObject_0_Routine2-CrusherRoutineTable
+	dc.w	CrusherObject_0_Routine4-CrusherRoutineTable
+	dc.w	CrusherObject_0_Routine6-CrusherRoutineTable
+	dc.w	CrusherObject_0_Routine8-CrusherRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-loc_20D09C:
+CrusherSolidCollision:
 	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
@@ -41,35 +42,35 @@ CrusherObject_0_Routine2:
 	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
-	bcc.s	loc_20D0EE
+	bcc.s	CrusherCheckHorizontalRange
 	neg.w	d0
 
-loc_20D0EE:
+CrusherCheckHorizontalRange:
 	cmpi.w	#$C0,d0
-	bcc.s	loc_20D110
+	bcc.s	CrusherApproachCollision
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
-	bcs.s	loc_20D110
+	bcs.s	CrusherApproachCollision
 	cmpi.w	#$88,d0
-	bcc.s	loc_20D110
+	bcc.s	CrusherApproachCollision
 	clr.b	obj.var_3c(a0)
 	clr.w	obj.var_3a(a0)
 	addq.b	#2,obj.routine(a0)
 
-loc_20D110:
-	bra.w	loc_20D09C
+CrusherApproachCollision:
+	bra.w	CrusherSolidCollision
 
 ; ------------------------------------------------------------------------------
 
 CrusherObject_0_Routine4:
 	clr.b	obj.var_3c(a0)
-	jsr	sub_20D17A(pc)
+	jsr	CrusherUpdateMotion(pc)
 	cmpi.b	#2,obj.var_3b(a0)
-	bne.s	loc_20D128
+	bne.s	CrusherExtendingCollision
 	addq.b	#2,obj.routine(a0)
 
-loc_20D128:
-	bra.w	loc_20D09C
+CrusherExtendingCollision:
+	bra.w	CrusherSolidCollision
 
 ; ------------------------------------------------------------------------------
 
@@ -77,46 +78,46 @@ CrusherObject_0_Routine6:
 	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
-	bcc.s	loc_20D13C
+	bcc.s	CrusherCheckRetreatHorizontalRange
 	neg.w	d0
 
-loc_20D13C:
+CrusherCheckRetreatHorizontalRange:
 	cmpi.w	#$C0,d0
-	bcc.s	loc2_20D15A
+	bcc.s	CrusherRetreatCollision
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
-	bcs.s	loc2_20D15A
+	bcs.s	CrusherRetreatCollision
 	cmpi.w	#$88,d0
-	bcs.s	loc2_20D15A
+	bcs.s	CrusherRetreatCollision
 	clr.w	obj.var_3a(a0)
 	addq.b	#2,obj.routine(a0)
 
-loc2_20D15A:
-	bra.w	loc_20D09C
+CrusherRetreatCollision:
+	bra.w	CrusherSolidCollision
 
 ; ------------------------------------------------------------------------------
 
 CrusherObject_0_Routine8:
 	move.b	#1,obj.var_3c(a0)
-	jsr	sub_20D17A(pc)
+	jsr	CrusherUpdateMotion(pc)
 	cmpi.b	#2,obj.var_3b(a0)
-	bne.s	loc_20D176
+	bne.s	CrusherRetractingCollision
 	move.b	#2,obj.routine(a0)
 
-loc_20D176:
-	bra.w	loc_20D09C
+CrusherRetractingCollision:
+	bra.w	CrusherSolidCollision
 
 ; ------------------------------------------------------------------------------
 
-sub_20D17A:
-	lea	byte_20D1D0,a2
+CrusherUpdateMotion:
+	lea	CrusherExtendingMotionRecords,a2
 	tst.b	obj.var_3c(a0)
-	beq.s	loc_20D18C
-	lea	byte_20D1D8,a2
+	beq.s	CrusherLoadMotionStep
+	lea	CrusherRetractingMotionRecords,a2
 
-loc_20D18C:
+CrusherLoadMotionStep:
 	tst.b	obj.var_3a(a0)
-	bne.s	loc_20D1B0
+	bne.s	CrusherApplyMotion
 	moveq	#0,d0
 	move.b	obj.var_3b(a0),d0
 	asl.w	#2,d0
@@ -130,7 +131,7 @@ loc_20D18C:
 
 ; ------------------------------------------------------------------------------
 
-loc_20D1B0:
+CrusherApplyMotion:
 	move.w	obj.y_speed(a0),d0
 	ext.l	d0
 	asl.l	#8,d0
@@ -138,15 +139,16 @@ loc_20D1B0:
 	move.w	obj.var_3e(a0),d0
 	add.w	d0,obj.y_speed(a0)
 	subq.b	#1,obj.var_3a(a0)
-	bne.s	locret_20D1CE
+	bne.s	CrusherMotionReturn
 	addq.b	#1,obj.var_3b(a0)
 
-locret_20D1CE:
+CrusherMotionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-byte_20D1D0:
+; Extend records: duration, initial velocity, and acceleration.
+CrusherExtendingMotionRecords:
 	dc.b	$40
 	dc.b	8
 	dc.w	0
@@ -154,7 +156,8 @@ byte_20D1D0:
 	dc.b	$F8
 	dc.w	$200
 
-byte_20D1D8:
+; Retract records: duration, initial velocity, and acceleration.
+CrusherRetractingMotionRecords:
 	dc.b	$40
 	dc.b	$F8
 	dc.w	0

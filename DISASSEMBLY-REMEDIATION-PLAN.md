@@ -681,6 +681,7 @@ opaque merely because they use `dc.*`.
 | M468 | Complete | Canonicalize the shared R6 Robot Generator and Eggman Statue machine-destruction families, migrating their state tables, explosion/debris records, child-bomb paths, and movement helpers to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M469 | Complete | Canonicalize the shared R6 Seesaw and Tube Door player-interaction families, migrating their dispatch, collision, animation, child-state, and trampoline references to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M470 | Complete | Canonicalize the shared R6 Projector, Door, and Switch control/state family, migrating routine tables, hologram/debris records, switch gating, collision, and animation callers to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M471 | Complete | Canonicalize the shared R6 Piston, Platform, and Crusher mechanical motion family, migrating parent/child paths, subtype motion tables, player handoff, collision gates, and motion records to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

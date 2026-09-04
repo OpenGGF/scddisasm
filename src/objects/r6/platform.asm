@@ -3,21 +3,22 @@
 PlatformObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20CEBC(pc,d0.w),d0
-	jsr	off_20CEBC(pc,d0.w)
+	move.w	PlatformRoutineTable(pc,d0.w),d0
+	jsr	PlatformRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
 	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
-off_20CEBC:
+; Platform routine pointers.
+PlatformRoutineTable:
 	dc.w	PlatformObject_0_Routine0-*
-	dc.w	PlatformObject_0_Routine2-off_20CEBC
+	dc.w	PlatformObject_0_Routine2-PlatformRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-loc_20CEC0:
+PlatformTopSolidCollision:
 	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
@@ -40,52 +41,53 @@ PlatformObject_0_Routine2:
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	add.w	d0,d0
-	move.w	off_20CF18(pc,d0.w),d0
-	jmp	off_20CF18(pc,d0.w)
+	move.w	PlatformMotionTable(pc,d0.w),d0
+	jmp	PlatformMotionTable(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20CF18:
+; Platform vertical/horizontal motion pointers by subtype.
+PlatformMotionTable:
 	dc.w	PlatformObject_1_Routine0-*
-	dc.w	PlatformObject_1_Routine2-off_20CF18
-	dc.w	PlatformObject_1_Routine4-off_20CF18
-	dc.w	PlatformObject_1_Routine6-off_20CF18
+	dc.w	PlatformObject_1_Routine2-PlatformMotionTable
+	dc.w	PlatformObject_1_Routine4-PlatformMotionTable
+	dc.w	PlatformObject_1_Routine6-PlatformMotionTable
 
 ; ------------------------------------------------------------------------------
 
 PlatformObject_1_Routine4:
-	bsr.w	sub_20CF84
+	bsr.w	PlatformCalculateOffset
 	neg.w	d0
 	add.w	obj.var_32(a0),d0
 	move.w	d0,obj.y(a0)
-	bra.w	loc_20CEC0
+	bra.w	PlatformTopSolidCollision
 
 ; ------------------------------------------------------------------------------
 
 PlatformObject_1_Routine6:
-	bsr.w	sub_20CF84
+	bsr.w	PlatformCalculateOffset
 	add.w	obj.var_32(a0),d0
 	move.w	d0,obj.y(a0)
-	bra.w	loc_20CEC0
+	bra.w	PlatformTopSolidCollision
 
 ; ------------------------------------------------------------------------------
 
 PlatformObject_1_Routine0:
 	move.l	obj.x(a0),-(sp)
-	bsr.w	sub_20CF84
+	bsr.w	PlatformCalculateOffset
 	add.w	obj.var_36(a0),d0
 	move.w	d0,obj.x(a0)
 	move.l	obj.x(a0),d0
 	sub.l	(sp)+,d0
 	lsr.l	#8,d0
 	move.w	d0,obj.x_speed(a0)
-	bra.w	loc_20CEC0
+	bra.w	PlatformTopSolidCollision
 
 ; ------------------------------------------------------------------------------
 
 PlatformObject_1_Routine2:
 	move.l	obj.x(a0),-(sp)
-	bsr.w	sub_20CF84
+	bsr.w	PlatformCalculateOffset
 	neg.w	d0
 	add.w	obj.var_36(a0),d0
 	move.w	d0,obj.x(a0)
@@ -93,11 +95,11 @@ PlatformObject_1_Routine2:
 	sub.l	(sp)+,d0
 	lsr.l	#8,d0
 	move.w	d0,obj.x_speed(a0)
-	bra.w	loc_20CEC0
+	bra.w	PlatformTopSolidCollision
 
 ; ------------------------------------------------------------------------------
 
-sub_20CF84:
+PlatformCalculateOffset:
 	move.w	stage_frames,d0
 	andi.w	#$FF,d0
 	jsr	SineCosine
