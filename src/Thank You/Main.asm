@@ -878,7 +878,8 @@ ThankYou_VIntIdleUpdate:
 	move.b	$FFFFBA4B.w, $FFFFBA56.w
 	movem.l	(a7)+, d0-d7/a0-a6
 	rte
-; Fill sixteen longwords with the value in d1.
+; Fill 32 longwords ($80 bytes) at A1 with D1; A1 advances by $80.
+; Falls through the 16-longword FillObject tail below.
 ThankYou_FillLongs:
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
@@ -896,7 +897,7 @@ ThankYou_FillLongs:
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
-; Clear one object-sized block with the value in d1.
+; Fill one $40-byte object with D1 (16 longwords); A1 advances by $40.
 ThankYou_FillObject:
 	move.l	d1, (a1)+
 	move.l	d1, (a1)+
@@ -1053,7 +1054,9 @@ ThankYou_RandomSeedReady:
 	move.l	d1, $FFFFBA52.w
 	move.l	(a7)+, d1
 	rts
-; Calculate sine and cosine components for the supplied angle.
+; Return one quarter-turn-shifted sine sample for angle D3.w (512 units/turn).
+; D3.w and D4.w both receive the same signed result; $100 is unit magnitude.
+; The $80 phase shift gives a cosine-like sample, not separate sine/cosine outputs.
 ThankYou_CalculateSine:
 	addi.w	#$80, d3
 	andi.w	#$1ff, d3
@@ -1230,12 +1233,12 @@ ThankYou_NemesisStreamTable:
 ; Decode one Nemesis stream directly into VDP tiles.
 ThankYou_DecodeNemesisToVdp:
 	movem.l	d0-d7/a0-a1/a3-a5, -(a7)
-	lea.l	ThankYou_WriteNemesisTile.l, a3
+	lea.l	ThankYou_WriteNemesisRowToVdp.l, a3
 	lea.l	$c00000.l, a4
 	bra.b	ThankYou_DecodeNemesisStream
 	dc.l	$48E7FFDC
 	dc.l	$47F900FF
-	dc.w	ThankYou_WriteNemesisTileAdvance-$FF0000
+	dc.w	ThankYou_WriteNemesisRowToRam-$FF0000
 ; Initialize the Nemesis code table and bitstream state.
 ThankYou_DecodeNemesisStream:
 	lea.l	$FFFFA600.w, a1
@@ -1249,7 +1252,7 @@ ThankYou_DecodeNemesisCodeTableReady:
 	moveq	#$8, d3
 	moveq	#$0, d2
 	moveq	#$0, d4
-	jsr	ThankYou_ReadNemesisByte(pc)
+	jsr	ThankYou_BuildNemesisDecodeTable(pc)
 	move.b	(a0)+, d5
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
@@ -1261,7 +1264,7 @@ ThankYou_DecodeNemesisCodeTableReady:
 	nop
 	movem.l	(a7)+, d0-d7/a0-a1/a3-a5
 	rts
-; Decode one Nemesis codeword and emit its pixel run.
+; Decode Nemesis runs until all rows specified by the stream header are emitted.
 ThankYou_DecodeNemesisCode:
 	move.w	d6, d7
 	subq.w	#$8, d7
@@ -1285,7 +1288,7 @@ ThankYou_DecodeNemesisRunLength:
 	move.w	d1, d0
 	andi.w	#$f, d1
 	andi.w	#$f0, d0
-; Append decoded pixels to the current four-bit tile word.
+; Append four-bit pixels to the current 32-bit tile row.
 ThankYou_DecodeNemesisBuildRun:
 	lsr.w	#$4, d0
 ThankYou_DecodeNemesisAppendPixel:
@@ -1294,7 +1297,7 @@ ThankYou_DecodeNemesisAppendPixel:
 	subq.w	#$1, d3
 	bne.b	ThankYou_DecodeNemesisContinueRun
 	jmp	(a3)
-; Reset the pixel accumulator after one tile has been emitted.
+; Reset the pixel accumulator after one eight-pixel tile row has been emitted.
 ThankYou_DecodeNemesisResetRun:
 	moveq	#$0, d4
 	moveq	#$8, d3
@@ -1322,32 +1325,35 @@ ThankYou_DecodeNemesisLongRun:
 	asl.w	#$8, d5
 	move.b	(a0)+, d5
 	bra.b	ThankYou_DecodeNemesisBuildRun
-; Emit a decoded Nemesis tile without advancing the VDP address.
-ThankYou_WriteNemesisTile:
+; Emit one 32-bit row through the fixed VDP data port.
+; A4 stays fixed; the VDP advances its internal address according to register 15.
+ThankYou_WriteNemesisRowToVdp:
 	dc.b	$28
 	dc.b	$84,$53,$4D,$38,$0D,$66,$C2,$4E,$75
-; Emit a decoded Nemesis tile by XORing the current VDP word.
-ThankYou_WriteNemesisXorTile:
+; XOR the decoded row in D4 into the previous-row accumulator D2, then write
+; the resulting 32-bit row through the VDP data port. No VDP read occurs.
+ThankYou_WriteNemesisXorRowToVdp:
 	eor.l	d4, d2
 	move.l	d2, (a4)
 	subq.w	#$1, a5
 	move.w	a5, d4
 	bne.b	ThankYou_DecodeNemesisResetRun
 	rts
-; Emit a decoded Nemesis tile and advance the VDP address.
-ThankYou_WriteNemesisTileAdvance:
+; RAM-output variant: emit one 32-bit row at A4 and advance A4 by four bytes.
+ThankYou_WriteNemesisRowToRam:
 	move.l	d4, (a4)+
 	subq.w	#$1, a5
 	move.w	a5, d4
 	bne.b	ThankYou_DecodeNemesisResetRun
 	rts
-; Emit a decoded Nemesis tile by XORing and advancing the VDP word.
-ThankYou_WriteNemesisXorTileAdvance:
+; RAM-output XOR variant: accumulate in D2 and write a row with (A4)+.
+ThankYou_WriteNemesisXorRowToRam:
 	dc.l	$B98228C2
 	dc.l	$534D380D
 	dc.l	$66A04E75
-; Read one Nemesis control byte and update the decode table.
-ThankYou_ReadNemesisByte:
+; Build the complete Nemesis lookup table at A1 from descriptors at A0,
+; consuming the $FF terminator. Each expanded entry occupies two bytes.
+ThankYou_BuildNemesisDecodeTable:
 	move.b	(a0)+, d0
 ThankYou_ReadNemesisTableByte:
 	cmpi.b	#$ff, d0
@@ -1497,7 +1503,8 @@ ThankYou_RefillEnigmaBits:
 	move.b	(a0)+, d5
 ThankYou_RefillEnigmaBitsDone:
 	rts
-; Find the first empty object slot in the secondary object pool.
+; Find an empty slot among 61 slots starting at $FF92C0.
+; This skips the first three slots of the same 64-slot pool at $FF9200.
 ThankYou_FindFirstEmptyObject:
 	lea.l	$FFFF92C0.w, a1
 	move.w	#$3c, d0
@@ -1508,7 +1515,8 @@ ThankYou_FindFirstEmptyObjectLoop:
 	dbra	d0, ThankYou_FindFirstEmptyObjectLoop
 ThankYou_FindFirstEmptyObjectDone:
 	rts
-; Find the first active object slot in the primary object pool.
+; Find an active slot among the first 61 slots of the pool at $FF9200.
+; This search overlaps the empty-slot search; it is not a separate pool.
 ThankYou_FindFirstActiveObject:
 	lea.l	$FFFF9200.w, a1
 	move.w	#$3c, d0

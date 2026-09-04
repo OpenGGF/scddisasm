@@ -39,6 +39,12 @@ label cleanup only; their byte comparisons do not certify names or comments.
 
 ## Baseline
 
+The [preceding 100-commit review](reviews/commits-101-200.md) adds verified
+Time Attack, Thank You, and ending FMV label/comment corrections, with fresh
+Japan/USA/Europe builds and 133/133 comparisons per region on September 4.
+Its complete triage manifest distinguishes mechanical coverage from targeted
+semantic checks; it does not upgrade component semantic classifications.
+
 The [September 4 review correction validation](review-validation.md) records
 fresh full Japan/USA/Europe builds and all 133 comparisons per region for the
 tested source snapshot, including every component below. This is newer

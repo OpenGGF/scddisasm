@@ -259,7 +259,7 @@ TimeAttack_StartDivideRegionIndex:
 TimeAttack_StartStoreRegionIndex:
 	move.w d0, $ff3476.l
 TimeAttack_StartSendInitialSubCpuCommand:
-	bsr.w TimeAttack_SendSubCpuCommandWithReadyWait
+	bsr.w TimeAttack_ReadSaveData
 TimeAttack_StartClearRecordRank:
 	clr.w $ff347c.l
 TimeAttack_StartReadSelectedStage:
@@ -349,7 +349,7 @@ TimeAttack_StartStoreThirdRecordPointer:
 TimeAttack_StartSetThirdRecordRank:
 	move.w #$3, $ff347c.l
 TimeAttack_StartSendRecordUpdate:
-	bsr.w TimeAttack_SendSubCpuCommandNoWait
+	bsr.w TimeAttack_WriteSaveData
 TimeAttack_StartPrepareRecords:
 	bsr.w TimeAttack_PrepareTimeAttackRecords
 TimeAttack_StartClearSelectionTileSource:
@@ -839,7 +839,7 @@ TimeAttack_StartRecordInsertionWaitFrames:
 TimeAttack_StartRecordInsertionReleaseWaitFrames:
 	lea.l $4(a7), a7
 TimeAttack_StartRecordInsertionSendCommand:
-		bsr.w TimeAttack_SendSubCpuCommandWithReadyWait
+		bsr.w TimeAttack_ReadSaveData
 TimeAttack_StartRecordInsertionEnterInitials:
 	bsr.w TimeAttack_EnterRecordInitials
 TimeAttack_StartRecordInsertionRecordPointer:
@@ -849,7 +849,7 @@ TimeAttack_StartRecordInsertionWaitSubCpu:
 TimeAttack_StartRecordInsertionStoreInitials:
 	move.l $2002a0.l, (a0)
 TimeAttack_StartRecordInsertionSendFinalCommand:
-	bsr.w TimeAttack_SendSubCpuCommandNoWait
+	bsr.w TimeAttack_WriteSaveData
 TimeAttack_StartRecordInsertionSecondWaitFramesArgument:
 	move.l #$f, -(a7)
 TimeAttack_StartRecordInsertionSecondWaitFrames:
@@ -1426,7 +1426,7 @@ TimeAttack_PrepareTimeAttackRecordsInnerLoopCheck:
 TimeAttack_PrepareTimeAttackRecordsSelectRenderBuffer:
 	exg.l a1, a2
 TimeAttack_PrepareTimeAttackRecordsRenderBuffer:
-	bsr.w TimeAttack_RenderTimeRecordsToBuffer
+	bsr.w TimeAttack_RenderTimeRecordToBuffer
 TimeAttack_PrepareTimeAttackRecordsRestoreRenderBuffer:
 	exg.l a1, a2
 TimeAttack_PrepareTimeAttackRecordsLoadDisplayedDelta:
@@ -1482,7 +1482,7 @@ TimeAttack_PrepareTimeAttackRecordsSelectSecondScratch:
 TimeAttack_PrepareTimeAttackRecordsNormalizeSecondRecord:
 	bsr.w TimeAttack_NormalizeTimeFrames
 TimeAttack_PrepareTimeAttackRecordsRenderSecondBuffer:
-	bsr.w TimeAttack_RenderTimeRecordsToBuffer
+	bsr.w TimeAttack_RenderTimeRecordToBuffer
 TimeAttack_PrepareTimeAttackRecordsRestoreSecondScratch:
 	exg.l a1, a2
 TimeAttack_PrepareTimeAttackRecordsLoadSecondDelta:
@@ -1665,83 +1665,85 @@ TimeAttack_RenderTimeRecordReturn:
 	dc.l	$43024303,$43004304,$43054306,$42CC42DA,$42DB42DC,$42DD42DE,$42DF42E0,$42E142E2,$42E342E4,$42E542E6,$42E742F1,$42F242F3,$42F442DB,$42F542F6,$42F742F8,$42F942FA
 	dc.l	$42FB42FC,$42FD42FE,$430742FA,$43084309,$430A430B,$430C42CC
 	dc.b	$42,$CC
-; Render two records at a1 into successive 0x20-byte rows at a4.
-TimeAttack_RenderTimeRecordsToBuffer:
+; Render one record at A1 into two tile rows, $20 bytes apart, at A4.
+; A1 is unchanged; A4 advances by $40. Each row uses a different tile-map half.
+TimeAttack_RenderTimeRecordToBuffer:
 	movem.l d0-d3/a1-a3, -(a7)
-TimeAttack_RenderTimeRecordsToBufferSetupTileMap:
+TimeAttack_RenderTimeRecordToBufferSetupTileMap:
 	lea.l TimeAttack_TimeRecordTileMap(pc), a3
-TimeAttack_RenderTimeRecordsToBufferRecordStride:
+TimeAttack_RenderTimeRecordToBufferRowStride:
 	moveq #$20, d2
-TimeAttack_RenderTimeRecordsToBufferRecordCount:
+TimeAttack_RenderTimeRecordToBufferRowCount:
 	moveq #$1, d3
-TimeAttack_RenderTimeRecordsToBufferRecordLoop:
+TimeAttack_RenderTimeRecordToBufferRowLoop:
 	movea.l a4, a2
-TimeAttack_RenderTimeRecordsToBufferLoadFieldOne:
+TimeAttack_RenderTimeRecordToBufferLoadFieldOne:
 	moveq #$0, d0
-TimeAttack_RenderTimeRecordsToBufferReadFieldOne:
+TimeAttack_RenderTimeRecordToBufferReadFieldOne:
 	move.b $1(a1), d0
-TimeAttack_RenderTimeRecordsToBufferDivideFieldOneTens:
+TimeAttack_RenderTimeRecordToBufferDivideFieldOneTens:
 	divu.w #$a, d0
-TimeAttack_RenderTimeRecordsToBufferScaleFieldOneTensIndex:
+TimeAttack_RenderTimeRecordToBufferScaleFieldOneTensIndex:
 	add.w d0, d0
-TimeAttack_RenderTimeRecordsToBufferWriteFieldOneTens:
+TimeAttack_RenderTimeRecordToBufferWriteFieldOneTens:
 	move.w (a3, d0.w), (a2)+
-TimeAttack_RenderTimeRecordsToBufferRestoreFieldOneRemainder:
+TimeAttack_RenderTimeRecordToBufferRestoreFieldOneRemainder:
 	swap d0
-TimeAttack_RenderTimeRecordsToBufferScaleFieldOneUnitsIndex:
+TimeAttack_RenderTimeRecordToBufferScaleFieldOneUnitsIndex:
 	add.w d0, d0
-TimeAttack_RenderTimeRecordsToBufferWriteFieldOneUnits:
+TimeAttack_RenderTimeRecordToBufferWriteFieldOneUnits:
 	move.w (a3, d0.w), (a2)+
-TimeAttack_RenderTimeRecordsToBufferWriteFieldOneSeparator:
+TimeAttack_RenderTimeRecordToBufferWriteFieldOneSeparator:
 	move.w $14(a3), (a2)+
-TimeAttack_RenderTimeRecordsToBufferLoadFieldTwo:
+TimeAttack_RenderTimeRecordToBufferLoadFieldTwo:
 	moveq #$0, d0
-TimeAttack_RenderTimeRecordsToBufferReadFieldTwo:
+TimeAttack_RenderTimeRecordToBufferReadFieldTwo:
 	move.b $2(a1), d0
-TimeAttack_RenderTimeRecordsToBufferDivideFieldTwoTens:
+TimeAttack_RenderTimeRecordToBufferDivideFieldTwoTens:
 	divu.w #$a, d0
-TimeAttack_RenderTimeRecordsToBufferScaleFieldTwoTensIndex:
+TimeAttack_RenderTimeRecordToBufferScaleFieldTwoTensIndex:
 	add.w d0, d0
-TimeAttack_RenderTimeRecordsToBufferWriteFieldTwoTens:
+TimeAttack_RenderTimeRecordToBufferWriteFieldTwoTens:
 	move.w (a3, d0.w), (a2)+
-TimeAttack_RenderTimeRecordsToBufferRestoreFieldTwoRemainder:
+TimeAttack_RenderTimeRecordToBufferRestoreFieldTwoRemainder:
 	swap d0
-TimeAttack_RenderTimeRecordsToBufferScaleFieldTwoUnitsIndex:
+TimeAttack_RenderTimeRecordToBufferScaleFieldTwoUnitsIndex:
 	add.w d0, d0
-TimeAttack_RenderTimeRecordsToBufferWriteFieldTwoUnits:
+TimeAttack_RenderTimeRecordToBufferWriteFieldTwoUnits:
 	move.w (a3, d0.w), (a2)+
-TimeAttack_RenderTimeRecordsToBufferWriteFieldTwoSeparator:
+TimeAttack_RenderTimeRecordToBufferWriteFieldTwoSeparator:
 	move.w $16(a3), (a2)+
-TimeAttack_RenderTimeRecordsToBufferLoadFieldThree:
+TimeAttack_RenderTimeRecordToBufferLoadFieldThree:
 	moveq #$0, d0
-TimeAttack_RenderTimeRecordsToBufferReadFieldThree:
+TimeAttack_RenderTimeRecordToBufferReadFieldThree:
 	move.b $3(a1), d0
-TimeAttack_RenderTimeRecordsToBufferDivideFieldThreeTens:
+TimeAttack_RenderTimeRecordToBufferDivideFieldThreeTens:
 	divu.w #$a, d0
-TimeAttack_RenderTimeRecordsToBufferScaleFieldThreeTensIndex:
+TimeAttack_RenderTimeRecordToBufferScaleFieldThreeTensIndex:
 	add.w d0, d0
-TimeAttack_RenderTimeRecordsToBufferWriteFieldThreeTens:
+TimeAttack_RenderTimeRecordToBufferWriteFieldThreeTens:
 	move.w (a3, d0.w), (a2)+
-TimeAttack_RenderTimeRecordsToBufferRestoreFieldThreeRemainder:
+TimeAttack_RenderTimeRecordToBufferRestoreFieldThreeRemainder:
 	swap d0
-TimeAttack_RenderTimeRecordsToBufferScaleFieldThreeUnitsIndex:
+TimeAttack_RenderTimeRecordToBufferScaleFieldThreeUnitsIndex:
 	add.w d0, d0
-TimeAttack_RenderTimeRecordsToBufferWriteFieldThreeUnits:
+TimeAttack_RenderTimeRecordToBufferWriteFieldThreeUnits:
 	move.w (a3, d0.w), (a2)+
-TimeAttack_RenderTimeRecordsToBufferAdvanceRecordDestination:
+TimeAttack_RenderTimeRecordToBufferAdvanceRowDestination:
 	adda.l d2, a4
-TimeAttack_RenderTimeRecordsToBufferAdvanceTileMap:
+TimeAttack_RenderTimeRecordToBufferAdvanceTileMap:
 	adda.w #$18, a3
-TimeAttack_RenderTimeRecordsToBufferRecordLoopCheck:
-	dbra d3, TimeAttack_RenderTimeRecordsToBufferRecordLoop
-TimeAttack_RenderTimeRecordsToBufferRestoreRegisters:
+TimeAttack_RenderTimeRecordToBufferRowLoopCheck:
+	dbra d3, TimeAttack_RenderTimeRecordToBufferRowLoop
+TimeAttack_RenderTimeRecordToBufferRestoreRegisters:
 	movem.l (a7)+, d0-d3/a1-a3
-TimeAttack_RenderTimeRecordsToBufferReturn:
+TimeAttack_RenderTimeRecordToBufferReturn:
 	rts
 	; Tile pairs used by buffered time-record rendering.
 	TimeAttack_TimeRecordTileMap:
 	dc.l	$02BA02BB,$02BA02BA,$02BC02BD,$02BA02BE,$02BA02BA,$02BF02C0,$02C202C3,$02C402C5,$02C602C7,$02C802C9,$02CA02CB,$02C102C1
-; Upload two compact 3x2 tile blocks from source a0 to VDP command d1.
+; Upload one 3x2 tile block from three indices at A0 to VDP command D1.
+; Both rows reread the same indices with different tile-map halves; A0 += 4.
 TimeAttack_UploadCompactTileBlock:
 	movem.l d0-d4/a1-a4, -(a7)
 TimeAttack_UploadCompactTileBlockSetupControlPort:
@@ -2300,33 +2302,35 @@ TimeAttack_WaitFramesRestore:
 	movem.l (a7)+, d0
 TimeAttack_WaitFramesReturn:
 	rts
-; Select the regional Sub CPU command, send it, and wait for readiness.
-TimeAttack_SendSubCpuCommandWithReadyWait:
+; Read temporary save data ($8B) when saving is disabled, else saved data ($87).
+; Give Word RAM to the Sub CPU, then wait for it to be returned.
+TimeAttack_ReadSaveData:
 	bsr.w TimeAttack_RequestSubCpu
-TimeAttack_SendSubCpuCommandWithReadyWaitSelectDefault:
+TimeAttack_ReadSaveDataSelectDefault:
 	move.w #$8b, d0
-TimeAttack_SendSubCpuCommandWithReadyWaitCheckRegion:
-	btst.b #$0, $ff0f1f.l
-TimeAttack_SendSubCpuCommandWithReadyWaitSkipAlternate:
-	bne.b TimeAttack_SendSubCpuCommandWithReadyWaitSend
-TimeAttack_SendSubCpuCommandWithReadyWaitSelectAlternate:
+TimeAttack_ReadSaveDataCheckSaveDisabled:
+	btst.b #$0, saveDisabled.l
+TimeAttack_ReadSaveDataSkipAlternate:
+	bne.b TimeAttack_ReadSaveDataSend
+TimeAttack_ReadSaveDataSelectAlternate:
 	move.w #$87, d0
-TimeAttack_SendSubCpuCommandWithReadyWaitSend:
+TimeAttack_ReadSaveDataSend:
 	bsr.w TimeAttack_SendSubCpuCommand
-TimeAttack_SendSubCpuCommandWithReadyWaitWaitReady:
+TimeAttack_ReadSaveDataWaitReady:
 	bra.w TimeAttack_WaitSubCpuReady
-; Select and send the regional Sub CPU command without an extra wait.
-TimeAttack_SendSubCpuCommandNoWait:
+; Write temporary save data ($8C) when saving is disabled, else saved data ($88).
+; Give Word RAM to the Sub CPU; the command handshake waits for acknowledgement.
+TimeAttack_WriteSaveData:
 	bsr.w TimeAttack_RequestSubCpu
-TimeAttack_SendSubCpuCommandNoWaitSelectDefault:
+TimeAttack_WriteSaveDataSelectDefault:
 	move.w #$8c, d0
-TimeAttack_SendSubCpuCommandNoWaitCheckRegion:
-	btst.b #$0, $ff0f1f.l
-TimeAttack_SendSubCpuCommandNoWaitSkipAlternate:
-	bne.b TimeAttack_SendSubCpuCommandNoWaitSend
-TimeAttack_SendSubCpuCommandNoWaitSelectAlternate:
+TimeAttack_WriteSaveDataCheckSaveDisabled:
+	btst.b #$0, saveDisabled.l
+TimeAttack_WriteSaveDataSkipAlternate:
+	bne.b TimeAttack_WriteSaveDataSend
+TimeAttack_WriteSaveDataSelectAlternate:
 	move.w #$88, d0
-TimeAttack_SendSubCpuCommandNoWaitSend:
+TimeAttack_WriteSaveDataSend:
 	bra.w TimeAttack_SendSubCpuCommand
 ; Send a command through the Sub CPU mailbox and wait for its acknowledgement.
 TimeAttack_SendSubCpuCommand:
@@ -2377,8 +2381,8 @@ TimeAttack_WaitVdpTransferReturn:
 	rts
 VInterrupt:
 	movem.l d0-d7/a0-a6, -(a7)
-TimeAttack_VInterruptAcknowledgeSubCpu:
-	move.b #$1, $a12000.l
+TimeAttack_VInterruptRequestSubCpuIrq2:
+	move.b #$1, GAIRQ2.l
 TimeAttack_VInterruptReadTransferCount:
 	move.w $ff3730.l, d0
 TimeAttack_VInterruptTransferPendingBranch:
@@ -2419,17 +2423,18 @@ TimeAttack_VIntWriteDisplayPairWriteY:
 	move.w $ff346a.l, $c00000.l
 TimeAttack_VIntWriteDisplayPairFinish:
 	bra.w TimeAttack_UpdateControllerState
-; DMA the primary work buffer to VRAM at $C000.
+; DMA 64 palette words from $FFD0A0 to CRAM byte address $0000.
+; The two command words form $C0000080 (CRAM DMA), not a VRAM address.
 TimeAttack_VIntDmaPrimaryBuffer:
 TimeAttack_VIntDmaPrimaryBufferAcquireZ80:
 	bsr.w TimeAttack_HaltZ80
 TimeAttack_VIntDmaPrimaryBufferControlPort:
 	lea.l $c00004.l, a5
-TimeAttack_VIntDmaPrimaryBufferLengthHigh:
+TimeAttack_VIntDmaPrimaryBufferLength:
 	move.l #$94009340, (a5)
-TimeAttack_VIntDmaPrimaryBufferLengthLow:
+TimeAttack_VIntDmaPrimaryBufferSourceLowMiddle:
 	move.l #$96e89550, (a5)
-TimeAttack_VIntDmaPrimaryBufferDmaLength:
+TimeAttack_VIntDmaPrimaryBufferSourceHigh:
 	move.w #$977f, (a5)
 TimeAttack_VIntDmaPrimaryBufferDestination:
 	move.w #$c000, (a5)
@@ -2441,17 +2446,18 @@ TimeAttack_VIntDmaPrimaryBufferReleaseZ80:
 	bsr.w TimeAttack_ReleaseZ80
 TimeAttack_VIntDmaPrimaryBufferFinish:
 	bra.w TimeAttack_UpdateControllerState
-; DMA the secondary work buffer to VRAM at $C060 and refresh its strip.
+; DMA 16 palette words from $FFD100 to CRAM byte address $0060, then copy
+; the associated tile strip to VRAM. The DMA command is $C0600080.
 TimeAttack_VIntDmaSecondaryBuffer:
 TimeAttack_VIntDmaSecondaryBufferAcquireZ80:
 	bsr.w TimeAttack_HaltZ80
 TimeAttack_VIntDmaSecondaryBufferControlPort:
 	lea.l $c00004.l, a5
-TimeAttack_VIntDmaSecondaryBufferLengthHigh:
+TimeAttack_VIntDmaSecondaryBufferLength:
 	move.l #$94009310, (a5)
-TimeAttack_VIntDmaSecondaryBufferLengthLow:
+TimeAttack_VIntDmaSecondaryBufferSourceLowMiddle:
 	move.l #$96e89580, (a5)
-TimeAttack_VIntDmaSecondaryBufferDmaLength:
+TimeAttack_VIntDmaSecondaryBufferSourceHigh:
 	move.w #$977f, (a5)
 TimeAttack_VIntDmaSecondaryBufferDestination:
 	move.w #$c060, (a5)
@@ -2831,25 +2837,25 @@ TimeAttack_ReleaseZ80Return:
 ; Read the multiplexed player-one controller state.
 TimeAttack_ReadController1:
 	movem.l d1, -(a7)
-TimeAttack_ReadController1SelectLowNibble:
+TimeAttack_ReadController1SelectThLow:
 	move.b #$0, $a10003.l
-TimeAttack_ReadController1LowNibbleDelay:
+TimeAttack_ReadController1ThLowDelay:
 	nop
-TimeAttack_ReadController1LowNibbleDelaySecond:
+TimeAttack_ReadController1ThLowDelaySecond:
 	nop
-TimeAttack_ReadController1ReadLowNibble:
+TimeAttack_ReadController1ReadThLow:
 	move.b $a10003.l, d0
-TimeAttack_ReadController1SelectHighNibble:
+TimeAttack_ReadController1SelectThHigh:
 	move.b #$40, $a10003.l
-TimeAttack_ReadController1ShiftLowNibble:
+TimeAttack_ReadController1ShiftUpperButtons:
 	lsl.b #$2, d0
-TimeAttack_ReadController1ReadHighNibble:
+TimeAttack_ReadController1ReadThHigh:
 	move.b $a10003.l, d1
-TimeAttack_ReadController1MaskLowNibble:
+TimeAttack_ReadController1MaskUpperButtons:
 	andi.b #$c0, d0
-TimeAttack_ReadController1MaskHighNibble:
+TimeAttack_ReadController1MaskLowerButtons:
 	andi.b #$3f, d1
-TimeAttack_ReadController1CombineNibbles:
+TimeAttack_ReadController1CombineButtonBits:
 	or.b d1, d0
 TimeAttack_ReadController1InvertState:
 	not.b d0
@@ -2864,7 +2870,7 @@ TimeAttack_UploadRotatedVdpDataArguments:
 	movem.l $24(a7), d0/a0-a1
 TimeAttack_UploadRotatedVdpDataDataPort:
 	lea.l $c00000.l, a2
-TimeAttack_UploadRotatedVdpDataDoubleRowCount:
+TimeAttack_UploadRotatedVdpDataScaleRowCountByEight:
 	lsl.w #$3, d0
 TimeAttack_UploadRotatedVdpDataRowCount:
 	subq.w #$1, d0

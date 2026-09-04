@@ -15264,7 +15264,7 @@ Ending_InitializeVdpControllerPortB:
 	move.b	d0, $a1000b.l
 Ending_InitializeVdpControllerPortC:
 	move.b	d0, $a1000d.l
-Ending_InitializeVdpControllerControl:
+Ending_InitializeVdpControllerData1:
 	move.b	#$c0, $a10003.l
 Ending_InitializeVdpAcquireZ80:
 	bsr.w	Ending_AcquireZ80Bus
