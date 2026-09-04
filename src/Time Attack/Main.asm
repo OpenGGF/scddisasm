@@ -2816,87 +2816,87 @@ TimeAttack_CopyVdpRectReturn:
 ; Halt the Z80 and save the current interrupt mask.
 TimeAttack_HaltZ80:
 	move.w sr, $ff391c.l
-L_FF38F4:
+TimeAttack_HaltZ80MaskInterrupts:
 	move.w #$2700, sr
-L_FF38F8:
+TimeAttack_HaltZ80RequestBus:
 	move.w #$100, $a11100.l
-L_FF3900:
+TimeAttack_HaltZ80Wait:
 	btst.b #$0, $a11100.l
-L_FF3908:
-	bne.b L_FF3900
-L_FF390A:
+TimeAttack_HaltZ80WaitCheck:
+	bne.b TimeAttack_HaltZ80Wait
+TimeAttack_HaltZ80Return:
 	rts
 ; Release the Z80 and restore the saved interrupt mask.
 TimeAttack_ReleaseZ80:
 	move.w #$0, $a11100.l
-L_FF3914:
+TimeAttack_ReleaseZ80RestoreInterrupts:
 	move.w $ff391c.l, sr
-L_FF391A:
+TimeAttack_ReleaseZ80Return:
 	rts
 	dc.b	$00,$00
 ; Read the multiplexed player-one controller state.
 TimeAttack_ReadController1:
 	movem.l d1, -(a7)
-L_FF3922:
+TimeAttack_ReadController1SelectLowNibble:
 	move.b #$0, $a10003.l
-L_FF392A:
+TimeAttack_ReadController1LowNibbleDelay:
 	nop
-L_FF392C:
+TimeAttack_ReadController1LowNibbleDelaySecond:
 	nop
-L_FF392E:
+TimeAttack_ReadController1ReadLowNibble:
 	move.b $a10003.l, d0
-L_FF3934:
+TimeAttack_ReadController1SelectHighNibble:
 	move.b #$40, $a10003.l
-L_FF393C:
+TimeAttack_ReadController1ShiftLowNibble:
 	lsl.b #$2, d0
-L_FF393E:
+TimeAttack_ReadController1ReadHighNibble:
 	move.b $a10003.l, d1
-L_FF3944:
+TimeAttack_ReadController1MaskLowNibble:
 	andi.b #$c0, d0
-L_FF3948:
+TimeAttack_ReadController1MaskHighNibble:
 	andi.b #$3f, d1
-L_FF394C:
+TimeAttack_ReadController1CombineNibbles:
 	or.b d1, d0
-L_FF394E:
+TimeAttack_ReadController1InvertState:
 	not.b d0
-L_FF3950:
+TimeAttack_ReadController1RestoreRegisters:
 	movem.l (a7)+, d1
-L_FF3954:
+TimeAttack_ReadController1Return:
 	rts
 ; Stream eight rotated passes of a RAM buffer to the VDP.
 TimeAttack_UploadRotatedVdpData:
 	movem.l d0-d3/a0-a3, -(a7)
-L_FF395A:
+TimeAttack_UploadRotatedVdpDataArguments:
 	movem.l $24(a7), d0/a0-a1
-L_FF3960:
+TimeAttack_UploadRotatedVdpDataDataPort:
 	lea.l $c00000.l, a2
-L_FF3966:
+TimeAttack_UploadRotatedVdpDataDoubleRowCount:
 	lsl.w #$3, d0
-L_FF3968:
+TimeAttack_UploadRotatedVdpDataRowCount:
 	subq.w #$1, d0
-L_FF396A:
+TimeAttack_UploadRotatedVdpDataRotation:
 	move.b #$1c, d1
-L_FF396E:
+TimeAttack_UploadRotatedVdpDataRotationLoop:
 	move.l a0, $c00004.l
-L_FF3974:
+TimeAttack_UploadRotatedVdpDataSourceReset:
 	movea.l a1, a3
-L_FF3976:
+TimeAttack_UploadRotatedVdpDataRowLoopCount:
 	move.w d0, d2
-L_FF3978:
+TimeAttack_UploadRotatedVdpDataRowLoop:
 	move.l (a3)+, d3
-L_FF397A:
+TimeAttack_UploadRotatedVdpDataRotateRow:
 	rol.l d1, d3
-L_FF397C:
+TimeAttack_UploadRotatedVdpDataWriteRow:
 	move.l d3, (a2)
-L_FF397E:
-	dbra d2, L_FF3978
-L_FF3982:
+TimeAttack_UploadRotatedVdpDataRowLoopCheck:
+	dbra d2, TimeAttack_UploadRotatedVdpDataRowLoop
+TimeAttack_UploadRotatedVdpDataNextRotation:
 	subq.b #$4, d1
-L_FF3984:
-	bpl.b L_FF396E
-L_FF3986:
+TimeAttack_UploadRotatedVdpDataRotationLoopCheck:
+	bpl.b TimeAttack_UploadRotatedVdpDataRotationLoop
+TimeAttack_UploadRotatedVdpDataRestoreRegisters:
 	movem.l (a7)+, d0-d3/a0-a3
-L_FF398A:
+TimeAttack_UploadRotatedVdpDataReturn:
 	rts
 	dc.l	$70001039,$00200020,$67405340,$0C400009,$641ED040,$41F900FF,$39D83030,$00007200,$4EB00000,$650A13FC,$00000020,$00216008,$13FC00FF,$00200021,$33C00020,$002233C1
 	dc.l	$00200024,$42390020,$00204E75,$00120024,$0030004A,$006C0090,$00AA00B0,$00D641F9,$00FF3AD0,$43F900FF,$47507000,$4EF8FDAE,$7001227C,$00FF4750,$4EF8FDAE,$207C0020

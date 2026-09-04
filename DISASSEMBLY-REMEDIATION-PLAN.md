@@ -608,6 +608,7 @@ opaque merely because they use `dc.*`.
 | M395 | Complete | Canonicalize the Time Attack Enigma bit-reader, refill helper, and overlapping mask table. | J/U/E 133/133 each; audit/hygiene clean. |
 | M396 | Complete | Canonicalize the Time Attack palette fade-in/fade-out and channel-step family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M397 | Complete | Canonicalize the Time Attack VDP register and rectangle fill/copy helpers and their internal loops. | J/U/E 133/133 each; audit/hygiene clean. |
+| M398 | Complete | Canonicalize the Time Attack Z80 handoff, controller-read, and rotated VDP upload helpers and their internal loops. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
