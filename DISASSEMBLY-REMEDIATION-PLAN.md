@@ -634,6 +634,7 @@ opaque merely because they use `dc.*`.
 | M421 | Complete | Canonicalize the shared player wall-response and ground-left/ground-right movement family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M422 | Complete | Canonicalize the shared player rolling movement, standing restoration, and roll-left/roll-right helper family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M423 | Complete | Canonicalize the shared player air-movement gate, horizontal input/clamping, focus adjustment, and falling-drag family. | J/U/E 133/133 each; audit/hygiene clean. |
+| M424 | Complete | Canonicalize the shared player bounds, roll eligibility, and roll-init dimension/animation family. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

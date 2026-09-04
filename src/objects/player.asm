@@ -1577,16 +1577,16 @@ PlayerUnusedCheckSquish:
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	bne.s	locret_2049E0
+	bne.s	PlayerUnusedCheckSquishReturn
 	bsr.w	PlayerCheckBlockUpWide
 	tst.w	d1
-	bpl.s	locret_2049E0
+	bpl.s	PlayerUnusedCheckSquishReturn
 	move.w	#0,obj.ground_speed(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#0,obj.y_speed(a0)
 	move.b	#$B,obj.anim_id(a0)
 
-locret_2049E0:
+PlayerUnusedCheckSquishReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1601,27 +1601,27 @@ PlayerCheckBounds:
 	move.w	left_bound,d0
 	addi.w	#$10,d0
 	cmp.w	d1,d0
-	bhi.s	loc_204A36
+	bhi.s	PlayerCheckBoundsClampX
 	move.w	right_bound,d0
 	addi.w	#$130,d0
 	tst.b	boss_started
-	bne.s	loc_204A10
+	bne.s	PlayerCheckBoundsCheckBottom
 	addi.w	#$38,d0
 
-loc_204A10:
+PlayerCheckBoundsCheckBottom:
 	cmp.w	d1,d0
-	bls.s	loc_204A36
+	bls.s	PlayerCheckBoundsClampX
 
-loc_204A14:
+PlayerCheckBoundsCheckY:
 	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
-	blt.s	loc_204A24
+	blt.s	PlayerCheckBoundsKillOrRestart
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204A24:
+PlayerCheckBoundsKillOrRestart:
 	cmpi.b	#$2B,obj.anim_id(a0)
 	bne.w	KillPlayer
 	move.b	#6,obj.routine(a0)
@@ -1629,68 +1629,68 @@ loc_204A24:
 
 ; ------------------------------------------------------------------------------
 
-loc_204A36:
+PlayerCheckBoundsClampX:
 	move.w	d0,obj.x(a0)
 	move.w	#0,obj.x+2(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#0,obj.ground_speed(a0)
-	bra.s	loc_204A14
+	bra.s	PlayerCheckBoundsCheckY
 
 ; ------------------------------------------------------------------------------
 
 PlayerCheckRoll:
 	tst.b	water_slide_flag
-	bne.s	locret_204A74
+	bne.s	PlayerCheckRollReturn
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_204A5C
+	bpl.s	PlayerCheckRollSpeedAbs
 	neg.w	d0
 
-loc_204A5C:
+PlayerCheckRollSpeedAbs:
 	cmpi.w	#$80,d0
-	bcs.s	locret_204A74
+	bcs.s	PlayerCheckRollReturn
 	move.b	player_joy_hold,d0
 	andi.b	#$C,d0
-	bne.s	locret_204A74
+	bne.s	PlayerCheckRollReturn
 	btst	#1,player_joy_hold
 	bne.s	PlayerStartRoll
 
-locret_204A74:
+PlayerCheckRollReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerStartRoll:
 	btst	#2,obj.flags(a0)
-	beq.s	loc_204A80
-	bra.s	loc_204AB0
+	beq.s	PlayerStartRollSetShrunk
+	bra.s	PlayerStartRollSetAnimation
 
 ; ------------------------------------------------------------------------------
 
-loc_204A80:
+PlayerStartRollSetShrunk:
 	bset	#2,obj.flags(a0)
 	tst.b	player_shrunk_state
-	beq.s	loc_204AA0
+	beq.s	PlayerStartRollSetNormal
 	move.b	#8,obj.height(a0)
 	move.b	#5,obj.width(a0)
 	addq.w	#2,obj.y(a0)
-	bra.s	loc_204AB0
+	bra.s	PlayerStartRollSetAnimation
 
 ; ------------------------------------------------------------------------------
 
-loc_204AA0:
+PlayerStartRollSetNormal:
 	move.b	#$E,obj.height(a0)
 	move.b	#7,obj.width(a0)
 	addq.w	#5,obj.y(a0)
 
-loc_204AB0:
+PlayerStartRollSetAnimation:
 	move.b	#2,obj.anim_id(a0)
 	tst.w	obj.ground_speed(a0)
-	bmi.s	locret_204ACA
+	bmi.s	PlayerStartRollReturn
 	cmpi.w	#$200,obj.ground_speed(a0)
-	bcc.s	locret_204ACA
+	bcc.s	PlayerStartRollReturn
 	move.w	#$200,obj.ground_speed(a0)
 
-locret_204ACA:
+PlayerStartRollReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

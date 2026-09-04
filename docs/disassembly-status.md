@@ -73,13 +73,13 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M423 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M424 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
 velocity-deceleration, wall-response, left/right movement, rolling, and standing
 restoration control flow, plus air-movement gating, horizontal clamping, focus
-adjustment, and falling drag.
+adjustment, falling drag, bounds, roll eligibility, and roll initialization.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 
