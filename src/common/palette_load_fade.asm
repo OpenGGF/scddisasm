@@ -9,9 +9,9 @@ LoadFadePalette:
 	adda.w	#$80,a3
 	move.w	(a1)+,d7
 
-loc_200594:
+LoadFadePaletteCopy:
 	move.l	(a2)+,(a3)+
-	dbf	d7,loc_200594
+	dbf	d7,LoadFadePaletteCopy
 	rts
 
 ; ------------------------------------------------------------------------------

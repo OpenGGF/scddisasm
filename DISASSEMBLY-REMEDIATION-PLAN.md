@@ -710,6 +710,7 @@ opaque merely because they use `dc.*`.
 | M497 | Complete | Canonicalize the shared FM sound-queue and Z80 bus-control family, migrating queue-order, BUSREQ-wait, and restart branches and documenting the audio handoff. | J/U/E 133/133 each; audit/hygiene clean. |
 | M498 | Complete | Canonicalize the shared time-warp/checkpoint restore family, migrating zone, water-state, bounds, and return branches and documenting the restored state scope. | J/U/E 133/133 each; audit/hygiene clean. |
 | M499 | Complete | Canonicalize the shared Sub CPU command handshake and VSync wait family, migrating command-dispatch, acknowledgement, completion, and VBlank-wait branches and documenting the synchronization boundary. | J/U/E 133/133 each; audit/hygiene clean. |
+| M500 | Complete | Canonicalize the shared VDP palette-loader variants and rectangular tilemap transfer family, migrating copy loops and documenting palette records and tilemap output. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

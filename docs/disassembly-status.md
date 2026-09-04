@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M499 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M500 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -174,6 +174,9 @@ M497 canonicalizes the shared FM sound-queue and Z80 bus-control helpers.
 M498 canonicalizes the shared time-warp/checkpoint restore and bounds helpers.
 
 M499 canonicalizes the shared Sub CPU command-handshake and VSync wait helpers.
+
+M500 canonicalizes the shared VDP palette-loader variants and rectangular
+tilemap-transfer helpers.
 
 ### Core and system programs
 

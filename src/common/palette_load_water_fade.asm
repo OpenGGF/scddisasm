@@ -9,9 +9,9 @@ LoadWaterFadePalette:
 	suba.w	#$100,a3
 	move.w	(a1)+,d7
 
-loc_2005E4:
+LoadWaterFadePaletteCopy:
 	move.l	(a2)+,(a3)+
-	dbf	d7,loc_2005E4
+	dbf	d7,LoadWaterFadePaletteCopy
 	rts
 
 ; ------------------------------------------------------------------------------

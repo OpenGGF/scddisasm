@@ -1,6 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 LoadPalette:
+	; PaletteTable records contain a source pointer, CRAM destination, and count-minus-one.
 	lea	PaletteTable,a1
 	lsl.w	#3,d0
 	adda.w	d0,a1
@@ -8,9 +9,9 @@ LoadPalette:
 	movea.w	(a1)+,a3
 	move.w	(a1)+,d7
 
-loc_2005AC:
+LoadPaletteCopy:
 	move.l	(a2)+,(a3)+
-	dbf	d7,loc_2005AC
+	dbf	d7,LoadPaletteCopy
 	rts
 
 ; ------------------------------------------------------------------------------
