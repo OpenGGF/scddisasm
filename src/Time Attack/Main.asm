@@ -350,7 +350,7 @@ L_FF233E:
 L_FF2346:
 	bsr.w TimeAttack_SendSubCpuCommandNoWait
 L_FF234A:
-	bsr.w L_FF2C74
+	bsr.w TimeAttack_PrepareTimeAttackRecords
 L_FF234E:
 	move.l #$f, -(a7)
 L_FF2354:
@@ -464,7 +464,7 @@ L_FF245C:
 L_FF2462:
 	move.w $ff3474.l, d7
 L_FF2468:
-	bsr.w L_FF2BD2
+	bsr.w TimeAttack_PrepareSelectionGraphics
 L_FF246C:
 	lea.l $ffd100.l, a0
 L_FF2472:
@@ -592,7 +592,7 @@ L_FF2562:
 L_FF2566:
 	move.w d7, $ff3474.l
 L_FF256C:
-	bsr.w L_FF2BD2
+	bsr.w TimeAttack_PrepareSelectionGraphics
 L_FF2570:
 	moveq #$0, d0
 L_FF2572:
@@ -638,7 +638,7 @@ L_FF25DA:
 L_FF25E0:
 	bmi.b L_FF25E6
 L_FF25E2:
-	bsr.w L_FF2BD2
+	bsr.w TimeAttack_PrepareSelectionGraphics
 L_FF25E6:
 	move.w #$0, $ffaa5a.l
 L_FF25EE:
@@ -1288,213 +1288,213 @@ TimeAttack_RenderSelectedTimeTableRenderCompactRecordThree:
 	bra.w TimeAttack_UploadCompactTileBlock
 ; Prepare the selected stage or period's graphics buffers.
 TimeAttack_PrepareSelectionGraphics:
-L_FF2BD2:
+TimeAttack_PrepareSelectionGraphicsCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF2BD8:
-	beq.b L_FF2BDC
-L_FF2BDA:
+TimeAttack_PrepareSelectionGraphicsUseStageIndex:
+	beq.b TimeAttack_PrepareSelectionGraphicsCheckStageIndex
+TimeAttack_PrepareSelectionGraphicsAdjustPeriodIndex:
 	addq.w #$7, d7
-L_FF2BDC:
+TimeAttack_PrepareSelectionGraphicsCheckStageIndex:
 	tst.w $ff3474.l
-L_FF2BE2:
-	bpl.b L_FF2BE6
-L_FF2BE4:
+TimeAttack_PrepareSelectionGraphicsUseLastStage:
+	bpl.b TimeAttack_PrepareSelectionGraphicsLoadGraphicsSource
+TimeAttack_PrepareSelectionGraphicsSelectLastStage:
 	moveq #$e, d7
-L_FF2BE6:
+TimeAttack_PrepareSelectionGraphicsLoadGraphicsSource:
 	lea.l $ffd120.l, a0
-L_FF2BEC:
+TimeAttack_PrepareSelectionGraphicsScaleGraphicsIndex:
 	move.w d7, d0
-L_FF2BEE:
+TimeAttack_PrepareSelectionGraphicsGraphicsStride:
 	lsl.w #$5, d0
-L_FF2BF0:
+TimeAttack_PrepareSelectionGraphicsSelectGraphicsBlock:
 	adda.w d0, a0
-L_FF2BF2:
+TimeAttack_PrepareSelectionGraphicsLoadGraphicsDestination:
 	lea.l $ffd100.l, a1
-L_FF2BF8:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong0:
 	move.l (a0)+, (a1)+
-L_FF2BFA:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong1:
 	move.l (a0)+, (a1)+
-L_FF2BFC:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong2:
 	move.l (a0)+, (a1)+
-L_FF2BFE:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong3:
 	move.l (a0)+, (a1)+
-L_FF2C00:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong4:
 	move.l (a0)+, (a1)+
-L_FF2C02:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong5:
 	move.l (a0)+, (a1)+
-L_FF2C04:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong6:
 	move.l (a0)+, (a1)+
-L_FF2C06:
+TimeAttack_PrepareSelectionGraphicsCopyGraphicsLong7:
 	move.l (a0)+, (a1)+
-L_FF2C08:
+TimeAttack_PrepareSelectionGraphicsLoadNemesisSourceTable:
 	lea.l $210592.l, a0
-L_FF2C0E:
+TimeAttack_PrepareSelectionGraphicsClearSourceOffset:
 	moveq #$0, d0
-L_FF2C10:
+TimeAttack_PrepareSelectionGraphicsLoadNemesisIndex:
 	move.w d7, d0
-L_FF2C12:
+TimeAttack_PrepareSelectionGraphicsScaleNemesisIndex:
 	add.w d0, d0
-L_FF2C14:
+TimeAttack_PrepareSelectionGraphicsReadNemesisOffset:
 	move.w (a0, d0.w), d0
-L_FF2C18:
+TimeAttack_PrepareSelectionGraphicsSelectNemesisSource:
 	adda.l d0, a0
-L_FF2C1A:
+TimeAttack_PrepareSelectionGraphicsNemesisDestination:
 	lea.l $ffaa60.l, a4
-L_FF2C20:
+TimeAttack_PrepareSelectionGraphicsDecompressNemesis:
 	bsr.w TimeAttack_DecompressNemesisToRam
-L_FF2C24:
+TimeAttack_PrepareSelectionGraphicsLoadEnigmaSourceTable:
 	lea.l $210000.l, a0
-L_FF2C2A:
+TimeAttack_PrepareSelectionGraphicsLoadEnigmaIndex:
 	move.w d7, d0
-L_FF2C2C:
+TimeAttack_PrepareSelectionGraphicsScaleEnigmaIndex:
 	add.w d0, d0
-L_FF2C2E:
+TimeAttack_PrepareSelectionGraphicsSelectEnigmaSource:
 	adda.w (a0, d0.w), a0
-L_FF2C32:
+TimeAttack_PrepareSelectionGraphicsEnigmaDestination:
 	lea.l $ffce60.l, a1
-L_FF2C38:
+TimeAttack_PrepareSelectionGraphicsEnigmaOutputCommand:
 	move.w #$e460, d0
-L_FF2C3C:
+TimeAttack_PrepareSelectionGraphicsDecompressEnigma:
 	bsr.w TimeAttack_DecompressEnigma
-L_FF2C40:
+TimeAttack_PrepareSelectionGraphicsDefaultTransferCount:
 	moveq #$a, d0
-L_FF2C42:
+TimeAttack_PrepareSelectionGraphicsCheckSpecialMode:
 	tst.b $ff347e.l
-L_FF2C48:
-	beq.b L_FF2C4C
-L_FF2C4A:
+TimeAttack_PrepareSelectionGraphicsUseDefaultTransferCount:
+	beq.b TimeAttack_PrepareSelectionGraphicsStoreTransferCount
+TimeAttack_PrepareSelectionGraphicsSpecialTransferCount:
 	moveq #$c, d0
-L_FF2C4C:
+TimeAttack_PrepareSelectionGraphicsStoreTransferCount:
 	move.w d0, $ff3730.l
-L_FF2C52:
+TimeAttack_PrepareSelectionGraphicsWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF2C56:
+TimeAttack_PrepareSelectionGraphicsPushNemesisSource:
 	pea.l $ffaa60.l
-L_FF2C5C:
+TimeAttack_PrepareSelectionGraphicsPushVdpCommand:
 	move.l #$4c000002, -(a7)
-L_FF2C62:
+TimeAttack_PrepareSelectionGraphicsPushTransferLength:
 	move.l #$120, -(a7)
-L_FF2C68:
+TimeAttack_PrepareSelectionGraphicsUploadRotatedData:
 	bsr.w TimeAttack_UploadRotatedVdpData
-L_FF2C6C:
+TimeAttack_PrepareSelectionGraphicsReleaseArguments:
 	adda.l #$c, a7
-L_FF2C72:
+TimeAttack_PrepareSelectionGraphicsReturn:
 	rts
 ; Prepare the selected stage's time records for display.
 TimeAttack_PrepareTimeAttackRecords:
-L_FF2C74:
+TimeAttack_PrepareTimeAttackRecordsSource:
 	lea.l $200000.l, a0
-L_FF2C7A:
+TimeAttack_PrepareTimeAttackRecordsTotalRecord:
 	lea.l $ff3454.l, a1
-L_FF2C80:
+TimeAttack_PrepareTimeAttackRecordsCurrentRecord:
 	lea.l $ff3458.l, a2
-L_FF2C86:
+TimeAttack_PrepareTimeAttackRecordsScratchRecord:
 	lea.l $ff345c.l, a3
-L_FF2C8C:
+TimeAttack_PrepareTimeAttackRecordsClearTotal:
 	clr.l (a1)
-L_FF2C8E:
+TimeAttack_PrepareTimeAttackRecordsSourcePointer:
 	lea.l $ffd54e.l, a4
-L_FF2C94:
+TimeAttack_PrepareTimeAttackRecordsOuterCount:
 	moveq #$6, d7
-L_FF2C96:
+TimeAttack_PrepareTimeAttackRecordsClearCurrent:
 	clr.l (a2)
-L_FF2C98:
+TimeAttack_PrepareTimeAttackRecordsInnerCount:
 	moveq #$2, d6
-L_FF2C9A:
+TimeAttack_PrepareTimeAttackRecordsLoadScratch:
 	move.l (a0)+, (a3)
-L_FF2C9C:
+TimeAttack_PrepareTimeAttackRecordsSelectScratch:
 	exg.l a1, a3
-L_FF2C9E:
+TimeAttack_PrepareTimeAttackRecordsNormalizeScratch:
 	bsr.w TimeAttack_NormalizeTimeFrames
-L_FF2CA2:
+TimeAttack_PrepareTimeAttackRecordsRestoreScratch:
 	exg.l a1, a3
-L_FF2CA4:
+TimeAttack_PrepareTimeAttackRecordsLoadPackedDelta:
 	move.l (a3), d0
-L_FF2CA6:
+TimeAttack_PrepareTimeAttackRecordsSelectCurrent:
 	exg.l a1, a2
-L_FF2CA8:
+TimeAttack_PrepareTimeAttackRecordsAddPackedDelta:
 	bsr.w TimeAttack_AddTimeValue
-L_FF2CAC:
+TimeAttack_PrepareTimeAttackRecordsRestoreCurrent:
 	exg.l a1, a2
-L_FF2CAE:
+TimeAttack_PrepareTimeAttackRecordsAdvanceSource:
 	addq.w #$8, a0
-L_FF2CB0:
-	dbra d6, L_FF2C9A
-L_FF2CB4:
+TimeAttack_PrepareTimeAttackRecordsInnerLoopCheck:
+	dbra d6, TimeAttack_PrepareTimeAttackRecordsLoadScratch
+TimeAttack_PrepareTimeAttackRecordsSelectRenderBuffer:
 	exg.l a1, a2
-L_FF2CB6:
+TimeAttack_PrepareTimeAttackRecordsRenderBuffer:
 	bsr.w TimeAttack_RenderTimeRecordsToBuffer
-L_FF2CBA:
+TimeAttack_PrepareTimeAttackRecordsRestoreRenderBuffer:
 	exg.l a1, a2
-L_FF2CBC:
+TimeAttack_PrepareTimeAttackRecordsLoadDisplayedDelta:
 	move.l (a2), d0
-L_FF2CBE:
+TimeAttack_PrepareTimeAttackRecordsAddDisplayedDelta:
 	bsr.w TimeAttack_AddTimeValue
-L_FF2CC2:
-	dbra d7, L_FF2C96
-L_FF2CC6:
+TimeAttack_PrepareTimeAttackRecordsOuterLoopCheck:
+	dbra d7, TimeAttack_PrepareTimeAttackRecordsClearCurrent
+TimeAttack_PrepareTimeAttackRecordsFinalCommand:
 	move.l #$4ade0003, d1
-L_FF2CCC:
+TimeAttack_PrepareTimeAttackRecordsRenderTotal:
 	bsr.w TimeAttack_RenderTimeRecord
-L_FF2CD0:
+TimeAttack_PrepareTimeAttackRecordsStoreTotal:
 	move.l (a1), $ff3464.l
-L_FF2CD6:
+TimeAttack_PrepareTimeAttackRecordsCheckSpecialRegion:
 	cmpi.b #$15, $ff0f18.l
-L_FF2CDE:
-	bne.b L_FF2D2A
-L_FF2CE0:
+TimeAttack_PrepareTimeAttackRecordsSkipSpecialFlags:
+	bne.b TimeAttack_PrepareTimeAttackRecordsClearSecondTotal
+TimeAttack_PrepareTimeAttackRecordsCheckFlagTwoThreshold:
 	cmpi.l #$192e0c, $ff3464.l
-L_FF2CEA:
-	bge.b L_FF2CF4
-L_FF2CEC:
+TimeAttack_PrepareTimeAttackRecordsSkipFlagTwo:
+	bge.b TimeAttack_PrepareTimeAttackRecordsCheckFlagOneThreshold
+TimeAttack_PrepareTimeAttackRecordsSetFlagTwo:
 	bset.b #$2, $ff0f1d.l
-L_FF2CF4:
+TimeAttack_PrepareTimeAttackRecordsCheckFlagOneThreshold:
 	cmpi.l #$1e1505, $ff3464.l
-L_FF2CFE:
-	bge.b L_FF2D08
-L_FF2D00:
+TimeAttack_PrepareTimeAttackRecordsSkipFlagOne:
+	bge.b TimeAttack_PrepareTimeAttackRecordsCheckFlagThreeThreshold
+TimeAttack_PrepareTimeAttackRecordsSetFlagOne:
 	bset.b #$1, $ff0f1d.l
-L_FF2D08:
+TimeAttack_PrepareTimeAttackRecordsCheckFlagThreeThreshold:
 	cmpi.l #$251b39, $ff3464.l
-L_FF2D12:
-	bge.b L_FF2D1C
-L_FF2D14:
+TimeAttack_PrepareTimeAttackRecordsSkipFlagThree:
+	bge.b TimeAttack_PrepareTimeAttackRecordsWaitSubCpu
+TimeAttack_PrepareTimeAttackRecordsSetFlagThree:
 	bset.b #$3, $ff0f1d.l
-L_FF2D1C:
+TimeAttack_PrepareTimeAttackRecordsWaitSubCpu:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF2D20:
+TimeAttack_PrepareTimeAttackRecordsStoreFlags:
 	move.b $ff0f1d.l, $2002a8.l
-L_FF2D2A:
+TimeAttack_PrepareTimeAttackRecordsClearSecondTotal:
 	clr.l (a1)
-L_FF2D2C:
+TimeAttack_PrepareTimeAttackRecordsSecondSourcePointer:
 	lea.l $ffd342.l, a4
-L_FF2D32:
+TimeAttack_PrepareTimeAttackRecordsSecondOuterCount:
 	moveq #$6, d7
-L_FF2D34:
+TimeAttack_PrepareTimeAttackRecordsSecondOuterLoop:
 	clr.l (a2)
-L_FF2D36:
+TimeAttack_PrepareTimeAttackRecordsLoadSecondRecord:
 	move.l (a0)+, (a2)
-L_FF2D38:
+TimeAttack_PrepareTimeAttackRecordsSelectSecondScratch:
 	exg.l a1, a2
-L_FF2D3A:
+TimeAttack_PrepareTimeAttackRecordsNormalizeSecondRecord:
 	bsr.w TimeAttack_NormalizeTimeFrames
-L_FF2D3E:
+TimeAttack_PrepareTimeAttackRecordsRenderSecondBuffer:
 	bsr.w TimeAttack_RenderTimeRecordsToBuffer
-L_FF2D42:
+TimeAttack_PrepareTimeAttackRecordsRestoreSecondScratch:
 	exg.l a1, a2
-L_FF2D44:
+TimeAttack_PrepareTimeAttackRecordsLoadSecondDelta:
 	move.l (a2), d0
-L_FF2D46:
+TimeAttack_PrepareTimeAttackRecordsAddSecondDelta:
 	bsr.w TimeAttack_AddTimeValue
-L_FF2D4A:
+TimeAttack_PrepareTimeAttackRecordsAdvanceSecondSource:
 	addq.w #$8, a0
-L_FF2D4C:
-	dbra d7, L_FF2D34
-L_FF2D50:
+TimeAttack_PrepareTimeAttackRecordsSecondLoopCheck:
+	dbra d7, TimeAttack_PrepareTimeAttackRecordsSecondOuterLoop
+TimeAttack_PrepareTimeAttackRecordsSecondCommand:
 	move.l #$4a920003, d1
-L_FF2D56:
+TimeAttack_PrepareTimeAttackRecordsRenderSecondTotal:
 	bsr.w TimeAttack_RenderTimeRecord
-L_FF2D5A:
+TimeAttack_PrepareTimeAttackRecordsReturn:
 	rts
 ; Convert the frame field at record offset $3 to centiseconds, preserving d0.
 TimeAttack_NormalizeTimeFrames:

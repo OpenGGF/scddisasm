@@ -613,6 +613,7 @@ opaque merely because they use `dc.*`.
 | M400 | Complete | Canonicalize the Time Attack Sub CPU command/ready/request handoff helpers and their internal loops. | J/U/E 133/133 each; audit/hygiene clean. |
 | M401 | Complete | Canonicalize the Time Attack time-record conversion and digit/tile rendering family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M402 | Complete | Canonicalize the Time Attack selection-title upload and selected-record-table rendering family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M403 | Complete | Canonicalize the Time Attack selection graphics preparation and stage-record aggregation family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
