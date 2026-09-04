@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M484 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M485 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -132,6 +132,9 @@ conditional boss fades, and indexed boss palette table.
 
 M484 canonicalizes the shared stage-event dispatch and per-zone bound/boss-
 trigger family.
+
+M485 canonicalizes shared stage initialization/restart, the main stage loop,
+collision loading, global animation, stage music, life-icon, and pause helpers.
 
 ### Core and system programs
 

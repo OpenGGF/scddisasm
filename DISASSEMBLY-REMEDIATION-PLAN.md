@@ -695,6 +695,7 @@ opaque merely because they use `dc.*`.
 | M482 | Complete | Canonicalize the shared solid-object attach/detach, support, push/crush, carry, and player-contact family, migrating address-derived branches and documenting lifecycle helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M483 | Complete | Canonicalize the shared palette fade families and conditional boss fade helpers, migrating address-derived branches and documenting the boss palette table. | J/U/E 133/133 each; audit/hygiene clean. |
 | M484 | Complete | Canonicalize the shared stage-event dispatch and per-zone bound/boss-trigger family, migrating address-derived branches and documenting the event-index tables. | J/U/E 133/133 each; audit/hygiene clean. |
+| M485 | Complete | Canonicalize the shared stage initialization, restart/main-loop, collision-loader, global-animation, stage-music, life-icon, and pause/unpause helper family, migrating internal branches and naming its lookup tables. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

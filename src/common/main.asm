@@ -15,14 +15,14 @@ S1StageMusicIds:
 InitStage:
 	clr.w	stage_demo
 	cmpi.b	#$7F,game_time_stones
-	bne.s	loc_201512
+	bne.s	InitStageResetRuntime
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 	tst.b	time_attack
-	bne.s	loc_201512
+	bne.s	InitStageResetRuntime
 	endif
 	move.b	#1,good_future
 
-loc_201512:
+InitStageResetRuntime:
 	move.b	#0,stage_started
 	clr.b	vblank_routine
 	clr.b	use_player_2
@@ -32,7 +32,7 @@ loc_201512:
 	endif
 	move.b	#0,paused
 	bset	#0,stage_start_flags
-	bne.s	loc_201578
+	bne.s	InitStagePrepareMode
 	if def(R8_VARIANT)
 		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
 			clr.b	$FF1587
@@ -47,62 +47,62 @@ loc_201512:
 	clr.l	score
 	move.b	#3,lives
 	tst.b	time_attack
-	beq.s	loc_201578
+	beq.s	InitStagePrepareMode
 	move.b	#1,lives
 
-loc_201578:
+InitStagePrepareMode:
 	bset	#7,game_mode
 	bsr.w	ClearGfxQueue
 	tst.b	enter_special_stage
-	bne.s	loc_20159E
+	bne.s	InitStageFadeWhite
 	btst	#7,time_zone
-	beq.s	loc_2015D4
+	beq.s	InitStageFadeBlackPath
 	bset	#0,palette_fade_flags
-	beq.s	loc_2015AA
+	beq.s	InitStageClearWarp
 
-loc_20159E:
+InitStageFadeWhite:
 	bsr.w	FadeToWhite
 	bclr	#0,palette_fade_flags
 
-loc_2015AA:
+InitStageClearWarp:
 	clr.b	warp_direction
 	tst.w	restart_stage
-	beq.w	loc_201644
+	beq.w	InitStageDemoBoundary
 	move.w	#0,restart_stage
 	cmpi.b	#2,act
-	bne.s	locret_2015D2
+	bne.s	InitStageRestartReturn
 	bclr	#7,time_zone
 
-locret_2015D2:
+InitStageRestartReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2015D4:
+InitStageFadeBlackPath:
 	bset	#0,palette_fade_flags
-	beq.s	loc_2015E2
+	beq.s	InitStageHandleRestart
 	bsr.w	FadeToBlack
 
-loc_2015E2:
+InitStageHandleRestart:
 	cmpi.w	#2,restart_stage
-	bne.s	loc_2015FE
+	bne.s	InitStageCheckLives
 	move.w	#0,restart_stage
 	move.b	#0,palette_fade_flags
 	if def(R8_VARIANT)
 		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
 			rts
 		else
-	bra.s	loc_201626
+		bra.s	InitStageClearPalette
 		endif
 	else
-	bra.s	loc_201626
+	bra.s	InitStageClearPalette
 	endif
 
 ; ------------------------------------------------------------------------------
 
-loc_2015FE:
+InitStageCheckLives:
 	tst.b	lives
-	bne.s	loc_201644
+	bne.s	InitStageDemoBoundary
 	move.b	#0,stage_start_flags
 	move.b	#0,respawn_checkpoint
 	move.b	#0,spawn_mode
@@ -113,22 +113,22 @@ loc_2015FE:
 		endif
 	endif
 
-loc_201626:
+InitStageClearPalette:
 	lea	palette,a1
 	move.w	#$1F,d6
 
-loc_20162E:
+InitStageClearPaletteLoop:
 	move.l	#0,(a1)+
-	dbf	d6,loc_20162E
+	dbf	d6,InitStageClearPaletteLoop
 	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_201644:
+InitStageDemoBoundary:
 	cmpi.w	#$800,demo_index
-	bne.s	loc_201662
+	bne.s	InitStagePaletteSetup
 	move.w	#0,demo_index
 	clr.w	stage_demo
 	move.b	#0,palette_fade_flags
@@ -136,39 +136,39 @@ loc_201644:
 
 ; ------------------------------------------------------------------------------
 
-loc_201662:
+InitStagePaletteSetup:
 	moveq	#0,d0
 	btst	#0,palette_clear_flags
-	bne.s	loc_201678
+	bne.s	InitStageFuturePalette
 	btst	#7,time_zone
-	beq.s	loc_20167E
+	beq.s	InitStageClearPaletteWords
 
-loc_201678:
+InitStageFuturePalette:
 	move.l	#$EEE0EEE,d0
 
-loc_20167E:
+InitStageClearPaletteWords:
 	lea	palette,a1
 	move.w	#$1F,d6
 
-loc_201686:
+InitStageClearPaletteLoop2:
 	move.l	d0,(a1)+
-	dbf	d6,loc_201686
+	dbf	d6,InitStageClearPaletteLoop2
 
-loc_20168C:
+InitStageWaitGfxQueue:
 	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	bsr.w	AdvanceGfxQueue
-	bne.s	loc_20168C
+	bne.s	InitStageWaitGfxQueue
 	tst.l	gfx_queue
 	bsr.w	PlayStageMusic
 	moveq	#0,d0
 	lea	StageDataIndex,a2
 	moveq	#0,d0
 	move.b	(a2),d0
-	beq.s	loc_2016B6
+	beq.s	InitStageLoadCommonGfx
 	bsr.w	LoadGfxList
 
-loc_2016B6:
+InitStageLoadCommonGfx:
 	moveq	#1,d0
 	bsr.w	LoadGfxList
 	clr.b	powerup_changed
@@ -177,9 +177,9 @@ loc_2016B6:
 	moveq	#0,d0
 	move.w	#$FF,d1
 
-loc_2016D2:
+InitStageClearObjectDrawQueue:
 	move.l	d0,(a1)+
-	dbf	d1,loc_2016D2
+	dbf	d1,InitStageClearObjectDrawQueue
 
 	lea	flower_positions,a1
 	moveq	#0,d0
@@ -193,30 +193,30 @@ loc_2016D2:
 	moveq	#0,d0
 	move.w	#$7FF,d1
 
-loc_2016F4:
+InitStageClearObjectPool:
 	move.l	d0,(a1)+
-	dbf	d1,loc_2016F4
+	dbf	d1,InitStageClearObjectPool
 	lea	unk_buffer_2,a1
 	moveq	#0,d0
 	move.w	#$3FF,d1
 
-loc_201706:
+InitStageClearScratchBuffer:
 	move.l	d0,(a1)+
-	dbf	d1,loc_201706
+	dbf	d1,InitStageClearScratchBuffer
 	lea	vblank_e_count,a1
 	moveq	#0,d0
 	move.w	#$15,d1
 
-loc_201716:
+InitStageClearVBlankCounters:
 	move.l	d0,(a1)+
-	dbf	d1,loc_201716
+	dbf	d1,InitStageClearVBlankCounters
 	lea	scroll_fg_x,a1
 	moveq	#0,d0
 	move.w	#$3F,d1
 
-loc_201726:
+InitStageClearScrollState:
 	move.l	d0,(a1)+
-	dbf	d1,loc_201726
+	dbf	d1,InitStageClearScrollState
 	move	#$2700,sr
 	if (DEMO<>0)&(STAGE_ZONE=6)&(STAGE_ACT=1)&(STAGE_TIME=1)
 		move.l	#(StageChunks+$4000),demo_data
@@ -252,13 +252,13 @@ loc_201726:
 	jsr	ConvertStageCollision
 	bsr.w	LoadStageCollision
 
-loc_2017A6:
+InitStageWaitForGfx:
 	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	bsr.w	AdvanceGfxQueue
-	bne.s	loc_2017A6
+	bne.s	InitStageWaitForGfx
 	tst.l	gfx_queue
-	bne.s	loc_2017A6
+	bne.s	InitStageWaitForGfx
 	bsr.w	SpawnPlayer
 	move.b	#$1C,hud_score_object+obj.id
 	move.b	#$1C,hud_lives_object+obj.id
@@ -269,12 +269,12 @@ loc_2017A6:
 	move.b	#$19,hud_icon_object+obj.id
 	move.b	#$A,hud_icon_object+obj.subtype
 	bset	#1,stage_start_flags
-	bne.s	loc_20180A
+	bne.s	InitStageResetInputTimers
 	move.b	#$3C,title_card_object+obj.id
 	move.b	#1,control_locked
 	clr.b	gfx_section_id
 
-loc_20180A:
+InitStageResetInputTimers:
 	move.w	#0,player_joy_hold
 	move.w	#0,p1_joy_hold
 	move.w	#0,p2_joy_hold
@@ -283,12 +283,12 @@ loc_20180A:
 	move.b	#0,r5_bg_change
 	moveq	#0,d0
 	tst.b	spawn_mode
-	bne.s	loc_20184C
+	bne.s	InitStageResetPlayerState
 	move.w	d0,rings
 	move.l	d0,time
 	move.b	d0,lives_flags
 
-loc_20184C:
+InitStageResetPlayerState:
 	move.b	d0,time_over
 	move.b	d0,shield
 	move.b	d0,invincible
@@ -309,59 +309,59 @@ loc_20184C:
 	jsr	AnimateStageGfx
 	move.b	#1,fade_enable_display
 	bclr	#7,time_zone
-	beq.s	loc_2018DC
+	beq.s	InitStageFadeFromBlack
 
-loc_2018D6:
+InitStageFadeFromWhite:
 	bsr.w	FadeFromWhite
-	bra.s	loc_2018EA
+	bra.s	InitStageEnterPlay
 
 ; ------------------------------------------------------------------------------
 
-loc_2018DC:
+InitStageFadeFromBlack:
 	bclr	#0,palette_clear_flags
-	bne.s	loc_2018D6
+	bne.s	InitStageFadeFromWhite
 	bsr.w	FadeFromBlack
 
-loc_2018EA:
+InitStageEnterPlay:
 	bclr	#7,game_mode
 	move.b	#1,stage_started
 
-loc_2018F8:
+StageMainLoop:
 	move.b	#8,vblank_routine
 	bsr.w	VSync
 	if REGION=USA
 	cmpi.b	#6,player_object+obj.routine
-	bcc.s	loc_201916
+	bcc.s	StageMainLoopPauseCheck
 	endif
 	tst.b	control_locked
-	bne.s	loc_201916
+	bne.s	StageMainLoopPauseCheck
 	btst	#7,p1_joy_tap
-	beq.s	loc_201916
+	beq.s	StageMainLoopPauseCheck
 	eori.b	#1,paused
 
-loc_201916:
+StageMainLoopPauseCheck:
 	btst	#0,paused
-	beq.w	loc_201988
+	beq.w	StageMainLoopUpdate
 	bsr.w	PauseMusic
 	if DEMO<>0
 		tst.w	stage_demo
-		bne.s	loc_201970
+		bne.s	StageMainLoopDemoEnd
 	endif
 	move.b	p1_joy_tap,d0
 	tst.b	time_attack
-	bne.s	loc_201966
+	bne.s	StageMainLoopPauseAction
 	andi.b	#$70,d0
 	if REGION=USA
-	beq.s	loc_2018F8
+	beq.s	StageMainLoop
 	else
 	cmpi.b	#$70,d0
-	bne.s	loc_2018F8
+	bne.s	StageMainLoop
 	endif
 	subq.b	#1,lives
-	bpl.s	loc_201948
+	bpl.s	StageMainLoopRestartLife
 	clr.b	lives
 
-loc_201948:
+StageMainLoopRestartLife:
 	move.w	#$E,d0
 	jsr	SubCpuCommand
 	bsr.w	ResetObjectStates
@@ -369,30 +369,30 @@ loc_201948:
 	move.w	#1,restart_stage
 	if def(R8_VARIANT)
 		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
-		bra.s	loc_201972
+			bra.s	StageMainLoopClearVariantState
 		else
-	bra.s	loc_201974
+	bra.s	StageMainLoopRestart
 		endif
 	else
-	bra.s	loc_201974
+	bra.s	StageMainLoopRestart
 	endif
 
 ; ------------------------------------------------------------------------------
 
-loc_201966:
+StageMainLoopPauseAction:
 	andi.b	#$70,d0
-	beq.w	loc_2018F8
+	beq.w	StageMainLoop
 
-loc_201970:
+StageMainLoopDemoEnd:
 	clr.b	lives
 	if def(R8_VARIANT)
 		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
-		loc_201972:
+		StageMainLoopClearVariantState:
 			clr.b	$FF1587
 		endif
 	endif
 
-loc_201974:
+StageMainLoopRestart:
 	clr.b	paused
 	clr.w	stage_demo
 	clr.b	respawn_checkpoint
@@ -403,7 +403,7 @@ loc_201974:
 
 ; ------------------------------------------------------------------------------
 
-loc_201988:
+StageMainLoopUpdate:
 	bsr.w	UnpauseMusic
 	addq.w	#1,stage_frames
 	jsr	SpawnStageObjects
@@ -415,42 +415,42 @@ loc_201988:
 	tst.w	debug_mode
 	if def(R8_VARIANT)
 		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
-			bne.s	loc_2019D0
+			bne.s	StageMainLoopUpdateScroll
 			cmpi.b	#6,player_object+obj.routine
-			bcc.s	loc_2019D4
+			bcc.s	StageMainLoopDraw
 		else
-	bne.s	loc_2019D0
+	bne.s	StageMainLoopUpdateScroll
 	cmpi.b	#6,player_object+obj.routine
-	bcs.s	loc_2019D0
+	bcs.s	StageMainLoopUpdateScroll
 	move.w	scroll_fg_y,bottom_bound
 	move.w	scroll_fg_y,target_bottom_bound
-	bra.s	loc_2019D4
+	bra.s	StageMainLoopDraw
 		endif
 	else
-	bne.s	loc_2019D0
+	bne.s	StageMainLoopUpdateScroll
 	cmpi.b	#6,player_object+obj.routine
-	bcs.s	loc_2019D0
+	bcs.s	StageMainLoopUpdateScroll
 	move.w	scroll_fg_y,bottom_bound
 	move.w	scroll_fg_y,target_bottom_bound
-	bra.s	loc_2019D4
+	bra.s	StageMainLoopDraw
 	endif
 
 ; ------------------------------------------------------------------------------
 
-loc_2019D0:
+StageMainLoopUpdateScroll:
 	bsr.w	UpdateScroll
 
-loc_2019D4:
+StageMainLoopDraw:
 	jsr	DrawObjects
 	tst.w	time_stop
-	bne.s	loc_2019E6
+	bne.s	StageMainLoopUpdateGraphics
 	bsr.w	CyclePalette
 
-loc_2019E6:
+StageMainLoopUpdateGraphics:
 	jsr	UpdateSectionGfx
 	bsr.w	AdvanceGfxQueue
 	bsr.w	UpdateGlobalAnims
-	bra.w	loc_2018F8
+	bra.w	StageMainLoop
 
 ; ------------------------------------------------------------------------------
 
@@ -459,10 +459,10 @@ SpawnPlayer:
 	moveq	#1,d0
 	move.b	d0,obj.id(a1)
 	tst.b	spawn_mode
-	beq.s	locret_201A10
+	beq.s	SpawnPlayerDone
 	move.w	#$78,obj.var_30(a1)
 
-locret_201A10:
+SpawnPlayerDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -510,12 +510,12 @@ LoadStageCollision:
 	moveq	#0,d0
 	move.b	zone,d0
 	lsl.w	#2,d0
-	move.l	off_201A7E(pc,d0.w),stage_collision
+	move.l	StageCollisionPointers(pc,d0.w),stage_collision
 	rts
 
 ; ------------------------------------------------------------------------------
 
-off_201A7E:
+StageCollisionPointers:
 	dc.l	StageCollision
 	dc.l	StageCollision
 	dc.l	StageCollision
@@ -529,30 +529,30 @@ off_201A7E:
 
 UpdateGlobalAnims:
 	subq.b	#1,log_spike_anim_timer
-	bpl.s	loc_201ABC
+	bpl.s	UpdateGlobalAnimsRing
 	move.b	#$B,log_spike_anim_timer
 	subq.b	#1,log_spike_anim_frame
 	andi.b	#7,log_spike_anim_frame
 
-loc_201ABC:
+UpdateGlobalAnimsRing:
 	subq.b	#1,ring_anim_timer
-	bpl.s	loc_201ADA
+	bpl.s	UpdateGlobalAnimsUnknown
 	move.b	#7,ring_anim_timer
 	addq.b	#1,ring_anim_frame
 	andi.b	#3,ring_anim_frame
 
-loc_201ADA:
+UpdateGlobalAnimsUnknown:
 	subq.b	#1,unk_anim_timer
-	bpl.s	loc_201B02
+	bpl.s	UpdateGlobalAnimsLostRing
 	move.b	#7,unk_anim_timer
 	addq.b	#1,unk_anim_frame
 	cmpi.b	#6,unk_anim_frame
-	bcs.s	loc_201B02
+	bcs.s	UpdateGlobalAnimsLostRing
 	move.b	#0,unk_anim_frame
 
-loc_201B02:
+UpdateGlobalAnimsLostRing:
 	tst.b	lost_ring_anim_timer
-	beq.s	locret_201B30
+	beq.s	UpdateGlobalAnimsDone
 	moveq	#0,d0
 	move.b	lost_ring_anim_timer,d0
 	add.w	lost_ring_anim_accum,d0
@@ -562,7 +562,7 @@ loc_201B02:
 	move.b	d0,lost_ring_anim_frame
 	subq.b	#1,lost_ring_anim_timer
 
-locret_201B30:
+UpdateGlobalAnimsDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -573,23 +573,24 @@ PlayStageMusic:
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	time_attack
-	bne.s	loc_201B54
+	bne.s	PlayStageMusicSelect
 	cmpi.b	#2,d0
-	bne.s	loc_201B54
+	bne.s	PlayStageMusicSelect
 	add.b	good_future,d0
 
-loc_201B54:
+PlayStageMusicSelect:
 	move.b	zone,d1
 	add.w	d1,d1
 	add.w	d1,d1
 	add.w	d0,d1
 	moveq	#0,d0
-	move.b	byte_201B6C(pc,d1.w),d0
+	move.b	StageMusicCommandTable(pc,d1.w),d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-byte_201B6C:
+; Seven zones, each with normal, past, present, and future commands.
+StageMusicCommandTable:
 	dc.b	$80, $F, $11, $10
 	dc.b	$80, $12, $14, $13
 	dc.b	$80, $15, $17, $16
@@ -655,58 +656,58 @@ PauseMusic:
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 	bset	#7,paused
-	bne.s	locret_201C3A
+	bne.s	PauseMusicDone
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	beq.s	loc_201C20
+	beq.s	PauseMusicNormal
 
-loc_201C16:
+PauseMusicSpecial:
 	move.w	#$D5,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-loc_201C20:
+PauseMusicNormal:
 	tst.b	invincible
-	bne.s	loc_201C16
+	bne.s	PauseMusicSpecial
 	tst.b	speed_shoes
-	bne.s	loc_201C16
+	bne.s	PauseMusicSpecial
 	move.w	#$90,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-locret_201C3A:
+PauseMusicDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 UnpauseMusic:
 	bclr	#7,paused
-	beq.s	locret_201C76
+	beq.s	UnpauseMusicDone
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	beq.s	loc_201C5C
+	beq.s	UnpauseMusicNormal
 
-loc_201C52:
+UnpauseMusicSpecial:
 	move.w	#$D6,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-loc_201C5C:
+UnpauseMusicNormal:
 	tst.b	invincible
-	bne.s	loc_201C52
+	bne.s	UnpauseMusicSpecial
 	tst.b	speed_shoes
-	bne.s	loc_201C52
+	bne.s	UnpauseMusicSpecial
 	move.w	#$91,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-locret_201C76:
+UnpauseMusicDone:
 	rts
 
 ; ------------------------------------------------------------------------------
