@@ -73,6 +73,11 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
+M415 (2026-09-04) canonicalizes the shared `objects/player.asm` boredom,
+initialization, splash, and routine-dispatch helpers. Fresh J/U/E validation
+covers the R3/R4/R5/R7/R8 level outputs that include this shared family,
+including `DEMO43C` and `DEMO82A`.
+
 ### Core and system programs
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |

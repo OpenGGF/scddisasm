@@ -13,20 +13,20 @@ player_shrunk_state	equ	shrunk_player
 PlayerCheckBored:
 	lea	bored_timer,a1
 	cmpi.b	#5,obj.anim_id(a0)
-	beq.s	loc_203AD2
+	beq.s	PlayerCheckBoredActive
 	move.w	#0,(a1)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_203AD2:
+PlayerCheckBoredActive:
 	tst.w	(a1)
-	bne.s	loc_203ADC
+	bne.s	PlayerCheckBoredStartTimer
 	move.b	#1,1(a1)
 
-loc_203ADC:
+PlayerCheckBoredStartTimer:
 	cmpi.w	#$2A30,(a1)
-	bcs.s	locret_203B26
+	bcs.s	PlayerCheckBoredReturn
 	move.w	#0,(a1)
 	move.b	#$2B,obj.anim_id(a0)
 	ori.b	#$80,obj.sprite_tile(a0)
@@ -41,17 +41,17 @@ loc_203ADC:
 	move.w	#-$500,obj.y_speed(a0)
 	move.w	#$100,obj.x_speed(a0)
 	btst	#0,obj.flags(a0)
-	beq.s	loc_203B18
+	beq.s	PlayerCheckBoredLaunch
 	neg.w	obj.x_speed(a0)
 
-loc_203B18:
+PlayerCheckBoredLaunch:
 	move.w	#0,obj.ground_speed(a0)
 	move.w	#$79,d0
 	bra.w	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-locret_203B26:
+PlayerCheckBoredReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -59,9 +59,9 @@ locret_203B26:
 PlayerObject:
 	if (REGION<>USA)|((REGION=USA)&(DEMO=0))
 	tst.b	time_attack
-	bne.s	loc_203B44
+	bne.s	PlayerObjectCheckDebug
 	cmpa.w	#player_object_2,a0
-	beq.s	loc_203B44
+	beq.s	PlayerObjectCheckDebug
 	if (REGION<>USA)&(DEMO<>0)
 		btst	#7,$FFFFF607.w
 		beq.s	.skipDemoPlayerState
@@ -69,53 +69,53 @@ PlayerObject:
 	.skipDemoPlayerState:
 	endif
 	tst.b	debug_mode
-	beq.s	loc_203B44
+	beq.s	PlayerObjectCheckDebug
 	jmp	DebugModeLegacy
 	endif
 
 ; ------------------------------------------------------------------------------
 
-loc_203B44:
+PlayerObjectCheckDebug:
 	move.b	obj.var_2a(a0),d0
-	beq.s	loc_203B6E
+	beq.s	PlayerObjectDispatch
 	addq.b	#1,d0
 	btst	#2,obj.flags(a0)
-	beq.s	loc_203B60
+	beq.s	PlayerObjectAirborneTimerCap
 	cmpi.b	#$2D,d0
-	bcs.s	loc_203B6A
+	bcs.s	PlayerObjectStoreTimer
 	move.b	#$2D,d0
-	bra.s	loc_203B6A
+	bra.s	PlayerObjectStoreTimer
 
 ; ------------------------------------------------------------------------------
 
-loc_203B60:
+PlayerObjectAirborneTimerCap:
 	cmpi.b	#$1E,d0
-	bcs.s	loc_203B6A
+	bcs.s	PlayerObjectStoreTimer
 	move.b	#$1E,d0
 
-loc_203B6A:
+PlayerObjectStoreTimer:
 	move.b	d0,obj.var_2a(a0)
 
-loc_203B6E:
+PlayerObjectDispatch:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_203B7C(pc,d0.w),d1
-	jmp	off_203B7C(pc,d1.w)
+	move.w	PlayerObjectRoutineDispatchTable(pc,d0.w),d1
+	jmp	PlayerObjectRoutineDispatchTable(pc,d1.w)
 
 ; ------------------------------------------------------------------------------
 
-off_203B7C:
+PlayerObjectRoutineDispatchTable:
 	dc.w	PlayerInit-*
-	dc.w	PlayerMain-off_203B7C
-	dc.w	PlayerHurt-off_203B7C
-	dc.w	PlayerDead-off_203B7C
-	dc.w	PlayerRestart-off_203B7C
+	dc.w	PlayerMain-PlayerObjectRoutineDispatchTable
+	dc.w	PlayerHurt-PlayerObjectRoutineDispatchTable
+	dc.w	PlayerDead-PlayerObjectRoutineDispatchTable
+	dc.w	PlayerRestart-PlayerObjectRoutineDispatchTable
 
 ; ------------------------------------------------------------------------------
 
 PlayerMakeWarpStars:
 	tst.b	warp_object_1+obj.id
-	bne.s	locret_203BC4
+	bne.s	PlayerMakeWarpStarsReturn
 	move.b	#1,warping
 	move.b	#3,warp_object_1+obj.id
 	move.b	#5,warp_object_1+obj.anim_id
@@ -126,7 +126,7 @@ PlayerMakeWarpStars:
 	move.b	#3,warp_object_4+obj.id
 	move.b	#8,warp_object_4+obj.anim_id
 
-locret_203BC4:
+PlayerMakeWarpStarsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -141,11 +141,11 @@ PlayerInit:
 	move.b	#$13,obj.height(a0)
 	move.b	#9,obj.width(a0)
 	tst.b	player_shrunk_state
-	beq.s	loc_203BEC
+	beq.s	PlayerInitShrunkDimensions
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
 
-loc_203BEC:
+PlayerInitShrunkDimensions:
 	move.l	#PlayerSprites,obj.sprite_data(a0)
 	move.w	#$780,obj.sprite_tile(a0)
 	move.b	#2,obj.sprite_layer(a0)
@@ -160,41 +160,41 @@ loc_203BEC:
 
 PlayerMakeSplash:
 	tst.b	zone
-	bne.s	locret_203C86
+	bne.s	PlayerMakeSplashReturn
 	move.b	stage_frames+1,d0
 	andi.b	#1,d0
-	bne.s	locret_203C86
+	bne.s	PlayerMakeSplashReturn
 	move.b	obj.height(a0),d2
 	ext.w	d2
 	add.w	obj.y(a0),d2
 	move.w	obj.x(a0),d3
 	bsr.w	PlayerGetChunk
 	cmpi.b	#$2F,d1
-	bne.s	locret_203C88
+	bne.s	PlayerMakeSplashWrongChunkReturn
 	cmpi.w	#$15C0,obj.x(a0)
-	bcc.s	locret_203C86
+	bcc.s	PlayerMakeSplashReturn
 	tst.b	obj.var_2c(a0)
-	beq.s	locret_203C86
+	beq.s	PlayerMakeSplashReturn
 	jsr	SpawnObject
-	bne.s	locret_203C86
+	bne.s	PlayerMakeSplashReturn
 	move.b	#$E,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 	moveq	#1,d0
 	tst.w	obj.x_speed(a0)
-	bmi.s	loc_203C7E
+	bmi.s	PlayerMakeSplashSetDirection
 	moveq	#0,d0
 
-loc_203C7E:
+PlayerMakeSplashSetDirection:
 	move.b	d0,obj.sprite_flags(a1)
 	move.b	d0,obj.flags(a1)
 
-locret_203C86:
+PlayerMakeSplashReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-locret_203C88:
+PlayerMakeSplashWrongChunkReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
