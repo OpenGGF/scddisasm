@@ -2242,7 +2242,7 @@ PlayerHurtRecoverReturn:
 ; ------------------------------------------------------------------------------
 
 PlayerDead:
-	bsr.w	sub_205004
+	bsr.w	PlayerDeadProcess
 	jsr	MoveObjectFall
 	bsr.w	PlayerBufferPosition
 	bsr.w	PlayerAnimate
@@ -2250,11 +2250,11 @@ PlayerDead:
 
 ; ------------------------------------------------------------------------------
 
-sub_205004:
+PlayerDeadProcess:
 	move.w	bottom_bound,d0
 	addi.w	#$100,d0
 	cmp.w	obj.y(a0),d0
-	bcc.w	locret_205072
+	bcc.w	PlayerDeadReturn
 	move.w	#$FFC8,obj.y_speed(a0)
 	addq.b	#2,obj.routine(a0)
 	clr.b	update_hud_time
@@ -2262,44 +2262,44 @@ sub_205004:
 	subq.b	#1,lives
 	if def(R8_VARIANT)
 		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
-			bpl.s	loc_205038
+			bpl.s	PlayerDeadCheckLives
 			clr.b	lives
 		endif
 	else
-		bpl.s	loc_205038
+		bpl.s	PlayerDeadCheckLives
 		clr.b	lives
 	endif
 
-loc_205038:
+PlayerDeadCheckLives:
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.s	loc_205052
+	beq.s	PlayerDeadSpawnLifeIcon
 	tst.b	time_attack
-	beq.s	loc_205052
+	beq.s	PlayerDeadSpawnLifeIcon
 	move.b	#0,lives
-	bra.s	loc_20506C
+	bra.s	PlayerDeadSetRestartTimer
 
 ; ------------------------------------------------------------------------------
 
-loc_205052:
+PlayerDeadSpawnLifeIcon:
 	jsr	SpawnObject
 	move.b	#$3B,obj.id(a1)
 	move.w	#$1E0,obj.var_3a(a0)
 	tst.b	lives
-	beq.s	locret_205072
+	beq.s	PlayerDeadReturn
 
-loc_20506C:
+PlayerDeadSetRestartTimer:
 	move.w	#$3C,obj.var_3a(a0)
 
-locret_205072:
+PlayerDeadReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerRestart:
 	tst.w	obj.var_3a(a0)
-	beq.w	locret_2050F6
+	beq.w	PlayerRestartReturn
 	subq.w	#1,obj.var_3a(a0)
-	bne.w	locret_2050F6
+	bne.w	PlayerRestartReturn
 	move.w	#1,restart_stage
 	jsr	StopZ80
 	move.b	#1,Z80_RAM+$1C3E
@@ -2307,34 +2307,34 @@ PlayerRestart:
 	bsr.w	ResetObjectStates
 	clr.l	flower_counts
 	tst.b	respawn_checkpoint
-	bne.s	loc_2050C4
+	bne.s	PlayerRestartSelectSpawn
 	cmpi.b	#1,time_zone
-	bne.s	loc_2050C4
+	bne.s	PlayerRestartSelectSpawn
 	bclr	#1,stage_start_flags
 
-loc_2050C4:
+PlayerRestartSelectSpawn:
 	move.w	#$E,d0
 	tst.b	lives
-	beq.s	loc_2050F2
+	beq.s	PlayerRestartSendCommand
 	cmpi.b	#1,time_zone
-	bne.s	loc_2050EC
+	bne.s	PlayerRestartDefaultSpawn
 	if def(R8_VARIANT)
 		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
 			clr.b	$FF1587
 		endif
 	endif
 	tst.b	respawn_checkpoint
-	beq.s	loc_2050F2
+	beq.s	PlayerRestartSendCommand
 	move.b	#1,spawn_mode
-	bra.s	loc_2050F2
+	bra.s	PlayerRestartSendCommand
 
 ; ------------------------------------------------------------------------------
 
-loc_2050EC:
+PlayerRestartDefaultSpawn:
 	if def(R8_VARIANT)
 		if (R8_VARIANT=5)&(DEMO<>0)&(REGION<>USA)
 			cmpi.b	#2,act
-			beq.s	loc_2050F2
+			beq.s	PlayerRestartSendCommand
 			move.b	#2,spawn_mode
 		else
 			clr.b	spawn_mode
@@ -2343,12 +2343,12 @@ loc_2050EC:
 	clr.b	spawn_mode
 	endif
 
-loc_2050F2:
+PlayerRestartSendCommand:
 	bra.w	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-locret_2050F6:
+PlayerRestartReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
