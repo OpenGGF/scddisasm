@@ -486,19 +486,20 @@ Ending_TimeAttackTransferState3C:
 ; Initialize event-stream playback state.
 Ending_StartEventPlayback:
 	move.w	#$0, $FFFFfa40.w
-L_FF2492:
+	; Publish the event tag and reset the stream cursor before handing off.
+Ending_StartEventPlaybackSetState:
 	move.w	#$24, $FFFFc086.w
-L_FF2498:
+Ending_StartEventPlaybackWriteTag:
 	move.w	#$4e4f, $200000.l
-L_FF24A0:
+Ending_StartEventPlaybackMarkActive:
 	st.b	$FFFFc088.w
-L_FF24A4:
+Ending_StartEventPlaybackResetCursor:
 	clr.l	$FFFFc08a.w
-L_FF24A8:
+Ending_StartEventPlaybackResetTileOffset:
 	clr.w	$FFFFc08e.w
-L_FF24AC:
+Ending_StartEventPlaybackSetStreamPointer:
 	lea.l	EndingEventData(pc), a2
-L_FF24B0:
+Ending_StartEventPlaybackStoreStreamPointer:
 	move.l	a2, $FFFFc090.w
 Ending_StartEventPlaybackWait:
 	bra.w	Ending_WaitWordRamSwap
@@ -750,25 +751,25 @@ Ending_ReadJoypad:
 Ending_WaitWordRamSwap:
 	btst.b	#$1, $a1200f.l
 	bne.b	Ending_WaitWordRamSwapDone
-L_FF2758:
+Ending_WaitWordRamSwapCheckRequest:
 	btst.b	#$0, $a1200f.l
-L_FF2760:
 	beq.b	Ending_WaitWordRamSwap
-L_FF2762:
+Ending_WaitWordRamSwapCheckRequestAgain:
 	btst.b	#$0, $a1200f.l
-L_FF276A:
 	beq.b	Ending_WaitWordRamSwap
-L_FF276C:
+
+Ending_WaitWordRamSwapCheckRequestFinal:
 	btst.b	#$0, $a1200f.l
-L_FF2774:
 	beq.b	Ending_WaitWordRamSwap
-L_FF2776:
+
+Ending_WaitWordRamSwapCheckSubCpu:
 	btst.b	#$2, $a1200e.l
-L_FF277E:
 	bne.b	Ending_WaitWordRamSwap
-L_FF2780:
+
+Ending_WaitWordRamSwapClearSubCpuRequest:
 	bclr.b	#$1, $a12003.l
-L_FF2788:
+
+Ending_WaitWordRamSwapSetMainCpuRequest:
 	bset.b	#$0, $a1200e.l
 Ending_WaitWordRamSwapPoll:
 	btst.b	#$1, $a12003.l
@@ -777,28 +778,29 @@ Ending_WaitWordRamSwapPoll:
 	bne.b	Ending_WaitWordRamSwapPoll
 	btst.b	#$1, $a12003.l
 	bne.b	Ending_WaitWordRamSwapPoll
-L_FF27AE:
+
+Ending_WaitWordRamSwapReleaseRequest:
 	bclr.b	#$0, $a1200e.l
 Ending_WaitWordRamSwapDone:
 	rts
 ; Clear the ending-FMV VDP name-table planes.
 Ending_ClearVdpNameTables:
-L_FF27B8:
+Ending_ClearVdpNameTablesDataPort:
 	lea.l	$c00000.l, a6
-L_FF27BE:
+Ending_ClearVdpNameTablesSetAddress:
 	move.l	#$40000000, $c00004.l
-L_FF27C8:
+Ending_ClearVdpNameTablesClearWord:
 	moveq	#$0, d0
-L_FF27CA:
+Ending_ClearVdpNameTablesInitialCount:
 	moveq	#$7, d7
 Ending_ClearVdpNameTablesInitialLoop:
 	move.l	d0, (a6)
 	dbra	d7, Ending_ClearVdpNameTablesInitialLoop
-L_FF27D2:
+Ending_ClearVdpNameTablesPlaneAddress:
 	move.l	#$60000002, d0
-L_FF27D8:
+Ending_ClearVdpNameTablesColumnCount:
 	move.w	#$27, d1
-L_FF27DC:
+Ending_ClearVdpNameTablesPlaneCount:
 	move.w	#$1b, d2
 Ending_ClearVdpNameTablesPlaneLoop:
 	move.l	d0, (a4)
@@ -807,7 +809,7 @@ Ending_ClearVdpNameTablesRowCount:
 Ending_ClearVdpNameTablesRowLoop:
 	move.w	#$0, (a5)
 	dbra	d3, Ending_ClearVdpNameTablesRowLoop
-L_FF27EC:
+Ending_ClearVdpNameTablesAdvancePlane:
 	addi.l	#$1000000, d0
 	dbra	d2, Ending_ClearVdpNameTablesPlaneLoop
 
