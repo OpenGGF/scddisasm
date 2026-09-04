@@ -1,12 +1,13 @@
 ; ------------------------------------------------------------------------------
 
 Random:
+	; Advance the 32-bit seed and return the generated 16-bit value in D0.
 	move.l	d1,-(sp)
 	move.l	random_seed,d1
-	bne.s	loc_20213A
+	bne.s	RandomSeedReady
 	move.l	#$2A6D365A,d1
 
-loc_20213A:
+RandomSeedReady:
 	move.l	d1,d0
 	asl.l	#2,d1
 	add.l	d0,d1
