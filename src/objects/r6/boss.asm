@@ -1127,21 +1127,21 @@ ElectricityDelete:
 FloorPieceObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F1C6(pc,d0.w),d0
-	jsr	off_20F1C6(pc,d0.w)
-	bsr.w	sub_20F2E6
+	move.w	FloorPieceRoutineTable(pc,d0.w),d0
+	jsr	FloorPieceRoutineTable(pc,d0.w)
+	bsr.w	FloorPieceAdjustPlayerHeight
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20F1C6:
-	dc.w	FloorPieceObject_0_Routine0-*
-	dc.w	FloorPieceObject_0_Routine2-off_20F1C6
-	dc.w	FloorPieceObject_0_Routine4-off_20F1C6
+FloorPieceRoutineTable:
+	dc.w	FloorPieceInit-*
+	dc.w	FloorPieceAnimate-FloorPieceRoutineTable
+	dc.w	FloorPieceResting-FloorPieceRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-FloorPieceObject_0_Routine0:
+FloorPieceInit:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
@@ -1152,7 +1152,7 @@ FloorPieceObject_0_Routine0:
 	moveq	#0,d0
 	move.b	obj.subtype_2(a0),d0
 	mulu.w	#$10,d0
-	lea	word_20F21C,a1
+	lea	FloorPieceMotionTable,a1
 	adda.w	d0,a1
 	move.l	a1,obj.var_34(a0)
 	move.w	#0,obj.y_speed(a0)
@@ -1161,7 +1161,7 @@ FloorPieceObject_0_Routine0:
 
 ; ------------------------------------------------------------------------------
 
-word_20F21C:
+FloorPieceMotionTable:
 	dc.w	$690, $400
 	dc.w	-$600, $B
 	dc.w	$690, $400
@@ -1177,27 +1177,27 @@ word_20F21C:
 
 ; ------------------------------------------------------------------------------
 
-FloorPieceObject_0_Routine2:
+FloorPieceAnimate:
 	bsr.w	sub_20F622
 	movea.l	obj.var_34(a0),a2
 	move.w	obj.var_38(a0),d1
 	move.w	(a2,d1.w),d0
 	cmp.w	obj.y(a0),d0
-	ble.s	loc_20F274
+	ble.s	FloorPieceLand
 	move.w	2(a2,d1.w),d0
 	cmp.w	obj.y(a0),d0
-	bge.s	loc2_20F26E
+	bge.s	FloorPieceClampHeight
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc2_20F26E:
+FloorPieceClampHeight:
 	move.w	d0,obj.y(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F274:
+FloorPieceLand:
 	clr.w	obj.x_speed(a0)
 	clr.w	obj.y_speed(a0)
 	move.w	d0,obj.y(a0)
@@ -1210,29 +1210,29 @@ loc_20F274:
 
 ; ------------------------------------------------------------------------------
 
-FloorPieceObject_0_Routine4:
+FloorPieceResting:
 	movea.w	obj.var_2e(a0),a1
 	tst.b	$36(a1)
-	bne.s	loc_20F2A6
+	bne.s	FloorPieceStartMotion
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F2A6:
+FloorPieceStartMotion:
 	move.b	#2,obj.routine(a0)
 	lea	player_object,a1
 	move.w	obj.x(a0),d0
 	sub.w	obj.x(a1),d0
-	bge.s	loc_20F2BC
+	bge.s	FloorPieceSelectMotion
 	neg.w	d0
 
-loc_20F2BC:
+FloorPieceSelectMotion:
 	clr.w	obj.var_38(a0)
 	cmpi.w	#$18,d0
-	bge.s	loc_20F2CC
+	bge.s	FloorPieceLoadMotion
 	move.w	#8,obj.var_38(a0)
 
-loc_20F2CC:
+FloorPieceLoadMotion:
 	movea.l	obj.var_34(a0),a2
 	move.w	obj.var_38(a0),d1
 	move.w	4(a2,d1.w),d0
@@ -1243,128 +1243,129 @@ loc_20F2CC:
 
 ; ------------------------------------------------------------------------------
 
-sub_20F2E6:
+FloorPieceAdjustPlayerHeight:
 	tst.w	obj.y_speed(a0)
-	bgt.s	loc_20F2EE
-	beq.s	loc_20F2FE
+	bgt.s	FloorPieceAdjustPlayerUp
+	beq.s	FloorPieceAdjustPlayerNeutral
 
-loc_20F2EE:
+FloorPieceAdjustPlayerUp:
 	move.b	#4,obj.var_3c(a0)
-	bra.s	loc_20F304
+	bra.s	FloorPieceApplyHeightOffset
 
 ; ------------------------------------------------------------------------------
 
+FloorPieceAdjustPlayerDown:
 	move.b	#$FC,obj.var_3c(a0)
-	bra.s	loc_20F304
+	bra.s	FloorPieceApplyHeightOffset
 
 ; ------------------------------------------------------------------------------
 
-loc_20F2FE:
+FloorPieceAdjustPlayerNeutral:
 	move.b	#0,obj.var_3c(a0)
 
-loc_20F304:
+FloorPieceApplyHeightOffset:
 	move.b	obj.var_3c(a0),d0
 	add.b	d0,obj.height(a0)
 	lea	player_object,a1
-	bsr.w	sub_20F31E
+	bsr.w	FloorPieceCheckPlayerCollision
 	move.b	obj.var_3c(a0),d0
 	sub.b	d0,obj.height(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F31E:
+FloorPieceCheckPlayerCollision:
 	tst.b	obj.id(a1)
-	beq.w	locret_20F354
-	bsr.w	sub2_20F37E
-	bne.s	locret_20F354
+	beq.w	FloorPieceCheckPlayerCollisionReturn
+	bsr.w	FloorPieceCheckPlayerOverlap
+	bne.s	FloorPieceCheckPlayerCollisionReturn
 	move.w	obj.y_speed(a1),obj.var_3a(a0)
 	btst	#3,obj.flags(a1)
-	beq.s	loc_20F346
+	beq.s	FloorPieceResolveCollision
 	btst	#1,obj.flags(a1)
-	bne.s	loc_20F346
+	bne.s	FloorPieceResolveCollision
 	clr.w	obj.y_speed(a1)
 
-loc_20F346:
+FloorPieceResolveCollision:
 	jsr	SolidObject
-	bne.s	loc_20F356
+	bne.s	FloorPiecePushPlayer
 	move.w	obj.var_3a(a0),obj.y_speed(a1)
 
-locret_20F354:
+FloorPieceCheckPlayerCollisionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F356:
+FloorPiecePushPlayer:
 	move.l	obj.y(a0),obj.y(a1)
 	move.b	obj.height(a1),d0
 	ext.w	d0
 	addi.w	#$10,d0
 	sub.w	d0,obj.y(a1)
 	tst.w	obj.y_speed(a0)
-	bge.s	loc_20F378
+	bge.s	FloorPieceStopPlayer
 	move.w	obj.y_speed(a0),obj.y_speed(a1)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F378:
+FloorPieceStopPlayer:
 	clr.w	obj.y_speed(a1)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub2_20F37E:
+FloorPieceCheckPlayerOverlap:
 	move.w	obj.x(a0),d1
 	sub.w	obj.x(a1),d1
-	bge.s	loc_20F38A
+	bge.s	FloorPieceCheckVerticalOverlap
 	neg.w	d1
 
-loc_20F38A:
+FloorPieceCheckVerticalOverlap:
 	cmpi.w	#$16,d1
-	bgt.s	loc_20F3B8
+	bgt.s	FloorPieceComparePlayerY
 	cmpi.w	#$108,obj.y(a1)
-	ble.s	loc_20F3CA
+	ble.s	FloorPieceBouncePlayer
 	tst.w	obj.y_speed(a0)
-	ble.s	loc_20F3B8
+	ble.s	FloorPieceComparePlayerY
 	move.w	obj.y(a1),d1
 	move.b	obj.height(a1),d0
 	ext.w	d0
 	sub.w	d0,d1
 	sub.w	obj.y(a0),d1
-	bmi.s	loc_20F3B8
+	bmi.s	FloorPieceComparePlayerY
 	cmpi.w	#$20,d1
-	bgt.s	loc_20F3B8
-	bra.s	sub_20F3D8
+	bgt.s	FloorPieceComparePlayerY
+	bra.s	BossHurtPlayer
 
 ; ------------------------------------------------------------------------------
 
-loc_20F3B8:
+FloorPieceComparePlayerY:
 	move.w	obj.y(a1),d0
 	cmp.w	obj.y(a0),d0
-	bge.s	loc_20F3C6
+	bge.s	FloorPiecePlayerAbove
 	moveq	#0,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F3C6:
+FloorPiecePlayerAbove:
 	moveq	#$FFFFFFFF,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F3CA:
-	bsr.w	sub_20F3D8
+FloorPieceBouncePlayer:
+	bsr.w	BossHurtPlayer
 	move.w	#$200,obj.y_speed(a1)
 	moveq	#$FFFFFFFF,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F3D8:
+BossHurtPlayer:
 	btst	#7,obj.flags(a1)
-	bne.s	loc_20F402
+	bne.s	BossHurtPlayerReturn
 	movem.l	a0-a1,-(sp)
 	movea.l	a0,a2
 	movea.l	a1,a0
@@ -1372,10 +1373,10 @@ sub_20F3D8:
 	jsr	CheckHurtPlayer
 	movem.l	(sp)+,a0-a1
 	cmpi.b	#$18,obj.anim_id(a1)
-	bne.s	loc_20F402
+	bne.s	BossHurtPlayerReturn
 	bset	#7,obj.flags(a1)
 
-loc_20F402:
+BossHurtPlayerReturn:
 	moveq	#$FFFFFFFF,d0
 	rts
 
@@ -1597,7 +1598,7 @@ loc_20F600:
 	beq.s	locret_20F620
 	btst	#7,obj.flags(a1)
 	bne.s	locret_20F620
-	bsr.w	sub_20F3D8
+	bsr.w	BossHurtPlayer
 
 locret_20F620:
 	rts

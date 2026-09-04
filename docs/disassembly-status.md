@@ -93,7 +93,8 @@ shrink-map, graphics-upload, flipper, object-collision, pole, hang-bar, beam,
 spark, bounce, camera, main-dispatch, power-up, warp-transition, ground/fall/roll/jump,
 pole, hang-bar, booster, Eggman encounter setup/hover, attack, defeat, capsule,
 and escape families, plus boss machine, spikes, exhaust, smoke, and falling-spike
-child-object families, plus floor-debris and electricity child-object families.
+child-object families, plus floor-debris, electricity, floor-piece motion, and
+player-collision child-object families.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 
