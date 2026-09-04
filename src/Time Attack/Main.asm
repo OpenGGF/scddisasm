@@ -100,67 +100,67 @@ L_FF20BA:
 L_FF20C0:
 	move.l #$40200000, $c00004.l
 L_FF20CA:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF20CE:
 	lea.l $ff63fc.l, a0
 L_FF20D4:
 	move.l #$51200000, $c00004.l
 L_FF20DE:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF20E2:
 	lea.l $ff5cba.l, a0
 L_FF20E8:
 	move.l #$5a600000, $c00004.l
 L_FF20F2:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF20F6:
 	lea.l $ff6708.l, a0
 L_FF20FC:
 	move.l #$60200000, $c00004.l
 L_FF2106:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF210A:
 	lea.l $ff58c6.l, a0
 L_FF2110:
 	move.l #$65800000, $c00004.l
 L_FF211A:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF211E:
 	lea.l $ff5ee4.l, a0
 L_FF2124:
 	move.l #$6fa00000, $c00004.l
 L_FF212E:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF2132:
 	lea.l $ff68e0.l, a0
 L_FF2138:
 	move.l #$7d000000, $c00004.l
 L_FF2142:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF2146:
 	lea.l $ff69be.l, a0
 L_FF214C:
 	move.l #$7de00000, $c00004.l
 L_FF2156:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF215A:
 	lea.l $ff702a.l, a0
 L_FF2160:
 	move.l #$55400001, $c00004.l
 L_FF216A:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF216E:
 	lea.l $ff74b8.l, a0
 L_FF2174:
 	move.l #$57200001, $c00004.l
 L_FF217E:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF2182:
 	lea.l $ff756a.l, a0
 L_FF2188:
 	move.l #$59800001, $c00004.l
 L_FF2192:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF2196:
 	if REGION=USA
 	lea.l $ff785e.l, a0
@@ -170,7 +170,7 @@ L_FF2196:
 L_FF219C:
 	move.l #$61a00001, $c00004.l
 L_FF21A6:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF21AA:
 	move.l #$61c00001, $c00004.l
 L_FF21B4:
@@ -196,7 +196,7 @@ L_FF21E6:
 L_FF21EC:
 	move.l #$4c000002, $c00004.l
 L_FF21F6:
-	bsr.w L_FF4F78
+	bsr.w TimeAttack_DecompressNemesisToVdp
 L_FF21FA:
 	bsr.w TimeAttack_HaltZ80
 L_FF21FE:
@@ -224,7 +224,7 @@ L_FF2234:
 L_FF223A:
 	move.w #$e460, d0
 L_FF223E:
-	bsr.w L_FF50BA
+	bsr.w TimeAttack_DecompressEnigma
 L_FF2242:
 	move.l #$11, -(a7)
 L_FF2248:
@@ -1343,7 +1343,7 @@ L_FF2C18:
 L_FF2C1A:
 	lea.l $ffaa60.l, a4
 L_FF2C20:
-	bsr.w L_FF4F8A
+	bsr.w TimeAttack_DecompressNemesisToRam
 L_FF2C24:
 	lea.l $210000.l, a0
 L_FF2C2A:
@@ -1357,7 +1357,7 @@ L_FF2C32:
 L_FF2C38:
 	move.w #$e460, d0
 L_FF2C3C:
-	bsr.w L_FF50BA
+	bsr.w TimeAttack_DecompressEnigma
 L_FF2C40:
 	moveq #$a, d0
 L_FF2C42:
@@ -2988,178 +2988,226 @@ L_FF398A:
 	dc.l	$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000
 ; Decode a Nemesis stream directly into VDP data.
 TimeAttack_DecompressNemesisToVdp:
-L_FF4F78:
+TimeAttack_DecompressNemesisToVdpSaveRegisters:
 	movem.l d0-d7/a0-a1/a3-a5, -(a7)
-L_FF4F7C:
-	lea.l L_FF503C.l, a3
-L_FF4F82:
+TimeAttack_DecompressNemesisToVdpOutputHandler:
+	lea.l TimeAttack_DecompressNemesisWriteValue.l, a3
+TimeAttack_DecompressNemesisToVdpDataPort:
 	lea.l $c00000.l, a4
-L_FF4F88:
-	bra.b L_FF4F94
+TimeAttack_DecompressNemesisToVdpDecodeEntry:
+	bra.b TimeAttack_DecompressNemesisDecodeBlock
 ; Decode a Nemesis stream into the RAM output buffer.
 TimeAttack_DecompressNemesisToRam:
-L_FF4F8A:
+TimeAttack_DecompressNemesisToRamSaveRegisters:
 	movem.l d0-d7/a0-a1/a3-a5, -(a7)
-L_FF4F8E:
-	lea.l L_FF5052.l, a3
-L_FF4F94:
+TimeAttack_DecompressNemesisToRamOutputHandler:
+	lea.l TimeAttack_DecompressNemesisWriteValueAdvance.l, a3
+TimeAttack_DecompressNemesisDecodeBlock:
 	lea.l $ff4d78.l, a1
-L_FF4F9A:
+TimeAttack_DecompressNemesisBlockHeader:
 	move.w (a0)+, d2
-L_FF4F9C:
+TimeAttack_DecompressNemesisBlockModeBit:
 	lsl.w #$1, d2
-L_FF4F9E:
-	bcc.b L_FF4FA4
-L_FF4FA0:
+TimeAttack_DecompressNemesisBlockModeCheck:
+	bcc.b TimeAttack_DecompressNemesisBlockCount
+TimeAttack_DecompressNemesisSelectXorOutput:
 	adda.w #$a, a3
-L_FF4FA4:
+TimeAttack_DecompressNemesisBlockCount:
 	lsl.w #$2, d2
-L_FF4FA6:
+TimeAttack_DecompressNemesisBlockOutputCount:
 	movea.w d2, a5
-L_FF4FA8:
+TimeAttack_DecompressNemesisBitGroupCount:
 	moveq #$8, d3
-L_FF4FAA:
+TimeAttack_DecompressNemesisOutputWord:
 	moveq #$0, d2
-L_FF4FAC:
+TimeAttack_DecompressNemesisOutputAccumulator:
 	moveq #$0, d4
-L_FF4FAE:
-	jsr $ff5068(pc)
-L_FF4FB2:
+TimeAttack_DecompressNemesisBuildDecodeTable:
+	jsr TimeAttack_BuildNemesisDecodeTable(pc)
+TimeAttack_DecompressNemesisInitialBitsHigh:
 	move.b (a0)+, d5
-L_FF4FB4:
+TimeAttack_DecompressNemesisInitialBitsLow:
 	asl.w #$8, d5
-L_FF4FB6:
+TimeAttack_DecompressNemesisInitialBitsAppend:
 	move.b (a0)+, d5
-L_FF4FB8:
+TimeAttack_DecompressNemesisInitialBitsRemaining:
 	move.w #$10, d6
-L_FF4FBC:
-	bsr.b L_FF4FC4
-L_FF4FBE:
+TimeAttack_DecompressNemesisDecodeOutput:
+	bsr.b TimeAttack_DecompressNemesisReadBits
+TimeAttack_DecompressNemesisRestoreRegisters:
 	movem.l (a7)+, d0-d7/a0-a1/a3-a5
-L_FF4FC2:
+TimeAttack_DecompressNemesisReturn:
 	rts
-L_FF4FC4:
+TimeAttack_DecompressNemesisReadBits:
 	move.w d6, d7
-L_FF4FC6:
+TimeAttack_DecompressNemesisReadBitsOffset:
 	subq.w #$8, d7
-L_FF4FC8:
+TimeAttack_DecompressNemesisReadBitsValue:
 	move.w d5, d1
-L_FF4FCA:
+TimeAttack_DecompressNemesisReadBitsShift:
 	lsr.w d7, d1
-L_FF4FCC:
+TimeAttack_DecompressNemesisReadBitsLiteralCheck:
 	cmpi.b #$fc, d1
-L_FF4FD0:
-	bcc.b L_FF5010
-L_FF4FD2:
+TimeAttack_DecompressNemesisReadBitsLiteralBranch:
+	bcc.b TimeAttack_DecompressNemesisReadLiteral
+TimeAttack_DecompressNemesisReadBitsTableIndex:
 	andi.w #$ff, d1
-L_FF4FD6:
+TimeAttack_DecompressNemesisReadBitsTableOffset:
 	add.w d1, d1
-L_FF4FD8:
+TimeAttack_DecompressNemesisReadBitsTableLookup:
 	move.b (a1, d1.w), d0
-L_FF4FDC:
+TimeAttack_DecompressNemesisReadBitsTableLength:
 	ext.w d0
-L_FF4FDE:
+TimeAttack_DecompressNemesisReadBitsConsume:
 	sub.w d0, d6
-L_FF4FE0:
+TimeAttack_DecompressNemesisReadBitsRefillCheck:
 	cmpi.w #$9, d6
-L_FF4FE4:
-	bcc.b L_FF4FEC
-L_FF4FE6:
+TimeAttack_DecompressNemesisReadBitsRefillBranch:
+	bcc.b TimeAttack_DecompressNemesisReadBitsValueHigh
+TimeAttack_DecompressNemesisReadBitsRefill:
 	addq.w #$8, d6
-L_FF4FE8:
+TimeAttack_DecompressNemesisReadBitsShiftBuffer:
 	asl.w #$8, d5
-L_FF4FEA:
+TimeAttack_DecompressNemesisReadBitsAppendBuffer:
 	move.b (a0)+, d5
-L_FF4FEC:
+TimeAttack_DecompressNemesisReadBitsValueHigh:
 	move.b $1(a1, d1.w), d1
-L_FF4FF0:
+TimeAttack_DecompressNemesisReadBitsValueCopy:
 	move.w d1, d0
-L_FF4FF2:
+TimeAttack_DecompressNemesisReadBitsValueLowMask:
 	andi.w #$f, d1
-L_FF4FF6:
+TimeAttack_DecompressNemesisReadBitsValueHighMask:
 	andi.w #$f0, d0
-L_FF4FFA:
+TimeAttack_DecompressNemesisReadBitsValueHighShift:
 	lsr.w #$4, d0
-L_FF4FFC:
+TimeAttack_DecompressNemesisReadBitsAccumulate:
 	lsl.l #$4, d4
-L_FF4FFE:
+TimeAttack_DecompressNemesisReadBitsAccumulateNibble:
 	or.b d1, d4
-L_FF5000:
+TimeAttack_DecompressNemesisReadBitsNibbleCount:
 	subq.w #$1, d3
-L_FF5002:
-	bne.b L_FF500A
-L_FF5004:
+TimeAttack_DecompressNemesisReadBitsNibbleCountCheck:
+	bne.b TimeAttack_DecompressNemesisReadBitsOutputLoop
+TimeAttack_DecompressNemesisReadBitsOutput:
 	jmp (a3)
-L_FF5006:
+TimeAttack_DecompressNemesisReadBitsResetAccumulator:
 	moveq #$0, d4
-L_FF5008:
+TimeAttack_DecompressNemesisReadBitsResetNibbleCount:
 	moveq #$8, d3
-L_FF500A:
-	dbra d0, L_FF4FFC
-L_FF500E:
-	bra.b L_FF4FC4
-L_FF5010:
+TimeAttack_DecompressNemesisReadBitsOutputLoop:
+	dbra d0, TimeAttack_DecompressNemesisReadBitsAccumulate
+TimeAttack_DecompressNemesisReadBitsNextOutput:
+	bra.b TimeAttack_DecompressNemesisReadBits
+TimeAttack_DecompressNemesisReadLiteral:
 	subq.w #$6, d6
-L_FF5012:
+TimeAttack_DecompressNemesisReadLiteralRefillCheck:
 	cmpi.w #$9, d6
-L_FF5016:
-	bcc.b L_FF501E
-L_FF5018:
+TimeAttack_DecompressNemesisReadLiteralRefillBranch:
+	bcc.b TimeAttack_DecompressNemesisReadLiteralShift
+TimeAttack_DecompressNemesisReadLiteralRefill:
 	addq.w #$8, d6
-L_FF501A:
+TimeAttack_DecompressNemesisReadLiteralShiftBuffer:
 	asl.w #$8, d5
-L_FF501C:
+TimeAttack_DecompressNemesisReadLiteralAppendBuffer:
 	move.b (a0)+, d5
-L_FF501E:
+TimeAttack_DecompressNemesisReadLiteralShift:
 	subq.w #$7, d6
-L_FF5020:
+TimeAttack_DecompressNemesisReadLiteralValue:
 	move.w d5, d1
-L_FF5022:
+TimeAttack_DecompressNemesisReadLiteralShiftValue:
 	lsr.w d6, d1
-L_FF5024:
+TimeAttack_DecompressNemesisReadLiteralCopy:
 	move.w d1, d0
-L_FF5026:
+TimeAttack_DecompressNemesisReadLiteralLowMask:
 	andi.w #$f, d1
-L_FF502A:
+TimeAttack_DecompressNemesisReadLiteralHighMask:
 	andi.w #$70, d0
-L_FF502E:
+TimeAttack_DecompressNemesisReadLiteralRefillOutputCheck:
 	cmpi.w #$9, d6
-L_FF5032:
-	bcc.b L_FF4FFA
-L_FF5034:
+TimeAttack_DecompressNemesisReadLiteralOutputBranch:
+	bcc.b TimeAttack_DecompressNemesisReadBitsValueHighShift
+TimeAttack_DecompressNemesisReadLiteralOutputRefill:
 	addq.w #$8, d6
-L_FF5036:
+TimeAttack_DecompressNemesisReadLiteralOutputShiftBuffer:
 	asl.w #$8, d5
-L_FF5038:
+TimeAttack_DecompressNemesisReadLiteralOutputAppendBuffer:
 	move.b (a0)+, d5
-L_FF503A:
-	bra.b L_FF4FFA
-L_FF503C:
+TimeAttack_DecompressNemesisReadLiteralContinue:
+	bra.b TimeAttack_DecompressNemesisReadBitsValueHighShift
+TimeAttack_DecompressNemesisWriteValue:
 	move.l d4, (a4)
-L_FF503E:
+TimeAttack_DecompressNemesisWriteValueCount:
 	subq.w #$1, a5
-L_FF5040:
+TimeAttack_DecompressNemesisWriteValueCountValue:
 	move.w a5, d4
-L_FF5042:
-	bne.b L_FF5006
-L_FF5044:
+TimeAttack_DecompressNemesisWriteValueCountCheck:
+	bne.b TimeAttack_DecompressNemesisReadBitsResetAccumulator
+TimeAttack_DecompressNemesisWriteValueReturn:
 	rts
-	dc.b	$B9,$82
-	dc.l	$2882534D,$380D66B6
-	dc.b	$4E,$75
-L_FF5052:
+; Alternate XOR output used by compressed blocks with the mode bit set.
+TimeAttack_DecompressNemesisWriteXorValue:
+	eor.l d4, d2
+	move.l d2, (a4)
+	subq.w #$1, a5
+	move.w a5, d4
+	bne.b TimeAttack_DecompressNemesisReadBitsResetAccumulator
+	rts
+TimeAttack_DecompressNemesisWriteValueAdvance:
 	move.l d4, (a4)+
-L_FF5054:
+TimeAttack_DecompressNemesisWriteValueAdvanceCount:
 	subq.w #$1, a5
-L_FF5056:
+TimeAttack_DecompressNemesisWriteValueAdvanceCountValue:
 	move.w a5, d4
-L_FF5058:
-	bne.b L_FF5006
-L_FF505A:
+TimeAttack_DecompressNemesisWriteValueAdvanceCountCheck:
+	bne.b TimeAttack_DecompressNemesisReadBitsResetAccumulator
+TimeAttack_DecompressNemesisWriteValueAdvanceReturn:
 	rts
-	dc.l	$B98228C2,$534D380D,$66A04E75,$10180C00,$00FF6602,$4E753E00,$10180C00,$008064EE,$12000247,$000F0241,$00708E41,$0240000F,$1200E149,$8E417208,$9240660A,$1018D040
-	dc.l	$33870000,$60D21018,$E368D040,$7A01E36D,$53453387,$00005440,$51CDFFF8
-	dc.b	$60,$BA
+TimeAttack_DecompressNemesisWriteXorValueAdvance:
+	eor.l d4, d2
+	move.l d2, (a4)+
+	subq.w #$1, a5
+	move.w a5, d4
+	bne.b TimeAttack_DecompressNemesisReadBitsResetAccumulator
+	rts
+TimeAttack_BuildNemesisDecodeTable:
+	move.b (a0)+, d0
+.NextCode:
+	cmpi.b #$FF, d0
+	bne.b .Code
+	rts
+.Code:
+	move.w d0, d7
+.NextByte:
+	move.b (a0)+, d0
+	cmpi.b #$80, d0
+	bcc.b .NextCode
+	move.b d0, d1
+	andi.w #$F, d7
+	andi.w #$70, d1
+	or.w d1, d7
+	andi.w #$F, d0
+	move.b d0, d1
+	lsl.w #$8, d1
+	or.w d1, d7
+	moveq #$8, d1
+	sub.w d0, d1
+	bne.b .FillRange
+	move.b (a0)+, d0
+	add.w d0, d0
+	move.w d7, (a1,d0.w)
+	bra.b .NextByte
+.FillRange:
+	move.b (a0)+, d0
+	lsl.w d1, d0
+	add.w d0, d0
+	moveq #$1, d5
+	lsl.w d1, d5
+	subq.w #$1, d5
+.FillLoop:
+	move.w d7, (a1,d0.w)
+	addq.w #$2, d0
+	dbra d5, .FillLoop
+	bra.b .NextByte
 ; Decode an Enigma stream into the caller-provided RAM buffer.
 TimeAttack_DecompressEnigma:
 L_FF50BA:

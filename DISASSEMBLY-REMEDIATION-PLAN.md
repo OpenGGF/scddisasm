@@ -603,6 +603,7 @@ opaque merely because they use `dc.*`.
 | M390 | Complete | Canonicalize the ending-FMV Z80 bus and VBlank synchronization helpers and migrate their callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M391 | Complete | Canonicalize the ending-FMV VDP initialization and compressed-art output family and migrate startup callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M392 | Complete | Canonicalize the Time Attack time-period selection and animation family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M393 | Complete | Canonicalize the Time Attack Nemesis decompressor entry points and bitstream control flow and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
