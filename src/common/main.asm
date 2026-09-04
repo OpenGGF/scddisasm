@@ -589,7 +589,8 @@ PlayStageMusicSelect:
 
 ; ------------------------------------------------------------------------------
 
-; Seven zones, each with normal, past, present, and future commands.
+; Zone-indexed rows: Past, Present, Bad Future, Good Future commands.
+; Time Attack skips the good-future adjustment.
 StageMusicCommandTable:
 	dc.b	$80, $F, $11, $10
 	dc.b	$80, $12, $14, $13

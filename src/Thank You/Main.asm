@@ -1759,12 +1759,14 @@ ThankYou_UpdateObjectTimersApplyInterval:
 	add.w	d0, d0
 	move.w	ThankYou_ObjectTimerJumpTable(pc, d0.w), d0
 	jmp	ThankYou_ObjectTimerJumpTable(pc, d0.w)
-; Base timer intervals for the standard region.
+; Timer records: base interval and random modulus (two words per record).
+; Default table when runtime state byte $FFFFBA7B is not 2.
 ThankYou_ObjectTimerBaseTable:
 	dc.b	$00
 	dc.b	$78,$00,$B4,$00,$B4,$01,$2C,$00,$F0,$02,$58,$02,$D0,$07,$08,$03
 	dc.b	$48,$08,$E8,$02,$58,$08,$70,$00,$F0,$02,$58,$01,$2C,$02,$58
-; Timer interval ranges for the alternate region.
+; Alternate timer records when runtime state byte $FFFFBA7B is 2.
+; This state is changed by VInterrupt; its full gameplay meaning is unresolved.
 ThankYou_ObjectTimerRangeTable:
 	dc.b	$00
 	dc.b	$0A,$00,$19,$00,$0F,$00,$14,$00,$0A,$00,$19,$00,$14,$00,$32,$00

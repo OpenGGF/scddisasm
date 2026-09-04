@@ -41,6 +41,13 @@ GENERATED_INCLUDES = {
 	"DA Garden/Track Title Labels.inc",
 	"Special Stage/Stage Data Labels.inc",
 }
+GENERATED_BINARIES = {
+	"Special Stage/Stage Data.bin",
+	"../out/misc/fm_driver.bin",
+	"../out/misc/ip.bin",
+	"../out/misc/sp.bin",
+	"../out/misc/files.bin",
+}
 CONDITIONAL_MISSING_INCLUDES = {
 	"standalone/block_write.asm",
 }
@@ -49,6 +56,7 @@ BUILD_COMMAND = re.compile(
 	r"^(assemble(?:_symbols)?)\s+'([^']+)'\s+'([^']+)'(.*)$"
 )
 INCLUDE = re.compile(r"^\s*include\s+[\"']([^\"']+)[\"']", re.I | re.M)
+BINARY_INCLUDE = re.compile(r"^\s*incbin\s+[\"']([^\"']+)[\"']", re.I | re.M)
 DATA_DECLARATION = re.compile(r"(?:^|\s)dc\.(?:b|w|l)(?:\s|$)", re.I)
 INCBIN = re.compile(r"(?:^|\s)incbin(?:\s|$)", re.I)
 ADDRESS_LABEL = re.compile(
@@ -60,6 +68,9 @@ ADDRESS_LABEL = re.compile(
 	r"(?:byte|word|dword|data|unk|asc)_[0-9A-Fa-f]+"
 	r"):",
 	re.M,
+)
+NUMBERED_ROUTINE_LABEL = re.compile(
+	r"^[A-Za-z_][\w.]*(?:Routine|Sub)[0-9A-Fa-f]+:", re.M
 )
 STATUS_OUTPUT = re.compile(r"^\| `([^`]+)` \|", re.M)
 
@@ -81,6 +92,7 @@ class Metrics:
 	data_declaration_lines: int = 0
 	incbin_lines: int = 0
 	address_labels: int = 0
+	numbered_routine_labels: int = 0
 
 	def add_file(self, path: Path) -> None:
 		self.files += 1
@@ -97,6 +109,7 @@ class Metrics:
 			if INCBIN.search(line):
 				self.incbin_lines += 1
 		self.address_labels += len(ADDRESS_LABEL.findall(text))
+		self.numbered_routine_labels += len(NUMBERED_ROUTINE_LABEL.findall(text))
 
 
 @dataclass
@@ -285,12 +298,23 @@ def trace_active_sources(
 		active.add(path)
 		if path.suffix.lower() not in SOURCE_SUFFIXES:
 			continue
-		for requested in INCLUDE.findall(path.read_text(errors="replace")):
+		text = path.read_text(errors="replace")
+		for requested in INCLUDE.findall(text):
 			resolved, issue = resolve_include(path, requested, index)
 			if issue is not None:
 				issues.append(issue)
 			if resolved is not None and resolved not in active:
 				stack.append(resolved)
+		# Inspect literal binary references without treating asset bytes as source.
+		# Like INCLUDE, this scans the union of textual conditional branches;
+		# it does not evaluate assembler expressions or macro-generated paths.
+		for requested in BINARY_INCLUDE.findall(text):
+			if requested.replace("\\", "/") in GENERATED_BINARIES:
+				issues.append(IncludeIssue(repository_path(path), requested, "generated"))
+				continue
+			_, issue = resolve_include(path, requested, index)
+			if issue is not None:
+				issues.append(issue)
 	return active, issues
 
 
@@ -405,7 +429,7 @@ def print_text(result: dict, list_unreachable: bool) -> None:
 	):
 		print(f"{classification}: {counts.get(classification, 0)}")
 	for issue in result["include_issues"]:
-		if issue["classification"] == "missing":
+		if issue["classification"] in {"missing", "case-mismatch"}:
 			print(
 				f"  {issue['including_file']}: {issue['requested']}"
 			)
@@ -443,7 +467,7 @@ def main() -> int:
 	parser.add_argument(
 		"--check",
 		action="store_true",
-		help="fail for missing includes or build/comparison coverage gaps",
+		help="fail for missing/case-mismatched includes or assets, or coverage gaps",
 	)
 	args = parser.parse_args()
 
@@ -456,6 +480,7 @@ def main() -> int:
 
 	if args.check:
 		missing_include = result["include_issue_counts"].get("missing", 0)
+		case_mismatch = result["include_issue_counts"].get("case-mismatch", 0)
 		coverage_gap = bool(
 			result["duplicate_component_outputs"]
 			or result["component_outputs_missing_from_build"]
@@ -463,7 +488,7 @@ def main() -> int:
 			or result["component_outputs_missing_from_status"]
 			or result["status_outputs_missing_from_build"]
 		)
-		if missing_include or coverage_gap:
+		if missing_include or case_mismatch or coverage_gap:
 			return 1
 	return 0
 

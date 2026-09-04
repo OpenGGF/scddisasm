@@ -1,6 +1,9 @@
 ; ------------------------------------------------------------------------------
 
 DestroyInGoodFuture:
+	; A0 is the object. The destruction path replaces it with explosion ID $18.
+	; That path discards this helper's return address: the caller does not resume.
+	; Requires a BSR/JSR call from an object routine, not a tail jump.
 	tst.b	good_future
 	beq.s	DestroyFutureReturn
 	cmpi.b	#1,time_zone
@@ -29,6 +32,9 @@ DestroyFutureReturn:
 ; ------------------------------------------------------------------------------
 
 CheckAnimalPrescence:
+	; A0 is the animal. Suppression paths discard this helper's return address
+	; before tail-calling despawn/delete; the calling object routine is skipped.
+	; Requires a BSR/JSR call. Allowed animals return to the caller normally.
 	tst.b	obj.subtype(a0)
 	bmi.s	AnimalPresenceReturn
 	cmpi.b	#2,time_zone

@@ -354,7 +354,7 @@ Art_HUD:
 	incbin	"Level/_Objects/HUD and Points/Data/Art (HUD).nem"
 	even
 Art_Checkpoint:
-	incbin	"Level/_Objects/Checkpoint/Data/Art.Nem"
+	incbin	"Level/_Objects/Checkpoint/Data/Art.nem"
 	even
 Art_LogShadowUnused:
 	incbin	"Level/Palmtree Panic/Objects/Log Shadow/Data/Art (Withered).nem"

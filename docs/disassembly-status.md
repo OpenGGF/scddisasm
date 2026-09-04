@@ -39,6 +39,12 @@ label cleanup only; their byte comparisons do not certify names or comments.
 
 ## Baseline
 
+The [September 4 review correction validation](review-validation.md) records
+fresh full Japan/USA/Europe builds and all 133 comparisons per region for the
+tested source snapshot, including every component below. This is newer
+reconstruction evidence than the older row-level milestone dates; it does not
+upgrade their semantic classifications. Fresh CHD comparison was unavailable.
+
 The M1 audit reports:
 
 - 133 comparison outputs in total;

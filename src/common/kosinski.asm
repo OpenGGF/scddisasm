@@ -1,6 +1,8 @@
 ; ------------------------------------------------------------------------------
 
 DecompKosinski:
+	; In: A0 compressed stream, A1 destination. Both pointers advance.
+	; Clobbers D0-D6/CCR; D2.w is displacement, D3.w is copy count minus one.
 	; Control words are consumed least-significant bit first: set bits copy literals, clear bits copy matches.
 	subq.l	#2,sp
 	move.b	(a0)+,1(sp)
@@ -29,34 +31,35 @@ KosinskiCopyCommand:
 	moveq	#0,d3
 	lsr.w	#1,d5
 	move	sr,d6
-	dbf	d4,KosinskiReadShortDistance
+	dbf	d4,KosinskiSelectMatchEncoding
 	move.b	(a0)+,1(sp)
 	move.b	(a0)+,(sp)
 	move.w	(sp),d5
 	moveq	#$F,d4
 
-KosinskiReadShortDistance:
+KosinskiSelectMatchEncoding:
 	move	d6,ccr
 	bcs.s	KosinskiReadLongDistance
 	lsr.w	#1,d5
-	dbf	d4,KosinskiBuildShortDistance
+	dbf	d4,KosinskiBuildShortLength
 	move.b	(a0)+,1(sp)
 	move.b	(a0)+,(sp)
 	move.w	(sp),d5
 	moveq	#$F,d4
 
-KosinskiBuildShortDistance:
+KosinskiBuildShortLength:
 	roxl.w	#1,d3
 	lsr.w	#1,d5
-	dbf	d4,KosinskiFinishShortDistance
+	dbf	d4,KosinskiFinishShortLength
 	move.b	(a0)+,1(sp)
 	move.b	(a0)+,(sp)
 	move.w	(sp),d5
 	moveq	#$F,d4
 
-KosinskiFinishShortDistance:
+KosinskiFinishShortLength:
 	roxl.w	#1,d3
 	addq.w	#1,d3
+	; Sign-extend the following displacement byte; DBF copies D3+1 bytes.
 	moveq	#$FFFFFFFF,d2
 	move.b	(a0)+,d2
 	bra.s	KosinskiCopyMatch

@@ -29,16 +29,17 @@ TimeAttack_StartClearSubCpuParameterThree:
 	move.l d0, $a1201c.l
 TimeAttack_StartHaltZ80:
 	bsr.w TimeAttack_HaltZ80
-TimeAttack_StartZ80PortValue:
+TimeAttack_StartIoControlValue:
 	moveq #$40, d0
-TimeAttack_StartSetZ80Bank:
-	move.b d0, $a10009.l
-TimeAttack_StartSetZ80RegisterOne:
-	move.b d0, $a1000b.l
-TimeAttack_StartSetZ80RegisterTwo:
-	move.b d0, $a1000d.l
-TimeAttack_StartSetZ80Control:
-	move.b #$c0, $a10003.l
+; Configure the controller I/O ports while the Z80 bus is held.
+TimeAttack_StartSetIoControl1:
+	move.b d0, IOCTRL1.l
+TimeAttack_StartSetIoControl2:
+	move.b d0, IOCTRL2.l
+TimeAttack_StartSetIoControl3:
+	move.b d0, IOCTRL3.l
+TimeAttack_StartSetIoData1:
+	move.b #$c0, IODATA1.l
 TimeAttack_StartReleaseZ80:
 	bsr.w TimeAttack_ReleaseZ80
 TimeAttack_StartClearWorkRamBase:

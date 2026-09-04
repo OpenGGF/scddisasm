@@ -1,6 +1,9 @@
 ; ------------------------------------------------------------------------------
 
 DecompEnigma:
+	; In: A0 compressed stream, A1 destination, D0.w base tile attributes.
+	; Out: decoded words at destination; A0 advances past the aligned stream.
+	; D0-D7/A1-A5 are restored (including the original destination pointer).
 	movem.l	d0-d7/a1-a5,-(sp)
 	movea.w	d0,a3
 	move.b	(a0)+,d0
@@ -113,10 +116,10 @@ DecompEnigmaModeJumpTable:
 DecompEnigmaDone:
 	subq.w	#1,a0
 	cmpi.w	#$10,d6
-	bne.s	DecompEnigmaAlignOutput
+	bne.s	DecompEnigmaAlignInput
 	subq.w	#1,a0
 
-DecompEnigmaAlignOutput:
+DecompEnigmaAlignInput:
 	move.w	a0,d0
 	lsr.w	#1,d0
 	bcc.s	DecompEnigmaRestore
