@@ -1955,38 +1955,38 @@ PlayerBlockCollideAir:
 	andi.b	#$C0,d0
 	move.b	d0,debug_quadrant
 	cmpi.b	#$40,d0
-	beq.w	loc_204DC8
+	beq.w	PlayerBlockCollideAirLeftUpDown
 	cmpi.b	#$80,d0
-	beq.w	loc_204E2A
+	beq.w	PlayerBlockCollideAirLeftRightUp
 	cmpi.b	#$C0,d0
-	beq.w	loc_204E86
+	beq.w	PlayerBlockCollideAirRightUpDown
 	bsr.w	PlayerCheckBlockLeft
 	tst.w	d1
-	bpl.s	loc_204D36
+	bpl.s	PlayerBlockCollideAirLeftRightDownCheckRight
 	sub.w	d1,obj.x(a0)
 	move.w	#0,obj.x_speed(a0)
 
-loc_204D36:
+PlayerBlockCollideAirLeftRightDownCheckRight:
 	bsr.w	PlayerCheckBlockRight
 	tst.w	d1
-	bpl.s	loc_204D48
+	bpl.s	PlayerBlockCollideAirLeftRightDownCheckDown
 	add.w	d1,obj.x(a0)
 	move.w	#0,obj.x_speed(a0)
 
-loc_204D48:
+PlayerBlockCollideAirLeftRightDownCheckDown:
 	bsr.w	PlayerCheckBlockDownWide
 	move.b	d1,debug_floor_distance
 	tst.w	d1
-	bpl.s	locret_204DC6
+	bpl.s	PlayerBlockCollideAirReturn
 	move.b	obj.y_speed(a0),d2
 	addq.b	#8,d2
 	neg.b	d2
 	cmp.b	d2,d1
-	bge.s	loc_204D66
+	bge.s	PlayerBlockCollideAirLeftRightDownLand
 	cmp.b	d2,d0
-	blt.s	locret_204DC6
+	blt.s	PlayerBlockCollideAirReturn
 
-loc_204D66:
+PlayerBlockCollideAirLeftRightDownLand:
 	add.w	d1,obj.y(a0)
 	move.b	d3,obj.angle(a0)
 	bsr.w	PlayerSetGround
@@ -1994,44 +1994,44 @@ loc_204D66:
 	move.b	d3,d0
 	addi.b	#$20,d0
 	andi.b	#$40,d0
-	bne.s	loc_204DA4
+	bne.s	PlayerBlockCollideAirLeftRightDownLandSteep
 	move.b	d3,d0
 	addi.b	#$10,d0
 	andi.b	#$20,d0
-	beq.s	loc_204D96
+	beq.s	PlayerBlockCollideAirLeftRightDownLandShallow
 	asr.w	obj.y_speed(a0)
-	bra.s	loc_204DB8
+	bra.s	PlayerBlockCollideAirLeftRightDownStoreGroundSpeed
 
 ; ------------------------------------------------------------------------------
 
-loc_204D96:
+PlayerBlockCollideAirLeftRightDownLandShallow:
 	move.w	#0,obj.y_speed(a0)
 	move.w	obj.x_speed(a0),obj.ground_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204DA4:
+PlayerBlockCollideAirLeftRightDownLandSteep:
 	move.w	#0,obj.x_speed(a0)
 	cmpi.w	#$FC0,obj.y_speed(a0)
-	ble.s	loc_204DB8
+	ble.s	PlayerBlockCollideAirLeftRightDownStoreGroundSpeed
 	move.w	#$FC0,obj.y_speed(a0)
 
-loc_204DB8:
+PlayerBlockCollideAirLeftRightDownStoreGroundSpeed:
 	move.w	obj.y_speed(a0),obj.ground_speed(a0)
 	tst.b	d3
-	bpl.s	locret_204DC6
+	bpl.s	PlayerBlockCollideAirReturn
 	neg.w	obj.ground_speed(a0)
 
-locret_204DC6:
+PlayerBlockCollideAirReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204DC8:
+PlayerBlockCollideAirLeftUpDown:
 	bsr.w	PlayerCheckBlockLeft
 	tst.w	d1
-	bpl.s	loc_204DE2
+	bpl.s	PlayerBlockCollideAirLeftUpDownCheckUp
 	sub.w	d1,obj.x(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	obj.y_speed(a0),obj.ground_speed(a0)
@@ -2039,26 +2039,26 @@ loc_204DC8:
 
 ; ------------------------------------------------------------------------------
 
-loc_204DE2:
+PlayerBlockCollideAirLeftUpDownCheckUp:
 	bsr.w	PlayerCheckBlockUpWide
 	tst.w	d1
-	bpl.s	loc_204DFC
+	bpl.s	PlayerBlockCollideAirLeftUpDownCheckDown
 	sub.w	d1,obj.y(a0)
 	tst.w	obj.y_speed(a0)
-	bpl.s	locret_204DFA
+	bpl.s	PlayerBlockCollideAirLeftUpDownReturnUp
 	move.w	#0,obj.y_speed(a0)
 
-locret_204DFA:
+PlayerBlockCollideAirLeftUpDownReturnUp:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204DFC:
+PlayerBlockCollideAirLeftUpDownCheckDown:
 	tst.w	obj.y_speed(a0)
-	bmi.s	locret_204E28
+	bmi.s	PlayerBlockCollideAirLeftUpDownReturn
 	bsr.w	PlayerCheckBlockDownWide
 	tst.w	d1
-	bpl.s	locret_204E28
+	bpl.s	PlayerBlockCollideAirLeftUpDownReturn
 	add.w	d1,obj.y(a0)
 	move.b	d3,obj.angle(a0)
 	bsr.w	PlayerSetGround
@@ -2066,56 +2066,56 @@ loc_204DFC:
 	move.w	#0,obj.y_speed(a0)
 	move.w	obj.x_speed(a0),obj.ground_speed(a0)
 
-locret_204E28:
+PlayerBlockCollideAirLeftUpDownReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204E2A:
+PlayerBlockCollideAirLeftRightUp:
 	bsr.w	PlayerCheckBlockLeft
 	tst.w	d1
-	bpl.s	loc_204E3C
+	bpl.s	PlayerBlockCollideAirLeftRightUpCheckRight
 	sub.w	d1,obj.x(a0)
 	move.w	#0,obj.x_speed(a0)
 
-loc_204E3C:
+PlayerBlockCollideAirLeftRightUpCheckRight:
 	bsr.w	PlayerCheckBlockRight
 	tst.w	d1
-	bpl.s	loc_204E4E
+	bpl.s	PlayerBlockCollideAirLeftRightUpCheckUp
 	add.w	d1,obj.x(a0)
 	move.w	#0,obj.x_speed(a0)
 
-loc_204E4E:
+PlayerBlockCollideAirLeftRightUpCheckUp:
 	bsr.w	PlayerCheckBlockUpWide
 	tst.w	d1
-	bpl.s	locret_204E84
+	bpl.s	PlayerBlockCollideAirLeftRightUpReturn
 	sub.w	d1,obj.y(a0)
 	move.b	d3,d0
 	addi.b	#$20,d0
 	andi.b	#$40,d0
-	bne.s	loc_204E6E
+	bne.s	PlayerBlockCollideAirLeftRightUpLandSteep
 	move.w	#0,obj.y_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204E6E:
+PlayerBlockCollideAirLeftRightUpLandSteep:
 	move.b	d3,obj.angle(a0)
 	bsr.w	PlayerSetGroundSteep
 	move.w	obj.y_speed(a0),obj.ground_speed(a0)
 	tst.b	d3
-	bpl.s	locret_204E84
+	bpl.s	PlayerBlockCollideAirLeftRightUpReturn
 	neg.w	obj.ground_speed(a0)
 
-locret_204E84:
+PlayerBlockCollideAirLeftRightUpReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204E86:
+PlayerBlockCollideAirRightUpDown:
 	bsr.w	PlayerCheckBlockRight
 	tst.w	d1
-	bpl.s	loc_204EA0
+	bpl.s	PlayerBlockCollideAirRightUpDownCheckUp
 	add.w	d1,obj.x(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	obj.y_speed(a0),obj.ground_speed(a0)
@@ -2123,26 +2123,26 @@ loc_204E86:
 
 ; ------------------------------------------------------------------------------
 
-loc_204EA0:
+PlayerBlockCollideAirRightUpDownCheckUp:
 	bsr.w	PlayerCheckBlockUpWide
 	tst.w	d1
-	bpl.s	loc_204EBA
+	bpl.s	PlayerBlockCollideAirRightUpDownCheckDown
 	sub.w	d1,obj.y(a0)
 	tst.w	obj.y_speed(a0)
-	bpl.s	locret_204EB8
+	bpl.s	PlayerBlockCollideAirRightUpDownReturnUp
 	move.w	#0,obj.y_speed(a0)
 
-locret_204EB8:
+PlayerBlockCollideAirRightUpDownReturnUp:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204EBA:
+PlayerBlockCollideAirRightUpDownCheckDown:
 	tst.w	obj.y_speed(a0)
-	bmi.s	locret_204EE6
+	bmi.s	PlayerBlockCollideAirRightUpDownReturn
 	bsr.w	PlayerCheckBlockDownWide
 	tst.w	d1
-	bpl.s	locret_204EE6
+	bpl.s	PlayerBlockCollideAirRightUpDownReturn
 	add.w	d1,obj.y(a0)
 	move.b	d3,obj.angle(a0)
 	bsr.w	PlayerSetGround
@@ -2150,7 +2150,7 @@ loc_204EBA:
 	move.w	#0,obj.y_speed(a0)
 	move.w	obj.x_speed(a0),obj.ground_speed(a0)
 
-locret_204EE6:
+PlayerBlockCollideAirRightUpDownReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
