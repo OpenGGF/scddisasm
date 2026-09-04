@@ -1127,29 +1127,29 @@ PlayerMoveGroundSetVelocity:
 PlayerCheckWall:
 	move.b	obj.angle(a0),d0
 	addi.b	#$40,d0
-	bmi.s	locret_204654
+	bmi.s	PlayerCheckWallReturn
 	move.b	#$40,d1
 	tst.w	obj.ground_speed(a0)
-	beq.s	locret_204654
-	bmi.s	loc_2045FC
+	beq.s	PlayerCheckWallReturn
+	bmi.s	PlayerCheckWallProbe
 	neg.w	d1
 
-loc_2045FC:
+PlayerCheckWallProbe:
 	move.b	obj.angle(a0),d0
 	add.b	d1,d0
 	move.w	d0,-(sp)
 	bsr.w	PlayerCheckBlockFront
 	move.w	(sp)+,d0
 	tst.w	d1
-	bpl.s	locret_204654
+	bpl.s	PlayerCheckWallReturn
 	asl.w	#8,d1
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	beq.s	loc_204650
+	beq.s	PlayerCheckWallApplyVertical
 	cmpi.b	#$40,d0
-	beq.s	loc_20463E
+	beq.s	PlayerCheckWallHorizontalResponse
 	cmpi.b	#$80,d0
-	beq.s	loc_204638
+	beq.s	PlayerCheckWallVerticalResponse
 	add.w	d1,obj.x_speed(a0)
 	bset	#5,obj.flags(a0)
 	move.w	#0,obj.ground_speed(a0)
@@ -1157,13 +1157,13 @@ loc_2045FC:
 
 ; ------------------------------------------------------------------------------
 
-loc_204638:
+PlayerCheckWallVerticalResponse:
 	sub.w	d1,obj.y_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20463E:
+PlayerCheckWallHorizontalResponse:
 	sub.w	d1,obj.x_speed(a0)
 	bset	#5,obj.flags(a0)
 	move.w	#0,obj.ground_speed(a0)
@@ -1171,111 +1171,111 @@ loc_20463E:
 
 ; ------------------------------------------------------------------------------
 
-loc_204650:
+PlayerCheckWallApplyVertical:
 	add.w	d1,obj.y_speed(a0)
 
-locret_204654:
+PlayerCheckWallReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerMoveGroundLeft:
 	tst.b	obj.var_2a(a0)
-	bne.s	locret_2046CA
+	bne.s	PlayerMoveGroundLeftReturn
 	move.w	obj.ground_speed(a0),d0
-	beq.s	loc_204664
-	bpl.s	loc_204694
+	beq.s	PlayerMoveGroundLeftStartTurn
+	bpl.s	PlayerMoveGroundLeftBrake
 
-loc_204664:
+PlayerMoveGroundLeftStartTurn:
 	bset	#0,obj.flags(a0)
-	bne.s	loc_204678
+	bne.s	PlayerMoveGroundLeftAccelerate
 	bclr	#5,obj.flags(a0)
 	move.b	#1,obj.prev_anim_id(a0)
 
-loc_204678:
+PlayerMoveGroundLeftAccelerate:
 	move.w	d6,d1
 	neg.w	d1
 	cmp.w	d1,d0
-	ble.s	loc_204688
+	ble.s	PlayerMoveGroundLeftStoreSpeed
 	sub.w	d5,d0
 	cmp.w	d1,d0
-	bgt.s	loc_204688
+	bgt.s	PlayerMoveGroundLeftStoreSpeed
 	move.w	d1,d0
 
-loc_204688:
+PlayerMoveGroundLeftStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	move.b	#0,obj.anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204694:
+PlayerMoveGroundLeftBrake:
 	sub.w	d4,d0
-	bcc.s	loc_20469C
+	bcc.s	PlayerMoveGroundLeftStoreBrakeSpeed
 	move.w	#-$80,d0
 
-loc_20469C:
+PlayerMoveGroundLeftStoreBrakeSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	bne.s	locret_2046CA
+	bne.s	PlayerMoveGroundLeftReturn
 	cmpi.w	#$400,d0
-	blt.s	locret_2046CA
+	blt.s	PlayerMoveGroundLeftReturn
 	move.b	#$D,obj.anim_id(a0)
 	bclr	#0,obj.flags(a0)
 	move.w	#$90,d0
 	jsr	PlayFmSound
 
-locret_2046CA:
+PlayerMoveGroundLeftReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerMoveGroundRight:
 	tst.b	obj.var_2a(a0)
-	bne.s	locret_20473A
+	bne.s	PlayerMoveGroundRightReturn
 	move.w	obj.ground_speed(a0),d0
-	bmi.s	loc_204704
+	bmi.s	PlayerMoveGroundRightBrake
 	bclr	#0,obj.flags(a0)
-	beq.s	loc_2046EC
+	beq.s	PlayerMoveGroundRightStartTurn
 	bclr	#5,obj.flags(a0)
 	move.b	#1,obj.prev_anim_id(a0)
 
-loc_2046EC:
+PlayerMoveGroundRightStartTurn:
 	cmp.w	d6,d0
-	bge.s	loc_2046F8
+	bge.s	PlayerMoveGroundRightStoreSpeed
 	add.w	d5,d0
 	cmp.w	d6,d0
-	blt.s	loc_2046F8
+	blt.s	PlayerMoveGroundRightStoreSpeed
 	move.w	d6,d0
 
-loc_2046F8:
+PlayerMoveGroundRightStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	move.b	#0,obj.anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204704:
+PlayerMoveGroundRightBrake:
 	add.w	d4,d0
-	bcc.s	loc_20470C
+	bcc.s	PlayerMoveGroundRightStoreBrakeSpeed
 	move.w	#$80,d0
 
-loc_20470C:
+PlayerMoveGroundRightStoreBrakeSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	bne.s	locret_20473A
+	bne.s	PlayerMoveGroundRightReturn
 	cmpi.w	#$FC00,d0
-	bgt.s	locret_20473A
+	bgt.s	PlayerMoveGroundRightReturn
 	move.b	#$D,obj.anim_id(a0)
 	bset	#0,obj.flags(a0)
 	move.w	#$90,d0
 	jsr	PlayFmSound
 
-locret_20473A:
+PlayerMoveGroundRightReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
