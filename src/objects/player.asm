@@ -893,105 +893,105 @@ PlayerMoveGroundSetAnim6:
 PlayerMoveGroundFocusMode:
 	move.b	focus_mode,d0
 	andi.b	#$F,d0
-	beq.s	loc_2043BA
+	beq.s	PlayerMoveGroundFocusDispatch
 	addq.b	#1,focus_mode
 	andi.b	#$CF,focus_mode
 
-loc_2043BA:
+PlayerMoveGroundFocusDispatch:
 	btst	#7,focus_mode
-	bne.w	loc_2044BE
+	bne.w	PlayerMoveGroundLookUp
 	btst	#6,focus_mode
-	bne.w	loc_2044DE
+	bne.w	PlayerMoveGroundLookDownOrRoll
 	btst	#1,player_joy_hold
-	bne.w	loc_2044DE
+	bne.w	PlayerMoveGroundLookDownOrRoll
 	andi.b	#$F,focus_mode
-	beq.s	loc_2043F2
+	beq.s	PlayerMoveGroundFocusTap
 	btst	#0,player_joy_tap
-	beq.s	loc_204406
+	beq.s	PlayerMoveGroundAccelerate
 	bset	#7,focus_mode
-	bra.w	loc_20459A
+	bra.w	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_2043F2:
+PlayerMoveGroundFocusTap:
 	btst	#0,player_joy_tap
-	beq.w	loc_204406
+	beq.w	PlayerMoveGroundAccelerate
 	move.b	#1,focus_mode
-	bra.w	loc_20459A
+	bra.w	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_204406:
+PlayerMoveGroundAccelerate:
 	btst	#0,player_joy_hold
-	beq.s	loc_204482
+	beq.s	PlayerMoveGroundBrake
 	move.b	#7,obj.anim_id(a0)
 	tst.b	obj.var_2a(a0)
-	beq.s	loc_204464
+	beq.s	PlayerMoveGroundStartRoll
 	move.b	#0,obj.anim_id(a0)
 	moveq	#100,d0
 	move.w	player_max_speed,d1
 	move.w	d1,d2
 	asl.w	#1,d1
 	tst.b	speed_shoes
-	beq.s	loc_204436
+	beq.s	PlayerMoveGroundSpeedShoesLimit
 	asr.w	#1,d2
 	sub.w	d2,d1
 
-loc_204436:
+PlayerMoveGroundSpeedShoesLimit:
 	btst	#0,obj.flags(a0)
-	beq.s	loc_204442
+	beq.s	PlayerMoveGroundApplyDirection
 	neg.w	d0
 	neg.w	d1
 
-loc_204442:
+PlayerMoveGroundApplyDirection:
 	add.w	d0,obj.ground_speed(a0)
 	move.w	obj.ground_speed(a0),d0
 	btst	#0,obj.flags(a0)
-	beq.s	loc_204458
+	beq.s	PlayerMoveGroundClampReverse
 	cmp.w	d0,d1
-	ble.s	loc_20445E
-	bra.s	loc_20445C
+	ble.s	PlayerMoveGroundStoreSpeed
+	bra.s	PlayerMoveGroundClampForward
 
 ; ------------------------------------------------------------------------------
 
-loc_204458:
+PlayerMoveGroundClampReverse:
 	cmp.w	d1,d0
-	ble.s	loc_20445E
+	ble.s	PlayerMoveGroundStoreSpeed
 
-loc_20445C:
+PlayerMoveGroundClampForward:
 	move.w	d1,d0
 
-loc_20445E:
+PlayerMoveGroundStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204464:
+PlayerMoveGroundStartRoll:
 	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
-	beq.s	loc_20447E
+	beq.s	PlayerMoveGroundAfterRollInput
 	move.b	#1,obj.var_2a(a0)
 	move.w	#$9C,d0
 	jsr	PlayFmSound
 
-loc_20447E:
-	bra.w	loc_20459A
+PlayerMoveGroundAfterRollInput:
+	bra.w	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_204482:
+PlayerMoveGroundBrake:
 	cmpi.b	#$1E,obj.var_2a(a0)
-	beq.s	loc_2044A2
+	beq.s	PlayerMoveGroundStopAfterBrake
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 	move.b	#0,obj.var_2a(a0)
 	move.w	#0,obj.ground_speed(a0)
-	bra.s	loc_2044DE
+	bra.s	PlayerMoveGroundLookDownOrRoll
 
 ; ------------------------------------------------------------------------------
 
-loc_2044A2:
+PlayerMoveGroundStopAfterBrake:
 	move.b	#0,obj.var_2a(a0)
 	move.w	#$91,d0
 	jsr	PlayFmSound
@@ -1004,114 +1004,114 @@ loc_2044A2:
 
 ; ------------------------------------------------------------------------------
 
-loc_2044BE:
+PlayerMoveGroundLookUp:
 	btst	#0,player_joy_hold
-	beq.s	loc_2044DE
+	beq.s	PlayerMoveGroundLookDownOrRoll
 	move.b	#7,obj.anim_id(a0)
 	cmpi.w	#$C8,scroll_focus_y
-	beq.w	loc_20459A
+	beq.w	PlayerMoveGroundDecelerate
 	addq.w	#2,scroll_focus_y
-	bra.w	loc_20459A
+	bra.w	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_2044DE:
+PlayerMoveGroundLookDownOrRoll:
 	btst	#6,focus_mode
-	bne.w	loc_20455A
+	bne.w	PlayerMoveGroundLookDown
 	andi.b	#$F,focus_mode
-	beq.s	loc_204502
+	beq.s	PlayerMoveGroundFocusTapDown
 	btst	#1,player_joy_tap
-	beq.s	loc_204514
+	beq.s	PlayerMoveGroundRollInput
 	bset	#6,focus_mode
-	bra.w	loc_20459A
+	bra.w	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_204502:
+PlayerMoveGroundFocusTapDown:
 	btst	#1,player_joy_tap
-	beq.s	loc_204514
+	beq.s	PlayerMoveGroundRollInput
 	move.b	#1,focus_mode
-	bra.w	loc_20459A
+	bra.w	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_204514:
+PlayerMoveGroundRollInput:
 	btst	#1,player_joy_hold
 	beq.s	PlayerMoveGroundNeutralFocus
 	move.b	#8,obj.anim_id(a0)
 	tst.b	obj.var_2a(a0)
-	bne.s	loc_204558
+	bne.s	PlayerMoveGroundAfterRoll
 	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
-	beq.s	loc_204558
+	beq.s	PlayerMoveGroundAfterRoll
 	move.b	#1,obj.var_2a(a0)
 	move.w	#$16,obj.ground_speed(a0)
 	btst	#0,obj.flags(a0)
-	beq.s	loc_20454A
+	beq.s	PlayerMoveGroundStartRollCommit
 	neg.w	obj.ground_speed(a0)
 
-loc_20454A:
+PlayerMoveGroundStartRollCommit:
 	move.w	#$9C,d0
 	jsr	PlayFmSound
 	bsr.w	PlayerStartRoll
 
-loc_204558:
-	bra.s	loc_20459A
+PlayerMoveGroundAfterRoll:
+	bra.s	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_20455A:
+PlayerMoveGroundLookDown:
 	btst	#1,player_joy_hold
 	beq.s	PlayerMoveGroundNeutralFocus
 	move.b	#8,obj.anim_id(a0)
 	cmpi.w	#8,scroll_focus_y
-	beq.s	loc_20459A
+	beq.s	PlayerMoveGroundDecelerate
 	subq.w	#2,scroll_focus_y
-	bra.s	loc_20459A
+	bra.s	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
 PlayerMoveGroundNeutralFocus:
 	cmpi.w	#$60,scroll_focus_y
-	bne.s	loc_204590
+	bne.s	PlayerMoveGroundCenterFocus
 	move.b	focus_mode,d0
 	andi.b	#$F,d0
-	bne.s	loc_20459A
+	bne.s	PlayerMoveGroundDecelerate
 	move.b	#0,focus_mode
-	bra.s	loc_20459A
+	bra.s	PlayerMoveGroundDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_204590:
-	bcc.s	loc_204596
+PlayerMoveGroundCenterFocus:
+	bcc.s	PlayerMoveGroundFocusStep
 	addq.w	#4,scroll_focus_y
 
-loc_204596:
+PlayerMoveGroundFocusStep:
 	subq.w	#2,scroll_focus_y
 
-loc_20459A:
+PlayerMoveGroundDecelerate:
 	move.b	player_joy_hold,d0
 	andi.b	#$C,d0
 	bne.s	PlayerMoveGroundSetVelocity
 	move.w	obj.ground_speed(a0),d0
 	beq.s	PlayerMoveGroundSetVelocity
-	bmi.s	loc_2045BA
+	bmi.s	PlayerMoveGroundDecelerateReverse
 	sub.w	d5,d0
-	bcc.s	loc_2045B4
+	bcc.s	PlayerMoveGroundStoreForwardSpeed
 	move.w	#0,d0
 
-loc_2045B4:
+PlayerMoveGroundStoreForwardSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	bra.s	PlayerMoveGroundSetVelocity
 
 ; ------------------------------------------------------------------------------
 
-loc_2045BA:
+PlayerMoveGroundDecelerateReverse:
 	add.w	d5,d0
-	bcc.s	loc_2045C2
+	bcc.s	PlayerMoveGroundStoreVelocity
 	move.w	#0,d0
 
-loc_2045C2:
+PlayerMoveGroundStoreVelocity:
 	move.w	d0,obj.ground_speed(a0)
 
 PlayerMoveGroundSetVelocity:
