@@ -58,6 +58,16 @@ There is no unit-test framework or stated coverage target. After assembly or bin
 
 For documentation, IDA, SonLVL, or editor-only changes, run the narrowest relevant validation and explicitly state that the ISO build/comparison was not applicable or could not run. Before handing off any change, inspect `git status --short` and ensure ignored build products, proprietary originals, and temporary region edits are absent from the commit. When originals or disc images were handled, also run `git ls-files --others --exclude-standard original` and require empty output.
 
+## Semantic Remediation Review
+
+For semantic disassembly work, read `docs/semantic-review.md` before selecting
+the next milestone. A successful build or lower address-label count does not
+verify the meaning of a new name. Check hardware symbols, register data flow,
+callers, and table consumers; record uncertainty explicitly. Finish the
+bounded review debt there before starting another broad label-renaming pass.
+Distinguish label cleanup, semantic review, data classification, and graph
+consolidation in milestone reports. Preserve the existing build requirements.
+
 ## Commit & Pull Request Guidelines
 
 Recent history uses short, imperative subjects such as `Add link to source code of MakeSTM` and `Rename ".i" files to ".inc"`. Keep each commit focused and avoid checking in build products or proprietary originals. Pull requests should summarize the subsystem changed, state the tested region, list build/comparison results, and link relevant issues. Include screenshots only for visible gameplay or SonLVL changes.

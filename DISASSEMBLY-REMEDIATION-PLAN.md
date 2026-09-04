@@ -176,6 +176,10 @@ Every agent working on this plan must follow these rules:
 13. Keep governance edits to this plan (milestone sizing, agent workflow, or
    validation policy) in a separate documentation-only milestone and commit;
    do not bundle them with source remediation.
+14. Apply `docs/semantic-review.md` before marking semantic work complete.
+   Record whether the result is label cleanup, reviewed semantics, classified
+   data, or source-graph consolidation. A completed milestone certifies only
+   its stated scope, not a component or a percentage of this plan.
 
 Commit subjects should describe the semantic result, for example:
 
@@ -207,6 +211,11 @@ aid to manual review; it must not automatically classify declarations as
 opaque merely because they use `dc.*`.
 
 ### Milestone ledger
+
+The ledger is a history of completed scopes, not a completion counter. Earlier
+"canonicalize" entries frequently describe label cleanup. Their semantic
+meaning still requires review against the completion criteria above; do not
+infer correctness of names or comments from a regional byte comparison.
 
 | Milestone | Status | Scope | Validation and handoff |
 | --- | --- | --- | --- |

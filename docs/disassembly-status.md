@@ -20,6 +20,10 @@ active non-BRAM include graph.
 
 ## Status Vocabulary
 
+See [semantic-review.md](semantic-review.md) for the semantic acceptance gate
+and bounded follow-up review. Historical "canonicalize" milestones may cover
+label cleanup only; their byte comparisons do not certify names or comments.
+
 - Graph: S = structured, H = hybrid structured/legacy, L = legacy.
 - Mostly semantic means the active code is substantially named and organized;
   it does not certify every routine or datum.
