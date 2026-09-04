@@ -534,46 +534,46 @@ PlayerExtendedCamera:
 
 	move.w	scroll_focus_x,d1
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_2042C8
+	bpl.s	PlayerExtendedCameraCheckSpeed
 	neg.w	d0
 
-loc_2042C8:
+PlayerExtendedCameraCheckSpeed:
 	btst	#1,obj.var_2c(a0)
-	bne.s	loc_2042F8
+	bne.s	PlayerExtendedCameraCenter
 	cmpi.w	#$600,d0
-	bcs.s	loc_2042F8
+	bcs.s	PlayerExtendedCameraCenter
 	tst.w	obj.ground_speed(a0)
-	bpl.s	loc_2042EA
+	bpl.s	PlayerExtendedCameraMoveLeft
 	addq.w	#2,d1
 	cmpi.w	#$E0,d1
-	bcs.s	loc_204306
+	bcs.s	PlayerExtendedCameraCommitFocus
 	move.w	#$E0,d1
-	bra.s	loc_204306
+	bra.s	PlayerExtendedCameraCommitFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_2042EA:
+PlayerExtendedCameraMoveLeft:
 	subq.w	#2,d1
 	cmpi.w	#$60,d1
-	bcc.s	loc_204306
+	bcc.s	PlayerExtendedCameraCommitFocus
 	move.w	#$60,d1
-	bra.s	loc_204306
+	bra.s	PlayerExtendedCameraCommitFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_2042F8:
+PlayerExtendedCameraCenter:
 	cmpi.w	#$A0,d1
-	beq.s	loc_204306
-	bcc.s	loc_204304
+	beq.s	PlayerExtendedCameraCommitFocus
+	bcc.s	PlayerExtendedCameraMoveLeftToCenter
 	addq.w	#2,d1
-	bra.s	loc_204306
+	bra.s	PlayerExtendedCameraCommitFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_204304:
+PlayerExtendedCameraMoveLeftToCenter:
 	subq.w	#2,d1
 
-loc_204306:
+PlayerExtendedCameraCommitFocus:
 	move.w	d1,scroll_focus_x
 	rts
 
@@ -583,28 +583,28 @@ PlayerMain:
 	bsr.s	PlayerExtendedCamera
 	bsr.w	PlayerMakeSplash
 	tst.w	debug_cheat
-	beq.s	loc_20432C
+	beq.s	PlayerMainInput
 	btst	#4,p1_joy_tap
-	beq.s	loc_20432C
+	beq.s	PlayerMainInput
 	move.b	#1,debug_mode
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20432C:
+PlayerMainInput:
 	tst.b	control_locked
-	bne.s	loc_204338
+	bne.s	PlayerMainDispatch
 	move.w	p1_joy_hold,player_joy_hold
 
-loc_204338:
+PlayerMainDispatch:
 	btst	#0,obj.var_2c(a0)
-	beq.s	loc_204346
+	beq.s	PlayerMainUpdateState
 	bsr.w	PlayerCheckWarp
-	bra.s	loc_20436C
+	bra.s	PlayerMainUpdateObjects
 
 ; ------------------------------------------------------------------------------
 
-loc_204346:
+PlayerMainUpdateState:
 	moveq	#0,d0
 	move.b	obj.flags(a0),d0
 	andi.w	#6,d0
@@ -616,19 +616,19 @@ loc_204346:
 	bsr.w	PlayerCheckHangBar
 	bsr.w	PlayerCheckPole
 
-loc_20436C:
+PlayerMainUpdateObjects:
 	bsr.s	PlayerUpdatePowerups
 	bsr.w	PlayerBufferPosition
 	move.b	collide_angle_1,obj.var_36(a0)
 	move.b	collide_angle_2,obj.var_37(a0)
 	bsr.w	PlayerAnimate
 	tst.b	obj.var_2c(a0)
-	bmi.s	loc_204396
+	bmi.s	PlayerMainCheckChunk
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.s	loc_204396
+	beq.s	PlayerMainCheckChunk
 	jsr	PlayerObjectCollide
 
-loc_204396:
+PlayerMainCheckChunk:
 	bsr.w	PlayerCheckChunk
 	rts
 
@@ -650,66 +650,66 @@ PlayerStates:
 
 PlayerUpdatePowerups:
 	cmpi.w	#$D2,warp_timer
-	bcc.s	loc_2043CE
+	bcc.s	PlayerUpdatePowerupsCheckInvincibility
 	move.w	obj.var_30(a0),d0
-	beq.s	loc_2043C0
+	beq.s	PlayerUpdatePowerupsDrawTimer
 	subq.w	#1,obj.var_30(a0)
 	lsr.w	#3,d0
-	bcc.s	loc_2043CE
+	bcc.s	PlayerUpdatePowerupsCheckInvincibility
 
-loc_2043C0:
+PlayerUpdatePowerupsDrawTimer:
 	btst	#6,obj.var_2c(a0)
-	bne.s	loc_2043CE
+	bne.s	PlayerUpdatePowerupsCheckInvincibility
 	jsr	DrawObject
 
-loc_2043CE:
+PlayerUpdatePowerupsCheckInvincibility:
 	tst.b	invincible
-	beq.s	loc_204412
+	beq.s	PlayerUpdatePowerupsCheckSpeedShoes
 	tst.w	obj.var_32(a0)
-	beq.s	loc_204412
+	beq.s	PlayerUpdatePowerupsCheckSpeedShoes
 	subq.w	#1,obj.var_32(a0)
-	bne.s	loc_204412
+	bne.s	PlayerUpdatePowerupsCheckSpeedShoes
 	tst.b	speed_shoes
-	bne.s	loc_20440A
+	bne.s	PlayerUpdatePowerupsEndInvincibility
 	tst.b	boss_music
-	bne.s	loc_20440A
+	bne.s	PlayerUpdatePowerupsEndInvincibility
 	tst.b	time_zone
-	bne.s	loc_204404
+	bne.s	PlayerUpdatePowerupsRestoreMusic
 	move.w	#$E,d0
 	jsr	SubCpuCommand
 
-loc_204404:
+PlayerUpdatePowerupsRestoreMusic:
 	jsr	PlayStageMusic
 
-loc_20440A:
+PlayerUpdatePowerupsEndInvincibility:
 	move.b	#0,invincible
 
-loc_204412:
+PlayerUpdatePowerupsCheckSpeedShoes:
 	tst.b	speed_shoes
-	beq.s	locret_204468
+	beq.s	PlayerUpdatePowerupsReturn
 	tst.w	obj.var_34(a0)
-	beq.s	locret_204468
+	beq.s	PlayerUpdatePowerupsReturn
 	subq.w	#1,obj.var_34(a0)
-	bne.s	locret_204468
+	bne.s	PlayerUpdatePowerupsReturn
 	move.w	#$600,player_max_speed
 	move.w	#$C,player_acceleration
 	move.w	#$80,player_deceleration
 	tst.b	invincible
-	bne.s	loc_204460
+	bne.s	PlayerUpdatePowerupsEndSpeedShoes
 	tst.b	boss_music
-	bne.s	loc_204460
+	bne.s	PlayerUpdatePowerupsEndSpeedShoes
 	tst.b	time_zone
-	bne.s	loc_20445A
+	bne.s	PlayerUpdatePowerupsRestoreSpeedMusic
 	move.w	#$E,d0
 	jsr	SubCpuCommand
 
-loc_20445A:
+PlayerUpdatePowerupsRestoreSpeedMusic:
 	jsr	PlayStageMusic
 
-loc_204460:
+PlayerUpdatePowerupsEndSpeedShoes:
 	move.b	#0,speed_shoes
 
-locret_204468:
+PlayerUpdatePowerupsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -756,10 +756,10 @@ SetPlayerWarpRespawn:
 	move.b	lives_flags,warp_lives_flags
 	move.l	time,d0
 	cmpi.l	#$50000,d0
-	bcs.s	loc_204558
+	bcs.s	SetPlayerWarpRespawnClampTime
 	move.l	#$50000,d0
 
-loc_204558:
+SetPlayerWarpRespawnClampTime:
 	move.l	d0,warp_time
 	rts
 
@@ -767,68 +767,68 @@ loc_204558:
 
 PlayerCheckWarp:
 	tst.b	obj.var_2a(a0)
-	bne.w	locret_20461E
+	bne.w	PlayerCheckWarpReturn
 	tst.b	warp_direction
-	beq.w	locret_20461E
+	beq.w	PlayerCheckWarpReturn
 	move.w	#$600,d2
 	moveq	#0,d0
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_20457E
+	bpl.s	PlayerCheckWarpGetSpeed
 	neg.w	d0
 
-loc_20457E:
+PlayerCheckWarpGetSpeed:
 	tst.w	warp_timer
-	bne.s	loc_20458A
+	bne.s	PlayerCheckWarpStartTimer
 	move.w	#1,warp_timer
 
-loc_20458A:
+PlayerCheckWarpStartTimer:
 	move.w	warp_timer,d1
 	cmpi.w	#$E6,d1
-	bcs.s	loc_2045A0
+	bcs.s	PlayerCheckWarpTransition
 	move.b	#1,restart_stage
 	bra.w	FadeOutMusic
 
 ; ------------------------------------------------------------------------------
 
-loc_2045A0:
+PlayerCheckWarpTransition:
 	cmpi.w	#$D2,d1
-	bcs.s	loc_2045F4
+	bcs.s	PlayerCheckWarpDecelerate
 	cmpi.b	#2,spawn_mode
-	beq.s	locret_2045F2
+	beq.s	PlayerCheckWarpTransitionReturn
 	move.b	#1,scroll_lock
 	move.b	time_zone,d0
-	bne.s	loc_2045CA
+	bne.s	PlayerCheckWarpSetDirection
 	move.w	#$82,d0
 	jsr	SubCpuCommand
 	moveq	#0,d0
 
-loc_2045CA:
+PlayerCheckWarpSetDirection:
 	add.b	warp_direction,d0
-	bpl.s	loc_2045D4
+	bpl.s	PlayerCheckWarpClampZone
 	moveq	#0,d0
-	bra.s	loc_2045DC
+	bra.s	PlayerCheckWarpStoreZone
 
 ; ------------------------------------------------------------------------------
 
-loc_2045D4:
+PlayerCheckWarpClampZone:
 	cmpi.b	#3,d0
-	bcs.s	loc_2045DC
+	bcs.s	PlayerCheckWarpStoreZone
 	moveq	#2,d0
 
-loc_2045DC:
+PlayerCheckWarpStoreZone:
 	bset	#7,d0
 	move.b	d0,time_zone
 	bsr.w	SetPlayerWarpRespawn
 	move.b	#2,spawn_mode
 
-locret_2045F2:
+PlayerCheckWarpTransitionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2045F4:
+PlayerCheckWarpDecelerate:
 	cmpi.w	#$5A,d1
-	bcc.s	loc_20460C
+	bcc.s	PlayerCheckWarpFinish
 	cmp.w	d2,d0
 	bcc.w	PlayerMakeWarpStars
 	clr.w	warp_timer
@@ -837,14 +837,14 @@ loc_2045F4:
 
 ; ------------------------------------------------------------------------------
 
-loc_20460C:
+PlayerCheckWarpFinish:
 	cmp.w	d2,d0
-	bcc.s	locret_20461E
+	bcc.s	PlayerCheckWarpReturn
 	clr.w	warp_timer
 	clr.b	warp_direction
 	clr.b	warping
 
-locret_20461E:
+PlayerCheckWarpReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
