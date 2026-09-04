@@ -136,6 +136,9 @@ trigger family.
 M485 canonicalizes shared stage initialization/restart, the main stage loop,
 collision loading, global animation, stage music, life-icon, and pause helpers.
 
+M486 canonicalizes the shared VBlank dispatcher, DMA/update handlers, common
+transfer path, and warp/bored timer helpers.
+
 ### Core and system programs
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |
