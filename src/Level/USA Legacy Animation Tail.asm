@@ -3,143 +3,143 @@
 ; -------------------------------------------------------------------------
 ; This block occupies $20FDDC-$20FFFF in the USA images.
 
-USA_R6_LegacyAnimationTail:
+USA_LegacyAnimationTail:
 	dc.w	$FE60
-L_USA_R6_20FDDE:
+USA_LegacyAnimationTailSetCount:
 	move.w #$1f, d6
-L_USA_R6_20FDE2:
-	bsr.w USA_R6_AnimateTilesSimple
-L_USA_R6_20FDE6:
-	bne.b L_USA_R6_20FE0C
-L_USA_R6_20FDE8:
+USA_LegacyAnimationTailAnimate:
+	bsr.w USA_LegacyAnimateTilesSimple
+USA_LegacyAnimationTailStatusBranch:
+	bne.b USA_LegacyAnimationTailReturn
+USA_LegacyAnimationTailPrepareVdp:
 	lea.l $c00004.l, a5
-L_USA_R6_20FDEE:
+USA_LegacyAnimationTailSetVdpSource:
 	move.l #$94009340, (a5)
-L_USA_R6_20FDF4:
+USA_LegacyAnimationTailSetVdpDestination:
 	move.l #$968c95c0, (a5)
-L_USA_R6_20FDFA:
+USA_LegacyAnimationTailSetVdpLength:
 	move.w #$977f, (a5)
-L_USA_R6_20FDFE:
+USA_LegacyAnimationTailSetVramOffset:
 	move.w #$5540, (a5)
-L_USA_R6_20FE02:
+USA_LegacyAnimationTailSetVdpIncrement:
 	move.w #$81, $FFFFF640.w
-L_USA_R6_20FE08:
+USA_LegacyAnimationTailWriteVdpIncrement:
 	move.w $FFFFF640.w, (a5)
-L_USA_R6_20FE0C:
+USA_LegacyAnimationTailReturn:
 	rts
-USA_R6_AnimateTilesSimple:
+USA_LegacyAnimateTilesSimple:
 	subq.b #$1, (a2)
-L_USA_R6_20FE10:
-	bpl.b L_USA_R6_20FE54
-L_USA_R6_20FE12:
+USA_LegacyAnimateTilesSimpleCounterCheck:
+	bpl.b USA_LegacyAnimateTilesSimpleNoUpdate
+USA_LegacyAnimateTilesSimpleResetIndex:
 	moveq #$0, d0
-L_USA_R6_20FE14:
+USA_LegacyAnimateTilesSimpleLoadIndex:
 	move.b (a4), d0
-L_USA_R6_20FE16:
+USA_LegacyAnimateTilesSimpleAdvanceIndex:
 	addq.b #$1, d0
-L_USA_R6_20FE18:
+USA_LegacyAnimateTilesSimpleLimitCheck:
 	cmp.b (a1), d0
-L_USA_R6_20FE1A:
-	bcs.b L_USA_R6_20FE1E
-L_USA_R6_20FE1C:
+USA_LegacyAnimateTilesSimpleLimitBranch:
+	bcs.b USA_LegacyAnimateTilesSimpleStoreIndex
+USA_LegacyAnimateTilesSimpleWrapIndex:
 	moveq #$0, d0
-L_USA_R6_20FE1E:
+USA_LegacyAnimateTilesSimpleStoreIndex:
 	move.b d0, (a4)
-L_USA_R6_20FE20:
+USA_LegacyAnimateTilesSimpleScaleIndex:
 	add.w d0, d0
-L_USA_R6_20FE22:
+USA_LegacyAnimateTilesSimpleLoadFrameDuration:
 	move.b $2(a1, d0.w), (a2)
-L_USA_R6_20FE26:
+USA_LegacyAnimateTilesSimpleLoadTileOffset:
 	move.b $3(a1, d0.w), d0
-L_USA_R6_20FE2A:
+USA_LegacyAnimateTilesSimpleSignExtendTileOffset:
 	ext.w d0
-L_USA_R6_20FE2C:
+USA_LegacyAnimateTilesSimpleScaleTileOffset:
 	add.w d0, d0
-L_USA_R6_20FE2E:
+USA_LegacyAnimateTilesSimpleScaleTileOffsetAgain:
 	add.w d0, d0
-L_USA_R6_20FE30:
+USA_LegacyAnimateTilesSimpleLoadFrameCount:
 	moveq #$0, d1
-L_USA_R6_20FE32:
+USA_LegacyAnimateTilesSimpleReadFrameCount:
 	move.b (a1), d1
-L_USA_R6_20FE34:
+USA_LegacyAnimateTilesSimpleScaleFrameCount:
 	add.w d1, d1
-L_USA_R6_20FE36:
+USA_LegacyAnimateTilesSimpleAddTileOffset:
 	add.w d1, d0
-L_USA_R6_20FE38:
+USA_LegacyAnimateTilesSimpleLoadTilePointer:
 	movea.l $2(a1, d0.w), a1
-L_USA_R6_20FE3C:
+USA_LegacyAnimateTilesSimpleSetTileCopyBase:
 	lea.l $ff1980.l, a3
-L_USA_R6_20FE42:
+USA_LegacyAnimateTilesSimpleCopyTile:
 	move.l (a1)+, (a3)+
-L_USA_R6_20FE44:
-	dbra d6, L_USA_R6_20FE42
-L_USA_R6_20FE48:
+USA_LegacyAnimateTilesSimpleCopyLoopCheck:
+	dbra d6, USA_LegacyAnimateTilesSimpleCopyTile
+USA_LegacyAnimateTilesSimpleAdvanceCounterBase:
 	adda.w #$1, a2
-L_USA_R6_20FE4C:
+USA_LegacyAnimateTilesSimpleAdvanceFrameBase:
 	adda.w #$1, a4
-L_USA_R6_20FE50:
+USA_LegacyAnimateTilesSimpleReadyStatus:
 	moveq #$0, d0
-L_USA_R6_20FE52:
+USA_LegacyAnimateTilesSimpleReturnReady:
 	rts
-L_USA_R6_20FE54:
+USA_LegacyAnimateTilesSimpleNoUpdate:
 	adda.w #$1, a2
-L_USA_R6_20FE58:
+USA_LegacyAnimateTilesSimpleAdvanceCounterBaseNoUpdate:
 	adda.w #$1, a4
-L_USA_R6_20FE5C:
+USA_LegacyAnimateTilesSimpleAdvanceFrameBaseNoUpdate:
 	moveq #$1, d0
-L_USA_R6_20FE5E:
+USA_LegacyAnimateTilesSimpleReturnBusy:
 	rts
-USA_R6_AnimationTableA:
+USA_LegacyAnimationTableA:
 	dc.w	$0400,$0400,$0901,$0402,$0F03,$0023,$3F0C,$0023,$3F8C,$0023,$400C,$0023,$408C
-USA_R6_AnimateTilesSimpleAlt:
+USA_LegacyAnimateTilesSimpleAlt:
 	subq.b #$1, (a2)
-L_USA_R6_20FE7C:
-	bpl.w L_USA_R6_20FEB2
-L_USA_R6_20FE80:
+USA_LegacyAnimateTilesSimpleAltCounterCheck:
+	bpl.w USA_LegacyAnimateTilesSimpleAltNoUpdate
+USA_LegacyAnimateTilesSimpleAltLoadDuration:
 	move.b (a1), (a2)
-L_USA_R6_20FE82:
+USA_LegacyAnimateTilesSimpleAltResetIndex:
 	moveq #$0, d0
-L_USA_R6_20FE84:
+USA_LegacyAnimateTilesSimpleAltLoadIndex:
 	move.b (a4), d0
-L_USA_R6_20FE86:
+USA_LegacyAnimateTilesSimpleAltAdvanceIndex:
 	addq.b #$1, d0
-L_USA_R6_20FE88:
+USA_LegacyAnimateTilesSimpleAltLimitCheck:
 	cmp.b $1(a1), d0
-L_USA_R6_20FE8C:
-	bcs.b L_USA_R6_20FE90
-L_USA_R6_20FE8E:
+USA_LegacyAnimateTilesSimpleAltLimitBranch:
+	bcs.b USA_LegacyAnimateTilesSimpleAltStoreIndex
+USA_LegacyAnimateTilesSimpleAltWrapIndex:
 	moveq #$0, d0
-L_USA_R6_20FE90:
+USA_LegacyAnimateTilesSimpleAltStoreIndex:
 	move.b d0, (a4)
-L_USA_R6_20FE92:
+USA_LegacyAnimateTilesSimpleAltScaleIndex:
 	add.w d0, d0
-L_USA_R6_20FE94:
+USA_LegacyAnimateTilesSimpleAltScaleIndexAgain:
 	add.w d0, d0
-L_USA_R6_20FE96:
+USA_LegacyAnimateTilesSimpleAltLoadTilePointer:
 	movea.l $2(a1, d0.w), a1
-L_USA_R6_20FE9A:
+USA_LegacyAnimateTilesSimpleAltSetTileCopyBase:
 	lea.l $ff1980.l, a3
-L_USA_R6_20FEA0:
+USA_LegacyAnimateTilesSimpleAltCopyTile:
 	move.l (a1)+, (a3)+
-L_USA_R6_20FEA2:
-	dbra d6, L_USA_R6_20FEA0
-L_USA_R6_20FEA6:
+USA_LegacyAnimateTilesSimpleAltCopyLoopCheck:
+	dbra d6, USA_LegacyAnimateTilesSimpleAltCopyTile
+USA_LegacyAnimateTilesSimpleAltAdvanceCounterBase:
 	adda.w #$1, a2
-L_USA_R6_20FEAA:
+USA_LegacyAnimateTilesSimpleAltAdvanceFrameBase:
 	adda.w #$1, a4
-L_USA_R6_20FEAE:
+USA_LegacyAnimateTilesSimpleAltReadyStatus:
 	moveq #$0, d0
-L_USA_R6_20FEB0:
+USA_LegacyAnimateTilesSimpleAltReturnReady:
 	rts
-L_USA_R6_20FEB2:
+USA_LegacyAnimateTilesSimpleAltNoUpdate:
 	adda.w #$1, a2
-L_USA_R6_20FEB6:
+USA_LegacyAnimateTilesSimpleAltAdvanceCounterBaseNoUpdate:
 	adda.w #$1, a4
-L_USA_R6_20FEBA:
+USA_LegacyAnimateTilesSimpleAltAdvanceFrameBaseNoUpdate:
 	moveq #$1, d0
-L_USA_R6_20FEBC:
+USA_LegacyAnimateTilesSimpleAltReturnBusy:
 	rts
-USA_R6_AnimationTableB:
+USA_LegacyAnimationTableB:
 	dc.w	$0403,$0023,$3C0C,$0023,$3D0C,$0023,$3E0C,$0302,$0023,$3B0C,$0023,$3B8C,$0323,$81DC,$0223,$6F30
 	dc.w	$0021,$0000,$0081,$0404,$0026,$002E,$008A,$0026,$008A,$008A,$008A,$008A,$008A,$008A,$008A,$008A
 	dc.w	$008A,$008A,$008A,$008A,$00E6,$008A,$00EE,$0000,$0023,$81DC,$0000,$000E,$0023,$0DA2,$6C00,$0023
