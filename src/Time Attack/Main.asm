@@ -718,9 +718,9 @@ L_FF2698:
 L_FF269C:
 	lea.l $14(a7), a7
 L_FF26A0:
-	bsr.w L_FF2AB8
+	bsr.w TimeAttack_UploadSelectionTitleRow
 L_FF26A4:
-	bsr.w L_FF2B0E
+	bsr.w TimeAttack_RenderSelectedTimeTable
 L_FF26A8:
 	move.w #$10, $ff3730.l
 L_FF26B0:
@@ -1154,139 +1154,137 @@ L_FF2AB6:
 	rts
 ; Upload the selected stage or period title tile row.
 TimeAttack_UploadSelectionTitleRow:
-L_FF2AB8:
 	move.l #$1, -(a7)
-L_FF2ABE:
+TimeAttack_UploadSelectionTitleRowWidth:
 	move.l #$40, -(a7)
-L_FF2AC4:
+TimeAttack_UploadSelectionTitleRowHeight:
 	move.l #$0, -(a7)
-L_FF2ACA:
+TimeAttack_UploadSelectionTitleRowZeroArgument:
 	move.l #$64bc0003, d0
-L_FF2AD0:
+TimeAttack_UploadSelectionTitleRowCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF2AD6:
-	beq.b L_FF2ADE
-L_FF2AD8:
+TimeAttack_UploadSelectionTitleRowUseStageCommand:
+	beq.b TimeAttack_UploadSelectionTitleRowPushCommand
+TimeAttack_UploadSelectionTitleRowSelectPeriodCommand:
 	move.l #$64be0003, d0
-L_FF2ADE:
+TimeAttack_UploadSelectionTitleRowPushCommand:
 	move.l d0, -(a7)
-L_FF2AE0:
+TimeAttack_UploadSelectionTitleRowSourceBase:
 	lea.l $ff749c.l, a0
-L_FF2AE6:
+TimeAttack_UploadSelectionTitleRowCheckPeriodModeForIndex:
 	tst.w $ff3468.l
-L_FF2AEC:
-	beq.b L_FF2AF6
-L_FF2AEE:
+TimeAttack_UploadSelectionTitleRowUseStageIndex:
+	beq.b TimeAttack_UploadSelectionTitleRowLoadStageIndex
+TimeAttack_UploadSelectionTitleRowLoadPeriodIndex:
 	move.w $ff3478.l, d0
-L_FF2AF4:
-	bra.b L_FF2AFC
-L_FF2AF6:
+TimeAttack_UploadSelectionTitleRowSkipStageIndex:
+	bra.b TimeAttack_UploadSelectionTitleRowScaleIndex
+TimeAttack_UploadSelectionTitleRowLoadStageIndex:
 	move.w $ff3474.l, d0
-L_FF2AFC:
+TimeAttack_UploadSelectionTitleRowScaleIndex:
 	add.w d0, d0
-L_FF2AFE:
+TimeAttack_UploadSelectionTitleRowScaleIndexAgain:
 	add.w d0, d0
-L_FF2B00:
+TimeAttack_UploadSelectionTitleRowSelectSource:
 	pea.l (a0, d0.w)
-L_FF2B04:
+TimeAttack_UploadSelectionTitleRowCopyToVdp:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF2B08:
+TimeAttack_UploadSelectionTitleRowReleaseArguments:
 	lea.l $14(a7), a7
-L_FF2B0C:
+TimeAttack_UploadSelectionTitleRowReturn:
 	rts
 ; Render the selected stage or period's three-record time table.
 TimeAttack_RenderSelectedTimeTable:
-L_FF2B0E:
 	lea.l $200000.l, a0
-L_FF2B14:
+TimeAttack_RenderSelectedTimeTableLoadStageIndex:
 	move.w $ff3474.l, d0
-L_FF2B1A:
+TimeAttack_RenderSelectedTimeTableCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF2B20:
-	beq.b L_FF2B2E
-L_FF2B22:
+TimeAttack_RenderSelectedTimeTableUsePeriodLayout:
+	beq.b TimeAttack_RenderSelectedTimeTableUseStageLayout
+TimeAttack_RenderSelectedTimeTableScalePeriodIndex:
 	mulu.w #$24, d0
-L_FF2B26:
+TimeAttack_RenderSelectedTimeTableSetPeriodCommand:
 	move.l #$67b20003, d1
-L_FF2B2C:
-	bra.b L_FF2B3C
-L_FF2B2E:
+TimeAttack_RenderSelectedTimeTableSkipStageLayout:
+	bra.b TimeAttack_RenderSelectedTimeTableAddStageOffset
+TimeAttack_RenderSelectedTimeTableUseStageLayout:
 	adda.w #$fc, a0
-L_FF2B32:
+TimeAttack_RenderSelectedTimeTableScaleStageIndex:
 	mulu.w #$c, d0
-L_FF2B36:
+TimeAttack_RenderSelectedTimeTableSetStageCommand:
 	move.l #$67b00003, d1
-L_FF2B3C:
+TimeAttack_RenderSelectedTimeTableAddStageOffset:
 	adda.w d0, a0
-L_FF2B3E:
+TimeAttack_RenderSelectedTimeTableLoadRecordIndex:
 	move.w $ff3478.l, d0
-L_FF2B44:
+TimeAttack_RenderSelectedTimeTableScaleRecordIndex:
 	mulu.w #$c, d0
-L_FF2B48:
+TimeAttack_RenderSelectedTimeTableSelectRecord:
 	adda.w d0, a0
-L_FF2B4A:
+TimeAttack_RenderSelectedTimeTableRecordBuffer:
 	lea.l $ff3454.l, a1
-L_FF2B50:
+TimeAttack_RenderSelectedTimeTableLoadRecordOne:
 	move.l (a0)+, (a1)
-L_FF2B52:
+TimeAttack_RenderSelectedTimeTableNormalizeRecordOne:
 	bsr.w TimeAttack_NormalizeTimeFrames
-L_FF2B56:
+TimeAttack_RenderSelectedTimeTableRenderRecordOne:
 	bsr.w TimeAttack_RenderTimeRecord
-L_FF2B5A:
+TimeAttack_RenderSelectedTimeTableAdvanceRecordCommandOne:
 	addi.l #$1800000, d1
-L_FF2B60:
+TimeAttack_RenderSelectedTimeTableLoadRecordTwo:
 	move.l (a0)+, (a1)
-L_FF2B62:
+TimeAttack_RenderSelectedTimeTableNormalizeRecordTwo:
 	bsr.w TimeAttack_NormalizeTimeFrames
-L_FF2B66:
+TimeAttack_RenderSelectedTimeTableRenderRecordTwo:
 	bsr.w TimeAttack_RenderTimeRecord
-L_FF2B6A:
+TimeAttack_RenderSelectedTimeTableAdvanceRecordCommandTwo:
 	addi.l #$1800000, d1
-L_FF2B70:
+TimeAttack_RenderSelectedTimeTableLoadRecordThree:
 	move.l (a0)+, (a1)
-L_FF2B72:
+TimeAttack_RenderSelectedTimeTableNormalizeRecordThree:
 	bsr.w TimeAttack_NormalizeTimeFrames
-L_FF2B76:
+TimeAttack_RenderSelectedTimeTableRenderRecordThree:
 	bsr.w TimeAttack_RenderTimeRecord
-L_FF2B7A:
+TimeAttack_RenderSelectedTimeTableWaitSubCpu:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF2B7E:
+TimeAttack_RenderSelectedTimeTableSecondBuffer:
 	lea.l $200150.l, a0
-L_FF2B84:
+TimeAttack_RenderSelectedTimeTableLoadStageIndexAgain:
 	move.w $ff3474.l, d0
-L_FF2B8A:
+TimeAttack_RenderSelectedTimeTableCheckPeriodModeAgain:
 	tst.w $ff3468.l
-L_FF2B90:
-	beq.b L_FF2B9E
-L_FF2B92:
+TimeAttack_RenderSelectedTimeTableUsePeriodLayoutAgain:
+	beq.b TimeAttack_RenderSelectedTimeTableUseStageLayoutAgain
+TimeAttack_RenderSelectedTimeTableScalePeriodIndexAgain:
 	mulu.w #$24, d0
-L_FF2B96:
+TimeAttack_RenderSelectedTimeTableSetPeriodCommandAgain:
 	move.l #$67c40003, d1
-L_FF2B9C:
-	bra.b L_FF2BAC
-L_FF2B9E:
+TimeAttack_RenderSelectedTimeTableSkipStageLayoutAgain:
+	bra.b TimeAttack_RenderSelectedTimeTableAddStageOffsetAgain
+TimeAttack_RenderSelectedTimeTableUseStageLayoutAgain:
 	adda.w #$fc, a0
-L_FF2BA2:
+TimeAttack_RenderSelectedTimeTableScaleStageIndexAgain:
 	mulu.w #$c, d0
-L_FF2BA6:
+TimeAttack_RenderSelectedTimeTableSetStageCommandAgain:
 	move.l #$67c20003, d1
-L_FF2BAC:
+TimeAttack_RenderSelectedTimeTableAddStageOffsetAgain:
 	adda.w d0, a0
-L_FF2BAE:
+TimeAttack_RenderSelectedTimeTableLoadRecordIndexAgain:
 	move.w $ff3478.l, d0
-L_FF2BB4:
+TimeAttack_RenderSelectedTimeTableScaleRecordIndexAgain:
 	mulu.w #$c, d0
-L_FF2BB8:
+TimeAttack_RenderSelectedTimeTableSelectRecordAgain:
 	adda.w d0, a0
-L_FF2BBA:
+TimeAttack_RenderSelectedTimeTableRenderCompactRecordOne:
 	bsr.w TimeAttack_UploadCompactTileBlock
-L_FF2BBE:
+TimeAttack_RenderSelectedTimeTableAdvanceCompactCommandOne:
 	addi.l #$1800000, d1
-L_FF2BC4:
+TimeAttack_RenderSelectedTimeTableRenderCompactRecordTwo:
 	bsr.w TimeAttack_UploadCompactTileBlock
-L_FF2BC8:
+TimeAttack_RenderSelectedTimeTableAdvanceCompactCommandTwo:
 	addi.l #$1800000, d1
-L_FF2BCE:
+TimeAttack_RenderSelectedTimeTableRenderCompactRecordThree:
 	bra.w TimeAttack_UploadCompactTileBlock
 ; Prepare the selected stage or period's graphics buffers.
 TimeAttack_PrepareSelectionGraphics:
