@@ -82,7 +82,8 @@ restoration control flow, plus air-movement gating, horizontal clamping, focus
 adjustment, falling drag, bounds, roll eligibility, roll initialization, jump
 input/impulse, height caps, slope resistance, fall detection, angle reset, and
 air block-collision/landing responses, ground normalization, hurt recovery, and
-death/restart lifecycle handling, and chunk/loop detection with roll entry.
+death/restart lifecycle handling, chunk/loop detection with roll entry, and
+animation frame/loop/state selection with the shrink map.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 
