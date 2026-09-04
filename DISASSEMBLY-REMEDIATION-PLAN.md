@@ -605,6 +605,7 @@ opaque merely because they use `dc.*`.
 | M392 | Complete | Canonicalize the Time Attack time-period selection and animation family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M393 | Complete | Canonicalize the Time Attack Nemesis decompressor entry points and bitstream control flow and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M394 | Complete | Canonicalize the Time Attack Enigma decompressor dispatch and output handlers and migrate their callers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M395 | Complete | Canonicalize the Time Attack Enigma bit-reader, refill helper, and overlapping mask table. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

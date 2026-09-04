@@ -3350,154 +3350,154 @@ TimeAttack_DecompressEnigmaReturn:
 	rts
 ; Read one Enigma-coded word from the current bitstream.
 TimeAttack_ReadEnigmaWord:
-L_FF5178:
+TimeAttack_ReadEnigmaWordInitialize:
 	move.w a3, d3
-L_FF517A:
+TimeAttack_ReadEnigmaWordBitControl:
 	move.b d4, d1
-L_FF517C:
+TimeAttack_ReadEnigmaWordFirstBitShift:
 	add.b d1, d1
-L_FF517E:
-	bcc.b L_FF518A
-L_FF5180:
+TimeAttack_ReadEnigmaWordFirstBitBranch:
+	bcc.b TimeAttack_ReadEnigmaWordSecondBitShift
+TimeAttack_ReadEnigmaWordFirstBitConsume:
 	subq.w #$1, d6
-L_FF5182:
+TimeAttack_ReadEnigmaWordFirstBitTest:
 	btst d6, d5
-L_FF5184:
-	beq.b L_FF518A
-L_FF5186:
+TimeAttack_ReadEnigmaWordFirstBitSetBranch:
+	beq.b TimeAttack_ReadEnigmaWordSecondBitShift
+TimeAttack_ReadEnigmaWordFirstBitSet:
 	ori.w #$8000, d3
-L_FF518A:
+TimeAttack_ReadEnigmaWordSecondBitShift:
 	add.b d1, d1
-L_FF518C:
-	bcc.b L_FF5198
-L_FF518E:
+TimeAttack_ReadEnigmaWordSecondBitBranch:
+	bcc.b TimeAttack_ReadEnigmaWordThirdBitShift
+TimeAttack_ReadEnigmaWordSecondBitConsume:
 	subq.w #$1, d6
-L_FF5190:
+TimeAttack_ReadEnigmaWordSecondBitTest:
 	btst d6, d5
-L_FF5192:
-	beq.b L_FF5198
-L_FF5194:
+TimeAttack_ReadEnigmaWordSecondBitSetBranch:
+	beq.b TimeAttack_ReadEnigmaWordThirdBitShift
+TimeAttack_ReadEnigmaWordSecondBitSet:
 	addi.w #$4000, d3
-L_FF5198:
+TimeAttack_ReadEnigmaWordThirdBitShift:
 	add.b d1, d1
-L_FF519A:
-	bcc.b L_FF51A6
-L_FF519C:
+TimeAttack_ReadEnigmaWordThirdBitBranch:
+	bcc.b TimeAttack_ReadEnigmaWordFourthBitShift
+TimeAttack_ReadEnigmaWordThirdBitConsume:
 	subq.w #$1, d6
-L_FF519E:
+TimeAttack_ReadEnigmaWordThirdBitTest:
 	btst d6, d5
-L_FF51A0:
-	beq.b L_FF51A6
-L_FF51A2:
+TimeAttack_ReadEnigmaWordThirdBitSetBranch:
+	beq.b TimeAttack_ReadEnigmaWordFourthBitShift
+TimeAttack_ReadEnigmaWordThirdBitSet:
 	addi.w #$2000, d3
-L_FF51A6:
+TimeAttack_ReadEnigmaWordFourthBitShift:
 	add.b d1, d1
-L_FF51A8:
-	bcc.b L_FF51B4
-L_FF51AA:
+TimeAttack_ReadEnigmaWordFourthBitBranch:
+	bcc.b TimeAttack_ReadEnigmaWordFifthBitShift
+TimeAttack_ReadEnigmaWordFourthBitConsume:
 	subq.w #$1, d6
-L_FF51AC:
+TimeAttack_ReadEnigmaWordFourthBitTest:
 	btst d6, d5
-L_FF51AE:
-	beq.b L_FF51B4
-L_FF51B0:
+TimeAttack_ReadEnigmaWordFourthBitSetBranch:
+	beq.b TimeAttack_ReadEnigmaWordFifthBitShift
+TimeAttack_ReadEnigmaWordFourthBitSet:
 	ori.w #$1000, d3
-L_FF51B4:
+TimeAttack_ReadEnigmaWordFifthBitShift:
 	add.b d1, d1
-L_FF51B6:
-	bcc.b L_FF51C2
-L_FF51B8:
+TimeAttack_ReadEnigmaWordFifthBitBranch:
+	bcc.b TimeAttack_ReadEnigmaWordReadBuffer
+TimeAttack_ReadEnigmaWordFifthBitConsume:
 	subq.w #$1, d6
-L_FF51BA:
+TimeAttack_ReadEnigmaWordFifthBitTest:
 	btst d6, d5
-L_FF51BC:
-	beq.b L_FF51C2
-L_FF51BE:
+TimeAttack_ReadEnigmaWordFifthBitSetBranch:
+	beq.b TimeAttack_ReadEnigmaWordReadBuffer
+TimeAttack_ReadEnigmaWordFifthBitSet:
 	ori.w #$800, d3
-L_FF51C2:
+TimeAttack_ReadEnigmaWordReadBuffer:
 	move.w d5, d1
-L_FF51C4:
+TimeAttack_ReadEnigmaWordReadBufferRemaining:
 	move.w d6, d7
-L_FF51C6:
+TimeAttack_ReadEnigmaWordReadBufferOffset:
 	sub.w a5, d7
-L_FF51C8:
-	bcc.b L_FF51F2
-L_FF51CA:
+TimeAttack_ReadEnigmaWordReadBufferSpillBranch:
+	bcc.b TimeAttack_ReadEnigmaWordReadBufferedValue
+TimeAttack_ReadEnigmaWordReadSpilledValue:
 	move.w d7, d6
-L_FF51CC:
+TimeAttack_ReadEnigmaWordReadSpillBitsRemaining:
 	addi.w #$10, d6
-L_FF51D0:
+TimeAttack_ReadEnigmaWordReadSpillNegateOffset:
 	neg.w d7
-L_FF51D2:
+TimeAttack_ReadEnigmaWordReadSpillShift:
 	lsl.w d7, d1
-L_FF51D4:
+TimeAttack_ReadEnigmaWordReadSpillSource:
 	move.b (a0), d5
-L_FF51D6:
+TimeAttack_ReadEnigmaWordReadSpillRotate:
 	rol.b d7, d5
-L_FF51D8:
+TimeAttack_ReadEnigmaWordReadSpillDoubleOffset:
 	add.w d7, d7
-L_FF51DA:
-	and.w L_FF5206(pc, d7.w), d5
-L_FF51DE:
+TimeAttack_ReadEnigmaWordReadSpillMask:
+	and.w TimeAttack_EnigmaMaskBase(pc, d7.w), d5
+TimeAttack_ReadEnigmaWordReadSpillMerge:
 	add.w d5, d1
-L_FF51E0:
+TimeAttack_ReadEnigmaWordMaskValue:
 	move.w a5, d0
-L_FF51E2:
+TimeAttack_ReadEnigmaWordMaskOffset:
 	add.w d0, d0
-L_FF51E4:
-	and.w L_FF5206(pc, d0.w), d1
-L_FF51E8:
+TimeAttack_ReadEnigmaWordMask:
+	and.w TimeAttack_EnigmaMaskBase(pc, d0.w), d1
+TimeAttack_ReadEnigmaWordAddBase:
 	add.w d3, d1
-L_FF51EA:
+TimeAttack_ReadEnigmaWordRefillHigh:
 	move.b (a0)+, d5
-L_FF51EC:
+TimeAttack_ReadEnigmaWordRefillLow:
 	lsl.w #$8, d5
-L_FF51EE:
+TimeAttack_ReadEnigmaWordRefillAppend:
 	move.b (a0)+, d5
-L_FF51F0:
+TimeAttack_ReadEnigmaWordReturn:
 	rts
-L_FF51F2:
-	beq.b L_FF5204
-L_FF51F4:
+TimeAttack_ReadEnigmaWordReadBufferedValue:
+	beq.b TimeAttack_ReadEnigmaWordEmptyBuffer
+TimeAttack_ReadEnigmaWordReadBufferedShift:
 	lsr.w d7, d1
-L_FF51F6:
+TimeAttack_ReadEnigmaWordBufferedMaskOffset:
 	move.w a5, d0
-L_FF51F8:
+TimeAttack_ReadEnigmaWordBufferedMaskOffsetDouble:
 	add.w d0, d0
-L_FF51FA:
-	and.w L_FF5206(pc, d0.w), d1
-L_FF51FE:
+TimeAttack_ReadEnigmaWordBufferedMask:
+	and.w TimeAttack_EnigmaMaskBase(pc, d0.w), d1
+TimeAttack_ReadEnigmaWordBufferedAddBase:
 	add.w d3, d1
-L_FF5200:
+TimeAttack_ReadEnigmaWordBufferedSetRefillOffset:
 	move.w a5, d0
-L_FF5202:
-	bra.b L_FF5228
-L_FF5204:
+TimeAttack_ReadEnigmaWordBufferedRefill:
+	bra.b TimeAttack_RefillEnigmaBits
+TimeAttack_ReadEnigmaWordEmptyBuffer:
 	moveq #$10, d6
-L_FF5206:
-	bra.b L_FF51E0
-L_FF5208:
+TimeAttack_EnigmaMaskBase:
+	bra.b TimeAttack_ReadEnigmaWordMaskValue
+TimeAttack_EnigmaMaskOne:
 	ori.b #$3, d1
-L_FF520C:
+TimeAttack_EnigmaMaskTwo:
 	ori.b #$f, d7
-L_FF5210:
+TimeAttack_EnigmaMaskThree:
 	ori.b #$3f, (a7)+
 	dc.l	$007F00FF,$01FF03FF,$07FF0FFF,$1FFF3FFF,$7FFFFFFF
 ; Refill the Enigma bit buffer when fewer than nine bits remain.
 TimeAttack_RefillEnigmaBits:
-L_FF5228:
+TimeAttack_RefillEnigmaBitsConsume:
 	sub.w d0, d6
-L_FF522A:
+TimeAttack_RefillEnigmaBitsThreshold:
 	cmpi.w #$9, d6
-L_FF522E:
-	bcc.b L_FF5236
-L_FF5230:
+TimeAttack_RefillEnigmaBitsThresholdBranch:
+	bcc.b TimeAttack_RefillEnigmaBitsReturn
+TimeAttack_RefillEnigmaBitsAppend:
 	addq.w #$8, d6
-L_FF5232:
+TimeAttack_RefillEnigmaBitsShiftBuffer:
 	asl.w #$8, d5
-L_FF5234:
+TimeAttack_RefillEnigmaBitsReadByte:
 	move.b (a0)+, d5
-L_FF5236:
+TimeAttack_RefillEnigmaBitsReturn:
 	rts
 	dc.l	$04343000,$07000000,$00000000,$812C0002,$01000000,$08660EEE,$0CAA0000,$00000000,$00000000,$00000000,$00000000,$08660644,$008E0000,$086600EE,$00880000,$00000000
 	dc.l	$00000000,$00000000,$00000000,$08660644,$008E0000,$08660000,$0EEE00EE,$008E004E,$000E0000,$00000600,$064404AA,$00800644,$008E0866,$00000EEE,$0E0E0002,$00AE0EEE
