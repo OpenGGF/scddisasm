@@ -1229,25 +1229,25 @@ L_FF2B4A:
 L_FF2B50:
 	move.l (a0)+, (a1)
 L_FF2B52:
-	bsr.w L_FF2D5C
+	bsr.w TimeAttack_NormalizeTimeFrames
 L_FF2B56:
-	bsr.w L_FF2DB6
+	bsr.w TimeAttack_RenderTimeRecord
 L_FF2B5A:
 	addi.l #$1800000, d1
 L_FF2B60:
 	move.l (a0)+, (a1)
 L_FF2B62:
-	bsr.w L_FF2D5C
+	bsr.w TimeAttack_NormalizeTimeFrames
 L_FF2B66:
-	bsr.w L_FF2DB6
+	bsr.w TimeAttack_RenderTimeRecord
 L_FF2B6A:
 	addi.l #$1800000, d1
 L_FF2B70:
 	move.l (a0)+, (a1)
 L_FF2B72:
-	bsr.w L_FF2D5C
+	bsr.w TimeAttack_NormalizeTimeFrames
 L_FF2B76:
-	bsr.w L_FF2DB6
+	bsr.w TimeAttack_RenderTimeRecord
 L_FF2B7A:
 	bsr.w TimeAttack_WaitSubCpuReady
 L_FF2B7E:
@@ -1279,15 +1279,15 @@ L_FF2BB4:
 L_FF2BB8:
 	adda.w d0, a0
 L_FF2BBA:
-	bsr.w L_FF2F94
+	bsr.w TimeAttack_UploadCompactTileBlock
 L_FF2BBE:
 	addi.l #$1800000, d1
 L_FF2BC4:
-	bsr.w L_FF2F94
+	bsr.w TimeAttack_UploadCompactTileBlock
 L_FF2BC8:
 	addi.l #$1800000, d1
 L_FF2BCE:
-	bra.w L_FF2F94
+	bra.w TimeAttack_UploadCompactTileBlock
 ; Prepare the selected stage or period's graphics buffers.
 TimeAttack_PrepareSelectionGraphics:
 L_FF2BD2:
@@ -1407,7 +1407,7 @@ L_FF2C9A:
 L_FF2C9C:
 	exg.l a1, a3
 L_FF2C9E:
-	bsr.w L_FF2D5C
+	bsr.w TimeAttack_NormalizeTimeFrames
 L_FF2CA2:
 	exg.l a1, a3
 L_FF2CA4:
@@ -1415,7 +1415,7 @@ L_FF2CA4:
 L_FF2CA6:
 	exg.l a1, a2
 L_FF2CA8:
-	bsr.w L_FF2D78
+	bsr.w TimeAttack_AddTimeValue
 L_FF2CAC:
 	exg.l a1, a2
 L_FF2CAE:
@@ -1425,19 +1425,19 @@ L_FF2CB0:
 L_FF2CB4:
 	exg.l a1, a2
 L_FF2CB6:
-	bsr.w L_FF2EF6
+	bsr.w TimeAttack_RenderTimeRecordsToBuffer
 L_FF2CBA:
 	exg.l a1, a2
 L_FF2CBC:
 	move.l (a2), d0
 L_FF2CBE:
-	bsr.w L_FF2D78
+	bsr.w TimeAttack_AddTimeValue
 L_FF2CC2:
 	dbra d7, L_FF2C96
 L_FF2CC6:
 	move.l #$4ade0003, d1
 L_FF2CCC:
-	bsr.w L_FF2DB6
+	bsr.w TimeAttack_RenderTimeRecord
 L_FF2CD0:
 	move.l (a1), $ff3464.l
 L_FF2CD6:
@@ -1479,15 +1479,15 @@ L_FF2D36:
 L_FF2D38:
 	exg.l a1, a2
 L_FF2D3A:
-	bsr.w L_FF2D5C
+	bsr.w TimeAttack_NormalizeTimeFrames
 L_FF2D3E:
-	bsr.w L_FF2EF6
+	bsr.w TimeAttack_RenderTimeRecordsToBuffer
 L_FF2D42:
 	exg.l a1, a2
 L_FF2D44:
 	move.l (a2), d0
 L_FF2D46:
-	bsr.w L_FF2D78
+	bsr.w TimeAttack_AddTimeValue
 L_FF2D4A:
 	addq.w #$8, a0
 L_FF2D4C:
@@ -1495,170 +1495,167 @@ L_FF2D4C:
 L_FF2D50:
 	move.l #$4a920003, d1
 L_FF2D56:
-	bsr.w L_FF2DB6
+	bsr.w TimeAttack_RenderTimeRecord
 L_FF2D5A:
 	rts
-; Convert the frame field of a time record to centiseconds.
+; Convert the frame field at record offset $3 to centiseconds, preserving d0.
 TimeAttack_NormalizeTimeFrames:
-L_FF2D5C:
 	movem.l d0, -(a7)
-L_FF2D60:
+TimeAttack_NormalizeTimeFramesClear:
 	moveq #$0, d0
-L_FF2D62:
+TimeAttack_NormalizeTimeFramesReadFrames:
 	move.b $3(a1), d0
-L_FF2D66:
+TimeAttack_NormalizeTimeFramesScale:
 	mulu.w #$64, d0
-L_FF2D6A:
+TimeAttack_NormalizeTimeFramesDivide:
 	divu.w #$3c, d0
-L_FF2D6E:
+TimeAttack_NormalizeTimeFramesStore:
 	move.b d0, $3(a1)
-L_FF2D72:
+TimeAttack_NormalizeTimeFramesRestore:
 	movem.l (a7)+, d0
-L_FF2D76:
+TimeAttack_NormalizeTimeFramesReturn:
 	rts
-; Add a packed time value to the displayed time record.
+; Add d0's packed centiseconds/seconds/minutes bytes to record offsets $3/$2/$1.
 TimeAttack_AddTimeValue:
-L_FF2D78:
 	movem.l d0-d1, -(a7)
-L_FF2D7C:
+TimeAttack_AddTimeValueClearCarry:
 	moveq #$0, d1
-L_FF2D7E:
+TimeAttack_AddTimeValueLoadCentiseconds:
 	move.b d0, d1
-L_FF2D80:
+TimeAttack_AddTimeValueAddCentiseconds:
 	add.b $3(a1), d1
-L_FF2D84:
+TimeAttack_AddTimeValueCarryToSeconds:
 	divu.w #$64, d1
-L_FF2D88:
+TimeAttack_AddTimeValueStoreSecondsCarry:
 	add.b d1, $2(a1)
-L_FF2D8C:
+TimeAttack_AddTimeValueRotateSecondsCarry:
 	swap d1
-L_FF2D8E:
+TimeAttack_AddTimeValueStoreCentiseconds:
 	move.b d1, $3(a1)
-L_FF2D92:
+TimeAttack_AddTimeValueAdvanceSeconds:
 	lsr.l #$8, d0
-L_FF2D94:
+TimeAttack_AddTimeValueClearSecondsCarry:
 	moveq #$0, d1
-L_FF2D96:
+TimeAttack_AddTimeValueLoadSeconds:
 	move.b $2(a1), d1
-L_FF2D9A:
+TimeAttack_AddTimeValueAddSeconds:
 	add.b d0, d1
-L_FF2D9C:
+TimeAttack_AddTimeValueCarryToMinutes:
 	divu.w #$3c, d1
-L_FF2DA0:
+TimeAttack_AddTimeValueStoreMinutesCarry:
 	add.b d1, $1(a1)
-L_FF2DA4:
+TimeAttack_AddTimeValueRotateMinutesCarry:
 	swap d1
-L_FF2DA6:
+TimeAttack_AddTimeValueStoreSeconds:
 	move.b d1, $2(a1)
-L_FF2DAA:
+TimeAttack_AddTimeValueAdvanceMinutes:
 	lsr.l #$8, d0
-L_FF2DAC:
+TimeAttack_AddTimeValueStoreMinutes:
 	add.b d0, $1(a1)
-L_FF2DB0:
+TimeAttack_AddTimeValueRestore:
 	movem.l (a7)+, d0-d1
-L_FF2DB4:
+TimeAttack_AddTimeValueReturn:
 	rts
-; Render a time record's digits to the VDP.
+; Render the record at a1 to two VDP rows starting at command d1.
 TimeAttack_RenderTimeRecord:
-L_FF2DB6:
 	movem.l d0-d3/a1-a4, -(a7)
-L_FF2DBA:
+TimeAttack_RenderTimeRecordSetupControlPort:
 	lea.l $c00004.l, a4
-L_FF2DC0:
+TimeAttack_RenderTimeRecordSetupDataPort:
 	lea.l $c00000.l, a2
-L_FF2DC6:
-	lea.l $ff2e5c(pc), a3
-L_FF2DCA:
+TimeAttack_RenderTimeRecordSetupDigitMap:
+	lea.l TimeAttack_TimeDigitTileMap+2(pc), a3
+TimeAttack_RenderTimeRecordTileRowOffset:
 	move.l #$800000, d2
-L_FF2DD0:
+TimeAttack_RenderTimeRecordRowCount:
 	moveq #$1, d3
-L_FF2DD2:
+TimeAttack_RenderTimeRecordRowLoop:
 	move.l d1, (a4)
-L_FF2DD4:
+TimeAttack_RenderTimeRecordLoadFieldOne:
 	moveq #$0, d0
-L_FF2DD6:
+TimeAttack_RenderTimeRecordReadFieldOne:
 	move.b $1(a1), d0
-L_FF2DDA:
+TimeAttack_RenderTimeRecordCheckFieldOneWidth:
 	cmpi.b #$64, d0
-L_FF2DDE:
-	bcs.b L_FF2E00
-L_FF2DE0:
+TimeAttack_RenderTimeRecordFieldOneTwoDigits:
+	bcs.b TimeAttack_RenderTimeRecordWriteFieldOneTens
+TimeAttack_RenderTimeRecordFieldOneThreeDigits:
 	movem.l d7, -(a7)
-L_FF2DE4:
+TimeAttack_RenderTimeRecordSaveRowCommand:
 	move.l d1, d7
-L_FF2DE6:
+TimeAttack_RenderTimeRecordOffsetHundredsCommand:
 	subi.l #$20000, d7
-L_FF2DEC:
+TimeAttack_RenderTimeRecordWriteHundredsCommand:
 	move.l d7, (a4)
-L_FF2DEE:
+TimeAttack_RenderTimeRecordDivideFieldOneHundreds:
 	divu.w #$64, d0
-L_FF2DF2:
+TimeAttack_RenderTimeRecordScaleHundredsIndex:
 	add.w d0, d0
-L_FF2DF4:
+TimeAttack_RenderTimeRecordWriteHundredsTile:
 	move.w (a3, d0.w), (a2)
-L_FF2DF8:
+TimeAttack_RenderTimeRecordClearFieldOneRemainder:
 	clr.w d0
-L_FF2DFA:
+TimeAttack_RenderTimeRecordRestoreHundredsRemainder:
 	swap d0
-L_FF2DFC:
+TimeAttack_RenderTimeRecordRestoreSavedRowCommand:
 	movem.l (a7)+, d7
-L_FF2E00:
+TimeAttack_RenderTimeRecordWriteFieldOneTens:
 	divu.w #$a, d0
-L_FF2E04:
+TimeAttack_RenderTimeRecordScaleFieldOneTensIndex:
 	add.w d0, d0
-L_FF2E06:
+TimeAttack_RenderTimeRecordWriteFieldOneTensTile:
 	move.w (a3, d0.w), (a2)
-L_FF2E0A:
+TimeAttack_RenderTimeRecordRestoreFieldOneRemainder:
 	swap d0
-L_FF2E0C:
+TimeAttack_RenderTimeRecordScaleFieldOneUnitsIndex:
 	add.w d0, d0
-L_FF2E0E:
+TimeAttack_RenderTimeRecordWriteFieldOneUnitsTile:
 	move.w (a3, d0.w), (a2)
-L_FF2E12:
+TimeAttack_RenderTimeRecordWriteFieldOneSeparator:
 	move.w $48(a3), (a2)
-L_FF2E16:
+TimeAttack_RenderTimeRecordLoadFieldTwo:
 	moveq #$0, d0
-L_FF2E18:
+TimeAttack_RenderTimeRecordReadFieldTwo:
 	move.b $2(a1), d0
-L_FF2E1C:
+TimeAttack_RenderTimeRecordDivideFieldTwoTens:
 	divu.w #$a, d0
-L_FF2E20:
+TimeAttack_RenderTimeRecordScaleFieldTwoTensIndex:
 	add.w d0, d0
-L_FF2E22:
+TimeAttack_RenderTimeRecordWriteFieldTwoTensTile:
 	move.w (a3, d0.w), (a2)
-L_FF2E26:
+TimeAttack_RenderTimeRecordRestoreFieldTwoRemainder:
 	swap d0
-L_FF2E28:
+TimeAttack_RenderTimeRecordScaleFieldTwoUnitsIndex:
 	add.w d0, d0
-L_FF2E2A:
+TimeAttack_RenderTimeRecordWriteFieldTwoUnitsTile:
 	move.w (a3, d0.w), (a2)
-L_FF2E2E:
+TimeAttack_RenderTimeRecordWriteFieldTwoSeparator:
 	move.w $4a(a3), (a2)
-L_FF2E32:
+TimeAttack_RenderTimeRecordLoadFieldThree:
 	moveq #$0, d0
-L_FF2E34:
+TimeAttack_RenderTimeRecordReadFieldThree:
 	move.b $3(a1), d0
-L_FF2E38:
+TimeAttack_RenderTimeRecordDivideFieldThreeTens:
 	divu.w #$a, d0
-L_FF2E3C:
+TimeAttack_RenderTimeRecordScaleFieldThreeTensIndex:
 	add.w d0, d0
-L_FF2E3E:
+TimeAttack_RenderTimeRecordWriteFieldThreeTensTile:
 	move.w (a3, d0.w), (a2)
-L_FF2E42:
+TimeAttack_RenderTimeRecordRestoreFieldThreeRemainder:
 	swap d0
-L_FF2E44:
+TimeAttack_RenderTimeRecordScaleFieldThreeUnitsIndex:
 	add.w d0, d0
-L_FF2E46:
+TimeAttack_RenderTimeRecordWriteFieldThreeUnitsTile:
 	move.w (a3, d0.w), (a2)
-L_FF2E4A:
+TimeAttack_RenderTimeRecordAdvanceRowCommand:
 	add.l d2, d1
-L_FF2E4C:
+TimeAttack_RenderTimeRecordAdvanceDigitMap:
 	adda.w #$4e, a3
-L_FF2E50:
-	dbra d3, L_FF2DD2
-L_FF2E54:
+TimeAttack_RenderTimeRecordRowLoopCheck:
+	dbra d3, TimeAttack_RenderTimeRecordRowLoop
+TimeAttack_RenderTimeRecordRestoreRegisters:
 	movem.l (a7)+, d0-d3/a1-a4
-L_FF2E58:
+TimeAttack_RenderTimeRecordReturn:
 	rts
 	; Tile indices used to render individual time digits.
 	TimeAttack_TimeDigitTileMap:
@@ -1667,124 +1664,122 @@ L_FF2E58:
 	dc.l	$43024303,$43004304,$43054306,$42CC42DA,$42DB42DC,$42DD42DE,$42DF42E0,$42E142E2,$42E342E4,$42E542E6,$42E742F1,$42F242F3,$42F442DB,$42F542F6,$42F742F8,$42F942FA
 	dc.l	$42FB42FC,$42FD42FE,$430742FA,$43084309,$430A430B,$430C42CC
 	dc.b	$42,$CC
-; Render two time records into the prepared tile buffer.
+; Render two records at a1 into successive 0x20-byte rows at a4.
 TimeAttack_RenderTimeRecordsToBuffer:
-L_FF2EF6:
 	movem.l d0-d3/a1-a3, -(a7)
-L_FF2EFA:
+TimeAttack_RenderTimeRecordsToBufferSetupTileMap:
 	lea.l TimeAttack_TimeRecordTileMap(pc), a3
-L_FF2EFE:
+TimeAttack_RenderTimeRecordsToBufferRecordStride:
 	moveq #$20, d2
-L_FF2F00:
+TimeAttack_RenderTimeRecordsToBufferRecordCount:
 	moveq #$1, d3
-L_FF2F02:
+TimeAttack_RenderTimeRecordsToBufferRecordLoop:
 	movea.l a4, a2
-L_FF2F04:
+TimeAttack_RenderTimeRecordsToBufferLoadFieldOne:
 	moveq #$0, d0
-L_FF2F06:
+TimeAttack_RenderTimeRecordsToBufferReadFieldOne:
 	move.b $1(a1), d0
-L_FF2F0A:
+TimeAttack_RenderTimeRecordsToBufferDivideFieldOneTens:
 	divu.w #$a, d0
-L_FF2F0E:
+TimeAttack_RenderTimeRecordsToBufferScaleFieldOneTensIndex:
 	add.w d0, d0
-L_FF2F10:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldOneTens:
 	move.w (a3, d0.w), (a2)+
-L_FF2F14:
+TimeAttack_RenderTimeRecordsToBufferRestoreFieldOneRemainder:
 	swap d0
-L_FF2F16:
+TimeAttack_RenderTimeRecordsToBufferScaleFieldOneUnitsIndex:
 	add.w d0, d0
-L_FF2F18:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldOneUnits:
 	move.w (a3, d0.w), (a2)+
-L_FF2F1C:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldOneSeparator:
 	move.w $14(a3), (a2)+
-L_FF2F20:
+TimeAttack_RenderTimeRecordsToBufferLoadFieldTwo:
 	moveq #$0, d0
-L_FF2F22:
+TimeAttack_RenderTimeRecordsToBufferReadFieldTwo:
 	move.b $2(a1), d0
-L_FF2F26:
+TimeAttack_RenderTimeRecordsToBufferDivideFieldTwoTens:
 	divu.w #$a, d0
-L_FF2F2A:
+TimeAttack_RenderTimeRecordsToBufferScaleFieldTwoTensIndex:
 	add.w d0, d0
-L_FF2F2C:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldTwoTens:
 	move.w (a3, d0.w), (a2)+
-L_FF2F30:
+TimeAttack_RenderTimeRecordsToBufferRestoreFieldTwoRemainder:
 	swap d0
-L_FF2F32:
+TimeAttack_RenderTimeRecordsToBufferScaleFieldTwoUnitsIndex:
 	add.w d0, d0
-L_FF2F34:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldTwoUnits:
 	move.w (a3, d0.w), (a2)+
-L_FF2F38:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldTwoSeparator:
 	move.w $16(a3), (a2)+
-L_FF2F3C:
+TimeAttack_RenderTimeRecordsToBufferLoadFieldThree:
 	moveq #$0, d0
-L_FF2F3E:
+TimeAttack_RenderTimeRecordsToBufferReadFieldThree:
 	move.b $3(a1), d0
-L_FF2F42:
+TimeAttack_RenderTimeRecordsToBufferDivideFieldThreeTens:
 	divu.w #$a, d0
-L_FF2F46:
+TimeAttack_RenderTimeRecordsToBufferScaleFieldThreeTensIndex:
 	add.w d0, d0
-L_FF2F48:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldThreeTens:
 	move.w (a3, d0.w), (a2)+
-L_FF2F4C:
+TimeAttack_RenderTimeRecordsToBufferRestoreFieldThreeRemainder:
 	swap d0
-L_FF2F4E:
+TimeAttack_RenderTimeRecordsToBufferScaleFieldThreeUnitsIndex:
 	add.w d0, d0
-L_FF2F50:
+TimeAttack_RenderTimeRecordsToBufferWriteFieldThreeUnits:
 	move.w (a3, d0.w), (a2)+
-L_FF2F54:
+TimeAttack_RenderTimeRecordsToBufferAdvanceRecordDestination:
 	adda.l d2, a4
-L_FF2F56:
+TimeAttack_RenderTimeRecordsToBufferAdvanceTileMap:
 	adda.w #$18, a3
-L_FF2F5A:
-	dbra d3, L_FF2F02
-L_FF2F5E:
+TimeAttack_RenderTimeRecordsToBufferRecordLoopCheck:
+	dbra d3, TimeAttack_RenderTimeRecordsToBufferRecordLoop
+TimeAttack_RenderTimeRecordsToBufferRestoreRegisters:
 	movem.l (a7)+, d0-d3/a1-a3
-L_FF2F62:
+TimeAttack_RenderTimeRecordsToBufferReturn:
 	rts
 	; Tile pairs used by buffered time-record rendering.
 	TimeAttack_TimeRecordTileMap:
 	dc.l	$02BA02BB,$02BA02BA,$02BC02BD,$02BA02BE,$02BA02BA,$02BF02C0,$02C202C3,$02C402C5,$02C602C7,$02C802C9,$02CA02CB,$02C102C1
-; Upload a compact 3x2 tile block from RAM to the VDP.
+; Upload two compact 3x2 tile blocks from source a0 to VDP command d1.
 TimeAttack_UploadCompactTileBlock:
-L_FF2F94:
 	movem.l d0-d4/a1-a4, -(a7)
-L_FF2F98:
+TimeAttack_UploadCompactTileBlockSetupControlPort:
 	lea.l $c00004.l, a1
-L_FF2F9E:
+TimeAttack_UploadCompactTileBlockSetupDataPort:
 	lea.l $c00000.l, a2
-L_FF2FA4:
+TimeAttack_UploadCompactTileBlockSetupDigitMap:
 	lea.l TimeAttack_TimeDigitTileMap(pc), a3
-L_FF2FA8:
+TimeAttack_UploadCompactTileBlockRowCommandIncrement:
 	move.l #$800000, d0
-L_FF2FAE:
+TimeAttack_UploadCompactTileBlockRowCount:
 	moveq #$1, d2
-L_FF2FB0:
+TimeAttack_UploadCompactTileBlockRowLoop:
 	movea.l a0, a4
-L_FF2FB2:
+TimeAttack_UploadCompactTileBlockWriteRowCommand:
 	move.l d1, (a1)
-L_FF2FB4:
+TimeAttack_UploadCompactTileBlockTileCount:
 	moveq #$2, d3
-L_FF2FB6:
+TimeAttack_UploadCompactTileBlockTileLoop:
 	moveq #$0, d4
-L_FF2FB8:
+TimeAttack_UploadCompactTileBlockReadTileIndex:
 	move.b (a4)+, d4
-L_FF2FBA:
+TimeAttack_UploadCompactTileBlockScaleTileIndex:
 	add.w d4, d4
-L_FF2FBC:
+TimeAttack_UploadCompactTileBlockWriteTile:
 	move.w (a3, d4.w), (a2)
-L_FF2FC0:
-	dbra d3, L_FF2FB6
-L_FF2FC4:
+TimeAttack_UploadCompactTileBlockTileLoopCheck:
+	dbra d3, TimeAttack_UploadCompactTileBlockTileLoop
+TimeAttack_UploadCompactTileBlockAdvanceRowCommand:
 	add.l d0, d1
-L_FF2FC6:
+TimeAttack_UploadCompactTileBlockAdvanceDigitMap:
 	adda.w #$4e, a3
-L_FF2FCA:
-	dbra d2, L_FF2FB0
-L_FF2FCE:
+TimeAttack_UploadCompactTileBlockRowLoopCheck:
+	dbra d2, TimeAttack_UploadCompactTileBlockRowLoop
+TimeAttack_UploadCompactTileBlockAdvanceSource:
 	lea.l $4(a0), a0
-L_FF2FD2:
+TimeAttack_UploadCompactTileBlockRestoreRegisters:
 	movem.l (a7)+, d0-d4/a1-a4
-L_FF2FD6:
+TimeAttack_UploadCompactTileBlockReturn:
 	rts
 ; Draw or clear the tile highlight around the current selection.
 TimeAttack_DrawSelectionHighlight:
@@ -2099,7 +2094,7 @@ L_FF321E:
 L_FF3222:
 	lea.l $2002a0.l, a0
 L_FF3228:
-	bsr.w L_FF2F94
+	bsr.w TimeAttack_UploadCompactTileBlock
 L_FF322C:
 	rts
 ; Apply controller input to the selected period or stage entry.
@@ -2249,7 +2244,7 @@ L_FF333E:
 L_FF3342:
 	lea.l $ff3460(pc), a0
 L_FF3346:
-	bra.w L_FF2F94
+	bra.w TimeAttack_UploadCompactTileBlock
 L_FF334A:
 	lea.l $ff3460(pc), a6
 L_FF334E:
