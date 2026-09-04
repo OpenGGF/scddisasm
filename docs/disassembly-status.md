@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M479 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M480 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -117,6 +117,9 @@ time-zone state slots.
 
 M479 canonicalizes the shared object update, movement, draw-queue, sprite,
 delete, and visibility family, including the layer-camera table.
+
+M480 canonicalizes shared block lookup plus the horizontal/vertical collision
+probes and their secondary-edge paths.
 
 ### Core and system programs
 

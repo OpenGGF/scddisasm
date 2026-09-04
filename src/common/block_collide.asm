@@ -1,14 +1,15 @@
 ; ------------------------------------------------------------------------------
 
 GetBlock:
+	; Convert world coordinates to a stage-map block and resolve its tile data.
 	move.w	d2,d0
 	lsr.w	#1,d0
 	andi.w	#$780,d0
 	cmpi.b	#2,zone
-	bne.s	loc_200FC6
+	bne.s	GetBlockBuildMapIndex
 	andi.w	#$380,d0
 
-loc_200FC6:
+GetBlockBuildMapIndex:
 	move.w	d3,d1
 	lsr.w	#8,d1
 	andi.w	#$7F,d1
@@ -20,22 +21,22 @@ loc_200FC6:
 	endif
 	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
-	beq.s	loc_201026
-	bmi.s	loc_20102A
+	beq.s	GetBlockResolveStandardAddress
+	bmi.s	GetBlockResolveAnimatedAddress
 	cmpi.b	#5,zone
-	beq.s	loc_200FF6
+	beq.s	GetBlockClearTileAnimation
 	cmpi.b	#6,zone
-	bne.s	loc_200FFC
+	bne.s	GetBlockApplyZone4TileFlag
 
-loc_200FF6:
+GetBlockClearTileAnimation:
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 
-loc_200FFC:
+GetBlockApplyZone4TileFlag:
 	cmpi.b	#4,zone
-	bne.s	loc_20100C
+	bne.s	GetBlockBuildTileAddress
 	bclr	#6,obj.sprite_flags(a0)
 
-loc_20100C:
+GetBlockBuildTileAddress:
 	subq.b	#1,d1
 	ext.w	d1
 	ror.w	#7,d1
@@ -48,7 +49,7 @@ loc_20100C:
 	andi.w	#$1E,d0
 	add.w	d0,d1
 
-loc_201026:
+GetBlockResolveStandardAddress:
 	if STANDALONE<>0
 		jsr	GetWrittenBlock2
 	endif
@@ -57,153 +58,153 @@ loc_201026:
 
 ; ------------------------------------------------------------------------------
 
-loc_20102A:
+GetBlockResolveAnimatedAddress:
 	andi.w	#$7F,d1
 	cmpi.b	#4,zone
-	bne.s	loc_201092
+	bne.s	GetBlockZone5AnimatedTiles
 	btst	#6,obj.sprite_flags(a0)
-	bne.s	loc_201058
+	bne.s	GetBlockZone4AnimatedTiles
 	cmpi.b	#$14,d1
-	bne.w	loc_20117C
+	bne.w	GetBlockBuildAnimatedTileAddress
 	bset	#6,obj.sprite_flags(a0)
 	andi.b	#$7F,obj.sprite_tile(a0)
-	bra.w	loc_20117C
+	bra.w	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201058:
+GetBlockZone4AnimatedTiles:
 	cmpi.b	#$15,d1
-	bne.s	loc_201066
+	bne.s	GetBlockZone4TileVariant2
 	move.w	#$60,d1
-	bra.w	loc_20117C
+	bra.w	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201066:
+GetBlockZone4TileVariant2:
 	cmpi.b	#$1E,d1
-	bne.s	loc_201074
+	bne.s	GetBlockZone4TileVariant3
 	move.w	#$61,d1
-	bra.w	loc_20117C
+	bra.w	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201074:
+GetBlockZone4TileVariant3:
 	cmpi.b	#$1F,d1
-	bne.s	loc_201082
+	bne.s	GetBlockZone4TileVariant4
 	move.w	#$62,d1
-	bra.w	loc_20117C
+	bra.w	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201082:
+GetBlockZone4TileVariant4:
 	cmpi.b	#$32,d1
-	bne.w	loc_20117C
+	bne.w	GetBlockBuildAnimatedTileAddress
 	move.w	#$63,d1
-	bra.w	loc_20117C
+	bra.w	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201092:
+GetBlockZone5AnimatedTiles:
 	cmpi.b	#5,zone
-	bne.w	loc_2010F8
+	bne.w	GetBlockZone6AnimatedTiles
 	ori.w	#$8000,obj.sprite_tile(a0)
 	cmpi.b	#4,d1
-	beq.s	loc_2010E2
+	beq.s	GetBlockZone5TileVariants
 	cmpi.b	#6,d1
-	beq.s	loc_2010E2
+	beq.s	GetBlockZone5TileVariants
 	tst.b	stage_layer
-	beq.w	loc_20117C
+	beq.w	GetBlockBuildAnimatedTileAddress
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 	cmpi.b	#$28,d1
-	beq.s	loc_2010F2
+	beq.s	GetBlockAdvanceAnimatedTile
 	cmpi.b	#$3C,d1
-	beq.s	loc_2010F2
+	beq.s	GetBlockAdvanceAnimatedTile
 	cmpi.b	#$37,d1
-	beq.s	loc_2010F2
+	beq.s	GetBlockAdvanceAnimatedTile
 	cmpi.b	#$2F,d1
-	beq.s	loc_2010F2
+	beq.s	GetBlockAdvanceAnimatedTile
 	cmpi.b	#$16,d1
-	beq.s	loc_2010F2
-	bra.w	loc_20117C
+	beq.s	GetBlockAdvanceAnimatedTile
+	bra.w	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_2010E2:
+GetBlockZone5TileVariants:
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 	btst	#6,obj.sprite_flags(a0)
-	beq.w	loc_20117C
+	beq.w	GetBlockBuildAnimatedTileAddress
 
-loc_2010F2:
+GetBlockAdvanceAnimatedTile:
 	addq.b	#1,d1
-	bra.w	loc_20117C
+	bra.w	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_2010F8:
+GetBlockZone6AnimatedTiles:
 	cmpi.b	#6,zone
-	bne.s	loc_201168
+	bne.s	GetBlockDefaultTileAnimation
 	cmpi.b	#3,obj.id(a0)
-	bcc.w	loc_20117C
+	bcc.w	GetBlockBuildAnimatedTileAddress
 	ori.w	#$8000,obj.sprite_tile(a0)
 	tst.b	stage_layer
-	beq.s	loc_20117C
+	beq.s	GetBlockBuildAnimatedTileAddress
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 	cmpi.b	#$46,d1
-	bne.s	loc_20112C
+	bne.s	GetBlockZone6TileVariants
 	move.w	#$6A,d1
-	bra.s	loc_20117C
+	bra.s	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_20112C:
+GetBlockZone6TileVariants:
 	cmpi.b	#$48,d1
-	bne.s	loc_201138
+	bne.s	GetBlockZone6TileVariant2
 	move.w	#$6B,d1
-	bra.s	loc_20117C
+	bra.s	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201138:
+GetBlockZone6TileVariant2:
 	cmpi.b	#$4A,d1
-	bne.s	loc_201144
+	bne.s	GetBlockZone6TileVariant3
 	move.w	#$6C,d1
-	bra.s	loc_20117C
+	bra.s	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201144:
+GetBlockZone6TileVariant3:
 	cmpi.b	#$10,d1
-	bne.s	loc_201150
+	bne.s	GetBlockZone6TileVariant4
 	move.w	#$6D,d1
-	bra.s	loc_20117C
+	bra.s	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201150:
+GetBlockZone6TileVariant4:
 	cmpi.b	#$63,d1
-	bne.s	loc_20115C
+	bne.s	GetBlockZone6TileVariant5
 	move.w	#$6E,d1
-	bra.s	loc_20117C
+	bra.s	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_20115C:
+GetBlockZone6TileVariant5:
 	cmpi.b	#$43,d1
-	bne.s	loc_20117C
+	bne.s	GetBlockBuildAnimatedTileAddress
 	move.w	#$6F,d1
-	bra.s	loc_20117C
+	bra.s	GetBlockBuildAnimatedTileAddress
 
 ; ------------------------------------------------------------------------------
 
-loc_201168:
+GetBlockDefaultTileAnimation:
 	btst	#6,obj.sprite_flags(a0)
-	beq.s	loc_20117C
+	beq.s	GetBlockBuildAnimatedTileAddress
 	addq.w	#1,d1
 	cmpi.w	#$29,d1
-	bne.s	loc_20117C
+	bne.s	GetBlockBuildAnimatedTileAddress
 	move.w	#$51,d1
 
-loc_20117C:
+GetBlockBuildAnimatedTileAddress:
 	subq.b	#1,d1
 	ror.w	#7,d1
 	move.w	d2,d0
@@ -223,17 +224,18 @@ loc_20117C:
 ; ------------------------------------------------------------------------------
 
 CheckBlockY:
+	; Probe the block column above/below d2,d3 and return the collision height.
 	bsr.w	GetBlock
 	cmpi.l	#StageChunks,d1
-	beq.s	loc_2011B2
+	beq.s	CheckBlockYEmpty
 	move.w	(a1),d0
 	move.w	d0,d4
 	andi.w	#$7FF,d0
-	beq.s	loc_2011B2
+	beq.s	CheckBlockYEmpty
 	btst	d5,d4
-	bne.s	loc_2011C0
+	bne.s	CheckBlockYSlope
 
-loc_2011B2:
+CheckBlockYEmpty:
 	add.w	a3,d2
 	bsr.w	CheckBlockY2
 	sub.w	a3,d2
@@ -242,28 +244,28 @@ loc_2011B2:
 
 ; ------------------------------------------------------------------------------
 
-loc_2011C0:
+CheckBlockYSlope:
 	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
-	beq.s	loc_2011B2
+	beq.s	CheckBlockYEmpty
 	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d3,d1
 	btst	#$B,d4
-	beq.s	loc_2011E6
+	beq.s	CheckBlockYMirrorSlope
 	not.w	d1
 	neg.b	(a4)
 
-loc_2011E6:
+CheckBlockYMirrorSlope:
 	btst	#$C,d4
-	beq.s	loc_2011F6
+	beq.s	CheckBlockYSampleColumn
 	addi.b	#$40,(a4)
 	neg.b	(a4)
 	subi.b	#$40,(a4)
 
-loc_2011F6:
+CheckBlockYSampleColumn:
 	andi.w	#$F,d1
 	add.w	d0,d1
 	lea	StageCollisionColumns,a2
@@ -271,17 +273,17 @@ loc_2011F6:
 	ext.w	d0
 	eor.w	d6,d4
 	btst	#$C,d4
-	beq.s	loc_201212
+	beq.s	CheckBlockYResolveSlopeDirection
 	neg.w	d0
 
-loc_201212:
+CheckBlockYResolveSlopeDirection:
 	tst.w	d0
-	beq.s	loc_2011B2
-	bmi.s	loc_20122E
+	beq.s	CheckBlockYEmpty
+	bmi.s	CheckBlockYNegativeHeight
 	cmpi.b	#$10,d0
-	beq.s	loc_20124A
+	beq.s	CheckBlockYOppositeEdge
 
-loc_20121E:
+CheckBlockYResolveHeight:
 	move.w	d2,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
@@ -291,22 +293,22 @@ loc_20121E:
 
 ; ------------------------------------------------------------------------------
 
-loc_20122E:
+CheckBlockYNegativeHeight:
 	cmpa.w	#$10,a3
-	bne.s	loc_20123E
+	bne.s	CheckBlockYNegativeHeightAdjust
 	move.w	#$10,d0
 	move.b	#0,(a4)
-	bra.s	loc_20121E
+	bra.s	CheckBlockYResolveHeight
 
 ; ------------------------------------------------------------------------------
 
-loc_20123E:
+CheckBlockYNegativeHeightAdjust:
 	move.w	d2,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
-	bpl.w	loc_2011B2
+	bpl.w	CheckBlockYEmpty
 
-loc_20124A:
+CheckBlockYOppositeEdge:
 	sub.w	a3,d2
 	bsr.w	CheckBlockY2
 	add.w	a3,d2
@@ -316,17 +318,18 @@ loc_20124A:
 ; ------------------------------------------------------------------------------
 
 CheckBlockY2:
+	; Second probe used when the first block reaches its opposite edge.
 	bsr.w	GetBlock
 	cmpi.l	#StageChunks,d1
-	beq.s	loc_201272
+	beq.s	CheckBlockY2Empty
 	move.w	(a1),d0
 	move.w	d0,d4
 	andi.w	#$7FF,d0
-	beq.s	loc_201272
+	beq.s	CheckBlockY2Empty
 	btst	d5,d4
-	bne.s	loc_201280
+	bne.s	CheckBlockY2Slope
 
-loc_201272:
+CheckBlockY2Empty:
 	move.w	#$F,d1
 	move.w	d2,d0
 	andi.w	#$F,d0
@@ -335,28 +338,28 @@ loc_201272:
 
 ; ------------------------------------------------------------------------------
 
-loc_201280:
+CheckBlockY2Slope:
 	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
-	beq.s	loc_201272
+	beq.s	CheckBlockY2Empty
 	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d3,d1
 	btst	#$B,d4
-	beq.s	loc_2012A6
+	beq.s	CheckBlockY2MirrorSlope
 	not.w	d1
 	neg.b	(a4)
 
-loc_2012A6:
+CheckBlockY2MirrorSlope:
 	btst	#$C,d4
-	beq.s	loc_2012B6
+	beq.s	CheckBlockY2SampleColumn
 	addi.b	#$40,(a4)
 	neg.b	(a4)
 	subi.b	#$40,(a4)
 
-loc_2012B6:
+CheckBlockY2SampleColumn:
 	andi.w	#$F,d1
 	add.w	d0,d1
 	lea	StageCollisionColumns,a2
@@ -364,15 +367,15 @@ loc_2012B6:
 	ext.w	d0
 	eor.w	d6,d4
 	btst	#$C,d4
-	beq.s	loc_2012D2
+	beq.s	CheckBlockY2ResolveSlopeDirection
 	neg.w	d0
 
-loc_2012D2:
+CheckBlockY2ResolveSlopeDirection:
 	tst.w	d0
-	beq.s	loc_201272
-	bmi.s	loc_2012E8
+	beq.s	CheckBlockY2Empty
+	bmi.s	CheckBlockY2NegativeHeight
 
-loc_2012D8:
+CheckBlockY2ResolveHeight:
 	move.w	d2,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
@@ -382,37 +385,38 @@ loc_2012D8:
 
 ; ------------------------------------------------------------------------------
 
-loc_2012E8:
+CheckBlockY2NegativeHeight:
 	cmpa.w	#$10,a3
-	bne.s	loc_2012F8
+	bne.s	CheckBlockY2NegativeHeightAdjust
 	move.w	#$10,d0
 	move.b	#0,(a4)
-	bra.s	loc_2012D8
+	bra.s	CheckBlockY2ResolveHeight
 
 ; ------------------------------------------------------------------------------
 
-loc_2012F8:
+CheckBlockY2NegativeHeightAdjust:
 	move.w	d2,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
-	bpl.w	loc_201272
+	bpl.w	CheckBlockY2Empty
 	not.w	d1
 	rts
 
 ; ------------------------------------------------------------------------------
 
 CheckBlockX:
+	; Probe the block row left/right of d2,d3 and return the collision height.
 	bsr.w	GetBlock
 	cmpi.l	#StageChunks,d1
-	beq.s	loc_201322
+	beq.s	CheckBlockXEmpty
 	move.w	(a1),d0
 	move.w	d0,d4
 	andi.w	#$7FF,d0
-	beq.s	loc_201322
+	beq.s	CheckBlockXEmpty
 	btst	d5,d4
-	bne.s	loc_201330
+	bne.s	CheckBlockXSlope
 
-loc_201322:
+CheckBlockXEmpty:
 	add.w	a3,d3
 	bsr.w	CheckBlockX2
 	sub.w	a3,d3
@@ -421,28 +425,28 @@ loc_201322:
 
 ; ------------------------------------------------------------------------------
 
-loc_201330:
+CheckBlockXSlope:
 	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
-	beq.s	loc_201322
+	beq.s	CheckBlockXEmpty
 	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d2,d1
 	btst	#$C,d4
-	beq.s	loc_20135E
+	beq.s	CheckBlockXMirrorSlope
 	not.w	d1
 	addi.b	#$40,(a4)
 	neg.b	(a4)
 	subi.b	#$40,(a4)
 
-loc_20135E:
+CheckBlockXMirrorSlope:
 	btst	#$B,d4
-	beq.s	loc_201366
+	beq.s	CheckBlockXFlipSlope
 	neg.b	(a4)
 
-loc_201366:
+CheckBlockXFlipSlope:
 	andi.w	#$F,d1
 	add.w	d0,d1
 	lea	StageCollisionRows,a2
@@ -450,15 +454,16 @@ loc_201366:
 	ext.w	d0
 	eor.w	d6,d4
 	btst	#$B,d4
-	beq.s	loc_201382
+	beq.s	CheckBlockXResolveSlopeDirection
 	neg.w	d0
 
-loc_201382:
+
+CheckBlockXResolveSlopeDirection:
 	tst.w	d0
-	beq.s	loc_201322
-	bmi.s	loc_20139E
+	beq.s	CheckBlockXEmpty
+	bmi.s	CheckBlockXNegativeHeight
 	cmpi.b	#$10,d0
-	beq.s	loc_2013AA
+	beq.s	CheckBlockXOppositeEdge
 	move.w	d3,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
@@ -468,13 +473,13 @@ loc_201382:
 
 ; ------------------------------------------------------------------------------
 
-loc_20139E:
+CheckBlockXNegativeHeight:
 	move.w	d3,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
-	bpl.w	loc_201322
+	bpl.w	CheckBlockXEmpty
 
-loc_2013AA:
+CheckBlockXOppositeEdge:
 	sub.w	a3,d3
 	bsr.w	CheckBlockX2
 	add.w	a3,d3
@@ -484,17 +489,18 @@ loc_2013AA:
 ; ------------------------------------------------------------------------------
 
 CheckBlockX2:
+	; Second horizontal probe used when the first block reaches its edge.
 	bsr.w	GetBlock
 	cmpi.l	#StageChunks,d1
-	beq.s	loc_2013D2
+	beq.s	CheckBlockX2Empty
 	move.w	(a1),d0
 	move.w	d0,d4
 	andi.w	#$7FF,d0
-	beq.s	loc_2013D2
+	beq.s	CheckBlockX2Empty
 	btst	d5,d4
-	bne.s	loc_2013E0
+	bne.s	CheckBlockX2Slope
 
-loc_2013D2:
+CheckBlockX2Empty:
 	move.w	#$F,d1
 	move.w	d3,d0
 	andi.w	#$F,d0
@@ -503,28 +509,28 @@ loc_2013D2:
 
 ; ------------------------------------------------------------------------------
 
-loc_2013E0:
+CheckBlockX2Slope:
 	movea.l	stage_collision,a2
 	move.b	(a2,d0.w),d0
 	andi.w	#$FF,d0
-	beq.s	loc_2013D2
+	beq.s	CheckBlockX2Empty
 	lea	StageCollisionAngles,a2
 	move.b	(a2,d0.w),(a4)
 	lsl.w	#4,d0
 	move.w	d2,d1
 	btst	#$C,d4
-	beq.s	loc_20140E
+	beq.s	CheckBlockX2MirrorSlope
 	not.w	d1
 	addi.b	#$40,(a4)
 	neg.b	(a4)
 	subi.b	#$40,(a4)
 
-loc_20140E:
+CheckBlockX2MirrorSlope:
 	btst	#$B,d4
-	beq.s	loc_201416
+	beq.s	CheckBlockX2FlipSlope
 	neg.b	(a4)
 
-loc_201416:
+CheckBlockX2FlipSlope:
 	andi.w	#$F,d1
 	add.w	d0,d1
 	lea	StageCollisionRows,a2
@@ -532,13 +538,14 @@ loc_201416:
 	ext.w	d0
 	eor.w	d6,d4
 	btst	#$B,d4
-	beq.s	loc_201432
+	beq.s	CheckBlockX2ResolveSlopeDirection
 	neg.w	d0
 
-loc_201432:
+
+CheckBlockX2ResolveSlopeDirection:
 	tst.w	d0
-	beq.s	loc_2013D2
-	bmi.s	loc_201448
+	beq.s	CheckBlockX2Empty
+	bmi.s	CheckBlockX2NegativeHeight
 	move.w	d3,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
@@ -548,11 +555,11 @@ loc_201432:
 
 ; ------------------------------------------------------------------------------
 
-loc_201448:
+CheckBlockX2NegativeHeight:
 	move.w	d3,d1
 	andi.w	#$F,d1
 	add.w	d1,d0
-	bpl.w	loc_2013D2
+	bpl.w	CheckBlockX2Empty
 	not.w	d1
 	rts
 
