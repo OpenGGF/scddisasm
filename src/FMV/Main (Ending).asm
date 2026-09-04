@@ -583,80 +583,55 @@ Ending_ProcessEventStream:
 Ending_ProcessEventStreamRegionOffset:
 	addi.l	#$9100, d0
 	endif
-L_FF24D0:
+
+Ending_ProcessEventStreamStorePosition:
 	move.l	d0, $FFFFc08a.w
-L_FF24D4:
 	move.l	d0, d1
-L_FF24D6:
 	swap	d1
-L_FF24D8:
 	sub.w	$FFFFc08e.w, d1
-L_FF24DC:
 	cmpi.w	#$8, d1
-L_FF24E0:
 	blt.b	Ending_ProcessEventStreamReturn
-L_FF24E2:
+
+Ending_ProcessEventStreamBuildVdpAddress:
 	swap	d0
-L_FF24E4:
 	move.w	d0, $FFFFc08e.w
-L_FF24E8:
 	addi.w	#$e0, d0
-L_FF24EC:
 	andi.w	#$f8, d0
-L_FF24F0:
 	lsl.w	#$5, d0
-L_FF24F2:
 	addi.w	#$a000, d0
-L_FF24F6:
 	moveq	#$0, d2
-L_FF24F8:
 	move.w	d0, d1
-L_FF24FA:
 	move.w	d0, d2
-L_FF24FC:
 	andi.w	#$3fff, d1
-L_FF2500:
 	ori.w	#$4000, d1
-L_FF2504:
 	lsl.l	#$2, d2
-L_FF2506:
 	swap	d2
-L_FF2508:
 	andi.w	#$3, d2
-L_FF250C:
+
+Ending_ProcessEventStreamWriteVdpAddress:
 	move.w	d1, (a4)
-L_FF250E:
 	move.w	d2, (a4)
-L_FF2510:
+
+Ending_ProcessEventStreamReadRowStream:
 	movea.l	$FFFFc090.w, a2
-L_FF2514:
 	move.w	(a2)+, d0
-L_FF2516:
 	cmpi.w	#$ffff, d0
-L_FF251A:
 	beq.b	Ending_ProcessEventStreamDone
-L_FF251C:
 	moveq	#$28, d6
-L_FF251E:
 	move.w	(a2)+, d7
-L_FF2520:
 	sub.w	d7, d6
-L_FF2522:
+
+Ending_ProcessEventStreamEmitRun:
 	move.w	d0, (a5)
-L_FF2524:
-	dbra	d7, L_FF2522
-L_FF2528:
+	dbra	d7, Ending_ProcessEventStreamEmitRun
+
+Ending_ProcessEventStreamReadNextWord:
 	move.w	(a2)+, d0
-L_FF252A:
 	cmpi.w	#$ffff, d0
-L_FF252E:
 	beq.b	Ending_ProcessEventStreamPad
-L_FF2530:
 	move.w	d0, (a5)
-L_FF2532:
 	subq.w	#$1, d6
-L_FF2534:
-	bra.b	L_FF2528
+	bra.b	Ending_ProcessEventStreamReadNextWord
 Ending_ProcessEventStreamPad:
 	moveq	#$0, d0
 Ending_ProcessEventStreamClearWord:
