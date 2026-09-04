@@ -645,6 +645,7 @@ opaque merely because they use `dc.*`.
 | M432 | Complete | Canonicalize the shared player graphics upload and flipper-interaction family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M433 | Complete | Canonicalize the R6 player ground movement, focus, acceleration, braking, and velocity-update family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M434 | Complete | Canonicalize the R6 player wall-response and ground-left/ground-right movement family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M435 | Complete | Canonicalize the R6 player rolling and air-movement family, migrating its internal branch targets and collision handoff. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

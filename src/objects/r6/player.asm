@@ -1648,89 +1648,89 @@ PlayerMoveRoll:
 	move.w	player_deceleration,d4
 	asr.w	#2,d4
 	tst.b	water_slide_flag
-	bne.w	loc_204ED0
+	bne.w	PlayerMoveRollUpdateVelocity
 	tst.w	obj.var_3e(a0)
-	bne.s	loc_204DCC
+	bne.s	PlayerMoveRollAfterInput
 	btst	#2,player_joy_hold
-	beq.s	loc_204DC0
+	beq.s	PlayerMoveRollAfterLeft
 	bsr.w	PlayerMoveRollLeft
 
-loc_204DC0:
+PlayerMoveRollAfterLeft:
 	btst	#3,player_joy_hold
-	beq.s	loc_204DCC
+	beq.s	PlayerMoveRollAfterInput
 	bsr.w	PlayerMoveRollRight
 
-loc_204DCC:
+PlayerMoveRollAfterInput:
 	tst.b	obj.var_2a(a0)
-	beq.w	loc_204E76
+	beq.w	PlayerMoveRollBrake
 	move.w	#$32,d0
 	move.w	player_max_speed,d1
 	move.w	d1,d2
 	asl.w	#1,d1
 	tst.b	speed_shoes
-	beq.s	loc_204DEC
+	beq.s	PlayerMoveRollSpeedShoes
 	asr.w	#1,d2
 	sub.w	d2,d1
 
-loc_204DEC:
+PlayerMoveRollSpeedShoes:
 	btst	#0,obj.flags(a0)
-	beq.s	loc_204DF8
+	beq.s	PlayerMoveRollApplyDirection
 	neg.w	d0
 	neg.w	d1
 
-loc_204DF8:
+PlayerMoveRollApplyDirection:
 	add.w	d0,obj.ground_speed(a0)
 	move.w	obj.ground_speed(a0),d0
 	btst	#0,obj.flags(a0)
-	beq.s	loc_204E0E
+	beq.s	PlayerMoveRollCapForward
 	cmp.w	d0,d1
-	ble.s	loc_204E14
-	bra.s	loc_204E12
+	ble.s	PlayerMoveRollStoreSpeed
+	bra.s	PlayerMoveRollCapStoreValue
 
 ; ------------------------------------------------------------------------------
 
-loc_204E0E:
+PlayerMoveRollCapForward:
 	cmp.w	d1,d0
-	ble.s	loc_204E14
+	ble.s	PlayerMoveRollStoreSpeed
 
-loc_204E12:
+PlayerMoveRollCapStoreValue:
 	move.w	d1,d0
 
-loc_204E14:
+PlayerMoveRollStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	btst	#1,player_joy_hold
-	beq.s	loc_204E48
+	beq.s	PlayerMoveRollReleaseCheck
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204E22:
+PlayerMoveRollRelease:
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 	move.b	#0,obj.var_2a(a0)
 	move.w	#0,obj.ground_speed(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#0,obj.y_speed(a0)
-	bra.w	loc_204E9E
+	bra.w	PlayerMoveRollRestoreStanding
 
 ; ------------------------------------------------------------------------------
 
-loc_204E48:
+PlayerMoveRollReleaseCheck:
 	cmpi.b	#$2D,obj.var_2a(a0)
-	bne.s	loc_204E22
+	bne.s	PlayerMoveRollRelease
 	move.b	#0,obj.var_2a(a0)
 	move.w	#$91,d0
 	jsr	PlayFmSound
 	btst	#0,obj.flags(a0)
-	bne.s	loc_204E6E
+	bne.s	PlayerMoveRollReleaseMoveLeft
 	bsr.w	PlayerMoveRollRight
-	bra.s	loc_204E76
+	bra.s	PlayerMoveRollBrake
 
 ; ------------------------------------------------------------------------------
 
-loc_204E6E:
+PlayerMoveRollReleaseMoveLeft:
 	bsr.w	PlayerMoveRollLeft
-	bra.s	loc_204E76
+	bra.s	PlayerMoveRollBrake
 
 ; ------------------------------------------------------------------------------
 
@@ -1738,51 +1738,51 @@ loc_204E6E:
 
 ; ------------------------------------------------------------------------------
 
-loc_204E76:
+PlayerMoveRollBrake:
 	move.w	obj.ground_speed(a0),d0
-	beq.s	loc_204E98
-	bmi.s	loc_204E8C
+	beq.s	PlayerMoveRollCheckStop
+	bmi.s	PlayerMoveRollBrakeReverse
 	sub.w	d5,d0
-	bcc.s	loc_204E86
+	bcc.s	PlayerMoveRollBrakeForwardStore
 	move.w	#0,d0
 
-loc_204E86:
+PlayerMoveRollBrakeForwardStore:
 	move.w	d0,obj.ground_speed(a0)
-	bra.s	loc_204E98
+	bra.s	PlayerMoveRollCheckStop
 
 ; ------------------------------------------------------------------------------
 
-loc_204E8C:
+PlayerMoveRollBrakeReverse:
 	add.w	d5,d0
-	bcc.s	loc_204E94
+	bcc.s	PlayerMoveRollBrakeReverseStore
 	move.w	#0,d0
 
-loc_204E94:
+PlayerMoveRollBrakeReverseStore:
 	move.w	d0,obj.ground_speed(a0)
 
-loc_204E98:
+PlayerMoveRollCheckStop:
 	tst.w	obj.ground_speed(a0)
-	bne.s	loc_204ED0
+	bne.s	PlayerMoveRollUpdateVelocity
 
-loc_204E9E:
+PlayerMoveRollRestoreStanding:
 	bclr	#2,obj.flags(a0)
 	tst.b	shrunk_player
-	beq.s	loc_204EBA
+	beq.s	PlayerMoveRollRestoreNormalSize
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
-	bra.s	loc_204ECA
+	bra.s	PlayerMoveRollSetAnimation
 
 ; ------------------------------------------------------------------------------
 
-loc_204EBA:
+PlayerMoveRollRestoreNormalSize:
 	move.b	#$13,obj.height(a0)
 	move.b	#9,obj.width(a0)
 	subq.w	#5,obj.y(a0)
 
-loc_204ECA:
+PlayerMoveRollSetAnimation:
 	move.b	#5,obj.anim_id(a0)
 
-loc_204ED0:
+PlayerMoveRollUpdateVelocity:
 	move.b	obj.angle(a0),d0
 	jsr	SineCosine
 	muls.w	obj.ground_speed(a0),d0
@@ -1791,15 +1791,16 @@ loc_204ED0:
 	muls.w	obj.ground_speed(a0),d1
 	asr.l	#8,d1
 	cmpi.w	#$1000,d1
-	ble.s	loc_204EF4
+	ble.s	PlayerMoveRollClampXSpeedLower
 	move.w	#$1000,d1
 
-loc_204EF4:
+PlayerMoveRollClampXSpeedLower:
 	cmpi.w	#$F000,d1
-	bge.s	loc_204EFE
+	bge.s	PlayerMoveRollStoreXSpeed
 	move.w	#$F000,d1
 
-loc_204EFE:
+
+PlayerMoveRollStoreXSpeed:
 	move.w	d1,obj.x_speed(a0)
 	bra.w	PlayerCheckWallAngle
 
@@ -1807,22 +1808,22 @@ loc_204EFE:
 
 PlayerMoveRollLeft:
 	move.w	obj.ground_speed(a0),d0
-	beq.s	loc_204F0E
-	bpl.s	loc_204F1C
+	beq.s	PlayerMoveRollLeftSetDirection
+	bpl.s	PlayerMoveRollLeftAccelerate
 
-loc_204F0E:
+PlayerMoveRollLeftSetDirection:
 	bset	#0,obj.flags(a0)
 	move.b	#2,obj.anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204F1C:
+PlayerMoveRollLeftAccelerate:
 	sub.w	d4,d0
-	bcc.s	loc_204F24
+	bcc.s	PlayerMoveRollLeftStoreSpeed
 	move.w	#$FF80,d0
 
-loc_204F24:
+PlayerMoveRollLeftStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	rts
 
@@ -1830,19 +1831,19 @@ loc_204F24:
 
 PlayerMoveRollRight:
 	move.w	obj.ground_speed(a0),d0
-	bmi.s	loc_204F3E
+	bmi.s	PlayerMoveRollRightAccelerate
 	bclr	#0,obj.flags(a0)
 	move.b	#2,obj.anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204F3E:
+PlayerMoveRollRightAccelerate:
 	add.w	d4,d0
-	bcc.s	loc_204F46
+	bcc.s	PlayerMoveRollRightStoreSpeed
 	move.w	#$80,d0
 
-loc_204F46:
+PlayerMoveRollRightStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	rts
 
@@ -1854,73 +1855,73 @@ PlayerMoveAir:
 	asl.w	#1,d5
 	move.w	obj.x_speed(a0),d0
 	tst.w	zone
-	bne.s	loc_204F7A
+	bne.s	PlayerMoveAirHorizontalInput
 	cmpi.w	#$6C8,obj.x(a0)
-	bcs.s	loc_204F72
+	bcs.s	PlayerMoveAirZoneGate
 	cmpi.w	#$840,obj.x(a0)
-	bcs.s	loc_204FAA
+	bcs.s	PlayerMoveAirStoreHorizontal
 
-loc_204F72:
+PlayerMoveAirZoneGate:
 	btst	#1,obj.var_2c(a0)
-	bne.s	loc_204FAA
+	bne.s	PlayerMoveAirStoreHorizontal
 
-loc_204F7A:
+PlayerMoveAirHorizontalInput:
 	btst	#2,player_joy_hold
-	beq.s	loc_204F94
+	beq.s	PlayerMoveAirRightInput
 	bset	#0,obj.flags(a0)
 	sub.w	d5,d0
 	move.w	d6,d1
 	neg.w	d1
 	cmp.w	d1,d0
-	bgt.s	loc_204F94
+	bgt.s	PlayerMoveAirRightInput
 	move.w	d1,d0
 
-loc_204F94:
+PlayerMoveAirRightInput:
 	btst	#3,player_joy_hold
-	beq.s	loc_204FAA
+	beq.s	PlayerMoveAirStoreHorizontal
 	bclr	#0,obj.flags(a0)
 	add.w	d5,d0
 	cmp.w	d6,d0
-	blt.s	loc_204FAA
+	blt.s	PlayerMoveAirStoreHorizontal
 	move.w	d6,d0
 
-loc_204FAA:
+PlayerMoveAirStoreHorizontal:
 	move.w	d0,obj.x_speed(a0)
 	cmpi.w	#$60,scroll_focus_y
-	beq.s	loc_204FC0
-	bcc.s	loc_204FBC
+	beq.s	PlayerMoveAirApplyDrag
+	bcc.s	PlayerMoveAirFocusCenter
 	addq.w	#4,scroll_focus_y
 
-loc_204FBC:
+PlayerMoveAirFocusCenter:
 	subq.w	#2,scroll_focus_y
 
-loc_204FC0:
+PlayerMoveAirApplyDrag:
 	cmpi.w	#$FC00,obj.y_speed(a0)
-	bcs.s	locret_204FEE
+	bcs.s	PlayerMoveAirReturn
 	move.w	obj.x_speed(a0),d0
 	move.w	d0,d1
 	asr.w	#5,d1
-	beq.s	locret_204FEE
-	bmi.s	loc_204FE2
+	beq.s	PlayerMoveAirReturn
+	bmi.s	PlayerMoveAirDragNegative
 	sub.w	d1,d0
-	bcc.s	loc_204FDC
+	bcc.s	PlayerMoveAirDragPositiveStore
 	move.w	#0,d0
 
-loc_204FDC:
+PlayerMoveAirDragPositiveStore:
 	move.w	d0,obj.x_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204FE2:
+PlayerMoveAirDragNegative:
 	sub.w	d1,d0
-	bcs.s	loc_204FEA
+	bcs.s	PlayerMoveAirDragNegativeStore
 	move.w	#0,d0
 
-loc_204FEA:
+PlayerMoveAirDragNegativeStore:
 	move.w	d0,obj.x_speed(a0)
 
-locret_204FEE:
+PlayerMoveAirReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
