@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M497 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M498 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -170,6 +170,8 @@ M496 canonicalizes the shared time-zone/future destruction and retained Sonic 1
 off-screen despawn lifecycle helpers.
 
 M497 canonicalizes the shared FM sound-queue and Z80 bus-control helpers.
+
+M498 canonicalizes the shared time-warp/checkpoint restore and bounds helpers.
 
 ### Core and system programs
 

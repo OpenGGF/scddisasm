@@ -1,6 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 LoadTimeWarpData:
+	; Restore player, timer, water, camera, and bounds state from a time-warp snapshot.
 	move.w	warp_x,obj.x(a6)
 	move.w	warp_y,obj.y(a6)
 	move.b	warp_player_flags,obj.flags(a6)
@@ -24,28 +25,29 @@ LoadTimeWarpData:
 	if def(R8_VARIANT)
 		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 			cmpi.b	#6,zone
-			bne.s	loc_2063C6
+			bne.s	LoadTimeWarpBounds
 			move.b	warp_shrunk,shrunk_player
 		endif
 	else
 		cmpi.b	#6,zone
-		bne.s	loc_2063C6
+		bne.s	LoadTimeWarpBounds
 		move.b	warp_shrunk,shrunk_player
 	endif
 
-loc_2063C6:
+LoadTimeWarpBounds:
 	tst.b	spawn_mode
-	bpl.s	locret_2063DC
+	bpl.s	LoadTimeWarpReturn
 	move.w	warp_x,d0
 	subi.w	#$A0,d0
 	move.w	d0,left_bound
 
-locret_2063DC:
+LoadTimeWarpReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 LoadCheckpoint:
+	; Restore player and stage state from the active respawn checkpoint.
 	lea	player_object,a6
 	cmpi.b	#2,spawn_mode
 	beq.w	LoadTimeWarpData
@@ -71,30 +73,30 @@ LoadCheckpoint:
 	if def(R8_VARIANT)
 		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 			cmpi.b	#6,zone
-			bne.s	loc_206498
+			bne.s	LoadCheckpointWaterState
 			move.b	respawn_shrunk,shrunk_player
 		endif
 	else
 		cmpi.b	#6,zone
-		bne.s	loc_206498
+		bne.s	LoadCheckpointWaterState
 		move.b	respawn_shrunk,shrunk_player
 	endif
 
-loc_206498:
+LoadCheckpointWaterState:
 	cmpi.b	#2,zone
-	bne.s	loc_2064BA
+	bne.s	LoadCheckpointBounds
 	move.w	respawn_water_y,static_water_y
 	move.b	respawn_water_routine,water_routine
 	move.b	respawn_water_full,water_full
 
-loc_2064BA:
+LoadCheckpointBounds:
 	tst.b	spawn_mode
-	bpl.s	locret_2064D0
+	bpl.s	LoadCheckpointReturn
 	move.w	respawn_x,d0
 	subi.w	#$A0,d0
 	move.w	d0,left_bound
 
-locret_2064D0:
+LoadCheckpointReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

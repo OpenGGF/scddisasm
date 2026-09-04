@@ -708,6 +708,7 @@ opaque merely because they use `dc.*`.
 | M495 | Complete | Canonicalize the shared `Atan2` quadrant selection, ratio, sign-adjustment, zero-vector, and lookup-table family, migrating internal branches and documenting the first-quadrant table. | J/U/E 133/133 each; audit/hygiene clean. |
 | M496 | Complete | Canonicalize the shared object-lifetime gates for time-zone/future destruction and retained Sonic 1 off-screen despawn, migrating cleanup branches and documenting the legacy path. | J/U/E 133/133 each; audit/hygiene clean. |
 | M497 | Complete | Canonicalize the shared FM sound-queue and Z80 bus-control family, migrating queue-order, BUSREQ-wait, and restart branches and documenting the audio handoff. | J/U/E 133/133 each; audit/hygiene clean. |
+| M498 | Complete | Canonicalize the shared time-warp/checkpoint restore family, migrating zone, water-state, bounds, and return branches and documenting the restored state scope. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
