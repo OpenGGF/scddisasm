@@ -638,6 +638,7 @@ opaque merely because they use `dc.*`.
 | M425 | Complete | Canonicalize the shared player jump input/impulse, jump-height cap, and slope-resistance family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M426 | Complete | Canonicalize the shared player fall-detection timer and angle-reset family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M427 | Complete | Canonicalize the shared player air block-collision quadrant and landing-response family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M428 | Complete | Canonicalize the shared player ground-normalization and hurt-recovery family, migrating its helper and internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

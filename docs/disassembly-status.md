@@ -81,7 +81,7 @@ velocity-deceleration, wall-response, left/right movement, rolling, and standing
 restoration control flow, plus air-movement gating, horizontal clamping, focus
 adjustment, falling drag, bounds, roll eligibility, roll initialization, jump
 input/impulse, height caps, slope resistance, fall detection, angle reset, and
-air block-collision/landing responses.
+air block-collision/landing responses, ground normalization, and hurt recovery.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 

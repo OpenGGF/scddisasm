@@ -2157,36 +2157,36 @@ PlayerBlockCollideAirRightUpDownReturn:
 
 PlayerSetGround:
 	btst	#4,obj.flags(a0)
-	beq.s	loc_204EF2
+	beq.s	PlayerSetGroundCheckRolling
 	nop
 
-loc_204EF2:
+PlayerSetGroundCheckRolling:
 	bclr	#5,obj.flags(a0)
 	bclr	#1,obj.flags(a0)
 	bclr	#4,obj.flags(a0)
 	btst	#2,obj.flags(a0)
-	beq.s	loc_204F4C
+	beq.s	PlayerSetGroundFinish
 	bclr	#2,obj.flags(a0)
 	tst.b	player_shrunk_state
-	beq.s	loc_204F2C
+	beq.s	PlayerSetGroundNormalSize
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
 	subq.w	#2,obj.y(a0)
-	bra.s	loc_204F3C
+	bra.s	PlayerSetGroundPlayLandSound
 
 ; ------------------------------------------------------------------------------
 
-loc_204F2C:
+PlayerSetGroundNormalSize:
 	move.b	#$13,obj.height(a0)
 	move.b	#9,obj.width(a0)
 	subq.w	#5,obj.y(a0)
 
-loc_204F3C:
+PlayerSetGroundPlayLandSound:
 	move.b	#0,obj.anim_id(a0)
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 
-loc_204F4C:
+PlayerSetGroundFinish:
 	move.b	#0,obj.var_3c(a0)
 	move.w	#0,score_chain
 	rts
@@ -2207,12 +2207,12 @@ PlayerHurt:
 	jsr	MoveObject
 	addi.w	#$30,obj.y_speed(a0)
 	btst	#6,obj.flags(a0)
-	beq.s	loc_204F94
+	beq.s	PlayerHurtCheckBlocks
 	subi.w	#$20,obj.y_speed(a0)
 
-loc_204F94:
+PlayerHurtCheckBlocks:
 	jsr	PlayerCheckBlock
-	bsr.w	sub_204FB0
+	bsr.w	PlayerHurtRecover
 	bsr.w	PlayerCheckBounds
 	bsr.w	PlayerBufferPosition
 	bsr.w	PlayerAnimate
@@ -2220,14 +2220,14 @@ loc_204F94:
 
 ; ------------------------------------------------------------------------------
 
-sub_204FB0:
+PlayerHurtRecover:
 	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
 	bcs.w	KillPlayer
 	bsr.w	PlayerBlockCollideAir
 	btst	#1,obj.flags(a0)
-	bne.s	locret_204FEA
+	bne.s	PlayerHurtRecoverReturn
 	moveq	#0,d0
 	move.w	d0,obj.y_speed(a0)
 	move.w	d0,obj.x_speed(a0)
@@ -2236,7 +2236,7 @@ sub_204FB0:
 	subq.b	#2,obj.routine(a0)
 	move.w	#$78,obj.var_30(a0)
 
-locret_204FEA:
+PlayerHurtRecoverReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
