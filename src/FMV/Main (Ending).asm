@@ -14851,7 +14851,7 @@ Ending_ImageStartupInitializeBuffers:
 Ending_ImageStartupLoadVdpRegisters:
 	lea.l	EndingVDPRegisters(pc), a0
 Ending_ImageStartupInitializeVdp:
-	bsr.w	L_FFC4C8
+	bsr.w	Ending_InitializeVdp
 Ending_ImageStartupClearPlane:
 	move.l	#$64000003, $c00004.l
 Ending_ImageStartupClearVram:
@@ -14861,7 +14861,7 @@ Ending_ImageStartupSetMapAddress:
 Ending_ImageStartupLoadArt:
 	lea.l	EndingArt(pc), a0
 Ending_ImageStartupUploadArt:
-	bsr.w	L_FFC542
+	bsr.w	Ending_DecompressArt
 Ending_ImageStartupLoadMap:
 	lea.l	EndingMap(pc), a1
 Ending_ImageStartupMapAddress:
@@ -15243,227 +15243,240 @@ Ending_ImageRestoreTileBufferRowsReturnToVBlank:
 	dc.l	$08F90001
 	dc.l	$00FF0F00
 	dc.l	$6000039C
-L_FFC4C8:
+; Initialize VDP registers, clear VRAM/CRAM, and configure controller ports.
+Ending_InitializeVdp:
 	move.w	#$8000, d0
-L_FFC4CC:
+Ending_InitializeVdpRegisterCount:
 	moveq	#$12, d7
-L_FFC4CE:
+Ending_InitializeVdpRegisterLoop:
 	move.b	(a0)+, d0
-L_FFC4D0:
+Ending_InitializeVdpRegisterWrite:
 	move.w	d0, $c00004.l
-L_FFC4D6:
+Ending_InitializeVdpRegisterAdvance:
 	addi.w	#$100, d0
-L_FFC4DA:
-	dbra	d7, L_FFC4CE
-L_FFC4DE:
+Ending_InitializeVdpRegisterLoopCheck:
+	dbra	d7, Ending_InitializeVdpRegisterLoop
+Ending_InitializeVdpControllerValue:
 	moveq	#$40, d0
-L_FFC4E0:
+Ending_InitializeVdpControllerPortA:
 	move.b	d0, $a10009.l
-L_FFC4E6:
+Ending_InitializeVdpControllerPortB:
 	move.b	d0, $a1000b.l
-L_FFC4EC:
+Ending_InitializeVdpControllerPortC:
 	move.b	d0, $a1000d.l
-L_FFC4F2:
+Ending_InitializeVdpControllerControl:
 	move.b	#$c0, $a10003.l
-L_FFC4FA:
+Ending_InitializeVdpAcquireZ80:
 	bsr.w	Ending_AcquireZ80Bus
-L_FFC4FE:
+Ending_InitializeVdpClearVramAddress:
 	move.l	#$40000000, $c00004.l
-L_FFC508:
+Ending_InitializeVdpClearVramDataPort:
 	lea.l	$c00000.l, a0
-L_FFC50E:
+Ending_InitializeVdpClearVramValue:
 	moveq	#$0, d0
-L_FFC510:
+Ending_InitializeVdpClearVramCount:
 	move.w	#$fff, d7
-L_FFC514:
+Ending_InitializeVdpClearVramLoop:
 	move.l	d0, (a0)
-L_FFC516:
+Ending_InitializeVdpClearVramLoopSecond:
 	move.l	d0, (a0)
-L_FFC518:
+Ending_InitializeVdpClearVramLoopThird:
 	move.l	d0, (a0)
-L_FFC51A:
+Ending_InitializeVdpClearVramLoopFourth:
 	move.l	d0, (a0)
-L_FFC51C:
-	dbra	d7, L_FFC514
-L_FFC520:
+Ending_InitializeVdpClearVramLoopCheck:
+	dbra	d7, Ending_InitializeVdpClearVramLoop
+Ending_InitializeVdpClearCramAddress:
 	move.l	#$40000010, $c00004.l
-L_FFC52A:
+Ending_InitializeVdpClearCram:
 	move.l	#$0, $c00000.l
-L_FFC534:
+Ending_InitializeVdpReleaseZ80:
 	bsr.w	Ending_ReleaseZ80Bus
-L_FFC538:
+Ending_InitializeVdpSetShadowRegister:
 	move.w	#$8134, $ff0f16.l
-L_FFC540:
+Ending_InitializeVdpReturn:
 	rts
-L_FFC542:
+; Decompress the ending art stream into the VDP data port.
+Ending_DecompressArt:
 	movem.l	d0-d7/a0-a1/a3-a5, -(a7)
-L_FFC546:
-	lea.l	L_FFC604.l, a3
-L_FFC54C:
+Ending_DecompressArtVdpOutputHandlers:
+	lea.l	Ending_DecompressArtWriteValue.l, a3
+Ending_DecompressArtVdpDataPort:
 	lea.l	$c00000.l, a4
-L_FFC552:
-	bra.b	L_FFC55E
-L_FFC554:
+Ending_DecompressArtVdpOutputEntry:
+	bra.b	Ending_DecompressArtDecodeBlock
+Ending_DecompressArtRamOutputEntry:
 	movem.l	d0-d7/a0-a1/a3-a5, -(a7)
-	lea.l	L_FFC61A.l, a3
-L_FFC55E:
+	lea.l	Ending_DecompressArtWriteValueAdvance.l, a3
+Ending_DecompressArtDecodeBlock:
 	lea.l	$FFFFb000.w, a1
-L_FFC562:
+Ending_DecompressArtBlockHeader:
 	move.w	(a0)+, d2
-L_FFC564:
+Ending_DecompressArtBlockModeBit:
 	lsl.w	#$1, d2
-L_FFC566:
-	bcc.b	L_FFC56C
-L_FFC568:
+Ending_DecompressArtBlockModeCheck:
+	bcc.b	Ending_DecompressArtBlockCount
+Ending_DecompressArtSelectXorOutput:
 	adda.w	#$a, a3
-L_FFC56C:
+Ending_DecompressArtBlockCount:
 	lsl.w	#$2, d2
-L_FFC56E:
+Ending_DecompressArtBlockOutputCount:
 	movea.w	d2, a5
-L_FFC570:
+Ending_DecompressArtBitGroupCount:
 	moveq	#$8, d3
-L_FFC572:
+Ending_DecompressArtOutputWord:
 	moveq	#$0, d2
-L_FFC574:
+Ending_DecompressArtOutputAccumulator:
 	moveq	#$0, d4
-L_FFC576:
+Ending_DecompressArtBuildDecodeTable:
 	jsr	BuildDecodeTable(pc)
-L_FFC57A:
+Ending_DecompressArtInitialBitsHigh:
 	move.b	(a0)+, d5
-L_FFC57C:
+Ending_DecompressArtInitialBitsLow:
 	asl.w	#$8, d5
-L_FFC57E:
+Ending_DecompressArtInitialBitsAppend:
 	move.b	(a0)+, d5
-L_FFC580:
+Ending_DecompressArtInitialBitsRemaining:
 	move.w	#$10, d6
-L_FFC584:
-	bsr.b	L_FFC58C
-L_FFC586:
+Ending_DecompressArtDecodeOutput:
+	bsr.b	Ending_DecompressArtReadBits
+Ending_DecompressArtRestoreRegisters:
 	movem.l	(a7)+, d0-d7/a0-a1/a3-a5
-L_FFC58A:
+Ending_DecompressArtReturn:
 	rts
-L_FFC58C:
+Ending_DecompressArtReadBits:
 	move.w	d6, d7
-L_FFC58E:
+Ending_DecompressArtReadBitsOffset:
 	subq.w	#$8, d7
-L_FFC590:
+Ending_DecompressArtReadBitsValue:
 	move.w	d5, d1
-L_FFC592:
+Ending_DecompressArtReadBitsShift:
 	lsr.w	d7, d1
-L_FFC594:
+Ending_DecompressArtReadBitsLiteralCheck:
 	cmpi.b	#$fc, d1
-L_FFC598:
-	bcc.b	L_FFC5D8
-L_FFC59A:
+Ending_DecompressArtReadBitsLiteralBranch:
+	bcc.b	Ending_DecompressArtReadLiteral
+Ending_DecompressArtReadBitsTableIndex:
 	andi.w	#$ff, d1
-L_FFC59E:
+Ending_DecompressArtReadBitsTableOffset:
 	add.w	d1, d1
-L_FFC5A0:
+Ending_DecompressArtReadBitsTableLookup:
 	move.b	(a1, d1.w), d0
-L_FFC5A4:
+Ending_DecompressArtReadBitsTableLength:
 	ext.w	d0
-L_FFC5A6:
+Ending_DecompressArtReadBitsConsume:
 	sub.w	d0, d6
-L_FFC5A8:
+Ending_DecompressArtReadBitsRefillCheck:
 	cmpi.w	#$9, d6
-L_FFC5AC:
-	bcc.b	L_FFC5B4
-L_FFC5AE:
+Ending_DecompressArtReadBitsRefillBranch:
+	bcc.b	Ending_DecompressArtReadBitsValueHigh
+Ending_DecompressArtReadBitsRefill:
 	addq.w	#$8, d6
-L_FFC5B0:
+Ending_DecompressArtReadBitsShiftBuffer:
 	asl.w	#$8, d5
-L_FFC5B2:
+Ending_DecompressArtReadBitsAppendBuffer:
 	move.b	(a0)+, d5
-L_FFC5B4:
+Ending_DecompressArtReadBitsValueHigh:
 	move.b	$1(a1, d1.w), d1
-L_FFC5B8:
+Ending_DecompressArtReadBitsValueCopy:
 	move.w	d1, d0
-L_FFC5BA:
+Ending_DecompressArtReadBitsValueLowMask:
 	andi.w	#$f, d1
-L_FFC5BE:
+Ending_DecompressArtReadBitsValueHighMask:
 	andi.w	#$f0, d0
-L_FFC5C2:
+Ending_DecompressArtReadBitsValueHighShift:
 	lsr.w	#$4, d0
-L_FFC5C4:
+Ending_DecompressArtReadBitsAccumulate:
 	lsl.l	#$4, d4
-L_FFC5C6:
+Ending_DecompressArtReadBitsAccumulateNibble:
 	or.b	d1, d4
-L_FFC5C8:
+Ending_DecompressArtReadBitsNibbleCount:
 	subq.w	#$1, d3
-L_FFC5CA:
-	bne.b	L_FFC5D2
-L_FFC5CC:
+Ending_DecompressArtReadBitsNibbleCountCheck:
+	bne.b	Ending_DecompressArtReadBitsOutputLoop
+Ending_DecompressArtReadBitsOutput:
 	jmp	(a3)
-L_FFC5CE:
+Ending_DecompressArtReadBitsResetAccumulator:
 	moveq	#$0, d4
-L_FFC5D0:
+Ending_DecompressArtReadBitsResetNibbleCount:
 	moveq	#$8, d3
-L_FFC5D2:
-	dbra	d0, L_FFC5C4
-L_FFC5D6:
-	bra.b	L_FFC58C
-L_FFC5D8:
+Ending_DecompressArtReadBitsOutputLoop:
+	dbra	d0, Ending_DecompressArtReadBitsAccumulate
+Ending_DecompressArtReadBitsNextOutput:
+	bra.b	Ending_DecompressArtReadBits
+Ending_DecompressArtReadLiteral:
 	subq.w	#$6, d6
-L_FFC5DA:
+Ending_DecompressArtReadLiteralRefillCheck:
 	cmpi.w	#$9, d6
-L_FFC5DE:
-	bcc.b	L_FFC5E6
-L_FFC5E0:
+Ending_DecompressArtReadLiteralRefillBranch:
+	bcc.b	Ending_DecompressArtReadLiteralShift
+Ending_DecompressArtReadLiteralRefill:
 	addq.w	#$8, d6
-L_FFC5E2:
+Ending_DecompressArtReadLiteralShiftBuffer:
 	asl.w	#$8, d5
-L_FFC5E4:
+Ending_DecompressArtReadLiteralAppendBuffer:
 	move.b	(a0)+, d5
-L_FFC5E6:
+Ending_DecompressArtReadLiteralShift:
 	subq.w	#$7, d6
-L_FFC5E8:
+Ending_DecompressArtReadLiteralValue:
 	move.w	d5, d1
-L_FFC5EA:
+Ending_DecompressArtReadLiteralShiftValue:
 	lsr.w	d6, d1
-L_FFC5EC:
+Ending_DecompressArtReadLiteralCopy:
 	move.w	d1, d0
-L_FFC5EE:
+Ending_DecompressArtReadLiteralLowMask:
 	andi.w	#$f, d1
-L_FFC5F2:
+Ending_DecompressArtReadLiteralHighMask:
 	andi.w	#$70, d0
-L_FFC5F6:
+Ending_DecompressArtReadLiteralRefillOutputCheck:
 	cmpi.w	#$9, d6
-L_FFC5FA:
-	bcc.b	L_FFC5C2
-L_FFC5FC:
+Ending_DecompressArtReadLiteralOutputBranch:
+	bcc.b	Ending_DecompressArtReadBitsValueHighShift
+Ending_DecompressArtReadLiteralOutputRefill:
 	addq.w	#$8, d6
-L_FFC5FE:
+Ending_DecompressArtReadLiteralOutputShiftBuffer:
 	asl.w	#$8, d5
-L_FFC600:
+Ending_DecompressArtReadLiteralOutputAppendBuffer:
 	move.b	(a0)+, d5
-L_FFC602:
-	bra.b	L_FFC5C2
-L_FFC604:
+Ending_DecompressArtReadLiteralContinue:
+	bra.b	Ending_DecompressArtReadBitsValueHighShift
+Ending_DecompressArtWriteValue:
 	move.l	d4, (a4)
-L_FFC606:
+Ending_DecompressArtWriteValueCount:
 	subq.w	#$1, a5
 	move.w	a5, d4
-	bne.b	L_FFC5CE
+Ending_DecompressArtWriteValueCountCheck:
+	bne.b	Ending_DecompressArtReadBitsResetAccumulator
+Ending_DecompressArtWriteValueReturn:
 	rts
-L_FFC60E:
+Ending_DecompressArtWriteXorValue:
 	eor.l	d4, d2
 	move.l	d2, (a4)
+Ending_DecompressArtWriteXorValueCount:
 	subq.w	#$1, a5
 	move.w	a5, d4
-	bne.b	L_FFC5CE
+Ending_DecompressArtWriteXorValueCountCheck:
+	bne.b	Ending_DecompressArtReadBitsResetAccumulator
+Ending_DecompressArtWriteXorValueReturn:
 	rts
-L_FFC61A:
+Ending_DecompressArtWriteValueAdvance:
 	move.l	d4, (a4)+
+Ending_DecompressArtWriteValueAdvanceCount:
 	subq.w	#$1, a5
 	move.w	a5, d4
-	bne.b	L_FFC5CE
+Ending_DecompressArtWriteValueAdvanceCountCheck:
+	bne.b	Ending_DecompressArtReadBitsResetAccumulator
+Ending_DecompressArtWriteValueAdvanceReturn:
 	rts
-L_FFC624:
+Ending_DecompressArtWriteXorValueAdvance:
 	eor.l	d4, d2
 	move.l	d2, (a4)+
+Ending_DecompressArtWriteXorValueAdvanceCount:
 	subq.w	#$1, a5
 	move.w	a5, d4
-	bne.b	L_FFC5CE
+Ending_DecompressArtWriteXorValueAdvanceCountCheck:
+	bne.b	Ending_DecompressArtReadBitsResetAccumulator
+Ending_DecompressArtWriteXorValueAdvanceReturn:
 	rts
 
 BuildDecodeTable:

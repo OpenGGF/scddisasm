@@ -601,6 +601,7 @@ opaque merely because they use `dc.*`.
 | M388 | Complete | Canonicalize the ending-FMV source-image startup initializer and VDP map uploader. | J/U/E 133/133 each; audit/hygiene clean. |
 | M389 | Complete | Canonicalize the ending-FMV tile-buffer initialization, snapshot, restore, and row-adjustment helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M390 | Complete | Canonicalize the ending-FMV Z80 bus and VBlank synchronization helpers and migrate their callers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M391 | Complete | Canonicalize the ending-FMV VDP initialization and compressed-art output family and migrate startup callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
