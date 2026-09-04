@@ -690,20 +690,20 @@ EggmanConstrainPlayerDuringDefeatReturn:
 BossMachineObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20ED8C(pc,d0.w),d0
-	jsr	off_20ED8C(pc,d0.w)
+	move.w	BossMachineRoutineTable(pc,d0.w),d0
+	jsr	BossMachineRoutineTable(pc,d0.w)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20ED8C:
-	dc.w	BossMachineObject_0_Routine0-*
-	dc.w	BossMachineObject_0_Routine2-off_20ED8C
-	dc.w	BossMachineObject_0_Routine4-off_20ED8C
+BossMachineRoutineTable:
+	dc.w	BossMachineInit-*
+	dc.w	BossMachineFollowParent-BossMachineRoutineTable
+	dc.w	BossMachineSolidCollision-BossMachineRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine0:
+BossMachineInit:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#5,obj.sprite_layer(a0)
@@ -715,7 +715,7 @@ BossMachineObject_0_Routine0:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine2:
+BossMachineFollowParent:
 	movea.w	obj.var_2e(a0),a1
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
@@ -724,7 +724,7 @@ BossMachineObject_0_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-BossMachineObject_0_Routine4:
+BossMachineSolidCollision:
 	move.b	#1,obj.sprite_frame(a0)
 	move.b	#$40,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
@@ -738,19 +738,19 @@ BossMachineObject_0_Routine4:
 BossSpikesObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20EE10(pc,d0.w),d0
-	jsr	off_20EE10(pc,d0.w)
+	move.w	BossSpikesRoutineTable(pc,d0.w),d0
+	jsr	BossSpikesRoutineTable(pc,d0.w)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20EE10:
-	dc.w	BossSpikesObject_0_Routine0-*
-	dc.w	BossSpikesObject_0_Routine2-off_20EE10
+BossSpikesRoutineTable:
+	dc.w	BossSpikesInit-*
+	dc.w	BossSpikesFollowParent-BossSpikesRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-BossSpikesObject_0_Routine0:
+BossSpikesInit:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#5,obj.sprite_layer(a0)
@@ -762,62 +762,62 @@ BossSpikesObject_0_Routine0:
 
 ; ------------------------------------------------------------------------------
 
-BossSpikesObject_0_Routine2:
+BossSpikesFollowParent:
 	movea.w	obj.var_2e(a0),a1
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	subi.w	#$40,obj.y(a0)
 	tst.b	obj.var_34(a1)
-	beq.s	locret_20EE6A
-	bmi.s	loc_20EE6C
+	beq.s	BossSpikesHiddenReturn
+	bmi.s	BossSpikesDelete
 	cmpi.b	#1,obj.var_34(a1)
-	beq.s	loc_20EEAE
-	bra.s	loc_20EE74
+	beq.s	BossSpikesHit
+	bra.s	BossSpikesAnimate
 
 ; ------------------------------------------------------------------------------
 
-locret_20EE6A:
+BossSpikesHiddenReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EE6C:
+BossSpikesDelete:
 	addq.l	#4,sp
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20EE74:
+BossSpikesAnimate:
 	subq.b	#1,obj.anim_timer(a0)
-	beq.s	loc_20EE7C
+	beq.s	BossSpikesAdvanceFrame
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EE7C:
+BossSpikesAdvanceFrame:
 	lea	BossSpikesAnim,a2
 	addq.b	#1,obj.sprite_frame(a0)
 	moveq	#0,d0
 	move.b	obj.sprite_frame(a0),d0
 	tst.b	(a2,d0.w)
-	bge.s	loc_20EE96
+	bge.s	BossSpikesSetAnimationTimer
 	clr.b	obj.sprite_frame(a0)
 
-loc_20EE96:
+BossSpikesSetAnimationTimer:
 	move.b	obj.var_1f(a0),d0
 	subq.b	#3,d0
 	cmpi.b	#1,d0
-	bge.s	loc_20EEA4
+	bge.s	BossSpikesStoreAnimationTimer
 	moveq	#1,d0
 
-loc_20EEA4:
+BossSpikesStoreAnimationTimer:
 	move.b	d0,obj.var_1f(a0)
 	move.b	d0,obj.anim_timer(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EEAE:
+BossSpikesHit:
 	move.b	#$14,obj.var_1f(a0)
 	move.b	#1,obj.anim_timer(a0)
 	addq.b	#1,obj.var_34(a1)
@@ -830,21 +830,21 @@ BossExhaustObject:
 	move.b	#2,obj.collide_status(a0)
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20EEEC(pc,d0.w),d0
-	jsr	off_20EEEC(pc,d0.w)
+	move.w	BossExhaustRoutineTable(pc,d0.w),d0
+	jsr	BossExhaustRoutineTable(pc,d0.w)
 	lea	BossExhaustAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20EEEC:
-	dc.w	BossExhaustObject_0_Routine0-*
-	dc.w	BossExhaustObject_0_Routine2-off_20EEEC
+BossExhaustRoutineTable:
+	dc.w	BossExhaustInit-*
+	dc.w	BossExhaustFollowParent-BossExhaustRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-BossExhaustObject_0_Routine0:
+BossExhaustInit:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#5,obj.sprite_layer(a0)
@@ -856,18 +856,18 @@ BossExhaustObject_0_Routine0:
 
 ; ------------------------------------------------------------------------------
 
-BossExhaustObject_0_Routine2:
+BossExhaustFollowParent:
 	movea.w	obj.var_2e(a0),a1
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	addi.w	#$40,obj.y(a0)
 	move.b	obj.var_35(a1),obj.anim_id(a0)
-	bmi.s	loc_20EF3E
+	bmi.s	BossExhaustDelete
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EF3E:
+BossExhaustDelete:
 	addq.l	#4,sp
 	jmp	DeleteObject
 

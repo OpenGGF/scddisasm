@@ -92,7 +92,7 @@ chunk/loop-check, roll-entry, animation-frame/loop, dynamic-movement,
 shrink-map, graphics-upload, flipper, object-collision, pole, hang-bar, beam,
 spark, bounce, camera, main-dispatch, power-up, warp-transition, ground/fall/roll/jump,
 pole, hang-bar, booster, Eggman encounter setup/hover, attack, defeat, capsule,
-and escape families.
+and escape families, plus boss machine, spikes, and exhaust child-object families.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 
