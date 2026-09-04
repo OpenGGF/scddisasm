@@ -95,7 +95,8 @@ pole, hang-bar, booster, Eggman encounter setup/hover, attack, defeat, capsule,
 and escape families, plus boss machine, spikes, exhaust, smoke, and falling-spike
 child-object families, plus floor-debris, electricity, floor-piece motion, and
 player-collision, conductor child-object, and shared boss motion/spawn/band/bound/
-palette-cycle helper families.
+palette-cycle helper families, plus the R6 3D stage-draw scroll/block-transfer/
+placement/initialization family.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 
@@ -248,7 +249,7 @@ this shared family, including `DEMO43C` and `DEMO82A`.
 | `R62C__.MMD` | `Level/Wacky Workbench/Act 2 Good Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers are semantically labeled; packed/legacy data tails and residual generic labels remain; provides R62B non-USA Padding 2 continuation; shared-prefix suffix reuses the R61C bridge | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M414) | Classify active data debt, then relabel residual code |
 | `R62D__.MMD` | `Level/Wacky Workbench/Act 2 Bad Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M414) | Classify active data debt, then relabel residual code |
 | `R63C__.MMD` | `Level/Wacky Workbench/Act 3 Good Future.asm` | S | Mostly semantic | Mixed | USA stage-GFX orchestration and tile-animation family is now semantically labeled; packed/legacy data tails and residual generic labels remain elsewhere | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M411) | Classify active data debt, then relabel residual code |
-| `R63D__.MMD` | `Level/Wacky Workbench/Act 3 Bad Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M414) | Classify active data debt, then relabel residual code |
+| `R63D__.MMD` | `Level/Wacky Workbench/Act 3 Bad Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers and the 3D stage-draw scroll/block-transfer/placement/initialization family are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M454) | Classify active data debt, then relabel residual code |
 
 ### Levels — Stardust Speedway
 
