@@ -1145,13 +1145,14 @@ TimeAttack_TimePeriodAnimationDispatchTable:
 	dc.b	$00,$44
 	dc.l	$00440044,$00440044,$00460044,$0044004E,$00440044,$00A40044,$00440044,$00440044,$00440044,$00440044,$00440044,$00A40044,$00440044,$00440044,$004E0044,$00440046
 	dc.b	$00,$44
-L_FF2AAE:
+; The dispatch table targets these short handlers and also the entries below.
+TimeAttack_TimePeriodAnimationFrameNoOp:
 	rts
-L_FF2AB0:
+TimeAttack_TimePeriodAnimationFrameUploadStage:
 	moveq #$1, d0
-L_FF2AB2:
+TimeAttack_TimePeriodAnimationFrameUpload:
 	bsr.w TimeAttack_UploadIndexedStageData
-L_FF2AB6:
+TimeAttack_TimePeriodAnimationFrameReturn:
 	rts
 ; Upload the selected stage or period title tile row.
 TimeAttack_UploadSelectionTitleRow:
