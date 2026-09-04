@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M493 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M494 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -159,6 +159,9 @@ player-reset helpers.
 
 M493 canonicalizes the shared Nemesis and Kosinski decompressor control-flow,
 literal/match, code-table, inline/extended-length, and row-emission helpers.
+
+M494 canonicalizes the shared VDP initialization, VRAM/plane-clear waits,
+sprite/scroll-table clearing loops, and register-default table.
 
 ### Core and system programs
 
