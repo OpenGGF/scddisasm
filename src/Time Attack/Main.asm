@@ -886,7 +886,7 @@ L_FF2826:
 L_FF282E:
 	bne.w L_FF28FA
 L_FF2832:
-	bsr.w L_FF29DC
+	bsr.w TimeAttack_SelectNextTimePeriod
 L_FF2836:
 	move.w $ffaa5a.l, d0
 L_FF283C:
@@ -966,13 +966,13 @@ L_FF28CE:
 L_FF28D6:
 	beq.b L_FF28DC
 L_FF28D8:
-	bsr.w L_FF29B6
+	bsr.w TimeAttack_SelectPreviousTimePeriod
 L_FF28DC:
 	btst.b #$1, $ff3734.l
 L_FF28E4:
 	beq.b L_FF28EA
 L_FF28E6:
-	bsr.w L_FF29DC
+	bsr.w TimeAttack_SelectNextTimePeriod
 L_FF28EA:
 	move.w #$10, $ff3730.l
 L_FF28F2:
@@ -1043,101 +1043,101 @@ L_FF297E:
 	dc.b	$4E,$75
 ; Select the previous time period and animate the selection change.
 TimeAttack_SelectPreviousTimePeriod:
-L_FF29B6:
+TimeAttack_SelectPreviousTimePeriodCheckEnabled:
 	tst.w $ff3468.l
-L_FF29BC:
-	bne.b L_FF29C0
-L_FF29BE:
+TimeAttack_SelectPreviousTimePeriodEnabledBranch:
+	bne.b TimeAttack_SelectPreviousTimePeriodDecrement
+TimeAttack_SelectPreviousTimePeriodReturn:
 	rts
-L_FF29C0:
+TimeAttack_SelectPreviousTimePeriodDecrement:
 	subq.w #$1, $ff3478.l
-L_FF29C6:
+TimeAttack_SelectPreviousTimePeriodWrapCheck:
 	cmpi.w #$0, $ff3478.l
-L_FF29CE:
-	bge.b L_FF29D8
-L_FF29D0:
+TimeAttack_SelectPreviousTimePeriodWrapBranch:
+	bge.b TimeAttack_SelectPreviousTimePeriodAnimate
+TimeAttack_SelectPreviousTimePeriodWrap:
 	move.w #$2, $ff3478.l
-L_FF29D8:
+TimeAttack_SelectPreviousTimePeriodAnimate:
 	moveq #$f8, d7
-L_FF29DA:
-	bra.b L_FF2A00
+TimeAttack_SelectPreviousTimePeriodAnimateBranch:
+	bra.b TimeAttack_AnimateTimePeriodChange
 ; Select the next time period and animate the selection change.
 TimeAttack_SelectNextTimePeriod:
-L_FF29DC:
+TimeAttack_SelectNextTimePeriodCheckEnabled:
 	tst.w $ff3468.l
-L_FF29E2:
-	bne.b L_FF29E6
-L_FF29E4:
+TimeAttack_SelectNextTimePeriodEnabledBranch:
+	bne.b TimeAttack_SelectNextTimePeriodIncrement
+TimeAttack_SelectNextTimePeriodReturn:
 	rts
-L_FF29E6:
+TimeAttack_SelectNextTimePeriodIncrement:
 	addq.w #$1, $ff3478.l
-L_FF29EC:
+TimeAttack_SelectNextTimePeriodWrapCheck:
 	cmpi.w #$2, $ff3478.l
-L_FF29F4:
-	ble.b L_FF29FE
-L_FF29F6:
+TimeAttack_SelectNextTimePeriodWrapBranch:
+	ble.b TimeAttack_SelectNextTimePeriodAnimate
+TimeAttack_SelectNextTimePeriodWrap:
 	move.w #$0, $ff3478.l
-L_FF29FE:
+TimeAttack_SelectNextTimePeriodAnimate:
 	moveq #$8, d7
 ; Animate the time-period selection transition.
 TimeAttack_AnimateTimePeriodChange:
-L_FF2A00:
+TimeAttack_AnimateTimePeriodChangeInitialize:
 	moveq #$0, d0
-L_FF2A02:
+TimeAttack_AnimateTimePeriodChangeSetDirection:
 	bsr.w L_FF30EC
-L_FF2A06:
+TimeAttack_AnimateTimePeriodChangeFrameCount:
 	move.w d7, $ff3472.l
-L_FF2A0C:
+TimeAttack_AnimateTimePeriodChangeFrameLoopCount:
 	move.w #$1f, d6
-L_FF2A10:
-	bsr.w L_FF2A40
-L_FF2A14:
+TimeAttack_AnimateTimePeriodChangeFrameLoop:
+	bsr.w TimeAttack_UpdateTimePeriodAnimationFrame
+TimeAttack_AnimateTimePeriodChangeAdvanceFrame:
 	move.w $ff3472.l, d0
-L_FF2A1A:
+TimeAttack_AnimateTimePeriodChangeAdvanceOffset:
 	add.w d0, $ff3470.l
-L_FF2A20:
+TimeAttack_AnimateTimePeriodChangeRequestVdpTransfer:
 	move.w #$8, $ff3730.l
-L_FF2A28:
+TimeAttack_AnimateTimePeriodChangeWaitVdpTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF2A2C:
-	dbra d6, L_FF2A10
-L_FF2A30:
+TimeAttack_AnimateTimePeriodChangeFrameLoopCheck:
+	dbra d6, TimeAttack_AnimateTimePeriodChangeFrameLoop
+TimeAttack_AnimateTimePeriodChangeSettleDelay:
 	move.w #$10, $ffaa5a.l
-L_FF2A38:
+TimeAttack_AnimateTimePeriodChangeClearOffset:
 	clr.w $ff3472.l
-L_FF2A3E:
+TimeAttack_AnimateTimePeriodChangeReturn:
 	rts
 ; Apply one frame of the time-period selection animation.
 TimeAttack_UpdateTimePeriodAnimationFrame:
-L_FF2A40:
+TimeAttack_UpdateTimePeriodAnimationFrameParity:
 	move.w d6, d0
-L_FF2A42:
+TimeAttack_UpdateTimePeriodAnimationFrameIncrement:
 	addq.w #$1, d0
-L_FF2A44:
+TimeAttack_UpdateTimePeriodAnimationFrameParityMask:
 	andi.w #$1, d0
-L_FF2A48:
-	beq.b L_FF2A4C
-L_FF2A4A:
+TimeAttack_UpdateTimePeriodAnimationFrameOddBranch:
+	beq.b TimeAttack_UpdateTimePeriodAnimationFrameDispatch
+TimeAttack_UpdateTimePeriodAnimationFrameReturn:
 	rts
-L_FF2A4C:
+TimeAttack_UpdateTimePeriodAnimationFrameDispatch:
 	lea.l TimeAttack_TimePeriodAnimationDispatchTable.l, a0
-L_FF2A52:
+TimeAttack_UpdateTimePeriodAnimationFrameIndex:
 	move.w d6, d0
-L_FF2A54:
+TimeAttack_UpdateTimePeriodAnimationFrameIndexIncrement:
 	addq.w #$1, d0
-L_FF2A56:
+TimeAttack_UpdateTimePeriodAnimationFrameIndexHalve:
 	lsr.w #$1, d0
-L_FF2A58:
+TimeAttack_UpdateTimePeriodAnimationFrameDirection:
 	tst.b d7
-L_FF2A5A:
-	bmi.b L_FF2A60
-L_FF2A5C:
+TimeAttack_UpdateTimePeriodAnimationFrameDirectionBranch:
+	bmi.b TimeAttack_UpdateTimePeriodAnimationFrameDispatchOffset
+TimeAttack_UpdateTimePeriodAnimationFrameFutureOffset:
 	addi.w #$11, d0
-L_FF2A60:
+TimeAttack_UpdateTimePeriodAnimationFrameDispatchOffset:
 	add.w d0, d0
-L_FF2A62:
+TimeAttack_UpdateTimePeriodAnimationFrameDispatchRead:
 	move.w (a0, d0.w), d0
-L_FF2A66:
+TimeAttack_UpdateTimePeriodAnimationFrameDispatchJump:
 	jmp (a0, d0.w)
 ; Dispatch offsets for each time-period animation frame.
 TimeAttack_TimePeriodAnimationDispatchTable:
