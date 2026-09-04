@@ -14847,7 +14847,7 @@ EndingJapanTilesC:
 Ending_ImageStartupInitialize:
 	move.l	#EndingVInterrupt, $FFFFfd08.w
 Ending_ImageStartupInitializeBuffers:
-	bsr.w	L_FFC2D6
+	bsr.w	Ending_ImageInitializeTileBuffer
 Ending_ImageStartupLoadVdpRegisters:
 	lea.l	EndingVDPRegisters(pc), a0
 Ending_ImageStartupInitializeVdp:
@@ -14885,11 +14885,11 @@ Ending_ImageStartupVdpStateCopyLoopCheck:
 Ending_ImageStartupEnableVdpUpdates:
 	bset.b	#$1, $ff0f00.l
 Ending_ImageStartupPrepareDisplay:
-	bsr.w	L_FFC33C
+	bsr.w	Ending_ImageSnapshotTileBuffer
 Ending_ImageStartupWaitForFrame:
 	bsr.w	L_FFC862
 Ending_ImageStartupRestoreDisplay:
-	bsr.w	L_FFC35A
+	bsr.w	Ending_ImageRestoreTileBuffer
 	if REGION=USA
 Ending_ImageStartupSetDelay:
 	move.w	#$258, EndingDelay
@@ -14907,7 +14907,7 @@ Ending_ImageStartupCheckSubCpu:
 Ending_ImageStartupWaitForSubCpu:
 	beq.w	Ending_ImageStartupWaitLoop
 Ending_ImageStartupFinalize:
-	bsr.w	L_FFC2D6
+	bsr.w	Ending_ImageInitializeTileBuffer
 Ending_ImageStartupReturn:
 	rts
 ; Upload one map block to each VDP plane.
@@ -15005,181 +15005,182 @@ EndingVDPState:
 	dc.l	$00000000
 	dc.l	$00000000
 	dc.l	$00000000
-L_FFC2D6:
+; Build the transformed tile buffer used by the ending display.
+Ending_ImageInitializeTileBuffer:
 	move.b	#$1, $FFFFb300.w
-L_FFC2DC:
+Ending_ImageInitializeTileBufferFirstGroup:
 	moveq	#$7, d6
-L_FFC2DE:
+Ending_ImageInitializeTileBufferFirstRow:
 	moveq	#$0, d0
-L_FFC2E0:
+Ending_ImageInitializeTileBufferFirstOffset:
 	moveq	#$1, d1
-L_FFC2E2:
-	bsr.b	L_FFC308
-L_FFC2E4:
+Ending_ImageInitializeTileBufferFirstLoop:
+	bsr.b	Ending_ImageAdjustTileBufferRows
+Ending_ImageInitializeTileBufferFirstAdvance:
 	addq.w	#$2, d0
-L_FFC2E6:
-	dbra	d6, L_FFC2E2
-L_FFC2EA:
+Ending_ImageInitializeTileBufferFirstLoopCheck:
+	dbra	d6, Ending_ImageInitializeTileBufferFirstLoop
+Ending_ImageInitializeTileBufferSecondGroup:
 	moveq	#$7, d6
-L_FFC2EC:
+Ending_ImageInitializeTileBufferSecondRow:
 	moveq	#$0, d0
-L_FFC2EE:
+Ending_ImageInitializeTileBufferSecondOffset:
 	moveq	#$5, d1
-L_FFC2F0:
-	bsr.b	L_FFC308
-L_FFC2F2:
+Ending_ImageInitializeTileBufferSecondLoop:
+	bsr.b	Ending_ImageAdjustTileBufferRows
+Ending_ImageInitializeTileBufferSecondAdvance:
 	addq.w	#$2, d0
-L_FFC2F4:
-	dbra	d6, L_FFC2F0
-L_FFC2F8:
+Ending_ImageInitializeTileBufferSecondLoopCheck:
+	dbra	d6, Ending_ImageInitializeTileBufferSecondLoop
+Ending_ImageInitializeTileBufferThirdGroup:
 	moveq	#$7, d6
-L_FFC2FA:
+Ending_ImageInitializeTileBufferThirdRow:
 	moveq	#$0, d0
-L_FFC2FC:
+Ending_ImageInitializeTileBufferThirdOffset:
 	moveq	#$9, d1
-L_FFC2FE:
-	bsr.b	L_FFC308
-L_FFC300:
+Ending_ImageInitializeTileBufferThirdLoop:
+	bsr.b	Ending_ImageAdjustTileBufferRows
+Ending_ImageInitializeTileBufferThirdAdvance:
 	addq.w	#$2, d0
-L_FFC302:
-	dbra	d6, L_FFC2FE
-L_FFC306:
+Ending_ImageInitializeTileBufferThirdLoopCheck:
+	dbra	d6, Ending_ImageInitializeTileBufferThirdLoop
+Ending_ImageInitializeTileBufferReturn:
 	rts
-L_FFC308:
+Ending_ImageAdjustTileBufferRows:
 	lea.l	$FFFFb200.w, a1
-L_FFC30C:
+Ending_ImageAdjustTileBufferRowsCount:
 	moveq	#$3f, d7
-L_FFC30E:
+Ending_ImageAdjustTileBufferRowsLoop:
 	move.w	(a1), d2
-L_FFC310:
+Ending_ImageAdjustTileBufferRowsRotateLeft:
 	rol.w	#$1, d2
-L_FFC312:
+Ending_ImageAdjustTileBufferRowsRotateRight:
 	ror.w	d1, d2
-L_FFC314:
+Ending_ImageAdjustTileBufferRowsPreserveHighBits:
 	move.w	d2, d3
-L_FFC316:
+Ending_ImageAdjustTileBufferRowsMaskLowBits:
 	andi.w	#$e, d2
-L_FFC31A:
+Ending_ImageAdjustTileBufferRowsMaskHighBits:
 	andi.w	#$eee0, d3
-L_FFC31E:
+Ending_ImageAdjustTileBufferRowsSubtractOffset:
 	sub.w	d0, d2
-L_FFC320:
-	bcc.b	L_FFC324
-L_FFC322:
+Ending_ImageAdjustTileBufferRowsClampCheck:
+	bcc.b	Ending_ImageAdjustTileBufferRowsMerge
+Ending_ImageAdjustTileBufferRowsClampZero:
 	moveq	#$0, d2
-L_FFC324:
+Ending_ImageAdjustTileBufferRowsMerge:
 	or.w	d3, d2
-L_FFC326:
+Ending_ImageAdjustTileBufferRowsRotateLeftAgain:
 	ror.w	#$1, d2
-L_FFC328:
+Ending_ImageAdjustTileBufferRowsRotateRightAgain:
 	rol.w	d1, d2
-L_FFC32A:
+Ending_ImageAdjustTileBufferRowsStore:
 	move.w	d2, (a1)+
-L_FFC32C:
-	dbra	d7, L_FFC30E
-L_FFC330:
+	dbra	d7, Ending_ImageAdjustTileBufferRowsLoop
+Ending_ImageAdjustTileBufferRowsMarkDirty:
 	bset.b	#$1, $ff0f00.l
-L_FFC338:
+Ending_ImageAdjustTileBufferRowsReturnToVBlank:
 	bra.w	L_FFC862
-L_FFC33C:
+; Save the transformed tile buffer while clearing its active copy.
+Ending_ImageSnapshotTileBuffer:
 	lea.l	$FFFFb200.w, a1
-L_FFC340:
+Ending_ImageSnapshotTileBufferDestination:
 	lea.l	$FFFFb280.w, a2
-L_FFC344:
+Ending_ImageSnapshotTileBufferClearValue:
 	moveq	#$0, d1
-L_FFC346:
+Ending_ImageSnapshotTileBufferCount:
 	moveq	#$1f, d7
-L_FFC348:
+Ending_ImageSnapshotTileBufferLoop:
 	move.l	(a1), (a2)+
-L_FFC34A:
+Ending_ImageSnapshotTileBufferClearLoop:
 	move.l	d1, (a1)+
-L_FFC34C:
-	dbra	d7, L_FFC348
-L_FFC350:
+	dbra	d7, Ending_ImageSnapshotTileBufferLoop
+Ending_ImageSnapshotTileBufferMarkDirty:
 	bset.b	#$1, $ff0f00.l
-L_FFC358:
+Ending_ImageSnapshotTileBufferReturn:
 	rts
-L_FFC35A:
+; Restore the tile buffer through the three display-row transforms.
+Ending_ImageRestoreTileBuffer:
 	move.w	#$7, d6
-L_FFC35E:
+Ending_ImageRestoreTileBufferFirstGroup:
 	moveq	#$0, d0
-L_FFC360:
+Ending_ImageRestoreTileBufferFirstOffset:
 	moveq	#$9, d1
-L_FFC362:
-	bsr.w	L_FFC398
-L_FFC366:
+Ending_ImageRestoreTileBufferFirstLoop:
+	bsr.w	Ending_ImageRestoreTileBufferRows
+Ending_ImageRestoreTileBufferFirstAdvance:
 	addq.w	#$2, d0
-L_FFC368:
-	dbra	d6, L_FFC362
-L_FFC36C:
+Ending_ImageRestoreTileBufferFirstLoopCheck:
+	dbra	d6, Ending_ImageRestoreTileBufferFirstLoop
+Ending_ImageRestoreTileBufferSecondGroup:
 	move.w	#$7, d6
-L_FFC370:
+Ending_ImageRestoreTileBufferSecondOffset:
 	moveq	#$0, d0
-L_FFC372:
+Ending_ImageRestoreTileBufferSecondRow:
 	moveq	#$5, d1
-L_FFC374:
-	bsr.w	L_FFC398
-L_FFC378:
+Ending_ImageRestoreTileBufferSecondLoop:
+	bsr.w	Ending_ImageRestoreTileBufferRows
+Ending_ImageRestoreTileBufferSecondAdvance:
 	addq.w	#$2, d0
-L_FFC37A:
-	dbra	d6, L_FFC374
-L_FFC37E:
+Ending_ImageRestoreTileBufferSecondLoopCheck:
+	dbra	d6, Ending_ImageRestoreTileBufferSecondLoop
+Ending_ImageRestoreTileBufferThirdGroup:
 	move.w	#$7, d6
-L_FFC382:
+Ending_ImageRestoreTileBufferThirdOffset:
 	moveq	#$0, d0
-L_FFC384:
+Ending_ImageRestoreTileBufferThirdRow:
 	moveq	#$1, d1
-L_FFC386:
-	bsr.w	L_FFC398
-L_FFC38A:
+Ending_ImageRestoreTileBufferThirdLoop:
+	bsr.w	Ending_ImageRestoreTileBufferRows
+Ending_ImageRestoreTileBufferThirdAdvance:
 	addq.w	#$2, d0
-L_FFC38C:
-	dbra	d6, L_FFC386
-L_FFC390:
+Ending_ImageRestoreTileBufferThirdLoopCheck:
+	dbra	d6, Ending_ImageRestoreTileBufferThirdLoop
+Ending_ImageRestoreTileBufferClearFlag:
 	move.b	#$0, $FFFFb300.w
-L_FFC396:
+Ending_ImageRestoreTileBufferReturn:
 	rts
-L_FFC398:
+Ending_ImageRestoreTileBufferRows:
 	lea.l	$FFFFb200.w, a1
-L_FFC39C:
+Ending_ImageRestoreTileBufferRowsSnapshot:
 	lea.l	$FFFFb280.w, a2
-L_FFC3A0:
+Ending_ImageRestoreTileBufferRowsCount:
 	moveq	#$3f, d7
-L_FFC3A2:
+Ending_ImageRestoreTileBufferRowsLoop:
 	move.w	(a2)+, d2
-L_FFC3A4:
+Ending_ImageRestoreTileBufferRowsCurrent:
 	move.w	(a1), d3
-L_FFC3A6:
+Ending_ImageRestoreTileBufferRowsRotateSnapshot:
 	rol.w	#$1, d2
-L_FFC3A8:
+Ending_ImageRestoreTileBufferRowsRotateCurrent:
 	rol.w	#$1, d3
-L_FFC3AA:
+Ending_ImageRestoreTileBufferRowsShiftSnapshot:
 	ror.w	d1, d2
-L_FFC3AC:
+Ending_ImageRestoreTileBufferRowsShiftCurrent:
 	ror.w	d1, d3
-L_FFC3AE:
+Ending_ImageRestoreTileBufferRowsMaskSnapshot:
 	andi.w	#$e, d2
-L_FFC3B2:
+Ending_ImageRestoreTileBufferRowsMaskCurrent:
 	andi.w	#$eee0, d3
-L_FFC3B6:
+Ending_ImageRestoreTileBufferRowsClampCompare:
 	cmp.w	d0, d2
-L_FFC3B8:
-	bls.b	L_FFC3BC
-L_FFC3BA:
+Ending_ImageRestoreTileBufferRowsClampBranch:
+	bls.b	Ending_ImageRestoreTileBufferRowsMerge
+Ending_ImageRestoreTileBufferRowsClamp:
 	move.w	d0, d2
-L_FFC3BC:
+Ending_ImageRestoreTileBufferRowsMerge:
 	or.w	d3, d2
-L_FFC3BE:
+Ending_ImageRestoreTileBufferRowsRotateRight:
 	rol.w	d1, d2
-L_FFC3C0:
+Ending_ImageRestoreTileBufferRowsRotateLeft:
 	ror.w	#$1, d2
-L_FFC3C2:
+Ending_ImageRestoreTileBufferRowsStore:
 	move.w	d2, (a1)+
-L_FFC3C4:
-	dbra	d7, L_FFC3A2
-L_FFC3C8:
+	dbra	d7, Ending_ImageRestoreTileBufferRowsLoop
+Ending_ImageRestoreTileBufferRowsMarkDirty:
 	bset.b	#$1, $ff0f00.l
-L_FFC3D0:
+
+Ending_ImageRestoreTileBufferRowsReturnToVBlank:
 	bra.w	L_FFC862
 	dc.l	$11FC0001
 	dc.l	$B3007C07
