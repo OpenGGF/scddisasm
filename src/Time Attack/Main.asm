@@ -1900,7 +1900,8 @@ TimeAttack_UploadSelectionTileBlockRestore:
 	movem.l (a7)+, d0/d7/a0
 TimeAttack_UploadSelectionTileBlockReturn:
 	rts
-; Build the VDP destination command for the current region and stage.
+; Build D7's VRAM write command from selection mode ($FF3468) and row ($FF3474).
+; The two base commands select columns, not regional game variants; D0 is preserved.
 TimeAttack_BuildStageVdpCommand:
 	movem.l d0, -(a7)
 TimeAttack_BuildStageVdpCommandDefault:

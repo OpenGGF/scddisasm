@@ -219,6 +219,7 @@ infer correctness of names or comments from a regional byte comparison.
 
 | Milestone | Status | Scope | Validation and handoff |
 | --- | --- | --- | --- |
+| Review-201-300 | Validated | Triage the next older 100 commits (`b2e155ec` through `ef9f86e3`); correct retained mapping classification, byte ranges, PLC-table explanation, and DMA/Time Attack contracts. M225–M238 ranges and M260 classification below are corrected, not independently revalidated historical milestones. | Fresh displayless Proton J/U/E builds and 133/133 comparisons each; eight regression tests and structural audit pass. Coverage limits, complete manifest, evidence, and CHD prerequisite limitation: `docs/reviews/commits-201-300.md`. |
 | Review-101-200 | Validated | Triage the preceding 100 commits (`8102ae84` through `172a72a8`); correct 12 groups of verified labels/comments in Time Attack, Thank You, and ending FMV. Mechanical coverage is not exhaustive semantic verification. | Fresh displayless Proton J/U/E builds and 133/133 comparisons each; six audit regression tests and structural audit pass. Evidence, full commit manifest, source snapshot, and CHD prerequisite limitation: `docs/reviews/commits-101-200.md`. |
 | Review-2026-09-04 | Validated locally | Correct verified Time Attack hardware, decoder data-flow, music-table, and Thank You runtime-state descriptions; document lifetime-helper stack behavior; enforce literal asset path/case checks and expose numbered-routine debt. This correction does not certify the remaining semantic names. | Fresh displayless Proton J/U/E builds and 133/133 comparisons each; six audit regression tests pass; zero missing/case-mismatched references. Source snapshot and CHD prerequisite limitation recorded in `docs/review-validation.md`. |
 | M0 | Complete | Establish the non-BRAM audit, definitions, roadmap, and per-milestone commit/push protocol. | Existing USA output: all 133 `check.sh` comparisons matched; documentation-only change. |
@@ -446,20 +447,20 @@ infer correctness of names or comments from a regional byte comparison.
 | M222 | Complete | Structure the retained historical Act 3 Bad Future Boss PLC at `$0DD0-$0DDD`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M223 | Complete | Structure the retained historical Act 3 Bad Future Results PLC at `$0DDE-$0DE5`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M224 | Complete | Structure the retained historical Act 3 Bad Future Capsule PLC at `$0DE6-$0DED`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M225 | Complete | Structure the retained truncated Quartz Quadrant break-wall tail at `$0DEE-$0E03`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M226 | Complete | Structure the retained historical Act 3 Good Future jump at `$0E04-$0E09`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M227 | Complete | Structure the retained historical Act 3 Good Future stage descriptor at `$0E0A-$0E19`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M228 | Complete | Structure the retained historical Act 3 Good Future 19-slot PLC offset table at `$0E1A-$0E3F`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M229 | Complete | Structure the retained historical Act 3 Good Future Stage PLC at `$0E40-$0E4D`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M230 | Complete | Structure the retained historical Act 3 Good Future Main PLC at `$0E4E-$0E8B`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M231 | Complete | Structure the retained historical Act 3 Good Future Section PLC at `$0E8C-$0EA5`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M232 | Complete | Structure the retained historical Act 3 Good Future Boss PLC at `$0EA6-$0EB3`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M233 | Complete | Structure the retained historical Act 3 Good Future Results PLC at `$0EB4-$0EBB`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M234 | Complete | Structure the retained historical Act 3 Good Future Capsule PLC at `$0EBC-$0EC3`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M235 | Complete | Structure the retained truncated DEMO11A Main-PLC tail at `$0EC4-$0ED9`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M236 | Complete | Structure the retained DEMO11A Section PLC at `$0EDA-$0F23`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M237 | Complete | Structure the retained DEMO11A Results PLC at `$0F24-$0F2B`. | J/U/E 133/133 each; audit/hygiene clean. |
-| M238 | Complete | Structure the truncated DEMO11A Signpost PLC prefix at `$0F2C-$0F37`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M225 | Complete | Structure the retained truncated Quartz Quadrant break-wall tail at `$0DEE-$0E0F`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M226 | Complete | Structure the retained historical Act 3 Good Future jump at `$0E10-$0E15`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M227 | Complete | Structure the retained historical Act 3 Good Future stage descriptor at `$0E16-$0E25`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M228 | Complete | Structure the retained historical Act 3 Good Future 19-slot PLC offset table at `$0E26-$0E4B`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M229 | Complete | Structure the retained historical Act 3 Good Future Stage PLC at `$0E4C-$0E59`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M230 | Complete | Structure the retained historical Act 3 Good Future Main PLC at `$0E5A-$0E97`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M231 | Complete | Structure the retained historical Act 3 Good Future Section PLC at `$0E98-$0EB1`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M232 | Complete | Structure the retained historical Act 3 Good Future Boss PLC at `$0EB2-$0EBF`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M233 | Complete | Structure the retained historical Act 3 Good Future Results PLC at `$0EC0-$0EC7`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M234 | Complete | Structure the retained historical Act 3 Good Future Capsule PLC at `$0EC8-$0ECF`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M235 | Complete | Structure the retained truncated DEMO11A Main-PLC tail at `$0ED0-$0EE5`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M236 | Complete | Structure the retained DEMO11A Section PLC at `$0EE6-$0F2F`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M237 | Complete | Structure the retained DEMO11A Results PLC at `$0F30-$0F37`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M238 | Complete | Structure the truncated DEMO11A Signpost PLC prefix at `$0F38-$0F43`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M239 | Complete | Replace the byte-identical R32B post-chunk stream with the structured shared R32A provider. | J/U/E 133/133 each; audit/hygiene clean. |
 | M240 | Complete | Replace the retained R32B Padding 3 prefix with the exact tail of the shared R12C Nemesis graphics stream. | J/U/E 133/133 each; audit/hygiene clean. |
 | M241 | Complete | Structure the retained R32B Padding 3 wobble table at `$15AC-$16AB`. | J/U/E 133/133 each; audit/hygiene clean. |
@@ -481,7 +482,7 @@ infer correctness of names or comments from a regional byte comparison.
 | M257 | Complete | Replace the retained GHZ2/GHZ3 fallback foreground layouts in R32D Padding 2 at `$15E4-$16AB` and `$16B0-$17D1` with their named binary assets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M258 | Complete | Replace the exact shared Wacky Workbench legacy collision/layout/mapping suffix in R32D Padding 2 at `$17DA-$1A3D` with its named provider. | J/U/E 133/133 each; audit/hygiene clean. |
 | M259 | Complete | Replace the exact retained collision-column height-map tail in R32D Padding 2 at `$0000-$013D` with its named partial asset. | J/U/E 133/133 each; audit/hygiene clean. |
-| M260 | Complete | Extract the shared R33 collision-geometry metadata block at `$0200-$0283` as a named asset and reuse it for the R32C Padding 2 prefix at `$0000-$0083`. | J/U/E 133/133 each; audit/hygiene clean. |
+| M260 | Complete | Extract the shared R33 retained alternate KamaKama sprite-mapping suffix at `$0200-$0283` as a named asset and reuse it for the R32C Padding 2 prefix at `$0000-$0083`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M261 | Complete | Structure the R32C/R32D Act 1 Past relative layout-pointer tables and their background/null targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M262 | Complete | Reuse the complete R32C Padding 1 provider for the byte-identical R32D Padding 1 tail at `$0030-$0E59`. | J/U/E 133/133 each; audit/hygiene clean. |
 | M263 | Complete | Reuse the complete R31C non-USA pre-chunk provider for the byte-identical R32C Padding 1 tail at `$015E-$0E29`. | J/U/E 133/133 each; audit/hygiene clean. |

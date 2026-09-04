@@ -5,10 +5,14 @@
 USARetainedHelperAndGraph:
 ; Shared retained animated-PLC helper family. The leading $FE60 word is the
 ; tail of a preceding historical unit, not executable here. The wrapper primes
-; a 32-longword DMA transfer, advances one animated record, and restores the
-; VDP registers. Both helpers consume timer/index bytes through a2/a4, resolve
-; frame pointers through a1, copy through the $FF1980 staging buffer, advance
-; the caller's record pointers, and return 0 after an update or 1 while waiting.
+; an update of 32 longwords, then starts a 64-word DMA from $FF1980 to VRAM
+; $5540 only when the frame changed. It writes DMA registers 19-23 and the
+; destination command; it does not restore earlier VDP register values.
+; Both helpers animate frames: Animated uses per-frame delays, while Static
+; uses one fixed delay. A2/A4 address timer/index bytes and advance by one on
+; both paths. D0 returns 0 after copying or 1 while waiting. On an update,
+; A1 advances past the selected frame, A3 past the staging copy, and D6 becomes
+; $FFFF after DBRA; D1 is also scratch in the variable-delay helper.
 USARetainedSharedAnimatedPLCUnit:
 	dc.w	$FE60			; Tail word from the preceding legacy routine
 	move.w	#$1F,d6

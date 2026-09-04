@@ -1,6 +1,6 @@
 ; ------------------------------------------------------------------------------
 ; Shared non-USA R33C/R33D Padding2 table.
-; +$0200-+$0283 shared collision-geometry metadata block
+; +$0200-+$0283 retained alternate KamaKama sprite-mapping suffix
 ; ------------------------------------------------------------------------------
 
 	dc.b	$FC, $01, $00, $08, $F4, $FC, $04, $00, $0A, $FC, $04, $00, $00, $0C, $FC, $04
@@ -35,9 +35,10 @@
 	dc.b	$00, $0E, $FE, $04, $00, $00, $12, $06, $0C, $04, $00, $13, $FE, $00, $0A, $ED
 	dc.b	$04, $00, $24, $EE, $F5, $00, $00, $02, $EE, $F5, $00, $00, $23, $F6, $FD, $01
 	dc.b	$00, $08, $F4, $FD, $04, $00, $2C, $FC, $05, $00, $00, $0C, $FC, $05, $00, $00
-; Complete shared 132-byte R33 collision-geometry metadata block.
-R33RetainedCollisionGeometryMetadata:
-	incbin	"maps/r33_collision_geometry.bin"
+; Last 132 bytes of sprites/r3/kama_kama_2.asm (family offset $D8).
+; Starts mid-piece in Throw, followed by WatchA, WatchB, and Recover frames.
+R33RetainedKamaKamaMappingTail:
+	incbin	"sprites/r3/kama_kama_2_retained_tail.bin"
 	dc.b	7, 8, 8, 8, 9, 9, 9, $A, $A, $A, $B, $B
 	dc.b	$0C, $0C, $03, $04, $06, $07, $09, $0A, $0C, $0D, $0F, $10, $10, $10, $10, $10
 	dc.b	$10, $10, $05, $06, $07, $07, $08, $08, $09, $0A, $0A, $0B, $0C, $0C, $0D, $0D

@@ -73,20 +73,20 @@
 ; +$0DD0-+$0DDD retained historical Act 3 Bad Future Boss PLC
 ; +$0DDE-+$0DE5 retained historical Act 3 Bad Future Results PLC
 ; +$0DE6-+$0DED retained historical Act 3 Bad Future Capsule PLC
-; +$0DEE-+$0E03 retained truncated Quartz Quadrant break-wall tail
-; +$0E04-+$0E09 retained historical Act 3 Good Future jump
-; +$0E0A-+$0E19 retained historical Act 3 Good Future stage descriptor
-; +$0E1A-+$0E3F retained historical Act 3 Good Future PLC offset table
-; +$0E40-+$0E4D retained historical Act 3 Good Future Stage PLC
-; +$0E4E-+$0E8B retained historical Act 3 Good Future Main PLC
-; +$0E8C-+$0EA5 retained historical Act 3 Good Future Section PLC
-; +$0EA6-+$0EB3 retained historical Act 3 Good Future Boss PLC
-; +$0EB4-+$0EBB retained historical Act 3 Good Future Results PLC
-; +$0EBC-+$0EC3 retained historical Act 3 Good Future Capsule PLC
-; +$0EC4-+$0ED9 retained truncated DEMO11A Main-PLC tail
-; +$0EDA-+$0F23 retained DEMO11A Section PLC
-; +$0F24-+$0F2B retained DEMO11A Results PLC
-; +$0F2C-+$0F37 retained truncated DEMO11A Signpost PLC prefix
+; +$0DEE-+$0E0F retained truncated Quartz Quadrant break-wall tail
+; +$0E10-+$0E15 retained historical Act 3 Good Future jump
+; +$0E16-+$0E25 retained historical Act 3 Good Future stage descriptor
+; +$0E26-+$0E4B retained historical Act 3 Good Future PLC offset table
+; +$0E4C-+$0E59 retained historical Act 3 Good Future Stage PLC
+; +$0E5A-+$0E97 retained historical Act 3 Good Future Main PLC
+; +$0E98-+$0EB1 retained historical Act 3 Good Future Section PLC
+; +$0EB2-+$0EBF retained historical Act 3 Good Future Boss PLC
+; +$0EC0-+$0EC7 retained historical Act 3 Good Future Results PLC
+; +$0EC8-+$0ECF retained historical Act 3 Good Future Capsule PLC
+; +$0ED0-+$0EE5 retained truncated DEMO11A Main-PLC tail
+; +$0EE6-+$0F2F retained DEMO11A Section PLC
+; +$0F30-+$0F37 retained DEMO11A Results PLC
+; +$0F38-+$0F43 retained truncated DEMO11A Signpost PLC prefix
 ; End of retained Padding 1 stream; Padding 2 follows in a separate include.
 ; ------------------------------------------------------------------------------
 
@@ -1334,7 +1334,7 @@ R32BRetainedPalmtreeAct3BadFutureStageData:
 
 ; Historical Act 3 Bad Future 19-slot level PLC selection table.
 R32BRetainedPalmtreeAct3BadFuturePLCLists:
-	; Literal byte offsets are retained because some records share continuation bytes.
+	; Repeated offsets select the same PLC records; historical offsets remain literal.
 	dc.w	$26, $34, $72, $26, $8C	; Stage, Main, Section, Stage, Boss
 	dcb.w	11, $72			; Sections and updates
 	dc.w	$9A, $72, $A2		; Results, Section, Capsule
@@ -1421,7 +1421,7 @@ R32BRetainedPalmtreeAct3GoodFutureStageData:
 
 ; Historical Act 3 Good Future 19-slot level PLC selection table.
 R32BRetainedPalmtreeAct3GoodFuturePLCLists:
-	; Literal byte offsets are retained because some records share continuation bytes.
+	; Repeated offsets select the same PLC records; historical offsets remain literal.
 	dc.w	$26, $34, $72, $26, $8C	; Stage, Main, Section, Stage, Boss
 	dcb.w	11, $72			; Sections and updates
 	dc.w	$9A, $72, $A2		; Results, Section, Capsule

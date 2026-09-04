@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 ; R32C source-level padding 2
 ; Recovered from tracked historical assembly; no proprietary binary is included.
-; +$0000-+$0083 shared R33 collision-geometry metadata block
+; +$0000-+$0083 retained alternate KamaKama sprite-mapping suffix
 ; +$0084-+$01C1 retained collision-column height-map tail
 ; +$01C2-+$11C1 retained shared collision-row profile map
 ; +$11C2-+$14E1 retained Act 1 Past collision-index map
@@ -14,9 +14,10 @@
 ; +$1856-+$185D shared/final null layouts
 ; +$185E-+$1AC1 retained shared Wacky Workbench legacy suffix
 ; ------------------------------------------------------------------------------
-; Complete shared 132-byte R33 collision-geometry metadata block.
-R32CRetainedCollisionGeometryMetadata:
-	incbin	"maps/r33_collision_geometry.bin"
+; Last 132 bytes of sprites/r3/kama_kama_2.asm (family offset $D8).
+; Starts mid-piece in Throw, followed by WatchA, WatchB, and Recover frames.
+R32CRetainedKamaKamaMappingTail:
+	incbin	"sprites/r3/kama_kama_2_retained_tail.bin"
 	dc.b	7
 	dcb.b	3,8
 	dcb.b	3,9
