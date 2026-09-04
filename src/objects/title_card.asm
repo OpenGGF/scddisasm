@@ -3,18 +3,19 @@
 TitleCardObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20A956(pc,d0.w),d0
-	jmp	off_20A956(pc,d0.w)
+	move.w	TitleCardRoutineTable(pc,d0.w),d0
+	jmp	TitleCardRoutineTable(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20A956:
+; Title-card routine pointers.
+TitleCardRoutineTable:
 	dc.w	TitleCardInit-*
-	dc.w	TitleCardSlideInY-off_20A956
-	dc.w	TitleCardSlideInX-off_20A956
-	dc.w	TitleCardSlideOutY-off_20A956
-	dc.w	TitleCardSlideOutX-off_20A956
-	dc.w	TitleCardWaitGfx-off_20A956
+	dc.w	TitleCardSlideInY-TitleCardRoutineTable
+	dc.w	TitleCardSlideInX-TitleCardRoutineTable
+	dc.w	TitleCardSlideOutY-TitleCardRoutineTable
+	dc.w	TitleCardSlideOutX-TitleCardRoutineTable
+	dc.w	TitleCardWaitGfx-TitleCardRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -30,9 +31,9 @@ TitleCardInit:
 	move.b	#4,obj.sprite_layer(a0)
 	moveq	#0,d1
 	moveq	#7,d6
-	lea	word_20B014,a2
+	lea	TitleCardCharacterData,a2
 
-loc_20A9A4:
+TitleCardSpawnCharacter:
 	jsr	SpawnObject
 	move.b	#$3C,obj.id(a1)
 	move.b	#4,obj.routine(a1)
@@ -46,14 +47,14 @@ loc_20A9A4:
 	move.w	4(a2,d2.w),obj.var_2a(a1)
 	move.b	6(a2,d2.w),obj.sprite_frame(a1)
 	cmpi.b	#5,d1
-	bne.s	loc_20A9F6
+	bne.s	TitleCardStoreCharacterFrame
 	move.b	act,d3
 	add.b	d3,obj.sprite_frame(a1)
 
-loc_20A9F6:
+TitleCardStoreCharacterFrame:
 	move.b	7(a2,d2.w),obj.anim_timer(a1)
 	addq.b	#1,d1
-	dbf	d6,loc_20A9A4
+	dbf	d6,TitleCardSpawnCharacter
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -62,17 +63,17 @@ TitleCardSlideInY:
 	moveq	#8,d0
 	move.w	obj.var_2e(a0),d1
 	cmp.w	obj.x+2(a0),d1
-	beq.s	loc_20AA1E
-	bge.s	loc_20AA14
+	beq.s	TitleCardSlideInYComplete
+	bge.s	TitleCardSlideInYStep
 	neg.w	d0
 
-loc_20AA14:
+TitleCardSlideInYStep:
 	add.w	d0,obj.x+2(a0)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20AA1E:
+TitleCardSlideInYComplete:
 	addq.b	#4,obj.routine(a0)
 	jmp	DrawObject
 
@@ -82,17 +83,17 @@ TitleCardSlideInX:
 	moveq	#8,d0
 	move.w	obj.var_2a(a0),d1
 	cmp.w	obj.x(a0),d1
-	beq.s	loc_20AA42
-	bge.s	loc_20AA38
+	beq.s	TitleCardSlideInXComplete
+	bge.s	TitleCardSlideInXStep
 	neg.w	d0
 
-loc_20AA38:
+TitleCardSlideInXStep:
 	add.w	d0,obj.x(a0)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20AA42:
+TitleCardSlideInXComplete:
 	addq.b	#4,obj.routine(a0)
 	jmp	DrawObject
 
@@ -100,27 +101,27 @@ loc_20AA42:
 
 TitleCardSlideOutY:
 	tst.b	obj.anim_timer(a0)
-	beq.s	loc_20AA5C
+	beq.s	TitleCardSlideOutYAfterDelay
 	subq.b	#1,obj.anim_timer(a0)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20AA5C:
+TitleCardSlideOutYAfterDelay:
 	moveq	#$10,d0
 	move.w	obj.var_30(a0),d1
 	cmp.w	obj.x+2(a0),d1
-	beq.s	loc_20AA76
-	bge.s	loc_20AA6C
+	beq.s	TitleCardSlideOutYComplete
+	bge.s	TitleCardSlideOutYStep
 	neg.w	d0
 
-loc_20AA6C:
+TitleCardSlideOutYStep:
 	add.w	d0,obj.x+2(a0)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20AA76:
+TitleCardSlideOutYComplete:
 	addq.b	#4,obj.routine(a0)
 	move.b	#1,scroll_lock
 	moveq	#2,d0
@@ -130,41 +131,41 @@ loc_20AA76:
 
 TitleCardSlideOutX:
 	tst.b	obj.anim_timer(a0)
-	beq.s	loc_20AA98
+	beq.s	TitleCardSlideOutXAfterDelay
 	subq.b	#1,obj.anim_timer(a0)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20AA98:
+TitleCardSlideOutXAfterDelay:
 	moveq	#$10,d0
 	move.w	obj.var_2c(a0),d1
 	cmp.w	obj.x(a0),d1
-	beq.s	loc_20AAB2
-	bge.s	loc_20AAA8
+	beq.s	TitleCardSlideOutXComplete
+	bge.s	TitleCardSlideOutXStep
 	neg.w	d0
 
-loc_20AAA8:
+TitleCardSlideOutXStep:
 	add.w	d0,obj.x(a0)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20AAB2:
+TitleCardSlideOutXComplete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
 TitleCardWaitGfx:
 	tst.l	gfx_queue
-	bne.s	locret_20AACC
+	bne.s	TitleCardWaitReturn
 	clr.b	scroll_lock
 	clr.b	control_locked
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20AACC:
+TitleCardWaitReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

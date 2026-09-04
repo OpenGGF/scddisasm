@@ -427,7 +427,7 @@ MapSpr_GoalSignpost	EQU	SignpostSprites
 Ani_FlowerCapsule	EQU	CapsuleAnims
 MapSpr_FlowerCapsule	EQU	CapsuleSprites
 MapSpr_TitleCard	EQU	TitleCardSprites
-ObjTitleCard_Data	EQU	word_20B014
+ObjTitleCard_Data	EQU	TitleCardCharacterData
 Art_Points		EQU	PointsGfx
 Art_FlowerCapsule	EQU	CapsuleGfx
 Art_BigRing		EQU	BigRingGfx

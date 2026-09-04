@@ -473,7 +473,7 @@ GameOverObject	EQU	ObjGameOver
 		if R3_SEMANTIC_TITLE_CARD<>0
 TitleCardObject	EQU	ObjTitleCard
 MapSpr_TitleCard	EQU	TitleCardSprites
-ObjTitleCard_Data	EQU	word_20B014
+ObjTitleCard_Data	EQU	TitleCardCharacterData
 		endif
 	endif
 

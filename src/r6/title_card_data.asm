@@ -1,6 +1,7 @@
 ; ------------------------------------------------------------------------------
 
-word_20B014:
+; Eight character records: start/target positions, frame, and delay.
+TitleCardCharacterData:
 	dc.w	$130, $228, $168, $15A
 	dc.w	$100, $240, $180, $25A
 	dc.w	$100, $248, $188, $25A
