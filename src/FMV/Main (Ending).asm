@@ -27,152 +27,89 @@ VInterrupt:
 ; Initialize ending-FMV work RAM, VDP state, and Sub CPU ownership.
 Ending_StartupInitialize:
 	clr.w	$FFFFfa40.w
-L_FF2024:
 	bclr.b	#$1, $a1200e.l
-L_FF202C:
 	move.l	#Ending_VBlankInterrupt, $fffd08.l
-L_FF2036:
 	move.b	#$0, $a1200e.l
-L_FF203E:
 	bsr.w	Ending_WaitSubCpuOwnership
-L_FF2042:
 	bsr.w	Ending_InitializePaletteAndFont
-L_FF2046:
 	lea.l	$c00000.l, a5
-L_FF204C:
 	lea.l	$4(a5), a4
-L_FF2050:
 	move.l	#$64000003, $c00004.l
-L_FF205A:
 	move.l	#$2000200, (a5)
-L_FF2060:
 	lea.l	$FFFF8000.w, a0
-L_FF2064:
 	move.w	#$fff, d7
 Ending_ClearWorkRamLoop:
 	clr.l	(a0)+
-L_FF206A:
 	dbra	d7, Ending_ClearWorkRamLoop
-L_FF206E:
 	bsr.w	Ending_ClearCommandWorkspace
-L_FF2072:
 	bsr.w	Ending_ClearInitialVdpRows
-L_FF2076:
 	bsr.w	Ending_ClearVdpNameTables
-L_FF207A:
 	move.w	#$0, $a12012.l
-L_FF2082:
 	bset.b	#$1, $a1200e.l
-L_FF208A:
 	clr.w	$FFFFc088.w
-L_FF208E:
 	clr.w	$FFFFc094.w
-L_FF2092:
 	bset.b	#$6, $FFFFfa47.w
-L_FF2098:
 	move.w	$FFFFfa46.w, $c00004.l
 Ending_WaitSubCpuStartLoop:
 	btst.b	#$7, $a1200f.l
-L_FF20A8:
 	bne.b	Ending_WaitSubCpuStartLoop
-L_FF20AA:
 	btst.b	#$7, $a1200f.l
-L_FF20B2:
 	bne.b	Ending_WaitSubCpuStartLoop
-L_FF20B4:
 	btst.b	#$7, $a1200f.l
-L_FF20BC:
 	bne.b	Ending_WaitSubCpuStartLoop
-L_FF20BE:
 	bclr.b	#$1, $a1200e.l
-L_FF20C6:
 	bclr.b	#$4, $a1200e.l
-L_FF20CE:
 	bsr.w	Ending_WaitWordRamSwap
-L_FF20D2:
 	clr.w	$FFFFfa40.w
-L_FF20D6:
 	move.w	#$4, $FFFFc086.w
 Ending_MainStateLoop:
 	moveq	#$0, d0
-L_FF20DE:
 	move.w	$FFFFc086.w, d0
-L_FF20E2:
 	lea.l	Ending_MainStateDispatchTable(pc), a1
-L_FF20E6:
 	adda.w	(a1, d0.w), a1
-L_FF20EA:
 	jsr	(a1)
-L_FF20EC:
 	bsr.w	Ending_WaitTimerTick
-L_FF20F0:
 	btst.b	#$1, $a1200f.l
-L_FF20F8:
 	beq.b	Ending_MainStateLoop
-L_FF20FA:
 	btst.b	#$1, $a1200f.l
-L_FF2102:
 	beq.b	Ending_MainStateLoop
-L_FF2104:
 	btst.b	#$1, $a1200f.l
-L_FF210C:
 	beq.b	Ending_MainStateLoop
-L_FF210E:
+
+	; Tear down the VDP and object workspace after the Sub CPU finishes.
 	move.l	#$c0000000, $c00004.l
-L_FF2118:
 	moveq	#$0, d0
-L_FF211A:
 	moveq	#$f, d7
 Ending_ClearVdpRowWordsLoop:
 	move.w	d0, (a5)
-L_FF211E:
 	dbra	d7, Ending_ClearVdpRowWordsLoop
-L_FF2122:
 	bsr.b	Ending_WaitForSubCpuCompletion
-L_FF2124:
 	clr.b	$a1200e.l
-L_FF212A:
 	lea.l	$ffb200.l, a1
-L_FF2130:
 	movea.l	a1, a2
-L_FF2132:
 	moveq	#$0, d0
-L_FF2134:
 	moveq	#$3f, d7
 Ending_ClearObjectWorkLoop:
 	move.l	d0, (a1)+
-L_FF2138:
 	dbra	d7, Ending_ClearObjectWorkLoop
-L_FF213C:
 	move.w	#$46a, $56(a2)
-L_FF2142:
 	move.w	#$ee, $5e(a2)
-L_FF2148:
 	jmp	L_FFC100.l
 ; Wait for the Sub CPU to finish before leaving the ending FMV.
 Ending_WaitForSubCpuCompletion:
 	clr.w	$FFFFfa40.w
-L_FF2152:
 	move.w	#$3c, d1
 Ending_WaitForSubCpuCompletionTickLoop:
 	bsr.w	Ending_WaitTimerTick
-L_FF215A:
 	dbra	d1, Ending_WaitForSubCpuCompletionTickLoop
-L_FF215E:
 	bset.b	#$4, $a1200e.l
 Ending_WaitForSubCpuCompletionPoll:
 	btst.b	#$1, $a1200f.l
-L_FF216E:
 	bne.b	Ending_WaitForSubCpuCompletionPoll
-L_FF2170:
 	btst.b	#$1, $a1200f.l
-L_FF2178:
 	bne.b	Ending_WaitForSubCpuCompletionPoll
-L_FF217A:
 	btst.b	#$1, $a1200f.l
-L_FF2182:
 	bne.b	Ending_WaitForSubCpuCompletionPoll
-L_FF2184:
 	rts
 ; Trigger the timer tick used by the ending-FMV main loop.
 Ending_WaitTimerTick:
