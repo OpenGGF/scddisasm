@@ -437,32 +437,33 @@ LoadStageCollision:
 
 ; ------------------------------------------------------------------------------
 
+; Advance the shared ring, spike, unknown, and lost-ring animation timers.
 UpdateGlobalAnims:
 	subq.b	#1,log_spike_anim_timer
-	bpl.s	loc_2019D6
+	bpl.s	UpdateGlobalAnimsRing
 	move.b	#$B,log_spike_anim_timer
 	subq.b	#1,log_spike_anim_frame
 	andi.b	#7,log_spike_anim_frame
 
-loc_2019D6:
+UpdateGlobalAnimsRing:
 	subq.b	#1,ring_anim_timer
-	bpl.s	loc_2019F4
+	bpl.s	UpdateGlobalAnimsUnknown
 	move.b	#7,ring_anim_timer
 	addq.b	#1,ring_anim_frame
 	andi.b	#3,ring_anim_frame
 
-loc_2019F4:
+UpdateGlobalAnimsUnknown:
 	subq.b	#1,unk_anim_timer
-	bpl.s	loc_201A1C
+	bpl.s	UpdateGlobalAnimsLostRing
 	move.b	#7,unk_anim_timer
 	addq.b	#1,unk_anim_frame
 	cmpi.b	#6,unk_anim_frame
-	bcs.s	loc_201A1C
+	bcs.s	UpdateGlobalAnimsLostRing
 	move.b	#0,unk_anim_frame
 
-loc_201A1C:
+UpdateGlobalAnimsLostRing:
 	tst.b	lost_ring_anim_timer
-	beq.s	locret_201A4A
+	beq.s	UpdateGlobalAnimsDone
 	moveq	#0,d0
 	move.b	lost_ring_anim_timer,d0
 	add.w	lost_ring_anim_accum,d0
@@ -472,34 +473,36 @@ loc_201A1C:
 	move.b	d0,lost_ring_anim_frame
 	subq.b	#1,lost_ring_anim_timer
 
-locret_201A4A:
+UpdateGlobalAnimsDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
+; Select one of the R4 zone/time music commands and hand it to the Sub CPU.
 PlayStageMusic:
 	moveq	#0,d0
 	moveq	#0,d1
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	time_attack
-	bne.s	loc_201A6E
+	bne.s	PlayStageMusicSelect
 	cmpi.b	#2,d0
-	bne.s	loc_201A6E
+	bne.s	PlayStageMusicSelect
 	add.b	good_future,d0
 
-loc_201A6E:
+PlayStageMusicSelect:
 	move.b	zone,d1
 	add.w	d1,d1
 	add.w	d1,d1
 	add.w	d0,d1
 	moveq	#0,d0
-	move.b	byte_201A86(pc,d1.w),d0
+	move.b	StageMusicCommandTable(pc,d1.w),d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-byte_201A86:
+; Three R4 zones, each with normal, past, present, and future commands.
+StageMusicCommandTable:
 	dc.b	$80, $F, $11, $10
 	dc.b	$80, $12, $14, $13
 	dc.b	$80, $15, $17, $16
@@ -512,6 +515,7 @@ PlayStageMusic2:
 
 ; ------------------------------------------------------------------------------
 
+; Upload the time-zone-specific 32x32 life icon tile block to the VDP.
 LoadLifeIcon:
 	move.l	#$74200002,d0
 	moveq	#0,d2
@@ -557,14 +561,15 @@ LoadLifeIcon:
 
 ; ------------------------------------------------------------------------------
 
+; Update water height and the H-blank scanline used by R4 water stages.
 UpdateWater:
 	tst.b	paused
-	bne.s	locret_201B60
+	bne.s	UpdateWaterDone
 	cmpi.b	#6,player_object+obj.routine
-	bcc.s	loc_201B12
+	bcc.s	UpdateWaterAnimate
 	bsr.w	WaterEvents
 
-loc_201B12:
+UpdateWaterAnimate:
 	move.b	#0,water_full
 	moveq	#0,d0
 	addq.b	#2,water_angle
@@ -576,21 +581,21 @@ loc_201B12:
 	move.w	d0,water_y
 	move.w	water_y,d0
 	sub.w	scroll_fg_y,d0
-	bcc.s	loc_201B52
+	bcc.s	UpdateWaterClamp
 	tst.w	d0
-	bpl.s	loc_201B52
+	bpl.s	UpdateWaterClamp
 	move.b	#$DF,hblank_vdp_reg+1
 	move.b	#1,water_full
 
-loc_201B52:
+UpdateWaterClamp:
 	cmpi.w	#$DF,d0
-	bcs.s	loc_201B5C
+	bcs.s	UpdateWaterWriteScanline
 	move.w	#$DF,d0
 
-loc_201B5C:
+UpdateWaterWriteScanline:
 	move.b	d0,hblank_vdp_reg+1
 
-locret_201B60:
+UpdateWaterDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -602,32 +607,34 @@ WaterHeights:
 
 ; ------------------------------------------------------------------------------
 
+; Select the act-specific target-water routine, then move toward its target.
 WaterEvents:
 	moveq	#0,d0
 	move.b	act,d0
 	add.w	d0,d0
-	move.w	off_201BA6(pc,d0.w),d0
-	jsr	off_201BA6(pc,d0.w)
+	move.w	WaterEventsByAct(pc,d0.w),d0
+	jsr	WaterEventsByAct(pc,d0.w)
 	moveq	#0,d1
 	move.b	water_speed,d1
 	move.w	target_water_y,d0
 	sub.w	static_water_y,d0
-	beq.s	locret_201BA4
-	bcc.s	loc_201BA0
+	beq.s	WaterEventsDone
+	bcc.s	WaterEventsApplySpeed
 	neg.w	d1
 
-loc_201BA0:
+WaterEventsApplySpeed:
 	add.w	d1,static_water_y
 
-locret_201BA4:
+WaterEventsDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-off_201BA6:
+; Act-indexed table of target-water handlers.
+WaterEventsByAct:
 	dc.w	WaterEventsAct1-*
-	dc.w	WaterEventsAct2-off_201BA6
-	dc.w	WaterEventsAct3-off_201BA6
+	dc.w	WaterEventsAct2-WaterEventsByAct
+	dc.w	WaterEventsAct3-WaterEventsByAct
 
 ; ------------------------------------------------------------------------------
 
@@ -637,33 +644,33 @@ WaterEventsAct1:
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	bne.s	loc_201BC2
+	bne.s	WaterEventsAct1Past
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_201BC2:
+WaterEventsAct1Past:
 	cmpi.b	#1,d0
-	bne.s	loc_201BD8
+	bne.s	WaterEventsAct1Future
 	move.w	#$280,d1
 	cmpi.w	#$5E0,d2
-	bcs.s	loc_201BF6
+	bcs.s	WaterEventsAct1SetTarget
 	move.w	#$260,d1
-	bra.s	loc_201BF6
+	bra.s	WaterEventsAct1SetTarget
 
 ; ------------------------------------------------------------------------------
 
-loc_201BD8:
+WaterEventsAct1Future:
 	move.w	#$1D0,d1
 	cmpi.w	#$920,d2
-	bcs.s	loc_201BF6
+	bcs.s	WaterEventsAct1SetTarget
 	move.w	#$110,d1
 	cmpi.w	#$1980,d2
-	bcs.s	loc_201BF6
+	bcs.s	WaterEventsAct1SetTarget
 	move.w	#$240,d1
 	move.b	#3,water_speed
 
-loc_201BF6:
+WaterEventsAct1SetTarget:
 	move.w	d1,target_water_y
 	rts
 
@@ -674,67 +681,67 @@ WaterEventsAct2:
 	move.w	scroll_fg_y,d1
 	addi.w	#$E8,d1
 	cmpi.w	#$200,d2
-	bcs.s	loc_201C24
+	bcs.s	WaterEventsAct2SetStatic
 	cmpi.w	#$600,player_object+obj.y
-	bcs.s	loc_201C2A
+	bcs.s	WaterEventsAct2SelectTime
 	cmpi.w	#$6C0,player_object+obj.y
-	bcc.s	loc_201C2A
+	bcc.s	WaterEventsAct2SelectTime
 	cmpi.w	#$2A0,d2
-	bcc.s	loc_201C2A
+	bcc.s	WaterEventsAct2SelectTime
 
-loc_201C24:
+WaterEventsAct2SetStatic:
 	move.w	d1,static_water_y
-	bra.s	loc_201C9A
+	bra.s	WaterEventsAct2SetTarget
 
 ; ------------------------------------------------------------------------------
 
-loc_201C2A:
+WaterEventsAct2SelectTime:
 	moveq	#0,d0
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	bne.s	loc_201C40
+	bne.s	WaterEventsAct2Past
 	move.w	#$5B0,d1
-	bra.s	loc_201C24
+	bra.s	WaterEventsAct2SetStatic
 
 ; ------------------------------------------------------------------------------
 
-loc_201C40:
+WaterEventsAct2Past:
 	cmpi.b	#1,d0
-	bne.s	loc_201C78
+	bne.s	WaterEventsAct2Future
 	move.w	#$530,d1
 	cmpi.w	#$C00,d2
-	bcs.s	loc_201C9A
+	bcs.s	WaterEventsAct2SetTarget
 	move.w	#$780,d1
 	cmpi.w	#$DC0,d2
-	bcs.s	loc_201C9A
+	bcs.s	WaterEventsAct2SetTarget
 	move.w	#$500,d1
 	cmpi.w	#$1380,d2
-	bcc.s	loc_201C9A
+	bcc.s	WaterEventsAct2SetTarget
 	cmpi.w	#$400,player_object+obj.y
-	bcc.s	locret_201C76
+	bcc.s	WaterEventsAct2PastReturn
 	move.w	#$3C0,d1
 	cmpi.w	#$1100,d2
-	bcc.s	loc_201C9A
+	bcc.s	WaterEventsAct2SetTarget
 
-locret_201C76:
+WaterEventsAct2PastReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_201C78:
+WaterEventsAct2Future:
 	move.w	#$510,d1
 	cmpi.w	#$400,d2
-	bcs.s	loc_201C9A
+	bcs.s	WaterEventsAct2SetTarget
 	move.w	#$390,d1
 	cmpi.w	#$1600,d2
-	bcs.s	loc_201C9A
+	bcs.s	WaterEventsAct2SetTarget
 	move.w	#$410,d1
 	cmpi.w	#$1900,d2
-	bcs.s	loc_201C9A
+	bcs.s	WaterEventsAct2SetTarget
 	move.w	#$500,d1
 
-loc_201C9A:
+WaterEventsAct2SetTarget:
 	move.w	d1,target_water_y
 	rts
 
@@ -745,20 +752,20 @@ WaterEventsAct3:
 	move.w	scroll_fg_y,d1
 	addi.w	#$E8,d1
 	cmpi.w	#$7C0,d2
-	bcc.s	loc_201CB8
+	bcc.s	WaterEventsAct3Late
 	move.w	d1,static_water_y
-	bra.s	loc_201CCC
+	bra.s	WaterEventsAct3SetTarget
 
 ; ------------------------------------------------------------------------------
 
-loc_201CB8:
+WaterEventsAct3Late:
 	move.w	#$490,d1
 	cmpi.w	#$AF0,d2
-	bcs.s	loc_201CCC
+	bcs.s	WaterEventsAct3SetTarget
 	move.b	#2,water_speed
 	move.w	#$5C0,d1
 
-loc_201CCC:
+WaterEventsAct3SetTarget:
 	move.w	d1,target_water_y
 	rts
 
