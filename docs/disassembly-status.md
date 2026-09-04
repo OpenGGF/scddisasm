@@ -139,6 +139,9 @@ collision loading, global animation, stage music, life-icon, and pause helpers.
 M486 canonicalizes the shared VBlank dispatcher, DMA/update handlers, common
 transfer path, and warp/bored timer helpers.
 
+M487 canonicalizes the shared player ground-collision angle and four-way probe
+family, including correction and steep-surface rejection paths.
+
 ### Core and system programs
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |

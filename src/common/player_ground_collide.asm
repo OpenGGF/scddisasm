@@ -2,7 +2,7 @@
 
 PlayerGroundCollide:
 	btst	#3,obj.flags(a0)
-	beq.s	loc_200C56
+	beq.s	PlayerGroundCollideCheckAngle
 	moveq	#0,d0
 	move.b	d0,collide_angle_1
 	move.b	d0,collide_angle_2
@@ -10,39 +10,40 @@ PlayerGroundCollide:
 
 ; ------------------------------------------------------------------------------
 
-loc_200C56:
+PlayerGroundCollideCheckAngle:
 	moveq	#3,d0
 	move.b	d0,collide_angle_1
 	move.b	d0,collide_angle_2
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
-	bpl.s	loc_200C78
+	bpl.s	PlayerGroundCollideRoundPositive
 	move.b	obj.angle(a0),d0
-	bpl.s	loc_200C72
+	bpl.s	PlayerGroundCollideRoundNegativeDone
 	subq.b	#1,d0
 
-loc_200C72:
+PlayerGroundCollideRoundNegativeDone:
 	addi.b	#$20,d0
-	bra.s	loc_200C84
+	bra.s	PlayerGroundCollideSelectSurface
 
 ; ------------------------------------------------------------------------------
 
-loc_200C78:
+PlayerGroundCollideRoundPositive:
 	move.b	obj.angle(a0),d0
-	bpl.s	loc_200C80
+	bpl.s	PlayerGroundCollideRoundPositiveDone
 	addq.b	#1,d0
 
-loc_200C80:
+PlayerGroundCollideRoundPositiveDone:
 	addi.b	#$1F,d0
 
-loc_200C84:
+; Dispatch to the floor, right-wall, ceiling, or left-wall probe.
+PlayerGroundCollideSelectSurface:
 	andi.b	#$C0,d0
 	cmpi.b	#$40,d0
-	beq.w	loc_200F0E
+	beq.w	PlayerGroundCollideLeftWall
 	cmpi.b	#$80,d0
-	beq.w	loc_200E6C
+	beq.w	PlayerGroundCollideCeiling
 	cmpi.b	#$C0,d0
-	beq.w	loc_200DD0
+	beq.w	PlayerGroundCollideRightWall
 	move.w	obj.y(a0),d2
 	move.w	obj.x(a0),d3
 	moveq	#0,d0
@@ -76,30 +77,30 @@ loc_200C84:
 	move.w	(sp)+,d0
 	bsr.w	CheckGroundAngle
 	tst.w	d1
-	beq.s	locret_200D12
-	bpl.s	loc_200D14
+	beq.s	PlayerGroundCollideFloorDone
+	bpl.s	PlayerGroundCollideFloorCorrection
 	cmpi.w	#-$E,d1
-	blt.s	locret_200D3A
+	blt.s	PlayerGroundCollideTooSteepReject
 	add.w	d1,obj.y(a0)
 
-locret_200D12:
+PlayerGroundCollideFloorDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200D14:
+PlayerGroundCollideFloorCorrection:
 	cmpi.w	#$E,d1
-	bgt.s	loc_200D20
+	bgt.s	PlayerGroundCollideFloorSteep
 
-loc_200D1A:
+PlayerGroundCollideFloorApply:
 	add.w	d1,obj.y(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200D20:
+PlayerGroundCollideFloorSteep:
 	tst.b	obj.var_38(a0)
-	bne.s	loc_200D1A
+	bne.s	PlayerGroundCollideFloorApply
 	bset	#1,obj.flags(a0)
 	bclr	#5,obj.flags(a0)
 	move.b	#1,obj.prev_anim_id(a0)
@@ -107,7 +108,7 @@ loc_200D20:
 
 ; ------------------------------------------------------------------------------
 
-locret_200D3A:
+PlayerGroundCollideTooSteepReject:
 	rts
 	move.l	obj.x(a0),d2
 	move.w	obj.x_speed(a0),d0
@@ -124,7 +125,7 @@ locret_200D3A:
 
 ; ------------------------------------------------------------------------------
 
-locret_200D5E:
+PlayerGroundCollideWallReject:
 	rts
 	move.l	obj.y(a0),d3
 	move.w	obj.y_speed(a0),d0
@@ -158,19 +159,19 @@ locret_200D5E:
 CheckGroundAngle:
 	move.b	collide_angle_2,d2
 	cmp.w	d0,d1
-	ble.s	loc_200DB2
+	ble.s	CheckGroundAngleUseSecond
 	move.b	collide_angle_1,d2
 	move.w	d0,d1
 
-loc_200DB2:
+CheckGroundAngleUseSecond:
 	btst	#0,d2
-	bne.s	loc_200DBE
+	bne.s	CheckGroundAnglePreserveObjectAngle
 	move.b	d2,obj.angle(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200DBE:
+CheckGroundAnglePreserveObjectAngle:
 	move.b	obj.angle(a0),d2
 	addi.b	#$20,d2
 	andi.b	#$C0,d2
@@ -179,7 +180,7 @@ loc_200DBE:
 
 ; ------------------------------------------------------------------------------
 
-loc_200DD0:
+PlayerGroundCollideRightWall:
 	move.w	obj.y(a0),d2
 	move.w	obj.x(a0),d3
 	moveq	#0,d0
@@ -213,30 +214,30 @@ loc_200DD0:
 	move.w	(sp)+,d0
 	bsr.w	CheckGroundAngle
 	tst.w	d1
-	beq.s	locret_200E44
-	bpl.s	loc_200E46
+	beq.s	PlayerGroundCollideRightWallDone
+	bpl.s	PlayerGroundCollideRightWallCorrection
 	cmpi.w	#-$E,d1
-	blt.w	locret_200D5E
+	blt.w	PlayerGroundCollideWallReject
 	add.w	d1,obj.x(a0)
 
-locret_200E44:
+PlayerGroundCollideRightWallDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200E46:
+PlayerGroundCollideRightWallCorrection:
 	cmpi.w	#$E,d1
-	bgt.s	loc_200E52
+	bgt.s	PlayerGroundCollideRightWallSteep
 
-loc_200E4C:
+PlayerGroundCollideRightWallApply:
 	add.w	d1,obj.x(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200E52:
+PlayerGroundCollideRightWallSteep:
 	tst.b	obj.var_38(a0)
-	bne.s	loc_200E4C
+	bne.s	PlayerGroundCollideRightWallApply
 	bset	#1,obj.flags(a0)
 	bclr	#5,obj.flags(a0)
 	move.b	#1,obj.prev_anim_id(a0)
@@ -244,7 +245,7 @@ loc_200E52:
 
 ; ------------------------------------------------------------------------------
 
-loc_200E6C:
+PlayerGroundCollideCeiling:
 	move.w	obj.y(a0),d2
 	move.w	obj.x(a0),d3
 	moveq	#0,d0
@@ -279,30 +280,30 @@ loc_200E6C:
 	move.w	(sp)+,d0
 	bsr.w	CheckGroundAngle
 	tst.w	d1
-	beq.s	locret_200EE6
-	bpl.s	loc_200EE8
+	beq.s	PlayerGroundCollideCeilingDone
+	bpl.s	PlayerGroundCollideCeilingCorrection
 	cmpi.w	#-$E,d1
-	blt.w	locret_200D3A
+	blt.w	PlayerGroundCollideTooSteepReject
 	sub.w	d1,obj.y(a0)
 
-locret_200EE6:
+PlayerGroundCollideCeilingDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200EE8:
+PlayerGroundCollideCeilingCorrection:
 	cmpi.w	#$E,d1
-	bgt.s	loc_200EF4
+	bgt.s	PlayerGroundCollideCeilingSteep
 
-loc_200EEE:
+PlayerGroundCollideCeilingApply:
 	sub.w	d1,obj.y(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200EF4:
+PlayerGroundCollideCeilingSteep:
 	tst.b	obj.var_38(a0)
-	bne.s	loc_200EEE
+	bne.s	PlayerGroundCollideCeilingApply
 	bset	#1,obj.flags(a0)
 	bclr	#5,obj.flags(a0)
 	move.b	#1,obj.prev_anim_id(a0)
@@ -310,7 +311,7 @@ loc_200EF4:
 
 ; ------------------------------------------------------------------------------
 
-loc_200F0E:
+PlayerGroundCollideLeftWall:
 	move.w	obj.y(a0),d2
 	move.w	obj.x(a0),d3
 	moveq	#0,d0
@@ -345,30 +346,30 @@ loc_200F0E:
 	move.w	(sp)+,d0
 	bsr.w	CheckGroundAngle
 	tst.w	d1
-	beq.s	locret_200F88
-	bpl.s	loc_200F8A
+	beq.s	PlayerGroundCollideLeftWallDone
+	bpl.s	PlayerGroundCollideLeftWallCorrection
 	cmpi.w	#-$E,d1
-	blt.w	locret_200D5E
+	blt.w	PlayerGroundCollideWallReject
 	sub.w	d1,obj.x(a0)
 
-locret_200F88:
+PlayerGroundCollideLeftWallDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200F8A:
+PlayerGroundCollideLeftWallCorrection:
 	cmpi.w	#$E,d1
-	bgt.s	loc_200F96
+	bgt.s	PlayerGroundCollideLeftWallSteep
 
-loc_200F90:
+PlayerGroundCollideLeftWallApply:
 	sub.w	d1,obj.x(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200F96:
+PlayerGroundCollideLeftWallSteep:
 	tst.b	obj.var_38(a0)
-	bne.s	loc_200F90
+	bne.s	PlayerGroundCollideLeftWallApply
 	bset	#1,obj.flags(a0)
 	bclr	#5,obj.flags(a0)
 	move.b	#1,obj.prev_anim_id(a0)
