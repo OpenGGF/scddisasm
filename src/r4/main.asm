@@ -1,14 +1,13 @@
-; ------------------------------------------------------------------------------
-
+; R4 stage bootstrap: reset runtime state, load stage graphics, and enter play.
 InitStage:
 	clr.w	stage_demo
 	cmpi.b	#$7F,game_time_stones
-	bne.s	loc_20145A
+	bne.s	InitStageResetRuntime
 	tst.b	time_attack
-	bne.s	loc_20145A
+	bne.s	InitStageResetRuntime
 	move.b	#1,good_future
 
-loc_20145A:
+InitStageResetRuntime:
 	clr.b	vblank_routine
 	clr.b	use_player_2
 	if DEMO<>0
@@ -18,7 +17,7 @@ loc_20145A:
 	move.b	#0,paused
 	move.b	#0,stage_started
 	bset	#0,stage_start_flags
-	bne.s	loc_2014C2
+	bne.s	InitStagePrepareMode
 	move.b	#0,palette_fade_flags
 	clr.b	respawn_checkpoint
 	move.l	#5000,next_life_score
@@ -28,70 +27,70 @@ loc_20145A:
 	clr.l	score
 	move.b	#3,lives
 	tst.b	time_attack
-	beq.s	loc_2014C2
+	beq.s	InitStagePrepareMode
 	move.b	#1,lives
 
-loc_2014C2:
+InitStagePrepareMode:
 	bset	#7,game_mode
 	bsr.w	ClearGfxQueue
 	tst.b	enter_special_stage
-	bne.s	loc_2014E8
+	bne.s	InitStageFadeWhite
 	btst	#7,time_zone
-	beq.s	loc_20150C
+	beq.s	InitStageFadeBlackPath
 	bset	#0,palette_fade_flags
-	beq.s	loc_2014F4
+	beq.s	InitStageClearWarp
 
-loc_2014E8:
+InitStageFadeWhite:
 	bsr.w	FadeToWhite
 	bclr	#0,palette_fade_flags
 
-loc_2014F4:
+InitStageClearWarp:
 	clr.b	warp_direction
 	tst.w	restart_stage
-	beq.w	loc_20157C
+	beq.w	InitStageDemoBoundary
 	move.w	#0,restart_stage
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20150C:
+InitStageFadeBlackPath:
 	bset	#0,palette_fade_flags
-	beq.s	loc_20151A
+	beq.s	InitStageHandleRestart
 	bsr.w	FadeToBlack
 
-loc_20151A:
+InitStageHandleRestart:
 	cmpi.w	#2,restart_stage
-	bne.s	loc_201536
+	bne.s	InitStageCheckLives
 	move.w	#0,restart_stage
 	move.b	#0,palette_fade_flags
-	bra.s	loc_20155E
+	bra.s	InitStageClearPalette
 
 ; ------------------------------------------------------------------------------
 
-loc_201536:
+InitStageCheckLives:
 	tst.b	lives
-	bne.s	loc_20157C
+	bne.s	InitStageDemoBoundary
 	move.b	#0,stage_start_flags
 	move.b	#0,respawn_checkpoint
 	move.b	#0,spawn_mode
 	move.b	#0,palette_fade_flags
 
-loc_20155E:
+InitStageClearPalette:
 	lea	palette,a1
 	move.w	#$1F,d6
 
-loc_201566:
+InitStageClearPaletteLoop:
 	move.l	#0,(a1)+
-	dbf	d6,loc_201566
+	dbf	d6,InitStageClearPaletteLoop
 	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20157C:
+InitStageDemoBoundary:
 	cmpi.w	#$800,demo_index
-	bne.s	loc_20159A
+	bne.s	InitStagePaletteSetup
 	move.w	#0,demo_index
 	clr.w	stage_demo
 	move.b	#0,palette_fade_flags
@@ -99,40 +98,40 @@ loc_20157C:
 
 ; ------------------------------------------------------------------------------
 
-loc_20159A:
+InitStagePaletteSetup:
 	moveq	#0,d0
 	btst	#0,palette_clear_flags
-	bne.s	loc_2015B0
+	bne.s	InitStageFuturePalette
 	btst	#7,time_zone
-	beq.s	loc_2015B6
+	beq.s	InitStageClearPaletteWords
 
-loc_2015B0:
+InitStageFuturePalette:
 	move.l	#$EEE0EEE,d0
 
-loc_2015B6:
+InitStageClearPaletteWords:
 	lea	palette,a1
 	move.w	#$1F,d6
 
-loc_2015BE:
+InitStageClearPaletteLoop2:
 	move.l	d0,(a1)+
-	dbf	d6,loc_2015BE
+	dbf	d6,InitStageClearPaletteLoop2
 
-loc_2015C4:
+InitStageWaitGfxQueue:
 	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	bsr.w	AdvanceGfxQueue
-	bne.s	loc_2015C4
+	bne.s	InitStageWaitGfxQueue
 	tst.l	gfx_queue
-	bne.s	loc_2015C4
+	bne.s	InitStageWaitGfxQueue
 	bsr.w	PlayStageMusic
 	moveq	#0,d0
 	lea	StageDataIndex,a2
 	moveq	#0,d0
 	move.b	(a2),d0
-	beq.s	loc_2015F0
+	beq.s	InitStageLoadCommonGfx
 	bsr.w	LoadGfxList
 
-loc_2015F0:
+InitStageLoadCommonGfx:
 	moveq	#1,d0
 	bsr.w	LoadGfxList
 	clr.b	powerup_changed
@@ -141,37 +140,37 @@ loc_2015F0:
 	moveq	#0,d0
 	move.w	#$FF,d1
 
-loc_20160C:
+InitStageClearObjectDrawQueue:
 	move.l	d0,(a1)+
-	dbf	d1,loc_20160C
+	dbf	d1,InitStageClearObjectDrawQueue
 	lea	flower_positions,a1
 	moveq	#0,d0
 	move.w	#$27F,d1
 
-loc_20161E:
+InitStageClearFlowerPositions:
 	move.l	d0,(a1)+
-	dbf	d1,loc_20161E
+	dbf	d1,InitStageClearFlowerPositions
 	lea	player_object,a1
 	moveq	#0,d0
 	move.w	#$7FF,d1
 
-loc_20162E:
+InitStageClearObjectPool:
 	move.l	d0,(a1)+
-	dbf	d1,loc_20162E
+	dbf	d1,InitStageClearObjectPool
 	lea	vblank_e_count,a1
 	moveq	#0,d0
 	move.w	#$15,d1
 
-loc_20163E:
+InitStageClearVBlankCounters:
 	move.l	d0,(a1)+
-	dbf	d1,loc_20163E
+	dbf	d1,InitStageClearVBlankCounters
 	lea	scroll_fg_x,a1
 	moveq	#0,d0
 	move.w	#$3F,d1
 
-loc_20164E:
+InitStageClearScrollState:
 	move.l	d0,(a1)+
-	dbf	d1,loc_20164E
+	dbf	d1,InitStageClearScrollState
 	move	#$2700,sr
 	move.l	#$213600,demo_data
 	if DEMO<>0
@@ -190,7 +189,7 @@ loc_20164E:
 	move.w	#$8ADF,hblank_vdp_reg
 	move.w	hblank_vdp_reg,(a6)
 	cmpi.b	#2,zone
-	bne.s	loc_2016E2
+	bne.s	InitStageWaterSetupDone
 	move.w	#$8014,(a6)
 	moveq	#0,d0
 	move.b	act,d0
@@ -209,7 +208,7 @@ loc_20164E:
 	clr.b	water_full
 	move.b	#1,water_speed
 
-loc_2016E2:
+InitStageWaterSetupDone:
 	move.w	#$1E,drown_timer
 	move	#$2300,sr
 	moveq	#3,d0
@@ -224,13 +223,13 @@ loc_2016E2:
 	jsr	ConvertStageCollision
 	bsr.w	LoadStageCollision
 
-loc_20171A:
+InitStageWaitForGfx:
 	move.b	#$C,vblank_routine
 	bsr.w	VSync
 	bsr.w	AdvanceGfxQueue
-	bne.s	loc_20171A
+	bne.s	InitStageWaitForGfx
 	tst.l	gfx_queue
-	bne.s	loc_20171A
+	bne.s	InitStageWaitForGfx
 	bsr.w	SpawnPlayer
 	move.b	#$1C,hud_score_object+obj.id
 	move.b	#$1C,hud_lives_object+obj.id
@@ -241,12 +240,12 @@ loc_20171A:
 	move.b	#$19,hud_icon_object+obj.id
 	move.b	#$A,hud_icon_object+obj.subtype
 	bset	#1,stage_start_flags
-	bne.s	loc_20177E
+	bne.s	InitStageResetInputTimers
 	move.b	#$3C,title_card_object+obj.id
 	move.b	#1,control_locked
 	clr.b	gfx_section_id
 
-loc_20177E:
+InitStageResetInputTimers:
 	move.b	#4,object_spawn_pool+obj.id
 	move.w	#0,player_joy_hold
 	move.w	#0,p1_joy_hold
@@ -255,12 +254,12 @@ loc_20177E:
 	move.w	#0,bored_timer_p2
 	moveq	#0,d0
 	tst.b	spawn_mode
-	bne.s	loc_2017BE
+	bne.s	InitStageResetPlayerState
 	move.w	d0,rings
 	move.l	d0,time
 	move.b	d0,lives_flags
 
-loc_2017BE:
+InitStageResetPlayerState:
 	move.b	d0,time_over
 	move.b	d0,shield
 	move.b	d0,invincible
@@ -281,69 +280,71 @@ loc_2017BE:
 	jsr	AnimateStageGfx
 	move.b	#1,fade_enable_display
 	bclr	#7,time_zone
-	beq.s	loc_20184E
+	beq.s	InitStageFadeFromBlack
 
-loc_201848:
+InitStageFadeFromWhite:
 	bsr.w	FadeFromWhite
-	bra.s	loc_20185C
+	bra.s	InitStageLoadWaterPalette
 
 ; ------------------------------------------------------------------------------
 
-loc_20184E:
+InitStageFadeFromBlack:
 	bclr	#0,palette_clear_flags
-	bne.s	loc_201848
+	bne.s	InitStageFadeFromWhite
 	bsr.w	FadeFromBlack
 
-loc_20185C:
+; R4 water stages load an additional palette before gameplay starts.
+InitStageLoadWaterPalette:
 	cmpi.b	#2,zone
-	bne.s	loc_20186C
+	bne.s	InitStageEnterPlay
 	moveq	#0,d0
 	bsr.w	LoadWaterPalette
 
-loc_20186C:
+InitStageEnterPlay:
 	bclr	#7,game_mode
 	move.b	#1,stage_started
 
-loc_20187A:
+; Per-frame loop: service VBlank, pause/restart input, then update and draw.
+StageMainLoop:
 	move.b	#8,vblank_routine
 	bsr.w	VSync
 	if REGION=USA
 	cmpi.b	#6,player_object+obj.routine
-	bcc.s	loc_201898
+	bcc.s	StageMainLoopPauseCheck
 	endif
 	tst.b	control_locked
-	bne.s	loc_201898
+	bne.s	StageMainLoopPauseCheck
 	btst	#7,p1_joy_tap
-	beq.s	loc_201898
+	beq.s	StageMainLoopPauseCheck
 	eori.b	#1,paused
 
-loc_201898:
+StageMainLoopPauseCheck:
 	btst	#0,paused
-	beq.w	loc_20191E
+	beq.w	StageMainLoopUpdate
 	bsr.w	PauseMusic
 	if DEMO<>0
 		tst.w	stage_demo
 		if R4_VARIANT=8
 			bne.s	R43DemoPauseSkipInput
 		else
-			bne.s	loc_2018FC
+			bne.s	StageMainLoopPauseAction
 		endif
 	endif
 	move.b	p1_joy_tap,d0
 	tst.b	time_attack
-	bne.s	loc_2018FC
+	bne.s	StageMainLoopPauseAction
 	andi.b	#$70,d0
 	if REGION=USA
-	beq.s	loc_20187A
+	beq.s	StageMainLoop
 	else
 	cmpi.b	#$70,d0
-	bne.s	loc_20187A
+	bne.s	StageMainLoop
 	endif
 	subq.b	#1,lives
-	bpl.s	loc_2018CA
+	bpl.s	StageMainLoopRestartLife
 	clr.b	lives
 
-loc_2018CA:
+StageMainLoopRestartLife:
 	move.w	#$E,d0
 	jsr	SubCpuCommand
 	bsr.w	ResetObjectStates
@@ -352,19 +353,19 @@ loc_2018CA:
 	move.b	#1,Z80_RAM+$1C3E
 	jsr	StartZ80
 	move.w	#1,restart_stage
-	bra.s	loc_20190A
+	bra.s	StageMainLoopRestart
 
 ; ------------------------------------------------------------------------------
 
-loc_2018FC:
+StageMainLoopPauseAction:
 	andi.b	#$70,d0
-	beq.w	loc_20187A
+	beq.w	StageMainLoop
 	if (DEMO<>0)&(R4_VARIANT=8)
 R43DemoPauseSkipInput:
 	endif
 	clr.b	lives
 
-loc_20190A:
+StageMainLoopRestart:
 	clr.b	paused
 	clr.w	stage_demo
 	clr.b	respawn_checkpoint
@@ -375,7 +376,7 @@ loc_20190A:
 
 ; ------------------------------------------------------------------------------
 
-loc_20191E:
+StageMainLoopUpdate:
 	bsr.w	UnpauseMusic
 	addq.w	#1,stage_frames
 	jsr	SpawnStageObjects
@@ -385,30 +386,30 @@ loc_20191E:
 	tst.w	restart_stage
 	bne.w	InitStage
 	tst.w	debug_mode
-	bne.s	loc_201966
+	bne.s	StageMainLoopUpdateScroll
 	cmpi.b	#6,player_object+obj.routine
-	bcs.s	loc_201966
+	bcs.s	StageMainLoopUpdateScroll
 	move.w	scroll_fg_y,bottom_bound
 	move.w	scroll_fg_y,target_bottom_bound
-	bra.s	loc_20196A
+	bra.s	StageMainLoopDraw
 
 ; ------------------------------------------------------------------------------
 
-loc_201966:
+StageMainLoopUpdateScroll:
 	bsr.w	UpdateScroll
 
-loc_20196A:
+StageMainLoopDraw:
 	bsr.w	CheckWaterCurrents
 	jsr	DrawObjects
 	tst.w	time_stop
-	bne.s	loc_201980
+	bne.s	StageMainLoopUpdateGraphics
 	bsr.w	CyclePalette
 
-loc_201980:
+StageMainLoopUpdateGraphics:
 	jsr	UpdateSectionGfx
 	bsr.w	AdvanceGfxQueue
 	bsr.w	UpdateGlobalAnims
-	bra.w	loc_20187A
+	bra.w	StageMainLoop
 
 ; ------------------------------------------------------------------------------
 
@@ -417,10 +418,10 @@ SpawnPlayer:
 	moveq	#1,d0
 	move.b	d0,0(a1)
 	tst.b	spawn_mode
-	beq.s	locret_2019AA
+	beq.s	SpawnPlayerDone
 	move.w	#$78,$30(a1)
 
-locret_2019AA:
+SpawnPlayerDone:
 	rts
 
 ; ------------------------------------------------------------------------------
