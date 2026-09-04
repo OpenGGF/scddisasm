@@ -2377,31 +2377,31 @@ L_FF344E:
 ; Wait for the VDP transfer busy counter to clear.
 TimeAttack_WaitVdpTransfer:
 	tst.w $ff3730.l
-L_FF3486:
+TimeAttack_WaitVdpTransferLoop:
 	bne.b TimeAttack_WaitVdpTransfer
-L_FF3488:
+TimeAttack_WaitVdpTransferReturn:
 	rts
 VInterrupt:
 	movem.l d0-d7/a0-a6, -(a7)
-L_FF348E:
+TimeAttack_VInterruptAcknowledgeSubCpu:
 	move.b #$1, $a12000.l
-L_FF3496:
+TimeAttack_VInterruptReadTransferCount:
 	move.w $ff3730.l, d0
-L_FF349C:
-	beq.b L_FF34B2
-L_FF349E:
+TimeAttack_VInterruptTransferPendingBranch:
+	beq.b TimeAttack_VInterruptAdvanceFrameCounter
+TimeAttack_VInterruptClearTransferCount:
 	clr.w $ff3730.l
-L_FF34A4:
+TimeAttack_VInterruptReadVdpStatus:
 	move.w $c00004.l, d1
-L_FF34AA:
-	move.w L_FF34BC(pc, d0.w), d0
-L_FF34AE:
+TimeAttack_VInterruptReadTransferOffset:
+	move.w TimeAttack_VInterruptReturn(pc, d0.w), d0
+TimeAttack_VInterruptDispatchTransfer:
 	jsr TimeAttack_VIntTransferDispatchTable(pc, d0.w)
-L_FF34B2:
+TimeAttack_VInterruptAdvanceFrameCounter:
 	addq.w #$1, $ffaa5a.l
-L_FF34B8:
+TimeAttack_VInterruptRestoreRegisters:
 	movem.l (a7)+, d0-d7/a0-a6
-L_FF34BC:
+TimeAttack_VInterruptReturn:
 	rte
 ; Dispatch offsets for VInterrupt transfer slots.
 TimeAttack_VIntTransferDispatchTable:
@@ -2409,169 +2409,169 @@ TimeAttack_VIntTransferDispatchTable:
 	dc.l	$002A004C,$00120080,$00B000FE,$010600D8
 ; Write the current transfer value to the VDP and finish the interrupt slot.
 TimeAttack_VIntWriteTransferValue:
-L_FF34D0:
+TimeAttack_VIntWriteTransferValueSetAddress:
 	move.l #$40020010, $c00004.l
-L_FF34DA:
+TimeAttack_VIntWriteTransferValueWrite:
 	move.w $ff3470.l, $c00000.l
-L_FF34E4:
-	bra.w L_FF3596
+TimeAttack_VIntWriteTransferValueFinish:
+	bra.w TimeAttack_UpdateControllerState
 ; Write the paired display coordinates to the VDP and finish the slot.
 TimeAttack_VIntWriteDisplayPair:
-L_FF34E8:
+TimeAttack_VIntWriteDisplayPairSetAddress:
 	move.l #$70000002, $c00004.l
-L_FF34F2:
+TimeAttack_VIntWriteDisplayPairWriteX:
 	move.w $ff3468.l, $c00000.l
-L_FF34FC:
+TimeAttack_VIntWriteDisplayPairWriteY:
 	move.w $ff346a.l, $c00000.l
-L_FF3506:
-	bra.w L_FF3596
+TimeAttack_VIntWriteDisplayPairFinish:
+	bra.w TimeAttack_UpdateControllerState
 ; DMA the primary work buffer to VRAM at $C000.
 TimeAttack_VIntDmaPrimaryBuffer:
-L_FF350A:
+TimeAttack_VIntDmaPrimaryBufferAcquireZ80:
 	bsr.w TimeAttack_HaltZ80
-L_FF350E:
+TimeAttack_VIntDmaPrimaryBufferControlPort:
 	lea.l $c00004.l, a5
-L_FF3514:
+TimeAttack_VIntDmaPrimaryBufferLengthHigh:
 	move.l #$94009340, (a5)
-L_FF351A:
+TimeAttack_VIntDmaPrimaryBufferLengthLow:
 	move.l #$96e89550, (a5)
-L_FF3520:
+TimeAttack_VIntDmaPrimaryBufferDmaLength:
 	move.w #$977f, (a5)
-L_FF3524:
+TimeAttack_VIntDmaPrimaryBufferDestination:
 	move.w #$c000, (a5)
-L_FF3528:
+TimeAttack_VIntDmaPrimaryBufferDmaMode:
 	move.w #$80, $ffaa5c.l
-L_FF3530:
+TimeAttack_VIntDmaPrimaryBufferStart:
 	move.w $ffaa5c.l, (a5)
-L_FF3536:
+TimeAttack_VIntDmaPrimaryBufferReleaseZ80:
 	bsr.w TimeAttack_ReleaseZ80
-L_FF353A:
-	bra.w L_FF3596
+TimeAttack_VIntDmaPrimaryBufferFinish:
+	bra.w TimeAttack_UpdateControllerState
 ; DMA the secondary work buffer to VRAM at $C060 and refresh its strip.
 TimeAttack_VIntDmaSecondaryBuffer:
-L_FF353E:
+TimeAttack_VIntDmaSecondaryBufferAcquireZ80:
 	bsr.w TimeAttack_HaltZ80
-L_FF3542:
+TimeAttack_VIntDmaSecondaryBufferControlPort:
 	lea.l $c00004.l, a5
-L_FF3548:
+TimeAttack_VIntDmaSecondaryBufferLengthHigh:
 	move.l #$94009310, (a5)
-L_FF354E:
+TimeAttack_VIntDmaSecondaryBufferLengthLow:
 	move.l #$96e89580, (a5)
-L_FF3554:
+TimeAttack_VIntDmaSecondaryBufferDmaLength:
 	move.w #$977f, (a5)
-L_FF3558:
+TimeAttack_VIntDmaSecondaryBufferDestination:
 	move.w #$c060, (a5)
-L_FF355C:
+TimeAttack_VIntDmaSecondaryBufferDmaMode:
 	move.w #$80, $ffaa5c.l
-L_FF3564:
+TimeAttack_VIntDmaSecondaryBufferStart:
 	move.w $ffaa5c.l, (a5)
-L_FF356A:
+TimeAttack_VIntDmaSecondaryBufferReleaseZ80:
 	bsr.w TimeAttack_ReleaseZ80
-L_FF356E:
+TimeAttack_VIntDmaSecondaryBufferCopyRowCount:
 	move.l #$11, -(a7)
-L_FF3574:
+TimeAttack_VIntDmaSecondaryBufferCopyRowWidth:
 	move.l #$40, -(a7)
-L_FF357A:
+TimeAttack_VIntDmaSecondaryBufferCopySourceOffset:
 	move.l #$f, -(a7)
-L_FF3580:
+TimeAttack_VIntDmaSecondaryBufferCopyDestination:
 	move.l #$41aa0003, -(a7)
-L_FF3586:
+TimeAttack_VIntDmaSecondaryBufferCopySource:
 	pea.l $ffce60.l
-L_FF358C:
+TimeAttack_VIntDmaSecondaryBufferCopy:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF3590:
+TimeAttack_VIntDmaSecondaryBufferCopyArguments:
 	lea.l $14(a7), a7
-L_FF3594:
+TimeAttack_VIntDmaSecondaryBufferReturn:
 	rts
 ; Latch held and newly pressed controller bits after each VDP transfer.
 TimeAttack_UpdateControllerState:
-L_FF3596:
+TimeAttack_UpdateControllerStateAcquireZ80:
 	bsr.w TimeAttack_HaltZ80
-L_FF359A:
+TimeAttack_UpdateControllerStateReadController:
 	bsr.w TimeAttack_ReadController1
-L_FF359E:
+TimeAttack_UpdateControllerStateReleaseZ80:
 	bsr.w TimeAttack_ReleaseZ80
-L_FF35A2:
+TimeAttack_UpdateControllerStatePrevious:
 	move.b $ff3734.l, d1
-L_FF35A8:
+TimeAttack_UpdateControllerStateCurrent:
 	move.b d0, $ff3734.l
-L_FF35AE:
+TimeAttack_UpdateControllerStateChanged:
 	move.b d0, d2
-L_FF35B0:
+TimeAttack_UpdateControllerStateChangedMask:
 	eor.b d1, d2
-L_FF35B2:
+TimeAttack_UpdateControllerStatePressedMask:
 	and.b d0, d2
-L_FF35B4:
+TimeAttack_UpdateControllerStateStorePressed:
 	move.b d2, $ff3735.l
-L_FF35BA:
+TimeAttack_UpdateControllerStateReturn:
 	rts
 ; Advance the animated tile-strip transfer for the active selection.
 TimeAttack_VIntAdvanceTileAnimation:
-L_FF35BC:
+TimeAttack_VIntAdvanceTileAnimationClearCounter:
 	move.w #$0, $ff3732.l
-L_FF35C4:
+TimeAttack_VIntAdvanceTileAnimationSetAddress:
 	move.l #$70000002, $c00004.l
-L_FF35CE:
+TimeAttack_VIntAdvanceTileAnimationWriteX:
 	move.w $ff3468.l, $c00000.l
-L_FF35D8:
+TimeAttack_VIntAdvanceTileAnimationWriteY:
 	move.w $ff346a.l, $c00000.l
-L_FF35E2:
+TimeAttack_VIntAdvanceTileAnimationCheckSelection:
 	tst.w $ff3468.l
-L_FF35E8:
-	bne.b L_FF365C
-L_FF35EA:
+TimeAttack_VIntAdvanceTileAnimationSelectionBranch:
+	bne.b TimeAttack_VIntAdvanceTileAnimationFinish
+TimeAttack_VIntAdvanceTileAnimationCheckStage:
 	cmpi.w #$5, $ff3474.l
-L_FF35F2:
-	bne.b L_FF365C
-L_FF35F4:
-	lea.l $ff3660(pc), a0
-L_FF35F8:
+TimeAttack_VIntAdvanceTileAnimationStageBranch:
+	bne.b TimeAttack_VIntAdvanceTileAnimationFinish
+TimeAttack_VIntAdvanceTileAnimationData:
+	lea.l TimeAttack_VIntTileAnimationData(pc), a0
+TimeAttack_VIntAdvanceTileAnimationReadFrame:
 	move.w $ff3732.l, d0
-L_FF35FE:
+TimeAttack_VIntAdvanceTileAnimationFrameOffset:
 	lsl.w #$2, d0
-L_FF3600:
+TimeAttack_VIntAdvanceTileAnimationFrameMask:
 	andi.w #$f0, d0
-L_FF3604:
+TimeAttack_VIntAdvanceTileAnimationFrameAddress:
 	adda.w d0, a0
-L_FF3606:
+TimeAttack_VIntAdvanceTileAnimationCopyDestination:
 	lea.l $ffd100.l, a1
-L_FF360C:
+TimeAttack_VIntAdvanceTileAnimationCopyFirst:
 	move.l (a0)+, (a1)+
-L_FF360E:
+TimeAttack_VIntAdvanceTileAnimationCopySecond:
 	move.l (a0)+, (a1)+
-L_FF3610:
+TimeAttack_VIntAdvanceTileAnimationCopyThird:
 	move.l (a0)+, (a1)+
-L_FF3612:
+TimeAttack_VIntAdvanceTileAnimationCopyFourth:
 	move.l (a0)+, (a1)+
-L_FF3614:
+TimeAttack_VIntAdvanceTileAnimationAcquireZ80:
 	bsr.w TimeAttack_HaltZ80
-L_FF3618:
+TimeAttack_VIntAdvanceTileAnimationControlPort:
 	lea.l $c00004.l, a5
-L_FF361E:
+TimeAttack_VIntAdvanceTileAnimationLengthHigh:
 	move.l #$94009308, (a5)
-L_FF3624:
+TimeAttack_VIntAdvanceTileAnimationLengthLow:
 	move.l #$96e89580, (a5)
-L_FF362A:
+TimeAttack_VIntAdvanceTileAnimationDmaLength:
 	move.w #$977f, (a5)
-L_FF362E:
+TimeAttack_VIntAdvanceTileAnimationDestination:
 	move.w #$c060, (a5)
-L_FF3632:
+TimeAttack_VIntAdvanceTileAnimationDmaMode:
 	move.w #$80, $ffaa5c.l
-L_FF363A:
+TimeAttack_VIntAdvanceTileAnimationStart:
 	move.w $ffaa5c.l, (a5)
-L_FF3640:
+TimeAttack_VIntAdvanceTileAnimationReleaseZ80:
 	bsr.w TimeAttack_ReleaseZ80
-L_FF3644:
+TimeAttack_VIntAdvanceTileAnimationIncrementCounter:
 	addq.w #$1, $ff3732.l
-L_FF364A:
+TimeAttack_VIntAdvanceTileAnimationCounterCheck:
 	cmpi.w #$34, $ff3732.l
-L_FF3652:
-	blt.b L_FF365C
-L_FF3654:
+TimeAttack_VIntAdvanceTileAnimationCounterBranch:
+	blt.b TimeAttack_VIntAdvanceTileAnimationFinish
+TimeAttack_VIntAdvanceTileAnimationResetCounter:
 	move.w #$0, $ff3732.l
-L_FF365C:
-	bra.w L_FF3596
-L_FF3660:
+TimeAttack_VIntAdvanceTileAnimationFinish:
+	bra.w TimeAttack_UpdateControllerState
+TimeAttack_VIntTileAnimationData:
 	ori.b #$e, d0
 	dc.l	$00CE0CE4,$0E0A0A0E,$04220406,$0000060E,$008E08E8,$0E680E2E,$04220406,$00000A0E,$004E04EA,$0EA40E0A,$04220406,$00000E2E,$000E00CE,$0CE40E68,$04220406,$00000E0A
 	dc.l	$060E008E,$08E80EA4,$04220406,$00000E68,$0A0E004E,$04EA0CE4,$04220406,$00000EA4,$0E2E000E,$00CE08E8,$04220406,$00000CE4,$0E0A060E,$008E04EA,$04220406,$000008E8
