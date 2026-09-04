@@ -2294,84 +2294,84 @@ L_FF338E:
 ; Wait for the requested number of V-blank transfer slots.
 TimeAttack_WaitFrames:
 	movem.l d0, -(a7)
-L_FF33AC:
+TimeAttack_WaitFramesLoadCount:
 	movem.l $8(a7), d0
-L_FF33B2:
+TimeAttack_WaitFramesSetTransferCount:
 	move.w #$10, $ff3730.l
-L_FF33BA:
+TimeAttack_WaitFramesWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF33BE:
-	dbra d0, L_FF33B2
-L_FF33C2:
+TimeAttack_WaitFramesLoop:
+	dbra d0, TimeAttack_WaitFramesSetTransferCount
+TimeAttack_WaitFramesRestore:
 	movem.l (a7)+, d0
-L_FF33C6:
+TimeAttack_WaitFramesReturn:
 	rts
 ; Select the regional Sub CPU command, send it, and wait for readiness.
 TimeAttack_SendSubCpuCommandWithReadyWait:
 	bsr.w TimeAttack_RequestSubCpu
-L_FF33CC:
+TimeAttack_SendSubCpuCommandWithReadyWaitSelectDefault:
 	move.w #$8b, d0
-L_FF33D0:
+TimeAttack_SendSubCpuCommandWithReadyWaitCheckRegion:
 	btst.b #$0, $ff0f1f.l
-L_FF33D8:
-	bne.b L_FF33DE
-L_FF33DA:
+TimeAttack_SendSubCpuCommandWithReadyWaitSkipAlternate:
+	bne.b TimeAttack_SendSubCpuCommandWithReadyWaitSend
+TimeAttack_SendSubCpuCommandWithReadyWaitSelectAlternate:
 	move.w #$87, d0
-L_FF33DE:
+TimeAttack_SendSubCpuCommandWithReadyWaitSend:
 	bsr.w TimeAttack_SendSubCpuCommand
-L_FF33E2:
+TimeAttack_SendSubCpuCommandWithReadyWaitWaitReady:
 	bra.w TimeAttack_WaitSubCpuReady
 ; Select and send the regional Sub CPU command without an extra wait.
 TimeAttack_SendSubCpuCommandNoWait:
 	bsr.w TimeAttack_RequestSubCpu
-L_FF33EA:
+TimeAttack_SendSubCpuCommandNoWaitSelectDefault:
 	move.w #$8c, d0
-L_FF33EE:
+TimeAttack_SendSubCpuCommandNoWaitCheckRegion:
 	btst.b #$0, $ff0f1f.l
-L_FF33F6:
-	bne.b L_FF33FC
-L_FF33F8:
+TimeAttack_SendSubCpuCommandNoWaitSkipAlternate:
+	bne.b TimeAttack_SendSubCpuCommandNoWaitSend
+TimeAttack_SendSubCpuCommandNoWaitSelectAlternate:
 	move.w #$88, d0
-L_FF33FC:
+TimeAttack_SendSubCpuCommandNoWaitSend:
 	bra.w TimeAttack_SendSubCpuCommand
 ; Send a command through the Sub CPU mailbox and wait for its acknowledgement.
 TimeAttack_SendSubCpuCommand:
 	move.w d0, $a12010.l
-L_FF3406:
+TimeAttack_SendSubCpuCommandReadResponse:
 	move.w $a12020.l, d0
-L_FF340C:
-	beq.b L_FF3406
-L_FF340E:
+TimeAttack_SendSubCpuCommandWaitResponse:
+	beq.b TimeAttack_SendSubCpuCommandReadResponse
+TimeAttack_SendSubCpuCommandCheckResponseStability:
 	cmp.w $a12020.l, d0
-L_FF3414:
-	bne.b L_FF3406
-L_FF3416:
+TimeAttack_SendSubCpuCommandRetryResponse:
+	bne.b TimeAttack_SendSubCpuCommandReadResponse
+TimeAttack_SendSubCpuCommandClear:
 	move.w #$0, $a12010.l
-L_FF341E:
+TimeAttack_SendSubCpuCommandReadCompletion:
 	move.w $a12020.l, d0
-L_FF3424:
-	bne.b L_FF341E
-L_FF3426:
+TimeAttack_SendSubCpuCommandWaitCompletion:
+	bne.b TimeAttack_SendSubCpuCommandReadCompletion
+TimeAttack_SendSubCpuCommandReadCompletionConfirm:
 	move.w $a12020.l, d0
-L_FF342C:
-	bne.b L_FF341E
-L_FF342E:
+TimeAttack_SendSubCpuCommandRetryCompletion:
+	bne.b TimeAttack_SendSubCpuCommandReadCompletion
+TimeAttack_SendSubCpuCommandReturn:
 	rts
 ; Wait until the Sub CPU ready bit is asserted.
 TimeAttack_WaitSubCpuReady:
 	btst.b #$0, $a12003.l
-L_FF3438:
+TimeAttack_WaitSubCpuReadyPoll:
 	beq.b TimeAttack_WaitSubCpuReady
-L_FF343A:
+TimeAttack_WaitSubCpuReadyReturn:
 	rts
 ; Request the Sub CPU handoff and wait until the request bit is set.
 TimeAttack_RequestSubCpu:
 	bset.b #$1, $a12003.l
-L_FF3444:
+TimeAttack_RequestSubCpuPoll:
 	btst.b #$1, $a12003.l
-L_FF344C:
+TimeAttack_RequestSubCpuRetry:
 	beq.b TimeAttack_RequestSubCpu
-L_FF344E:
+TimeAttack_RequestSubCpuReturn:
 	rts
 	dc.l	$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000,$00000000
 ; Wait for the VDP transfer busy counter to clear.
