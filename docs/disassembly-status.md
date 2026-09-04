@@ -73,8 +73,9 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M416 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
-initialization, splash, routine-dispatch, camera, and main-update helpers.
+M415-M417 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+initialization, splash, routine-dispatch, camera, main-update, power-up, and
+water-state helpers.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 

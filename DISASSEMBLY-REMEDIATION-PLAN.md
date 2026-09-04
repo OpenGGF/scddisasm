@@ -627,6 +627,7 @@ opaque merely because they use `dc.*`.
 | M414 | Complete | Canonicalize the R6 player boredom, initialization, splash, and routine-dispatch helper family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M415 | Complete | Canonicalize the shared player boredom, initialization, splash, and routine-dispatch helper family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M416 | Complete | Canonicalize the shared player camera and main-update control-flow family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M417 | Complete | Canonicalize the shared player power-up timer and water-state transition family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

@@ -352,66 +352,66 @@ S1StageMusicIds2:
 
 PlayerUpdatePowerups:
 	cmpi.w	#210,warp_timer
-	bcc.s	loc_203DE8
+	bcc.s	PlayerUpdatePowerupsAfterBlink
 	move.w	obj.var_30(a0),d0
-	beq.s	loc_203DDA
+	beq.s	PlayerUpdatePowerupsBlinkReady
 	subq.w	#1,obj.var_30(a0)
 	lsr.w	#3,d0
-	bcc.s	loc_203DE8
+	bcc.s	PlayerUpdatePowerupsAfterBlink
 
-loc_203DDA:
+PlayerUpdatePowerupsBlinkReady:
 	btst	#6,obj.var_2c(a0)
-	bne.s	loc_203DE8
+	bne.s	PlayerUpdatePowerupsAfterBlink
 	jsr	DrawObject
 
-loc_203DE8:
+PlayerUpdatePowerupsAfterBlink:
 	tst.b	invincible
-	beq.s	loc_203E2C
+	beq.s	PlayerUpdatePowerupsSpeedShoes
 	tst.w	obj.var_32(a0)
-	beq.s	loc_203E2C
+	beq.s	PlayerUpdatePowerupsSpeedShoes
 	subq.w	#1,obj.var_32(a0)
-	bne.s	loc_203E2C
+	bne.s	PlayerUpdatePowerupsSpeedShoes
 	tst.b	speed_shoes
-	bne.s	loc_203E24
+	bne.s	PlayerUpdatePowerupsPlayMusic
 	tst.b	boss_music
-	bne.s	loc_203E24
+	bne.s	PlayerUpdatePowerupsPlayMusic
 	tst.b	time_zone
-	bne.s	loc_203E1E
+	bne.s	PlayerUpdatePowerupsRestoreMusic
 	move.w	#$E,d0
 	jsr	SubCpuCommand
 
-loc_203E1E:
+PlayerUpdatePowerupsRestoreMusic:
 	jsr	PlayStageMusic
 
-loc_203E24:
+PlayerUpdatePowerupsPlayMusic:
 	move.b	#0,invincible
 
-loc_203E2C:
+PlayerUpdatePowerupsSpeedShoes:
 	tst.b	speed_shoes
-	beq.s	locret_203E82
+	beq.s	PlayerUpdatePowerupsReturn
 	tst.w	obj.var_34(a0)
-	beq.s	locret_203E82
+	beq.s	PlayerUpdatePowerupsReturn
 	subq.w	#1,obj.var_34(a0)
-	bne.s	locret_203E82
+	bne.s	PlayerUpdatePowerupsReturn
 	move.w	#$600,player_max_speed
 	move.w	#$C,player_acceleration
 	move.w	#$80,player_deceleration
 	tst.b	invincible
-	bne.s	loc_203E7A
+	bne.s	PlayerUpdatePowerupsSpeedShoesPlayMusic
 	tst.b	boss_music
-	bne.s	loc_203E7A
+	bne.s	PlayerUpdatePowerupsSpeedShoesPlayMusic
 	tst.b	time_zone
-	bne.s	loc_203E74
+	bne.s	PlayerUpdatePowerupsSpeedShoesRestoreMusic
 	move.w	#$E,d0
 	jsr	SubCpuCommand
 
-loc_203E74:
+PlayerUpdatePowerupsSpeedShoesRestoreMusic:
 	jsr	PlayStageMusic
 
-loc_203E7A:
+PlayerUpdatePowerupsSpeedShoesPlayMusic:
 	move.b	#0,speed_shoes
 
-locret_203E82:
+PlayerUpdatePowerupsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -429,25 +429,25 @@ PlayerBufferPosition:
 
 PlayerCheckWater:
 	cmpi.b	#2,zone
-	beq.s	loc_203EAA
+	beq.s	PlayerCheckWaterActive
 
-locret_203EA8:
+PlayerCheckWaterReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_203EAA:
+PlayerCheckWaterActive:
 	cmpi.b	#1,act
-	bne.s	loc_203EBC
+	bne.s	PlayerCheckWaterEnter
 	cmpi.w	#$C8,obj.x(a0)
-	bcs.s	locret_203EA8
+	bcs.s	PlayerCheckWaterReturn
 
-loc_203EBC:
+PlayerCheckWaterEnter:
 	move.w	water_y,d0
 	cmp.w	obj.y(a0),d0
-	bge.s	loc_203F00
+	bge.s	PlayerCheckWaterSurface
 	bset	#6,obj.flags(a0)
-	bne.s	locret_203EA8
+	bne.s	PlayerCheckWaterReturn
 	bsr.w	PlayerResetDrown
 	move.b	#$21,bubbles_object+obj.id
 	move.b	#$81,bubbles_object+obj.subtype
@@ -457,35 +457,35 @@ loc_203EBC:
 	asr.w	obj.x_speed(a0)
 	asr.w	obj.y_speed(a0)
 	asr.w	obj.y_speed(a0)
-	beq.s	locret_203EA8
-	bra.s	loc_203F38
+	beq.s	PlayerCheckWaterReturn
+	bra.s	PlayerCheckWaterSpawnBubbles
 
 ; ------------------------------------------------------------------------------
 
-loc_203F00:
+PlayerCheckWaterSurface:
 	tst.w	obj.y_speed(a0)
-	beq.s	loc_203F08
-	bpl.s	locret_203EA8
+	beq.s	PlayerCheckWaterExit
+	bpl.s	PlayerCheckWaterReturn
 
-loc_203F08:
+PlayerCheckWaterExit:
 	bclr	#6,obj.flags(a0)
-	beq.s	locret_203EA8
+	beq.s	PlayerCheckWaterReturn
 	move.w	#$600,player_max_speed
 	move.w	#$C,player_acceleration
 	move.w	#$80,player_deceleration
 	asl.w	obj.y_speed(a0)
-	beq.w	locret_203EA8
+	beq.w	PlayerCheckWaterReturn
 	cmpi.w	#-$1000,obj.y_speed(a0)
-	bgt.s	loc_203F38
+	bgt.s	PlayerCheckWaterSpawnBubbles
 	move.w	#-$1000,obj.y_speed(a0)
 
-loc_203F38:
+PlayerCheckWaterSpawnBubbles:
 	jsr	SpawnObject
-	bne.s	locret_203F4C
+	bne.s	PlayerCheckWaterSpawnReturn
 	move.b	#$B,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 
-locret_203F4C:
+PlayerCheckWaterSpawnReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
