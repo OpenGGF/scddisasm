@@ -642,6 +642,7 @@ opaque merely because they use `dc.*`.
 | M429 | Complete | Canonicalize the shared player death and restart lifecycle family, migrating its helper and internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M430 | Complete | Canonicalize the shared player chunk/loop detection and roll-entry family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M431 | Complete | Canonicalize the shared player animation frame selection, loop-control, and animation-state family, including its shrink-map helper. | J/U/E 133/133 each; audit/hygiene clean. |
+| M432 | Complete | Canonicalize the shared player graphics upload and flipper-interaction family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
