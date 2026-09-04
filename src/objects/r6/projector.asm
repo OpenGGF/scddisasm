@@ -2,44 +2,45 @@
 
 ProjectorObject:
 	tst.b	obj.subtype(a0)
-	bne.w	loc_20FB1C
+	bne.w	ProjectorHologramObject
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F93A(pc,d0.w),d0
-	jsr	off_20F93A(pc,d0.w)
+	move.w	ProjectorRoutineTable(pc,d0.w),d0
+	jsr	ProjectorRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	cmpi.b	#2,obj.routine(a0)
-	bgt.s	locret_20F938
+	bgt.s	ProjectorReturn
 	jsr	CheckObjectDespawn
 	tst.b	(a0)
-	bne.s	locret_20F938
+	bne.s	ProjectorReturn
 	move.w	#4,d0
 	jmp	AddGfxQueue
 
 ; ------------------------------------------------------------------------------
 
-locret_20F938:
+ProjectorReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-off_20F93A:
+; Projector object routine pointers.
+ProjectorRoutineTable:
 	dc.w	ProjectorObject_0_Routine0-*
-	dc.w	ProjectorObject_0_Routine2-off_20F93A
-	dc.w	ProjectorObject_0_Routine4-off_20F93A
-	dc.w	ProjectorObject_0_Routine6-off_20F93A
-	dc.w	ProjectorObject_0_Routine8-off_20F93A
+	dc.w	ProjectorObject_0_Routine2-ProjectorRoutineTable
+	dc.w	ProjectorObject_0_Routine4-ProjectorRoutineTable
+	dc.w	ProjectorObject_0_Routine6-ProjectorRoutineTable
+	dc.w	ProjectorObject_0_Routine8-ProjectorRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-loc_20F944:
+ProjectorDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
 ProjectorObject_0_Routine0:
 	tst.b	projector_destroyed
-	bne.s	loc_20F944
+	bne.s	ProjectorDelete
 	move.w	#5,d0
 	jsr	AddGfxQueue
 	addq.b	#2,obj.routine(a0)
@@ -50,15 +51,16 @@ ProjectorObject_0_Routine0:
 	move.b	#$C,obj.height(a0)
 	move.b	#$FB,obj.collide_type(a0)
 	move.l	#HologramSprites,obj.sprite_data(a0)
-	move.l	#byte_20FC1E,obj.var_2c(a0)
+	move.l	#ProjectorExplosionRecords,obj.var_2c(a0)
 	move.w	#$4E8,obj.sprite_tile(a0)
 	tst.b	act
-	beq.s	loc_20F9A8
+	beq.s	ProjectorSpawnHologram
 	move.w	#$300,obj.sprite_tile(a0)
 
-loc_20F9A8:
+
+ProjectorSpawnHologram:
 	jsr	SpawnObject
-	bne.w	loc_20F944
+	bne.w	ProjectorDelete
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -67,7 +69,7 @@ loc_20F9A8:
 	move.b	#$FF,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
 	jsr	SpawnObject
-	bne.w	loc_20F944
+	bne.w	ProjectorDelete
 	move.b	obj.id(a0),obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -76,7 +78,7 @@ loc_20F9A8:
 	move.b	#1,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
 	jsr	SpawnObject
-	bne.w	loc_20F944
+	bne.w	ProjectorDelete
 	move.b	#$29,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -85,7 +87,7 @@ loc_20F9A8:
 	move.b	#$80,obj.subtype(a1)
 	move.w	a0,obj.var_3e(a1)
 	jsr	SpawnObject
-	bne.w	loc_20F944
+	bne.w	ProjectorDelete
 	move.b	#$29,obj.id(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
@@ -96,11 +98,11 @@ loc_20F9A8:
 
 ProjectorObject_0_Routine2:
 	tst.b	obj.collide_status(a0)
-	beq.s	loc_20FA78
+	beq.s	ProjectorSolidCollision
 	clr.w	obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
 
-loc_20FA78:
+ProjectorSolidCollision:
 	lea	player_object,a1
 	jmp	SolidObject
 
@@ -120,17 +122,17 @@ ProjectorObject_0_Routine4:
 ProjectorObject_0_Routine6:
 	movea.l	obj.var_2c(a0),a6
 	move.b	(a6)+,d0
-	bmi.s	loc_20FAFE
+	bmi.s	ProjectorStartShutdown
 	addq.b	#1,obj.var_2a(a0)
 	cmp.b	obj.var_2a(a0),d0
-	bne.s	locret_20FAFC
+	bne.s	ProjectorExplosionReturn
 	move.b	(a6)+,d5
 	move.b	(a6)+,d6
 	move.l	a6,obj.var_2c(a0)
 	ext.w	d5
 	ext.w	d6
 	jsr	SpawnObject
-	bne.s	locret_20FAFC
+	bne.s	ProjectorExplosionReturn
 	move.b	#$18,obj.id(a1)
 	move.b	#1,obj.routine_2(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -140,12 +142,12 @@ ProjectorObject_0_Routine6:
 	move.w	#$9E,d0
 	jsr	PlayFmSound
 
-locret_20FAFC:
+ProjectorExplosionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20FAFE:
+ProjectorStartShutdown:
 	addq.b	#2,obj.routine(a0)
 	move.w	#$3C,obj.var_2a(a0)
 	rts
@@ -154,51 +156,52 @@ loc_20FAFE:
 
 ProjectorObject_0_Routine8:
 	subq.w	#1,obj.var_2a(a0)
-	bne.s	locret_20FB1A
+	bne.s	ProjectorShutdownReturn
 	st	projector_destroyed
-	bra.w	loc_20F944
+	bra.w	ProjectorDelete
 
 ; ------------------------------------------------------------------------------
 
-locret_20FB1A:
+ProjectorShutdownReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20FB1C:
+ProjectorHologramObject:
 	movea.w	obj.var_3e(a0),a1
 	cmpi.b	#$2F,obj.id(a1)
-	bne.w	loc_20F944
+	bne.w	ProjectorDelete
 	tst.b	obj.var_3f(a1)
-	bne.w	loc_20F944
+	bne.w	ProjectorDelete
 	tst.b	obj.routine(a0)
-	bne.s	loc_20FB86
+	bne.s	ProjectorAnimateHologram
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
 	move.l	#HologramSprites,obj.sprite_data(a0)
 	move.w	#$4E8,obj.sprite_tile(a0)
 	tst.b	act
-	beq.s	loc_20FB64
+	beq.s	ProjectorSelectHologramDimensions
 	move.w	#$300,obj.sprite_tile(a0)
 
-loc_20FB64:
+
+ProjectorSelectHologramDimensions:
 	moveq	#8,d0
 	moveq	#4,d1
 	moveq	#0,d2
 	tst.b	obj.subtype(a0)
-	bmi.s	loc_20FB76
+	bmi.s	ProjectorStoreHologramDimensions
 	moveq	#$14,d0
 	moveq	#$18,d1
 	moveq	#1,d2
 
-loc_20FB76:
+ProjectorStoreHologramDimensions:
 	move.b	d0,obj.width(a0)
 	move.b	d0,obj.width_2(a0)
 	move.b	d1,obj.height(a0)
 	move.b	d2,obj.anim_id(a0)
 
-loc_20FB86:
+ProjectorAnimateHologram:
 	lea	HologramAnims(pc),a1
 	jsr	AnimateObject
 	jmp	DrawObject
@@ -213,7 +216,8 @@ HologramSprites:
 	include	"sprites/hologram.asm"
 	even
 
-byte_20FC1E:
+; Explosion records: delay and x/y debris offsets, terminated by $FF.
+ProjectorExplosionRecords:
 	dc.b	1, 0, 0
 	dc.b	5, $EE, $F6
 	dc.b	$A, $F6, $A
