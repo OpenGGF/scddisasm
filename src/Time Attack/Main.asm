@@ -510,7 +510,7 @@ TimeAttack_StartDrawSelectionHighlightUp:
 TimeAttack_StartDrawSelectionHighlightUpCall:
 	bsr.w TimeAttack_DrawSelectionHighlight
 TimeAttack_StartSelectionHighlightUpReturn:
-	bra.w L_FF28FA
+	bra.w TimeAttack_EnterSelectedStage
 TimeAttack_StartDrawSelectionHighlightDown:
 	moveq #$1, d0
 TimeAttack_StartDrawSelectionHighlightDownCall:
@@ -884,160 +884,161 @@ TimeAttack_StartSelectionControllerPeriodBranch:
 TimeAttack_StartSelectionControllerStageCheck:
 	cmpi.w #$1, $ff347a.l
 TimeAttack_StartSelectionControllerStageBranch:
-	bne.w L_FF28FA
+	bne.w TimeAttack_EnterSelectedStage
 TimeAttack_StartSelectionControllerNextPeriod:
 	bsr.w TimeAttack_SelectNextTimePeriod
 TimeAttack_StartSelectionAnimationCheck:
 	move.w $ffaa5a.l, d0
-L_FF283C:
+TimeAttack_StartStageSelectionAnimationMask:
 	andi.w #$10, d0
-L_FF2840:
+TimeAttack_StartStageSelectionAnimationUploadIndexedData:
 	bsr.w TimeAttack_UploadIndexedStageData
-L_FF2844:
+TimeAttack_StartStageSelectionAnimationLoadIndex:
 	move.w $ff347a.l, d7
-L_FF284A:
+TimeAttack_StartStageSelectionAnimationCheckPrevious:
 	btst.b #$2, $ff3734.l
-L_FF2852:
-	beq.b L_FF2860
-L_FF2854:
+TimeAttack_StartStageSelectionAnimationPreviousBranch:
+	beq.b TimeAttack_StartStageSelectionAnimationCheckNext
+TimeAttack_StartStageSelectionAnimationPrevious:
 	subq.w #$1, d7
-L_FF2856:
+TimeAttack_StartStageSelectionAnimationCheckPreviousMode:
 	tst.w $ff3468.l
-L_FF285C:
-	bne.b L_FF2860
-L_FF285E:
+TimeAttack_StartStageSelectionAnimationPreviousModeBranch:
+	bne.b TimeAttack_StartStageSelectionAnimationCheckNext
+TimeAttack_StartStageSelectionAnimationPreviousWrap:
 	addq.w #$3, d7
-L_FF2860:
+TimeAttack_StartStageSelectionAnimationCheckNext:
 	btst.b #$3, $ff3734.l
-L_FF2868:
-	beq.b L_FF2876
-L_FF286A:
+TimeAttack_StartStageSelectionAnimationNextBranch:
+	beq.b TimeAttack_StartStageSelectionAnimationClampLowerCheck
+TimeAttack_StartStageSelectionAnimationNext:
 	addq.w #$1, d7
-L_FF286C:
+TimeAttack_StartStageSelectionAnimationCheckNextMode:
 	tst.w $ff3468.l
-L_FF2872:
-	bne.b L_FF2876
-L_FF2874:
+TimeAttack_StartStageSelectionAnimationNextModeBranch:
+	bne.b TimeAttack_StartStageSelectionAnimationClampLowerCheck
+TimeAttack_StartStageSelectionAnimationNextWrap:
 	subq.w #$3, d7
-L_FF2876:
+TimeAttack_StartStageSelectionAnimationClampLowerCheck:
 	cmpi.w #$0, d7
-L_FF287A:
-	bge.b L_FF2880
-L_FF287C:
+TimeAttack_StartStageSelectionAnimationClampLowerBranch:
+	bge.b TimeAttack_StartStageSelectionAnimationClampUpperCheck
+TimeAttack_StartStageSelectionAnimationClampLower:
 	move.w #$0, d7
-L_FF2880:
+TimeAttack_StartStageSelectionAnimationClampUpperCheck:
 	cmpi.w #$2, d7
-L_FF2884:
-	ble.b L_FF288A
-L_FF2886:
+TimeAttack_StartStageSelectionAnimationClampUpperBranch:
+	ble.b TimeAttack_StartStageSelectionAnimationCheckChanged
+TimeAttack_StartStageSelectionAnimationClampUpper:
 	move.w #$2, d7
-L_FF288A:
+TimeAttack_StartStageSelectionAnimationCheckChanged:
 	cmp.w $ff347a.l, d7
-L_FF2890:
-	beq.b L_FF28C4
-L_FF2892:
+TimeAttack_StartStageSelectionAnimationUnchangedBranch:
+	beq.b TimeAttack_StartStageSelectionAnimationCheckPeriodNavigation
+TimeAttack_StartStageSelectionAnimationPrepareNewMode:
 	moveq #$1, d0
-L_FF2894:
+TimeAttack_StartStageSelectionAnimationUploadNewMode:
 	bsr.w TimeAttack_UploadIndexedStageData
-L_FF2898:
+TimeAttack_StartStageSelectionAnimationStoreMode:
 	move.w d7, $ff347a.l
-L_FF289E:
+TimeAttack_StartStageSelectionAnimationClearCounter:
 	clr.w $ffaa5a.l
-L_FF28A4:
+TimeAttack_StartStageSelectionAnimationCount:
 	moveq #$f, d7
-L_FF28A6:
+TimeAttack_StartStageSelectionAnimationLoop:
 	move.w $ffaa5a.l, d0
-L_FF28AC:
+TimeAttack_StartStageSelectionAnimationMaskAgain:
 	andi.w #$10, d0
-L_FF28B0:
+TimeAttack_StartStageSelectionAnimationUploadFrame:
 	bsr.w TimeAttack_UploadIndexedStageData
-L_FF28B4:
+TimeAttack_StartStageSelectionAnimationTransferCount:
 	move.w #$10, $ff3730.l
-L_FF28BC:
+TimeAttack_StartStageSelectionAnimationWaitForFrameTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF28C0:
-	dbra d7, L_FF28A6
-L_FF28C4:
+TimeAttack_StartStageSelectionAnimationLoopCheck:
+	dbra d7, TimeAttack_StartStageSelectionAnimationLoop
+TimeAttack_StartStageSelectionAnimationCheckPeriodNavigation:
 	cmpi.w #$1, $ff347a.l
-L_FF28CC:
-	bne.b L_FF28EA
-L_FF28CE:
+TimeAttack_StartStageSelectionAnimationPeriodModeBranch:
+	bne.b TimeAttack_StartStageSelectionAnimationWait
+TimeAttack_StartStageSelectionAnimationCheckPreviousPeriod:
 	btst.b #$0, $ff3734.l
-L_FF28D6:
-	beq.b L_FF28DC
-L_FF28D8:
+TimeAttack_StartStageSelectionAnimationPreviousPeriodBranch:
+	beq.b TimeAttack_StartStageSelectionAnimationCheckNextPeriod
+TimeAttack_StartStageSelectionAnimationPreviousPeriod:
 	bsr.w TimeAttack_SelectPreviousTimePeriod
-L_FF28DC:
+TimeAttack_StartStageSelectionAnimationCheckNextPeriod:
 	btst.b #$1, $ff3734.l
-L_FF28E4:
-	beq.b L_FF28EA
-L_FF28E6:
+TimeAttack_StartStageSelectionAnimationNextPeriodBranch:
+	beq.b TimeAttack_StartStageSelectionAnimationWait
+TimeAttack_StartStageSelectionAnimationNextPeriod:
 	bsr.w TimeAttack_SelectNextTimePeriod
-L_FF28EA:
+TimeAttack_StartStageSelectionAnimationWait:
 	move.w #$10, $ff3730.l
-L_FF28F2:
+TimeAttack_StartStageSelectionAnimationWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF28F6:
+TimeAttack_StartStageSelectionAnimationLoopBack:
 	bra.w TimeAttack_StartReadSelectionController
-L_FF28FA:
+; Commit the selected stage/period and prepare the stage entry state.
+TimeAttack_EnterSelectedStage:
 	move.w #$e, d0
-L_FF28FE:
+TimeAttack_EnterSelectedStageSendCommand:
 	bsr.w TimeAttack_SendSubCpuCommand
-L_FF2902:
+TimeAttack_EnterSelectedStageUploadIndex:
 	moveq #$0, d0
-L_FF2904:
+TimeAttack_EnterSelectedStageUploadIndexedData:
 	bsr.w TimeAttack_UploadIndexedStageData
-L_FF2908:
+TimeAttack_EnterSelectedStageFadePalette:
 	bsr.w TimeAttack_FadePaletteOut
-L_FF290C:
+TimeAttack_EnterSelectedStageClearIndex:
 	moveq #$0, d0
-L_FF290E:
+TimeAttack_EnterSelectedStageCheckStageIndex:
 	tst.w $ff3474.l
-L_FF2914:
-	bmi.b L_FF297A
-L_FF2916:
+TimeAttack_EnterSelectedStageStageIndexBranch:
+	bmi.b TimeAttack_EnterSelectedStageReturn
+TimeAttack_EnterSelectedStageStoreStage:
 	move.b $ff3475.l, $ff1506.l
-L_FF2920:
+TimeAttack_EnterSelectedStageStorePeriod:
 	move.b $ff3479.l, $ff1507.l
-L_FF292A:
+TimeAttack_EnterSelectedStageCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF2930:
-	beq.b L_FF2972
-L_FF2932:
+TimeAttack_EnterSelectedStagePeriodModeBranch:
+	beq.b TimeAttack_EnterSelectedStageBuildPeriodIndex
+TimeAttack_EnterSelectedStageClearStageFlags:
 	move.b #$0, $ff151c.l
-L_FF293A:
+TimeAttack_EnterSelectedStageClearStageState:
 	move.b #$0, $ff156a.l
-L_FF2942:
+TimeAttack_EnterSelectedStageClearStageSubtype:
 	move.b #$0, $ff156d.l
-L_FF294A:
+TimeAttack_EnterSelectedStageDefaultAct:
 	moveq #$1, d0
-L_FF294C:
+TimeAttack_EnterSelectedStageCheckPeriodSubIndex:
 	cmpi.w #$2, $ff3478.l
-L_FF2954:
-	bne.b L_FF2958
-L_FF2956:
+TimeAttack_EnterSelectedStagePeriodSubIndexBranch:
+	bne.b TimeAttack_EnterSelectedStageStoreAct
+TimeAttack_EnterSelectedStageSpecialAct:
 	moveq #$2, d0
-L_FF2958:
+TimeAttack_EnterSelectedStageStoreAct:
 	move.b d0, $ff152e.l
-L_FF295E:
+TimeAttack_EnterSelectedStageLoadStageIndex:
 	move.w $ff3474.l, d0
-L_FF2964:
+TimeAttack_EnterSelectedStageScaleStageIndex:
 	mulu.w #$3, d0
-L_FF2968:
+TimeAttack_EnterSelectedStageAddPeriodSubIndex:
 	add.w $ff3478.l, d0
-L_FF296E:
+TimeAttack_EnterSelectedStageIncrementStageIndex:
 	addq.w #$1, d0
-L_FF2970:
-	bra.b L_FF297A
-L_FF2972:
+TimeAttack_EnterSelectedStageBuildStageIndex:
+	bra.b TimeAttack_EnterSelectedStageReturn
+TimeAttack_EnterSelectedStageBuildPeriodIndex:
 	moveq #$16, d0
-L_FF2974:
+TimeAttack_EnterSelectedStageAddPeriodIndex:
 	add.w $ff3474.l, d0
-L_FF297A:
+TimeAttack_EnterSelectedStageReturn:
 	nop
-L_FF297C:
+TimeAttack_EnterSelectedStageReturnPadding:
 	nop
-L_FF297E:
+TimeAttack_EnterSelectedStageDone:
 	rts
 	dc.l	$08390007,$00A1200F,$67F64E75,$08390007,$00A1200F,$66F64E75,$08390001,$00A12003,$661208F9,$000100A1,$20030839,$000100A1,$200367F6
 	dc.b	$4E,$75
