@@ -600,6 +600,7 @@ opaque merely because they use `dc.*`.
 | M387 | Complete | Canonicalize the ending-FMV event-playback setup, Word RAM handshake, and name-table clear anchors. | J/U/E 133/133 each; audit/hygiene clean. |
 | M388 | Complete | Canonicalize the ending-FMV source-image startup initializer and VDP map uploader. | J/U/E 133/133 each; audit/hygiene clean. |
 | M389 | Complete | Canonicalize the ending-FMV tile-buffer initialization, snapshot, restore, and row-adjustment helpers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M390 | Complete | Canonicalize the ending-FMV Z80 bus and VBlank synchronization helpers and migrate their callers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

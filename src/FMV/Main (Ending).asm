@@ -14887,7 +14887,7 @@ Ending_ImageStartupEnableVdpUpdates:
 Ending_ImageStartupPrepareDisplay:
 	bsr.w	Ending_ImageSnapshotTileBuffer
 Ending_ImageStartupWaitForFrame:
-	bsr.w	L_FFC862
+	bsr.w	Ending_WaitForVBlank
 Ending_ImageStartupRestoreDisplay:
 	bsr.w	Ending_ImageRestoreTileBuffer
 	if REGION=USA
@@ -14895,7 +14895,7 @@ Ending_ImageStartupSetDelay:
 	move.w	#$258, EndingDelay
 	endif
 Ending_ImageStartupWaitLoop:
-	bsr.w	L_FFC862
+	bsr.w	Ending_WaitForVBlank
 	if REGION=USA
 Ending_ImageStartupCheckDelay:
 	tst.w	EndingDelay
@@ -14938,7 +14938,7 @@ EndingVInterrupt:
 	beq.b	.End
 	bset.b	#$6, $ff0f17.l
 	move.w	$ff0f16.l, $c00004.l
-	bsr.w	L_FFC800
+	bsr.w	Ending_AcquireZ80Bus
 	move.w	$c00004.l, d0
 	bclr.b	#$1, $ff0f00.l
 	beq.b	.SkipVDP
@@ -14953,7 +14953,7 @@ EndingVInterrupt:
 	move.w	$FFFFb200.w, $c00000.l
 .SkipVDP:
 	jsr	ReadControllers(pc)
-	bsr.w	L_FFC81C
+	bsr.w	Ending_ReleaseZ80Bus
 	if REGION=USA
 	tst.w	EndingDelay
 	beq.b	.End
@@ -15080,7 +15080,7 @@ Ending_ImageAdjustTileBufferRowsStore:
 Ending_ImageAdjustTileBufferRowsMarkDirty:
 	bset.b	#$1, $ff0f00.l
 Ending_ImageAdjustTileBufferRowsReturnToVBlank:
-	bra.w	L_FFC862
+	bra.w	Ending_WaitForVBlank
 ; Save the transformed tile buffer while clearing its active copy.
 Ending_ImageSnapshotTileBuffer:
 	lea.l	$FFFFb200.w, a1
@@ -15181,7 +15181,7 @@ Ending_ImageRestoreTileBufferRowsMarkDirty:
 	bset.b	#$1, $ff0f00.l
 
 Ending_ImageRestoreTileBufferRowsReturnToVBlank:
-	bra.w	L_FFC862
+	bra.w	Ending_WaitForVBlank
 	dc.l	$11FC0001
 	dc.l	$B3007C07
 	dc.l	$7201611A
@@ -15266,7 +15266,7 @@ L_FFC4EC:
 L_FFC4F2:
 	move.b	#$c0, $a10003.l
 L_FFC4FA:
-	bsr.w	L_FFC800
+	bsr.w	Ending_AcquireZ80Bus
 L_FFC4FE:
 	move.l	#$40000000, $c00004.l
 L_FFC508:
@@ -15290,7 +15290,7 @@ L_FFC520:
 L_FFC52A:
 	move.l	#$0, $c00000.l
 L_FFC534:
-	bsr.w	L_FFC81C
+	bsr.w	Ending_ReleaseZ80Bus
 L_FFC538:
 	move.w	#$8134, $ff0f16.l
 L_FFC540:
@@ -15688,23 +15688,25 @@ RefillBits:
 	move.b	(a0)+, d5
 .Done:
 	rts
-L_FFC800:
+; Stop the Z80 while the ending VDP state is updated.
+Ending_AcquireZ80Bus:
 	move.w	sr, $FFFFb346.w
-L_FFC804:
+Ending_AcquireZ80BusMaskInterrupts:
 	move.w	#$2700, sr
-L_FFC808:
+Ending_AcquireZ80BusRequest:
 	move.w	#$100, $a11100.l
-L_FFC810:
+Ending_AcquireZ80BusWait:
 	btst.b	#$0, $a11100.l
-L_FFC818:
-	bne.b	L_FFC810
-L_FFC81A:
+Ending_AcquireZ80BusWaitCheck:
+	bne.b	Ending_AcquireZ80BusWait
+Ending_AcquireZ80BusReturn:
 	rts
-L_FFC81C:
+; Release the Z80 and restore the caller's interrupt mask.
+Ending_ReleaseZ80Bus:
 	move.w	#$0, $a11100.l
-L_FFC824:
+Ending_ReleaseZ80BusRestoreInterrupts:
 	move.w	$FFFFb346.w, sr
-L_FFC828:
+Ending_ReleaseZ80BusReturn:
 	rts
 ReadControllers:
 	lea.l	$a1201e.l, a5
@@ -15727,15 +15729,16 @@ ReadControllers:
 	and.b	d1, d0
 	move.b	d0, (a5)+
 	rts
-L_FFC862:
+; Wait until the ending VBlank flag is raised.
+Ending_WaitForVBlank:
 	bset.b	#$0, $ff0f00.l
-L_FFC86A:
+Ending_WaitForVBlankMaskInterrupts:
 	move.w	#$2500, sr
-L_FFC86E:
+Ending_WaitForVBlankWait:
 	btst.b	#$0, $ff0f00.l
-L_FFC876:
-	bne.b	L_FFC86E
-L_FFC878:
+Ending_WaitForVBlankWaitCheck:
+	bne.b	Ending_WaitForVBlankWait
+Ending_WaitForVBlankReturn:
 	rts
 SendSubCommand:
 	if REGION=USA
