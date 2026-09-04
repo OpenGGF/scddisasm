@@ -35,7 +35,7 @@ InitScroll:
 	move.w	(a0)+,d0
 	move.w	d0,scroll_focus_y
 	move.w	#$A0,scroll_focus_x
-	bra.w	R6ScrollInitCheckpoint
+	bra.w	R6ScrollInitSpawnPosition
 
 ; ------------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ R6ScrollCreditsSpawnTable:
 
 ; ------------------------------------------------------------------------------
 
-R6ScrollInitCheckpoint:
+R6ScrollInitSpawnPosition:
 	tst.b	spawn_mode
 	beq.s	R6ScrollInitStageSpawn
 	jsr	LoadCheckpoint
