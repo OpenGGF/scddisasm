@@ -687,6 +687,7 @@ opaque merely because they use `dc.*`.
 | M474 | Complete | Canonicalize the four R6 palette-cycle variants, migrating cycle wrap/return flow and all timing/color/boss-override records to shared semantic symbols with format comments. | J/U/E 133/133 each; audit/hygiene clean. |
 | M475 | Complete | Canonicalize the ten R6 stage-data loader variants, migrating queue-return, stage-map clearing, row loading, and row-copy loop callers to shared semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M476 | Complete | Canonicalize the shared title-card state machine and six regional character-layout tables, migrating routine dispatch, slide/wait continuations, character spawning, and layout data to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M477 | Complete | Canonicalize the R6 Act 3 C/D boss and escape graphics-list tails, migrating their indexed list references and graphics-list records to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

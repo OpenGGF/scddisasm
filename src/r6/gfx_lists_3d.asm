@@ -23,8 +23,8 @@ GfxLists:
 	dc.w	ResultsGfxList-GfxLists
 	dc.w	SectionGfxInitList0-GfxLists
 	dc.w	SignpostGfxList-GfxLists
-	dc.w	word_20E6DC-GfxLists
-	dc.w	word_20E6F0-GfxLists
+	dc.w	R6BossGfxList-GfxLists
+	dc.w	R6BossEscapeGfxList-GfxLists
 
 StageGfxList:
 	gfxStart
@@ -75,14 +75,16 @@ SignpostGfxList:
 	gfxEntry CapsuleGfx, $9020
 	gfxEnd
 
-word_20E6DC:
+; Act 3 boss-machine graphics list.
+R6BossGfxList:
 	gfxStart
 	gfxEntry BossMachineGfx, $6000
 	gfxEntry EggmanGfx, $7D80
 	gfxEntry BossFloorGfxD, $8800
 	gfxEnd
 
-word_20E6F0:
+; Act 3 escape and destruction graphics list.
+R6BossEscapeGfxList:
 	gfxStart
 	gfxEntry EggmanEscapeGfx, $6000
 	gfxEntry BossDestroyGfx, $7260
