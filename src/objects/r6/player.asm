@@ -2670,13 +2670,13 @@ PlayerCheckChunk:
 ; ------------------------------------------------------------------------------
 
 	cmpi.b	#5,zone
-	beq.s	loc_205708
+	beq.s	PlayerCheckChunkMapLookup
 	cmpi.b	#2,zone
-	beq.s	loc_205708
+	beq.s	PlayerCheckChunkMapLookup
 	tst.b	zone
-	bne.w	locret_2057CC
+	bne.w	PlayerCheckChunkReturn
 
-loc_205708:
+PlayerCheckChunkMapLookup:
 	move.w	obj.y(a0),d0
 	lsr.w	#1,d0
 	andi.w	#$380,d0
@@ -2686,86 +2686,87 @@ loc_205708:
 	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
 	cmp.b	roll_chunk_1,d1
-	bne.s	loc_205746
+	bne.s	PlayerCheckChunkRollMatch2
 	tst.b	zone
-	bne.w	loc_2057CE
+	bne.w	PlayerCheckChunkStartRoll
 	move.w	obj.y(a0),d0
 	andi.w	#$FF,d0
 	cmpi.w	#$90,d0
-	bcc.w	loc_2057CE
-	bra.s	loc_20574E
+	bcc.w	PlayerCheckChunkStartRoll
+	bra.s	PlayerCheckChunkLoopChecks
 
 ; ------------------------------------------------------------------------------
 
-loc_205746:
+PlayerCheckChunkRollMatch2:
 	cmp.b	roll_chunk_2,d1
-	beq.w	loc_2057CE
+	beq.w	PlayerCheckChunkStartRoll
 
-loc_20574E:
+PlayerCheckChunkLoopChecks:
 	cmp.b	loop_chunk_1,d1
-	beq.s	locret_20577E
+	beq.s	PlayerCheckChunkLoopMatch2Return
 	cmp.b	loop_chunk_2,d1
-	beq.s	loc_205762
+	beq.s	PlayerCheckChunkLoopMatch2
 	bclr	#6,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_205762:
+PlayerCheckChunkLoopMatch2:
 	cmpi.b	#5,zone
-	beq.w	loc_2057DE
+	beq.w	PlayerCheckChunkZone5Flip
 	btst	#1,obj.flags(a0)
-	beq.s	locret_20577E
+	beq.s	PlayerCheckChunkLoopMatch2Return
 	bclr	#6,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-locret_20577E:
+PlayerCheckChunkLoopMatch2Return:
 	rts
 
 ; ------------------------------------------------------------------------------
 
+PlayerCheckChunkLoopMatch1:
 	move.w	obj.x(a0),d2
 	cmpi.b	#$2C,d2
-	bcc.s	loc_205792
+	bcc.s	PlayerCheckChunkCheckXRight
 	bclr	#6,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_205792:
+PlayerCheckChunkCheckXRight:
 	cmpi.b	#$E0,d2
-	bcs.s	loc_2057A0
+	bcs.s	PlayerCheckChunkCheckAngle
 	bset	#6,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2057A0:
+PlayerCheckChunkCheckAngle:
 	btst	#6,obj.sprite_flags(a0)
-	bne.s	loc_2057BC
+	bne.s	PlayerCheckChunkAngleFlipSet
 	move.b	obj.angle(a0),d1
-	beq.s	locret_2057CC
+	beq.s	PlayerCheckChunkReturn
 	cmpi.b	#$80,d1
-	bhi.s	locret_2057CC
+	bhi.s	PlayerCheckChunkReturn
 	bset	#6,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2057BC:
+PlayerCheckChunkAngleFlipSet:
 	move.b	obj.angle(a0),d1
 	cmpi.b	#$80,d1
-	bls.s	locret_2057CC
+	bls.s	PlayerCheckChunkReturn
 	bclr	#6,obj.sprite_flags(a0)
 
-locret_2057CC:
+PlayerCheckChunkReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2057CE:
+PlayerCheckChunkStartRoll:
 	if REGION<>USA
 		move.w	#$9C,d0
 		jsr	PlayFmSound
@@ -2774,39 +2775,39 @@ loc_2057CE:
 
 ; ------------------------------------------------------------------------------
 
-loc_2057DE:
+PlayerCheckChunkZone5Flip:
 	tst.w	obj.y_speed(a0)
-	bmi.s	locret_205822
+	bmi.s	PlayerCheckChunkZone5Return
 	move.w	obj.y(a0),d1
 	andi.w	#$FF,d1
 	move.w	obj.x(a0),d0
 	andi.w	#$FF,d0
 	cmpi.w	#$80,d0
-	bcc.s	loc_205816
+	bcc.s	PlayerCheckChunkZone5CheckRight
 	cmpi.w	#$38,d1
-	bcs.s	loc_20580E
+	bcs.s	PlayerCheckChunkZone5SetFlip
 	cmpi.w	#$80,d1
-	bcs.s	locret_205822
+	bcs.s	PlayerCheckChunkZone5Return
 
-loc_205806:
+PlayerCheckChunkZone5ClearFlip:
 	bclr	#6,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20580E:
+PlayerCheckChunkZone5SetFlip:
 	bset	#6,obj.sprite_flags(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_205816:
+PlayerCheckChunkZone5CheckRight:
 	cmpi.w	#$38,d1
-	bcs.s	loc_205806
+	bcs.s	PlayerCheckChunkZone5ClearFlip
 	cmpi.w	#$80,d1
-	bcc.s	loc_20580E
+	bcc.s	PlayerCheckChunkZone5SetFlip
 
-locret_205822:
+PlayerCheckChunkZone5Return:
 	rts
 
 ; ------------------------------------------------------------------------------
