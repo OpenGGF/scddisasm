@@ -94,7 +94,7 @@ Ending_ClearObjectWorkLoop:
 	dbra	d7, Ending_ClearObjectWorkLoop
 	move.w	#$46a, $56(a2)
 	move.w	#$ee, $5e(a2)
-	jmp	L_FFC100.l
+	jmp	Ending_ImageStartupInitialize.l
 ; Wait for the Sub CPU to finish before leaving the ending FMV.
 Ending_WaitForSubCpuCompletion:
 	clr.w	$FFFFfa40.w
@@ -14843,91 +14843,93 @@ EndingJapanTilesC:
 	dc.l	$00000000
 	dc.b	$00,$00
 	endif
-L_FFC100:
+; Initialize the source-emitted ending image and wait for its completion.
+Ending_ImageStartupInitialize:
 	move.l	#EndingVInterrupt, $FFFFfd08.w
-L_FFC108:
+Ending_ImageStartupInitializeBuffers:
 	bsr.w	L_FFC2D6
-L_FFC10C:
+Ending_ImageStartupLoadVdpRegisters:
 	lea.l	EndingVDPRegisters(pc), a0
-L_FFC110:
+Ending_ImageStartupInitializeVdp:
 	bsr.w	L_FFC4C8
-L_FFC114:
+Ending_ImageStartupClearPlane:
 	move.l	#$64000003, $c00004.l
-L_FFC11E:
+Ending_ImageStartupClearVram:
 	move.l	#$0, $c00000.l
-L_FFC128:
+Ending_ImageStartupSetMapAddress:
 	move.l	#$40000000, $c00004.l
-L_FFC132:
+Ending_ImageStartupLoadArt:
 	lea.l	EndingArt(pc), a0
-L_FFC136:
+Ending_ImageStartupUploadArt:
 	bsr.w	L_FFC542
-L_FFC13A:
+Ending_ImageStartupLoadMap:
 	lea.l	EndingMap(pc), a1
-L_FFC13E:
+Ending_ImageStartupMapAddress:
 	move.l	#$45940003, d0
-L_FFC144:
+Ending_ImageStartupMapRowCount:
 	moveq	#$13, d1
-L_FFC146:
+Ending_ImageStartupMapPlaneCount:
 	moveq	#$2, d2
-L_FFC148:
-	bsr.w	L_FFC196
-L_FFC14C:
+Ending_ImageStartupUploadMap:
+	bsr.w	Ending_ImageUploadMap
+Ending_ImageStartupCopyVdpState:
 	lea.l	EndingVDPState(pc), a0
-L_FFC150:
+Ending_ImageStartupVdpStateDestination:
 	lea.l	$FFFFb200.w, a1
-L_FFC154:
+Ending_ImageStartupVdpStateCount:
 	moveq	#$1f, d7
-L_FFC156:
+Ending_ImageStartupVdpStateCopyLoop:
 	move.l	(a0)+, (a1)+
-L_FFC158:
-	dbra	d7, L_FFC156
-L_FFC15C:
+Ending_ImageStartupVdpStateCopyLoopCheck:
+	dbra	d7, Ending_ImageStartupVdpStateCopyLoop
+Ending_ImageStartupEnableVdpUpdates:
 	bset.b	#$1, $ff0f00.l
-L_FFC164:
+Ending_ImageStartupPrepareDisplay:
 	bsr.w	L_FFC33C
-L_FFC168:
+Ending_ImageStartupWaitForFrame:
 	bsr.w	L_FFC862
-L_FFC16C:
+Ending_ImageStartupRestoreDisplay:
 	bsr.w	L_FFC35A
 	if REGION=USA
-L_FFC170:
+Ending_ImageStartupSetDelay:
 	move.w	#$258, EndingDelay
 	endif
-L_FFC178:
+Ending_ImageStartupWaitLoop:
 	bsr.w	L_FFC862
 	if REGION=USA
-L_FFC17C:
+Ending_ImageStartupCheckDelay:
 	tst.w	EndingDelay
-L_FFC182:
-	beq.b	L_FFC190
+Ending_ImageStartupDelayComplete:
+	beq.b	Ending_ImageStartupFinalize
 	endif
-L_FFC184:
+Ending_ImageStartupCheckSubCpu:
 	btst.b	#$7, $a1201e.l
-L_FFC18C:
-	beq.w	L_FFC178
-L_FFC190:
+Ending_ImageStartupWaitForSubCpu:
+	beq.w	Ending_ImageStartupWaitLoop
+Ending_ImageStartupFinalize:
 	bsr.w	L_FFC2D6
-L_FFC194:
+Ending_ImageStartupReturn:
 	rts
-L_FFC196:
+; Upload one map block to each VDP plane.
+Ending_ImageUploadMap:
 	lea.l	$c00004.l, a2
-L_FFC19C:
+Ending_ImageUploadMapDataPort:
 	lea.l	$c00000.l, a3
-L_FFC1A2:
+Ending_ImageUploadMapPlaneStride:
 	move.l	#$800000, d4
-L_FFC1A8:
+Ending_ImageUploadMapPlaneLoop:
 	move.l	d0, (a2)
-L_FFC1AA:
+Ending_ImageUploadMapRowCount:
 	move.w	d1, d3
-L_FFC1AC:
+Ending_ImageUploadMapRowLoop:
 	move.w	(a1)+, (a3)
-L_FFC1AE:
-	dbra	d3, L_FFC1AC
-L_FFC1B2:
+Ending_ImageUploadMapRowLoopCheck:
+	dbra	d3, Ending_ImageUploadMapRowLoop
+Ending_ImageUploadMapAdvancePlane:
 	add.l	d4, d0
-L_FFC1B4:
-	dbra	d2, L_FFC1A8
-L_FFC1B8:
+Ending_ImageUploadMapPlaneLoopCheck:
+	dbra	d2, Ending_ImageUploadMapPlaneLoop
+Ending_ImageUploadMapReturn:
 	rts
 EndingVInterrupt:
 	movem.l	d0-d7/a0-a6, -(a7)
