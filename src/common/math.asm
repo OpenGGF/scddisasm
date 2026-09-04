@@ -62,59 +62,61 @@ Atan2:
 	move.w	d1,d3
 	move.w	d2,d4
 	or.w	d3,d4
-	beq.s	loc_200B36
+	beq.s	Atan2ZeroVector
 	move.w	d2,d4
 	tst.w	d3
-	bpl.w	loc_200AF4
+	bpl.w	Atan2NormalizeSecond
 	neg.w	d3
 
-loc_200AF4:
+Atan2NormalizeSecond:
 	tst.w	d4
-	bpl.w	loc_200AFC
+	bpl.w	Atan2SelectRatio
 	neg.w	d4
 
-loc_200AFC:
+Atan2SelectRatio:
 	cmp.w	d3,d4
-	bcc.w	loc_200B0E
+	bcc.w	Atan2YDominant
 	lsl.l	#8,d4
 	divu.w	d3,d4
 	moveq	#0,d0
 	move.b	ATan2Table(pc,d4.w),d0
-	bra.s	loc_200B18
+	bra.s	Atan2ApplyXQuadrant
 
 ; ------------------------------------------------------------------------------
 
-loc_200B0E:
+Atan2YDominant:
 	lsl.l	#8,d3
 	divu.w	d4,d3
 	moveq	#$40,d0
 	sub.b	ATan2Table(pc,d3.w),d0
 
-loc_200B18:
+
+Atan2ApplyXQuadrant:
 	tst.w	d1
-	bpl.w	loc_200B24
+	bpl.w	Atan2ApplyYQuadrant
 	neg.w	d0
 	addi.w	#$80,d0
 
-loc_200B24:
+Atan2ApplyYQuadrant:
 	tst.w	d2
-	bpl.w	loc_200B30
+	bpl.w	Atan2Return
 	neg.w	d0
 	addi.w	#$100,d0
 
-loc_200B30:
+Atan2Return:
 	movem.l	(sp)+,d3-d4
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200B36:
+Atan2ZeroVector:
 	move.w	#$40,d0
 	movem.l	(sp)+,d3-d4
 	rts
 
 ; ------------------------------------------------------------------------------
 
+; First-quadrant angle lookup indexed by an 8-bit slope ratio.
 ATan2Table:
 	dc.b	0,   0,   0,   0,   1
 	dc.b	1,   1,   1,   1,   1

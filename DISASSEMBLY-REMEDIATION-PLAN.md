@@ -705,6 +705,7 @@ opaque merely because they use `dc.*`.
 | M492 | Complete | Canonicalize the shared debug-mode speed, movement, block-read, object-selection, spawn, and player-reset family, migrating internal branches. | J/U/E 133/133 each; audit/hygiene clean. |
 | M493 | Complete | Canonicalize the shared Nemesis and Kosinski decompressor control-flow, literal/match, code-table, inline/extended-length, and row-emission families, migrating internal branches and documenting bitstream/table roles. | J/U/E 133/133 each; audit/hygiene clean. |
 | M494 | Complete | Canonicalize the shared VDP initialization, VRAM/plane-clear waits, sprite/scroll-table clearing loops, and register-default table, migrating internal branches and documenting the register format. | J/U/E 133/133 each; audit/hygiene clean. |
+| M495 | Complete | Canonicalize the shared `Atan2` quadrant selection, ratio, sign-adjustment, zero-vector, and lookup-table family, migrating internal branches and documenting the first-quadrant table. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
