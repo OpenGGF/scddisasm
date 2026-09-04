@@ -2731,83 +2731,83 @@ TimeAttack_StepPaletteChannelOutWaitVdpTransfer:
 ; Initialize all VDP registers from the 19-byte register table.
 TimeAttack_SetVdpRegisters:
 	movem.l d0-d1/a0, -(a7)
-L_FF380A:
+TimeAttack_SetVdpRegistersArguments:
 	movem.l $10(a7), a0
-L_FF3810:
+TimeAttack_SetVdpRegistersInitialCommand:
 	move.w #$8000, d0
-L_FF3814:
+TimeAttack_SetVdpRegistersCount:
 	moveq #$12, d1
-L_FF3816:
+TimeAttack_SetVdpRegistersLoop:
 	move.b (a0)+, d0
-L_FF3818:
+TimeAttack_SetVdpRegistersWrite:
 	move.w d0, $c00004.l
-L_FF381E:
+TimeAttack_SetVdpRegistersAdvance:
 	addi.w #$100, d0
-L_FF3822:
-	dbra d1, L_FF3816
-L_FF3826:
+TimeAttack_SetVdpRegistersLoopCheck:
+	dbra d1, TimeAttack_SetVdpRegistersLoop
+TimeAttack_SetVdpRegistersRestoreRegisters:
 	movem.l (a7)+, d0-d1/a0
-L_FF382A:
+TimeAttack_SetVdpRegistersReturn:
 	rts
 ; Fill a VDP rectangle with one word.
 TimeAttack_FillVdpRect:
 	movem.l d0-d5/a1-a2, -(a7)
-L_FF3830:
+TimeAttack_FillVdpRectArguments:
 	movem.l $24(a7), d0-d4
-L_FF3836:
+TimeAttack_FillVdpRectControlPort:
 	lea.l $c00004.l, a1
-L_FF383C:
+TimeAttack_FillVdpRectDataPort:
 	lea.l $c00000.l, a2
-L_FF3842:
+TimeAttack_FillVdpRectRowStrideWord:
 	add.w d3, d3
-L_FF3844:
+TimeAttack_FillVdpRectRowStrideLong:
 	swap d3
-L_FF3846:
+TimeAttack_FillVdpRectRowLoop:
 	move.l d1, (a1)
-L_FF3848:
+TimeAttack_FillVdpRectColumnCount:
 	move.w d2, d5
-L_FF384A:
+TimeAttack_FillVdpRectColumnLoop:
 	move.w d0, (a2)
-L_FF384C:
-	dbra d5, L_FF384A
-L_FF3850:
+TimeAttack_FillVdpRectColumnLoopCheck:
+	dbra d5, TimeAttack_FillVdpRectColumnLoop
+TimeAttack_FillVdpRectAdvanceRow:
 	add.l d3, d1
-L_FF3852:
-	dbra d4, L_FF3846
-L_FF3856:
+TimeAttack_FillVdpRectRowLoopCheck:
+	dbra d4, TimeAttack_FillVdpRectRowLoop
+TimeAttack_FillVdpRectRestoreRegisters:
 	movem.l (a7)+, d0-d5/a1-a2
-L_FF385A:
+TimeAttack_FillVdpRectReturn:
 	rts
 ; Copy a word rectangle from RAM to the VDP.
 TimeAttack_CopyVdpRect:
 	movem.l d0-d4/a0-a2, -(a7)
-L_FF3860:
+TimeAttack_CopyVdpRectArguments:
 	movem.l $24(a7), d0-d3/a0
-L_FF3866:
+TimeAttack_CopyVdpRectSourceRegister:
 	exg.l d0, a0
-L_FF3868:
+TimeAttack_CopyVdpRectControlPort:
 	lea.l $c00004.l, a1
-L_FF386E:
+TimeAttack_CopyVdpRectDataPort:
 	lea.l $c00000.l, a2
-L_FF3874:
+TimeAttack_CopyVdpRectRowStrideWord:
 	add.w d3, d3
-L_FF3876:
+TimeAttack_CopyVdpRectRowStrideLong:
 	swap d3
-L_FF3878:
+TimeAttack_CopyVdpRectRowLoop:
 	move.l d1, (a1)
-L_FF387A:
+TimeAttack_CopyVdpRectColumnCount:
 	move.w d2, d4
-L_FF387C:
+TimeAttack_CopyVdpRectColumnLoop:
 	move.w (a0)+, (a2)
-L_FF387E:
-	dbra d4, L_FF387C
-L_FF3882:
+TimeAttack_CopyVdpRectColumnLoopCheck:
+	dbra d4, TimeAttack_CopyVdpRectColumnLoop
+TimeAttack_CopyVdpRectAdvanceRow:
 	add.l d3, d1
-L_FF3884:
-	dbra d0, L_FF3878
-L_FF3888:
+TimeAttack_CopyVdpRectRowLoopCheck:
+	dbra d0, TimeAttack_CopyVdpRectRowLoop
+TimeAttack_CopyVdpRectRestoreRegisters:
 	movem.l (a7)+, d0-d4/a0-a2
-L_FF388C:
+TimeAttack_CopyVdpRectReturn:
 	rts
 	dc.b	$48,$E7
 	dc.l	$FC704CEF,$010F0028,$C18843F9,$00C00004,$45F900C0,$0000D643,$3A034843,$22813802,$2648349B,$51CCFFFC,$D283D1C5,$51C8FFEE,$4CDF0E3F,$4E7545F9,$00C00004,$47F900C0
