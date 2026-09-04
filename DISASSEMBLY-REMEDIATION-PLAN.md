@@ -691,6 +691,7 @@ opaque merely because they use `dc.*`.
 | M478 | Complete | Canonicalize the shared stage-object spawn, slot-allocation, and despawn control-flow family, migrating address-derived internal branches and documenting the stage-record/state-slot format. | J/U/E 133/133 each; audit/hygiene clean. |
 | M479 | Complete | Canonicalize the shared object update, movement, draw-queue, sprite-emission, delete, and visibility family, migrating address-derived internal branches and documenting the layer-camera table. | J/U/E 133/133 each; audit/hygiene clean. |
 | M480 | Complete | Canonicalize shared block lookup and horizontal/vertical collision probes, migrating address-derived branches and documenting stage-map and slope-table roles. | J/U/E 133/133 each; audit/hygiene clean. |
+| M481 | Complete | Canonicalize the retained stage-collision column-to-row converter, naming its transform loops and documenting why the retail conversion hook returns immediately. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

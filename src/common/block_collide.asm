@@ -566,86 +566,89 @@ CheckBlockX2NegativeHeight:
 ; ------------------------------------------------------------------------------
 
 ConvertStageCollision:
+	; Retail startup leaves the conversion hook as a no-op. The transform
+	; body below is retained for historical/offline collision-table generation.
 	rts
 
 ; ------------------------------------------------------------------------------
 
+ConvertStageCollisionBody:
 	lea	StageCollisionColumns,a1
 	lea	StageCollisionColumns,a2
 	move.w	#$FF,d3
 
-loc_20146A:
+ConvertCollisionColumnsOuterLoop:
 	moveq	#$10,d5
 	move.w	#$F,d2
 
-loc_201470:
+ConvertCollisionColumnsRowLoop:
 	moveq	#0,d4
 	move.w	#$F,d1
 
-loc_201476:
+ConvertCollisionColumnsBitLoop:
 	move.w	(a1)+,d0
 	lsr.l	d5,d0
 	addx.w	d4,d4
-	dbf	d1,loc_201476
+	dbf	d1,ConvertCollisionColumnsBitLoop
 	move.w	d4,(a2)+
 	suba.w	#$20,a1
 	subq.w	#1,d5
-	dbf	d2,loc_201470
+	dbf	d2,ConvertCollisionColumnsRowLoop
 	adda.w	#$20,a1
-	dbf	d3,loc_20146A
+	dbf	d3,ConvertCollisionColumnsOuterLoop
 	lea	StageCollisionColumns,a1
 	lea	StageCollisionRows,a2
-	bsr.s	sub_2014AE
+	bsr.s	ConvertCollisionColumnsToRows
 	lea	StageCollisionColumns,a1
 	lea	StageCollisionColumns,a2
 
 ; ------------------------------------------------------------------------------
 
-sub_2014AE:
+ConvertCollisionColumnsToRows:
 	move.w	#$FFF,d3
 
-loc_2014B2:
+ConvertCollisionRowsEntryLoop:
 	moveq	#0,d2
 	move.w	#$F,d1
 	move.w	(a1)+,d0
-	beq.s	loc_2014E0
-	bmi.s	loc_2014CA
+	beq.s	ConvertCollisionRowsEmpty
+	bmi.s	ConvertCollisionRowsNegativeEntry
 
-loc_2014BE:
+ConvertCollisionRowsPositiveLoop:
 	lsr.w	#1,d0
-	bcc.s	loc_2014C4
+	bcc.s	ConvertCollisionRowsPositiveDone
 	addq.b	#1,d2
 
-loc_2014C4:
-	dbf	d1,loc_2014BE
-	bra.s	loc_2014E2
+ConvertCollisionRowsPositiveDone:
+	dbf	d1,ConvertCollisionRowsPositiveLoop
+	bra.s	ConvertCollisionRowsStore
 
 ; ------------------------------------------------------------------------------
 
-loc_2014CA:
+ConvertCollisionRowsNegativeEntry:
 	cmpi.w	#$FFFF,d0
-	beq.s	loc_2014DC
+	beq.s	ConvertCollisionRowsFullSolid
 
-loc_2014D0:
+ConvertCollisionRowsNegativeLoop:
 	lsl.w	#1,d0
-	bcc.s	loc_2014D6
+	bcc.s	ConvertCollisionRowsNegativeDone
 	subq.b	#1,d2
 
-loc_2014D6:
-	dbf	d1,loc_2014D0
-	bra.s	loc_2014E2
+ConvertCollisionRowsNegativeDone:
+	dbf	d1,ConvertCollisionRowsNegativeLoop
+	bra.s	ConvertCollisionRowsStore
 
 ; ------------------------------------------------------------------------------
 
-loc_2014DC:
+ConvertCollisionRowsFullSolid:
 	move.w	#$10,d0
 
-loc_2014E0:
+ConvertCollisionRowsEmpty:
 	move.w	d0,d2
 
-loc_2014E2:
+ConvertCollisionRowsStore:
 	move.b	d2,(a2)+
-	dbf	d3,loc_2014B2
+	dbf	d3,ConvertCollisionRowsEntryLoop
 	rts
 
 ; ------------------------------------------------------------------------------
