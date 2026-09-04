@@ -851,34 +851,34 @@ PlayerCheckWarpReturn:
 
 PlayerGroundState:
 	tst.b	sneeze_flag
-	beq.s	loc_204632
+	beq.s	PlayerGroundStateCheckBored
 	cmpi.b	#5,obj.anim_id(a0)
-	bne.s	locret_20468C
+	bne.s	PlayerGroundStateReturn
 	clr.b	sneeze_flag
 
-loc_204632:
+PlayerGroundStateCheckBored:
 	bsr.w	PlayerCheckBored
 	cmpi.b	#$2B,obj.anim_id(a0)
-	bne.s	loc_204662
+	bne.s	PlayerGroundStateUpdate
 	tst.b	shrunk_player
-	beq.s	loc_204650
+	beq.s	PlayerGroundStateCheckNormalFrame
 	cmpi.b	#$79,obj.sprite_frame(a0)
-	bne.s	locret_20468C
-	bra.s	loc_204658
+	bne.s	PlayerGroundStateReturn
+	bra.s	PlayerGroundStateFall
 
 ; ------------------------------------------------------------------------------
 
-loc_204650:
+PlayerGroundStateCheckNormalFrame:
 	cmpi.b	#$17,obj.sprite_frame(a0)
-	bcs.s	locret_20468C
+	bcs.s	PlayerGroundStateReturn
 
-loc_204658:
+PlayerGroundStateFall:
 	bsr.w	PlayerCheckBounds
 	jmp	MoveObjectFall
 
 ; ------------------------------------------------------------------------------
 
-loc_204662:
+PlayerGroundStateUpdate:
 	bsr.w	PlayerCheckBooster3d
 	bsr.w	PlayerCheckWarp
 	bsr.w	PlayerCheckJump
@@ -890,27 +890,27 @@ loc_204662:
 	bsr.w	PlayerGroundCollide
 	bsr.w	PlayerCheckFall
 
-locret_20468C:
+PlayerGroundStateReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerFallState:
 	tst.w	obj.y_speed(a0)
-	bmi.s	loc_2046A2
+	bmi.s	PlayerFallStateCheckHangBar
 	cmpi.b	#$2C,obj.anim_id(a0)
-	beq.s	loc_2046A2
+	beq.s	PlayerFallStateCheckHangBar
 	move.b	#0,obj.anim_id(a0)
 
-loc_2046A2:
+PlayerFallStateCheckHangBar:
 	btst	#2,obj.var_2c(a0)
-	beq.s	loc_2046B0
+	beq.s	PlayerFallStateMove
 	bsr.w	PlayerHangBar
-	bra.s	loc_2046DC
+	bra.s	PlayerFallStateCollideAir
 
 ; ------------------------------------------------------------------------------
 
-loc_2046B0:
+PlayerFallStateMove:
 	bsr.w	PlayerCheckBooster3d
 	bsr.w	PlayerCheckWarp
 	bsr.w	PlayerJumpHeight
@@ -918,13 +918,13 @@ loc_2046B0:
 	bsr.w	PlayerCheckBounds
 	jsr	MoveObjectFall
 	btst	#6,obj.flags(a0)
-	beq.s	loc_2046D8
+	beq.s	PlayerFallStateResetAngle
 	subi.w	#$28,obj.y_speed(a0)
 
-loc_2046D8:
+PlayerFallStateResetAngle:
 	bsr.w	PlayerResetAngle
 
-loc_2046DC:
+PlayerFallStateCollideAir:
 	bsr.w	PlayerBlockCollideAir
 	rts
 
@@ -938,10 +938,10 @@ PlayerRollState:
 	bsr.w	PlayerMoveRoll
 	bsr.w	PlayerCheckBounds
 	tst.b	obj.var_2a(a0)
-	bne.s	loc_204706
+	bne.s	PlayerRollStateCollide
 	jsr	MoveObject
 
-loc_204706:
+PlayerRollStateCollide:
 	bsr.w	PlayerGroundCollide
 	bsr.w	PlayerCheckFall
 	rts
@@ -950,23 +950,23 @@ loc_204706:
 
 PlayerJumpState:
 	btst	#3,obj.var_2c(a0)
-	beq.s	loc_204722
+	beq.s	PlayerJumpStateCheckHangBar
 	bsr.w	PlayerPole
 	bsr.w	PlayerCheckWarp
-	bra.s	loc_204760
+	bra.s	PlayerJumpStateCollideAir
 
 ; ------------------------------------------------------------------------------
 
-loc_204722:
+PlayerJumpStateCheckHangBar:
 	btst	#2,obj.var_2c(a0)
-	beq.s	loc_204734
+	beq.s	PlayerJumpStateMove
 	bsr.w	PlayerHangBar
 	bsr.w	PlayerCheckWarp
-	bra.s	loc_204760
+	bra.s	PlayerJumpStateCollideAir
 
 ; ------------------------------------------------------------------------------
 
-loc_204734:
+PlayerJumpStateMove:
 	bsr.w	PlayerCheckBooster3d
 	bsr.w	PlayerCheckWarp
 	bsr.w	PlayerJumpHeight
@@ -974,13 +974,13 @@ loc_204734:
 	bsr.w	PlayerCheckBounds
 	jsr	MoveObjectFall
 	btst	#6,obj.flags(a0)
-	beq.s	loc_20475C
+	beq.s	PlayerJumpStateResetAngle
 	subi.w	#$28,obj.y_speed(a0)
 
-loc_20475C:
+PlayerJumpStateResetAngle:
 	bsr.w	PlayerResetAngle
 
-loc_204760:
+PlayerJumpStateCollideAir:
 	bsr.w	PlayerBlockCollideAir
 	rts
 
@@ -988,16 +988,16 @@ loc_204760:
 
 PlayerPole:
 	btst	#4,obj.var_2c(a0)
-	beq.s	loc_20479A
+	beq.s	PlayerPoleCheckRelease
 	move.b	obj.var_2b(a0),d0
 	andi.b	#$7F,d0
-	bne.s	loc_2047AA
+	bne.s	PlayerPoleMove
 	move.w	#-$C00,obj.x_speed(a0)
 	tst.b	obj.var_2b(a0)
-	bmi.s	loc_204788
+	bmi.s	PlayerPoleRelease
 	neg.w	obj.x_speed(a0)
 
-loc_204788:
+PlayerPoleRelease:
 	andi.b	#$7F,obj.sprite_tile(a0)
 	andi.b	#$E7,obj.var_2c(a0)
 	clr.w	obj.var_3e(a0)
@@ -1005,20 +1005,20 @@ loc_204788:
 
 ; ------------------------------------------------------------------------------
 
-loc_20479A:
+PlayerPoleCheckRelease:
 	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
-	beq.s	loc_2047AA
+	beq.s	PlayerPoleMove
 	bset	#4,obj.var_2c(a0)
 
-loc_2047AA:
+PlayerPoleMove:
 	addq.b	#8,obj.var_2b(a0)
 	ori.w	#$8000,obj.sprite_tile(a0)
 	move.b	obj.var_2b(a0),d0
-	bpl.s	loc_2047C0
+	bpl.s	PlayerPoleUpdatePosition
 	andi.w	#$7FFF,obj.sprite_tile(a0)
 
-loc_2047C0:
+PlayerPoleUpdatePosition:
 	jsr	SineCosine
 	muls.w	#$17,d1
 	asr.l	#8,d1
@@ -1034,10 +1034,10 @@ loc_2047C0:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	cmpi.w	#$103,d0
-	beq.s	locret_204800
+	beq.s	PlayerPoleReturn
 	neg.w	obj.y_speed(a0)
 
-locret_204800:
+PlayerPoleReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1050,12 +1050,12 @@ PlayerHangBar:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	cmpi.w	#$159,d0
-	bne.s	loc_20482A
+	bne.s	PlayerHangBarRelease
 	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
-	beq.s	loc_204844
+	beq.s	PlayerHangBarMove
 
-loc_20482A:
+PlayerHangBarRelease:
 	bclr	#2,obj.var_2c(a0)
 	addi.w	#$10,obj.y(a0)
 	move.b	#$13,obj.height(a0)
@@ -1064,43 +1064,43 @@ loc_20482A:
 
 ; ------------------------------------------------------------------------------
 
-loc_204844:
+PlayerHangBarMove:
 	moveq	#2,d0
 	btst	#2,player_joy_hold
-	beq.s	loc_20485E
+	beq.s	PlayerHangBarCheckRight
 	neg.w	d0
 	bset	#0,obj.flags(a0)
 	bset	#0,obj.sprite_flags(a0)
-	bra.s	loc_204872
+	bra.s	PlayerHangBarUpdateAnimation
 
 ; ------------------------------------------------------------------------------
 
-loc_20485E:
+PlayerHangBarCheckRight:
 	btst	#3,player_joy_hold
-	beq.s	locret_204894
+	beq.s	PlayerHangBarReturn
 	bclr	#0,obj.flags(a0)
 	bclr	#0,obj.sprite_flags(a0)
 
-loc_204872:
+PlayerHangBarUpdateAnimation:
 	add.w	d0,obj.x(a0)
 	subq.b	#1,obj.var_1f(a0)
-	bpl.s	locret_204894
+	bpl.s	PlayerHangBarReturn
 	move.b	#7,obj.var_1f(a0)
 	addq.b	#1,obj.anim_index(a0)
 	cmpi.b	#4,obj.anim_index(a0)
-	bcs.s	locret_204894
+	bcs.s	PlayerHangBarReturn
 	move.b	#0,obj.anim_index(a0)
 
-locret_204894:
+PlayerHangBarReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerCheckBooster3d:
 	cmpi.b	#1,time_zone
-	bne.s	locret_204902
+	bne.s	PlayerCheckBooster3dReturn
 	tst.w	zone
-	bne.s	locret_204902
+	bne.s	PlayerCheckBooster3dReturn
 	move.w	obj.y(a0),d0
 	lsr.w	#1,d0
 	andi.w	#$380,d0
@@ -1109,36 +1109,36 @@ PlayerCheckBooster3d:
 	add.w	d1,d0
 	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
-	lea	byte_204904,a2
+	lea	PlayerCheckBooster3dSurfaceTypeTable,a2
 
-loc_2048CA:
+PlayerCheckBooster3dScanTypes:
 	move.b	(a2)+,d0
-	bmi.s	loc_2048DA
+	bmi.s	PlayerCheckBooster3dClearBoost
 	cmp.b	d0,d1
-	bne.s	loc_2048CA
+	bne.s	PlayerCheckBooster3dScanTypes
 	bset	#1,obj.var_2c(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2048DA:
+PlayerCheckBooster3dClearBoost:
 	bclr	#1,obj.var_2c(a0)
-	beq.s	locret_204902
+	beq.s	PlayerCheckBooster3dReturn
 	tst.w	obj.y_speed(a0)
-	bpl.s	locret_204902
+	bpl.s	PlayerCheckBooster3dReturn
 	cmpi.w	#$F800,obj.y_speed(a0)
-	bcc.s	locret_204902
+	bcc.s	PlayerCheckBooster3dReturn
 	move.w	#$600,obj.x_speed(a0)
 	btst	#0,obj.flags(a0)
-	beq.s	locret_204902
+	beq.s	PlayerCheckBooster3dReturn
 	neg.w	obj.x_speed(a0)
 
-locret_204902:
+PlayerCheckBooster3dReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-byte_204904:
+PlayerCheckBooster3dSurfaceTypeTable:
 	dc.b	6
 	dc.b	7
 	dc.b	8
