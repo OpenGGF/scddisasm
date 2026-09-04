@@ -3,40 +3,40 @@
 DebugModeLegacy:
 	move.b	p1_joy_hold,d0
 	andi.b	#$F,d0
-	bne.s	loc_206DBE
+	bne.s	DebugModeIncreaseSpeed
 	move.l	#$4000,debug_speed
-	bra.s	loc_206DDE
+	bra.s	DebugModeMove
 
 ; ------------------------------------------------------------------------------
 
-loc_206DBE:
+DebugModeIncreaseSpeed:
 	addi.l	#$2000,debug_speed
 	cmpi.l	#$80000,debug_speed
-	bls.s	loc_206DDE
+	bls.s	DebugModeMove
 	move.l	#$80000,debug_speed
 
-loc_206DDE:
+DebugModeMove:
 	move.l	debug_speed,d0
 	btst	#0,p1_joy_hold
-	beq.s	loc_206DF0
+	beq.s	DebugModeMoveDown
 	sub.l	d0,obj.y(a0)
 
-loc_206DF0:
+DebugModeMoveDown:
 	btst	#1,p1_joy_hold
-	beq.s	loc_206DFC
+	beq.s	DebugModeMoveLeft
 	add.l	d0,obj.y(a0)
 
-loc_206DFC:
+DebugModeMoveLeft:
 	btst	#2,p1_joy_hold
-	beq.s	loc_206E08
+	beq.s	DebugModeMoveRight
 	sub.l	d0,obj.x(a0)
 
-loc_206E08:
+DebugModeMoveRight:
 	btst	#3,p1_joy_hold
-	beq.s	loc_206E14
+	beq.s	DebugModeReadBlock
 	add.l	d0,obj.x(a0)
 
-loc_206E14:
+DebugModeReadBlock:
 	move.w	obj.y(a0),d2
 	move.b	obj.height(a0),d0
 	ext.w	d0
@@ -46,31 +46,31 @@ loc_206E14:
 	move.w	(a1),debug_block
 	lea	DebugObjects,a2
 	btst	#6,p1_joy_tap
-	beq.s	loc_206E56
+	beq.s	DebugModeSelectObjectPrevious
 	moveq	#0,d1
 	move.b	debug_object,d1
 	addq.b	#1,d1
 	cmp.b	(a2),d1
-	bcs.s	loc_206E50
+	bcs.s	DebugModeSelectObjectNext
 	move.b	#0,d1
 
-loc_206E50:
+DebugModeSelectObjectNext:
 	move.b	d1,debug_object
 
-loc_206E56:
+DebugModeSelectObjectPrevious:
 	btst	#7,p1_joy_tap
-	beq.s	loc_206E76
+	beq.s	DebugModeLoadObject
 	moveq	#0,d1
 	move.b	debug_object,d1
 	subq.b	#1,d1
 	cmpi.b	#$FF,d1
-	bne.s	loc_206E70
+	bne.s	DebugModeSelectObjectWrap
 	add.b	(a2),d1
 
-loc_206E70:
+DebugModeSelectObjectWrap:
 	move.b	d1,debug_object
 
-loc_206E76:
+DebugModeLoadObject:
 	moveq	#0,d1
 	move.b	debug_object,d1
 	mulu.w	#$C,d1
@@ -84,9 +84,9 @@ loc_206E76:
 	move.b	d0,obj.sprite_flags(a0)
 	move.b	#0,obj.anim_id(a0)
 	btst	#5,p1_joy_tap
-	beq.s	loc_206F02
+	beq.s	DebugModeSpawnObject
 	bsr.w	SpawnObject
-	bne.s	loc_206F02
+	bne.s	DebugModeSpawnObject
 	moveq	#0,d1
 	move.b	debug_object,d1
 	mulu.w	#$C,d1
@@ -101,9 +101,9 @@ loc_206E76:
 	move.b	d0,obj.sprite_flags(a1)
 	move.b	d0,obj.flags(a1)
 
-loc_206F02:
+DebugModeSpawnObject:
 	btst	#4,p1_joy_tap
-	beq.s	loc_206F32
+	beq.s	DebugModeResetPlayer
 	move.b	#0,debug_mode
 	move.l	#PlayerSprites,obj.sprite_data(a0)
 	move.w	#$780,obj.sprite_tile(a0)
@@ -111,7 +111,7 @@ loc_206F02:
 	move.b	#0,obj.sprite_frame(a0)
 	move.b	#4,obj.sprite_flags(a0)
 
-loc_206F32:
+DebugModeResetPlayer:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
