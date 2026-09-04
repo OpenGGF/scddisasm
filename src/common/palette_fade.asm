@@ -1,5 +1,6 @@
 ; ------------------------------------------------------------------------------
 
+; Palette fades advance each channel toward black or white during VBlank.
 FadeFromBlack:
 	moveq	#0,d0
 	lea	palette,a0
@@ -8,17 +9,17 @@ FadeFromBlack:
 	moveq	#0,d1
 	move.b	palette_fade_length,d0
 
-loc_200336:
+FadeFromBlackFillPalette:
 	move.w	d1,(a0)+
-	dbf	d0,loc_200336
+	dbf	d0,FadeFromBlackFillPalette
 	move.w	#$15,d4
 
-loc_200340:
+FadeFromBlackWaitLoop:
 	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsFromBlack
 	bsr.w	AdvanceGfxQueue
-	dbf	d4,loc_200340
+	dbf	d4,FadeFromBlackWaitLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -32,11 +33,11 @@ FadeColorsFromBlack:
 	adda.w	d0,a1
 	move.b	palette_fade_length,d0
 
-loc_20036C:
+FadeColorsFromBlackMainLoop:
 	bsr.s	FadeColorFromBlack
-	dbf	d0,loc_20036C
+	dbf	d0,FadeColorsFromBlackMainLoop
 	cmpi.b	#1,zone
-	bne.s	locret_200398
+	bne.s	FadeColorsFromBlackReturn
 	moveq	#0,d0
 	lea	water_palette,a0
 	lea	water_fade_palette,a1
@@ -45,11 +46,11 @@ loc_20036C:
 	adda.w	d0,a1
 	move.b	palette_fade_length,d0
 
-loc_200392:
+FadeColorsFromBlackWaterLoop:
 	bsr.s	FadeColorFromBlack
-	dbf	d0,loc_200392
+	dbf	d0,FadeColorsFromBlackWaterLoop
 
-locret_200398:
+FadeColorsFromBlackReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -58,33 +59,33 @@ FadeColorFromBlack:
 	move.w	(a1)+,d2
 	move.w	(a0),d3
 	cmp.w	d2,d3
-	beq.s	loc_2003C2
+	beq.s	FadeColorFromBlackNext
 	move.w	d3,d1
 	addi.w	#$200,d1
 	cmp.w	d2,d1
-	bhi.s	loc_2003B0
+	bhi.s	FadeColorFromBlackStepMedium
 	move.w	d1,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2003B0:
+FadeColorFromBlackStepMedium:
 	move.w	d3,d1
 	addi.w	#$20,d1
 	cmp.w	d2,d1
-	bhi.s	loc_2003BE
+	bhi.s	FadeColorFromBlackStepSmall
 	move.w	d1,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2003BE:
+FadeColorFromBlackStepSmall:
 	addq.w	#2,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2003C2:
+FadeColorFromBlackNext:
 	addq.w	#2,a0
 	rts
 
@@ -95,22 +96,22 @@ loc_2003C2:
 		move.b	#$12,vblank_routine
 		lea	palette+$20,a0
 		lea	fade_palette+$20,a1
-		bsr.w	sub_200384
+		bsr.w	BossFadeFromBlackColors
 		if STAGE_GOOD_FUTURE=0
 			lea	palette+$60,a0
 			lea	fade_palette+$60,a1
-			bsr.w	sub_200384
+			bsr.w	BossFadeFromBlackColors
 		endif
 		rts
 
 ; ------------------------------------------------------------------------------
 
-	sub_200384:
+	BossFadeFromBlackColors:
 		move.w	#$F,d0
 
-	loc_200388:
+	BossFadeFromBlackColorLoop:
 		bsr.s	FadeColorFromBlack
-		dbf	d0,loc_200388
+		dbf	d0,BossFadeFromBlackColorLoop
 		rts
 	endif
 
@@ -120,12 +121,12 @@ FadeToBlack:
 	move.w	#$3F,palette_fade_start
 	move.w	#$15,d4
 
-loc_2003D0:
+FadeToBlackWaitLoop:
 	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsToBlack
 	bsr.w	AdvanceGfxQueue
-	dbf	d4,loc_2003D0
+	dbf	d4,FadeToBlackWaitLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -137,52 +138,52 @@ FadeColorsToBlack:
 	adda.w	d0,a0
 	move.b	palette_fade_length,d0
 
-loc_2003F6:
+FadeColorsToBlackMainLoop:
 	bsr.s	FadeColorToBlack
-	dbf	d0,loc_2003F6
+	dbf	d0,FadeColorsToBlackMainLoop
 	moveq	#0,d0
 	lea	water_palette,a0
 	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	move.b	palette_fade_length,d0
 
-loc_20040C:
+FadeColorsToBlackWaterLoop:
 	bsr.s	FadeColorToBlack
-	dbf	d0,loc_20040C
+	dbf	d0,FadeColorsToBlackWaterLoop
 	rts
 
 ; ------------------------------------------------------------------------------
 
 FadeColorToBlack:
 	move.w	(a0),d2
-	beq.s	loc_200440
+	beq.s	FadeColorToBlackNext
 	move.w	d2,d1
 	andi.w	#$E,d1
-	beq.s	loc_200424
+	beq.s	FadeColorToBlackStepGreen
 	subq.w	#2,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200424:
+FadeColorToBlackStepGreen:
 	move.w	d2,d1
 	andi.w	#$E0,d1
-	beq.s	loc_200432
+	beq.s	FadeColorToBlackStepBlue
 	subi.w	#$20,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200432:
+FadeColorToBlackStepBlue:
 	move.w	d2,d1
 	andi.w	#$E00,d1
-	beq.s	loc_200440
+	beq.s	FadeColorToBlackNext
 	subi.w	#$200,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200440:
+FadeColorToBlackNext:
 	addq.w	#2,a0
 	rts
 
@@ -197,17 +198,17 @@ FadeFromWhite:
 	move.w	#$EEE,d1
 	move.b	palette_fade_length,d0
 
-loc_20045E:
+FadeFromWhiteFillPalette:
 	move.w	d1,(a0)+
-	dbf	d0,loc_20045E
+	dbf	d0,FadeFromWhiteFillPalette
 	move.w	#$15,d4
 
-loc_200468:
+FadeFromWhiteWaitLoop:
 	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsFromWhite
 	bsr.w	AdvanceGfxQueue
-	dbf	d4,loc_200468
+	dbf	d4,FadeFromWhiteWaitLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -221,11 +222,11 @@ FadeColorsFromWhite:
 	adda.w	d0,a1
 	move.b	palette_fade_length,d0
 
-loc_200494:
+FadeColorsFromWhiteMainLoop:
 	bsr.s	FadeColorFromWhite
-	dbf	d0,loc_200494
+	dbf	d0,FadeColorsFromWhiteMainLoop
 	cmpi.b	#1,zone
-	bne.s	locret_2004C0
+	bne.s	FadeColorsFromWhiteReturn
 	moveq	#0,d0
 	lea	water_palette,a0
 	lea	water_fade_palette,a1
@@ -234,11 +235,11 @@ loc_200494:
 	adda.w	d0,a1
 	move.b	palette_fade_length,d0
 
-loc_2004BA:
+FadeColorsFromWhiteWaterLoop:
 	bsr.s	FadeColorFromWhite
-	dbf	d0,loc_2004BA
+	dbf	d0,FadeColorsFromWhiteWaterLoop
 
-locret_2004C0:
+FadeColorsFromWhiteReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -247,35 +248,35 @@ FadeColorFromWhite:
 	move.w	(a1)+,d2
 	move.w	(a0),d3
 	cmp.w	d2,d3
-	beq.s	loc_2004EE
+	beq.s	FadeColorFromWhiteNext
 	move.w	d3,d1
 	subi.w	#$200,d1
-	bcs.s	loc_2004DA
+	bcs.s	FadeColorFromWhiteStepMedium
 	cmp.w	d2,d1
-	bcs.s	loc_2004DA
+	bcs.s	FadeColorFromWhiteStepMedium
 	move.w	d1,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2004DA:
+FadeColorFromWhiteStepMedium:
 	move.w	d3,d1
 	subi.w	#$20,d1
-	bcs.s	loc_2004EA
+	bcs.s	FadeColorFromWhiteStepSmall
 	cmp.w	d2,d1
-	bcs.s	loc_2004EA
+	bcs.s	FadeColorFromWhiteStepSmall
 	move.w	d1,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2004EA:
+FadeColorFromWhiteStepSmall:
 	subq.w	#2,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2004EE:
+FadeColorFromWhiteNext:
 	addq.w	#2,a0
 	rts
 
@@ -285,12 +286,12 @@ FadeToWhite:
 	move.w	#$3F,palette_fade_start
 	move.w	#$15,d4
 
-loc_2004FC:
+FadeToWhiteWaitLoop:
 	move.b	#$12,vblank_routine
 	bsr.w	VSync
 	bsr.s	FadeColorsToWhite
 	bsr.w	AdvanceGfxQueue
-	dbf	d4,loc_2004FC
+	dbf	d4,FadeToWhiteWaitLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -302,18 +303,18 @@ FadeColorsToWhite:
 	adda.w	d0,a0
 	move.b	palette_fade_length,d0
 
-loc_200522:
+FadeColorsToWhiteMainLoop:
 	bsr.s	FadeColorToWhite
-	dbf	d0,loc_200522
+	dbf	d0,FadeColorsToWhiteMainLoop
 	moveq	#0,d0
 	lea	water_palette,a0
 	move.b	palette_fade_start,d0
 	adda.w	d0,a0
 	move.b	palette_fade_length,d0
 
-loc_200538:
+FadeColorsToWhiteWaterLoop:
 	bsr.s	FadeColorToWhite
-	dbf	d0,loc_200538
+	dbf	d0,FadeColorsToWhiteWaterLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -321,37 +322,37 @@ loc_200538:
 FadeColorToWhite:
 	move.w	(a0),d2
 	cmpi.w	#$EEE,d2
-	beq.s	loc_20057C
+	beq.s	FadeColorToWhiteNext
 	move.w	d2,d1
 	andi.w	#$E,d1
 	cmpi.w	#$E,d1
-	beq.s	loc_200558
+	beq.s	FadeColorToWhiteStepGreen
 	addq.w	#2,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_200558:
+FadeColorToWhiteStepGreen:
 	move.w	d2,d1
 	andi.w	#$E0,d1
 	cmpi.w	#$E0,d1
-	beq.s	loc_20056A
+	beq.s	FadeColorToWhiteStepBlue
 	addi.w	#$20,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20056A:
+FadeColorToWhiteStepBlue:
 	move.w	d2,d1
 	andi.w	#$E00,d1
 	cmpi.w	#$E00,d1
-	beq.s	loc_20057C
+	beq.s	FadeColorToWhiteNext
 	addi.w	#$200,(a0)+
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20057C:
+FadeColorToWhiteNext:
 	addq.w	#2,a0
 	rts
 
@@ -361,7 +362,7 @@ loc_20057C:
 	BossFadeStageFromWhite:
 		addq.b	#1,(a4)
 		cmpi.b	#$C,(a4)
-		blt.s	locret_2004CE
+		blt.s	BossFadeStageFromWhiteWaitReturn
 		clr.b	(a4)
 		moveq	#0,d0
 		move.b	(a3),d0
@@ -370,13 +371,13 @@ loc_20057C:
 		else
 			subi.b	#$14,d0
 		endif
-		bcc.s	loc_2004CC
+		bcc.s	BossFadeStageFromWhiteSelectPalette
 		moveq	#0,d0
 
-	loc_2004CC:
-		bra.s	loc_2004F0
+	BossFadeStageFromWhiteSelectPalette:
+		bra.s	BossFadeStageWritePalette
 
-	locret_2004CE:
+	BossFadeStageFromWhiteWaitReturn:
 		rts
 
 ; ------------------------------------------------------------------------------
@@ -384,33 +385,34 @@ loc_20057C:
 	BossFadeStageToWhite:
 		addq.b	#1,(a4)
 		cmpi.b	#$C,(a4)
-		blt.s	locret_2004EE
+		blt.s	BossFadeStageToWhiteWaitReturn
 		clr.b	(a4)
 		moveq	#0,d0
 		move.b	(a3),d0
 		if STAGE_GOOD_FUTURE=0
 			addi.b	#$16,d0
 			cmpi.b	#$B0,d0
-			bne.s	loc_2004EC
+			bne.s	BossFadeStageToWhiteSelectPalette
 			move.b	#$9A,d0
 		else
 			addi.b	#$14,d0
 			cmpi.b	#$A0,d0
-			bne.s	loc_2004EC
+			bne.s	BossFadeStageToWhiteSelectPalette
 			move.b	#$8C,d0
 		endif
 
-	loc_2004EC:
-		bra.s	loc_2004F0
+	BossFadeStageToWhiteSelectPalette:
+		bra.s	BossFadeStageWritePalette
 
-	locret_2004EE:
+	BossFadeStageToWhiteWaitReturn:
 		rts
 
 ; ------------------------------------------------------------------------------
 
-	loc_2004F0:
+	BossFadeStageWritePalette:
+		; Each entry supplies the boss palette words copied into the active slots.
 		move.b	d0,(a3)
-		lea	word_20050A(pc,d0.w),a3
+		lea	BossFadeStagePaletteTable(pc,d0.w),a3
 		move.w	(a3)+,palette+$40
 		if STAGE_GOOD_FUTURE=0
 			lea	palette+$64,a4
@@ -433,7 +435,8 @@ loc_20057C:
 
 ; ------------------------------------------------------------------------------
 
-	word_20050A:
+	; Palette entries are selected by the stage-color index in d0.
+	BossFadeStagePaletteTable:
 		if STAGE_GOOD_FUTURE=0
 			dc.w	0, $E44, $E0E, $826, $604, $ACE, 0, $220, $244, $86, $2AE
 			dc.w	$222, $E66, $E2E, $A48, $826, $CEE, $222, $442, $466, $2A8, $4CE
@@ -466,18 +469,18 @@ loc_20057C:
 		move.w	#$EEE,d1
 		move.b	palette_fade_length,d0
 
-	loc_2005C4:
+	BossFadeObjectsFromWhiteFill:
 		move.w	d1,(a0)+
-		dbf	d0,loc_2005C4
+		dbf	d0,BossFadeObjectsFromWhiteFill
 		move.w	#$15,d4
 
-	loc_2005CE:
+	BossFadeObjectsFromWhiteWaitLoop:
 		move.b	#$12,vblank_routine
 		bsr.w	VSync
 		bsr.w	FadeColorsFromWhite
 		move.w	#$EEE,palette+$40
 		bsr.w	AdvanceGfxQueue
-		dbf	d4,loc_2005CE
+		dbf	d4,BossFadeObjectsFromWhiteWaitLoop
 		rts
 	endif
 

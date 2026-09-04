@@ -693,6 +693,7 @@ opaque merely because they use `dc.*`.
 | M480 | Complete | Canonicalize shared block lookup and horizontal/vertical collision probes, migrating address-derived branches and documenting stage-map and slope-table roles. | J/U/E 133/133 each; audit/hygiene clean. |
 | M481 | Complete | Canonicalize the retained stage-collision column-to-row converter, naming its transform loops and documenting why the retail conversion hook returns immediately. | J/U/E 133/133 each; audit/hygiene clean. |
 | M482 | Complete | Canonicalize the shared solid-object attach/detach, support, push/crush, carry, and player-contact family, migrating address-derived branches and documenting lifecycle helpers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M483 | Complete | Canonicalize the shared palette fade families and conditional boss fade helpers, migrating address-derived branches and documenting the boss palette table. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

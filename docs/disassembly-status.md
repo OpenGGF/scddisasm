@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M482 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M483 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -126,6 +126,9 @@ its no-op retail entry hook.
 
 M482 canonicalizes the shared solid-object attach/detach, support, push/crush,
 carry, and player-contact lifecycle.
+
+M483 canonicalizes the shared black/white palette fades, water-palette paths,
+conditional boss fades, and indexed boss palette table.
 
 ### Core and system programs
 
