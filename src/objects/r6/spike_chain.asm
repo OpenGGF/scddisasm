@@ -2,24 +2,25 @@
 
 SpikeChainObject:
 	move.b	obj.subtype(a0),d0
-	bpl.s	loc_20F2D4
-	bra.w	loc_20F4C8
+	bpl.s	SpikeChainParentObject
+	bra.w	SpikeChainChildObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20F2D4:
+SpikeChainParentObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F2EE(pc,d0.w),d0
-	jsr	off_20F2EE(pc,d0.w)
+	move.w	SpikeChainParentRoutineTable(pc,d0.w),d0
+	jsr	SpikeChainParentRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20F2EE:
+; Spike Chain parent routine pointers.
+SpikeChainParentRoutineTable:
 	dc.w	SpikeChainObject_0_Routine0-*
-	dc.w	SpikeChainObject_0_Routine2-off_20F2EE
+	dc.w	SpikeChainObject_0_Routine2-SpikeChainParentRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -33,12 +34,12 @@ SpikeChainObject_0_Routine0:
 	move.w	#$3F8,obj.sprite_tile(a0)
 	move.w	#$100,obj.var_2c(a0)
 	move.b	obj.subtype(a0),d0
-	beq.s	loc_20F32C
+	beq.s	SpikeChainSpawnChildren
 	neg.w	obj.var_2c(a0)
 
-loc_20F32C:
+SpikeChainSpawnChildren:
 	jsr	SpawnObjectAfter
-	bne.w	loc_20F400
+	bne.w	SpikeChainDelete
 	move.w	a0,obj.var_3e(a1)
 	move.w	a1,obj.var_2e(a0)
 	move.b	obj.id(a0),obj.id(a1)
@@ -46,7 +47,7 @@ loc_20F32C:
 	move.b	#8,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
 	jsr	SpawnObjectAfter
-	bne.w	loc_20F400
+	bne.w	SpikeChainDelete
 	move.w	a0,obj.var_3e(a1)
 	move.w	a1,obj.var_30(a0)
 	move.b	obj.id(a0),obj.id(a1)
@@ -54,7 +55,7 @@ loc_20F32C:
 	move.b	#8,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
 	jsr	SpawnObjectAfter
-	bne.w	loc_20F400
+	bne.w	SpikeChainDelete
 	move.w	a0,obj.var_3e(a1)
 	move.w	a1,obj.var_32(a0)
 	move.b	obj.id(a0),obj.id(a1)
@@ -62,7 +63,7 @@ loc_20F32C:
 	move.b	#8,obj.width_2(a1)
 	move.b	#8,obj.height(a1)
 	jsr	SpawnObjectAfter
-	bne.w	loc_20F400
+	bne.w	SpikeChainDelete
 	move.w	a0,obj.var_3e(a1)
 	move.w	a1,obj.var_34(a0)
 	move.b	obj.id(a0),obj.id(a1)
@@ -71,7 +72,7 @@ loc_20F32C:
 	move.b	#8,obj.height(a1)
 	if STAGE_TIME<>0
 		jsr	SpawnObjectAfter
-		bne.w	loc_20F400
+		bne.w	SpikeChainDelete
 		move.w	a0,obj.var_3e(a1)
 		move.w	a1,obj.var_36(a0)
 		move.b	obj.id(a0),obj.id(a1)
@@ -81,7 +82,7 @@ loc_20F32C:
 	endif
 	if STAGE_TIME=2
 		jsr	SpawnObjectAfter
-		bne.w	loc_20F400
+		bne.w	SpikeChainDelete
 		move.w	a0,obj.var_3e(a1)
 		move.w	a1,obj.var_38(a0)
 		move.b	obj.id(a0),obj.id(a1)
@@ -93,7 +94,7 @@ loc_20F32C:
 
 ; ------------------------------------------------------------------------------
 
-loc_20F400:
+SpikeChainDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
@@ -168,26 +169,27 @@ SpikeChainSprites1:
 
 ; ------------------------------------------------------------------------------
 
-loc_20F4C8:
+SpikeChainChildObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F4EE(pc,d0.w),d0
-	jsr	off_20F4EE(pc,d0.w)
+	move.w	SpikeChainChildRoutineTable(pc,d0.w),d0
+	jsr	SpikeChainChildRoutineTable(pc,d0.w)
 	movea.w	obj.var_3e(a0),a1
-	cmpi.b	#$2D,0(a1)
-	beq.s	loc_20F4E8
+	cmpi.b	#$2D,obj.id(a1)
+	beq.s	SpikeChainDrawChild
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20F4E8:
+SpikeChainDrawChild:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20F4EE:
+; Spike Chain child routine pointers.
+SpikeChainChildRoutineTable:
 	dc.w	SpikeChainObject_1_Routine0-*
-	dc.w	SpikeChainObject_1_Routine2-off_20F4EE
+	dc.w	SpikeChainObject_1_Routine2-SpikeChainChildRoutineTable
 
 ; ------------------------------------------------------------------------------
 

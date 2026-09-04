@@ -682,6 +682,7 @@ opaque merely because they use `dc.*`.
 | M469 | Complete | Canonicalize the shared R6 Seesaw and Tube Door player-interaction families, migrating their dispatch, collision, animation, child-state, and trampoline references to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M470 | Complete | Canonicalize the shared R6 Projector, Door, and Switch control/state family, migrating routine tables, hologram/debris records, switch gating, collision, and animation callers to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M471 | Complete | Canonicalize the shared R6 Piston, Platform, and Crusher mechanical motion family, migrating parent/child paths, subtype motion tables, player handoff, collision gates, and motion records to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M472 | Complete | Canonicalize the shared R6 Animal and Spike Chain parent/child motion family, migrating routine tables, child spawning, orbit/fall motion, tile selection, linked-segment updates, and deletion/draw gates to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
