@@ -517,10 +517,10 @@ SetPlayerWarpRespawn:
 	move.b	lives_flags,warp_lives_flags
 	move.l	time,d0
 	cmpi.l	#$50000,d0
-	bcs.s	loc_204028
+	bcs.s	PlayerSetWarpRespawnStoreTime
 	move.l	#$50000,d0
 
-loc_204028:
+PlayerSetWarpRespawnStoreTime:
 	move.l	d0,warp_time
 	if def(R8_VARIANT)
 		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
@@ -535,80 +535,80 @@ loc_204028:
 
 PlayerCheckWarp:
 	cmpi.w	#0,zone
-	bne.s	loc_204060
+	bne.s	PlayerCheckWarpActive
 	tst.b	time_zone
-	beq.s	loc_204056
+	beq.s	PlayerCheckWarpStageGate
 	cmpi.b	#2,time_zone
-	bne.s	loc_204060
+	bne.s	PlayerCheckWarpActive
 
-loc_204056:
+PlayerCheckWarpStageGate:
 	cmpi.w	#$900,obj.x(a0)
-	bcs.w	loc_204110
+	bcs.w	PlayerCheckWarpReset
 
-loc_204060:
+PlayerCheckWarpActive:
 	tst.b	obj.var_2a(a0)
-	bne.w	locret_20411E
+	bne.w	PlayerCheckWarpReturn
 	tst.b	warp_direction
-	beq.w	locret_20411E
+	beq.w	PlayerCheckWarpReturn
 	move.w	#$600,d2
 	moveq	#0,d0
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_20407E
+	bpl.s	PlayerCheckWarpSpeedAbs
 	neg.w	d0
 
-loc_20407E:
+PlayerCheckWarpSpeedAbs:
 	tst.w	warp_timer
-	bne.s	loc_20408A
+	bne.s	PlayerCheckWarpStartTimer
 	move.w	#1,warp_timer
 
-loc_20408A:
+PlayerCheckWarpStartTimer:
 	move.w	warp_timer,d1
 	cmpi.w	#230,d1
-	bcs.s	loc_2040A0
+	bcs.s	PlayerCheckWarpTransitionThreshold
 	move.b	#1,restart_stage
 	bra.w	FadeOutMusic
 
 ; ------------------------------------------------------------------------------
 
-loc_2040A0:
+PlayerCheckWarpTransitionThreshold:
 	cmpi.w	#210,d1
-	bcs.s	loc_2040F4
+	bcs.s	PlayerCheckWarpCreateStars
 	cmpi.b	#2,spawn_mode
-	beq.s	locret_2040F2
+	beq.s	PlayerCheckWarpReturnAfterTransition
 	move.b	#1,scroll_lock
 	move.b	time_zone,d0
-	bne.s	loc_2040CA
+	bne.s	PlayerCheckWarpSelectTimeZone
 	move.w	#$82,d0
 	jsr	SubCpuCommand
 	moveq	#0,d0
 
-loc_2040CA:
+PlayerCheckWarpSelectTimeZone:
 	add.b	warp_direction,d0
-	bpl.s	loc_2040D4
+	bpl.s	PlayerCheckWarpClampTimeZone
 	moveq	#0,d0
-	bra.s	loc_2040DC
+	bra.s	PlayerCheckWarpCommitTimeZone
 
 ; ------------------------------------------------------------------------------
 
-loc_2040D4:
+PlayerCheckWarpClampTimeZone:
 	cmpi.b	#3,d0
-	bcs.s	loc_2040DC
+	bcs.s	PlayerCheckWarpCommitTimeZone
 	moveq	#2,d0
 
-loc_2040DC:
+PlayerCheckWarpCommitTimeZone:
 	bset	#7,d0
 	move.b	d0,time_zone
 	bsr.w	SetPlayerWarpRespawn
 	move.b	#2,spawn_mode
 
-locret_2040F2:
+PlayerCheckWarpReturnAfterTransition:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2040F4:
+PlayerCheckWarpCreateStars:
 	cmpi.w	#90,d1
-	bcc.s	loc_20410C
+	bcc.s	PlayerCheckWarpCancelIfSlow
 	cmp.w	d2,d0
 	bcc.w	PlayerMakeWarpStars
 	clr.w	warp_timer
@@ -617,16 +617,16 @@ loc_2040F4:
 
 ; ------------------------------------------------------------------------------
 
-loc_20410C:
+PlayerCheckWarpCancelIfSlow:
 	cmp.w	d2,d0
-	bcc.s	locret_20411E
+	bcc.s	PlayerCheckWarpReturn
 
-loc_204110:
+PlayerCheckWarpReset:
 	clr.w	warp_timer
 	clr.b	warp_direction
 	clr.b	warping
 
-locret_20411E:
+PlayerCheckWarpReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -634,26 +634,26 @@ locret_20411E:
 PlayerGroundState:
 	bsr.w	PlayerCheckBored
 	cmpi.b	#$2B,obj.anim_id(a0)
-	bne.s	loc_204150
+	bne.s	PlayerGroundStateNormal
 	tst.b	player_shrunk_state
-	beq.s	loc_20413E
+	beq.s	PlayerGroundStateShrunkFrame
 	cmpi.b	#$79,obj.sprite_frame(a0)
-	bne.s	locret_20417A
-	bra.s	loc_204146
+	bne.s	PlayerGroundStateReturn
+	bra.s	PlayerGroundStateFall
 
 ; ------------------------------------------------------------------------------
 
-loc_20413E:
+PlayerGroundStateShrunkFrame:
 	cmpi.b	#$17,obj.sprite_frame(a0)
-	bcs.s	locret_20417A
+	bcs.s	PlayerGroundStateReturn
 
-loc_204146:
+PlayerGroundStateFall:
 	bsr.w	PlayerCheckBounds
 	jmp	MoveObjectFall
 
 ; ------------------------------------------------------------------------------
 
-loc_204150:
+PlayerGroundStateNormal:
 	bsr.w	PlayerCheckBooster3d
 	bsr.w	PlayerCheckWarp
 	bsr.w	PlayerCheckJump
@@ -665,21 +665,21 @@ loc_204150:
 	bsr.w	PlayerGroundCollide
 	bsr.w	PlayerCheckFall
 
-locret_20417A:
+PlayerGroundStateReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerFallState:
 	tst.b	water_current_flag
-	bne.s	loc_204196
+	bne.s	PlayerFallStateMove
 	cmpi.b	#$15,obj.anim_id(a0)
-	beq.s	loc_204196
+	beq.s	PlayerFallStateMove
 	tst.w	obj.y_speed(a0)
-	bmi.s	loc_204196
+	bmi.s	PlayerFallStateMove
 	move.b	#0,obj.anim_id(a0)
 
-loc_204196:
+PlayerFallStateMove:
 	bsr.w	PlayerCheckBooster3d
 	bsr.w	PlayerCheckWarp
 	bsr.w	PlayerJumpHeight
@@ -687,10 +687,10 @@ loc_204196:
 	bsr.w	PlayerCheckBounds
 	jsr	MoveObjectFall
 	btst	#6,obj.flags(a0)
-	beq.s	loc_2041BE
+	beq.s	PlayerFallStateAfterWater
 	subi.w	#$28,obj.y_speed(a0)
 
-loc_2041BE:
+PlayerFallStateAfterWater:
 	bsr.w	PlayerResetAngle
 	bsr.w	PlayerBlockCollideAir
 	rts
@@ -705,10 +705,10 @@ PlayerRollState:
 	bsr.w	PlayerMoveRoll
 	bsr.w	PlayerCheckBounds
 	tst.b	obj.var_2a(a0)
-	bne.s	loc_2041EC
+	bne.s	PlayerRollStateCollide
 	jsr	MoveObject
 
-loc_2041EC:
+PlayerRollStateCollide:
 	bsr.w	PlayerGroundCollide
 	bsr.w	PlayerCheckFall
 	rts
@@ -723,10 +723,10 @@ PlayerJumpState:
 	bsr.w	PlayerCheckBounds
 	jsr	MoveObjectFall
 	btst	#6,obj.flags(a0)
-	beq.s	loc_20421E
+	beq.s	PlayerJumpStateAfterWater
 	subi.w	#$28,obj.y_speed(a0)
 
-loc_20421E:
+PlayerJumpStateAfterWater:
 	bsr.w	PlayerResetAngle
 	bsr.w	PlayerBlockCollideAir
 	rts
