@@ -89,7 +89,8 @@ left/right movement, rolling, air-movement, bounds, roll-entry, jump-input,
 jump-height, slope-resistance, fall-detection, angle-reset, air-collision, and
 ground-normalization, hurt-recovery, death-processing, restart-selection,
 chunk/loop-check, roll-entry, animation-frame/loop, dynamic-movement,
-shrink-map, graphics-upload, flipper, and object-collision families.
+shrink-map, graphics-upload, flipper, object-collision, pole, hang-bar, beam,
+spark, and bounce families.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 

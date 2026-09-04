@@ -240,26 +240,26 @@ PlayerGetChunk:
 
 PlayerCheckPole:
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.s	locret_204000
+	beq.s	PlayerCheckPoleReturn
 	cmpi.b	#4,obj.routine(a0)
-	bcc.s	locret_204000
+	bcc.s	PlayerCheckPoleReturn
 	btst	#3,obj.var_2c(a0)
-	bne.s	locret_204000
+	bne.s	PlayerCheckPoleReturn
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d2
 	jsr	GetBlock
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	cmpi.w	#$103,d0
-	bne.s	locret_204000
+	bne.s	PlayerCheckPoleReturn
 	bset	#3,obj.var_2c(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#-$200,d0
 	tst.w	obj.y_speed(a0)
-	bmi.s	loc_203FCC
+	bmi.s	PlayerCheckPoleSetVerticalSpeed
 	neg.w	d0
 
-loc_203FCC:
+PlayerCheckPoleSetVerticalSpeed:
 	move.w	d0,obj.y_speed(a0)
 	move.b	#$40,obj.var_2b(a0)
 	move.w	obj.x(a0),d0
@@ -272,20 +272,20 @@ loc_203FCC:
 	move.b	#$E,obj.height(a0)
 	move.b	#7,obj.width(a0)
 
-locret_204000:
+PlayerCheckPoleReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerCheckHangBar:
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.w	locret_20409E
+	beq.w	PlayerCheckHangBarReturn
 	cmpi.b	#2,spawn_mode
-	beq.w	locret_20409E
+	beq.w	PlayerCheckHangBarReturn
 	btst	#0,obj.var_2c(a0)
-	bne.s	locret_20409E
+	bne.s	PlayerCheckHangBarReturn
 	btst	#2,obj.var_2c(a0)
-	bne.s	locret_20409E
+	bne.s	PlayerCheckHangBarReturn
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d2
 	subi.w	#$18,d2
@@ -293,16 +293,16 @@ PlayerCheckHangBar:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	cmpi.w	#$159,d0
-	bne.s	locret_20409E
+	bne.s	PlayerCheckHangBarReturn
 	move.w	warp_timer,d0
-	beq.s	loc_204060
+	beq.s	PlayerCheckHangBarAttach
 	clr.w	warp_timer
 	clr.b	warping
 	cmpi.w	#$5A,d0
-	bcs.s	loc_204060
+	bcs.s	PlayerCheckHangBarAttach
 	clr.b	warp_direction
 
-loc_204060:
+PlayerCheckHangBarAttach:
 	bclr	#2,obj.flags(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#0,obj.y_speed(a0)
@@ -316,25 +316,25 @@ loc_204060:
 	addi.w	#$18,d0
 	move.w	d0,obj.y(a0)
 
-locret_20409E:
+PlayerCheckHangBarReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerCheckBeam:
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.w	locret_2040FE
+	beq.w	PlayerCheckBeamReturn
 	cmpi.b	#4,obj.routine(a0)
-	bcc.s	locret_2040FE
+	bcc.s	PlayerCheckBeamReturn
 	tst.b	warping
-	bne.s	locret_2040FE
+	bne.s	PlayerCheckBeamReturn
 	tst.b	invincible
-	bne.s	locret_2040FE
+	bne.s	PlayerCheckBeamReturn
 	tst.w	obj.var_30(a0)
-	bne.s	locret_2040FE
+	bne.s	PlayerCheckBeamReturn
 	moveq	#0,d0
 	move.b	r6_beam_mode,d0
-	beq.s	locret_2040FE
+	beq.s	PlayerCheckBeamReturn
 	subq.b	#1,d0
 	add.w	d0,d0
 	move.w	BeamBlocks(pc,d0.w),d0
@@ -345,16 +345,17 @@ PlayerCheckBeam:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 
-loc_2040F2:
+
+PlayerCheckBeamFindBlock:
 	move.w	(a3)+,d1
-	bmi.s	locret_2040FE
+	bmi.s	PlayerCheckBeamReturn
 	cmp.w	d1,d0
-	bne.s	loc_2040F2
+	bne.s	PlayerCheckBeamFindBlock
 	bra.w	HurtPlayer
 
 ; ------------------------------------------------------------------------------
 
-locret_2040FE:
+PlayerCheckBeamReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -387,73 +388,73 @@ BeamBlocks3:
 
 PlayerCheckSparks:
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.w	locret_2041DA
+	beq.w	PlayerCheckSparksReturn
 	tst.b	warping
-	bne.w	locret_2041DA
+	bne.w	PlayerCheckSparksReturn
 	tst.b	invincible
-	bne.w	locret_2041DA
+	bne.w	PlayerCheckSparksReturn
 	cmpi.w	#$980,obj.x(a0)
-	bcs.s	loc_204150
+	bcs.s	PlayerCheckSparksCheckBoss
 	cmpi.w	#$A20,obj.x(a0)
-	bcs.w	locret_2041DA
+	bcs.w	PlayerCheckSparksReturn
 
-loc_204150:
+PlayerCheckSparksCheckBoss:
 	btst	#7,boss_flags
-	bne.w	locret_2041DA
+	bne.w	PlayerCheckSparksReturn
 	tst.w	obj.var_30(a0)
-	bne.s	locret_2041DA
+	bne.s	PlayerCheckSparksReturn
 	cmpi.b	#2,act
-	bne.s	loc_204184
+	bne.s	PlayerCheckSparksCheckTimeZone
 	cmpi.w	#$A10,obj.x(a0)
-	bcs.s	loc_20419C
+	bcs.s	PlayerCheckSparksCheckBlock
 	tst.b	boss_music
-	beq.s	locret_2041DA
+	beq.s	PlayerCheckSparksReturn
 	tst.b	good_future
-	bne.s	loc_204196
-	bra.s	loc_20419C
+	bne.s	PlayerCheckSparksCheckAnimation
+	bra.s	PlayerCheckSparksCheckBlock
 
 ; ------------------------------------------------------------------------------
 
-loc_204184:
+PlayerCheckSparksCheckTimeZone:
 	cmpi.b	#2,time_zone
-	bne.s	loc_20419C
+	bne.s	PlayerCheckSparksCheckBlock
 	tst.b	good_future
-	beq.s	loc_20419C
+	beq.s	PlayerCheckSparksCheckBlock
 
-loc_204196:
+PlayerCheckSparksCheckAnimation:
 	tst.b	stage_anim_frames+2
-	beq.s	locret_2041DA
+	beq.s	PlayerCheckSparksReturn
 
-loc_20419C:
+PlayerCheckSparksCheckBlock:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d2
 	jsr	GetBlock
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	moveq	#2,d6
-	lea	word_2041DC,a1
+	lea	PlayerCheckSparksBlocksNormal,a1
 	cmpi.b	#2,time_zone
-	bne.s	loc_2041D0
+	bne.s	PlayerCheckSparksSelectAlternate
 	tst.b	good_future
-	bne.s	loc_2041D0
-	lea	word_2041E2,a1
+	bne.s	PlayerCheckSparksSelectAlternate
+	lea	PlayerCheckSparksBlocksAlternate,a1
 
-loc_2041D0:
+PlayerCheckSparksSelectAlternate:
 	cmp.w	(a1)+,d0
 	beq.w	HurtPlayer
-	dbf	d6,loc_2041D0
+	dbf	d6,PlayerCheckSparksSelectAlternate
 
-locret_2041DA:
+PlayerCheckSparksReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_2041DC:
+PlayerCheckSparksBlocksNormal:
 	dc.w	$243
 	dc.w	$244
 	dc.w	$245
 
-word_2041E2:
+PlayerCheckSparksBlocksAlternate:
 	dc.w	$287
 	dc.w	$288
 	dc.w	$289
@@ -462,21 +463,21 @@ word_2041E2:
 
 PlayerCheckBounce:
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.w	locret_2042B8
+	beq.w	PlayerCheckBounceReturn
 	tst.b	boss_flags
-	bne.w	locret_2042B8
+	bne.w	PlayerCheckBounceReturn
 	cmpi.b	#2,time_zone
-	bcc.s	loc_20421C
+	bcc.s	PlayerCheckBounceCheckBlocks
 	move.b	#$3C,d0
 	tst.b	time_zone
-	beq.s	loc_204214
+	beq.s	PlayerCheckBounceCheckPalette
 	addi.b	#$1E,d0
 
-loc_204214:
+PlayerCheckBounceCheckPalette:
 	cmp.b	palette_cycle_steps+3,d0
-	beq.w	locret_2042B8
+	beq.w	PlayerCheckBounceReturn
 
-loc_20421C:
+PlayerCheckBounceCheckBlocks:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d2
 	move.b	obj.height(a0),d0
@@ -490,7 +491,7 @@ loc_20421C:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	cmpi.w	#$21F,d0
-	beq.s	loc_204274
+	beq.s	PlayerCheckBounceApply
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d2
 	move.b	obj.height(a0),d0
@@ -504,16 +505,16 @@ loc_20421C:
 	move.w	(a1),d0
 	andi.w	#$7FF,d0
 	cmpi.w	#$21F,d0
-	bne.s	locret_2042B8
+	bne.s	PlayerCheckBounceReturn
 
-loc_204274:
+PlayerCheckBounceApply:
 	move.w	#-$1600,obj.y_speed(a0)
 	bset	#1,obj.flags(a0)
 	bclr	#4,obj.flags(a0)
 	bclr	#5,obj.flags(a0)
 	clr.b	obj.var_3c(a0)
 	bset	#2,obj.flags(a0)
-	bne.s	locret_2042B8
+	bne.s	PlayerCheckBounceReturn
 	move.b	#$E,obj.height(a0)
 	move.b	#7,obj.width(a0)
 	addq.w	#5,obj.y(a0)
@@ -521,7 +522,7 @@ loc_204274:
 	move.w	#$DA,d0
 	jsr	PlayFmSound
 
-locret_2042B8:
+PlayerCheckBounceReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
