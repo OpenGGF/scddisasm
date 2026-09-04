@@ -1884,20 +1884,20 @@ PlayerSlopeResistRollReturn:
 PlayerCheckFall:
 	nop
 	tst.b	obj.var_38(a0)
-	bne.s	locret_204CB8
+	bne.s	PlayerCheckFallReturn
 	tst.w	obj.var_3e(a0)
-	bne.s	loc_204CBA
+	bne.s	PlayerCheckFallTimerActive
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	beq.s	locret_204CB8
+	beq.s	PlayerCheckFallReturn
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_204C9A
+	bpl.s	PlayerCheckFallSpeedAbsolute
 	neg.w	d0
 
-loc_204C9A:
+PlayerCheckFallSpeedAbsolute:
 	cmpi.w	#$280,d0
-	bcc.s	locret_204CB8
+	bcc.s	PlayerCheckFallReturn
 	clr.w	obj.ground_speed(a0)
 	nop
 	nop
@@ -1906,12 +1906,12 @@ loc_204C9A:
 	bset	#1,obj.flags(a0)
 	move.w	#$1E,obj.var_3e(a0)
 
-locret_204CB8:
+PlayerCheckFallReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204CBA:
+PlayerCheckFallTimerActive:
 	subq.w	#1,obj.var_3e(a0)
 	rts
 
@@ -1919,28 +1919,28 @@ loc_204CBA:
 
 PlayerResetAngle:
 	btst	#1,obj.var_2c(a0)
-	bne.s	locret_204CE2
+	bne.s	PlayerResetAngleReturn
 	move.b	obj.angle(a0),d0
-	beq.s	locret_204CE2
-	bpl.s	loc_204CD8
+	beq.s	PlayerResetAngleReturn
+	bpl.s	PlayerResetAnglePositive
 	addq.b	#2,d0
-	bcc.s	loc_204CD6
+	bcc.s	PlayerResetAngleNegativeWrap
 	moveq	#0,d0
 
-loc_204CD6:
-	bra.s	loc_204CDE
+PlayerResetAngleNegativeWrap:
+	bra.s	PlayerResetAngleStore
 
 ; ------------------------------------------------------------------------------
 
-loc_204CD8:
+PlayerResetAnglePositive:
 	subq.b	#2,d0
-	bcc.s	loc_204CDE
+	bcc.s	PlayerResetAngleStore
 	moveq	#0,d0
 
-loc_204CDE:
+PlayerResetAngleStore:
 	move.b	d0,obj.angle(a0)
 
-locret_204CE2:
+PlayerResetAngleReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
