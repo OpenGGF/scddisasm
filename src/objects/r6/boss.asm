@@ -876,72 +876,72 @@ BossExhaustDelete:
 BossSmokeObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20EF54(pc,d0.w),d0
-	jmp	off_20EF54(pc,d0.w)
+	move.w	BossSmokeRoutineTable(pc,d0.w),d0
+	jmp	BossSmokeRoutineTable(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20EF54:
-	dc.w	BossSmokeObject_0_Routine0-*
-	dc.w	BossSmokeObject_0_Routine2-off_20EF54
-	dc.w	BossSmokeObject_0_Routine4-off_20EF54
+BossSmokeRoutineTable:
+	dc.w	BossSmokeInit-*
+	dc.w	BossSmokeFollowParent-BossSmokeRoutineTable
+	dc.w	BossSmokeStandalone-BossSmokeRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-BossSmokeObject_0_Routine0:
+BossSmokeInit:
 	move.b	#4,obj.sprite_flags(a0)
 	move.w	#$2300,obj.sprite_tile(a0)
 	move.l	#BossSmokeSprites,obj.sprite_data(a0)
 	tst.b	obj.anim_id(a0)
-	beq.s	loc_20EF8E
+	beq.s	BossSmokeInitStandalone
 	move.b	#3,obj.sprite_layer(a0)
 	move.b	#$C,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.b	#2,obj.routine(a0)
-	bra.s	BossSmokeObject_0_Routine2
+	bra.s	BossSmokeFollowParent
 
 ; ------------------------------------------------------------------------------
 
-loc_20EF8E:
+BossSmokeInitStandalone:
 	move.b	#2,obj.sprite_layer(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.b	#4,obj.routine(a0)
-	bra.s	BossSmokeObject_0_Routine4
+	bra.s	BossSmokeStandalone
 
 ; ------------------------------------------------------------------------------
 
-BossSmokeObject_0_Routine2:
+BossSmokeFollowParent:
 	movea.w	obj.var_2e(a0),a1
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$1A4,obj.var_2a(a0)
-	beq.s	loc_20EFEA
+	beq.s	BossSmokeDeleteAttached
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
 	subi.w	#$40,obj.y(a0)
 	lea	BossSmokeAnims,a1
 	jsr	AnimateObject
 	cmpi.b	#7,obj.sprite_frame(a0)
-	bge.s	locret_20EFE8
+	bge.s	BossSmokeStopDrawing
 	bsr.w	sub_20F8AA
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20EFE8:
+BossSmokeStopDrawing:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EFEA:
+BossSmokeDeleteAttached:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-BossSmokeObject_0_Routine4:
+BossSmokeStandalone:
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$18,obj.var_2a(a0)
-	beq.s	loc_20F012
+	beq.s	BossSmokeDeleteStandalone
 	bsr.w	loc_20F632
 	lea	BossSmokeAnims,a1
 	jsr	AnimateObject
@@ -949,7 +949,7 @@ BossSmokeObject_0_Routine4:
 
 ; ------------------------------------------------------------------------------
 
-loc_20F012:
+BossSmokeDeleteStandalone:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
@@ -957,19 +957,19 @@ loc_20F012:
 FallSpikeObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F026(pc,d0.w),d0
-	jmp	off_20F026(pc,d0.w)
+	move.w	FallSpikeRoutineTable(pc,d0.w),d0
+	jmp	FallSpikeRoutineTable(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20F026:
-	dc.w	FallSpikeObject_0_Routine0-*
-	dc.w	FallSpikeObject_0_Routine2-off_20F026
-	dc.w	FallSpikeObject_0_Routine4-off_20F026
+FallSpikeRoutineTable:
+	dc.w	FallSpikeInit-*
+	dc.w	FallSpikeDrop-FallSpikeRoutineTable
+	dc.w	FallSpikeWait-FallSpikeRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-FallSpikeObject_0_Routine0:
+FallSpikeInit:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
@@ -980,46 +980,46 @@ FallSpikeObject_0_Routine0:
 	move.b	#$BF,obj.collide_type(a0)
 	move.b	#2,obj.collide_status(a0)
 
-FallSpikeObject_0_Routine2:
+FallSpikeDrop:
 	addi.l	#$38000,obj.y(a0)
 	jsr	CheckBlockDown
 	subq.w	#3,d1
-	bgt.s	loc_20F086
+	bgt.s	FallSpikeDraw
 	sub.w	d1,obj.y(a0)
 	addq.b	#2,obj.routine(a0)
 	clr.b	obj.collide_type(a0)
 	clr.b	obj.collide_status(a0)
 
-loc_20F086:
+FallSpikeDraw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-FallSpikeObject_0_Routine4:
+FallSpikeWait:
 	addq.b	#1,obj.var_2a(a0)
 	cmpi.b	#5,obj.var_2a(a0)
-	bge.s	loc_20F09E
+	bge.s	FallSpikeCheckCycle
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20F09E:
+FallSpikeCheckCycle:
 	cmpi.b	#$A,obj.var_2a(a0)
-	beq.s	loc_20F0A8
+	beq.s	FallSpikeAdvanceCycle
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F0A8:
+FallSpikeAdvanceCycle:
 	addq.b	#1,obj.var_2b(a0)
 	cmpi.b	#7,obj.var_2b(a0)
-	beq.s	loc_20F0BA
+	beq.s	FallSpikeDelete
 	clr.b	obj.var_2a(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F0BA:
+FallSpikeDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
