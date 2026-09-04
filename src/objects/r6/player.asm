@@ -2817,233 +2817,233 @@ PlayerAnimate:
 	moveq	#0,d0
 	move.b	obj.anim_id(a0),d0
 	cmp.b	obj.prev_anim_id(a0),d0
-	beq.s	loc_205846
+	beq.s	PlayerAnimateCheckFrame
 	move.b	d0,obj.prev_anim_id(a0)
 	move.b	#0,obj.anim_index(a0)
 	move.b	#0,obj.anim_timer(a0)
 
-loc_205846:
-	bsr.w	sub_205AB6
+PlayerAnimateCheckFrame:
+	bsr.w	PlayerAnimateMapAnimation
 	add.w	d0,d0
 	adda.w	(a1,d0.w),a1
 	move.b	(a1),d0
-	bmi.s	loc_2058BE
+	bmi.s	PlayerAnimateDynamic
 	move.b	obj.flags(a0),d1
 	andi.b	#1,d1
 	andi.b	#$FC,obj.sprite_flags(a0)
 	or.b	d1,obj.sprite_flags(a0)
 	subq.b	#1,obj.anim_timer(a0)
-	bpl.s	locret_20588C
+	bpl.s	PlayerAnimateFrameReturn
 	move.b	d0,obj.anim_timer(a0)
 
 ; ------------------------------------------------------------------------------
 
-sub_205870:
+PlayerAnimateAdvanceFrame:
 	moveq	#0,d1
 	move.b	obj.anim_index(a0),d1
 	move.b	1(a1,d1.w),d0
-	beq.s	loc_205884
-	bpl.s	loc_205884
+	beq.s	PlayerAnimateStoreFrame
+	bpl.s	PlayerAnimateStoreFrame
 	cmpi.b	#$FD,d0
-	bge.s	loc_20588E
+	bge.s	PlayerAnimateLoopCommand
 
-loc_205884:
+PlayerAnimateStoreFrame:
 	move.b	d0,obj.sprite_frame(a0)
 	addq.b	#1,obj.anim_index(a0)
 
-locret_20588C:
+PlayerAnimateFrameReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20588E:
+PlayerAnimateLoopCommand:
 	addq.b	#1,d0
-	bne.s	loc_20589E
+	bne.s	PlayerAnimateReverseCommand
 	move.b	#0,obj.anim_index(a0)
 	move.b	1(a1),d0
-	bra.s	loc_205884
+	bra.s	PlayerAnimateStoreFrame
 
 ; ------------------------------------------------------------------------------
 
-loc_20589E:
+PlayerAnimateReverseCommand:
 	addq.b	#1,d0
-	bne.s	loc_2058B2
+	bne.s	PlayerAnimateEndCommand
 	move.b	2(a1,d1.w),d0
 	sub.b	d0,obj.anim_index(a0)
 	sub.b	d0,d1
 	move.b	1(a1,d1.w),d0
-	bra.s	loc_205884
+	bra.s	PlayerAnimateStoreFrame
 
 ; ------------------------------------------------------------------------------
 
-loc_2058B2:
+PlayerAnimateEndCommand:
 	addq.b	#1,d0
-	bne.s	locret_2058BC
+	bne.s	PlayerAnimateCommandReturn
 	move.b	2(a1,d1.w),obj.anim_id(a0)
 
-locret_2058BC:
+PlayerAnimateCommandReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2058BE:
+PlayerAnimateDynamic:
 	subq.b	#1,obj.anim_timer(a0)
-	bpl.s	locret_20588C
+	bpl.s	PlayerAnimateFrameReturn
 	addq.b	#1,d0
-	bne.w	loc_205978
+	bne.w	PlayerAnimateRollingDynamic
 	tst.b	shrunk_player
-	bne.w	loc_205A40
+	bne.w	PlayerAnimateShrunkDynamic
 	moveq	#0,d1
 	move.b	obj.angle(a0),d0
 	move.b	obj.flags(a0),d2
 	andi.b	#1,d2
-	bne.s	loc_2058E6
+	bne.s	PlayerAnimateDynamicOrientation
 	not.b	d0
 
-loc_2058E6:
+PlayerAnimateDynamicOrientation:
 	btst	#1,obj.var_2c(a0)
-	bne.s	loc_2058F4
+	bne.s	PlayerAnimateDynamic3dAngle
 	addi.b	#$10,d0
-	bra.s	loc_2058F6
+	bra.s	PlayerAnimateDynamicSelect
 
 ; ------------------------------------------------------------------------------
 
-loc_2058F4:
+PlayerAnimateDynamic3dAngle:
 	addq.b	#8,d0
 
-loc_2058F6:
-	bpl.s	loc_2058FA
+PlayerAnimateDynamicSelect:
+	bpl.s	PlayerAnimateDynamicSetQuadrant
 	moveq	#3,d1
 
-loc_2058FA:
+PlayerAnimateDynamicSetQuadrant:
 	andi.b	#$FC,obj.sprite_flags(a0)
 	eor.b	d1,d2
 	or.b	d2,obj.sprite_flags(a0)
 	btst	#5,obj.flags(a0)
-	bne.w	loc_2059EC
+	bne.w	PlayerAnimatePushDynamic
 	move.w	obj.ground_speed(a0),d2
-	bpl.s	loc_205918
+	bpl.s	PlayerAnimateDynamicSpeed
 	neg.w	d2
 
-loc_205918:
+PlayerAnimateDynamicSpeed:
 	btst	#1,obj.var_2c(a0)
-	beq.s	loc_205930
+	beq.s	PlayerAnimateDynamicPeelout
 	lsr.b	#4,d0
 	lsl.b	#1,d0
 	andi.b	#$E,d0
 	lea	PlayerRun3dAnim,a1
-	bra.s	loc_20595A
+	bra.s	PlayerAnimateDynamicSetTimer
 
 ; ------------------------------------------------------------------------------
 
-loc_205930:
+PlayerAnimateDynamicPeelout:
 	lsr.b	#4,d0
 	andi.b	#6,d0
 	lea	PlayerPeeloutAnim,a1
 	cmpi.w	#$A00,d2
-	bcc.s	loc_20595A
+	bcc.s	PlayerAnimateDynamicSetTimer
 	lea	PlayerRunAnim,a1
 	cmpi.w	#$600,d2
-	bcc.s	loc_20595A
+	bcc.s	PlayerAnimateDynamicSetTimer
 	lea	PlayerWalkAnim,a1
 	move.b	d0,d1
 	lsr.b	#1,d1
 	add.b	d1,d0
 
-loc_20595A:
+PlayerAnimateDynamicSetTimer:
 	add.b	d0,d0
 	move.b	d0,d3
 	neg.w	d2
 	addi.w	#$800,d2
-	bpl.s	loc_205968
+	bpl.s	PlayerAnimateDynamicClampTimer
 	moveq	#0,d2
 
-loc_205968:
+PlayerAnimateDynamicClampTimer:
 	lsr.w	#8,d2
 	move.b	d2,obj.anim_timer(a0)
-	bsr.w	sub_205870
+	bsr.w	PlayerAnimateAdvanceFrame
 	add.b	d3,obj.sprite_frame(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_205978:
+PlayerAnimateRollingDynamic:
 	addq.b	#1,d0
-	bne.s	loc_2059E8
+	bne.s	PlayerAnimatePushDispatch
 	move.w	obj.ground_speed(a0),d2
-	bpl.s	loc_205984
+	bpl.s	PlayerAnimateRollingSpeed
 	neg.w	d2
 
-loc_205984:
+PlayerAnimateRollingSpeed:
 	lea	PlayerRollShrunkAnim,a1
 	tst.b	shrunk_player
-	bne.s	loc_2059C2
+	bne.s	PlayerAnimateRollingSetTimer
 	lea	PlayerRollFastAnim,a1
 	btst	#1,obj.var_2c(a0)
-	beq.s	loc_2059B6
+	beq.s	PlayerAnimateRollingSelectNormal
 	move.b	obj.angle(a0),d0
 	addi.b	#$10,d0
 	andi.b	#$C0,d0
-	beq.s	loc_2059C2
+	beq.s	PlayerAnimateRollingSetTimer
 	lea	PlayerRoll3dAnim,a1
-	bra.s	loc_2059C2
+	bra.s	PlayerAnimateRollingSetTimer
 
 ; ------------------------------------------------------------------------------
 
-loc_2059B6:
+PlayerAnimateRollingSelectNormal:
 	cmpi.w	#$600,d2
-	bcc.s	loc_2059C2
+	bcc.s	PlayerAnimateRollingSetTimer
 	lea	PlayerRollAnim,a1
 
-loc_2059C2:
+PlayerAnimateRollingSetTimer:
 	neg.w	d2
 	addi.w	#$400,d2
-	bpl.s	loc_2059CC
+	bpl.s	PlayerAnimateRollingClampTimer
 	moveq	#0,d2
 
-loc_2059CC:
+PlayerAnimateRollingClampTimer:
 	lsr.w	#8,d2
 	move.b	d2,obj.anim_timer(a0)
 	move.b	obj.flags(a0),d1
 	andi.b	#1,d1
 	andi.b	#$FC,obj.sprite_flags(a0)
 	or.b	d1,obj.sprite_flags(a0)
-	bra.w	sub_205870
+	bra.w	PlayerAnimateAdvanceFrame
 
 ; ------------------------------------------------------------------------------
 
-loc_2059E8:
+PlayerAnimatePushDispatch:
 	addq.b	#1,d0
-	bne.s	loc_205A2C
+	bne.s	PlayerAnimateStaticFrame
 
-loc_2059EC:
+PlayerAnimatePushDynamic:
 	move.w	obj.ground_speed(a0),d2
-	bmi.s	loc_2059F4
+	bmi.s	PlayerAnimatePushSpeed
 	neg.w	d2
 
-loc_2059F4:
+PlayerAnimatePushSpeed:
 	addi.w	#$800,d2
-	bpl.s	loc_2059FC
+	bpl.s	PlayerAnimatePushSetTimer
 	moveq	#0,d2
 
-loc_2059FC:
+PlayerAnimatePushSetTimer:
 	lsr.w	#6,d2
 	move.b	d2,obj.anim_timer(a0)
 	lea	PlayerPushShrunkAnim,a1
 	tst.b	shrunk_player
-	bne.s	loc_205A16
+	bne.s	PlayerAnimatePushSelectNormal
 	lea	PlayerPushAnim,a1
 
-loc_205A16:
+PlayerAnimatePushSelectNormal:
 	move.b	obj.flags(a0),d1
 	andi.b	#1,d1
 	andi.b	#$FC,obj.sprite_flags(a0)
 	or.b	d1,obj.sprite_flags(a0)
-	bra.w	sub_205870
+	bra.w	PlayerAnimateAdvanceFrame
 
 ; ------------------------------------------------------------------------------
 
-loc_205A2C:
+PlayerAnimateStaticFrame:
 	moveq	#0,d1
 	move.b	obj.anim_index(a0),d1
 	move.b	1(a1,d1.w),obj.sprite_frame(a0)
@@ -3052,68 +3052,68 @@ loc_205A2C:
 
 ; ------------------------------------------------------------------------------
 
-loc_205A40:
+PlayerAnimateShrunkDynamic:
 	moveq	#0,d1
 	move.b	obj.angle(a0),d0
 	move.b	obj.flags(a0),d2
 	andi.b	#1,d2
-	bne.s	loc_205A52
+	bne.s	PlayerAnimateShrunkOrientation
 	not.b	d0
 
-loc_205A52:
+PlayerAnimateShrunkOrientation:
 	addi.b	#$10,d0
-	bpl.s	loc_205A5A
+	bpl.s	PlayerAnimateShrunkSetQuadrant
 	moveq	#0,d1
 
-loc_205A5A:
+PlayerAnimateShrunkSetQuadrant:
 	andi.b	#$FC,obj.sprite_flags(a0)
 	or.b	d2,obj.sprite_flags(a0)
 	addi.b	#$30,d0
 	cmpi.b	#$60,d0
-	bcs.s	loc_205A88
+	bcs.s	PlayerAnimateShrunkCheckRoll
 	bset	#2,obj.flags(a0)
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
 	move.b	#$FF,d0
-	bra.w	loc_205978
+	bra.w	PlayerAnimateRollingDynamic
 
 ; ------------------------------------------------------------------------------
 
-loc_205A88:
+PlayerAnimateShrunkCheckRoll:
 	move.w	obj.ground_speed(a0),d2
-	bpl.s	loc_205A90
+	bpl.s	PlayerAnimateShrunkSpeed
 	neg.w	d2
 
-loc_205A90:
+PlayerAnimateShrunkSpeed:
 	lea	PlayerRunShrunkAnim,a1
 	cmpi.w	#$600,d2
-	bcc.s	loc_205AA2
+	bcc.s	PlayerAnimateShrunkSetTimer
 	lea	PlayerWalkShrunkAnim,a1
 
-loc_205AA2:
+PlayerAnimateShrunkSetTimer:
 	neg.w	d2
 	addi.w	#$800,d2
-	bpl.s	loc_205AAC
+	bpl.s	PlayerAnimateShrunkClampTimer
 	moveq	#0,d2
 
-loc_205AAC:
+PlayerAnimateShrunkClampTimer:
 	lsr.w	#8,d2
 	move.b	d2,obj.anim_timer(a0)
-	bra.w	sub_205870
+	bra.w	PlayerAnimateAdvanceFrame
 
 ; ------------------------------------------------------------------------------
 
-sub_205AB6:
+PlayerAnimateMapAnimation:
 	tst.b	shrunk_player
-	beq.s	locret_205AC2
-	move.b	byte_205AC4(pc,d0.w),d0
+	beq.s	PlayerAnimateMapReturn
+	move.b	PlayerShrunkAnimationMap(pc,d0.w),d0
 
-locret_205AC2:
+PlayerAnimateMapReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-byte_205AC4:
+PlayerShrunkAnimationMap:
 	dc.b	$21
 	dc.b	$18
 	dc.b	$23

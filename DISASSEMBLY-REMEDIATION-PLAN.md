@@ -651,6 +651,7 @@ opaque merely because they use `dc.*`.
 | M438 | Complete | Canonicalize the R6 player air-collision quadrant and ground-normalization family, migrating its internal branch targets and helper references. | J/U/E 133/133 each; audit/hygiene clean. |
 | M439 | Complete | Canonicalize the R6 player hurt recovery, death processing, and restart-selection family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M440 | Complete | Canonicalize the retained R6 player chunk/loop checks and roll-entry path, naming its detached map and zone-five helpers. | J/U/E 133/133 each; audit/hygiene clean. |
+| M441 | Complete | Canonicalize the R6 player animation frame, loop-command, dynamic movement, rolling, pushing, and shrink-map family. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
