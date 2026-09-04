@@ -348,7 +348,7 @@ Ending_AdvanceCommandStateFromState08:
 	move.w	#$8, $FFFFfa40.w
 
 Ending_AdvanceCommandState:
-	bsr.w	L_FF25A2
+	bsr.w	Ending_RequestSubCpuTransfer
 	clr.w	$FFFFfa40.w
 	addq.w	#$1, $FFFFc080.w
 	cmpi.w	#$8, $FFFFc080.w
@@ -651,31 +651,25 @@ Ending_ProcessEventStreamDone:
 ; Clear the initial ending-FMV VDP tile rows.
 Ending_ClearInitialVdpRows:
 	moveq	#$10, d4
-L_FF254E:
+	; Clear the first name-table block, then repeat for the second plane.
+Ending_ClearInitialVdpRowsFirstBlock:
 	move.l	#$46080003, d0
-L_FF2554:
 	move.w	#$1f, d1
-L_FF2558:
 	move.w	#$d, d2
 	bsr.b	Ending_ClearInitialVdpRowsWriteBlock
-L_FF255E:
+
+Ending_ClearInitialVdpRowsSecondBlock:
 	move.w	#$1d0, d4
-L_FF2562:
 	move.l	#$46880003, d0
-L_FF2568:
 	move.w	#$1f, d1
-L_FF256C:
 	move.w	#$d, d2
 Ending_ClearInitialVdpRowsWriteBlock:
 	move.l	d0, (a4)
-L_FF2572:
 	move.l	d1, d3
 Ending_ClearInitialVdpRowsColumnLoop:
 	move.w	d4, (a5)
-L_FF2576:
 	addq.w	#$1, d4
 	dbra	d3, Ending_ClearInitialVdpRowsColumnLoop
-L_FF257C:
 	addi.l	#$1000000, d0
 	dbra	d2, Ending_ClearInitialVdpRowsWriteBlock
 
@@ -694,79 +688,57 @@ Ending_WaitSubCpuOwnership:
 	btst.b	#$2, $a12003.l
 	beq.b	Ending_WaitSubCpuOwnership
 	rts
-L_FF25A2:
+; Request the Sub CPU handshake only when its gate and timer phase are ready.
+Ending_RequestSubCpuTransfer:
 	tst.b	$ff0f23.l
-L_FF25A8:
-	beq.b	L_FF25BA
-L_FF25AA:
+	beq.b	Ending_RequestSubCpuTransferReturn
 	btst.b	#$7, $FFFFfa4a.w
-L_FF25B0:
-	beq.b	L_FF25BA
-L_FF25B2:
+	beq.b	Ending_RequestSubCpuTransferReturn
 	bset.b	#$2, $a1200e.l
-L_FF25BA:
+
+Ending_RequestSubCpuTransferReturn:
 	rts
 ; Initialize ending-FMV palette, font tiles, and VDP state.
 Ending_InitializePaletteAndFont:
-L_FF25BC:
+	; Upload the palette, stop the Z80 while VRAM is initialized, then restore it.
+Ending_InitializePaletteAndFontLoadPalette:
 	lea.l	EndingPaletteData(pc), a1
-L_FF25C0:
 	jsr	$2b0.w
-L_FF25C4:
 	move.w	#$100, $a11100.l
-L_FF25CC:
+
+Ending_InitializePaletteAndFontWaitZ80:
 	btst.b	#$0, $a11100.l
-L_FF25D4:
-	bne.b	L_FF25CC
-L_FF25D6:
+	bne.b	Ending_InitializePaletteAndFontWaitZ80
 	lea.l	$c00004.l, a6
-L_FF25DC:
 	move.w	#$8f01, (a6)
-L_FF25E0:
 	move.l	#$93ff94ff, (a6)
-L_FF25E6:
 	move.w	#$9780, (a6)
-L_FF25EA:
 	move.l	#$40000080, (a6)
-L_FF25F0:
 	move.w	#$0, $c00000.l
-L_FF25F8:
+
+Ending_InitializePaletteAndFontWaitVdp:
 	btst.b	#$1, $1(a6)
-L_FF25FE:
-	bne.b	L_FF25F8
-L_FF2600:
+	bne.b	Ending_InitializePaletteAndFontWaitVdp
 	move.l	#$40000000, (a6)
-L_FF2606:
 	move.w	#$0, $c00000.l
-L_FF260E:
 	move.w	#$8f02, (a6)
-L_FF2612:
 	move.l	#$40000003, $c00004.l
-L_FF261C:
 	move.w	#$fff, d7
-L_FF2620:
+
+Ending_InitializePaletteAndFontClearVramLoop:
 	move.w	#$e7e1, $c00000.l
-L_FF2628:
-	dbra	d7, L_FF2620
-L_FF262C:
+	dbra	d7, Ending_InitializePaletteAndFontClearVramLoop
 	move.l	#$c0000000, $c00004.l
-L_FF2636:
 	lea.l	EndingFontData(pc), a0
-L_FF263A:
 	moveq	#$1f, d7
-L_FF263C:
+
+Ending_InitializePaletteAndFontUploadFontLoop:
 	move.l	(a0)+, $c00000.l
-L_FF2642:
-	dbra	d7, L_FF263C
-L_FF2646:
+	dbra	d7, Ending_InitializePaletteAndFontUploadFontLoop
 	move.l	#$40000010, $c00004.l
-L_FF2650:
 	move.l	#$0, $c00000.l
-L_FF265A:
 	move.w	#$0, $a11100.l
-L_FF2662:
 	move.w	#$8134, $FFFFfa46.w
-L_FF2668:
 	rts
 EndingFontData:
 	dc.l	$00000000
