@@ -2133,94 +2133,94 @@ PlayerCheckJumpSetAirborne:
 
 PlayerJumpHeight:
 	tst.b	obj.var_3c(a0)
-	beq.s	locret_205216
+	beq.s	PlayerJumpHeightInactiveReturn
 	move.w	#$FC00,d1
 	btst	#6,obj.flags(a0)
-	beq.s	loc_2051FA
+	beq.s	PlayerJumpHeightCheckCap
 	move.w	#$FE00,d1
 
-loc_2051FA:
+PlayerJumpHeightCheckCap:
 	cmp.w	obj.y_speed(a0),d1
-	ble.s	locret_205214
+	ble.s	PlayerJumpHeightCapReturn
 	move.b	player_joy_hold,d0
 	andi.b	#$70,d0
-	bne.s	locret_205214
+	bne.s	PlayerJumpHeightCapReturn
 	move.b	#0,obj.var_2a(a0)
 	move.w	d1,obj.y_speed(a0)
 
-locret_205214:
+PlayerJumpHeightCapReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-locret_205216:
+PlayerJumpHeightInactiveReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerSlopeResist:
 	tst.b	obj.var_2a(a0)
-	bne.s	locret_205252
+	bne.s	PlayerSlopeResistReturn
 	move.b	obj.angle(a0),d0
 	addi.b	#$60,d0
 	cmpi.b	#$C0,d0
-	bcc.s	locret_205252
+	bcc.s	PlayerSlopeResistReturn
 	move.b	obj.angle(a0),d0
 	jsr	SineCosine
 	muls.w	#$20,d0
 	asr.l	#8,d0
 	tst.w	obj.ground_speed(a0)
-	beq.s	locret_205252
-	bmi.s	loc_20524E
+	beq.s	PlayerSlopeResistReturn
+	bmi.s	PlayerSlopeResistApplyReverse
 	tst.w	d0
-	beq.s	locret_20524C
+	beq.s	PlayerSlopeResistNoSlope
 	add.w	d0,obj.ground_speed(a0)
 
-locret_20524C:
+PlayerSlopeResistNoSlope:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20524E:
+PlayerSlopeResistApplyReverse:
 	add.w	d0,obj.ground_speed(a0)
 
-locret_205252:
+PlayerSlopeResistReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerSlopeResistRoll:
 	tst.b	obj.var_2a(a0)
-	bne.s	locret_205294
+	bne.s	PlayerSlopeResistRollReturn
 	move.b	obj.angle(a0),d0
 	addi.b	#$60,d0
 	cmpi.b	#$C0,d0
-	bcc.s	locret_205294
+	bcc.s	PlayerSlopeResistRollReturn
 	move.b	obj.angle(a0),d0
 	jsr	SineCosine
 	muls.w	#$50,d0
 	asr.l	#8,d0
 	tst.w	obj.ground_speed(a0)
-	bmi.s	loc_20528A
+	bmi.s	PlayerSlopeResistRollApplyReverse
 	tst.w	d0
-	bpl.s	loc_205284
+	bpl.s	PlayerSlopeResistRollScaleForward
 	asr.l	#2,d0
 
-loc_205284:
+PlayerSlopeResistRollScaleForward:
 	add.w	d0,obj.ground_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20528A:
+PlayerSlopeResistRollApplyReverse:
 	tst.w	d0
-	bmi.s	loc_205290
+	bmi.s	PlayerSlopeResistRollApply
 	asr.l	#2,d0
 
-loc_205290:
+PlayerSlopeResistRollApply:
 	add.w	d0,obj.ground_speed(a0)
 
-locret_205294:
+PlayerSlopeResistRollReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -2228,30 +2228,30 @@ locret_205294:
 PlayerCheckFall:
 	nop
 	tst.b	obj.var_38(a0)
-	bne.s	locret_2052D0
+	bne.s	PlayerCheckFallReturn
 	tst.w	obj.var_3e(a0)
-	bne.s	loc_2052D2
+	bne.s	PlayerCheckFallDecrementTimer
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	beq.s	locret_2052D0
+	beq.s	PlayerCheckFallReturn
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_2052BA
+	bpl.s	PlayerCheckFallCheckSpeed
 	neg.w	d0
 
-loc_2052BA:
+PlayerCheckFallCheckSpeed:
 	cmpi.w	#$280,d0
-	bcc.s	locret_2052D0
+	bcc.s	PlayerCheckFallReturn
 	clr.w	obj.ground_speed(a0)
 	bset	#1,obj.flags(a0)
 	move.w	#$1E,obj.var_3e(a0)
 
-locret_2052D0:
+PlayerCheckFallReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2052D2:
+PlayerCheckFallDecrementTimer:
 	subq.w	#1,obj.var_3e(a0)
 	rts
 
@@ -2259,28 +2259,28 @@ loc_2052D2:
 
 PlayerResetAngle:
 	btst	#1,obj.var_2c(a0)
-	bne.s	locret_2052FA
+	bne.s	PlayerResetAngleReturn
 	move.b	obj.angle(a0),d0
-	beq.s	locret_2052FA
-	bpl.s	loc_2052F0
+	beq.s	PlayerResetAngleReturn
+	bpl.s	PlayerResetAngleDecrease
 	addq.b	#2,d0
-	bcc.s	loc_2052EE
+	bcc.s	PlayerResetAngleIncreaseComplete
 	moveq	#0,d0
 
-loc_2052EE:
-	bra.s	loc_2052F6
+PlayerResetAngleIncreaseComplete:
+	bra.s	PlayerResetAngleStore
 
 ; ------------------------------------------------------------------------------
 
-loc_2052F0:
+PlayerResetAngleDecrease:
 	subq.b	#2,d0
-	bcc.s	loc_2052F6
+	bcc.s	PlayerResetAngleStore
 	moveq	#0,d0
 
-loc_2052F6:
+PlayerResetAngleStore:
 	move.b	d0,obj.angle(a0)
 
-locret_2052FA:
+PlayerResetAngleReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
