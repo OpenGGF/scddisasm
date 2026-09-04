@@ -3,30 +3,31 @@
 TubeDoorObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20D416(pc,d0.w),d0
-	jsr	off_20D416(pc,d0.w)
+	move.w	TubeDoorRoutineTable(pc,d0.w),d0
+	jsr	TubeDoorRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20D416:
+; Tube Door object routine pointers.
+TubeDoorRoutineTable:
 	dc.w	TubeDoorObject_0_Routine0-*
-	dc.w	TubeDoorObject_0_Routine2-off_20D416
-	dc.w	TubeDoorObject_0_Routine4-off_20D416
-	dc.w	TubeDoorObject_0_Routine6-off_20D416
-	dc.w	TubeDoorObject_0_Routine8-off_20D416
+	dc.w	TubeDoorObject_0_Routine2-TubeDoorRoutineTable
+	dc.w	TubeDoorObject_0_Routine4-TubeDoorRoutineTable
+	dc.w	TubeDoorObject_0_Routine6-TubeDoorRoutineTable
+	dc.w	TubeDoorObject_0_Routine8-TubeDoorRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-loc_20D420:
+TubeDoorClosedCollision:
 	tst.b	obj.sprite_frame(a0)
-	beq.s	loc_20D428
+	beq.s	TubeDoorSolidCollision
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D428:
+TubeDoorSolidCollision:
 	lea	player_object,a1
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
@@ -51,45 +52,46 @@ TubeDoorObject_0_Routine2:
 	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
-	bcc.s	loc_20D486
+	bcc.s	TubeDoorSelectVerticalDistance
 	neg.w	d0
 
-loc_20D486:
+
+TubeDoorSelectVerticalDistance:
 	cmpi.w	#$40,d0
-	bcc.s	loc_20D4C6
+	bcc.s	TubeDoorClosedUpdate
 	move.w	obj.x(a0),d1
 	move.w	obj.x(a1),d0
 	tst.b	obj.subtype(a0)
-	bne.s	loc_20D4A2
+	bne.s	TubeDoorSelectHorizontalOrder
 	move.w	obj.x(a0),d0
 	move.w	obj.x(a1),d1
 
-loc_20D4A2:
+TubeDoorSelectHorizontalOrder:
 	sub.w	d1,d0
-	bcs.s	loc_20D4C6
+	bcs.s	TubeDoorClosedUpdate
 	cmpi.w	#$40,d0
-	bcc.s	loc_20D4C6
+	bcc.s	TubeDoorClosedUpdate
 	clr.w	obj.var_3a(a0)
 	addq.b	#2,obj.routine(a0)
 	btst	#7,obj.sprite_flags(a0)
-	beq.s	loc_20D4C6
+	beq.s	TubeDoorClosedUpdate
 	move.w	#$A4,d0
 	jsr	PlayFmSound
 
-loc_20D4C6:
-	bra.w	loc_20D420
+TubeDoorClosedUpdate:
+	bra.w	TubeDoorClosedCollision
 
 ; ------------------------------------------------------------------------------
 
 TubeDoorObject_0_Routine4:
 	clr.b	obj.var_3c(a0)
-	jsr	sub_20D548(pc)
+	jsr	TubeDoorAnimateDoor(pc)
 	cmpi.b	#3,obj.sprite_frame(a0)
-	bne.s	loc_20D4DE
+	bne.s	TubeDoorOpenTransitionCheck
 	addq.b	#2,obj.routine(a0)
 
-loc_20D4DE:
-	bra.w	loc_20D420
+TubeDoorOpenTransitionCheck:
+	bra.w	TubeDoorClosedCollision
 
 ; ------------------------------------------------------------------------------
 
@@ -97,67 +99,68 @@ TubeDoorObject_0_Routine6:
 	lea	player_object,a1
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
-	bcc.s	loc_20D4F2
+	bcc.s	TubeDoorSelectActiveVerticalDistance
 	neg.w	d0
 
-loc_20D4F2:
+
+TubeDoorSelectActiveVerticalDistance:
 	cmpi.w	#$40,d0
-	bcc.s	loc_20D52A
+	bcc.s	TubeDoorOpenCollisionReturn
 	move.w	obj.x(a1),d1
 	move.w	obj.x(a0),d0
 	tst.b	obj.subtype(a0)
-	bne.s	loc_20D50E
+	bne.s	TubeDoorSelectActiveHorizontalOrder
 	move.w	obj.x(a1),d0
 	move.w	obj.x(a0),d1
 
-loc_20D50E:
+TubeDoorSelectActiveHorizontalOrder:
 	sub.w	d1,d0
-	bcs.s	loc_20D52A
+	bcs.s	TubeDoorOpenCollisionReturn
 	cmpi.w	#$40,d0
-	bcs.s	loc_20D52A
+	bcs.s	TubeDoorOpenCollisionReturn
 	clr.w	obj.var_3a(a0)
 	addq.b	#2,obj.routine(a0)
 	move.w	#$A4,d0
 	jsr	PlayFmSound
 
-loc_20D52A:
-	bra.w	loc_20D420
+TubeDoorOpenCollisionReturn:
+	bra.w	TubeDoorClosedCollision
 
 ; ------------------------------------------------------------------------------
 
 TubeDoorObject_0_Routine8:
 	move.b	#1,obj.var_3c(a0)
-	jsr	sub_20D548(pc)
+	jsr	TubeDoorAnimateDoor(pc)
 	tst.b	obj.sprite_frame(a0)
-	bne.s	loc_20D544
+	bne.s	TubeDoorCloseTransitionCheck
 	move.b	#2,obj.routine(a0)
 
-loc_20D544:
-	bra.w	loc_20D420
+TubeDoorCloseTransitionCheck:
+	bra.w	TubeDoorClosedCollision
 
 ; ------------------------------------------------------------------------------
 
-sub_20D548:
+TubeDoorAnimateDoor:
 	addi.b	#$40,obj.var_3a(a0)
-	bcs.s	loc_20D552
+	bcs.s	TubeDoorAdvanceFrame
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D552:
+TubeDoorAdvanceFrame:
 	tst.b	obj.var_3c(a0)
-	bne.s	loc_20D55E
+	bne.s	TubeDoorReverseFrame
 	addq.b	#1,obj.sprite_frame(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D55E:
+TubeDoorReverseFrame:
 	subq.b	#1,obj.sprite_frame(a0)
-	bcc.s	locret_20D568
+	bcc.s	TubeDoorAnimationReturn
 	clr.b	obj.sprite_frame(a0)
 
-locret_20D568:
+TubeDoorAnimationReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

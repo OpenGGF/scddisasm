@@ -2,20 +2,21 @@
 
 SeesawObject:
 	tst.b	obj.subtype(a0)
-	bne.w	loc_20F3B2
+	bne.w	SeesawChildObject
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F18C(pc,d0.w),d0
-	jsr	off_20F18C(pc,d0.w)
+	move.w	SeesawRoutineTable(pc,d0.w),d0
+	jsr	SeesawRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20F18C:
+; Seesaw parent routine pointers.
+SeesawRoutineTable:
 	dc.w	SeesawObject_0_Routine0-*
-	dc.w	SeesawObject_0_Routine2-off_20F18C
-	dc.w	SeesawObject_0_Routine4-off_20F18C
+	dc.w	SeesawObject_0_Routine2-SeesawRoutineTable
+	dc.w	SeesawObject_0_Routine4-SeesawRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -29,14 +30,14 @@ SeesawObject_0_Routine0:
 	move.w	#$3B8,obj.sprite_tile(a0)
 	move.l	#SeesawSprites,obj.sprite_data(a0)
 	jsr	SpawnObject
-	bne.w	loc_20F3C0
-	bsr.w	sub_20F20C
+	bne.w	SeesawDelete
+	bsr.w	SeesawInitializeChild
 	move.w	a1,obj.var_2a(a0)
 	subi.w	#$28,obj.x(a1)
 	subi.w	#$18,obj.y(a1)
 	jsr	SpawnObject
-	bne.w	loc_20F3C0
-	bsr.w	sub_20F20C
+	bne.w	SeesawDelete
+	bsr.w	SeesawInitializeChild
 	move.w	a1,obj.var_2c(a0)
 	addi.w	#$28,obj.x(a1)
 	addi.w	#$18,obj.y(a1)
@@ -46,7 +47,8 @@ SeesawObject_0_Routine0:
 
 ; ------------------------------------------------------------------------------
 
-sub_20F20C:
+; Copy the parent sprite state into a Seesaw child object.
+SeesawInitializeChild:
 	move.b	obj.id(a0),obj.id(a1)
 	move.b	obj.sprite_flags(a0),obj.sprite_flags(a1)
 	move.b	obj.sprite_layer(a0),obj.sprite_layer(a1)
@@ -66,12 +68,12 @@ sub_20F20C:
 ; ------------------------------------------------------------------------------
 
 SeesawObject_0_Routine2:
-	lea	sub_20F2CC(pc),a1
+	lea	SeesawAnimateTilt(pc),a1
 	tst.w	obj.y_speed(a0)
-	beq.s	loc_20F26E
-	lea	sub_20F2EE(pc),a1
+	beq.s	SeesawUpdateChildCollisions
+	lea	SeesawApplyTiltMotion(pc),a1
 
-loc_20F26E:
+SeesawUpdateChildCollisions:
 	jsr	(a1)
 	move.w	a0,-(sp)
 	movea.w	obj.var_2c(a0),a0
@@ -88,13 +90,13 @@ loc_20F26E:
 	movea.w	(sp)+,a0
 	movea.w	obj.var_2a(a0),a1
 	tst.b	obj.var_3f(a1)
-	bne.s	loc_20F2B8
+	bne.s	SeesawStartReset
 	lea	SeesawAnims(pc),a1
 	jmp	AnimateObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20F2B8:
+SeesawStartReset:
 	move.b	#4,obj.routine(a0)
 	move.w	#3,obj.var_2e(a0)
 	move.b	#8,obj.sprite_frame(a0)
@@ -102,29 +104,29 @@ loc_20F2B8:
 
 ; ------------------------------------------------------------------------------
 
-sub_20F2CC:
+SeesawAnimateTilt:
 	tst.w	obj.var_2e(a0)
-	bmi.s	locret_20F2EC
+	bmi.s	SeesawTiltReturn
 	subq.w	#1,obj.var_2e(a0)
-	bmi.s	loc_20F2E2
+	bmi.s	SeesawSetTiltVelocity
 	cmpi.w	#$3C,obj.var_2e(a0)
-	beq.s	loc_20F2E8
-	bra.s	locret_20F2EC
+	beq.s	SeesawAdvanceAnimation
+	bra.s	SeesawTiltReturn
 
 ; ------------------------------------------------------------------------------
 
-loc_20F2E2:
+SeesawSetTiltVelocity:
 	move.w	#$100,obj.y_speed(a0)
 
-loc_20F2E8:
+SeesawAdvanceAnimation:
 	addq.b	#1,obj.anim_id(a0)
 
-locret_20F2EC:
+SeesawTiltReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F2EE:
+SeesawApplyTiltMotion:
 	movea.w	obj.var_2a(a0),a1
 	movea.w	obj.var_2c(a0),a2
 	moveq	#0,d0
@@ -136,22 +138,22 @@ sub_20F2EE:
 	move.b	obj.width_2(a2),d0
 	move.w	obj.x(a2),d3
 	cmp.w	obj.x(a0),d3
-	blt.s	loc_20F31A
+	blt.s	SeesawSelectChildWidthSign
 	neg.w	d0
 
-loc_20F31A:
+SeesawSelectChildWidthSign:
 	add.w	d0,d3
 	move.w	a0,-(sp)
 	movea.w	a2,a0
 	jsr	CheckBlockDown2
 	movea.w	(sp)+,a0
 	tst.w	d1
-	bmi.s	loc_20F32E
+	bmi.s	SeesawCorrectGroundPenetration
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F32E:
+SeesawCorrectGroundPenetration:
 	movea.w	obj.var_2a(a0),a1
 	movea.w	obj.var_2c(a0),a2
 	add.w	d1,obj.y(a0)
@@ -167,10 +169,10 @@ SeesawObject_0_Routine4:
 	subi.w	#$18,obj.y(a1)
 	subi.w	#$C,obj.y(a0)
 	subq.w	#1,obj.var_2e(a0)
-	bpl.s	loc_20F362
-	bsr.s	sub_20F37E
+	bpl.s	SeesawDrawChildren
+	bsr.s	SeesawReset
 
-loc_20F362:
+SeesawDrawChildren:
 	move.w	a0,-(sp)
 	movea.w	obj.var_2c(a0),a0
 	jsr	DrawObject
@@ -182,7 +184,7 @@ loc_20F362:
 
 ; ------------------------------------------------------------------------------
 
-sub_20F37E:
+SeesawReset:
 	move.b	#2,obj.routine(a0)
 	move.w	#0,obj.y_speed(a0)
 	move.w	#$78,obj.var_2e(a0)
@@ -190,25 +192,25 @@ sub_20F37E:
 	move.w	a1,obj.var_2a(a0)
 	moveq	#0,d0
 	cmpi.b	#2,obj.anim_id(a0)
-	bgt.s	loc_20F3A6
+	bgt.s	SeesawSelectResetAnimation
 	moveq	#3,d0
 
-loc_20F3A6:
+SeesawSelectResetAnimation:
 	move.b	d0,obj.anim_id(a0)
 	move.b	#$FF,obj.prev_anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F3B2:
+SeesawChildObject:
 	movea.w	obj.var_2a(a0),a1
 	cmpi.b	#$2C,obj.id(a1)
-	bne.s	loc_20F3C0
+	bne.s	SeesawDelete
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F3C0:
+SeesawDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
