@@ -6,26 +6,27 @@ FadeOutMusic:
 ; ------------------------------------------------------------------------------
 
 SubCpuCommand:
+	; Send a command to the Sub CPU and wait for its acknowledgement when connected.
 	cmpi.w	#$67,d0
-	bne.s	loc_205860
+	bne.s	SubCpuCommandDispatch
 	move.b	#1,boss_music
 
-loc_205860:
+SubCpuCommandDispatch:
 	if STANDALONE=0
 		move.w	d0,MCD_MAIN_DATA_0
 
-loc_205866:
+SubCpuWaitResponse:
 		move.w	MCD_SUB_DATA_0,d0
-		beq.s	loc_205866
+		beq.s	SubCpuWaitResponse
 		cmp.w	MCD_SUB_DATA_0,d0
-		bne.s	loc_205866
+		bne.s	SubCpuWaitResponse
 		move.w	#0,MCD_MAIN_DATA_0
 
-loc_20587E:
+SubCpuWaitComplete:
 		move.w	MCD_SUB_DATA_0,d0
-		bne.s	loc_20587E
+		bne.s	SubCpuWaitComplete
 		move.w	MCD_SUB_DATA_0,d0
-		bne.s	loc_20587E
+		bne.s	SubCpuWaitComplete
 	endif
 	rts
 

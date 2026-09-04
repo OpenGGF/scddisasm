@@ -1,11 +1,12 @@
 ; ------------------------------------------------------------------------------
 
 VSync:
+	; Enable interrupts and wait for the current VBlank routine to finish.
 	move	#$2300,sr
 
-loc_20083A:
+VSyncWait:
 	tst.b	vblank_routine
-	bne.s	loc_20083A
+	bne.s	VSyncWait
 	rts
 
 ; ------------------------------------------------------------------------------
