@@ -220,50 +220,50 @@ PlayerGetChunk:
 PlayerExtendedCamera:
 	move.w	scroll_focus_x,d1
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_203CBC
+	bpl.s	PlayerExtendedCameraReverseSpeed
 	neg.w	d0
 
-loc_203CBC:
+PlayerExtendedCameraReverseSpeed:
 	btst	#1,obj.var_2c(a0)
-	beq.s	loc_203CCC
+	beq.s	PlayerExtendedCameraApplySpeed
 	cmpi.w	#$1B00,obj.x(a0)
-	bcs.s	loc_203CF4
+	bcs.s	PlayerExtendedCameraCenter
 
-loc_203CCC:
+PlayerExtendedCameraApplySpeed:
 	cmpi.w	#$600,d0
-	bcs.s	loc_203CF4
+	bcs.s	PlayerExtendedCameraCenter
 	tst.w	obj.ground_speed(a0)
-	bpl.s	loc_203CE6
+	bpl.s	PlayerExtendedCameraMoveLeft
 	addq.w	#2,d1
 	cmpi.w	#$E0,d1
-	bcs.s	loc_203D02
+	bcs.s	PlayerExtendedCameraCommitFocus
 	move.w	#$E0,d1
-	bra.s	loc_203D02
+	bra.s	PlayerExtendedCameraCommitFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_203CE6:
+PlayerExtendedCameraMoveLeft:
 	subq.w	#2,d1
 	cmpi.w	#$60,d1
-	bcc.s	loc_203D02
+	bcc.s	PlayerExtendedCameraCommitFocus
 	move.w	#$60,d1
-	bra.s	loc_203D02
+	bra.s	PlayerExtendedCameraCommitFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_203CF4:
+PlayerExtendedCameraCenter:
 	cmpi.w	#$A0,d1
-	beq.s	loc_203D02
-	bcc.s	loc_203D00
+	beq.s	PlayerExtendedCameraCommitFocus
+	bcc.s	PlayerExtendedCameraMoveRight
 	addq.w	#2,d1
-	bra.s	loc_203D02
+	bra.s	PlayerExtendedCameraCommitFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_203D00:
+PlayerExtendedCameraMoveRight:
 	subq.w	#2,d1
 
-loc_203D02:
+PlayerExtendedCameraCommitFocus:
 	move.w	d1,scroll_focus_x
 	rts
 
@@ -273,37 +273,37 @@ PlayerMain:
 	bsr.s	PlayerExtendedCamera
 	bsr.w	PlayerMakeSplash
 	tst.w	debug_cheat
-	beq.s	loc_203D28
+	beq.s	PlayerMainAfterDebugCheat
 	btst	#4,p1_joy_tap
-	beq.s	loc_203D28
+	beq.s	PlayerMainAfterDebugCheat
 	move.b	#1,debug_mode
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_203D28:
+PlayerMainAfterDebugCheat:
 	tst.b	control_locked
-	bne.s	loc_203D34
+	bne.s	PlayerMainAfterControlInput
 	move.w	p1_joy_hold,player_joy_hold
 
-loc_203D34:
+PlayerMainAfterControlInput:
 	btst	#0,obj.var_2c(a0)
-	beq.s	loc_203D58
+	beq.s	PlayerMainNormalState
 	cmpi.b	#6,zone
-	bne.s	loc_203D52
+	bne.s	PlayerMainWarpCheck
 	clr.w	warp_timer
 	clr.b	warping
-	bra.s	loc_203D70
+	bra.s	PlayerMainAfterWarp
 
 ; ------------------------------------------------------------------------------
 
-loc_203D52:
+PlayerMainWarpCheck:
 	bsr.w	PlayerCheckWarp
-	bra.s	loc_203D70
+	bra.s	PlayerMainAfterWarp
 
 ; ------------------------------------------------------------------------------
 
-loc_203D58:
+PlayerMainNormalState:
 	moveq	#0,d0
 	move.b	obj.flags(a0),d0
 	andi.w	#6,d0
@@ -311,27 +311,27 @@ loc_203D58:
 	jsr	PlayerStates(pc,d1.w)
 	jsr	PlayerCheckBlock
 
-loc_203D70:
+PlayerMainAfterWarp:
 	bsr.s	PlayerUpdatePowerups
 	bsr.w	PlayerBufferPosition
 	bsr.w	PlayerCheckWater
 	move.b	collide_angle_1,obj.var_36(a0)
 	move.b	collide_angle_2,obj.var_37(a0)
 	tst.b	water_current_flag
-	beq.s	loc_203D98
+	beq.s	PlayerMainAnimate
 	tst.b	obj.anim_id(a0)
-	bne.s	loc_203D98
+	bne.s	PlayerMainAnimate
 	move.b	obj.prev_anim_id(a0),obj.anim_id(a0)
 
-loc_203D98:
+PlayerMainAnimate:
 	bsr.w	PlayerAnimate
 	tst.b	obj.var_2c(a0)
-	bmi.s	loc_203DB0
+	bmi.s	PlayerMainCheckChunk
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.s	loc_203DB0
+	beq.s	PlayerMainCheckChunk
 	jsr	PlayerObjectCollide
 
-loc_203DB0:
+PlayerMainCheckChunk:
 	bsr.w	PlayerCheckChunk
 	rts
 
