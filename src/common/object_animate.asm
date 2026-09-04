@@ -1,26 +1,29 @@
 ; ------------------------------------------------------------------------------
 
+; Animation streams contain frame bytes followed by negative control commands:
+; $FF loops, $FE jumps, $FD changes animation, and $FC/$FB/$FA advance state.
+
 AnimateObject:
 	moveq	#0,d0
 	move.b	obj.anim_id(a0),d0
 	cmp.b	obj.prev_anim_id(a0),d0
-	beq.s	loc_2058AE
+	beq.s	AnimateObjectSelectFrame
 	move.b	d0,obj.prev_anim_id(a0)
 	move.b	#0,obj.anim_index(a0)
 	move.b	#0,obj.anim_timer(a0)
 
-loc_2058AE:
+AnimateObjectSelectFrame:
 	subq.b	#1,obj.anim_timer(a0)
-	bpl.s	locret_2058EE
+	bpl.s	AnimateObjectDone
 	add.w	d0,d0
 	adda.w	(a1,d0.w),a1
 	move.b	(a1),obj.anim_timer(a0)
 	moveq	#0,d1
 	move.b	obj.anim_index(a0),d1
 	move.b	1(a1,d1.w),d0
-	bmi.s	loc_2058F0
+	bmi.s	AnimateObjectControl
 
-loc_2058CA:
+AnimateObjectApplyFrame:
 	move.b	d0,d1
 	andi.b	#$1F,d0
 	move.b	d0,obj.sprite_frame(a0)
@@ -32,53 +35,53 @@ loc_2058CA:
 	or.b	d1,obj.sprite_flags(a0)
 	addq.b	#1,obj.anim_index(a0)
 
-locret_2058EE:
+AnimateObjectDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2058F0:
+AnimateObjectControl:
 	addq.b	#1,d0
-	bne.s	loc_205900
+	bne.s	AnimateObjectControlJump
 	move.b	#0,obj.anim_index(a0)
 	move.b	obj.sprite_flags(a1),d0
-	bra.s	loc_2058CA
+	bra.s	AnimateObjectApplyFrame
 
 ; ------------------------------------------------------------------------------
 
-loc_205900:
+AnimateObjectControlJump:
 	addq.b	#1,d0
-	bne.s	loc_205914
+	bne.s	AnimateObjectControlChangeAnimation
 	move.b	2(a1,d1.w),d0
 	sub.b	d0,obj.anim_index(a0)
 	sub.b	d0,d1
 	move.b	1(a1,d1.w),d0
-	bra.s	loc_2058CA
+	bra.s	AnimateObjectApplyFrame
 
 ; ------------------------------------------------------------------------------
 
-loc_205914:
+AnimateObjectControlChangeAnimation:
 	addq.b	#1,d0
-	bne.s	loc_20591E
+	bne.s	AnimateObjectControlAdvanceRoutine
 	move.b	2(a1,d1.w),obj.anim_id(a0)
 
-loc_20591E:
+AnimateObjectControlAdvanceRoutine:
 	addq.b	#1,d0
-	bne.s	loc_205926
+	bne.s	AnimateObjectControlResetRoutine
 	addq.b	#2,obj.routine(a0)
 
-loc_205926:
+AnimateObjectControlResetRoutine:
 	addq.b	#1,d0
-	bne.s	loc_205934
+	bne.s	AnimateObjectControlAdvanceSubroutine
 	move.b	#0,obj.anim_index(a0)
 	clr.b	obj.routine_2(a0)
 
-loc_205934:
+AnimateObjectControlAdvanceSubroutine:
 	addq.b	#1,d0
-	bne.s	locret_20593C
+	bne.s	AnimateObjectControlDone
 	addq.b	#2,obj.routine_2(a0)
 
-locret_20593C:
+AnimateObjectControlDone:
 	rts
 
 ; ------------------------------------------------------------------------------
