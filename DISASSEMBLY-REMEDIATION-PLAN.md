@@ -624,6 +624,7 @@ opaque merely because they use `dc.*`.
 | M411 | Complete | Canonicalize the USA R63C stage-GFX orchestration and tile-animation family, including frame tables and status branches. | J/U/E 133/133 each; audit/hygiene clean. |
 | M412 | Complete | Canonicalize the shared USA legacy animation-tail routines, status branches, and frame tables. | J/U/E 133/133 each; audit/hygiene clean. |
 | M413 | Complete | Canonicalize the Collision Chaos Act 1 Present camera-scroll deformation and water-row helper family. | J/U/E 133/133 each; audit/hygiene clean. |
+| M414 | Complete | Canonicalize the R6 player boredom, initialization, splash, and routine-dispatch helper family. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
