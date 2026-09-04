@@ -494,7 +494,7 @@ L_FF249E:
 L_FF24A4:
 	andi.w #$10, d0
 L_FF24A8:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF24AC:
 	move.b $ff3735.l, d0
 L_FF24B2:
@@ -508,13 +508,13 @@ L_FF24BE:
 L_FF24C2:
 	moveq #$0, d0
 L_FF24C4:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF24C8:
 	bra.w L_FF28FA
 L_FF24CC:
 	moveq #$1, d0
 L_FF24CE:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF24D2:
 	moveq #$7, d7
 L_FF24D4:
@@ -552,7 +552,7 @@ L_FF2510:
 L_FF2516:
 	moveq #$1, d0
 L_FF2518:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF251C:
 	bra.w L_FF25AC
 L_FF2520:
@@ -588,7 +588,7 @@ L_FF255C:
 L_FF2560:
 	moveq #$1, d0
 L_FF2562:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF2566:
 	move.w d7, $ff3474.l
 L_FF256C:
@@ -596,7 +596,7 @@ L_FF256C:
 L_FF2570:
 	moveq #$0, d0
 L_FF2572:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF2576:
 	move.w #$10, $ff3730.l
 L_FF257E:
@@ -646,9 +646,9 @@ L_FF25EE:
 L_FF25F2:
 	moveq #$1, d0
 L_FF25F4:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF25F8:
-	bsr.w L_FF3072
+	bsr.w TimeAttack_UploadSelectionTileBlock
 L_FF25FC:
 	move.l #$1f, -(a7)
 L_FF2602:
@@ -774,7 +774,7 @@ L_FF271E:
 L_FF2724:
 	moveq #$0, d0
 L_FF2726:
-	bsr.w L_FF30EC
+	bsr.w TimeAttack_UploadIndexedStageData
 L_FF272A:
 	moveq #$8, d0
 L_FF272C:
@@ -810,7 +810,7 @@ L_FF276E:
 L_FF2774:
 	moveq #$1, d0
 L_FF2776:
-	bsr.w L_FF2FD8
+	bsr.w TimeAttack_DrawSelectionHighlight
 L_FF277A:
 	move.w #$10, $ffaa5a.l
 L_FF2782:
@@ -830,7 +830,7 @@ L_FF279C:
 L_FF27A4:
 	bsr.w TimeAttack_WaitVdpTransfer
 L_FF27A8:
-	bsr.w L_FF3138
+	bsr.w TimeAttack_AnimateRecordInsertion
 L_FF27AC:
 	move.l #$f, -(a7)
 L_FF27B2:
@@ -892,7 +892,7 @@ L_FF2836:
 L_FF283C:
 	andi.w #$10, d0
 L_FF2840:
-	bsr.w L_FF30EC
+	bsr.w TimeAttack_UploadIndexedStageData
 L_FF2844:
 	move.w $ff347a.l, d7
 L_FF284A:
@@ -938,7 +938,7 @@ L_FF2890:
 L_FF2892:
 	moveq #$1, d0
 L_FF2894:
-	bsr.w L_FF30EC
+	bsr.w TimeAttack_UploadIndexedStageData
 L_FF2898:
 	move.w d7, $ff347a.l
 L_FF289E:
@@ -950,7 +950,7 @@ L_FF28A6:
 L_FF28AC:
 	andi.w #$10, d0
 L_FF28B0:
-	bsr.w L_FF30EC
+	bsr.w TimeAttack_UploadIndexedStageData
 L_FF28B4:
 	move.w #$10, $ff3730.l
 L_FF28BC:
@@ -986,7 +986,7 @@ L_FF28FE:
 L_FF2902:
 	moveq #$0, d0
 L_FF2904:
-	bsr.w L_FF30EC
+	bsr.w TimeAttack_UploadIndexedStageData
 L_FF2908:
 	bsr.w TimeAttack_FadePaletteOut
 L_FF290C:
@@ -1084,7 +1084,7 @@ TimeAttack_AnimateTimePeriodChange:
 TimeAttack_AnimateTimePeriodChangeInitialize:
 	moveq #$0, d0
 TimeAttack_AnimateTimePeriodChangeSetDirection:
-	bsr.w L_FF30EC
+	bsr.w TimeAttack_UploadIndexedStageData
 TimeAttack_AnimateTimePeriodChangeFrameCount:
 	move.w d7, $ff3472.l
 TimeAttack_AnimateTimePeriodChangeFrameLoopCount:
@@ -1149,7 +1149,7 @@ L_FF2AAE:
 L_FF2AB0:
 	moveq #$1, d0
 L_FF2AB2:
-	bsr.w L_FF30EC
+	bsr.w TimeAttack_UploadIndexedStageData
 L_FF2AB6:
 	rts
 ; Upload the selected stage or period title tile row.
@@ -1781,255 +1781,253 @@ TimeAttack_UploadCompactTileBlockReturn:
 	rts
 ; Draw or clear the tile highlight around the current selection.
 TimeAttack_DrawSelectionHighlight:
-L_FF2FD8:
+TimeAttack_DrawSelectionHighlightCheckMode:
 	tst.w d0
-L_FF2FDA:
-	beq.b L_FF300C
-L_FF2FDC:
+TimeAttack_DrawSelectionHighlightClearBranch:
+	beq.b TimeAttack_DrawSelectionHighlightClearPath
+TimeAttack_DrawSelectionHighlightDrawSave:
 	movem.l d7, -(a7)
-L_FF2FE0:
-	bsr.w L_FF30BC
-L_FF2FE4:
+TimeAttack_DrawSelectionHighlightDrawBuildCommand:
+	bsr.w TimeAttack_BuildStageVdpCommand
+TimeAttack_DrawSelectionHighlightDrawWidth:
 	move.l #$1, -(a7)
-L_FF2FEA:
+TimeAttack_DrawSelectionHighlightDrawHeight:
 	move.l #$40, -(a7)
-L_FF2FF0:
+TimeAttack_DrawSelectionHighlightDrawTileCount:
 	move.l #$f, -(a7)
-L_FF2FF6:
+TimeAttack_DrawSelectionHighlightDrawVdpCommand:
 	move.l d7, -(a7)
-L_FF2FF8:
+TimeAttack_DrawSelectionHighlightDrawSourceOffset:
 	move.l #$0, -(a7)
-L_FF2FFE:
+TimeAttack_DrawSelectionHighlightDrawFill:
 	bsr.w TimeAttack_FillVdpRect
-L_FF3002:
+TimeAttack_DrawSelectionHighlightDrawReleaseArguments:
 	lea.l $14(a7), a7
-L_FF3006:
+TimeAttack_DrawSelectionHighlightDrawRestore:
 	movem.l (a7)+, d7
-L_FF300A:
+TimeAttack_DrawSelectionHighlightDrawReturn:
 	rts
-L_FF300C:
+TimeAttack_DrawSelectionHighlightClearPath:
 	movem.l d1/d7, -(a7)
-L_FF3010:
-	bsr.w L_FF30BC
-L_FF3014:
+TimeAttack_DrawSelectionHighlightClearBuildCommand:
+	bsr.w TimeAttack_BuildStageVdpCommand
+TimeAttack_DrawSelectionHighlightClearInitialCommand:
 	move.l #$8093808e, d1
-L_FF301A:
+TimeAttack_DrawSelectionHighlightClearCheckStage:
 	tst.w $ff3474.l
-L_FF3020:
-	bpl.b L_FF3028
-L_FF3022:
+TimeAttack_DrawSelectionHighlightClearStageBranch:
+	bpl.b TimeAttack_DrawSelectionHighlightClearPushSourceOffset
+TimeAttack_DrawSelectionHighlightClearAlternateCommand:
 	move.l #$80938128, d1
-L_FF3028:
+TimeAttack_DrawSelectionHighlightClearPushSourceOffset:
 	move.l #$0, -(a7)
-L_FF302E:
+TimeAttack_DrawSelectionHighlightClearPushWidth:
 	move.l #$40, -(a7)
-L_FF3034:
+TimeAttack_DrawSelectionHighlightClearPushHeight:
 	move.l #$f, -(a7)
-L_FF303A:
+TimeAttack_DrawSelectionHighlightClearPushVdpOffset:
 	move.l d7, -(a7)
-L_FF303C:
+TimeAttack_DrawSelectionHighlightClearPushCommand:
 	move.l d1, -(a7)
-L_FF303E:
+TimeAttack_DrawSelectionHighlightClearFirstFill:
 	bsr.w TimeAttack_FillVdpRect
-L_FF3042:
+TimeAttack_DrawSelectionHighlightClearFirstRelease:
 	lea.l $14(a7), a7
-L_FF3046:
+TimeAttack_DrawSelectionHighlightClearAdvanceSecondOffset:
 	addi.l #$800000, d7
-L_FF304C:
+TimeAttack_DrawSelectionHighlightClearRotateCommand:
 	swap d1
-L_FF304E:
+TimeAttack_DrawSelectionHighlightClearSecondSourceOffset:
 	move.l #$0, -(a7)
-L_FF3054:
+TimeAttack_DrawSelectionHighlightClearSecondWidth:
 	move.l #$40, -(a7)
-L_FF305A:
+TimeAttack_DrawSelectionHighlightClearSecondHeight:
 	move.l #$f, -(a7)
-L_FF3060:
+TimeAttack_DrawSelectionHighlightClearSecondVdpOffset:
 	move.l d7, -(a7)
-L_FF3062:
+TimeAttack_DrawSelectionHighlightClearSecondCommand:
 	move.l d1, -(a7)
-L_FF3064:
+TimeAttack_DrawSelectionHighlightClearSecondFill:
 	bsr.w TimeAttack_FillVdpRect
-L_FF3068:
+TimeAttack_DrawSelectionHighlightClearSecondRelease:
 	lea.l $14(a7), a7
-L_FF306C:
+TimeAttack_DrawSelectionHighlightClearRestore:
 	movem.l (a7)+, d1/d7
-L_FF3070:
+TimeAttack_DrawSelectionHighlightClearReturn:
 	rts
 ; Upload the selected stage or period's tile block to the VDP.
 TimeAttack_UploadSelectionTileBlock:
-L_FF3072:
+TimeAttack_UploadSelectionTileBlockSave:
 	movem.l d0/d7/a0, -(a7)
-L_FF3076:
+TimeAttack_UploadSelectionTileBlockSourceBase:
 	lea.l $ffd300.l, a0
-L_FF307C:
+TimeAttack_UploadSelectionTileBlockCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF3082:
-	beq.b L_FF3088
-L_FF3084:
+TimeAttack_UploadSelectionTileBlockUseStageSource:
+	beq.b TimeAttack_UploadSelectionTileBlockLoadStageIndex
+TimeAttack_UploadSelectionTileBlockAdjustPeriodSource:
 	adda.w #$200, a0
-L_FF3088:
+TimeAttack_UploadSelectionTileBlockLoadStageIndex:
 	move.w $ff3474.l, d0
-L_FF308E:
+TimeAttack_UploadSelectionTileBlockAdvanceStageIndex:
 	addq.w #$1, d0
-L_FF3090:
+TimeAttack_UploadSelectionTileBlockScaleStageIndex:
 	lsl.w #$6, d0
-L_FF3092:
+TimeAttack_UploadSelectionTileBlockSelectSource:
 	adda.w d0, a0
-L_FF3094:
-	bsr.w L_FF30BC
-L_FF3098:
+TimeAttack_UploadSelectionTileBlockBuildCommand:
+	bsr.w TimeAttack_BuildStageVdpCommand
+TimeAttack_UploadSelectionTileBlockWidth:
 	move.l #$1, -(a7)
-L_FF309E:
+TimeAttack_UploadSelectionTileBlockHeight:
 	move.l #$40, -(a7)
-L_FF30A4:
+TimeAttack_UploadSelectionTileBlockTileCount:
 	move.l #$f, -(a7)
-L_FF30AA:
+TimeAttack_UploadSelectionTileBlockVdpOffset:
 	move.l d7, -(a7)
-L_FF30AC:
+TimeAttack_UploadSelectionTileBlockSource:
 	pea.l (a0)
-L_FF30AE:
+TimeAttack_UploadSelectionTileBlockCopy:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF30B2:
+TimeAttack_UploadSelectionTileBlockReleaseArguments:
 	lea.l $14(a7), a7
-L_FF30B6:
+TimeAttack_UploadSelectionTileBlockRestore:
 	movem.l (a7)+, d0/d7/a0
-L_FF30BA:
+TimeAttack_UploadSelectionTileBlockReturn:
 	rts
 ; Build the VDP destination command for the current region and stage.
 TimeAttack_BuildStageVdpCommand:
-L_FF30BC:
 	movem.l d0, -(a7)
-L_FF30C0:
+TimeAttack_BuildStageVdpCommandDefault:
 	move.l #$61840003, d7
-L_FF30C6:
+TimeAttack_BuildStageVdpCommandCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF30CC:
-	beq.b L_FF30D4
-L_FF30CE:
+TimeAttack_BuildStageVdpCommandUseStageBase:
+	beq.b TimeAttack_BuildStageVdpCommandLoadStageIndex
+TimeAttack_BuildStageVdpCommandPeriodBase:
 	move.l #$61d00003, d7
-L_FF30D4:
+TimeAttack_BuildStageVdpCommandLoadStageIndex:
 	move.w $ff3474.l, d0
-L_FF30DA:
+TimeAttack_BuildStageVdpCommandAdvanceStageIndex:
 	addq.w #$1, d0
-L_FF30DC:
+TimeAttack_BuildStageVdpCommandRotateStageIndex:
 	ror.l #$8, d0
-L_FF30DE:
+TimeAttack_BuildStageVdpCommandMaskStageOffset:
 	andi.l #$ff000000, d0
-L_FF30E4:
+TimeAttack_BuildStageVdpCommandMergeStageOffset:
 	add.l d0, d7
-L_FF30E6:
+TimeAttack_BuildStageVdpCommandRestore:
 	movem.l (a7)+, d0
-L_FF30EA:
+TimeAttack_BuildStageVdpCommandReturn:
 	rts
 ; Upload the selected stage/animation table through the VDP transfer helper.
 TimeAttack_UploadIndexedStageData:
-L_FF30EC:
 	movem.l d0-d1/a0, -(a7)
-L_FF30F0:
+TimeAttack_UploadIndexedStageDataSourceOffset:
 	move.l #$0, -(a7)
-L_FF30F6:
+TimeAttack_UploadIndexedStageDataWidth:
 	move.l #$40, -(a7)
-L_FF30FC:
+TimeAttack_UploadIndexedStageDataHeight:
 	move.l #$3, -(a7)
-L_FF3102:
+TimeAttack_UploadIndexedStageDataSourceBase:
 	lea.l $ff6946.l, a0
-L_FF3108:
+TimeAttack_UploadIndexedStageDataCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF310E:
-	beq.b L_FF3114
-L_FF3110:
+TimeAttack_UploadIndexedStageDataUseStageTable:
+	beq.b TimeAttack_UploadIndexedStageDataLoadAnimationIndex
+TimeAttack_UploadIndexedStageDataAdjustPeriodTable:
 	adda.w #$3c, a0
-L_FF3114:
+TimeAttack_UploadIndexedStageDataLoadAnimationIndex:
 	move.w $ff347a.l, d1
-L_FF311A:
+TimeAttack_UploadIndexedStageDataScaleAnimationIndex:
 	mulu.w #$14, d1
-L_FF311E:
+TimeAttack_UploadIndexedStageDataSelectAnimationEntry:
 	adda.w d1, a0
-L_FF3120:
+TimeAttack_UploadIndexedStageDataPushEntryDescriptor:
 	move.l (a0)+, -(a7)
-L_FF3122:
+TimeAttack_UploadIndexedStageDataCheckSubselection:
 	tst.w d0
-L_FF3124:
-	beq.b L_FF3128
-L_FF3126:
+TimeAttack_UploadIndexedStageDataUseEntrySource:
+	beq.b TimeAttack_UploadIndexedStageDataPushEntrySource
+TimeAttack_UploadIndexedStageDataSkipEntrySource:
 	addq.w #$8, a0
-L_FF3128:
+TimeAttack_UploadIndexedStageDataPushEntrySource:
 	pea.l (a0)
-L_FF312A:
+TimeAttack_UploadIndexedStageDataCopyEntry:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF312E:
+TimeAttack_UploadIndexedStageDataReleaseArguments:
 	lea.l $14(a7), a7
-L_FF3132:
+TimeAttack_UploadIndexedStageDataRestore:
 	movem.l (a7)+, d0-d1/a0
-L_FF3136:
+TimeAttack_UploadIndexedStageDataReturn:
 	rts
 ; Animate the selected record row into its new ranking position.
 TimeAttack_AnimateRecordInsertion:
-L_FF3138:
+TimeAttack_AnimateRecordInsertionClearSourceOffset:
 	moveq #$0, d0
-L_FF313A:
+TimeAttack_AnimateRecordInsertionLoadRank:
 	move.w $ff347c.l, d1
-L_FF3140:
+TimeAttack_AnimateRecordInsertionScaleRank:
 	mulu.w #$c, d1
-L_FF3144:
+TimeAttack_AnimateRecordInsertionClearFrameCount:
 	moveq #$0, d2
-L_FF3146:
+TimeAttack_AnimateRecordInsertionInitialFrameCount:
 	move.w #$10, d2
-L_FF314A:
+TimeAttack_AnimateRecordInsertionLoadRankAgain:
 	move.w $ff347c.l, d7
-L_FF3150:
+TimeAttack_AnimateRecordInsertionNegateRank:
 	neg.w d7
-L_FF3152:
+TimeAttack_AnimateRecordInsertionAddRankBias:
 	addq.w #$4, d7
-L_FF3154:
+TimeAttack_AnimateRecordInsertionDivideFrameCount:
 	divu.w d7, d2
-L_FF3156:
+TimeAttack_AnimateRecordInsertionDecrementFrameCount:
 	subq.w #$1, d2
-L_FF3158:
+TimeAttack_AnimateRecordInsertionCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF315E:
-	beq.b L_FF3168
-L_FF3160:
+TimeAttack_AnimateRecordInsertionUseStageCommand:
+	beq.b TimeAttack_AnimateRecordInsertionStageCommand
+TimeAttack_AnimateRecordInsertionPeriodCommand:
 	movea.l #$67ac0003, a0
-L_FF3166:
-	bra.b L_FF316E
-L_FF3168:
+TimeAttack_AnimateRecordInsertionSkipStageCommand:
+	bra.b TimeAttack_AnimateRecordInsertionLoadRankForVdp
+TimeAttack_AnimateRecordInsertionStageCommand:
 	movea.l #$67aa0003, a0
-L_FF316E:
+TimeAttack_AnimateRecordInsertionLoadRankForVdp:
 	move.w $ff347c.l, d7
-L_FF3174:
+TimeAttack_AnimateRecordInsertionDecrementRank:
 	subq.w #$1, d7
-L_FF3176:
+TimeAttack_AnimateRecordInsertionScaleRowOffset:
 	mulu.w #$180, d7
-L_FF317A:
+TimeAttack_AnimateRecordInsertionRotateRowOffset:
 	swap d7
-L_FF317C:
+TimeAttack_AnimateRecordInsertionSelectVdpCommand:
 	adda.l d7, a0
-L_FF317E:
+TimeAttack_AnimateRecordInsertionClearAnimationCounter:
 	move.w #$0, $ffaa5a.l
-L_FF3186:
+TimeAttack_AnimateRecordInsertionReadAnimationCounter:
 	move.w $ffaa5a.l, d7
-L_FF318C:
+TimeAttack_AnimateRecordInsertionCheckFrameMask:
 	and.w d2, d7
-L_FF318E:
-	bne.b L_FF3192
-L_FF3190:
+TimeAttack_AnimateRecordInsertionSkipCommandToggle:
+	bne.b TimeAttack_AnimateRecordInsertionUploadTileBlock
+TimeAttack_AnimateRecordInsertionToggleCommand:
 	eor.w d1, d0
-L_FF3192:
-	bsr.w L_FF3360
-L_FF3196:
+TimeAttack_AnimateRecordInsertionUploadTileBlock:
+	bsr.w TimeAttack_UploadVdpTileBlock
+TimeAttack_AnimateRecordInsertionSetTransferCount:
 	move.w #$10, $ff3730.l
-L_FF319E:
+TimeAttack_AnimateRecordInsertionWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF31A2:
+TimeAttack_AnimateRecordInsertionCheckTransferDone:
 	tst.b $ff3735.l
-L_FF31A8:
-	beq.b L_FF3186
-L_FF31AA:
+TimeAttack_AnimateRecordInsertionAnimationLoop:
+	beq.b TimeAttack_AnimateRecordInsertionReadAnimationCounter
+TimeAttack_AnimateRecordInsertionFinalCommand:
 	move.w d1, d0
-L_FF31AC:
-	bsr.w L_FF3360
-L_FF31B0:
+TimeAttack_AnimateRecordInsertionUploadFinalTileBlock:
+	bsr.w TimeAttack_UploadVdpTileBlock
+TimeAttack_AnimateRecordInsertionReturn:
 	rts
 ; Let the player edit the three initials for a newly earned record.
 TimeAttack_EnterRecordInitials:
@@ -2255,33 +2253,33 @@ L_FF335E:
 	rts
 ; Upload the selected two-row tile block to its VDP destination.
 TimeAttack_UploadVdpTileBlock:
-L_FF3360:
+TimeAttack_UploadVdpTileBlockSave:
 	movem.l a1, -(a7)
-L_FF3364:
+TimeAttack_UploadVdpTileBlockWidth:
 	move.l #$1, -(a7)
-L_FF336A:
+TimeAttack_UploadVdpTileBlockHeight:
 	move.l #$40, -(a7)
-L_FF3370:
+TimeAttack_UploadVdpTileBlockRows:
 	move.l #$2, -(a7)
-L_FF3376:
+TimeAttack_UploadVdpTileBlockSource:
 	pea.l (a0)
-L_FF3378:
+TimeAttack_UploadVdpTileBlockDestinationTable:
 	if REGION=USA
 	lea.l $ff7868.l, a1
 	else
 	lea.l $ff785c.l, a1
 	endif
-L_FF337E:
+TimeAttack_UploadVdpTileBlockSelectDestination:
 	adda.w d0, a1
-L_FF3380:
+TimeAttack_UploadVdpTileBlockDestination:
 	pea.l (a1)
-L_FF3382:
+TimeAttack_UploadVdpTileBlockCopy:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF3386:
+TimeAttack_UploadVdpTileBlockReleaseArguments:
 	lea.l $14(a7), a7
-L_FF338A:
+TimeAttack_UploadVdpTileBlockRestore:
 	movem.l (a7)+, a1
-L_FF338E:
+TimeAttack_UploadVdpTileBlockReturn:
 	rts
 	dc.l	$4A390020,$0000670E,$588F33FC,$FFFF00FF,$34746000,$F5564E75
 ; Wait for the requested number of V-blank transfer slots.
