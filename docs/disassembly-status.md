@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M504 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M505 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -190,6 +190,9 @@ water update plus act-specific water-event handlers.
 M504 canonicalizes the R4 water-current record consumer and pause/unpause audio
 controls; the seven current-list variants now document their 14-byte records.
 
+M505 canonicalizes the R4 VBlank dispatcher, stage/title/continue DMA paths,
+HBlank palette/deferred-draw path, and warp/bored timers.
+
 ### Core and system programs
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |
@@ -299,17 +302,17 @@ controls; the seven current-list variants now document their 14-byte records.
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `DEMO43C.MMD` | `Level/Tidal Tempest/Act 3 Good Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=1 | J/U/E 2026-09-04 (M504) | Converge remaining R42/R43 graph |
-| `R41A__.MMD` | `Level/Tidal Tempest/Act 1 Present.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Migrate the remaining R41 act graph |
-| `R41B__.MMD` | `Level/Tidal Tempest/Act 1 Past.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams; USA Padding 1 provider for R41C/R41D | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Migrate the remaining R41 act graph |
-| `R41C__.MMD` | `Level/Tidal Tempest/Act 1 Good Future.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams; USA R41B Padding 1 shared after `$0428` | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Migrate the remaining R41 act graph |
-| `R41D__.MMD` | `Level/Tidal Tempest/Act 1 Bad Future.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams; USA R41C Padding 1 shared after `$0012` | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Migrate the remaining R41 act graph |
-| `R42A__.MMD` | `Level/Tidal Tempest/Act 2 Present.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Converge remaining R42/R43 graph |
-| `R42B__.MMD` | `Level/Tidal Tempest/Act 2 Past.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Converge remaining R42/R43 graph |
-| `R42C__.MMD` | `Level/Tidal Tempest/Act 2 Good Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Converge remaining R42/R43 graph |
-| `R42D__.MMD` | `Level/Tidal Tempest/Act 2 Bad Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Converge remaining R42/R43 graph |
-| `R43C__.MMD` | `Level/Tidal Tempest/Act 3 Good Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Converge remaining R42/R43 graph |
-| `R43D__.MMD` | `Level/Tidal Tempest/Act 3 Bad Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M504) | Converge remaining R42/R43 graph |
+| `DEMO43C.MMD` | `Level/Tidal Tempest/Act 3 Good Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=1 | J/U/E 2026-09-04 (M505) | Converge remaining R42/R43 graph |
+| `R41A__.MMD` | `Level/Tidal Tempest/Act 1 Present.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Migrate the remaining R41 act graph |
+| `R41B__.MMD` | `Level/Tidal Tempest/Act 1 Past.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams; USA Padding 1 provider for R41C/R41D | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Migrate the remaining R41 act graph |
+| `R41C__.MMD` | `Level/Tidal Tempest/Act 1 Good Future.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams; USA R41B Padding 1 shared after `$0428` | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Migrate the remaining R41 act graph |
+| `R41D__.MMD` | `Level/Tidal Tempest/Act 1 Bad Future.asm` | L | Legacy | Opaque/mixed | Legacy R41 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained streams; USA R41C Padding 1 shared after `$0012` | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Migrate the remaining R41 act graph |
+| `R42A__.MMD` | `Level/Tidal Tempest/Act 2 Present.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Converge remaining R42/R43 graph |
+| `R42B__.MMD` | `Level/Tidal Tempest/Act 2 Past.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Converge remaining R42/R43 graph |
+| `R42C__.MMD` | `Level/Tidal Tempest/Act 2 Good Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Converge remaining R42/R43 graph |
+| `R42D__.MMD` | `Level/Tidal Tempest/Act 2 Bad Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Converge remaining R42/R43 graph |
+| `R43C__.MMD` | `Level/Tidal Tempest/Act 3 Good Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Converge remaining R42/R43 graph |
+| `R43D__.MMD` | `Level/Tidal Tempest/Act 3 Bad Future.asm` | H | Partial | Mixed | Hybrid R4 graph with semantic bootstrap/main loop, animation/music/water helpers, water-current consumer, residual address labels, and retained/padding data | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M505) | Converge remaining R42/R43 graph |
 
 ### Levels — Quartz Quadrant
 

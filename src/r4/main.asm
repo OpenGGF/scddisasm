@@ -935,6 +935,7 @@ UnpauseMusicDone:
 
 ; ------------------------------------------------------------------------------
 
+; R4 VBlank dispatcher and DMA paths for stage, title, pause, and load modes.
 VBlank:
 	if STANDALONE=0
 		bset	#0,MCD_INTERRUPT
@@ -946,26 +947,26 @@ VBlank:
 	move.l	#$40000010,VDP_CTRL
 	move.l	scroll_y,VDP_DATA
 	btst	#6,system_version
-	beq.s	loc_201EB4
+	beq.s	VBlankAfterScrollUpload
 	move.w	#$700,d0
 
-loc_201EB0:
-	dbf	d0,loc_201EB0
+VBlankDelayForSystem:
+	dbf	d0,VBlankDelayForSystem
 
-loc_201EB4:
+VBlankAfterScrollUpload:
 	move.b	vblank_routine,d0
 	move.b	#0,vblank_routine
 	andi.w	#$3E,d0
 	move.w	VBlankIndex(pc,d0.w),d0
 	jsr	VBlankIndex(pc,d0.w)
 
-loc_201ECA:
+VBlankDispatchDone:
 	tst.b	paused
-	bne.s	loc_201ED8
+	bne.s	VBlankUpdateTimers
 	bsr.w	UpdateBoredTimer
 	bsr.w	UpdateWarpTimer
 
-loc_201ED8:
+VBlankUpdateTimers:
 	addq.l	#1,stage_vblank_frames
 	movem.l	(sp)+,d0-d7/a0-a6
 	rte
@@ -991,23 +992,23 @@ VBlankIndex:
 
 VBlankLag:
 	tst.b	stage_started
-	beq.s	loc_201ECA
+	beq.s	VBlankDispatchDone
 	cmpi.b	#2,zone
-	bne.w	loc_201ECA
+	bne.w	VBlankDispatchDone
 	move.w	VDP_CTRL,d0
 	btst	#6,system_version
-	beq.s	loc_201F2A
+	beq.s	VBlankLagDmaSetup
 	move.w	#$700,d0
 
-loc_201F26:
-	dbf	d0,loc_201F26
+VBlankLagDelay:
+	dbf	d0,VBlankLagDelay
 
-loc_201F2A:
+VBlankLagDmaSetup:
 	move.w	#1,do_hblank
 	jsr	StopZ80
 	jsr	UpdateWater
 	tst.b	water_full
-	bne.s	loc_201F68
+	bne.s	VBlankLagWaterDma
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
@@ -1015,11 +1016,11 @@ loc_201F2A:
 	move.w	#$C000,(a5)
 	move.w	#$80,dma_stack
 	move.w	dma_stack,(a5)
-	bra.s	loc_201F8C
+	bra.s	VBlankLagResume
 
 ; ------------------------------------------------------------------------------
 
-loc_201F68:
+VBlankLagWaterDma:
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9540,(a5)
@@ -1028,10 +1029,10 @@ loc_201F68:
 	move.w	#$80,dma_stack
 	move.w	dma_stack,(a5)
 
-loc_201F8C:
+VBlankLagResume:
 	move.w	hblank_vdp_reg,(a5)
 	jsr	StartZ80
-	bra.w	loc_201ECA
+	bra.w	VBlankDispatchDone
 
 ; ------------------------------------------------------------------------------
 
@@ -1040,10 +1041,10 @@ VBlankGeneral:
 
 VBlankS1SegaLogo:
 	tst.w	global_timer
-	beq.w	locret_201FAA
+	beq.w	VBlankSegaLogoTimerDone
 	subq.w	#1,global_timer
 
-locret_201FAA:
+VBlankSegaLogoTimerDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1053,10 +1054,10 @@ VBlankS1Title:
 	bsr.w	DrawStageBg
 	bsr.w	ProcessGfxQueueFast
 	tst.w	global_timer
-	beq.w	locret_201FC4
+	beq.w	VBlankTitleTimerDone
 	subq.w	#1,global_timer
 
-locret_201FC4:
+VBlankTitleTimerDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1079,7 +1080,7 @@ VBlankStage:
 	bsr.w	ReadJoypads
 	jsr	UpdateWater
 	tst.b	water_full
-	bne.s	loc_202018
+	bne.s	VBlankStageWaterDma
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
@@ -1087,11 +1088,11 @@ VBlankStage:
 	move.w	#$C000,(a5)
 	move.w	#$80,dma_stack
 	move.w	dma_stack,(a5)
-	bra.s	loc_20203C
+	bra.s	VBlankStageDmaContinue
 
 ; ------------------------------------------------------------------------------
 
-loc_202018:
+VBlankStageWaterDma:
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9540,(a5)
@@ -1100,7 +1101,7 @@ loc_202018:
 	move.w	#$80,dma_stack
 	move.w	dma_stack,(a5)
 
-loc_20203C:
+VBlankStageDmaContinue:
 	move.w	hblank_vdp_reg,(a5)
 	move.w	#1,do_hblank
 	lea	VDP_CTRL,a5
@@ -1120,7 +1121,7 @@ loc_20203C:
 	lea	player_object,a0
 	bsr.w	LoadPlayerGfx
 	tst.b	update_player_gfx
-	beq.s	loc_2020C6
+	beq.s	VBlankStagePlayerGfxDone
 	lea	VDP_CTRL,a5
 	move.l	#$94019370,(a5)
 	move.l	#$96E49500,(a5)
@@ -1130,26 +1131,26 @@ loc_20203C:
 	move.w	dma_stack,(a5)
 	move.b	#0,update_player_gfx
 
-loc_2020C6:
+VBlankStagePlayerGfxDone:
 	tst.w	time_stop
-	bne.s	loc_2020D4
+	bne.s	VBlankStageResume
 	jsr	AnimateStageGfx
 
-loc_2020D4:
+VBlankStageResume:
 	jsr	StartZ80
 	movem.l	scroll_fg_x,d0-d7
 	movem.l	d0-d7,scroll_fg_x_work
 	movem.l	scroll_flags_fg,d0-d1
 	movem.l	d0-d1,scroll_flags_fg_work
 	cmpi.b	#$60,hblank_vdp_reg+1
-	bcc.s	sub_20210A
+	bcc.s	VBlankStageDraw
 	move.b	#1,do_hblank_updates
 	addq.l	#4,sp
-	bra.w	loc_201ECA
+	bra.w	VBlankDispatchDone
 
 ; ------------------------------------------------------------------------------
 
-sub_20210A:
+VBlankStageDraw:
 	bsr.w	DrawStage
 	bsr.w	ProcessGfxQueueSlow
 	jmp	UpdateHudNumbers
@@ -1206,13 +1207,13 @@ VBlankUnkE:
 VBlankPaletteFade:
 	bsr.w	VBlankCommon
 	cmpi.b	#1,fade_enable_display
-	bne.s	loc_2021EC
+	bne.s	VBlankPaletteDisplayEnable
 	addq.b	#1,fade_enable_display
 	move.w	display_vdp_reg,d0
 	ori.b	#$40,d0
 	move.w	d0,VDP_CTRL
 
-loc_2021EC:
+VBlankPaletteDisplayEnable:
 	move.w	hblank_vdp_reg,(a5)
 	bra.w	ProcessGfxQueueFast
 
@@ -1246,7 +1247,7 @@ VBlankS1Continue:
 	lea	player_object,a0
 	bsr.w	LoadPlayerGfx
 	tst.b	update_player_gfx
-	beq.s	loc_2022A8
+	beq.s	VBlankContinuePlayerGfxDone
 	lea	VDP_CTRL,a5
 	move.l	#$94019370,(a5)
 	move.l	#$96E49500,(a5)
@@ -1256,12 +1257,12 @@ VBlankS1Continue:
 	move.w	dma_stack,(a5)
 	move.b	#0,update_player_gfx
 
-loc_2022A8:
+VBlankContinuePlayerGfxDone:
 	tst.w	global_timer
-	beq.w	locret_2022B4
+	beq.w	VBlankContinueTimerDone
 	subq.w	#1,global_timer
 
-locret_2022B4:
+VBlankContinueTimerDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1270,7 +1271,7 @@ VBlankCommon:
 	jsr	StopZ80
 	bsr.w	ReadJoypads
 	tst.b	water_full
-	bne.s	loc_2022EC
+	bne.s	VBlankCommonWaterDma
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9580,(a5)
@@ -1278,11 +1279,11 @@ VBlankCommon:
 	move.w	#$C000,(a5)
 	move.w	#$80,dma_stack
 	move.w	dma_stack,(a5)
-	bra.s	loc_202310
+	bra.s	VBlankCommonResume
 
 ; ------------------------------------------------------------------------------
 
-loc_2022EC:
+VBlankCommonWaterDma:
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$96FD9540,(a5)
@@ -1291,7 +1292,7 @@ loc_2022EC:
 	move.w	#$80,dma_stack
 	move.w	dma_stack,(a5)
 
-loc_202310:
+VBlankCommonResume:
 	lea	VDP_CTRL,a5
 	move.l	#$94019340,(a5)
 	move.l	#$96FC9500,(a5)
@@ -1310,13 +1311,14 @@ loc_202310:
 
 ; ------------------------------------------------------------------------------
 
+; Water palette upload and deferred stage drawing run from H-blank.
 HBlank:
 	move	#$2700,sr
 	tst.w	do_hblank
-	beq.s	locret_2023DC
+	beq.s	HBlankDone
 	move.w	#0,do_hblank
 	cmpi.b	#$DF,hblank_vdp_reg+1
-	beq.s	locret_2023DC
+	beq.s	HBlankDone
 	movem.l	a0-a1,-(sp)
 	lea	VDP_DATA,a1
 	lea	water_palette,a0
@@ -1356,17 +1358,17 @@ HBlank:
 	move.w	#$8ADF,4(a1)
 	movem.l	(sp)+,a0-a1
 	tst.b	do_hblank_updates
-	bne.s	loc_2023DE
+	bne.s	HBlankUpdateStage
 
-locret_2023DC:
+HBlankDone:
 	rte
 
 ; ------------------------------------------------------------------------------
 
-loc_2023DE:
+HBlankUpdateStage:
 	clr.b	do_hblank_updates
 	movem.l	d0-d7/a0-a6,-(sp)
-	bsr.w	sub_20210A
+	bsr.w	VBlankStageDraw
 	movem.l	(sp)+,d0-d7/a0-a6
 	rte
 
@@ -1374,27 +1376,27 @@ loc_2023DE:
 
 UpdateWarpTimer:
 	tst.b	player_object+obj.var_2a
-	bne.s	locret_202400
+	bne.s	UpdateWarpTimerDone
 	tst.w	warp_timer
-	beq.s	locret_202400
+	beq.s	UpdateWarpTimerDone
 	addq.w	#1,warp_timer
 
-locret_202400:
+UpdateWarpTimerDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 UpdateBoredTimer:
 	tst.w	bored_timer
-	beq.s	loc_20240C
+	beq.s	UpdateBoredTimerP2
 	addq.w	#1,bored_timer
 
-loc_20240C:
+UpdateBoredTimerP2:
 	tst.w	bored_timer_p2
-	beq.s	locret_202416
+	beq.s	UpdateBoredTimerDone
 	addq.w	#1,bored_timer_p2
 
-locret_202416:
+UpdateBoredTimerDone:
 	rts
 
 ; ------------------------------------------------------------------------------
