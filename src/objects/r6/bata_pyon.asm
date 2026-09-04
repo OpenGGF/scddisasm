@@ -4,18 +4,19 @@ BataPyonObject:
 	jsr	DestroyInGoodFuture
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20D90C(pc,d0.w),d0
-	jsr	off_20D90C(pc,d0.w)
+	move.w	BataPyonRoutineTable(pc,d0.w),d0
+	jsr	BataPyonRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20D90C:
+; Bata-pyon object routine pointers.
+BataPyonRoutineTable:
 	dc.w	BataPyonObject_0_Routine0-*
-	dc.w	BataPyonObject_0_Routine2-off_20D90C
-	dc.w	BataPyonObject_0_Routine4-off_20D90C
-	dc.w	BataPyonObject_0_Routine6-off_20D90C
+	dc.w	BataPyonObject_0_Routine2-BataPyonRoutineTable
+	dc.w	BataPyonObject_0_Routine4-BataPyonRoutineTable
+	dc.w	BataPyonObject_0_Routine6-BataPyonRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -30,17 +31,17 @@ BataPyonObject_0_Routine0:
 	move.l	#CheckBlockLeft,obj.var_36(a0)
 	move.w	#$FFF0,obj.var_34(a0)
 	move.b	#1,obj.sprite_frame(a0)
-	bsr.w	sub_20DB08
+	bsr.w	BataPyonUpdateCollisionProfile
 	movea.l	#BataPyonSprites1,a1
 	move.l	#-$A000,d0
 	move.b	#7,d1
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20D97C
+	beq.s	BataPyonSelectSpriteSet
 	movea.l	#BataPyonSprites2,a1
 	move.l	#-$8000,d0
 	move.b	#3,d1
 
-loc_20D97C:
+BataPyonSelectSpriteSet:
 	move.l	a1,obj.sprite_data(a0)
 	move.l	d0,obj.var_2a(a0)
 	move.l	#$70000,obj.var_2e(a0)
@@ -59,38 +60,38 @@ BataPyonObject_0_Routine2:
 	movea.l	obj.var_36(a0),a1
 	jsr	(a1)
 	tst.w	d1
-	bpl.s	loc_20D9D2
+	bpl.s	BataPyonFallingMotion
 	tst.w	obj.var_3e(a0)
-	bpl.w	loc_20DAD4
+	bpl.w	BataPyonReverseDirection
 	cmp.w	obj.var_3e(a0),d1
-	ble.w	loc_20DAD4
-	bra.s	loc_20D9F4
+	ble.w	BataPyonReverseDirection
+	bra.s	BataPyonStartBounce
 
 ; ------------------------------------------------------------------------------
 
-loc_20D9D2:
+BataPyonFallingMotion:
 	tst.w	obj.var_3e(a0)
-	bmi.s	loc_20D9F4
+	bmi.s	BataPyonStartBounce
 	addi.l	#$2000,obj.var_2e(a0)
 	cmpi.l	#$70000,obj.var_2e(a0)
-	blt.s	locret_20D9F2
+	blt.s	BataPyonFallReturn
 	move.l	#$70000,obj.var_2e(a0)
 
-locret_20D9F2:
+BataPyonFallReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D9F4:
+BataPyonStartBounce:
 	addq.b	#2,obj.routine(a0)
 	move.w	obj.var_3e(a0),d0
 	add.w	d0,obj.y(a0)
 	move.w	#1,d0
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20DA0E
+	beq.s	BataPyonSetBounceDuration
 	move.w	#$14,d0
 
-loc_20DA0E:
+BataPyonSetBounceDuration:
 	move.w	d0,obj.var_3a(a0)
 	rts
 
@@ -98,42 +99,42 @@ loc_20DA0E:
 
 BataPyonObject_0_Routine4:
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20DA44
+	beq.s	BataPyonAdvanceBounce
 	move.w	#7,d6
 	move.w	obj.var_3a(a0),d0
 	cmpi.w	#6,d0
-	beq.s	loc_20DA3C
+	beq.s	BataPyonApplyBounceMotion
 	cmpi.w	#$B,d0
-	beq.s	loc_20DA3A
+	beq.s	BataPyonReverseBounceDirection
 	cmpi.w	#$F,d0
-	beq.s	loc_20DA3C
+	beq.s	BataPyonApplyBounceMotion
 	cmpi.w	#$12,d0
-	bne.s	loc_20DA44
+	bne.s	BataPyonAdvanceBounce
 
-loc_20DA3A:
+BataPyonReverseBounceDirection:
 	neg.w	d6
 
-loc_20DA3C:
+BataPyonApplyBounceMotion:
 	add.w	d6,obj.y(a0)
-	bsr.w	sub_20DB08
+	bsr.w	BataPyonUpdateCollisionProfile
 
-loc_20DA44:
+BataPyonAdvanceBounce:
 	subq.w	#1,obj.var_3a(a0)
-	bne.s	locret_20DA72
+	bne.s	BataPyonBounceReturn
 	addq.b	#2,obj.routine(a0)
 	subq.w	#7,obj.y(a0)
-	bsr.w	sub_20DB08
+	bsr.w	BataPyonUpdateCollisionProfile
 	move.l	#-$60000,d0
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20DA68
+	beq.s	BataPyonStoreBounceVelocity
 	move.l	#-$50000,d0
 
-loc_20DA68:
+BataPyonStoreBounceVelocity:
 	move.l	d0,obj.var_2e(a0)
 	subq.b	#1,obj.var_32(a0)
-	bmi.s	loc_20DAD4
+	bmi.s	BataPyonReverseDirection
 
-locret_20DA72:
+BataPyonBounceReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -149,37 +150,37 @@ BataPyonObject_0_Routine6:
 	movea.l	obj.var_36(a0),a1
 	jsr	(a1)
 	tst.w	d1
-	bpl.s	loc_20DAAA
+	bpl.s	BataPyonRisingMotion
 	tst.w	obj.var_3e(a0)
-	bpl.s	loc_20DAD4
+	bpl.s	BataPyonReverseDirection
 	cmp.w	obj.var_3e(a0),d1
-	ble.s	loc_20DAD4
-	bra.s	loc_20DABC
+	ble.s	BataPyonReverseDirection
+	bra.s	BataPyonImpactRecovery
 
 ; ------------------------------------------------------------------------------
 
-loc_20DAAA:
+BataPyonRisingMotion:
 	tst.w	obj.var_3e(a0)
-	bmi.s	loc_20DABC
+	bmi.s	BataPyonImpactRecovery
 	addi.l	#$2000,obj.var_2e(a0)
-	bpl.s	loc_20DAC8
+	bpl.s	BataPyonResetBounceState
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20DABC:
+BataPyonImpactRecovery:
 	move.w	obj.var_3e(a0),d0
 	sub.w	d0,obj.y(a0)
 	clr.l	obj.var_2e(a0)
 
-loc_20DAC8:
+BataPyonResetBounceState:
 	subq.b	#4,obj.routine(a0)
 	subi.w	#$B,obj.y(a0)
-	bra.s	sub_20DB08
+	bra.s	BataPyonUpdateCollisionProfile
 
 ; ------------------------------------------------------------------------------
 
-loc_20DAD4:
+BataPyonReverseDirection:
 	move.b	obj.var_33(a0),obj.var_32(a0)
 	bchg	#0,obj.sprite_flags(a0)
 	bchg	#0,obj.flags(a0)
@@ -188,31 +189,32 @@ loc_20DAD4:
 	lea	CheckBlockLeft,a1
 	lea	CheckBlockRight,a2
 	cmpa.l	obj.var_36(a0),a1
-	bne.s	loc_20DB02
+	bne.s	BataPyonStoreBlockCheckDirection
 	exg	a1,a2
 
-loc_20DB02:
+BataPyonStoreBlockCheckDirection:
 	move.l	a1,obj.var_36(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20DB08:
+; Update collision dimensions for the current sprite orientation.
+BataPyonUpdateCollisionProfile:
 	tst.b	obj.sprite_frame(a0)
-	beq.s	loc_20DB16
+	beq.s	BataPyonSetAlternateProfile
 	moveq	#0,d0
 	moveq	#$13,d1
 	moveq	#$2F,d2
-	bra.s	loc_20DB1C
+	bra.s	BataPyonStoreCollisionProfile
 
 ; ------------------------------------------------------------------------------
 
-loc_20DB16:
+BataPyonSetAlternateProfile:
 	moveq	#1,d0
 	moveq	#$1C,d1
 	moveq	#$30,d2
 
-loc_20DB1C:
+BataPyonStoreCollisionProfile:
 	move.b	d0,obj.sprite_frame(a0)
 	move.b	d1,obj.height(a0)
 	move.b	d2,obj.collide_type(a0)

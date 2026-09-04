@@ -2,33 +2,34 @@
 
 MinomusiObject:
 	tst.b	obj.subtype_2(a0)
-	beq.s	loc_20E4A6
-	bmi.w	loc_20E714
-	bra.w	loc_20E6F4
+	beq.s	MinomusiMainObject
+	bmi.w	MinomusiDropChildObject
+	bra.w	MinomusiChildObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E4A6:
+MinomusiMainObject:
 	jsr	DestroyInGoodFuture
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E4C6(pc,d0.w),d0
-	jsr	off_20E4C6(pc,d0.w)
+	move.w	MinomusiRoutineTable(pc,d0.w),d0
+	jsr	MinomusiRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20E4C6:
+; Minomusi parent routine pointers.
+MinomusiRoutineTable:
 	dc.w	MinomusiObject_0_Routine0-*
-	dc.w	MinomusiObject_0_Routine2-off_20E4C6
-	dc.w	MinomusiObject_0_Routine4-off_20E4C6
-	dc.w	MinomusiObject_0_Routine6-off_20E4C6
-	dc.w	MinomusiObject_0_Routine8-off_20E4C6
-	dc.w	MinomusiObject_0_RoutineA-off_20E4C6
-	dc.w	MinomusiObject_0_RoutineC-off_20E4C6
-	dc.w	MinomusiObject_0_RoutineE-off_20E4C6
-	dc.w	MinomusiObject_0_Routine10-off_20E4C6
+	dc.w	MinomusiObject_0_Routine2-MinomusiRoutineTable
+	dc.w	MinomusiObject_0_Routine4-MinomusiRoutineTable
+	dc.w	MinomusiObject_0_Routine6-MinomusiRoutineTable
+	dc.w	MinomusiObject_0_Routine8-MinomusiRoutineTable
+	dc.w	MinomusiObject_0_RoutineA-MinomusiRoutineTable
+	dc.w	MinomusiObject_0_RoutineC-MinomusiRoutineTable
+	dc.w	MinomusiObject_0_RoutineE-MinomusiRoutineTable
+	dc.w	MinomusiObject_0_Routine10-MinomusiRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -47,18 +48,18 @@ MinomusiObject_0_Routine0:
 	addi.w	#$5F,obj.var_36(a0)
 	lea	MinomusiSprites1(pc),a1
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20E52A
+	beq.s	MinomusiSelectSpriteSet
 	lea	MinomusiSprites2(pc),a1
 
-loc_20E52A:
+MinomusiSelectSpriteSet:
 	move.l	a1,obj.sprite_data(a0)
 	jsr	SpawnObjectAfter
-	beq.s	loc_20E53C
+	beq.s	MinomusiSpawnChildSetup
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E53C:
+MinomusiSpawnChildSetup:
 	move.b	obj.id(a0),obj.id(a1)
 	move.b	#$FF,obj.subtype_2(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -80,34 +81,35 @@ MinomusiObject_0_Routine2:
 
 MinomusiObject_0_Routine4:
 	subq.w	#1,obj.var_2a(a0)
-	bne.s	locret_20E5B6
+	bne.s	MinomusiWaitReturn
 	move.w	#$79,obj.var_2a(a0)
 	move.b	#2,d6
 	lea	player_object,a1
-	bsr.w	sub_20E5B8
-	bcs.s	loc_20E5B2
+	bsr.w	MinomusiCheckPlayerOffset
+	bcs.s	MinomusiSelectRiseDirection
 	neg.b	d6
 
-loc_20E5B2:
+MinomusiSelectRiseDirection:
 	add.b	d6,obj.routine(a0)
 
-locret_20E5B6:
+MinomusiWaitReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20E5B8:
+; Check whether the player is inside Minomusi's launch corridor.
+MinomusiCheckPlayerOffset:
 	move.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
 	subi.w	#$28,d0
 	subi.w	#$78,d0
-	bcc.s	locret_20E5DA
+	bcc.s	MinomusiOffsetCheckReturn
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
 	subi.w	#-$A8,d0
 	subi.w	#$150,d0
 
-locret_20E5DA:
+MinomusiOffsetCheckReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -121,11 +123,11 @@ MinomusiObject_0_Routine8:
 	add.l	d0,obj.y(a0)
 	move.w	obj.var_36(a0),d0
 	sub.w	obj.y(a0),d0
-	bgt.s	locret_20E604
+	bgt.s	MinomusiRiseReturn
 	add.w	d0,obj.y(a0)
 	move.b	#$E,obj.routine(a0)
 
-locret_20E604:
+MinomusiRiseReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -134,10 +136,10 @@ MinomusiObject_0_RoutineA:
 	addq.b	#2,obj.routine(a0)
 	move.l	#$70000,d0
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20E61C
+	beq.s	MinomusiSelectRiseVelocity
 	move.l	#$20000,d0
 
-loc_20E61C:
+MinomusiSelectRiseVelocity:
 	move.l	d0,obj.var_30(a0)
 
 MinomusiObject_0_RoutineC:
@@ -145,11 +147,11 @@ MinomusiObject_0_RoutineC:
 	sub.l	d0,obj.y(a0)
 	move.w	obj.var_34(a0),d0
 	sub.w	obj.y(a0),d0
-	blt.s	locret_20E63C
+	blt.s	MinomusiFallReturn
 	add.w	d0,obj.y(a0)
 	move.b	#2,obj.routine(a0)
 
-locret_20E63C:
+MinomusiFallReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -159,28 +161,28 @@ MinomusiObject_0_RoutineE:
 	move.w	#$E6,d0
 	move.w	#$FF,d1
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20E658
+	beq.s	MinomusiSelectAnimationProfile
 	move.w	#$3D,d0
 	move.w	#$1FF,d1
 
-loc_20E658:
+MinomusiSelectAnimationProfile:
 	move.w	d0,obj.var_2a(a0)
 	move.w	d1,obj.anim_id(a0)
 
 MinomusiObject_0_Routine10:
 	subq.w	#1,obj.var_2a(a0)
-	bne.s	loc_20E66C
+	bne.s	MinomusiAnimate
 	move.b	#$A,obj.routine(a0)
 
-loc_20E66C:
+MinomusiAnimate:
 	lea	MinomusiAnims(pc),a1
 	jsr	AnimateObject
 	tst.b	obj.subtype(a0)
-	bne.w	locret_20E6F2
+	bne.w	MinomusiAnimationReturn
 	cmpi.b	#$1E,obj.anim_index(a0)
-	bne.w	locret_20E6F2
+	bne.w	MinomusiAnimationReturn
 	jsr	SpawnObjectAfter
-	bne.w	locret_20E6F2
+	bne.w	MinomusiAnimationReturn
 	move.b	obj.id(a0),obj.id(a1)
 	move.b	#1,obj.subtype_2(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -196,47 +198,47 @@ loc_20E66C:
 	move.w	a0,obj.var_38(a1)
 	move.b	#$B5,obj.collide_type(a1)
 	tst.b	obj.sprite_flags(a0)
-	bpl.s	locret_20E6F2
+	bpl.s	MinomusiAnimationReturn
 	move.w	#$B7,d0
 	jsr	PlayFmSound
 
-locret_20E6F2:
+MinomusiAnimationReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E6F4:
+MinomusiChildObject:
 	movea.w	obj.var_38(a0),a1
 	cmpi.b	#$33,obj.id(a1)
-	bne.s	loc_20E70E
+	bne.s	MinomusiDeleteChild
 	cmpi.b	#1,obj.anim_index(a1)
-	beq.s	loc_20E70E
+	beq.s	MinomusiDeleteChild
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E70E:
+MinomusiDeleteChild:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E714:
+MinomusiDropChildObject:
 	movea.w	obj.var_38(a0),a1
 	cmpi.b	#$33,obj.id(a1)
-	beq.s	loc_20E726
+	beq.s	MinomusiUpdateDropChild
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20E726:
+MinomusiUpdateDropChild:
 	move.w	obj.y(a1),d0
 	sub.w	obj.var_34(a1),d0
 	subi.w	#$18,d0
 	asr.w	#3,d0
-	bpl.s	loc_20E738
+	bpl.s	MinomusiClampDropFrame
 	moveq	#0,d0
 
-loc_20E738:
+MinomusiClampDropFrame:
 	move.b	d0,obj.sprite_frame(a0)
 	asl.w	#2,d0
 	add.w	obj.var_34(a1),d0
