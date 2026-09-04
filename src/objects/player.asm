@@ -1288,89 +1288,89 @@ PlayerMoveRoll:
 	move.w	player_deceleration,d4
 	asr.w	#2,d4
 	tst.b	water_slide_flag
-	bne.w	loc_204886
+	bne.w	PlayerMoveRollSetVelocity
 	tst.w	obj.var_3e(a0)
-	bne.s	loc_204774
+	bne.s	PlayerMoveRollCheckRolling
 	btst	#2,player_joy_hold
-	beq.s	loc_204768
+	beq.s	PlayerMoveRollAfterLeft
 	bsr.w	PlayerMoveRollLeft
 
-loc_204768:
+PlayerMoveRollAfterLeft:
 	btst	#3,player_joy_hold
-	beq.s	loc_204774
+	beq.s	PlayerMoveRollCheckRolling
 	bsr.w	PlayerMoveRollRight
 
-loc_204774:
+PlayerMoveRollCheckRolling:
 	tst.b	obj.var_2a(a0)
-	beq.w	loc_20481E
+	beq.w	PlayerMoveRollDecelerate
 	move.w	#$4B,d0
 	move.w	player_max_speed,d1
 	move.w	d1,d2
 	asl.w	#1,d1
 	tst.b	speed_shoes
-	beq.s	loc_204794
+	beq.s	PlayerMoveRollSpeedShoesLimit
 	asr.w	#1,d2
 	sub.w	d2,d1
 
-loc_204794:
+PlayerMoveRollSpeedShoesLimit:
 	btst	#0,obj.flags(a0)
-	beq.s	loc_2047A0
+	beq.s	PlayerMoveRollApplyDirection
 	neg.w	d0
 	neg.w	d1
 
-loc_2047A0:
+PlayerMoveRollApplyDirection:
 	add.w	d0,obj.ground_speed(a0)
 	move.w	obj.ground_speed(a0),d0
 	btst	#0,obj.flags(a0)
-	beq.s	loc_2047B6
+	beq.s	PlayerMoveRollClampReverse
 	cmp.w	d0,d1
-	ble.s	loc_2047BC
-	bra.s	loc_2047BA
+	ble.s	PlayerMoveRollStoreSpeed
+	bra.s	PlayerMoveRollClampForward
 
 ; ------------------------------------------------------------------------------
 
-loc_2047B6:
+PlayerMoveRollClampReverse:
 	cmp.w	d1,d0
-	ble.s	loc_2047BC
+	ble.s	PlayerMoveRollStoreSpeed
 
-loc_2047BA:
+PlayerMoveRollClampForward:
 	move.w	d1,d0
 
-loc_2047BC:
+PlayerMoveRollStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	btst	#1,player_joy_hold
-	beq.s	loc_2047F0
+	beq.s	PlayerMoveRollBrake
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2047CA:
+PlayerMoveRollStop:
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 	move.b	#0,obj.var_2a(a0)
 	move.w	#0,obj.ground_speed(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#0,obj.y_speed(a0)
-	bra.w	loc_204850
+	bra.w	PlayerMoveRollRestoreStanding
 
 ; ------------------------------------------------------------------------------
 
-loc_2047F0:
+PlayerMoveRollBrake:
 	cmpi.b	#$2D,obj.var_2a(a0)
-	bne.s	loc_2047CA
+	bne.s	PlayerMoveRollStop
 	move.b	#0,obj.var_2a(a0)
 	move.w	#$91,d0
 	jsr	PlayFmSound
 	btst	#0,obj.flags(a0)
-	bne.s	loc_204816
+	bne.s	PlayerMoveRollMoveRight
 	bsr.w	PlayerMoveRollRight
-	bra.s	loc_20481E
+	bra.s	PlayerMoveRollDecelerate
 
 ; ------------------------------------------------------------------------------
 
-loc_204816:
+PlayerMoveRollMoveRight:
 	bsr.w	PlayerMoveRollLeft
-	bra.s	loc_20481E
+	bra.s	PlayerMoveRollDecelerate
 
 ; ------------------------------------------------------------------------------
 
@@ -1378,54 +1378,54 @@ loc_204816:
 
 ; ------------------------------------------------------------------------------
 
-loc_20481E:
+PlayerMoveRollDecelerate:
 	move.w	obj.ground_speed(a0),d0
-	beq.s	loc_204840
-	bmi.s	loc_204834
+	beq.s	PlayerMoveRollAfterDeceleration
+	bmi.s	PlayerMoveRollDecelerateReverse
 	sub.w	d5,d0
-	bcc.s	loc_20482E
+	bcc.s	PlayerMoveRollStoreForwardSpeed
 	move.w	#0,d0
 
-loc_20482E:
+PlayerMoveRollStoreForwardSpeed:
 	move.w	d0,obj.ground_speed(a0)
-	bra.s	loc_204840
+	bra.s	PlayerMoveRollAfterDeceleration
 
 ; ------------------------------------------------------------------------------
 
-loc_204834:
+PlayerMoveRollDecelerateReverse:
 	add.w	d5,d0
-	bcc.s	loc_20483C
+	bcc.s	PlayerMoveRollStoreReverseSpeed
 	move.w	#0,d0
 
-loc_20483C:
+PlayerMoveRollStoreReverseSpeed:
 	move.w	d0,obj.ground_speed(a0)
 
-loc_204840:
+PlayerMoveRollAfterDeceleration:
 	tst.w	obj.ground_speed(a0)
-	bne.s	loc_204886
+	bne.s	PlayerMoveRollSetVelocity
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 
-loc_204850:
+PlayerMoveRollRestoreStanding:
 	bclr	#2,obj.flags(a0)
 	tst.b	player_shrunk_state
-	beq.s	loc_204870
+	beq.s	PlayerMoveRollRestoreNormalSize
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
 	subq.w	#2,obj.y(a0)
-	bra.s	loc_204880
+	bra.s	PlayerMoveRollSetStandingAnimation
 
 ; ------------------------------------------------------------------------------
 
-loc_204870:
+PlayerMoveRollRestoreNormalSize:
 	move.b	#$13,obj.height(a0)
 	move.b	#9,obj.width(a0)
 	subq.w	#5,obj.y(a0)
 
-loc_204880:
+PlayerMoveRollSetStandingAnimation:
 	move.b	#5,obj.anim_id(a0)
 
-loc_204886:
+PlayerMoveRollSetVelocity:
 	move.b	obj.angle(a0),d0
 	jsr	SineCosine
 	muls.w	obj.ground_speed(a0),d0
@@ -1434,15 +1434,15 @@ loc_204886:
 	muls.w	obj.ground_speed(a0),d1
 	asr.l	#8,d1
 	cmpi.w	#$1000,d1
-	ble.s	loc_2048AA
+	ble.s	PlayerMoveRollClampPositiveVelocity
 	move.w	#$1000,d1
 
-loc_2048AA:
+PlayerMoveRollClampPositiveVelocity:
 	cmpi.w	#-$1000,d1
-	bge.s	loc_2048B4
+	bge.s	PlayerMoveRollStoreVelocity
 	move.w	#-$1000,d1
 
-loc_2048B4:
+PlayerMoveRollStoreVelocity:
 	move.w	d1,obj.x_speed(a0)
 	bra.w	PlayerCheckWall
 
@@ -1450,22 +1450,22 @@ loc_2048B4:
 
 PlayerMoveRollLeft:
 	move.w	obj.ground_speed(a0),d0
-	beq.s	loc_2048C4
-	bpl.s	loc_2048D2
+	beq.s	PlayerMoveRollLeftStart
+	bpl.s	PlayerMoveRollLeftBrake
 
-loc_2048C4:
+PlayerMoveRollLeftStart:
 	bset	#0,obj.flags(a0)
 	move.b	#2,obj.anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2048D2:
+PlayerMoveRollLeftBrake:
 	sub.w	d4,d0
-	bcc.s	loc_2048DA
+	bcc.s	PlayerMoveRollLeftStoreSpeed
 	move.w	#-$80,d0
 
-loc_2048DA:
+PlayerMoveRollLeftStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	rts
 
@@ -1473,19 +1473,19 @@ loc_2048DA:
 
 PlayerMoveRollRight:
 	move.w	obj.ground_speed(a0),d0
-	bmi.s	loc_2048F4
+	bmi.s	PlayerMoveRollRightBrake
 	bclr	#0,obj.flags(a0)
 	move.b	#2,obj.anim_id(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2048F4:
+PlayerMoveRollRightBrake:
 	add.w	d4,d0
-	bcc.s	loc_2048FC
+	bcc.s	PlayerMoveRollRightStoreSpeed
 	move.w	#$80,d0
 
-loc_2048FC:
+PlayerMoveRollRightStoreSpeed:
 	move.w	d0,obj.ground_speed(a0)
 	rts
 

@@ -632,6 +632,7 @@ opaque merely because they use `dc.*`.
 | M419 | Complete | Canonicalize the shared player booster table and ground-movement preamble, attachment checks, and velocity/focus exits. | J/U/E 133/133 each; audit/hygiene clean. |
 | M420 | Complete | Canonicalize the shared player ground-movement focus, acceleration, braking, roll/look input, and velocity-deceleration family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M421 | Complete | Canonicalize the shared player wall-response and ground-left/ground-right movement family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M422 | Complete | Canonicalize the shared player rolling movement, standing restoration, and roll-left/roll-right helper family. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
