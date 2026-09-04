@@ -2544,11 +2544,11 @@ PlayerHurt:
 	jsr	MoveObject
 	addi.w	#$30,obj.y_speed(a0)
 	btst	#6,obj.flags(a0)
-	beq.s	loc_20559E
+	beq.s	PlayerHurtCheckBlocks
 	subi.w	#$20,obj.y_speed(a0)
 
-loc_20559E:
-	bsr.w	sub_2055B4
+PlayerHurtCheckBlocks:
+	bsr.w	PlayerHurtRecover
 	bsr.w	PlayerCheckBounds
 	bsr.w	PlayerBufferPosition
 	bsr.w	PlayerAnimate
@@ -2556,14 +2556,14 @@ loc_20559E:
 
 ; ------------------------------------------------------------------------------
 
-sub_2055B4:
+PlayerHurtRecover:
 	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
 	bcs.w	KillPlayer
 	bsr.w	PlayerBlockCollideAir
 	btst	#1,obj.flags(a0)
-	bne.s	locret_2055EE
+	bne.s	PlayerHurtRecoverReturn
 	moveq	#0,d0
 	move.w	d0,obj.y_speed(a0)
 	move.w	d0,obj.x_speed(a0)
@@ -2572,13 +2572,13 @@ sub_2055B4:
 	subq.b	#2,obj.routine(a0)
 	move.w	#$78,obj.var_30(a0)
 
-locret_2055EE:
+PlayerHurtRecoverReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerDead:
-	bsr.w	sub_205608
+	bsr.w	PlayerDeadProcess
 	jsr	MoveObjectFall
 	bsr.w	PlayerBufferPosition
 	bsr.w	PlayerAnimate
@@ -2586,80 +2586,80 @@ PlayerDead:
 
 ; ------------------------------------------------------------------------------
 
-sub_205608:
+PlayerDeadProcess:
 	move.w	bottom_bound,d0
 	addi.w	#$100,d0
 	cmp.w	obj.y(a0),d0
-	bcc.w	locret_205676
+	bcc.w	PlayerDeadReturn
 	move.w	#$FFC8,obj.y_speed(a0)
 	addq.b	#2,obj.routine(a0)
 	clr.b	update_hud_time
 	addq.b	#1,update_hud_lives
 	subq.b	#1,lives
-	bpl.s	loc_20563C
+	bpl.s	PlayerDeadCheckLives
 	clr.b	lives
 
-loc_20563C:
+PlayerDeadCheckLives:
 	cmpi.b	#$2B,obj.anim_id(a0)
-	beq.s	loc_205656
+	beq.s	PlayerDeadSpawnLifeIcon
 	tst.b	time_attack
-	beq.s	loc_205656
+	beq.s	PlayerDeadSpawnLifeIcon
 	move.b	#0,lives
-	bra.s	loc_205670
+	bra.s	PlayerDeadSetRestartTimer
 
 ; ------------------------------------------------------------------------------
 
-loc_205656:
+PlayerDeadSpawnLifeIcon:
 	jsr	SpawnObject
 	move.b	#$3B,0(a1)
 	move.w	#$1E0,obj.var_3a(a0)
 	tst.b	lives
-	beq.s	locret_205676
+	beq.s	PlayerDeadReturn
 
-loc_205670:
+PlayerDeadSetRestartTimer:
 	move.w	#$3C,obj.var_3a(a0)
 
-locret_205676:
+PlayerDeadReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerRestart:
 	tst.w	obj.var_3a(a0)
-	beq.w	locret_2056E6
+	beq.w	PlayerRestartReturn
 	subq.w	#1,obj.var_3a(a0)
-	bne.w	locret_2056E6
+	bne.w	PlayerRestartReturn
 	move.w	#1,restart_stage
 	bsr.w	ResetObjectStates
 	clr.l	flower_counts
 	tst.b	respawn_checkpoint
-	bne.s	loc_2056B4
+	bne.s	PlayerRestartSelectSpawn
 	cmpi.b	#1,time_zone
-	bne.s	loc_2056B4
+	bne.s	PlayerRestartSelectSpawn
 	bclr	#1,stage_start_flags
 
-loc_2056B4:
+PlayerRestartSelectSpawn:
 	move.w	#$E,d0
 	tst.b	lives
-	beq.s	loc_2056E2
+	beq.s	PlayerRestartSendCommand
 	cmpi.b	#1,time_zone
-	bne.s	loc_2056DC
+	bne.s	PlayerRestartDefaultSpawn
 	tst.b	respawn_checkpoint
-	beq.s	loc_2056E2
+	beq.s	PlayerRestartSendCommand
 	move.b	#1,spawn_mode
-	bra.s	loc_2056E2
+	bra.s	PlayerRestartSendCommand
 
 ; ------------------------------------------------------------------------------
 
-loc_2056DC:
+PlayerRestartDefaultSpawn:
 	clr.b	spawn_mode
 
-loc_2056E2:
+PlayerRestartSendCommand:
 	bra.w	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-locret_2056E6:
+PlayerRestartReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

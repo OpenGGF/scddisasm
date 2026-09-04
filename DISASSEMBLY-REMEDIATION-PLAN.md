@@ -649,6 +649,7 @@ opaque merely because they use `dc.*`.
 | M436 | Complete | Canonicalize the R6 player bounds, roll-eligibility/start, and jump-input family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M437 | Complete | Canonicalize the R6 player jump-height, slope-resistance, fall-detection, and angle-reset family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M438 | Complete | Canonicalize the R6 player air-collision quadrant and ground-normalization family, migrating its internal branch targets and helper references. | J/U/E 133/133 each; audit/hygiene clean. |
+| M439 | Complete | Canonicalize the R6 player hurt recovery, death processing, and restart-selection family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
