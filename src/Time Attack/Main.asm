@@ -3210,143 +3210,143 @@ TimeAttack_BuildNemesisDecodeTable:
 	bra.b .NextByte
 ; Decode an Enigma stream into the caller-provided RAM buffer.
 TimeAttack_DecompressEnigma:
-L_FF50BA:
+TimeAttack_DecompressEnigmaSaveRegisters:
 	movem.l d0-d7/a1-a5, -(a7)
-L_FF50BE:
+TimeAttack_DecompressEnigmaOutputBase:
 	movea.w d0, a3
-L_FF50C0:
+TimeAttack_DecompressEnigmaOutputOffset:
 	move.b (a0)+, d0
-L_FF50C2:
+TimeAttack_DecompressEnigmaOutputOffsetSignExtend:
 	ext.w d0
-L_FF50C4:
+TimeAttack_DecompressEnigmaOutputCount:
 	movea.w d0, a5
-L_FF50C6:
+TimeAttack_DecompressEnigmaBitWidth:
 	move.b (a0)+, d4
-L_FF50C8:
+TimeAttack_DecompressEnigmaBitWidthShift:
 	lsl.b #$3, d4
-L_FF50CA:
+TimeAttack_DecompressEnigmaAscendingBase:
 	movea.w (a0)+, a2
-L_FF50CC:
+TimeAttack_DecompressEnigmaAscendingOffset:
 	adda.w a3, a2
-L_FF50CE:
+TimeAttack_DecompressEnigmaRepeatBase:
 	movea.w (a0)+, a4
-L_FF50D0:
+TimeAttack_DecompressEnigmaRepeatOffset:
 	adda.w a3, a4
-L_FF50D2:
+TimeAttack_DecompressEnigmaInitialBitsHigh:
 	move.b (a0)+, d5
-L_FF50D4:
+TimeAttack_DecompressEnigmaInitialBitsLow:
 	asl.w #$8, d5
-L_FF50D6:
+TimeAttack_DecompressEnigmaInitialBitsAppend:
 	move.b (a0)+, d5
-L_FF50D8:
+TimeAttack_DecompressEnigmaInitialBitsRemaining:
 	moveq #$10, d6
-L_FF50DA:
+TimeAttack_DecompressEnigmaTokenLoop:
 	moveq #$7, d0
-L_FF50DC:
+TimeAttack_DecompressEnigmaTokenBitsRemaining:
 	move.w d6, d7
-L_FF50DE:
+TimeAttack_DecompressEnigmaTokenBitsOffset:
 	sub.w d0, d7
-L_FF50E0:
+TimeAttack_DecompressEnigmaTokenValue:
 	move.w d5, d1
-L_FF50E2:
+TimeAttack_DecompressEnigmaTokenShift:
 	lsr.w d7, d1
-L_FF50E4:
+TimeAttack_DecompressEnigmaTokenMask:
 	andi.w #$7f, d1
-L_FF50E8:
+TimeAttack_DecompressEnigmaTokenRepeatCount:
 	move.w d1, d2
-L_FF50EA:
+TimeAttack_DecompressEnigmaTokenTypeCheck:
 	cmpi.w #$40, d1
-L_FF50EE:
-	bcc.b L_FF50F4
-L_FF50F0:
+TimeAttack_DecompressEnigmaTokenTypeBranch:
+	bcc.b TimeAttack_DecompressEnigmaDispatch
+TimeAttack_DecompressEnigmaShortToken:
 	moveq #$6, d0
-L_FF50F2:
+TimeAttack_DecompressEnigmaShortTokenCount:
 	lsr.w #$1, d2
-L_FF50F4:
-	bsr.w L_FF5228
-L_FF50F8:
+TimeAttack_DecompressEnigmaDispatch:
+	bsr.w TimeAttack_RefillEnigmaBits
+TimeAttack_DecompressEnigmaDispatchCountMask:
 	andi.w #$f, d2
-L_FF50FC:
+TimeAttack_DecompressEnigmaDispatchType:
 	lsr.w #$4, d1
-L_FF50FE:
+TimeAttack_DecompressEnigmaDispatchOffset:
 	add.w d1, d1
-L_FF5100:
+TimeAttack_DecompressEnigmaDispatchJump:
 	jmp EnigmaJumpTable(pc, d1.w)
-L_FF5104:
+TimeAttack_DecompressEnigmaAscendingA2:
 	move.w a2, (a1)+
-L_FF5106:
+TimeAttack_DecompressEnigmaAscendingA2Increment:
 	addq.w #$1, a2
-L_FF5108:
-	dbra d2, L_FF5104
-L_FF510C:
-	bra.b L_FF50DA
-L_FF510E:
+TimeAttack_DecompressEnigmaAscendingA2LoopCheck:
+	dbra d2, TimeAttack_DecompressEnigmaAscendingA2
+TimeAttack_DecompressEnigmaAscendingA2NextToken:
+	bra.b TimeAttack_DecompressEnigmaTokenLoop
+TimeAttack_DecompressEnigmaRepeatA4:
 	move.w a4, (a1)+
-L_FF5110:
-	dbra d2, L_FF510E
-L_FF5114:
-	bra.b L_FF50DA
-L_FF5116:
-	bsr.w L_FF5178
-L_FF511A:
+TimeAttack_DecompressEnigmaRepeatA4LoopCheck:
+	dbra d2, TimeAttack_DecompressEnigmaRepeatA4
+TimeAttack_DecompressEnigmaRepeatA4NextToken:
+	bra.b TimeAttack_DecompressEnigmaTokenLoop
+TimeAttack_DecompressEnigmaRepeatValue:
+	bsr.w TimeAttack_ReadEnigmaWord
+TimeAttack_DecompressEnigmaRepeatValueLoop:
 	move.w d1, (a1)+
-L_FF511C:
-	dbra d2, L_FF511A
-L_FF5120:
-	bra.b L_FF50DA
-L_FF5122:
-	bsr.w L_FF5178
-L_FF5126:
+TimeAttack_DecompressEnigmaRepeatValueLoopCheck:
+	dbra d2, TimeAttack_DecompressEnigmaRepeatValueLoop
+TimeAttack_DecompressEnigmaRepeatValueNextToken:
+	bra.b TimeAttack_DecompressEnigmaTokenLoop
+TimeAttack_DecompressEnigmaAscendingValue:
+	bsr.w TimeAttack_ReadEnigmaWord
+TimeAttack_DecompressEnigmaAscendingValueLoop:
 	move.w d1, (a1)+
-L_FF5128:
+TimeAttack_DecompressEnigmaAscendingValueIncrement:
 	addq.w #$1, d1
-L_FF512A:
-	dbra d2, L_FF5126
-L_FF512E:
-	bra.b L_FF50DA
-L_FF5130:
-	bsr.w L_FF5178
-L_FF5134:
+TimeAttack_DecompressEnigmaAscendingValueLoopCheck:
+	dbra d2, TimeAttack_DecompressEnigmaAscendingValueLoop
+TimeAttack_DecompressEnigmaAscendingValueNextToken:
+	bra.b TimeAttack_DecompressEnigmaTokenLoop
+TimeAttack_DecompressEnigmaDescendingValue:
+	bsr.w TimeAttack_ReadEnigmaWord
+TimeAttack_DecompressEnigmaDescendingValueLoop:
 	move.w d1, (a1)+
-L_FF5136:
+TimeAttack_DecompressEnigmaDescendingValueDecrement:
 	subq.w #$1, d1
-L_FF5138:
-	dbra d2, L_FF5134
-L_FF513C:
-	bra.b L_FF50DA
-L_FF513E:
+TimeAttack_DecompressEnigmaDescendingValueLoopCheck:
+	dbra d2, TimeAttack_DecompressEnigmaDescendingValueLoop
+TimeAttack_DecompressEnigmaDescendingValueNextToken:
+	bra.b TimeAttack_DecompressEnigmaTokenLoop
+TimeAttack_DecompressEnigmaRawValuesCheck:
 	cmpi.w #$f, d2
-L_FF5142:
-	beq.b L_FF5160
-L_FF5144:
-	bsr.w L_FF5178
-L_FF5148:
+TimeAttack_DecompressEnigmaRawValuesEndBranch:
+	beq.b TimeAttack_DecompressEnigmaFinish
+TimeAttack_DecompressEnigmaRawValuesLoop:
+	bsr.w TimeAttack_ReadEnigmaWord
+TimeAttack_DecompressEnigmaRawValuesWrite:
 	move.w d1, (a1)+
-L_FF514A:
-	dbra d2, L_FF5144
-L_FF514E:
-	bra.b L_FF50DA
+TimeAttack_DecompressEnigmaRawValuesLoopCheck:
+	dbra d2, TimeAttack_DecompressEnigmaRawValuesLoop
+TimeAttack_DecompressEnigmaRawValuesNextToken:
+	bra.b TimeAttack_DecompressEnigmaTokenLoop
 EnigmaJumpTable:
 	dc.l	$60B260B0,$60B860B6,$60BC60C6,$60D260DE
-L_FF5160:
+TimeAttack_DecompressEnigmaFinish:
 	subq.w #$1, a0
-L_FF5162:
+TimeAttack_DecompressEnigmaFinishBitAlignment:
 	cmpi.w #$10, d6
-L_FF5166:
-	bne.b L_FF516A
-L_FF5168:
+TimeAttack_DecompressEnigmaFinishBitAlignmentBranch:
+	bne.b TimeAttack_DecompressEnigmaFinishSourceOffset
+TimeAttack_DecompressEnigmaFinishAlignSource:
 	subq.w #$1, a0
-L_FF516A:
+TimeAttack_DecompressEnigmaFinishSourceOffset:
 	move.w a0, d0
-L_FF516C:
+TimeAttack_DecompressEnigmaFinishSourceParity:
 	lsr.w #$1, d0
-L_FF516E:
-	bcc.b L_FF5172
-L_FF5170:
+TimeAttack_DecompressEnigmaFinishSourceParityBranch:
+	bcc.b TimeAttack_DecompressEnigmaRestoreRegisters
+TimeAttack_DecompressEnigmaFinishAlign:
 	addq.w #$1, a0
-L_FF5172:
+TimeAttack_DecompressEnigmaRestoreRegisters:
 	movem.l (a7)+, d0-d7/a1-a5
-L_FF5176:
+TimeAttack_DecompressEnigmaReturn:
 	rts
 ; Read one Enigma-coded word from the current bitstream.
 TimeAttack_ReadEnigmaWord:
