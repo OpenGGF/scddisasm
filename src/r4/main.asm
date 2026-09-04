@@ -501,7 +501,8 @@ PlayStageMusicSelect:
 
 ; ------------------------------------------------------------------------------
 
-; Three R4 zones, each with normal, past, present, and future commands.
+; Rows are indexed by zone; each row contains Past, Present, Bad Future, and
+; Good Future commands. Time Attack skips the good-future adjustment.
 StageMusicCommandTable:
 	dc.b	$80, $F, $11, $10
 	dc.b	$80, $12, $14, $13
@@ -644,12 +645,12 @@ WaterEventsAct1:
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	bne.s	WaterEventsAct1Past
+	bne.s	WaterEventsAct1Present
 	rts
 
 ; ------------------------------------------------------------------------------
 
-WaterEventsAct1Past:
+WaterEventsAct1Present:
 	cmpi.b	#1,d0
 	bne.s	WaterEventsAct1Future
 	move.w	#$280,d1
@@ -700,13 +701,13 @@ WaterEventsAct2SelectTime:
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	bne.s	WaterEventsAct2Past
+	bne.s	WaterEventsAct2Present
 	move.w	#$5B0,d1
 	bra.s	WaterEventsAct2SetStatic
 
 ; ------------------------------------------------------------------------------
 
-WaterEventsAct2Past:
+WaterEventsAct2Present:
 	cmpi.b	#1,d0
 	bne.s	WaterEventsAct2Future
 	move.w	#$530,d1
@@ -719,12 +720,12 @@ WaterEventsAct2Past:
 	cmpi.w	#$1380,d2
 	bcc.s	WaterEventsAct2SetTarget
 	cmpi.w	#$400,player_object+obj.y
-	bcc.s	WaterEventsAct2PastReturn
+	bcc.s	WaterEventsAct2PresentReturn
 	move.w	#$3C0,d1
 	cmpi.w	#$1100,d2
 	bcc.s	WaterEventsAct2SetTarget
 
-WaterEventsAct2PastReturn:
+WaterEventsAct2PresentReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

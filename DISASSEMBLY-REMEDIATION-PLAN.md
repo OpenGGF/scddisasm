@@ -716,6 +716,7 @@ opaque merely because they use `dc.*`.
 | M503 | Complete | Canonicalize the R4 animation-timer, stage-music, life-icon, water-update, and act-specific water-event family, migrating dispatch-table and branch consumers and documenting the timer, command, and water-state roles. | J/U/E 133/133 each; audit/hygiene clean. |
 | M504 | Complete | Canonicalize the R4 water-current record consumer and pause/unpause audio-control family, migrating current-record scans, input adjustments, sentinel exits, and music-mode branches and documenting the 14-byte current-record format. | J/U/E 133/133 each; audit/hygiene clean. |
 | M505 | Complete | Canonicalize the R4 VBlank dispatcher, stage/title/continue DMA paths, HBlank palette/deferred-draw path, and warp/bored timers, migrating interrupt-mode branches to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M506 | Complete | Correct R4 water-event time-period labels, stage-music table description, and water-current record/mode/terminator documentation. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

@@ -1,4 +1,6 @@
-; 14-byte records: X/Y bounds, X/Y velocity, mode, and switch flags.
+; 14-byte records: X/Y bounds (exclusive upper), X/Y velocity, mode, and
+; switch_flags index. Mode 1 requires bit 6; mode 2 reverses velocity on bit 5.
+; A negative first byte terminates the list.
 WaterCurrents:
 	dc.w	$1340, $680, $1380, $7A0, 0, -$400
 	dc.b	1, 6
