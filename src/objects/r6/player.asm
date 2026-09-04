@@ -3203,12 +3203,12 @@ PlayerAnims:
 
 LoadPlayerGfx:
 	tst.b	(a0)
-	beq.w	locret_205DBC
+	beq.w	LoadPlayerGfxReturn
 	lea	player_sprite_frame,a2
 	moveq	#0,d0
 	move.b	obj.sprite_frame(a0),d0
 	cmp.b	(a2),d0
-	beq.s	locret_205DBC
+	beq.s	LoadPlayerGfxReturn
 	move.b	d0,(a2)
 	lea	PlayerGfxScript,a2
 	add.w	d0,d0
@@ -3216,11 +3216,11 @@ LoadPlayerGfx:
 	moveq	#0,d1
 	move.w	(a2)+,d1
 	subq.b	#1,d1
-	bmi.s	locret_205DBC
+	bmi.s	LoadPlayerGfxReturn
 	lea	player_gfx,a3
 	move.b	#1,update_player_gfx
 
-loc_205D8E:
+LoadPlayerGfxScriptLoop:
 	moveq	#0,d2
 	move.b	(a2)+,d2
 	move.w	d2,d0
@@ -3232,14 +3232,14 @@ loc_205D8E:
 	lea	PlayerGfx,a1
 	adda.l	d2,a1
 
-loc_205DA8:
+LoadPlayerGfxCopyTiles:
 	movem.l	(a1)+,d2-d6/a4-a6
 	movem.l	d2-d6/a4-a6,(a3)
 	lea	$20(a3),a3
-	dbf	d0,loc_205DA8
-	dbf	d1,loc_205D8E
+	dbf	d0,LoadPlayerGfxCopyTiles
+	dbf	d1,LoadPlayerGfxScriptLoop
 
-locret_205DBC:
+LoadPlayerGfxReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -3251,7 +3251,7 @@ PlayerCheckFlipper:
 	addi.l	#object_pool&$FFFFFF,d0
 	movea.l	d0,a1
 	cmpi.b	#$1E,obj.id(a1)
-	bne.s	locret_205E28
+	bne.s	PlayerCheckFlipperReturn
 	move.b	#1,obj.anim_id(a1)
 	move.w	obj.x(a1),d1
 	move.w	obj.y(a1),d2
@@ -3265,12 +3265,12 @@ PlayerCheckFlipper:
 	sub.w	obj.x(a1),d3
 	add.w	d2,d3
 	btst	#0,obj.flags(a1)
-	bne.s	loc_205E16
+	bne.s	PlayerCheckFlipperAdjustX
 	move.w	#$40,d1
 	sub.w	d3,d1
 	move.w	d1,d3
 
-loc_205E16:
+PlayerCheckFlipperAdjustX:
 	move.w	#-$A00,d2
 	move.w	d2,d1
 	ext.l	d1
@@ -3279,7 +3279,7 @@ loc_205E16:
 	add.w	d1,d2
 	moveq	#0,d1
 
-locret_205E28:
+PlayerCheckFlipperReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
