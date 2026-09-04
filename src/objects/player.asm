@@ -1497,78 +1497,78 @@ PlayerMoveAir:
 	asl.w	#1,d5
 	move.w	obj.x_speed(a0),d0
 	cmpi.b	#1,time_zone
-	bne.s	loc_20493C
+	bne.s	PlayerMoveAirInput
 	tst.w	zone
-	bne.s	loc_20493C
+	bne.s	PlayerMoveAirInput
 	cmpi.w	#$6C8,obj.x(a0)
-	bcs.s	loc_204934
+	bcs.s	PlayerMoveAirAfterZoneGate
 	cmpi.w	#$840,obj.x(a0)
-	bcc.s	loc_204934
+	bcc.s	PlayerMoveAirAfterZoneGate
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204934:
+PlayerMoveAirAfterZoneGate:
 	btst	#1,obj.var_2c(a0)
-	bne.s	loc_20496C
+	bne.s	PlayerMoveAirCommitSpeed
 
-loc_20493C:
+PlayerMoveAirInput:
 	btst	#2,player_joy_hold
-	beq.s	loc_204956
+	beq.s	PlayerMoveAirAfterLeft
 	bset	#0,obj.flags(a0)
 	sub.w	d5,d0
 	move.w	d6,d1
 	neg.w	d1
 	cmp.w	d1,d0
-	bgt.s	loc_204956
+	bgt.s	PlayerMoveAirAfterLeft
 	move.w	d1,d0
 
-loc_204956:
+PlayerMoveAirAfterLeft:
 	btst	#3,player_joy_hold
-	beq.s	loc_20496C
+	beq.s	PlayerMoveAirCommitSpeed
 	bclr	#0,obj.flags(a0)
 	add.w	d5,d0
 	cmp.w	d6,d0
-	blt.s	loc_20496C
+	blt.s	PlayerMoveAirCommitSpeed
 	move.w	d6,d0
 
-loc_20496C:
+PlayerMoveAirCommitSpeed:
 	move.w	d0,obj.x_speed(a0)
 	cmpi.w	#$60,scroll_focus_y
-	beq.s	loc_204982
-	bcc.s	loc_20497E
+	beq.s	PlayerMoveAirFallingDrag
+	bcc.s	PlayerMoveAirFocusStep
 	addq.w	#4,scroll_focus_y
 
-loc_20497E:
+PlayerMoveAirFocusStep:
 	subq.w	#2,scroll_focus_y
 
-loc_204982:
+PlayerMoveAirFallingDrag:
 	cmpi.w	#$FC00,obj.y_speed(a0)
-	bcs.s	locret_2049B0
+	bcs.s	PlayerMoveAirReturn
 	move.w	obj.x_speed(a0),d0
 	move.w	d0,d1
 	asr.w	#5,d1
-	beq.s	locret_2049B0
-	bmi.s	loc_2049A4
+	beq.s	PlayerMoveAirReturn
+	bmi.s	PlayerMoveAirDragReverse
 	sub.w	d1,d0
-	bcc.s	loc_20499E
+	bcc.s	PlayerMoveAirStoreDragForward
 	move.w	#0,d0
 
-loc_20499E:
+PlayerMoveAirStoreDragForward:
 	move.w	d0,obj.x_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2049A4:
+PlayerMoveAirDragReverse:
 	sub.w	d1,d0
-	bcs.s	loc_2049AC
+	bcs.s	PlayerMoveAirStoreDragReverse
 	move.w	#0,d0
 
-loc_2049AC:
+PlayerMoveAirStoreDragReverse:
 	move.w	d0,obj.x_speed(a0)
 
-locret_2049B0:
+PlayerMoveAirReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
