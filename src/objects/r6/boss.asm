@@ -1385,14 +1385,14 @@ BossHurtPlayerReturn:
 ConductorObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F454(pc,d0.w),d0
-	jsr	off_20F454(pc,d0.w)
+	move.w	ConductorRoutineTable(pc,d0.w),d0
+	jsr	ConductorRoutineTable(pc,d0.w)
 	tst.b	obj.subtype(a0)
-	bmi.s	loc_20F44E
+	bmi.s	ConductorDraw
 	btst	#0,obj.subtype(a0)
 	beq.w	*+4
 
-loc_20F424:
+ConductorSolidCollision:
 	move.w	obj.var_36(a0),d0
 	add.w	d0,obj.x(a0)
 	move.w	obj.var_38(a0),d0
@@ -1404,22 +1404,22 @@ loc_20F424:
 	move.w	obj.var_38(a0),d0
 	sub.w	d0,obj.y(a0)
 
-loc_20F44E:
+ConductorDraw:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20F454:
-	dc.w	ConductorObject_0_Routine0-*
-	dc.w	ConductorObject_0_Routine2-off_20F454
-	dc.w	ConductorObject_0_Routine4-off_20F454
-	dc.w	ConductorObject_0_Routine6-off_20F454
-	dc.w	ConductorObject_0_Routine8-off_20F454
-	dc.w	ConductorObject_0_RoutineA-off_20F454
+ConductorRoutineTable:
+	dc.w	ConductorInit-*
+	dc.w	ConductorTrackPlayer-ConductorRoutineTable
+	dc.w	ConductorClampPlayerRight-ConductorRoutineTable
+	dc.w	ConductorClampPlayerLeft-ConductorRoutineTable
+	dc.w	ConductorMoveVertical-ConductorRoutineTable
+	dc.w	ConductorCheckPlayerDamage-ConductorRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-ConductorObject_0_Routine0:
+ConductorInit:
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#2,obj.sprite_layer(a0)
 	move.w	#$4458,obj.sprite_tile(a0)
@@ -1427,10 +1427,10 @@ ConductorObject_0_Routine0:
 	andi.b	#$F,d0
 	move.b	d0,obj.sprite_frame(a0)
 	tst.b	obj.subtype(a0)
-	bmi.s	loc_20F4EC
+	bmi.s	ConductorInitAlternate
 	move.l	#ConductorSprites1,obj.sprite_data(a0)
 	btst	#0,obj.subtype(a0)
-	beq.s	loc_20F4C0
+	beq.s	ConductorInitLower
 	move.w	#-$200,obj.y_speed(a0)
 	move.b	#4,obj.routine(a0)
 	move.w	#$A000,obj.var_34(a0)
@@ -1442,7 +1442,7 @@ ConductorObject_0_Routine0:
 
 ; ------------------------------------------------------------------------------
 
-loc_20F4C0:
+ConductorInitLower:
 	move.b	#8,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.w	#$200,obj.y_speed(a0)
@@ -1454,7 +1454,7 @@ loc_20F4C0:
 
 ; ------------------------------------------------------------------------------
 
-loc_20F4EC:
+ConductorInitAlternate:
 	move.b	#8,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	move.l	#ConductorSprites2,obj.sprite_data(a0)
@@ -1463,144 +1463,144 @@ loc_20F4EC:
 
 ; ------------------------------------------------------------------------------
 
-ConductorObject_0_Routine2:
+ConductorTrackPlayer:
 	lea	player_object,a1
 	bclr	#7,boss_flags
 	bclr	#5,boss_flags
 	cmpi.w	#$930,obj.x(a1)
-	blt.s	loc_20F526
+	blt.s	ConductorCheckBossFlag6
 	bset	#6,boss_flags
 
-loc_20F526:
+ConductorCheckBossFlag6:
 	cmpi.w	#$9B0,obj.x(a1)
-	blt.s	loc_20F534
+	blt.s	ConductorCheckBossFlag5
 	bset	#5,boss_flags
 
-loc_20F534:
+ConductorCheckBossFlag5:
 	cmpi.w	#$A60,obj.x(a1)
-	bge.s	loc_20F53E
+	bge.s	ConductorFinishTracking
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F53E:
+ConductorFinishTracking:
 	move.b	#8,obj.routine(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-ConductorObject_0_Routine8:
+ConductorMoveVertical:
 	bsr.w	loc_20F632
 	move.w	obj.y_speed(a0),d0
 	add.w	d0,obj.var_2a(a0)
 	move.w	obj.var_34(a0),d0
-	bmi.s	loc_20F568
+	bmi.s	ConductorCheckVerticalReverse
 	cmp.w	obj.var_2a(a0),d0
-	ble.s	loc_20F560
+	ble.s	ConductorReverseVertical
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F560:
+ConductorReverseVertical:
 	move.b	#6,obj.routine(a0)
-	bra.s	loc_20F576
+	bra.s	ConductorSetCollisionSize
 
 ; ------------------------------------------------------------------------------
 
-loc_20F568:
+ConductorCheckVerticalReverse:
 	cmp.w	obj.var_2a(a0),d0
-	bge.s	loc_20F570
+	bge.s	ConductorSwitchToAlternate
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F570:
+ConductorSwitchToAlternate:
 	move.b	#$A,obj.routine(a0)
 
-loc_20F576:
+ConductorSetCollisionSize:
 	btst	#0,obj.subtype(a0)
-	beq.w	loc_20F58E
+	beq.w	ConductorSetLargeCollision
 	move.b	#9,obj.width_2(a0)
 	move.b	#$10,obj.height(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F58E:
+ConductorSetLargeCollision:
 	move.b	#9,obj.width_2(a0)
 	move.b	#$20,obj.height(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-ConductorObject_0_Routine6:
+ConductorClampPlayerLeft:
 	lea	player_object,a1
-	bsr.w	sub_20F5A6
-	bra.s	ConductorObject_0_RoutineA
+	bsr.w	ConductorClampLeftBound
+	bra.s	ConductorCheckPlayerDamage
 
 ; ------------------------------------------------------------------------------
 
-sub_20F5A6:
+ConductorClampLeftBound:
 	tst.b	obj.id(a1)
-	beq.s	locret_20F5BA
+	beq.s	ConductorClampLeftBoundReturn
 	cmpi.w	#$A00,obj.x(a1)
-	bge.s	locret_20F5BA
+	bge.s	ConductorClampLeftBoundReturn
 	move.w	#$A00,obj.x(a1)
 
-locret_20F5BA:
+ConductorClampLeftBoundReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-ConductorObject_0_Routine4:
+ConductorClampPlayerRight:
 	lea	player_object,a1
-	bsr.w	sub_20F5C6
-	bra.s	ConductorObject_0_RoutineA
+	bsr.w	ConductorClampRightBound
+	bra.s	ConductorCheckPlayerDamage
 
 ; ------------------------------------------------------------------------------
 
-sub_20F5C6:
+ConductorClampRightBound:
 	tst.b	obj.id(a1)
-	beq.s	locret_20F5DA
+	beq.s	ConductorClampRightBoundReturn
 	cmpi.w	#$B80,obj.x(a1)
-	ble.s	locret_20F5DA
+	ble.s	ConductorClampRightBoundReturn
 	move.w	#$B80,obj.x(a1)
 
-locret_20F5DA:
+ConductorClampRightBoundReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-ConductorObject_0_RoutineA:
+ConductorCheckPlayerDamage:
 	moveq	#0,d0
 	move.b	obj.subtype_2(a0),d0
 	btst	d0,boss_started
-	bne.s	loc_20F5EA
+	bne.s	ConductorCheckPlayerDistance
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F5EA:
+ConductorCheckPlayerDistance:
 	lea	player_object,a1
 	tst.b	obj.id(a1)
-	beq.s	locret_20F620
+	beq.s	ConductorCheckPlayerDamageReturn
 	move.w	obj.y(a0),d0
 	sub.w	obj.y(a1),d0
-	bge.s	loc_20F600
+	bge.s	ConductorCheckPlayerDistanceAbs
 	neg.w	d0
 
-loc_20F600:
+ConductorCheckPlayerDistanceAbs:
 	cmpi.w	#8,d0
-	bge.s	locret_20F620
+	bge.s	ConductorCheckPlayerDamageReturn
 	tst.w	obj.var_30(a1)
-	bne.s	locret_20F620
+	bne.s	ConductorCheckPlayerDamageReturn
 	cmpi.b	#6,obj.routine(a1)
-	beq.s	locret_20F620
+	beq.s	ConductorCheckPlayerDamageReturn
 	btst	#7,obj.flags(a1)
-	bne.s	locret_20F620
+	bne.s	ConductorCheckPlayerDamageReturn
 	bsr.w	BossHurtPlayer
 
-locret_20F620:
+ConductorCheckPlayerDamageReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
