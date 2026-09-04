@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M425 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M460 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -96,7 +96,7 @@ and escape families, plus boss machine, spikes, exhaust, smoke, and falling-spik
 child-object families, plus floor-debris, electricity, floor-piece motion, and
 player-collision, conductor child-object, and shared boss motion/spawn/band/bound/
 palette-cycle helper families, plus the R6 stage-draw scroll/block-transfer/
-placement/initialization family and the 1C/3C/1D/3D/2A/2C/2D scroll
+placement/initialization family and the 1B/2B/1C/3C/1D/3D/2A/2C/2D scroll
 movement families.
 Fresh J/U/E validation covers the R3/R4/R5/R6/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
@@ -242,11 +242,11 @@ this shared family, including `DEMO43C` and `DEMO82A`.
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `R61A__.MMD` | `Level/Wacky Workbench/Act 1 Present.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M414) | Classify active data debt, then relabel residual code |
-| `R61B__.MMD` | `Level/Wacky Workbench/Act 1 Past.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers and the shared stage-draw family are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M455) | Classify active data debt, then relabel residual code |
+| `R61B__.MMD` | `Level/Wacky Workbench/Act 1 Past.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 1B scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M460) | Classify active data debt, then relabel residual code |
 | `R61C__.MMD` | `Level/Wacky Workbench/Act 1 Good Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 1C scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain; bridge and rotation-vector suffix are shared | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M457) | Classify active data debt, then relabel residual code |
 | `R61D__.MMD` | `Level/Wacky Workbench/Act 1 Bad Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 1D scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain; rotation-vector suffix shared via R61 final table | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M456) | Classify active data debt, then relabel residual code |
 | `R62A__.MMD` | `Level/Wacky Workbench/Act 2 Present.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 2A scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M458) | Classify active data debt, then relabel residual code |
-| `R62B__.MMD` | `Level/Wacky Workbench/Act 2 Past.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers and the shared stage-draw family are semantically labeled; packed/legacy data tails and residual generic labels remain; unique `$0200` prefix then R62C non-USA Padding 2 stream | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M455) | Classify active data debt, then relabel residual code |
+| `R62B__.MMD` | `Level/Wacky Workbench/Act 2 Past.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 2B scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain; unique `$0200` prefix then R62C non-USA Padding 2 stream | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M460) | Classify active data debt, then relabel residual code |
 | `R62C__.MMD` | `Level/Wacky Workbench/Act 2 Good Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 2C scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain; provides R62B non-USA Padding 2 continuation; shared-prefix suffix reuses the R61C bridge | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M459) | Classify active data debt, then relabel residual code |
 | `R62D__.MMD` | `Level/Wacky Workbench/Act 2 Bad Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 2D scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M458) | Classify active data debt, then relabel residual code |
 | `R63C__.MMD` | `Level/Wacky Workbench/Act 3 Good Future.asm` | S | Mostly semantic | Mixed | USA stage-GFX orchestration, tile-animation, shared stage-draw families, 3C scroll movement family, and the shared initial-state table consumer are semantically labeled; packed/legacy data tails and residual generic labels remain elsewhere | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M457) | Classify active data debt, then relabel residual code |
