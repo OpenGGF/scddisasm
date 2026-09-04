@@ -252,7 +252,7 @@ loc_2070C0:
 
 loc_2070D2:
 	move.b	#4,obj.routine(a0)
-	bsr.w	sub_205500
+	bsr.w	PlayerSetGround
 	bset	#1,obj.flags(a0)
 	move.w	#-$400,obj.y_speed(a0)
 	move.w	#-$200,obj.x_speed(a0)
@@ -285,7 +285,7 @@ KillPlayer:
 	bne.s	loc_207184
 	move.b	#0,invincible
 	move.b	#6,obj.routine(a0)
-	bsr.w	sub_205500
+	bsr.w	PlayerSetGround
 	bset	#1,obj.flags(a0)
 	move.w	#-$700,obj.y_speed(a0)
 	move.w	#0,obj.x_speed(a0)
