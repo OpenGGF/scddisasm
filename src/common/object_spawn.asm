@@ -5,9 +5,9 @@ ResetObjectStates:
 	move.w	#$101,(a2)+
 	move.w	#$BE,d0
 
-loc_207114:
+ResetObjectStatesLoop:
 	clr.l	(a2)+
-	dbf	d0,loc_207114
+	dbf	d0,ResetObjectStatesLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -15,18 +15,21 @@ loc_207114:
 SpawnStageObjects:
 	moveq	#0,d0
 	move.b	spawn_routine,d0
-	move.w	off_20712A(pc,d0.w),d0
-	jmp	off_20712A(pc,d0.w)
+	move.w	StageObjectSpawnRoutineTable(pc,d0.w),d0
+	jmp	StageObjectSpawnRoutineTable(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20712A:
+; Stage-object spawn states are selected in two-byte increments.
+StageObjectSpawnRoutineTable:
 	dc.w	StageObjectSpawnInit-*
-	dc.w	StageObjectSpawnMain-off_20712A
+	dc.w	StageObjectSpawnMain-StageObjectSpawnRoutineTable
 
 ; ------------------------------------------------------------------------------
 
 StageObjectSpawnInit:
+	; StageObjectMaps records are eight bytes: x, y/flags, id/state,
+	; subtype, time-zone mask, and a reserved byte.
 	addq.b	#2,spawn_routine
 	lea	StageObjectMaps,a0
 	movea.l	a0,a1
@@ -41,47 +44,47 @@ StageObjectSpawnInit:
 	moveq	#0,d2
 	move.w	scroll_fg_x,d6
 	subi.w	#$80,d6
-	bcc.s	loc_207168
+	bcc.s	StageObjectSpawnInitRightAlign
 	moveq	#0,d6
 
-loc_207168:
+StageObjectSpawnInitRightAlign:
 	andi.w	#$FF80,d6
 	movea.l	spawn_chunk_right,a0
 
-loc_207170:
+StageObjectSpawnInitRightScan:
 	cmp.w	(a0),d6
-	bls.s	loc_207182
+	bls.s	StageObjectSpawnInitLeftAlign
 	tst.b	4(a0)
-	bpl.s	loc_20717E
+	bpl.s	StageObjectSpawnInitRightCount
 	move.b	(a2),d2
 	addq.b	#1,(a2)
 
-loc_20717E:
+StageObjectSpawnInitRightCount:
 	addq.w	#8,a0
-	bra.s	loc_207170
+	bra.s	StageObjectSpawnInitRightScan
 
 ; ------------------------------------------------------------------------------
 
-loc_207182:
+StageObjectSpawnInitLeftAlign:
 	move.l	a0,spawn_chunk_right
 	movea.l	spawn_chunk_left,a0
 	subi.w	#$80,d6
-	bcs.s	loc_2071A2
+	bcs.s	StageObjectSpawnInitComplete
 
-loc_207190:
+StageObjectSpawnInitLeftScan:
 	cmp.w	(a0),d6
-	bls.s	loc_2071A2
+	bls.s	StageObjectSpawnInitComplete
 	tst.b	4(a0)
-	bpl.s	loc_20719E
+	bpl.s	StageObjectSpawnInitLeftCount
 	addq.b	#1,1(a2)
 
-loc_20719E:
+StageObjectSpawnInitLeftCount:
 	addq.w	#8,a0
-	bra.s	loc_207190
+	bra.s	StageObjectSpawnInitLeftScan
 
 ; ------------------------------------------------------------------------------
 
-loc_2071A2:
+StageObjectSpawnInitComplete:
 	move.l	a0,spawn_chunk_left
 	move.w	#-1,prev_spawn_chunk
 
@@ -91,8 +94,8 @@ StageObjectSpawnMain:
 	move.w	scroll_fg_x,d6
 	andi.w	#$FF80,d6
 	cmp.w	prev_spawn_chunk,d6
-	beq.w	locret_20728C
-	bge.s	loc_207232
+	beq.w	StageObjectSpawnReturn
+	bge.s	StageObjectSpawnForward
 	nop
 	nop
 	nop
@@ -100,59 +103,59 @@ StageObjectSpawnMain:
 	move.w	d6,prev_spawn_chunk
 	movea.l	spawn_chunk_left,a0
 	subi.w	#$80,d6
-	bcs.s	loc_20720E
+	bcs.s	StageObjectSpawnBackwardComplete
 
-loc_2071DC:
+StageObjectSpawnBackwardScan:
 	cmp.w	-8(a0),d6
-	bge.s	loc_20720E
+	bge.s	StageObjectSpawnBackwardComplete
 	subq.w	#8,a0
 	tst.b	4(a0)
-	bpl.s	loc_2071F2
+	bpl.s	StageObjectSpawnBackwardCount
 	subq.b	#1,1(a2)
 	move.b	1(a2),d2
 
-loc_2071F2:
+StageObjectSpawnBackwardCount:
 	bsr.w	SpawnStageObject
-	bne.s	loc_2071FC
+	bne.s	StageObjectSpawnBackwardSpawned
 	subq.w	#8,a0
-	bra.s	loc_2071DC
+	bra.s	StageObjectSpawnBackwardScan
 
 ; ------------------------------------------------------------------------------
 
-loc_2071FC:
+StageObjectSpawnBackwardSpawned:
 	tst.b	4(a0)
-	bpl.s	loc_20720C
+	bpl.s	StageObjectSpawnBackwardAdvance
 	addq.b	#1,1(a2)
 	bclr	#7,2(a2,d3.w)
 
-loc_20720C:
+StageObjectSpawnBackwardAdvance:
 	addq.w	#8,a0
 
-loc_20720E:
+StageObjectSpawnBackwardComplete:
 	move.l	a0,spawn_chunk_left
 	movea.l	spawn_chunk_right,a0
 	addi.w	#$300,d6
 
-loc_20721A:
+StageObjectSpawnForwardCleanupScan:
 	cmp.w	-8(a0),d6
-	bgt.s	loc_20722C
+	bgt.s	StageObjectSpawnForwardCleanupComplete
 	tst.b	-4(a0)
-	bpl.s	loc_207228
+	bpl.s	StageObjectSpawnForwardCleanupCount
 	subq.b	#1,(a2)
 
-loc_207228:
+StageObjectSpawnForwardCleanupCount:
 	subq.w	#8,a0
-	bra.s	loc_20721A
+	bra.s	StageObjectSpawnForwardCleanupScan
 
 ; ------------------------------------------------------------------------------
 
-loc_20722C:
+StageObjectSpawnForwardCleanupComplete:
 	move.l	a0,spawn_chunk_right
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_207232:
+StageObjectSpawnForward:
 	nop
 	nop
 	nop
@@ -161,50 +164,51 @@ loc_207232:
 	movea.l	spawn_chunk_right,a0
 	addi.w	#$280,d6
 
-loc_207246:
+StageObjectSpawnForwardScan:
 	cmp.w	(a0),d6
-	bls.s	loc_207268
+	bls.s	StageObjectSpawnForwardAdvance
 	tst.b	4(a0)
-	bpl.s	loc_207254
+	bpl.s	StageObjectSpawnForwardCount
 	move.b	(a2),d2
 	addq.b	#1,(a2)
 
-loc_207254:
+StageObjectSpawnForwardCount:
 	bsr.w	SpawnStageObject
-	beq.s	loc_207246
+	beq.s	StageObjectSpawnForwardScan
 	tst.b	4(a0)
-	bpl.s	loc_207268
+	bpl.s	StageObjectSpawnForwardAdvance
 	subq.b	#1,(a2)
 	bclr	#7,2(a2,d3.w)
 
-loc_207268:
+StageObjectSpawnForwardAdvance:
 	move.l	a0,spawn_chunk_right
 	movea.l	spawn_chunk_left,a0
 	subi.w	#$300,d6
-	bcs.s	loc_207288
+	bcs.s	StageObjectSpawnBackwardCleanupComplete
 
-loc_207276:
+StageObjectSpawnBackwardCleanupScan:
 	cmp.w	(a0),d6
-	bls.s	loc_207288
+	bls.s	StageObjectSpawnBackwardCleanupComplete
 	tst.b	4(a0)
-	bpl.s	loc_207284
+	bpl.s	StageObjectSpawnBackwardCleanupCount
 	addq.b	#1,1(a2)
 
-loc_207284:
+StageObjectSpawnBackwardCleanupCount:
 	addq.w	#8,a0
-	bra.s	loc_207276
+	bra.s	StageObjectSpawnBackwardCleanupScan
 
 ; ------------------------------------------------------------------------------
 
-loc_207288:
+StageObjectSpawnBackwardCleanupComplete:
 	move.l	a0,spawn_chunk_left
 
-locret_20728C:
+StageObjectSpawnReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 CheckObjectTimeZone:
+	; d3 selects the three-byte state slot; d1 selects its time-zone bit.
 	moveq	#0,d0
 	move.b	time_zone,d0
 	bclr	#7,d0
@@ -222,22 +226,22 @@ CheckObjectTimeZone:
 
 SpawnStageObject:
 	bsr.s	CheckObjectTimeZone
-	beq.s	loc_2072C2
+	beq.s	StageObjectSpawnSkipTimeZone
 	tst.b	4(a0)
-	bpl.s	loc_2072C8
+	bpl.s	StageObjectSpawnLoadRecord
 	bset	#7,2(a2,d3.w)
-	beq.s	loc_2072C8
+	beq.s	StageObjectSpawnLoadRecord
 
-loc_2072C2:
+StageObjectSpawnSkipTimeZone:
 	addq.w	#8,a0
 	moveq	#0,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2072C8:
+StageObjectSpawnLoadRecord:
 	bsr.w	SpawnObject
-	bne.s	locret_207316
+	bne.s	StageObjectSpawnComplete
 	move.w	(a0)+,obj.x(a1)
 	move.w	(a0)+,d0
 	move.w	d0,d1
@@ -248,83 +252,86 @@ loc_2072C8:
 	move.b	d1,obj.sprite_flags(a1)
 	move.b	d1,obj.flags(a1)
 	move.b	(a0)+,d0
-	bpl.s	loc_2072F8
+	bpl.s	StageObjectSpawnLoadObjectId
 	andi.b	#$7F,d0
 	move.b	d2,obj.state_id(a1)
 
-loc_2072F8:
+StageObjectSpawnLoadObjectId:
 	move.b	d0,obj.id(a1)
 	cmpi.b	#$31,d0
-	bne.s	loc_20730A
+	bne.s	StageObjectSpawnLoadSubtypes
 	nop
 	nop
 	nop
 	nop
 
-loc_20730A:
+StageObjectSpawnLoadSubtypes:
 	move.b	(a0)+,obj.subtype(a1)
 	move.b	(a0)+,d0
 	move.b	(a0)+,obj.subtype_2(a1)
 	moveq	#0,d0
 
-locret_207316:
+StageObjectSpawnComplete:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 SpawnObject:
+	; Return a free slot in object_spawn_pool, or leave a nonzero status.
 	lea	object_spawn_pool,a1
 	move.w	#$5F,d0
 
-loc_207320:
+SpawnObjectSearchLoop:
 	tst.b	(a1)
-	beq.s	locret_20732C
+	beq.s	SpawnObjectSearchReturn
 	lea	obj.struct_len(a1),a1
-	dbf	d0,loc_207320
+	dbf	d0,SpawnObjectSearchLoop
 
-locret_20732C:
+SpawnObjectSearchReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 SpawnObjectAfter:
+	; Search only the slots after the caller's current object.
 	movea.l	a0,a1
 	lea	obj.struct_len(a1),a1
 	move.w	#object_pool_end,d0
 	sub.w	a0,d0
 	lsr.w	#6,d0
 	subq.w	#2,d0
-	bcs.s	locret_20734C
+	bcs.s	SpawnObjectAfterSearchReturn
 
-loc_207340:
+SpawnObjectAfterSearchLoop:
 	tst.b	(a1)
-	beq.s	locret_20734C
+	beq.s	SpawnObjectAfterSearchReturn
 	lea	obj.struct_len(a1),a1
-	dbf	d0,loc_207340
+	dbf	d0,SpawnObjectAfterSearchLoop
 
-locret_20734C:
+SpawnObjectAfterSearchReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 CheckObjectDespawn:
+	; Full entry loads x; the range-only entry below expects d0 already set.
 	move.w	obj.x(a0),d0
 
 CheckObjectDespawn2:
 	tst.b	obj.sprite_flags(a0)
-	bmi.s	loc_2073BC
+	bmi.s	CheckObjectDespawnInRange
 	andi.w	#$FF80,d0
 	move.w	scroll_fg_x,d1
 	subi.w	#$80,d1
 	andi.w	#$FF80,d1
 	sub.w	d1,d0
 	cmpi.w	#$280,d0
-	bls.s	loc_2073BC
+	bls.s	CheckObjectDespawnInRange
 
 DespawnObject:
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	beq.s	loc_2073B2
+	beq.s	DespawnObjectDelete
 	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
@@ -332,27 +339,27 @@ DespawnObject:
 	moveq	#0,d1
 	move.b	time_zone,d1
 	bclr	#7,d1
-	beq.s	loc_2073AA
+	beq.s	DespawnObjectClearState
 	move.b	warp_direction,d2
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
-	bpl.s	loc_2073A2
+	bpl.s	DespawnObjectClampTimeZone
 	moveq	#0,d1
-	bra.s	loc_2073AA
+	bra.s	DespawnObjectClearState
 
 ; ------------------------------------------------------------------------------
 
-loc_2073A2:
+DespawnObjectClampTimeZone:
 	cmpi.w	#3,d1
-	bcs.s	loc_2073AA
+	bcs.s	DespawnObjectClearState
 	moveq	#2,d1
 
-loc_2073AA:
+DespawnObjectClearState:
 	add.w	d1,d0
 	bclr	#7,2(a1,d0.w)
 
-loc_2073B2:
+DespawnObjectDelete:
 	if def(R8_VARIANT)
 		if (R8_VARIANT<>5)|(DEMO=0)|(REGION=USA)
 			jsr	DeleteObject
@@ -369,7 +376,7 @@ loc_2073B2:
 
 ; ------------------------------------------------------------------------------
 
-loc_2073BC:
+CheckObjectDespawnInRange:
 	btst	#7,time_zone
 	bne.s	DespawnObject
 	if def(R8_VARIANT)
