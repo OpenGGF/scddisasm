@@ -7,10 +7,10 @@ DrawStageBg:
 	lea	scroll_bg_x,a3
 	lea	stage_map+$40,a4
 	move.w	#$6000,d2
-	bsr.w	sub_202F50
+	bsr.w	R6StageDrawBackground
 	lea	scroll_flags_bg2,a2
 	lea	scroll_bg2_x,a3
-	bra.w	nullsub_1
+	bra.w	R6StageDrawNoOpLayer2
 
 ; ------------------------------------------------------------------------------
 
@@ -21,13 +21,13 @@ DrawStage:
 	lea	scroll_bg_x_work,a3
 	lea	stage_map+$40,a4
 	move.w	#$6000,d2
-	bsr.w	sub_202F50
+	bsr.w	R6StageDrawBackground
 	lea	scroll_flags_bg2_work,a2
 	lea	scroll_bg2_x_work,a3
-	bsr.w	nullsub_1
+	bsr.w	R6StageDrawNoOpLayer2
 	lea	scroll_flags_bg3_work,a2
 	lea	scroll_bg3_x_work,a3
-	bsr.w	nullsub_2
+	bsr.w	R6StageDrawNoOpLayer3
 	lea	scroll_flags_fg_work,a2
 	lea	scroll_fg_x_work,a3
 	lea	stage_map,a4
@@ -35,9 +35,9 @@ DrawStage:
 
 DrawStageFg:
 	tst.b	(a2)
-	beq.s	locret_202F4E
+	beq.s	R6DrawStageFgReturn
 	bclr	#0,(a2)
-	beq.s	loc_202F04
+	beq.s	R6DrawStageFgTopRow
 	moveq	#$FFFFFFF0,d4
 	moveq	#$FFFFFFF0,d5
 	bsr.w	GetBlockVramWrite
@@ -45,9 +45,9 @@ DrawStageFg:
 	moveq	#$FFFFFFF0,d5
 	bsr.w	DrawBlockRow
 
-loc_202F04:
+R6DrawStageFgTopRow:
 	bclr	#1,(a2)
-	beq.s	loc_202F1E
+	beq.s	R6DrawStageFgBottomRow
 	move.w	#$E0,d4
 	moveq	#$FFFFFFF0,d5
 	bsr.w	GetBlockVramWrite
@@ -55,9 +55,9 @@ loc_202F04:
 	moveq	#$FFFFFFF0,d5
 	bsr.w	DrawBlockRow
 
-loc_202F1E:
+R6DrawStageFgBottomRow:
 	bclr	#2,(a2)
-	beq.s	loc_202F34
+	beq.s	R6DrawStageFgRightColumn
 	moveq	#$FFFFFFF0,d4
 	moveq	#$FFFFFFF0,d5
 	bsr.w	GetBlockVramWrite
@@ -65,9 +65,9 @@ loc_202F1E:
 	moveq	#$FFFFFFF0,d5
 	bsr.w	DrawBlockColumn
 
-loc_202F34:
+R6DrawStageFgRightColumn:
 	bclr	#3,(a2)
-	beq.s	locret_202F4E
+	beq.s	R6DrawStageFgReturn
 	moveq	#$FFFFFFF0,d4
 	move.w	#$140,d5
 	bsr.w	GetBlockVramWrite
@@ -75,22 +75,22 @@ loc_202F34:
 	move.w	#$140,d5
 	bsr.w	DrawBlockColumn
 
-locret_202F4E:
+R6DrawStageFgReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_202F50:
-	lea	unk_20331C,a0
+R6StageDrawBackground:
+	lea	R6StageDrawScrollLayerTable,a0
 	adda.w	#1,a0
 	moveq	#$FFFFFFF0,d4
 	bclr	#0,(a2)
-	bne.s	loc_202F6C
+	bne.s	R6StageDrawUpdateBackgroundRow
 	bclr	#1,(a2)
-	beq.s	loc_202FB6
+	beq.s	R6StageDrawCheckPendingRows
 	move.w	#$E0,d4
 
-loc_202F6C:
+R6StageDrawUpdateBackgroundRow:
 	move.w	scroll_bg_y,d0
 	add.w	d4,d0
 	andi.w	#$FFF0,d0
@@ -98,8 +98,8 @@ loc_202F6C:
 	move.b	(a0,d0.w),d0
 	ext.w	d0
 	add.w	d0,d0
-	movea.l	off_202FE6(pc,d0.w),a3
-	beq.s	loc_202F9E
+	movea.l	R6StageDrawScrollLayerPointers(pc,d0.w),a3
+	beq.s	R6StageDrawDrawAbsoluteRow
 	moveq	#$FFFFFFF0,d5
 	move.l	a0,-(sp)
 	movem.l	d4-d5,-(sp)
@@ -107,11 +107,11 @@ loc_202F6C:
 	movem.l	(sp)+,d4-d5
 	bsr.w	DrawBlockRow
 	movea.l	(sp)+,a0
-	bra.s	loc_202FB6
+	bra.s	R6StageDrawCheckPendingRows
 
 ; ------------------------------------------------------------------------------
 
-loc_202F9E:
+R6StageDrawDrawAbsoluteRow:
 	moveq	#0,d5
 	move.l	a0,-(sp)
 	movem.l	d4-d5,-(sp)
@@ -121,34 +121,34 @@ loc_202F9E:
 	bsr.w	DrawBlockRowAbsX
 	movea.l	(sp)+,a0
 
-loc_202FB6:
+R6StageDrawCheckPendingRows:
 	tst.b	(a2)
-	bne.s	loc_202FBC
+	bne.s	R6StageDrawPreparePendingRows
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202FBC:
+R6StageDrawPreparePendingRows:
 	moveq	#$FFFFFFF0,d4
 	moveq	#$FFFFFFF0,d5
 	move.b	(a2),d0
 	andi.b	#$A8,d0
-	beq.s	loc_202FD0
+	beq.s	R6StageDrawDrawPendingBlocks
 	lsr.b	#1,d0
 	move.b	d0,(a2)
 	move.w	#$140,d5
 
-loc_202FD0:
+R6StageDrawDrawPendingBlocks:
 	move.w	scroll_bg_y,d0
 	andi.w	#$FFF0,d0
 	asr.w	#4,d0
 	suba.w	#1,a0
 	lea	(a0,d0.w),a0
-	bra.w	loc_202FF6
+	bra.w	R6StageDrawDrawPendingBlockList
 
 ; ------------------------------------------------------------------------------
 
-off_202FE6:
+R6StageDrawScrollLayerPointers:
 	dc.l	scroll_bg_x_work
 	dc.l	scroll_bg_x_work
 	dc.l	scroll_bg2_x_work
@@ -156,18 +156,18 @@ off_202FE6:
 
 ; ------------------------------------------------------------------------------
 
-loc_202FF6:
+R6StageDrawDrawPendingBlockList:
 	moveq	#$F,d6
 	move.l	#$800000,d7
 
-loc_202FFE:
+R6StageDrawDrawPendingBlock:
 	moveq	#0,d0
 	move.b	(a0)+,d0
-	beq.s	loc_20302A
+	beq.s	R6StageDrawFinishPendingBlockList
 	btst	d0,(a2)
-	beq.s	loc_20302A
+	beq.s	R6StageDrawFinishPendingBlockList
 	add.w	d0,d0
-	movea.l	off_202FE6(pc,d0.w),a3
+	movea.l	R6StageDrawScrollLayerPointers(pc,d0.w),a3
 	movem.l	d4-d5/a0,-(sp)
 	movem.l	d4-d5,-(sp)
 	bsr.w	GetBlockData
@@ -176,20 +176,20 @@ loc_202FFE:
 	bsr.w	DrawBlock
 	movem.l	(sp)+,d4-d5/a0
 
-loc_20302A:
+R6StageDrawFinishPendingBlockList:
 	addi.w	#$10,d4
-	dbf	d6,loc_202FFE
+	dbf	d6,R6StageDrawDrawPendingBlock
 	clr.b	(a2)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-nullsub_1:
+R6StageDrawNoOpLayer2:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-nullsub_2:
+R6StageDrawNoOpLayer3:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -201,7 +201,7 @@ DrawBlockRow2:
 	move.l	#$800000,d7
 	move.l	d0,d1
 
-loc_203044:
+R6DrawBlockRowLoop:
 	movem.l	d4-d5,-(sp)
 	bsr.w	GetBlockData
 	move.l	d1,d0
@@ -210,7 +210,7 @@ loc_203044:
 	andi.b	#$7F,d1
 	movem.l	(sp)+,d4-d5
 	addi.w	#$10,d5
-	dbf	d6,loc_203044
+	dbf	d6,R6DrawBlockRowLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -219,7 +219,7 @@ DrawBlockRowAbsX:
 	move.l	#$800000,d7
 	move.l	d0,d1
 
-loc_20306E:
+R6DrawBlockRowAbsXLoop:
 	movem.l	d4-d5,-(sp)
 	bsr.w	GetBlockDataAbsX
 	move.l	d1,d0
@@ -228,7 +228,7 @@ loc_20306E:
 	andi.b	#$7F,d1
 	movem.l	(sp)+,d4-d5
 	addi.w	#$10,d5
-	dbf	d6,loc_20306E
+	dbf	d6,R6DrawBlockRowAbsXLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ DrawBlockColumn:
 	move.l	#$800000,d7
 	move.l	d0,d1
 
-loc_20309A:
+R6DrawBlockColumnLoop:
 	movem.l	d4-d5,-(sp)
 	bsr.w	GetBlockData
 	move.l	d1,d0
@@ -247,7 +247,7 @@ loc_20309A:
 	andi.w	#$FFF,d1
 	movem.l	(sp)+,d4-d5
 	addi.w	#$10,d4
-	dbf	d6,loc_20309A
+	dbf	d6,R6DrawBlockColumnLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -256,9 +256,9 @@ DrawBlock:
 	or.w	d2,d0
 	swap	d0
 	btst	#4,(a0)
-	bne.s	loc_2030FA
+	bne.s	R6DrawBlockVerticalFlip
 	btst	#3,(a0)
-	bne.s	loc_2030DA
+	bne.s	R6DrawBlockHorizontalFlip
 	move.l	d0,(a5)
 	move.l	(a1)+,(a6)
 	add.l	d7,d0
@@ -268,7 +268,7 @@ DrawBlock:
 
 ; ------------------------------------------------------------------------------
 
-loc_2030DA:
+R6DrawBlockHorizontalFlip:
 	move.l	d0,(a5)
 	move.l	(a1)+,d4
 	eori.l	#$8000800,d4
@@ -284,9 +284,9 @@ loc_2030DA:
 
 ; ------------------------------------------------------------------------------
 
-loc_2030FA:
+R6DrawBlockVerticalFlip:
 	btst	#3,(a0)
-	bne.s	loc_20311C
+	bne.s	R6DrawBlockBothFlips
 	move.l	d0,(a5)
 	move.l	(a1)+,d5
 	move.l	(a1)+,d4
@@ -300,7 +300,7 @@ loc_2030FA:
 
 ; ------------------------------------------------------------------------------
 
-loc_20311C:
+R6DrawBlockBothFlips:
 	move.l	d0,(a5)
 	move.l	(a1)+,d5
 	move.l	(a1)+,d4
@@ -340,7 +340,7 @@ GetBlockDataAbsXY:
 		moveq	#0,d3
 	endif
 	move.b	(a4,d0.w),d3
-	beq.s	locret_20318C
+	beq.s	R6GetBlockDataReturn
 	subq.b	#1,d3
 	andi.w	#$7F,d3
 	ror.w	#7,d3
@@ -359,7 +359,7 @@ GetBlockDataAbsXY:
 	adda.w	d3,a1
 	moveq	#1,d0
 
-locret_20318C:
+R6GetBlockDataReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -404,13 +404,13 @@ PlaceBlock:
 	move.l	#$800000,d7
 	movem.l	d3-d5,-(sp)
 	bsr.w	GetBlockDataAbsXY
-	bne.s	loc_2031F2
+	bne.s	R6PlaceBlockWrite
 	movem.l	(sp)+,d3-d5
-	bra.s	loc_20321C
+	bra.s	R6PlaceBlockReturn
 
 ; ------------------------------------------------------------------------------
 
-loc_2031F2:
+R6PlaceBlockWrite:
 	movem.l	(sp)+,d3-d5
 	if STANDALONE=0
 		move.w	d3,(a0)
@@ -418,7 +418,7 @@ loc_2031F2:
 		bsr.w	WriteBlock
 	endif
 	bsr.w	CheckBlockVisible
-	bne.s	loc_20321C
+	bne.s	R6PlaceBlockReturn
 	movem.l	d3-d5,-(sp)
 	lea	stage_blocks,a1
 	andi.w	#$3FF,d3
@@ -428,7 +428,7 @@ loc_2031F2:
 	bsr.w	DrawBlock
 	movem.l	(sp)+,d3-d5
 
-loc_20321C:
+R6PlaceBlockReturn:
 	movea.l	(sp)+,a0
 	rts
 
@@ -440,27 +440,27 @@ CheckBlockVisible:
 	andi.w	#$FFF0,d0
 	subi.w	#$10,d0
 	cmp.w	d0,d4
-	bcs.s	loc_203260
+	bcs.s	R6CheckBlockVisibleOutside
 	addi.w	#$F0,d1
 	andi.w	#$FFF0,d1
 	cmp.w	d1,d4
-	bgt.s	loc_203260
+	bgt.s	R6CheckBlockVisibleOutside
 	move.w	scroll_fg_x,d0
 	move.w	d0,d1
 	andi.w	#$FFF0,d0
 	subi.w	#$10,d0
 	cmp.w	d0,d5
-	bcs.s	loc_203260
+	bcs.s	R6CheckBlockVisibleOutside
 	addi.w	#$150,d1
 	andi.w	#$FFF0,d1
 	cmp.w	d1,d5
-	bgt.s	loc_203260
+	bgt.s	R6CheckBlockVisibleOutside
 	moveq	#0,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_203260:
+R6CheckBlockVisibleOutside:
 	moveq	#1,d0
 	rts
 
@@ -512,7 +512,7 @@ InitStageDraw:
 	lea	scroll_bg_x,a3
 	lea	stage_map+$40,a4
 	move.w	#$6000,d2
-	bra.w	loc_2032EE
+	bra.w	R6InitStageDrawBg
 
 ; ------------------------------------------------------------------------------
 
@@ -520,7 +520,7 @@ InitStageDrawFg:
 	moveq	#$FFFFFFF0,d4
 	moveq	#$F,d6
 
-loc_2032CA:
+R6InitStageDrawFgLoop:
 	movem.l	d4-d6,-(sp)
 	moveq	#0,d5
 	move.w	d4,d1
@@ -531,31 +531,31 @@ loc_2032CA:
 	bsr.w	DrawBlockRow2
 	movem.l	(sp)+,d4-d6
 	addi.w	#$10,d4
-	dbf	d6,loc_2032CA
+	dbf	d6,R6InitStageDrawFgLoop
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2032EE:
+R6InitStageDrawBg:
 	moveq	#$FFFFFFF0,d4
 	moveq	#$F,d6
 
-loc_2032F2:
+R6InitStageDrawBgLoop:
 	movem.l	d4-d6/a0,-(sp)
-	lea	unk_20331C,a0
+	lea	R6StageDrawScrollLayerTable,a0
 	adda.w	#1,a0
 	move.w	scroll_bg_y,d0
 	add.w	d4,d0
 	andi.w	#$1F0,d0
-	bsr.w	sub_20335E
+	bsr.w	R6InitStageDrawBgRow
 	movem.l	(sp)+,d4-d6/a0
 	addi.w	#$10,d4
-	dbf	d6,loc_2032F2
+	dbf	d6,R6InitStageDrawBgLoop
 	rts
 
 ; ------------------------------------------------------------------------------
 
-unk_20331C:
+R6StageDrawScrollLayerTable:
 	dc.b	0
 	dc.b	0
 	dc.b	0
@@ -607,7 +607,7 @@ unk_20331C:
 	dc.b	4
 	dc.b	0
 
-off_20334E:
+R6StageDrawInitScrollLayerPointers:
 	dc.l	scroll_bg_x&$FFFFFF
 	dc.l	scroll_bg_x&$FFFFFF
 	dc.l	scroll_bg2_x&$FFFFFF
@@ -615,22 +615,22 @@ off_20334E:
 
 ; ------------------------------------------------------------------------------
 
-sub_20335E:
+R6InitStageDrawBgRow:
 	lsr.w	#4,d0
 	move.b	(a0,d0.w),d0
 	add.w	d0,d0
-	movea.l	off_20334E(pc,d0.w),a3
-	beq.s	loc_203380
+	movea.l	R6StageDrawInitScrollLayerPointers(pc,d0.w),a3
+	beq.s	R6InitStageDrawBgAbsoluteRow
 	moveq	#$FFFFFFF0,d5
 	movem.l	d4-d5,-(sp)
 	bsr.w	GetBlockVramWrite
 	movem.l	(sp)+,d4-d5
 	bsr.w	DrawBlockRow
-	bra.s	locret_203394
+	bra.s	R6InitStageDrawBgRowReturn
 
 ; ------------------------------------------------------------------------------
 
-loc_203380:
+R6InitStageDrawBgAbsoluteRow:
 	moveq	#0,d5
 	movem.l	d4-d5,-(sp)
 	bsr.w	GetBlockVramWriteAbsX
@@ -638,7 +638,7 @@ loc_203380:
 	moveq	#$1F,d6
 	bsr.w	DrawBlockRowAbsX
 
-locret_203394:
+R6InitStageDrawBgRowReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

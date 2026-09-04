@@ -665,6 +665,7 @@ opaque merely because they use `dc.*`.
 | M452 | Complete | Canonicalize the R6 conductor object’s routine table, movement bounds, boss-flag tracking, and player-damage helper family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M453 | Complete | Canonicalize the R6 boss shared motion, object lookup/spawn, player-band, bound, and palette-cycle helper families with their data tables. | J/U/E 133/133 each; audit/hygiene clean. |
 | M454 | Complete | Canonicalize the R6 3D stage-draw foreground/background scroll, block-transfer, placement, and initialization helper family, migrating internal branch and table references. | J/U/E 133/133 each; audit/hygiene clean. |
+| M455 | Complete | Converge the remaining active R6 stage-draw variants (1B/1C/1D, 2A–2D, and 3C) on the shared semantic scroll, block-transfer, placement, and initialization vocabulary, migrating their internal callers and tables. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
