@@ -840,7 +840,7 @@ L_FF27B6:
 L_FF27BA:
 		bsr.w TimeAttack_SendSubCpuCommandWithReadyWait
 L_FF27BE:
-	bsr.w L_FF31B2
+	bsr.w TimeAttack_EnterRecordInitials
 L_FF27C2:
 	movea.l $ff3450.l, a0
 L_FF27C8:
@@ -2031,225 +2031,225 @@ TimeAttack_AnimateRecordInsertionReturn:
 	rts
 ; Let the player edit the three initials for a newly earned record.
 TimeAttack_EnterRecordInitials:
-L_FF31B2:
+TimeAttack_EnterRecordInitialsClearSelection:
 	moveq #$0, d0
-L_FF31B4:
+TimeAttack_EnterRecordInitialsClearDelay:
 	moveq #$0, d2
-L_FF31B6:
+TimeAttack_EnterRecordInitialsCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF31BC:
-	beq.b L_FF31C6
-L_FF31BE:
+TimeAttack_EnterRecordInitialsUseStageCommand:
+	beq.b TimeAttack_EnterRecordInitialsStageCommand
+TimeAttack_EnterRecordInitialsPeriodCommand:
 	move.l #$67c40003, d1
-L_FF31C4:
-	bra.b L_FF31CC
-L_FF31C6:
+TimeAttack_EnterRecordInitialsSkipStageCommand:
+	bra.b TimeAttack_EnterRecordInitialsLoadRank
+TimeAttack_EnterRecordInitialsStageCommand:
 	move.l #$67c20003, d1
-L_FF31CC:
+TimeAttack_EnterRecordInitialsLoadRank:
 	move.w $ff347c.l, d7
-L_FF31D2:
+TimeAttack_EnterRecordInitialsDecrementRank:
 	subq.w #$1, d7
-L_FF31D4:
+TimeAttack_EnterRecordInitialsScaleRowOffset:
 	mulu.w #$180, d7
-L_FF31D8:
+TimeAttack_EnterRecordInitialsRotateRowOffset:
 	swap d7
-L_FF31DA:
+TimeAttack_EnterRecordInitialsSelectVdpCommand:
 	add.l d7, d1
-L_FF31DC:
+TimeAttack_EnterRecordInitialsClearAnimationCounter:
 	move.w #$0, $ffaa5a.l
-L_FF31E4:
+TimeAttack_EnterRecordInitialsWaitSubCpu:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF31E8:
+TimeAttack_EnterRecordInitialsCopyInitials:
 	move.l $2002a0.l, $ff3460.l
-L_FF31F2:
-	bra.w L_FF3210
-L_FF31F6:
+TimeAttack_EnterRecordInitialsBeginInputLoop:
+	bra.w TimeAttack_EnterRecordInitialsWaitFrame
+TimeAttack_EnterRecordInitialsInputDelayCheck:
 	tst.w d2
-L_FF31F8:
-	beq.b L_FF3200
-L_FF31FA:
+TimeAttack_EnterRecordInitialsInputDelayBranch:
+	beq.b TimeAttack_EnterRecordInitialsHandleInput
+TimeAttack_EnterRecordInitialsDecrementInputDelay:
 	subq.w #$1, d2
-L_FF31FC:
-	bra.w L_FF3204
-L_FF3200:
-	bsr.w L_FF322E
-L_FF3204:
-	bsr.w L_FF3320
-L_FF3208:
+TimeAttack_EnterRecordInitialsSkipInput:
+	bra.w TimeAttack_EnterRecordInitialsUpdateDisplay
+TimeAttack_EnterRecordInitialsHandleInput:
+	bsr.w TimeAttack_HandleSelectionInput
+TimeAttack_EnterRecordInitialsUpdateDisplay:
+	bsr.w TimeAttack_UpdateInitialsEntryDisplay
+TimeAttack_EnterRecordInitialsCheckExit:
 	tst.b $ff3734.l
-L_FF320E:
-	bmi.b L_FF321E
-L_FF3210:
+TimeAttack_EnterRecordInitialsExitBranch:
+	bmi.b TimeAttack_EnterRecordInitialsWaitExit
+TimeAttack_EnterRecordInitialsWaitFrame:
 	move.w #$10, $ff3730.l
-L_FF3218:
+TimeAttack_EnterRecordInitialsWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF321C:
-	bra.b L_FF31F6
-L_FF321E:
+TimeAttack_EnterRecordInitialsLoop:
+	bra.b TimeAttack_EnterRecordInitialsInputDelayCheck
+TimeAttack_EnterRecordInitialsWaitExit:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF3222:
+TimeAttack_EnterRecordInitialsUploadFinalRecord:
 	lea.l $2002a0.l, a0
-L_FF3228:
+TimeAttack_EnterRecordInitialsUploadFinalTiles:
 	bsr.w TimeAttack_UploadCompactTileBlock
-L_FF322C:
+TimeAttack_EnterRecordInitialsReturn:
 	rts
 ; Apply controller input to the selected period or stage entry.
 TimeAttack_HandleSelectionInput:
-L_FF322E:
+TimeAttack_HandleSelectionInputCheckUp:
 	btst.b #$2, $ff3734.l
-L_FF3236:
-	beq.b L_FF3242
-L_FF3238:
+TimeAttack_HandleSelectionInputUpBranch:
+	beq.b TimeAttack_HandleSelectionInputCheckDown
+TimeAttack_HandleSelectionInputUpAtTop:
 	tst.w d0
-L_FF323A:
-	ble.b L_FF3242
-L_FF323C:
+TimeAttack_HandleSelectionInputUpLimitBranch:
+	ble.b TimeAttack_HandleSelectionInputCheckDown
+TimeAttack_HandleSelectionInputMoveUp:
 	subq.w #$1, d0
-L_FF323E:
-	bra.w L_FF32D8
-L_FF3242:
+TimeAttack_HandleSelectionInputMoveSelection:
+	bra.w TimeAttack_HandleSelectionInputSelectionChanged
+TimeAttack_HandleSelectionInputCheckDown:
 	btst.b #$3, $ff3734.l
-L_FF324A:
-	beq.b L_FF3258
-L_FF324C:
+TimeAttack_HandleSelectionInputDownBranch:
+	beq.b TimeAttack_HandleSelectionInputCheckLeft
+TimeAttack_HandleSelectionInputDownAtBottom:
 	cmpi.w #$2, d0
-L_FF3250:
-	bge.b L_FF3258
-L_FF3252:
+TimeAttack_HandleSelectionInputDownLimitBranch:
+	bge.b TimeAttack_HandleSelectionInputCheckLeft
+TimeAttack_HandleSelectionInputMoveDown:
 	addq.w #$1, d0
-L_FF3254:
-	bra.w L_FF32D8
-L_FF3258:
+TimeAttack_HandleSelectionInputCheckLeftAfterMove:
+	bra.w TimeAttack_HandleSelectionInputSelectionChanged
+TimeAttack_HandleSelectionInputCheckLeft:
 	btst.b #$4, $ff3734.l
-L_FF3260:
-	beq.b L_FF326C
-L_FF3262:
+TimeAttack_HandleSelectionInputLeftBranch:
+	beq.b TimeAttack_HandleSelectionInputCheckRight
+TimeAttack_HandleSelectionInputLeftAtStart:
 	tst.w d0
-L_FF3264:
-	ble.b L_FF326C
-L_FF3266:
+TimeAttack_HandleSelectionInputLeftLimitBranch:
+	ble.b TimeAttack_HandleSelectionInputCheckRight
+TimeAttack_HandleSelectionInputMoveLeft:
 	subq.w #$1, d0
-L_FF3268:
-	bra.w L_FF32D8
-L_FF326C:
+TimeAttack_HandleSelectionInputCheckRightAfterMove:
+	bra.w TimeAttack_HandleSelectionInputSelectionChanged
+TimeAttack_HandleSelectionInputCheckRight:
 	btst.b #$6, $ff3734.l
-L_FF3274:
-	beq.b L_FF3286
-L_FF3276:
+TimeAttack_HandleSelectionInputRightBranch:
+	beq.b TimeAttack_HandleSelectionInputCheckLeftColumn
+TimeAttack_HandleSelectionInputRightAtBoundary:
 	cmpi.w #$2, d0
-L_FF327A:
-	beq.w L_FF32CE
-L_FF327E:
-	bgt.b L_FF3286
-L_FF3280:
+TimeAttack_HandleSelectionInputRightConfirmBranch:
+	beq.w TimeAttack_HandleSelectionInputSetConfirm
+TimeAttack_HandleSelectionInputRightLimitBranch:
+	bgt.b TimeAttack_HandleSelectionInputCheckLeftColumn
+TimeAttack_HandleSelectionInputMoveRight:
 	addq.w #$1, d0
-L_FF3282:
-	bra.w L_FF32D8
-L_FF3286:
+TimeAttack_HandleSelectionInputMoveRightSelection:
+	bra.w TimeAttack_HandleSelectionInputSelectionChanged
+TimeAttack_HandleSelectionInputCheckLeftColumn:
 	btst.b #$5, $ff3734.l
-L_FF328E:
-	beq.b L_FF32A0
-L_FF3290:
+TimeAttack_HandleSelectionInputLeftColumnBranch:
+	beq.b TimeAttack_HandleSelectionInputEditCharacter
+TimeAttack_HandleSelectionInputLeftColumnAtBoundary:
 	cmpi.w #$2, d0
-L_FF3294:
-	beq.w L_FF32CE
-L_FF3298:
-	bgt.b L_FF32A0
-L_FF329A:
+TimeAttack_HandleSelectionInputLeftColumnConfirmBranch:
+	beq.w TimeAttack_HandleSelectionInputSetConfirm
+TimeAttack_HandleSelectionInputLeftColumnLimitBranch:
+	bgt.b TimeAttack_HandleSelectionInputEditCharacter
+TimeAttack_HandleSelectionInputMoveLeftColumn:
 	addq.w #$1, d0
-L_FF329C:
-	bra.w L_FF32D8
-L_FF32A0:
+TimeAttack_HandleSelectionInputMoveLeftColumnSelection:
+	bra.w TimeAttack_HandleSelectionInputSelectionChanged
+TimeAttack_HandleSelectionInputEditCharacter:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF32A4:
+TimeAttack_HandleSelectionInputCharacterAddress:
 	lea.l $2002a0.l, a6
-L_FF32AA:
+TimeAttack_HandleSelectionInputSelectCharacter:
 	adda.w d0, a6
-L_FF32AC:
+TimeAttack_HandleSelectionInputCheckPreviousCharacter:
 	btst.b #$0, $ff3734.l
-L_FF32B4:
-	beq.b L_FF32BC
-L_FF32B6:
+TimeAttack_HandleSelectionInputPreviousCharacterBranch:
+	beq.b TimeAttack_HandleSelectionInputCheckNextCharacter
+TimeAttack_HandleSelectionInputPreviousCharacter:
 	subq.b #$1, (a6)
-L_FF32B8:
-	bra.w L_FF32F2
-L_FF32BC:
+TimeAttack_HandleSelectionInputPreviousCharacterReturn:
+	bra.w TimeAttack_HandleSelectionInputClampCharacter
+TimeAttack_HandleSelectionInputCheckNextCharacter:
 	btst.b #$1, $ff3734.l
-L_FF32C4:
-	beq.b L_FF32CC
-L_FF32C6:
+TimeAttack_HandleSelectionInputNextCharacterBranch:
+	beq.b TimeAttack_HandleSelectionInputNoCharacterChange
+TimeAttack_HandleSelectionInputNextCharacter:
 	addq.b #$1, (a6)
-L_FF32C8:
-	bra.w L_FF32F2
-L_FF32CC:
+TimeAttack_HandleSelectionInputNextCharacterReturn:
+	bra.w TimeAttack_HandleSelectionInputClampCharacter
+TimeAttack_HandleSelectionInputNoCharacterChange:
 	rts
-L_FF32CE:
+TimeAttack_HandleSelectionInputSetConfirm:
 	bset.b #$7, $ff3734.l
-L_FF32D6:
+TimeAttack_HandleSelectionInputConfirmReturn:
 	rts
-L_FF32D8:
+TimeAttack_HandleSelectionInputSelectionChanged:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF32DC:
+TimeAttack_HandleSelectionInputCopySelection:
 	move.l $2002a0.l, $ff3460.l
-L_FF32E6:
+TimeAttack_HandleSelectionInputClearAnimationCounter:
 	move.w #$0, $ffaa5a.l
-L_FF32EE:
+TimeAttack_HandleSelectionInputSetInputDelay:
 	moveq #$b, d2
-L_FF32F0:
+TimeAttack_HandleSelectionInputSelectionReturn:
 	rts
-L_FF32F2:
+TimeAttack_HandleSelectionInputClampCharacter:
 	cmpi.b #$1, (a6)
-L_FF32F6:
-	bge.b L_FF32FC
-L_FF32F8:
+TimeAttack_HandleSelectionInputClampLowerBranch:
+	bge.b TimeAttack_HandleSelectionInputCheckUpperBound
+TimeAttack_HandleSelectionInputClampLower:
 	move.b #$24, (a6)
-L_FF32FC:
+TimeAttack_HandleSelectionInputCheckUpperBound:
 	cmpi.b #$24, (a6)
-L_FF3300:
-	ble.b L_FF3306
-L_FF3302:
+TimeAttack_HandleSelectionInputClampUpperBranch:
+	ble.b TimeAttack_HandleSelectionInputCharacterChangedWait
+TimeAttack_HandleSelectionInputClampUpper:
 	move.b #$1, (a6)
-L_FF3306:
+TimeAttack_HandleSelectionInputCharacterChangedWait:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF330A:
+TimeAttack_HandleSelectionInputCopyCharacter:
 	move.l $2002a0.l, $ff3460.l
-L_FF3314:
+TimeAttack_HandleSelectionInputSetAnimationCounter:
 	move.w #$1, $ffaa5a.l
-L_FF331C:
+TimeAttack_HandleSelectionInputSetCharacterDelay:
 	moveq #$b, d2
-L_FF331E:
+TimeAttack_HandleSelectionInputCharacterReturn:
 	rts
 ; Refresh the initials-entry tiles and blink the active character.
 TimeAttack_UpdateInitialsEntryDisplay:
-L_FF3320:
+TimeAttack_UpdateInitialsEntryDisplayReadCounter:
 	move.w $ffaa5a.l, d7
-L_FF3326:
+TimeAttack_UpdateInitialsEntryDisplayMaskCounter:
 	andi.w #$f, d7
-L_FF332A:
-	bne.b L_FF3342
-L_FF332C:
+TimeAttack_UpdateInitialsEntryDisplayBlinkBranch:
+	bne.b TimeAttack_UpdateInitialsEntryDisplayUploadSource
+TimeAttack_UpdateInitialsEntryDisplayWaitSubCpu:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF3330:
+TimeAttack_UpdateInitialsEntryDisplaySource:
 	lea.l $2002a0.l, a5
-L_FF3336:
+TimeAttack_UpdateInitialsEntryDisplayDestination:
 	lea.l $ff3460(pc), a6
-L_FF333A:
+TimeAttack_UpdateInitialsEntryDisplayReadCharacter:
 	move.b (a5, d0.w), d7
-L_FF333E:
+TimeAttack_UpdateInitialsEntryDisplayToggleCharacter:
 	eor.b d7, (a6, d0.w)
-L_FF3342:
+TimeAttack_UpdateInitialsEntryDisplayUploadSource:
 	lea.l $ff3460(pc), a0
-L_FF3346:
+TimeAttack_UpdateInitialsEntryDisplayUpload:
 	bra.w TimeAttack_UploadCompactTileBlock
-L_FF334A:
+TimeAttack_UpdateInitialsEntryDisplayCopyDestination:
 	lea.l $ff3460(pc), a6
-L_FF334E:
+TimeAttack_UpdateInitialsEntryDisplayCopyWaitSubCpu:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF3352:
+TimeAttack_UpdateInitialsEntryDisplayCopyInitials:
 	move.l $2002a0.l, (a6)
-L_FF3358:
+TimeAttack_UpdateInitialsEntryDisplayClearCharacter:
 	move.b #$0, (a6, d0.w)
-L_FF335E:
+TimeAttack_UpdateInitialsEntryDisplayCopyReturn:
 	rts
 ; Upload the selected two-row tile block to its VDP destination.
 TimeAttack_UploadVdpTileBlock:
