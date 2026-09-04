@@ -2,10 +2,10 @@
 
 TunnelPathObject:
 	btst	#7,time_zone
-	beq.s	loc_20906A
+	beq.s	TunnelPathMainUpdate
 	moveq	#0,d0
 	move.b	obj.state_id(a0),d0
-	beq.s	loc_20906A
+	beq.s	TunnelPathMainUpdate
 	lea	object_states,a1
 	move.w	d0,d1
 	add.w	d1,d1
@@ -17,47 +17,48 @@ TunnelPathObject:
 	ext.w	d2
 	neg.w	d2
 	add.w	d2,d1
-	bpl.s	loc_20905A
+	bpl.s	TunnelPathClampWarpState
 	moveq	#0,d1
-	bra.s	loc_209062
+	bra.s	TunnelPathClearObjectStateFlag
 
 ; ------------------------------------------------------------------------------
 
-loc_20905A:
+TunnelPathClampWarpState:
 	cmpi.w	#3,d1
-	bcs.s	loc_209062
+	bcs.s	TunnelPathClearObjectStateFlag
 	moveq	#2,d1
 
-loc_209062:
+TunnelPathClearObjectStateFlag:
 	add.w	d1,d0
 	bclr	#7,2(a1,d0.w)
 
-loc_20906A:
+TunnelPathMainUpdate:
 	lea	player_object,a6
 	cmpi.b	#$2B,obj.anim_id(a6)
-	beq.s	locret_20909A
+	beq.s	TunnelPathReturn
 	cmpi.b	#6,obj.routine(a6)
-	bcc.s	locret_20909A
+	bcc.s	TunnelPathReturn
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20909C(pc,d0.w),d1
-	jsr	off_20909C(pc,d1.w)
+	move.w	TunnelPathRoutineTable(pc,d0.w),d1
+	jsr	TunnelPathRoutineTable(pc,d1.w)
 	cmpi.b	#4,obj.routine(a0)
-	bcc.s	locret_20909A
+	bcc.s	TunnelPathReturn
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-locret_20909A:
+TunnelPathReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-off_20909C:
+; Tunnel Path object routine pointers.
+TunnelPathRoutineTable:
 	dc.w	TunnelPathObject_0_Routine0-*
-	dc.w	TunnelPathObject_0_Routine2-off_20909C
-	dc.w	TunnelPathObject_0_Routine4-off_20909C
-	dc.w	TunnelPathObject_0_Routine6-off_20909C
+	dc.w	TunnelPathObject_0_Routine2-TunnelPathRoutineTable
+	dc.w	TunnelPathObject_0_Routine4-TunnelPathRoutineTable
+	dc.w	TunnelPathObject_0_Routine6-TunnelPathRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -81,45 +82,46 @@ TunnelPathObject_0_Routine0:
 
 TunnelPathObject_0_Routine2:
 	cmpi.b	#6,obj.routine(a6)
-	bcc.w	locret_2091B2
+	bcc.w	TunnelPathEntryReturn
 	move.w	obj.x(a6),d0
 	sub.w	obj.x(a0),d0
 	addi.w	#$20,d0
 	cmpi.w	#$40,d0
-	bcc.w	locret_2091B2
+	bcc.w	TunnelPathEntryReturn
 	move.w	obj.y(a6),d1
 	sub.w	obj.y(a0),d1
 	addi.w	#$30,d1
 	cmpi.w	#$60,d1
-	bcc.w	locret_2091B2
+	bcc.w	TunnelPathEntryReturn
 	tst.b	obj.var_2c(a6)
-	bne.w	locret_2091B2
+	bne.w	TunnelPathEntryReturn
 	cmpi.b	#4,obj.routine(a6)
-	bne.s	loc2_20913A
+	bne.s	TunnelPathPreparePlayerEntry
 	subq.b	#2,obj.routine(a6)
 	move.w	#$78,obj.var_30(a6)
 
-loc2_20913A:
+TunnelPathPreparePlayerEntry:
 	addq.b	#2,obj.routine(a0)
 	move.b	#$81,obj.var_2c(a6)
 	tst.b	obj.subtype_2(a0)
-	beq.s	loc_209150
+	beq.s	TunnelPathSetPlayerFlags
 	bset	#6,obj.var_2c(a6)
 
-loc_209150:
+TunnelPathSetPlayerFlags:
 	move.b	#2,obj.anim_id(a6)
 	move.w	#$800,obj.ground_speed(a6)
 	bclr	#6,obj.sprite_flags(a6)
 	tst.b	obj.subtype(a0)
-	bpl.s	loc_20916E
+	bpl.s	TunnelPathSetPlayerDirection
 	bset	#6,obj.sprite_flags(a6)
 
-loc_20916E:
+
+TunnelPathSetPlayerDirection:
 	cmpi.b	#4,obj.routine(a6)
-	bne.s	loc_20917A
+	bne.s	TunnelPathClearPlayerRoutine
 	subq.b	#2,obj.routine(a6)
 
-loc_20917A:
+TunnelPathClearPlayerRoutine:
 	move.w	#0,obj.x_speed(a6)
 	move.w	#0,obj.y_speed(a6)
 	bclr	#5,obj.flags(a0)
@@ -131,14 +133,14 @@ loc_20917A:
 	move.w	#$91,d0
 	jsr	PlayFmSound
 
-locret_2091B2:
+TunnelPathEntryReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 TunnelPathObject_0_Routine4:
 	move.b	#2,obj.anim_id(a6)
-	bsr.w	sub_20928A
+	bsr.w	TunnelPathComputePlayerVelocity
 	addq.b	#2,obj.routine(a0)
 	move.w	#$91,d0
 	jsr	PlayFmSound
@@ -150,7 +152,7 @@ TunnelPathObject_0_Routine6:
 	move.b	#2,obj.anim_id(a6)
 	addq.l	#4,sp
 	subq.b	#1,obj.var_2e(a0)
-	bpl.s	loc_20921E
+	bpl.s	TunnelPathMovePlayerAlongPath
 	move.w	obj.var_36(a0),d0
 	add.w	obj.x(a0),d0
 	move.w	d0,obj.x(a6)
@@ -161,24 +163,24 @@ TunnelPathObject_0_Routine6:
 	move.b	obj.var_3a(a0),d1
 	addq.b	#6,d1
 	cmp.b	obj.var_3b(a0),d1
-	bcs.s	loc_209206
+	bcs.s	TunnelPathAdvancePathPoint
 	moveq	#0,d1
-	bra.s	loc_209274
+	bra.s	TunnelPathExit
 
 ; ------------------------------------------------------------------------------
 
-loc_209206:
+TunnelPathAdvancePathPoint:
 	move.b	d1,obj.var_3a(a0)
 
-loc_20920A:
+TunnelPathLoadPathPoint:
 	movea.l	obj.var_3c(a0),a2
 	move.w	(a2,d1.w),obj.var_36(a0)
 	move.w	2(a2,d1.w),obj.var_38(a0)
-	bra.w	sub_20928A
+	bra.w	TunnelPathComputePlayerVelocity
 
 ; ------------------------------------------------------------------------------
 
-loc_20921E:
+TunnelPathMovePlayerAlongPath:
 	move.l	obj.x(a6),d2
 	move.l	obj.y(a6),d3
 	move.w	obj.x_speed(a6),d0
@@ -195,17 +197,17 @@ loc_20921E:
 	move.b	obj.var_3a(a0),d1
 	movea.l	obj.var_3c(a0),a2
 	move.w	4(a2,d1.w),d1
-	bmi.s	loc_209254
+	bmi.s	TunnelPathCheckPathExit
 
-locret_209252:
+TunnelPathPathMotionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_209254:
+TunnelPathCheckPathExit:
 	move.b	p1_joy_hold,d0
 	andi.b	#$70,d0
-	beq.s	locret_209252
+	beq.s	TunnelPathPathMotionReturn
 	andi.w	#$7FFF,d1
 	add.b	d1,d1
 	move.b	d1,d0
@@ -213,11 +215,11 @@ loc_209254:
 	add.b	d0,d1
 	add.b	obj.var_3b(a0),d1
 	move.b	d1,obj.var_3a(a0)
-	bra.s	loc_20920A
+	bra.s	TunnelPathLoadPathPoint
 
 ; ------------------------------------------------------------------------------
 
-loc_209274:
+TunnelPathExit:
 	andi.w	#$7FF,obj.y(a6)
 	clr.b	obj.routine(a0)
 	clr.b	obj.var_2c(a6)
@@ -226,29 +228,30 @@ loc_209274:
 
 ; ------------------------------------------------------------------------------
 
-sub_20928A:
+; Compute player velocity toward the next path point.
+TunnelPathComputePlayerVelocity:
 	moveq	#0,d0
 	move.w	obj.ground_speed(a6),d2
 	move.w	obj.ground_speed(a6),d3
 	move.w	obj.var_36(a0),d0
 	add.w	obj.x(a0),d0
 	sub.w	obj.x(a6),d0
-	bge.s	loc_2092A6
+	bge.s	TunnelPathHorizontalDeltaPositive
 	neg.w	d0
 	neg.w	d2
 
-loc_2092A6:
+TunnelPathHorizontalDeltaPositive:
 	moveq	#0,d1
 	move.w	obj.var_38(a0),d1
 	add.w	obj.y(a0),d1
 	sub.w	obj.y(a6),d1
-	bge.s	loc_2092BA
+	bge.s	TunnelPathVerticalDeltaPositive
 	neg.w	d1
 	neg.w	d3
 
-loc_2092BA:
+TunnelPathVerticalDeltaPositive:
 	cmp.w	d0,d1
-	bcs.s	loc_2092F8
+	bcs.s	TunnelPathUseHorizontalDominantVelocity
 	moveq	#0,d1
 	move.w	obj.var_38(a0),d1
 	add.w	obj.y(a0),d1
@@ -259,24 +262,24 @@ loc_2092BA:
 	move.w	obj.var_36(a0),d0
 	add.w	obj.x(a0),d0
 	sub.w	obj.x(a6),d0
-	beq.s	loc_2092E4
+	beq.s	TunnelPathStoreVerticalVelocity
 	swap	d0
 	divs.w	d1,d0
 
-loc_2092E4:
+TunnelPathStoreVerticalVelocity:
 	move.w	d0,obj.x_speed(a6)
 	move.w	d3,obj.y_speed(a6)
 	tst.w	d1
-	bpl.s	loc_2092F2
+	bpl.s	TunnelPathStoreAbsoluteVerticalDelay
 	neg.w	d1
 
-loc_2092F2:
+TunnelPathStoreAbsoluteVerticalDelay:
 	move.w	d1,obj.var_2e(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2092F8:
+TunnelPathUseHorizontalDominantVelocity:
 	moveq	#0,d0
 	move.w	obj.var_36(a0),d0
 	add.w	obj.x(a0),d0
@@ -287,45 +290,46 @@ loc_2092F8:
 	move.w	obj.var_38(a0),d1
 	add.w	obj.y(a0),d1
 	sub.w	obj.y(a6),d1
-	beq.s	loc_20931E
+	beq.s	TunnelPathStoreHorizontalVelocity
 	swap	d1
 	divs.w	d0,d1
 
-loc_20931E:
+TunnelPathStoreHorizontalVelocity:
 	move.w	d1,obj.y_speed(a6)
 	move.w	d2,obj.x_speed(a6)
 	tst.w	d0
-	bpl.s	loc_20932C
+	bpl.s	TunnelPathStoreAbsoluteHorizontalDelay
 	neg.w	d0
 
-loc_20932C:
+TunnelPathStoreAbsoluteHorizontalDelay:
 	move.w	d0,obj.var_2e(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
 TunnelPaths:
-	dc.w	@TunnelPath_0-*
-	dc.w	@TunnelPath_2-TunnelPaths
-	dc.w	@TunnelPath_4-TunnelPaths
-	dc.w	@TunnelPath_6-TunnelPaths
-	dc.w	@TunnelPath_8-TunnelPaths
-	dc.w	@TunnelPath_A-TunnelPaths
-	dc.w	@TunnelPath_C-TunnelPaths
-	dc.w	@TunnelPath_E-TunnelPaths
-	dc.w	@TunnelPath_10-TunnelPaths
-	dc.w	@TunnelPath_12-TunnelPaths
-	dc.w	@TunnelPath_14-TunnelPaths
-	dc.w	@TunnelPath_16-TunnelPaths
-	dc.w	@TunnelPath_18-TunnelPaths
-	dc.w	@TunnelPath_1A-TunnelPaths
-	dc.w	@TunnelPath_1C-TunnelPaths
-	dc.w	@TunnelPath_1E-TunnelPaths
-	dc.w	@TunnelPath_20-TunnelPaths
-	dc.w	@TunnelPath_22-TunnelPaths
-	dc.w	@TunnelPath_24-TunnelPaths
+	; Each record begins with a word offset limit, then x/y/next-point words.
+	dc.w	TunnelPathDefinition0-*
+	dc.w	TunnelPathDefinition2-TunnelPaths
+	dc.w	TunnelPathDefinition4-TunnelPaths
+	dc.w	TunnelPathDefinition6-TunnelPaths
+	dc.w	TunnelPathDefinition8-TunnelPaths
+	dc.w	TunnelPathDefinitionA-TunnelPaths
+	dc.w	TunnelPathDefinitionC-TunnelPaths
+	dc.w	TunnelPathDefinitionE-TunnelPaths
+	dc.w	TunnelPathDefinition10-TunnelPaths
+	dc.w	TunnelPathDefinition12-TunnelPaths
+	dc.w	TunnelPathDefinition14-TunnelPaths
+	dc.w	TunnelPathDefinition16-TunnelPaths
+	dc.w	TunnelPathDefinition18-TunnelPaths
+	dc.w	TunnelPathDefinition1A-TunnelPaths
+	dc.w	TunnelPathDefinition1C-TunnelPaths
+	dc.w	TunnelPathDefinition1E-TunnelPaths
+	dc.w	TunnelPathDefinition20-TunnelPaths
+	dc.w	TunnelPathDefinition22-TunnelPaths
+	dc.w	TunnelPathDefinition24-TunnelPaths
 
-@TunnelPath_0:
+TunnelPathDefinition0:
 	dc.w	$4E
 	dc.w	0, 0, 0
 	dc.w	8, $20, 0
@@ -343,7 +347,7 @@ TunnelPaths:
 	dc.w	$50, -$20, 0
 	dc.w	-$78, -$68, 0
 
-@TunnelPath_2:
+TunnelPathDefinition2:
 	dc.w	$18
 	dc.w	0, 0, 0
 	dc.w	$30, -$10, 0
@@ -351,7 +355,7 @@ TunnelPaths:
 	dc.w	$78, $20, -$8000
 	dc.w	$C8, 0, 0
 
-@TunnelPath_4:
+TunnelPathDefinition4:
 	dc.w	$96
 	dc.w	0, 0, 0
 	dc.w	8, $20, 0
@@ -382,7 +386,7 @@ TunnelPaths:
 	dc.w	-$D8, -$20, 0
 	dc.w	-$B8, $F0, 0
 
-@TunnelPath_6:
+TunnelPathDefinition6:
 	dc.w	$1E
 	dc.w	0, 0, -$7FFF
 	dc.w	$18, -$20, -$7FFF
@@ -392,7 +396,7 @@ TunnelPaths:
 	dc.w	$D0, -$20, 0
 	dc.w	-$48, -$20, 0
 
-@TunnelPath_8:
+TunnelPathDefinition8:
 	dc.w	$4E
 	dc.w	0, 0, -$7FFE
 	dc.w	$18, $20, -$7FFE
@@ -411,7 +415,7 @@ TunnelPaths:
 	dc.w	-$48, -$100, 0
 	dc.w	-$28, $10, 0
 
-@TunnelPath_A:
+TunnelPathDefinitionA:
 	dc.w	$3C
 	dc.w	0, 0, 0
 	dc.w	0, $150, 0
@@ -424,51 +428,51 @@ TunnelPaths:
 	dc.w	$218, $370, 0
 	dc.w	$3C0, $370, 0
 
-@TunnelPath_C:
+TunnelPathDefinitionC:
 	dc.w	$C
 	dc.w	0, 0, 0
 	dc.w	$38, 0, 0
 
-@TunnelPath_E:
+TunnelPathDefinitionE:
 	dc.w	$12
 	dc.w	0, 0, 0
 	dc.w	0, $2A8, 0
 	dc.w	$50, $2A8, 0
 
-@TunnelPath_10:
+TunnelPathDefinition10:
 	dc.w	$18
 	dc.w	0, 0, 0
 	dc.w	8, 0, 0
 	dc.w	8, -$100, 0
 	dc.w	$38, -$100, 0
 
-@TunnelPath_12:
+TunnelPathDefinition12:
 	dc.w	$18
 	dc.w	0, 0, 0
 	dc.w	8, 0, 0
 	dc.w	8, $100, 0
 	dc.w	$38, $100, 0
 
-@TunnelPath_14:
+TunnelPathDefinition14:
 	dc.w	$18
 	dc.w	0, 0, 0
 	dc.w	8, 0, 0
 	dc.w	8, -$100, 0
 	dc.w	$38, -$100, 0
 
-@TunnelPath_16:
+TunnelPathDefinition16:
 	dc.w	$C
 	dc.w	0, 0, 0
 	dc.w	$60, 0, 0
 
-@TunnelPath_18:
+TunnelPathDefinition18:
 	dc.w	$18
 	dc.w	0, 0, 0
 	dc.w	$1B0, 0, 0
 	dc.w	$1B0, $100, 0
 	dc.w	$3E0, $100, 0
 
-@TunnelPath_1A:
+TunnelPathDefinition1A:
 	dc.w	$1E
 	dc.w	0, 0, 0
 	dc.w	0, $2A8, 0
@@ -476,12 +480,12 @@ TunnelPaths:
 	dc.w	$3C0, $1A8, 0
 	dc.w	$190, $1A8, 0
 
-@TunnelPath_1C:
+TunnelPathDefinition1C:
 	dc.w	$C
 	dc.w	0, 0, 0
 	dc.w	$160, 0, 0
 
-@TunnelPath_1E:
+TunnelPathDefinition1E:
 	dc.w	$4E
 	dc.w	0, 0, 0
 	dc.w	0, $2B8, 0
@@ -497,7 +501,7 @@ TunnelPaths:
 	dc.w	-$38, $458, 0
 	dc.w	-$38, $4E0, 0
 
-@TunnelPath_20:
+TunnelPathDefinition20:
 	dc.w	$2A
 	dc.w	0, 0, 0
 	dc.w	0, $2A8, 0
@@ -507,7 +511,7 @@ TunnelPaths:
 	dc.w	-$48, $358, 0
 	dc.w	-$48, $4D0, 0
 
-@TunnelPath_22:
+TunnelPathDefinition22:
 	dc.w	$30
 	dc.w	0, 0, 0
 	dc.w	0, $208, 0
@@ -518,7 +522,7 @@ TunnelPaths:
 	dc.w	-$38, $318, 0
 	dc.w	$250, $318, 0
 
-@TunnelPath_24:
+TunnelPathDefinition24:
 	dc.w	$C
 	dc.w	0, 0, 0
 	dc.w	$128, 0, 0
