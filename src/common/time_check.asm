@@ -2,13 +2,13 @@
 
 DestroyInGoodFuture:
 	tst.b	good_future
-	beq.s	locret_20E3DC
+	beq.s	DestroyFutureReturn
 	cmpi.b	#1,time_zone
-	bne.s	loc_20E3AE
+	bne.s	DestroyFutureDelete
 	tst.b	obj.subtype(a0)
-	beq.s	locret_20E3DC
+	beq.s	DestroyFutureReturn
 
-loc_20E3AE:
+DestroyFutureDelete:
 	move.w	obj.x(a0),d5
 	move.w	obj.y(a0),d6
 	jsr	DeleteObject
@@ -16,39 +16,39 @@ loc_20E3AE:
 	move.w	d6,obj.y(a0)
 	move.b	#$18,obj.id(a0)
 	tst.b	obj.sprite_flags(a0)
-	bpl.s	loc_20E3DA
+	bpl.s	DestroyFutureFinish
 	move.w	#$9E,d0
 	jsr	PlayFmSound
 
-loc_20E3DA:
+DestroyFutureFinish:
 	addq.l	#4,sp
 
-locret_20E3DC:
+DestroyFutureReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 CheckAnimalPrescence:
 	tst.b	obj.subtype(a0)
-	bmi.s	locret_20E40E
+	bmi.s	AnimalPresenceReturn
 	cmpi.b	#2,time_zone
-	bge.s	loc_20E3FE
+	bge.s	AnimalPresenceGoodFuture
 	tst.b	projector_destroyed
-	bne.s	locret_20E40E
+	bne.s	AnimalPresenceReturn
 	addq.l	#4,sp
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-loc_20E3FE:
+AnimalPresenceGoodFuture:
 	tst.b	good_future
-	bne.s	locret_20E40E
+	bne.s	AnimalPresenceReturn
 	addq.l	#4,sp
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-locret_20E40E:
+AnimalPresenceReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
