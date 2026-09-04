@@ -19,13 +19,13 @@ LoadStageData:
 	movea.l	(sp)+,a2
 	addq.w	#4,a2
 	btst	#1,stage_start_flags
-	beq.s	locret_203448
+	beq.s	LoadStageDataQueueReturn
 	moveq	#0,d0
 	move.b	(a2),d0
-	beq.s	locret_203448
+	beq.s	LoadStageDataQueueReturn
 	bsr.w	AddGfxQueue
 
-locret_203448:
+LoadStageDataQueueReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -35,18 +35,19 @@ LoadStageMap:
 	move.w	#$1FF,d1
 	moveq	#0,d0
 
-loc_203454:
+
+ClearStageMapLoop:
 	move.l	d0,(a3)+
-	dbf	d1,loc_203454
+	dbf	d1,ClearStageMapLoop
 	lea	stage_map,a3
 	moveq	#0,d1
-	bsr.w	sub_20346A
+	bsr.w	LoadStageMapRows
 	lea	stage_map+$40,a3
 	moveq	#2,d1
 
 ; ------------------------------------------------------------------------------
 
-sub_20346A:
+LoadStageMapRows:
 	moveq	#0,d0
 	add.w	d1,d0
 	lea	StageMaps,a1
@@ -57,15 +58,15 @@ sub_20346A:
 	move.b	(a1)+,d1
 	move.b	(a1)+,d2
 
-loc_203484:
+LoadStageMapRowLoop:
 	move.w	d1,d0
 	movea.l	a3,a0
 
-loc_203488:
+LoadStageMapCopyLoop:
 	move.b	(a1)+,(a0)+
-	dbf	d0,loc_203488
+	dbf	d0,LoadStageMapCopyLoop
 	lea	$80(a3),a3
-	dbf	d2,loc_203484
+	dbf	d2,LoadStageMapRowLoop
 	rts
 
 ; ------------------------------------------------------------------------------

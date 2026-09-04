@@ -685,6 +685,7 @@ opaque merely because they use `dc.*`.
 | M472 | Complete | Canonicalize the shared R6 Animal and Spike Chain parent/child motion family, migrating routine tables, child spawning, orbit/fall motion, tile selection, linked-segment updates, and deletion/draw gates to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M473 | Complete | Canonicalize the shared R6 Launcher and Goddess Statue interaction family, migrating routine tables, player contact/launch gates, child-follow behavior, proximity timing, ring spawning, and speed records to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 | M474 | Complete | Canonicalize the four R6 palette-cycle variants, migrating cycle wrap/return flow and all timing/color/boss-override records to shared semantic symbols with format comments. | J/U/E 133/133 each; audit/hygiene clean. |
+| M475 | In progress | Canonicalize the ten R6 stage-data loader variants, migrating queue-return, stage-map clearing, row loading, and row-copy loop callers to shared semantic symbols. | Pending regional validation. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
