@@ -239,117 +239,117 @@ TimeAttack_StartCopyEnigmaToVdp:
 	bsr.w TimeAttack_CopyVdpRect
 TimeAttack_StartReleaseEnigmaArguments:
 	lea.l $14(a7), a7
-L_FF2268:
+TimeAttack_StartRegionIndexValue:
 	moveq #$0, d0
-L_FF226A:
+TimeAttack_StartReadRegionCode:
 	move.b $ff0f18.l, d0
-L_FF2270:
+TimeAttack_StartNormalizeRegionCode:
 	subq.l #$3, d0
-L_FF2272:
-	bmi.b L_FF227C
-L_FF2274:
+TimeAttack_StartRegionLowerBoundBranch:
+	bmi.b TimeAttack_StartClampRegionIndex
+TimeAttack_StartCheckRegionUpperBound:
 	cmpi.l #$12, d0
-L_FF227A:
-	ble.b L_FF227E
-L_FF227C:
+TimeAttack_StartRegionUpperBoundBranch:
+	ble.b TimeAttack_StartDivideRegionIndex
+TimeAttack_StartClampRegionIndex:
 	moveq #$0, d0
-L_FF227E:
+TimeAttack_StartDivideRegionIndex:
 	divu.w #$3, d0
-L_FF2282:
+TimeAttack_StartStoreRegionIndex:
 	move.w d0, $ff3476.l
-L_FF2288:
+TimeAttack_StartSendInitialSubCpuCommand:
 	bsr.w TimeAttack_SendSubCpuCommandWithReadyWait
-L_FF228C:
+TimeAttack_StartClearRecordRank:
 	clr.w $ff347c.l
-L_FF2292:
+TimeAttack_StartReadSelectedStage:
 	tst.w $ff0f14.l
-L_FF2298:
-	bmi.b L_FF22A4
-L_FF229A:
+TimeAttack_StartSelectedStageLowerBoundBranch:
+	bmi.b TimeAttack_StartResetSelectedStage
+TimeAttack_StartCheckSelectedStageUpperBound:
 	cmpi.w #$1c, $ff0f14.l
-L_FF22A2:
-	ble.b L_FF22AC
-L_FF22A4:
+TimeAttack_StartSelectedStageUpperBoundBranch:
+	ble.b TimeAttack_StartLoadSelectedStage
+TimeAttack_StartResetSelectedStage:
 	move.w #$0, $ff0f14.l
-L_FF22AC:
+TimeAttack_StartLoadSelectedStage:
 	move.w $ff0f14.l, d7
-L_FF22B2:
-	beq.w L_FF234A
-L_FF22B6:
+TimeAttack_StartSkipRankingForFirstStage:
+	beq.w TimeAttack_StartPrepareRecords
+TimeAttack_StartCheckRecordDataEnabled:
 	tst.b $ff1508.l
-L_FF22BC:
-	beq.w L_FF234A
-L_FF22C0:
+TimeAttack_StartSkipRankingForDisabledData:
+	beq.w TimeAttack_StartPrepareRecords
+TimeAttack_StartLoadCurrentTime:
 	move.l $ff0f10.l, d0
-L_FF22C6:
+TimeAttack_StartRecordSourceBase:
 	lea.l $1ffff4.l, a0
-L_FF22CC:
+TimeAttack_StartScaleRecordIndex:
 	mulu.w #$c, d7
-L_FF22D0:
+TimeAttack_StartSelectRecordSource:
 	adda.w d7, a0
-L_FF22D2:
+TimeAttack_StartSelectRecordSecond:
 	lea.l $4(a0), a1
-L_FF22D6:
+TimeAttack_StartSelectRecordThird:
 	lea.l $8(a0), a2
-L_FF22DA:
+TimeAttack_StartRecordDestinationBase:
 	lea.l $200144.l, a3
-L_FF22E0:
+TimeAttack_StartSelectDestinationRecord:
 	adda.w d7, a3
-L_FF22E2:
+TimeAttack_StartSelectDestinationSecond:
 	lea.l $4(a3), a4
-L_FF22E6:
+TimeAttack_StartSelectDestinationThird:
 	lea.l $8(a3), a5
-L_FF22EA:
+TimeAttack_StartCompareThirdRecord:
 	cmp.l (a2), d0
-L_FF22EC:
-	bge.w L_FF234A
-L_FF22F0:
+TimeAttack_StartSkipRankingIfNotFaster:
+	bge.w TimeAttack_StartPrepareRecords
+TimeAttack_StartShiftThirdRecord:
 	move.l (a1), (a2)
-L_FF22F2:
+TimeAttack_StartShiftDestinationThirdRecord:
 	move.l (a4), (a5)
-L_FF22F4:
+TimeAttack_StartCompareSecondRecord:
 	cmp.l (a1), d0
-L_FF22F6:
-	bge.b L_FF2330
-L_FF22F8:
+TimeAttack_StartSecondRecordBranch:
+	bge.b TimeAttack_StartInsertThirdRecord
+TimeAttack_StartShiftSecondRecord:
 	move.l (a0), (a1)
-L_FF22FA:
+TimeAttack_StartShiftDestinationSecondRecord:
 	move.l (a3), (a4)
-L_FF22FC:
+TimeAttack_StartCompareFirstRecord:
 	cmp.l (a0), d0
-L_FF22FE:
-	bge.b L_FF2318
-L_FF2300:
+TimeAttack_StartFirstRecordBranch:
+	bge.b TimeAttack_StartInsertSecondRecord
+TimeAttack_StartInsertFirstRecord:
 	move.l d0, (a0)
-L_FF2302:
+TimeAttack_StartStoreFirstInitials:
 	move.l $2002a0.l, (a3)
-L_FF2308:
+TimeAttack_StartStoreFirstRecordPointer:
 	move.l a3, $ff3450.l
-L_FF230E:
+TimeAttack_StartSetFirstRecordRank:
 	move.w #$1, $ff347c.l
-L_FF2316:
-	bra.b L_FF2346
-L_FF2318:
+TimeAttack_StartFirstRecordDone:
+	bra.b TimeAttack_StartSendRecordUpdate
+TimeAttack_StartInsertSecondRecord:
 	move.l d0, (a1)
-L_FF231A:
+TimeAttack_StartStoreSecondInitials:
 	move.l $2002a0.l, (a4)
-L_FF2320:
+TimeAttack_StartStoreSecondRecordPointer:
 	move.l a4, $ff3450.l
-L_FF2326:
+TimeAttack_StartSetSecondRecordRank:
 	move.w #$2, $ff347c.l
-L_FF232E:
-	bra.b L_FF2346
-L_FF2330:
+TimeAttack_StartSecondRecordDone:
+	bra.b TimeAttack_StartSendRecordUpdate
+TimeAttack_StartInsertThirdRecord:
 	move.l d0, (a2)
-L_FF2332:
+TimeAttack_StartStoreThirdInitials:
 	move.l $2002a0.l, (a5)
-L_FF2338:
+TimeAttack_StartStoreThirdRecordPointer:
 	move.l a5, $ff3450.l
-L_FF233E:
+TimeAttack_StartSetThirdRecordRank:
 	move.w #$3, $ff347c.l
-L_FF2346:
+TimeAttack_StartSendRecordUpdate:
 	bsr.w TimeAttack_SendSubCpuCommandNoWait
-L_FF234A:
+TimeAttack_StartPrepareRecords:
 	bsr.w TimeAttack_PrepareTimeAttackRecords
 L_FF234E:
 	move.l #$f, -(a7)

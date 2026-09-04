@@ -617,6 +617,7 @@ opaque merely because they use `dc.*`.
 | M404 | Complete | Canonicalize the Time Attack selection highlight/tile upload, VDP-command, indexed-stage upload, and record-insertion animation family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M405 | Complete | Canonicalize the Time Attack initials-entry, selection-input, and initials-display family and migrate its callers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M406 | Complete | Canonicalize the Time Attack startup reset, VDP clear, and initial graphics upload sequence. | J/U/E 133/133 each; audit/hygiene clean. |
+| M407 | Complete | Canonicalize the Time Attack region/stage selection initialization and record-ranking insertion sequence. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
