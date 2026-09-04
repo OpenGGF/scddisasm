@@ -1,7 +1,7 @@
 ; ------------------------------------------------------------------------------
 
 EggmanObject:
-	bsr.w	sub_20F996
+	bsr.w	BossUpdateBottomBound
 	bsr.w	EggmanCheckCollision
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
@@ -78,7 +78,7 @@ EggmanRestoreCollision:
 ; ------------------------------------------------------------------------------
 
 EggmanUpdateBossFlags:
-	bsr.w	sub_20F976
+	bsr.w	BossGetPlayerBossBand
 	btst	d0,boss_started
 	bne.s	EggmanClearActiveFlag
 	btst	#7,boss_flags
@@ -120,7 +120,7 @@ EggmanInitialize:
 	movem.l	(sp)+,d7-a7
 	moveq	#$13,d0
 	jsr	AddGfxQueue
-	bsr.w	sub_20F90A
+	bsr.w	BossSpawnEggmanChildren
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#4,obj.sprite_layer(a0)
 	move.b	#$18,obj.width_2(a0)
@@ -171,7 +171,7 @@ EggmanObject_0_Routine14:
 ; ------------------------------------------------------------------------------
 
 EggmanDescend:
-	bsr.w	sub_20F622
+	bsr.w	BossIntegrateVelocity
 	moveq	#0,d0
 	move.b	obj.var_2d(a0),d0
 	add.w	d0,d0
@@ -204,7 +204,7 @@ EggmanDescentTargets:
 ; ------------------------------------------------------------------------------
 
 EggmanHover:
-	bsr.w	sub_20F956
+	bsr.w	BossGetPlayerVerticalBand
 	cmp.b	obj.var_2d(a0),d0
 	blt.s	EggmanHoverExit
 	bsr.w	EggmanMoveHover
@@ -264,7 +264,7 @@ EggmanMoveHoverSine:
 ; ------------------------------------------------------------------------------
 
 EggmanAscend:
-	bsr.w	sub_20F622
+	bsr.w	BossIntegrateVelocity
 	moveq	#0,d0
 	move.b	obj.var_2d(a0),d0
 	add.w	d0,d0
@@ -328,8 +328,8 @@ EggmanAttackSoundCue:
 	movem.l	a0-a2,-(sp)
 	jsr	PlayFmSound
 	movem.l	(sp)+,a0-a2
-	bsr.w	sub_20F956
-	bsr.w	sub_20F846
+	bsr.w	BossGetPlayerVerticalBand
+	bsr.w	BossSpawnSpikePair
 	bra.s	EggmanAttackUpdateEffects
 
 ; ------------------------------------------------------------------------------
@@ -337,7 +337,7 @@ EggmanAttackSoundCue:
 EggmanAttackSetBossFlags:
 	move.b	boss_started,d1
 	andi.b	#$1F,d1
-	bsr.w	sub_20F956
+	bsr.w	BossGetPlayerVerticalBand
 	cmpi.b	#1,d0
 	beq.s	EggmanAttackMarkOutcomeOne
 	cmpi.b	#2,d0
@@ -384,7 +384,7 @@ EggmanAttackUpdateEffects:
 	moveq	#0,d0
 	move.w	obj.var_2a(a0),d0
 	subi.w	#$168,d0
-	bsr.w	sub_20F754
+	bsr.w	BossSpawnFallingProjectile
 
 EggmanAttackSecondarySpawn:
 	cmpi.w	#$B4,obj.var_2a(a0)
@@ -392,7 +392,7 @@ EggmanAttackSecondarySpawn:
 	moveq	#0,d0
 	move.w	obj.var_2a(a0),d0
 	subi.w	#$B4,d0
-	bsr.w	sub_20F700
+	bsr.w	BossSpawnSpikeWave
 
 EggmanAttackCheckFinalCollision:
 	cmpi.b	#3,obj.var_2d(a0)
@@ -404,7 +404,7 @@ EggmanAttackCheckFinalCollision:
 	moveq	#0,d0
 	move.w	obj.var_2a(a0),d0
 	subq.w	#1,d0
-	bsr.w	sub_20F698
+	bsr.w	BossSpawnProjectileWave
 
 EggmanAttackReturn:
 	rts
@@ -434,7 +434,7 @@ EggmanDefeat:
 	move.w	#$300,obj.x_speed(a0)
 	move.w	#$100,obj.y_speed(a0)
 	move.w	#$10,obj.var_32(a0)
-	bsr.w	sub_20F87E
+	bsr.w	BossSpawnExplosion
 	move.b	#2,obj.anim_id(a0)
 	move.b	#0,obj.sprite_frame(a0)
 	move.b	#$FF,obj.var_35(a0)
@@ -455,7 +455,7 @@ EggmanDefeatFall:
 	bsr.w	EggmanConstrainPlayerDuringDefeat
 	cmpi.w	#$2A0,obj.y(a0)
 	bge.s	EggmanDefeatLand
-	bsr.w	sub_20F622
+	bsr.w	BossIntegrateVelocity
 	neg.w	obj.x_speed(a0)
 	rts
 
@@ -493,7 +493,7 @@ EggmanDefeatSequenceUpdateTimer:
 	beq.w	EggmanDefeatSequenceReleasePlayer
 	cmpi.w	#$F0,obj.var_2a(a0)
 	blt.s	EggmanDefeatSequenceCheckEvents
-	bsr.w	sub_20F9BC
+	bsr.w	BossSetPaletteCycleSlow
 	cmpi.w	#$144,obj.var_2a(a0)
 	bgt.s	EggmanDefeatSequenceCheckEvents
 	bra.s	EggmanDefeatSequenceFadeToWhite
@@ -543,7 +543,7 @@ EggmanDefeatSequenceFadeToWhite:
 ; ------------------------------------------------------------------------------
 
 EggmanDefeatSequenceFadeScreen:
-	bsr.w	sub_20F9BC
+	bsr.w	BossSetPaletteCycleSlow
 	movem.l	d0-d7/a0-a6,-(sp)
 	jsr	FadeToWhite
 	movem.l	(sp)+,d0-d7/a0-a6
@@ -576,7 +576,7 @@ EggmanDefeatSequenceSpawnCapsule:
 ; ------------------------------------------------------------------------------
 
 EggmanDefeatSequenceReward:
-	bsr.w	sub_20F9C2
+	bsr.w	BossSetPaletteCycleClear
 	clr.w	obj.y_speed(a0)
 	clr.w	obj.var_32(a0)
 	move.w	#$100,obj.x_speed(a0)
@@ -602,13 +602,13 @@ EggmanDefeatSequenceSendMusic:
 
 EggmanDefeatSequenceReleasePlayer:
 	move.b	#$3E,d0
-	bsr.w	sub_20F64C
+	bsr.w	BossFindObjectById
 	bra.s	EggmanDefeatSequenceCheckPlayer
 
 ; ------------------------------------------------------------------------------
 
 EggmanDefeatSequenceWaitPlayer:
-	bsr.w	sub_20F65A
+	bsr.w	BossFindObjectByIdNext
 
 EggmanDefeatSequenceCheckPlayer:
 	cmpi.b	#4,obj.routine(a1)
@@ -620,7 +620,7 @@ EggmanDefeatSequenceCheckPlayer:
 
 EggmanEscape:
 	bsr.w	EggmanLoadCapsulePalette
-	bsr.w	sub_20F622
+	bsr.w	BossIntegrateVelocity
 	cmpi.w	#$EF0,obj.x(a0)
 	bge.s	EggmanEscapeComplete
 	rts
@@ -923,7 +923,7 @@ BossSmokeFollowParent:
 	jsr	AnimateObject
 	cmpi.b	#7,obj.sprite_frame(a0)
 	bge.s	BossSmokeStopDrawing
-	bsr.w	sub_20F8AA
+	bsr.w	BossSpawnExplosionDebris
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
@@ -942,7 +942,7 @@ BossSmokeStandalone:
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$18,obj.var_2a(a0)
 	beq.s	BossSmokeDeleteStandalone
-	bsr.w	loc_20F632
+	bsr.w	BossIntegratePosition
 	lea	BossSmokeAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
@@ -1030,7 +1030,7 @@ FloorDebrisObject:
 	move.w	FloorDebrisRoutineTable(pc,d0.w),d0
 	jsr	FloorDebrisRoutineTable(pc,d0.w)
 	jsr	DrawObject
-	bra.w	loc_20F946
+	bra.w	BossDeleteFloorDebrisBelowStage
 
 ; ------------------------------------------------------------------------------
 
@@ -1056,13 +1056,13 @@ FloorDebrisInit:
 FloorDebrisFall:
 	lea	DebrisAnims,a1
 	jsr	AnimateObject
-	bsr.w	sub_20F622
+	bsr.w	BossIntegrateVelocity
 	jsr	CheckBlockDown
 	subq.w	#1,d1
 	bgt.s	FloorDebrisFallReturn
 	sub.w	d1,obj.y(a0)
 	addq.b	#2,obj.routine(a0)
-	bsr.w	sub_20F7BA
+	bsr.w	BossSpawnFloorDebrisBurst
 
 FloorDebrisFallReturn:
 	rts
@@ -1070,7 +1070,7 @@ FloorDebrisFallReturn:
 ; ------------------------------------------------------------------------------
 
 FloorDebrisSettled:
-	bsr.w	sub_20F622
+	bsr.w	BossIntegrateVelocity
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1178,7 +1178,7 @@ FloorPieceMotionTable:
 ; ------------------------------------------------------------------------------
 
 FloorPieceAnimate:
-	bsr.w	sub_20F622
+	bsr.w	BossIntegrateVelocity
 	movea.l	obj.var_34(a0),a2
 	move.w	obj.var_38(a0),d1
 	move.w	(a2,d1.w),d0
@@ -1490,7 +1490,7 @@ ConductorFinishTracking:
 ; ------------------------------------------------------------------------------
 
 ConductorMoveVertical:
-	bsr.w	loc_20F632
+	bsr.w	BossIntegratePosition
 	move.w	obj.y_speed(a0),d0
 	add.w	d0,obj.var_2a(a0)
 	move.w	obj.var_34(a0),d0
@@ -1605,13 +1605,13 @@ ConductorCheckPlayerDamageReturn:
 
 ; ------------------------------------------------------------------------------
 
-sub_20F622:
+BossIntegrateVelocity:
 	move.w	obj.var_30(a0),d0
 	add.w	d0,obj.x_speed(a0)
 	move.w	obj.var_32(a0),d0
 	add.w	d0,obj.y_speed(a0)
 
-loc_20F632:
+BossIntegratePosition:
 	move.w	obj.x_speed(a0),d0
 	ext.l	d0
 	lsl.l	#8,d0
@@ -1624,20 +1624,20 @@ loc_20F632:
 
 ; ------------------------------------------------------------------------------
 
-sub_20F64C:
+BossFindObjectById:
 	lea	hud_score_object,a1
 	moveq	#$7D,d1
 
-loc_20F652:
+BossFindObjectByIdCheck:
 	cmp.b	obj.id(a1),d0
-	bne.s	sub_20F65A
+	bne.s	BossFindObjectByIdNext
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F65A:
+BossFindObjectByIdNext:
 	adda.w	#obj.struct_len,a1
-	dbf	d1,loc_20F652
+	dbf	d1,BossFindObjectByIdCheck
 	moveq	#$FFFFFFFF,d1
 	rts
 
@@ -1647,7 +1647,7 @@ sub_20F65A:
 
 ; ------------------------------------------------------------------------------
 
-word_20F66A:
+BossSpikeSpawnXTable:
 	dc.w	$A98
 	dc.w	$AE8
 	dc.w	$A48
@@ -1661,82 +1661,82 @@ word_20F66A:
 	dc.w	$A70
 	dc.w	$A28
 
-word_20F682:
+BossEggmanTargetYTable:
 	dc.w	$58C
 	dc.w	$38C
 	dc.w	$18C
 
 ; ------------------------------------------------------------------------------
 
-sub_20F688:
+BossGetEggmanTargetY:
 	moveq	#0,d0
 	move.b	obj.var_2d(a0),d0
 	subq.w	#1,d0
 	add.w	d0,d0
-	move.w	word_20F682(pc,d0.w),d0
+	move.w	BossEggmanTargetYTable(pc,d0.w),d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F698:
+BossSpawnProjectileWave:
 	divu.w	#$23,d0
 	move.w	d0,d2
 	swap	d0
 	tst.w	d0
-	bne.s	locret_20F6FE
+	bne.s	BossSpawnProjectileWaveReturn
 	jsr	SpawnObject
-	bne.s	locret_20F6FE
+	bne.s	BossSpawnProjectileWaveReturn
 	movea.l	a1,a2
 	move.w	a0,obj.var_2e(a2)
 	move.b	#$38,obj.id(a2)
-	bsr.s	sub_20F688
+	bsr.s	BossGetEggmanTargetY
 	move.w	d0,obj.y(a2)
 	andi.l	#$FFFF,d2
-	bne.s	loc_20F6DE
+	bne.s	BossSpawnProjectileSetSide
 	lea	player_object,a1
 	move.b	#0,obj.var_3d(a0)
 	cmpi.w	#$AC0,obj.x(a1)
-	bge.s	loc_20F6DE
+	bge.s	BossSpawnProjectileSetSide
 	move.b	#1,obj.var_3d(a0)
 
-loc_20F6DE:
+BossSpawnProjectileSetSide:
 	moveq	#0,d1
 	move.w	#$20,d1
 	tst.b	obj.var_3d(a0)
-	beq.s	loc_20F6F0
+	beq.s	BossSpawnProjectileLeftSide
 	move.w	#$A20,d0
-	bra.s	loc_20F6F6
+	bra.s	BossSpawnProjectileStoreX
 
 ; ------------------------------------------------------------------------------
 
-loc_20F6F0:
+BossSpawnProjectileLeftSide:
 	neg.w	d1
 	move.w	#$B60,d0
 
-loc_20F6F6:
+BossSpawnProjectileStoreX:
 	muls.w	d1,d2
 	add.w	d2,d0
 	move.w	d0,obj.x(a2)
 
-locret_20F6FE:
+BossSpawnProjectileWaveReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F700:
+BossSpawnSpikeWave:
 	divu.w	#$14,d0
 	move.w	d0,d2
 	swap	d0
 	tst.w	d0
-	bne.s	locret_20F752
+	bne.s	BossSpawnSpikeWaveReturn
 	cmpi.w	#4,d2
-	bge.s	locret_20F752
+	bge.s	BossSpawnSpikeWaveReturn
 	jsr	SpawnObject
-	bne.s	locret_20F752
+	bne.s	BossSpawnSpikeWaveReturn
 	move.b	d2,obj.subtype(a1)
 	move.w	a0,obj.var_2e(a1)
 	move.b	#$3D,obj.id(a1)
-	bsr.w	sub_20F688
+	bsr.w	BossGetEggmanTargetY
 	move.w	d0,obj.y(a1)
 	moveq	#0,d1
 	move.b	obj.var_2d(a0),d1
@@ -1745,25 +1745,25 @@ sub_20F700:
 	mulu.w	#8,d1
 	add.w	d2,d2
 	add.w	d2,d1
-	lea	word_20F66A,a2
+	lea	BossSpikeSpawnXTable,a2
 	move.w	(a2,d1.w),d0
 	move.w	d0,obj.x(a1)
 
-locret_20F752:
+BossSpawnSpikeWaveReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F754:
+BossSpawnFallingProjectile:
 	divu.w	#$10,d0
 	swap	d0
 	tst.w	d0
-	bne.s	locret_20F7B8
+	bne.s	BossSpawnFallingProjectileReturn
 	jsr	SpawnObject
-	bne.s	locret_20F7B8
+	bne.s	BossSpawnFallingProjectileReturn
 	move.w	a0,obj.var_2e(a1)
 	move.b	#$39,obj.id(a1)
-	bsr.w	sub_20F688
+	bsr.w	BossGetEggmanTargetY
 	move.w	d0,obj.y(a1)
 	jsr	Random
 	andi.l	#$FFFF,d0
@@ -1783,22 +1783,23 @@ sub_20F754:
 	andi.w	#$F,d0
 	add.w	d0,obj.var_32(a1)
 
-locret_20F7B8:
+BossSpawnFallingProjectileReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F7BA:
-	lea	word_20F826,a2
+
+BossSpawnFloorDebrisBurst:
+	lea	BossFloorDebrisMotionTable,a2
 	moveq	#3,d2
 	movea.l	a0,a1
-	bra.s	loc_20F804
+	bra.s	BossInitFloorDebrisPiece
 
 ; ------------------------------------------------------------------------------
 
-loc_20F7C6:
+BossSpawnFloorDebrisPiece:
 	jsr	SpawnObject
-	bne.s	locret_20F824
+	bne.s	BossSpawnFloorDebrisReturn
 	move.b	obj.id(a0),obj.id(a1)
 	move.b	obj.routine(a0),obj.routine(a1)
 	move.b	obj.sprite_flags(a0),obj.sprite_flags(a1)
@@ -1809,21 +1810,22 @@ loc_20F7C6:
 	move.w	obj.x(a0),obj.x(a1)
 	move.w	obj.y(a0),obj.y(a1)
 
-loc_20F804:
+
+BossInitFloorDebrisPiece:
 	move.l	#DebrisSprites2,obj.sprite_data(a1)
 	move.b	d2,obj.sprite_frame(a1)
 	move.w	(a2)+,obj.x_speed(a1)
 	move.w	(a2)+,obj.y_speed(a1)
 	move.w	(a2)+,obj.var_30(a1)
 	move.w	(a2)+,obj.var_32(a1)
-	dbf	d2,loc_20F7C6
+	dbf	d2,BossSpawnFloorDebrisPiece
 
-locret_20F824:
+BossSpawnFloorDebrisReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20F826:
+BossFloorDebrisMotionTable:
 	dc.w	$200, -$1C0, 0, $30
 	dc.w	-$200, -$1C0, 0, $30
 	dc.w	$100, -$280, 0, $30
@@ -1831,40 +1833,40 @@ word_20F826:
 
 ; ------------------------------------------------------------------------------
 
-sub_20F846:
+BossSpawnSpikePair:
 	add.w	d0,d0
-	move.w	word_20F878(pc,d0.w),d3
+	move.w	BossSpikeYTable(pc,d0.w),d3
 	move.w	#$A10,d2
 	moveq	#0,d4
-	bsr.w	sub_20F85C
+	bsr.w	BossSpawnSpike
 	move.w	#$B70,d2
 	moveq	#1,d4
 
 ; ------------------------------------------------------------------------------
 
-sub_20F85C:
+BossSpawnSpike:
 	jsr	SpawnObject
-	bne.s	locret_20F876
+	bne.s	BossSpawnSpikeReturn
 	move.b	#$40,obj.id(a1)
 	move.w	d2,obj.x(a1)
 	move.w	d3,obj.y(a1)
 	move.b	d4,obj.subtype(a1)
 
-locret_20F876:
+BossSpawnSpikeReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20F878:
+BossSpikeYTable:
 	dc.w	$688
 	dc.w	$488
 	dc.w	$288
 
 ; ------------------------------------------------------------------------------
 
-sub_20F87E:
+BossSpawnExplosion:
 	jsr	SpawnObject
-	bne.s	locret_20F8A8
+	bne.s	BossSpawnExplosionReturn
 	move.w	#$9E,d0
 	movem.l	a0-a2,-(sp)
 	jsr	PlayFmSound
@@ -1873,14 +1875,14 @@ sub_20F87E:
 	move.b	#1,obj.anim_id(a1)
 	move.w	a0,obj.var_2e(a1)
 
-locret_20F8A8:
+BossSpawnExplosionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F8AA:
+BossSpawnExplosionDebris:
 	jsr	SpawnObject
-	bne.s	locret_20F908
+	bne.s	BossSpawnExplosionDebrisReturn
 	move.w	#$9E,d0
 	movem.l	a0-a2,-(sp)
 	jsr	PlayFmSound
@@ -1903,124 +1905,124 @@ sub_20F8AA:
 	swap	d1
 	move.w	d1,obj.y_speed(a1)
 
-locret_20F908:
+BossSpawnExplosionDebrisReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F90A:
+BossSpawnEggmanChildren:
 	jsr	SpawnObject
-	bne.s	locret_20F944
+	bne.s	BossSpawnEggmanChildrenReturn
 	move.w	a0,obj.var_2e(a1)
 	move.b	#$35,obj.id(a1)
 	move.w	a1,obj.var_2e(a0)
 	jsr	SpawnObject
-	bne.s	locret_20F944
+	bne.s	BossSpawnEggmanChildrenReturn
 	move.w	a0,obj.var_2e(a1)
 	move.b	#$36,obj.id(a1)
 	jsr	SpawnObject
-	bne.s	locret_20F944
+	bne.s	BossSpawnEggmanChildrenReturn
 	move.w	a0,obj.var_2e(a1)
 	move.b	#$37,obj.id(a1)
 
-locret_20F944:
+BossSpawnEggmanChildrenReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F946:
+BossDeleteFloorDebrisBelowStage:
 	cmpi.w	#$6F0,obj.y(a0)
-	bgt.s	loc_20F950
+	bgt.s	BossDeleteFloorDebris
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F950:
+BossDeleteFloorDebris:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-sub_20F956:
+BossGetPlayerVerticalBand:
 	lea	player_object,a1
 	cmpi.w	#$298,obj.y(a1)
-	ble.s	loc_20F972
+	ble.s	BossGetPlayerVerticalBandLow
 	cmpi.w	#$498,obj.y(a1)
-	ble.s	loc_20F96E
+	ble.s	BossGetPlayerVerticalBandMiddle
 	moveq	#0,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F96E:
+BossGetPlayerVerticalBandMiddle:
 	moveq	#1,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F972:
+BossGetPlayerVerticalBandLow:
 	moveq	#2,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F976:
+BossGetPlayerBossBand:
 	lea	player_object,a1
 	cmpi.w	#$360,obj.y(a1)
-	ble.s	loc_20F992
+	ble.s	BossGetPlayerBossBandHigh
 	cmpi.w	#$560,obj.y(a1)
-	ble.s	loc_20F98E
+	ble.s	BossGetPlayerBossBandMiddle
 	moveq	#5,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F98E:
+BossGetPlayerBossBandMiddle:
 	moveq	#6,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20F992:
+BossGetPlayerBossBandHigh:
 	moveq	#7,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F996:
+BossUpdateBottomBound:
 	tst.b	obj.var_38(a0)
-	beq.s	locret_20F9BA
+	beq.s	BossUpdateBottomBoundReturn
 	subq.b	#1,obj.var_38(a0)
 	move.w	#$FFFE,d0
 	btst	#0,obj.var_38(a0)
-	beq.s	loc_20F9B2
+	beq.s	BossUpdateBottomBoundDirection
 	neg.w	d0
 	move.w	#$FFFC,d0
 
-loc_20F9B2:
+BossUpdateBottomBoundDirection:
 	add.w	d0,bottom_bound
 	add.w	d0,target_bottom_bound
 
-locret_20F9BA:
+BossUpdateBottomBoundReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20F9BC:
+BossSetPaletteCycleSlow:
 	move.b	#$80,d1
-	bra.s	loc_20F9C6
+	bra.s	BossFillPaletteCycleTimers
 
 ; ------------------------------------------------------------------------------
 
-sub_20F9C2:
+BossSetPaletteCycleClear:
 	move.b	#0,d1
 
-loc_20F9C6:
+BossFillPaletteCycleTimers:
 	lea	palette_cycle_timers,a5
 	moveq	#5,d0
 
-loc_20F9CC:
+BossFillPaletteCycleTimerLoop:
 	move.b	d1,(a5)+
-	dbf	d0,loc_20F9CC
+	dbf	d0,BossFillPaletteCycleTimerLoop
 	rts
 
 ; ------------------------------------------------------------------------------

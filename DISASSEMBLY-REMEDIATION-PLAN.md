@@ -663,6 +663,7 @@ opaque merely because they use `dc.*`.
 | M450 | Complete | Canonicalize the R6 floor-debris and electricity child-object families, migrating their routine tables and internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M451 | Complete | Canonicalize the R6 floor-piece motion and player-collision family, including its subtype motion table and hurt response. | J/U/E 133/133 each; audit/hygiene clean. |
 | M452 | Complete | Canonicalize the R6 conductor object’s routine table, movement bounds, boss-flag tracking, and player-damage helper family. | J/U/E 133/133 each; audit/hygiene clean. |
+| M453 | Complete | Canonicalize the R6 boss shared motion, object lookup/spawn, player-band, bound, and palette-cycle helper families with their data tables. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
