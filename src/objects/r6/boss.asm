@@ -2,57 +2,57 @@
 
 EggmanObject:
 	bsr.w	sub_20F996
-	bsr.w	sub_20E6F8
+	bsr.w	EggmanCheckCollision
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20E6E2(pc,d0.w),d0
-	jsr	off_20E6E2(pc,d0.w)
-	bsr.w	sub_20E770
+	move.w	EggmanRoutineTable(pc,d0.w),d0
+	jsr	EggmanRoutineTable(pc,d0.w)
+	bsr.w	EggmanUpdateBossFlags
 	lea	EggmanAnims,a1
 	jsr	AnimateObject
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20E6E2:
-	dc.w	EggmanObject_0_Routine0-*
-	dc.w	EggmanObject_0_Routine2-off_20E6E2
-	dc.w	EggmanObject_0_Routine4-off_20E6E2
-	dc.w	EggmanObject_0_Routine6-off_20E6E2
-	dc.w	EggmanObject_0_Routine8-off_20E6E2
-	dc.w	EggmanObject_0_RoutineA-off_20E6E2
-	dc.w	EggmanObject_0_RoutineC-off_20E6E2
-	dc.w	EggmanObject_0_RoutineE-off_20E6E2
-	dc.w	EggmanObject_0_Routine10-off_20E6E2
-	dc.w	EggmanObject_0_Routine12-off_20E6E2
-	dc.w	EggmanObject_0_Routine14-off_20E6E2
+EggmanRoutineTable:
+	dc.w	EggmanWaitForPlayer-*
+	dc.w	EggmanInitialize-EggmanRoutineTable
+	dc.w	EggmanDescend-EggmanRoutineTable
+	dc.w	EggmanHover-EggmanRoutineTable
+	dc.w	EggmanAscend-EggmanRoutineTable
+	dc.w	EggmanObject_0_RoutineA-EggmanRoutineTable
+	dc.w	EggmanObject_0_RoutineC-EggmanRoutineTable
+	dc.w	EggmanObject_0_RoutineE-EggmanRoutineTable
+	dc.w	EggmanObject_0_Routine10-EggmanRoutineTable
+	dc.w	EggmanObject_0_Routine12-EggmanRoutineTable
+	dc.w	EggmanObject_0_Routine14-EggmanRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-sub_20E6F8:
+EggmanCheckCollision:
 	btst	#0,obj.var_2c(a0)
-	beq.s	locret_20E70C
+	beq.s	EggmanCheckCollisionReturn
 	tst.b	obj.var_37(a0)
-	beq.s	loc_20E70E
+	beq.s	EggmanCheckCollisionTarget
 	subq.b	#1,obj.var_37(a0)
-	beq.s	loc_20E752
+	beq.s	EggmanRestoreCollision
 
-locret_20E70C:
+EggmanCheckCollisionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E70E:
+EggmanCheckCollisionTarget:
 	movea.w	obj.var_2e(a0),a1
 	tst.b	obj.collide_type(a0)
-	beq.s	loc_20E720
+	beq.s	EggmanTakeHit
 	tst.b	obj.collide_type(a1)
-	beq.s	loc_20E720
+	beq.s	EggmanTakeHit
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E720:
+EggmanTakeHit:
 	addq.b	#1,obj.var_39(a0)
 	clr.b	obj.collide_type(a0)
 	clr.b	$20(a1)
@@ -67,7 +67,7 @@ loc_20E720:
 
 ; ------------------------------------------------------------------------------
 
-loc_20E752:
+EggmanRestoreCollision:
 	movea.w	obj.var_2e(a0),a1
 	move.b	#$3C,obj.collide_type(a0)
 	move.b	#2,obj.collide_status(a0)
@@ -77,41 +77,41 @@ loc_20E752:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E770:
+EggmanUpdateBossFlags:
 	bsr.w	sub_20F976
 	btst	d0,boss_started
-	bne.s	loc_20E78A
+	bne.s	EggmanClearActiveFlag
 	btst	#7,boss_flags
-	bne.s	locret_20E788
+	bne.s	EggmanUpdateBossFlagsReturn
 	bset	#6,boss_flags
 
-locret_20E788:
+EggmanUpdateBossFlagsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E78A:
+EggmanClearActiveFlag:
 	bclr	#7,boss_flags
 	rts
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine0:
+EggmanWaitForPlayer:
 	lea	player_object,a1
 	cmpi.w	#$A80,obj.x(a1)
-	bge.s	loc_20E7A2
+	bge.s	EggmanBeginEncounter
 	addq.l	#4,sp
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E7A2:
+EggmanBeginEncounter:
 	move.b	#2,obj.routine(a0)
 
-EggmanObject_0_Routine2:
+EggmanInitialize:
 	move.b	boss_flags,d0
 	andi.b	#$F,d0
-	bne.w	loc_20E83C
+	bne.w	EggmanWaitForFade
 	movem.l	d7-a7,-(sp)
 	move.w	#6,d0
 	jsr	LoadFadePalette
@@ -128,7 +128,7 @@ EggmanObject_0_Routine2:
 	move.w	#$3EC,obj.sprite_tile(a0)
 	move.l	#EggmanSprites,obj.sprite_data(a0)
 	bset	#0,obj.var_2c(a0)
-	bsr.w	loc_20E752
+	bsr.w	EggmanRestoreCollision
 	andi.b	#$F0,boss_flags
 	addq.b	#6,boss_flags
 	bset	#4,boss_flags
@@ -143,15 +143,15 @@ EggmanObject_0_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-loc_20E83C:
+EggmanWaitForFade:
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$78,obj.var_2a(a0)
-	beq.s	loc_20E84A
+	beq.s	EggmanEnterBattle
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E84A:
+EggmanEnterBattle:
 	clr.w	obj.var_2a(a0)
 	move.b	#4,obj.routine(a0)
 	clr.w	obj.x_speed(a0)
@@ -170,19 +170,19 @@ EggmanObject_0_Routine14:
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine4:
+EggmanDescend:
 	bsr.w	sub_20F622
 	moveq	#0,d0
 	move.b	obj.var_2d(a0),d0
 	add.w	d0,d0
-	move.w	word_20E8C0(pc,d0.w),d0
+	move.w	EggmanDescentTargets(pc,d0.w),d0
 	cmp.w	obj.y(a0),d0
-	ble.s	loc_20E892
+	ble.s	EggmanLand
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E892:
+EggmanLand:
 	move.w	d0,obj.y(a0)
 	move.b	#6,obj.routine(a0)
 	clr.w	obj.var_2a(a0)
@@ -196,33 +196,33 @@ loc_20E892:
 
 ; ------------------------------------------------------------------------------
 
-word_20E8C0:
+EggmanDescentTargets:
 	dc.w	$620
 	dc.w	$428
 	dc.w	$228
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine6:
+EggmanHover:
 	bsr.w	sub_20F956
 	cmp.b	obj.var_2d(a0),d0
-	blt.s	loc_20E8E8
-	bsr.w	sub_20E90E
+	blt.s	EggmanHoverExit
+	bsr.w	EggmanMoveHover
 	tst.b	obj.var_39(a0)
-	bne.s	loc_20E8EC
+	bne.s	EggmanStartRise
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$12C,obj.var_2a(a0)
-	bge.s	loc_20E8EC
+	bge.s	EggmanStartRise
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E8E8:
+EggmanHoverExit:
 	bra.w	loc_20EB26
 
 ; ------------------------------------------------------------------------------
 
-loc_20E8EC:
+EggmanStartRise:
 	move.b	#0,obj.var_35(a0)
 	move.b	#8,obj.routine(a0)
 	clr.w	obj.x_speed(a0)
@@ -233,22 +233,22 @@ loc_20E8EC:
 
 ; ------------------------------------------------------------------------------
 
-sub_20E90E:
+EggmanMoveHover:
 	cmpi.b	#3,obj.var_2d(a0)
-	bne.s	loc_20E92E
+	bne.s	EggmanMoveHoverSine
 	move.w	#2,d0
 	addq.b	#1,obj.var_3c(a0)
 	btst	#0,obj.var_3c(a0)
-	bne.s	loc_20E928
+	bne.s	EggmanMoveHoverStep
 	neg.w	d0
 
-loc_20E928:
+EggmanMoveHoverStep:
 	add.w	d0,obj.x(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E92E:
+EggmanMoveHoverSine:
 	move.w	obj.var_3a(a0),d0
 	sub.w	d0,obj.y(a0)
 	moveq	#0,d0
@@ -263,33 +263,33 @@ loc_20E92E:
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine8:
+EggmanAscend:
 	bsr.w	sub_20F622
 	moveq	#0,d0
 	move.b	obj.var_2d(a0),d0
 	add.w	d0,d0
-	move.w	word_20E9B8(pc,d0.w),d0
+	move.w	EggmanAscentTargets(pc,d0.w),d0
 	cmp.w	obj.y(a0),d0
-	bge.s	loc_20E96E
+	bge.s	EggmanReachAscentTarget
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20E96E:
+EggmanReachAscentTarget:
 	move.w	d0,obj.y(a0)
 	clr.b	obj.var_34(a0)
 	move.b	#$A,obj.routine(a0)
 	move.b	#$F0,obj.var_38(a0)
 	addq.b	#1,obj.var_2d(a0)
 	cmpi.b	#3,obj.var_2d(a0)
-	beq.s	loc_20E9A6
+	beq.s	EggmanResetAttackState
 	move.b	#1,obj.var_35(a0)
 	move.w	#$A3,d0
 	movem.l	a0-a2,-(sp)
 	jsr	PlayFmSound
 	movem.l	(sp)+,a0-a2
 
-loc_20E9A6:
+EggmanResetAttackState:
 	clr.b	obj.var_39(a0)
 	move.b	#0,obj.anim_id(a0)
 	move.b	#0,obj.sprite_frame(a0)
@@ -297,7 +297,7 @@ loc_20E9A6:
 
 ; ------------------------------------------------------------------------------
 
-word_20E9B8:
+EggmanAscentTargets:
 	dc.w	$428
 	dc.w	$228
 	dc.w	$130
@@ -305,7 +305,7 @@ word_20E9B8:
 ; ------------------------------------------------------------------------------
 
 EggmanObject_0_RoutineA:
-	bsr.w	sub_20E90E
+	bsr.w	EggmanMoveHover
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$1F2,obj.var_2a(a0)
 	beq.s	loc_20E9FA

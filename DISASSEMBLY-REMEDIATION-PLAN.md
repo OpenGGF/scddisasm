@@ -656,6 +656,7 @@ opaque merely because they use `dc.*`.
 | M443 | Complete | Canonicalize the R6 player pole, hang-bar, beam, spark, and bounce environment-interaction families. | J/U/E 133/133 each; audit/hygiene clean. |
 | M444 | Complete | Canonicalize the R6 player camera, main dispatch, power-up timers, and warp-transition family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M445 | Complete | Canonicalize the R6 player ground/fall/roll/jump state handlers, pole and hang-bar interaction, and booster surface table, migrating their internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M446 | Complete | Canonicalize the R6 Eggman encounter collision, setup, descent, hover, and ascent family, migrating its table and internal branch references. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
