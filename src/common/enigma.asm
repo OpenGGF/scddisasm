@@ -17,7 +17,7 @@ DecompEnigma:
 	move.b	(a0)+,d5
 	moveq	#$10,d6
 
-loc_2026CC:
+DecompEnigmaLoop:
 	moveq	#7,d0
 	move.w	d6,d7
 	sub.w	d0,d7
@@ -26,16 +26,16 @@ loc_2026CC:
 	andi.w	#$7F,d1
 	move.w	d1,d2
 	cmpi.w	#$40,d1
-	bcc.s	loc_2026E6
+	bcc.s	DecompEnigmaLiteralLength
 	moveq	#6,d0
 	lsr.w	#1,d2
 
-loc_2026E6:
+DecompEnigmaLiteralLength:
 	bsr.w	CheckEnigmaAdvance
 	andi.w	#$F,d2
 	lsr.w	#4,d1
 	add.w	d1,d1
-	jmp	loc_202742(pc,d1.w)
+	jmp	DecompEnigmaModeJumpTable(pc,d1.w)
 
 ; ------------------------------------------------------------------------------
 
@@ -43,62 +43,62 @@ DecompEnigmaSub0:
 	move.w	a2,(a1)+
 	addq.w	#1,a2
 	dbf	d2,DecompEnigmaSub0
-	bra.s	loc_2026CC
+	bra.s	DecompEnigmaLoop
 
 ; ------------------------------------------------------------------------------
 
 DecompEnigmaSub4:
 	move.w	a4,(a1)+
 	dbf	d2,DecompEnigmaSub4
-	bra.s	loc_2026CC
+	bra.s	DecompEnigmaLoop
 
 ; ------------------------------------------------------------------------------
 
 DecompEnigmaSub8:
 	bsr.w	GetEnigmaInline
 
-loc_20270C:
+DecompEnigmaCopyLoop:
 	move.w	d1,(a1)+
-	dbf	d2,loc_20270C
-	bra.s	loc_2026CC
+	dbf	d2,DecompEnigmaCopyLoop
+	bra.s	DecompEnigmaLoop
 
 ; ------------------------------------------------------------------------------
 
 DecompEnigmaSubA:
 	bsr.w	GetEnigmaInline
 
-loc_202718:
+DecompEnigmaIncrementLoop:
 	move.w	d1,(a1)+
 	addq.w	#1,d1
-	dbf	d2,loc_202718
-	bra.s	loc_2026CC
+	dbf	d2,DecompEnigmaIncrementLoop
+	bra.s	DecompEnigmaLoop
 
 ; ------------------------------------------------------------------------------
 
 DecompEnigmaSubC:
 	bsr.w	GetEnigmaInline
 
-loc_202726:
+DecompEnigmaDecrementLoop:
 	move.w	d1,(a1)+
 	subq.w	#1,d1
-	dbf	d2,loc_202726
-	bra.s	loc_2026CC
+	dbf	d2,DecompEnigmaDecrementLoop
+	bra.s	DecompEnigmaLoop
 
 ; ------------------------------------------------------------------------------
 
 DecompEnigmaSubE:
 	cmpi.w	#$F,d2
-	beq.s	loc_202752
+	beq.s	DecompEnigmaDone
 
-loc_202736:
+DecompEnigmaReadLoop:
 	bsr.w	GetEnigmaInline
 	move.w	d1,(a1)+
-	dbf	d2,loc_202736
-	bra.s	loc_2026CC
+	dbf	d2,DecompEnigmaReadLoop
+	bra.s	DecompEnigmaLoop
 
 ; ------------------------------------------------------------------------------
 
-loc_202742:
+DecompEnigmaModeJumpTable:
 	bra.s	DecompEnigmaSub0
 	bra.s	DecompEnigmaSub0
 	bra.s	DecompEnigmaSub4
@@ -110,19 +110,19 @@ loc_202742:
 
 ; ------------------------------------------------------------------------------
 
-loc_202752:
+DecompEnigmaDone:
 	subq.w	#1,a0
 	cmpi.w	#$10,d6
-	bne.s	loc_20275C
+	bne.s	DecompEnigmaAlignOutput
 	subq.w	#1,a0
 
-loc_20275C:
+DecompEnigmaAlignOutput:
 	move.w	a0,d0
 	lsr.w	#1,d0
-	bcc.s	loc_202764
+	bcc.s	DecompEnigmaRestore
 	addq.w	#1,a0
 
-loc_202764:
+DecompEnigmaRestore:
 	movem.l	(sp)+,d0-d7/a1-a5
 	rts
 
@@ -132,49 +132,49 @@ GetEnigmaInline:
 	move.w	a3,d3
 	move.b	d4,d1
 	add.b	d1,d1
-	bcc.s	loc_20277C
+	bcc.s	GetEnigmaInlineBit2
 	subq.w	#1,d6
 	btst	d6,d5
-	beq.s	loc_20277C
+	beq.s	GetEnigmaInlineBit2
 	ori.w	#$8000,d3
 
-loc_20277C:
+GetEnigmaInlineBit2:
 	add.b	d1,d1
-	bcc.s	loc_20278A
+	bcc.s	GetEnigmaInlineBit3
 	subq.w	#1,d6
 	btst	d6,d5
-	beq.s	loc_20278A
+	beq.s	GetEnigmaInlineBit3
 	addi.w	#$4000,d3
 
-loc_20278A:
+GetEnigmaInlineBit3:
 	add.b	d1,d1
-	bcc.s	loc_202798
+	bcc.s	GetEnigmaInlineBit4
 	subq.w	#1,d6
 	btst	d6,d5
-	beq.s	loc_202798
+	beq.s	GetEnigmaInlineBit4
 	addi.w	#$2000,d3
 
-loc_202798:
+GetEnigmaInlineBit4:
 	add.b	d1,d1
-	bcc.s	loc_2027A6
+	bcc.s	GetEnigmaInlineBit5
 	subq.w	#1,d6
 	btst	d6,d5
-	beq.s	loc_2027A6
+	beq.s	GetEnigmaInlineBit5
 	ori.w	#$1000,d3
 
-loc_2027A6:
+GetEnigmaInlineBit5:
 	add.b	d1,d1
-	bcc.s	loc_2027B4
+	bcc.s	GetEnigmaInlineTail
 	subq.w	#1,d6
 	btst	d6,d5
-	beq.s	loc_2027B4
+	beq.s	GetEnigmaInlineTail
 	ori.w	#$800,d3
 
-loc_2027B4:
+GetEnigmaInlineTail:
 	move.w	d5,d1
 	move.w	d6,d7
 	sub.w	a5,d7
-	bcc.s	loc_2027E4
+	bcc.s	GetEnigmaInlineRefill
 	move.w	d7,d6
 	addi.w	#$10,d6
 	neg.w	d7
@@ -182,13 +182,13 @@ loc_2027B4:
 	move.b	(a0),d5
 	rol.b	d7,d5
 	add.w	d7,d7
-	and.w	word_2027FA-2(pc,d7.w),d5
+	and.w	EnigmaBitMasks-2(pc,d7.w),d5
 	add.w	d5,d1
 
-loc_2027D2:
+GetEnigmaInlineReadWord:
 	move.w	a5,d0
 	add.w	d0,d0
-	and.w	word_2027FA-2(pc,d0.w),d1
+	and.w	EnigmaBitMasks-2(pc,d0.w),d1
 	add.w	d3,d1
 	move.b	(a0)+,d5
 	lsl.w	#8,d5
@@ -197,25 +197,26 @@ loc_2027D2:
 
 ; ------------------------------------------------------------------------------
 
-loc_2027E4:
-	beq.s	loc_2027F6
+GetEnigmaInlineRefill:
+	beq.s	GetEnigmaInlineReset
 	lsr.w	d7,d1
 	move.w	a5,d0
 	add.w	d0,d0
-	and.w	word_2027FA-2(pc,d0.w),d1
+	and.w	EnigmaBitMasks-2(pc,d0.w),d1
 	add.w	d3,d1
 	move.w	a5,d0
 	bra.s	CheckEnigmaAdvance
 
 ; ------------------------------------------------------------------------------
 
-loc_2027F6:
+GetEnigmaInlineReset:
 	moveq	#$10,d6
-	bra.s	loc_2027D2
+	bra.s	GetEnigmaInlineReadWord
 
 ; ------------------------------------------------------------------------------
 
-word_2027FA:
+; Masks for retaining the low 1 through 16 bits of a word.
+EnigmaBitMasks:
 	dc.w	1
 	dc.w	%11
 	dc.w	%111
@@ -238,12 +239,12 @@ word_2027FA:
 CheckEnigmaAdvance:
 	sub.w	d0,d6
 	cmpi.w	#9,d6
-	bcc.s	locret_202828
+	bcc.s	CheckEnigmaAdvanceDone
 	addq.w	#8,d6
 	asl.w	#8,d5
 	move.b	(a0)+,d5
 
-locret_202828:
+CheckEnigmaAdvanceDone:
 	rts
 
 ; ------------------------------------------------------------------------------
