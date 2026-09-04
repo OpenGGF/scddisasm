@@ -668,6 +668,7 @@ opaque merely because they use `dc.*`.
 | M455 | Complete | Converge the remaining active R6 stage-draw variants (1B/1C/1D, 2A–2D, and 3C) on the shared semantic scroll, block-transfer, placement, and initialization vocabulary, migrating their internal callers and tables. | J/U/E 133/133 each; audit/hygiene clean. |
 | M456 | Complete | Canonicalize the matching R6 1D/3D scroll implementations, including initialization, foreground/background movement, row-pattern generation, and per-layer flag helpers with their tables. | J/U/E 133/133 each; audit/hygiene clean. |
 | M457 | Complete | Canonicalize the matching R6 1C/3C scroll implementations, including initialization, foreground/background movement, row-pattern generation, and per-layer flag helpers with their tables. | J/U/E 133/133 each; audit/hygiene clean. |
+| M458 | Complete | Canonicalize the matching R6 2A/2D scroll implementations, including initialization, foreground/background movement, row-pattern generation, and per-layer flag helpers with their tables. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

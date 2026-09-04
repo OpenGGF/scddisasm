@@ -8,7 +8,7 @@ InitScroll:
 	move.b	d0,unused_scroll_die
 	move.b	d0,unused_scroll_timer
 	move.b	d0,event_routine
-	lea	unk_2028E2,a0
+	lea	R6ScrollInitialStateTable,a0
 	move.w	(a0)+,d0
 	move.w	d0,unused_scroll_routine
 	move.l	(a0)+,d0
@@ -24,11 +24,12 @@ InitScroll:
 	move.w	(a0)+,d0
 	move.w	d0,scroll_focus_y
 	move.w	#$A0,scroll_focus_x
-	bra.w	loc_2028EE
+	bra.w	R6ScrollInitCheckpoint
 
 ; ------------------------------------------------------------------------------
 
-unk_2028E2:
+; Initial scroll state: routine, bounds, and focus coordinates.
+R6ScrollInitialStateTable:
 	dc.b	0
 	dc.b	4
 	dc.b	0
@@ -44,23 +45,23 @@ unk_2028E2:
 
 ; ------------------------------------------------------------------------------
 
-loc_2028EE:
+R6ScrollInitCheckpoint:
 	tst.b	spawn_mode
-	beq.s	loc_20290E
+	beq.s	R6ScrollInitStageSpawn
 	jsr	LoadCheckpoint
 	moveq	#0,d0
 	moveq	#0,d1
 	move.w	8(a6),d1
 	move.w	$C(a6),d0
-	bpl.s	loc_20290C
+	bpl.s	R6ScrollInitCheckpointXReady
 	moveq	#0,d0
 
-loc_20290C:
-	bra.s	loc_202924
+R6ScrollInitCheckpointXReady:
+	bra.s	R6ScrollInitClampForegroundX
 
 ; ------------------------------------------------------------------------------
 
-loc_20290E:
+R6ScrollInitStageSpawn:
 	lea	StagePlayerSpawn,a1
 	moveq	#0,d1
 	move.w	(a1)+,d1
@@ -69,32 +70,32 @@ loc_20290E:
 	move.w	(a1),d0
 	move.w	d0,$C(a6)
 
-loc_202924:
+R6ScrollInitClampForegroundX:
 	subi.w	#$A0,d1
-	bcc.s	loc_20292C
+	bcc.s	R6ScrollInitClampRightBound
 	moveq	#0,d1
 
-loc_20292C:
+R6ScrollInitClampRightBound:
 	move.w	right_bound,d2
 	cmp.w	d2,d1
-	bcs.s	loc_202936
+	bcs.s	R6ScrollInitStoreForegroundX
 	move.w	d2,d1
 
-loc_202936:
+R6ScrollInitStoreForegroundX:
 	move.w	d1,scroll_fg_x
 	subi.w	#$60,d0
-	bcc.s	loc_202942
+	bcc.s	R6ScrollInitClampForegroundY
 	moveq	#0,d0
 
-loc_202942:
+R6ScrollInitClampForegroundY:
 	cmp.w	bottom_bound,d0
-	blt.s	loc_20294C
+	blt.s	R6ScrollInitStoreForegroundY
 	move.w	bottom_bound,d0
 
-loc_20294C:
+R6ScrollInitStoreForegroundY:
 	move.w	d0,scroll_fg_y
-	bsr.w	sub_202968
-	lea	unk_202964,a1
+	bsr.w	R6ScrollSetLayerPositions
+	lea	R6ScrollLoopChunkSeed,a1
 	move.l	(a1),loop_chunk_1
 	rts
 
@@ -103,7 +104,8 @@ loc_20294C:
 StagePlayerSpawn:
 	dc.b	0, $30, 1, $9C
 
-unk_202964:
+; Initial loop-chunk seed copied into the scroll state.
+R6ScrollLoopChunkSeed:
 	dc.b	$7F
 	dc.b	$7F
 	dc.b	$7F
@@ -111,7 +113,7 @@ unk_202964:
 
 ; ------------------------------------------------------------------------------
 
-sub_202968:
+R6ScrollSetLayerPositions:
 	swap	d0
 	lsr.l	#2,d0
 	move.l	d0,scroll_bg_y
@@ -134,12 +136,12 @@ sub_202968:
 UpdateScroll:
 	lea	player_object,a6
 	tst.b	scroll_lock
-	beq.s	loc_2029A0
+	beq.s	R6ScrollUpdateActive
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2029A0:
+R6ScrollUpdateActive:
 	clr.w	scroll_flags_fg
 	clr.w	scroll_flags_bg
 	clr.w	scroll_flags_bg2
@@ -189,21 +191,21 @@ loc_2029A0:
 	move.w	scroll_fg_x,d0
 	neg.w	d0
 	swap	d0
-	bsr.w	sub_202A80
+	bsr.w	R6ScrollUpdateBackgroundCurve
 	move.w	scroll_bg3_x,d0
 	neg.w	d0
 	moveq	#$17,d6
 
-loc_202A44:
+R6ScrollFillBackgroundLayer3:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202A44
+	dbf	d6,R6ScrollFillBackgroundLayer3
 	move.w	scroll_bg2_x,d0
 	neg.w	d0
 	moveq	#$2D,d6
 
-loc_202A52:
+R6ScrollFillBackgroundLayer2:
 	move.w	d0,(a1)+
-	dbf	d6,loc_202A52
+	dbf	d6,R6ScrollFillBackgroundLayer2
 	lea	scroll_lines,a1
 	lea	bg_scroll_lines,a2
 	move.w	scroll_bg_y,d0
@@ -212,11 +214,12 @@ loc_202A52:
 	lsr.w	#2,d0
 	moveq	#$1D,d1
 	lea	(a2,d0.w),a2
-	bra.w	loc_202AC6
+	bra.w	R6ScrollWriteScrollLinePattern
 
 ; ------------------------------------------------------------------------------
 
-byte_202A76:
+; Background curve segment repeat counts.
+R6ScrollCurveSegmentLengths:
 	dc.b	5
 	dc.b	3
 	dc.b	2
@@ -230,7 +233,7 @@ byte_202A76:
 
 ; ------------------------------------------------------------------------------
 
-sub_202A80:
+R6ScrollUpdateBackgroundCurve:
 	move.w	scroll_bg_x,d0
 	move.w	scroll_fg_x,d2
 	sub.w	d0,d2
@@ -240,7 +243,7 @@ sub_202A80:
 	moveq	#8,d6
 	adda.w	#$34,a1
 
-loc_202A98:
+R6ScrollBackgroundCurveSegment:
 	move.b	d3,d0
 	jsr	SineCosine
 	move.w	#$100,d5
@@ -250,30 +253,30 @@ loc_202A98:
 	add.w	d4,d5
 	neg.w	d5
 	moveq	#0,d1
-	move.b	byte_202A76(pc,d6.w),d1
+	move.b	R6ScrollCurveSegmentLengths(pc,d6.w),d1
 
-loc_202AB4:
+R6ScrollBackgroundCurveRepeat:
 	move.w	d5,-(a1)
-	dbf	d1,loc_202AB4
+	dbf	d1,R6ScrollBackgroundCurveRepeat
 	addq.b	#6,d3
-	dbf	d6,loc_202A98
+	dbf	d6,R6ScrollBackgroundCurveSegment
 	adda.w	#$34,a1
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202AC6:
+R6ScrollWriteScrollLinePattern:
 	andi.w	#7,d2
 	add.w	d2,d2
 	move.w	(a2)+,d0
-	jmp	loc_202AD4(pc,d2.w)
+	jmp	R6ScrollWriteScrollLinePatternRun(pc,d2.w)
 
 ; ------------------------------------------------------------------------------
 
-loc_202AD2:
+R6ScrollWriteScrollLinePatternEntry:
 	move.w	(a2)+,d0
 
-loc_202AD4:
+R6ScrollWriteScrollLinePatternRun:
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
@@ -282,19 +285,19 @@ loc_202AD4:
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
-	dbf	d1,loc_202AD2
+	dbf	d1,R6ScrollWriteScrollLinePatternEntry
 	rts
 
 ; ------------------------------------------------------------------------------
 
 	neg.w	d0
-	jmp	loc_202AF2(pc,d2.w)
+	jmp	R6ScrollWriteScrollLinePatternNegativeRun(pc,d2.w)
 
 ; ------------------------------------------------------------------------------
 
 	neg.w	d0
 
-loc_202AF2:
+R6ScrollWriteScrollLinePatternNegativeRun:
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
@@ -303,7 +306,7 @@ loc_202AF2:
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
 	move.l	d0,(a1)+
-	dbf	d1,loc_202AD2
+	dbf	d1,R6ScrollWriteScrollLinePatternEntry
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -315,20 +318,20 @@ ScrollFgX:
 	andi.w	#$10,d0
 	move.b	scroll_cross_x,d1
 	eor.b	d1,d0
-	bne.s	locret_202B3A
+	bne.s	R6ScrollForegroundXReturn
 	eori.b	#$10,scroll_cross_x
 	move.w	scroll_fg_x,d0
 	sub.w	d4,d0
-	bpl.s	loc_202B34
+	bpl.s	R6ScrollForegroundXSetRightFlag
 	bset	#2,scroll_flags_fg
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202B34:
+R6ScrollForegroundXSetRightFlag:
 	bset	#3,scroll_flags_fg
 
-locret_202B3A:
+R6ScrollForegroundXReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -337,30 +340,30 @@ CheckScrollFgX:
 	move.w	8(a6),d0
 	sub.w	scroll_fg_x,d0
 	sub.w	scroll_focus_x,d0
-	beq.s	loc_202B4E
-	bcs.s	loc_202B7E
-	bra.s	loc_202B54
+	beq.s	R6ScrollForegroundXNoMovement
+	bcs.s	R6ScrollForegroundXAdvanceNegative
+	bra.s	R6ScrollForegroundXAdvancePositive
 
 ; ------------------------------------------------------------------------------
 
-loc_202B4E:
+R6ScrollForegroundXNoMovement:
 	clr.w	scroll_x_move
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202B54:
+R6ScrollForegroundXAdvancePositive:
 	cmpi.w	#$10,d0
-	blt.s	loc_202B5E
+	blt.s	R6ScrollForegroundXApplyRightBound
 	move.w	#$10,d0
 
-loc_202B5E:
+R6ScrollForegroundXApplyRightBound:
 	add.w	scroll_fg_x,d0
 	cmp.w	right_bound,d0
-	blt.s	loc_202B6C
+	blt.s	R6ScrollForegroundXStore
 	move.w	right_bound,d0
 
-loc_202B6C:
+R6ScrollForegroundXStore:
 	move.w	d0,d1
 	sub.w	scroll_fg_x,d1
 	asl.w	#8,d1
@@ -370,31 +373,31 @@ loc_202B6C:
 
 ; ------------------------------------------------------------------------------
 
-loc_202B7E:
+R6ScrollForegroundXAdvanceNegative:
 	cmpi.w	#$FFF0,d0
-	bge.s	loc_202B88
+	bge.s	R6ScrollForegroundXClampLeftBound
 	move.w	#$FFF0,d0
 
-loc_202B88:
+R6ScrollForegroundXClampLeftBound:
 	add.w	scroll_fg_x,d0
 	cmp.w	left_bound,d0
-	bgt.s	loc_202B6C
+	bgt.s	R6ScrollForegroundXStore
 	move.w	left_bound,d0
-	bra.s	loc_202B6C
+	bra.s	R6ScrollForegroundXStore
 
 ; ------------------------------------------------------------------------------
 
 ScrollFgXSlow:
 	tst.w	d0
-	bpl.s	loc_202BA2
+	bpl.s	R6ScrollForegroundXSlowPositive
 	move.w	#$FFFE,d0
-	bra.s	loc_202B7E
+	bra.s	R6ScrollForegroundXAdvanceNegative
 
 ; ------------------------------------------------------------------------------
 
-loc_202BA2:
+R6ScrollForegroundXSlowPositive:
 	move.w	#2,d0
-	bra.s	loc_202B54
+	bra.s	R6ScrollForegroundXAdvancePositive
 
 ; ------------------------------------------------------------------------------
 
@@ -403,136 +406,136 @@ ScrollFgY:
 	move.w	$C(a6),d0
 	sub.w	scroll_fg_y,d0
 	btst	#2,$22(a6)
-	beq.s	loc_202BBC
+	beq.s	R6ScrollForegroundYCameraOffset
 	subq.w	#5,d0
 
-loc_202BBC:
+R6ScrollForegroundYCameraOffset:
 	btst	#1,$22(a6)
-	beq.s	loc_202BDC
+	beq.s	R6ScrollForegroundYFocusCheck
 	addi.w	#$20,d0
 	sub.w	scroll_focus_y,d0
-	bcs.s	loc_202C28
+	bcs.s	R6ScrollForegroundYMaxSpeed
 	subi.w	#$40,d0
-	bcc.s	loc_202C28
+	bcc.s	R6ScrollForegroundYMaxSpeed
 	tst.b	bottom_bound_shift
-	bne.s	loc_202C3A
-	bra.s	loc_202BE8
+	bne.s	R6ScrollForegroundYClearBoundShift
+	bra.s	R6ScrollForegroundYNoMovement
 
 ; ------------------------------------------------------------------------------
 
-loc_202BDC:
+R6ScrollForegroundYFocusCheck:
 	sub.w	scroll_focus_y,d0
-	bne.s	loc_202BEE
+	bne.s	R6ScrollForegroundYFocus60Speed
 	tst.b	bottom_bound_shift
-	bne.s	loc_202C3A
+	bne.s	R6ScrollForegroundYClearBoundShift
 
-loc_202BE8:
+R6ScrollForegroundYNoMovement:
 	clr.w	scroll_y_move
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202BEE:
+R6ScrollForegroundYFocus60Speed:
 	cmpi.w	#$60,scroll_focus_y
-	bne.s	loc_202C16
+	bne.s	R6ScrollForegroundYFocusOtherSpeed
 	move.w	$14(a6),d1
-	bpl.s	loc_202BFE
+	bpl.s	R6ScrollForegroundYUseVelocitySpeed
 	neg.w	d1
 
-loc_202BFE:
+R6ScrollForegroundYUseVelocitySpeed:
 	cmpi.w	#$800,d1
-	bcc.s	loc_202C28
+	bcc.s	R6ScrollForegroundYMaxSpeed
 	move.w	#$600,d1
 	cmpi.w	#6,d0
-	bgt.s	loc_202C88
+	bgt.s	R6ScrollForegroundYApplyPositiveDelta
 	cmpi.w	#$FFFA,d0
-	blt.s	loc_202C52
-	bra.s	loc_202C40
+	blt.s	R6ScrollForegroundYApplyNegativeDelta
+	bra.s	R6ScrollForegroundYApplyDelta
 
 ; ------------------------------------------------------------------------------
 
-loc_202C16:
+R6ScrollForegroundYFocusOtherSpeed:
 	move.w	#$200,d1
 	cmpi.w	#2,d0
-	bgt.s	loc_202C88
+	bgt.s	R6ScrollForegroundYApplyPositiveDelta
 	cmpi.w	#$FFFE,d0
-	blt.s	loc_202C52
-	bra.s	loc_202C40
+	blt.s	R6ScrollForegroundYApplyNegativeDelta
+	bra.s	R6ScrollForegroundYApplyDelta
 
 ; ------------------------------------------------------------------------------
 
-loc_202C28:
+R6ScrollForegroundYMaxSpeed:
 	move.w	#$1000,d1
 	cmpi.w	#$10,d0
-	bgt.s	loc_202C88
+	bgt.s	R6ScrollForegroundYApplyPositiveDelta
 	cmpi.w	#$FFF0,d0
-	blt.s	loc_202C52
-	bra.s	loc_202C40
+	blt.s	R6ScrollForegroundYApplyNegativeDelta
+	bra.s	R6ScrollForegroundYApplyDelta
 
 ; ------------------------------------------------------------------------------
 
-loc_202C3A:
+R6ScrollForegroundYClearBoundShift:
 	moveq	#0,d0
 	move.b	d0,bottom_bound_shift
 
-loc_202C40:
+R6ScrollForegroundYApplyDelta:
 	moveq	#0,d1
 	move.w	d0,d1
 	add.w	scroll_fg_y,d1
 	tst.w	d0
-	bpl.w	loc_202C92
-	bra.w	loc_202C5E
+	bpl.w	R6ScrollForegroundYBottomBoundWrap
+	bra.w	R6ScrollForegroundYTopBoundWrap
 
 ; ------------------------------------------------------------------------------
 
-loc_202C52:
+R6ScrollForegroundYApplyNegativeDelta:
 	neg.w	d1
 	ext.l	d1
 	asl.l	#8,d1
 	add.l	scroll_fg_y,d1
 	swap	d1
 
-loc_202C5E:
+R6ScrollForegroundYTopBoundWrap:
 	cmp.w	top_bound,d1
-	bgt.s	loc_202CB6
+	bgt.s	R6ScrollForegroundYFinalize
 	cmpi.w	#$FF00,d1
-	bgt.s	loc_202C82
+	bgt.s	R6ScrollForegroundYTopBoundClamp
 	andi.w	#$7FF,d1
 	andi.w	#$7FF,$C(a6)
 	andi.w	#$7FF,scroll_fg_y
 	andi.w	#$3FF,scroll_bg_y
-	bra.s	loc_202CB6
+	bra.s	R6ScrollForegroundYFinalize
 
 ; ------------------------------------------------------------------------------
 
-loc_202C82:
+R6ScrollForegroundYTopBoundClamp:
 	move.w	top_bound,d1
-	bra.s	loc_202CB6
+	bra.s	R6ScrollForegroundYFinalize
 
 ; ------------------------------------------------------------------------------
 
-loc_202C88:
+R6ScrollForegroundYApplyPositiveDelta:
 	ext.l	d1
 	asl.l	#8,d1
 	add.l	scroll_fg_y,d1
 	swap	d1
 
-loc_202C92:
+R6ScrollForegroundYBottomBoundWrap:
 	cmp.w	bottom_bound,d1
-	blt.s	loc_202CB6
+	blt.s	R6ScrollForegroundYFinalize
 	subi.w	#$800,d1
-	bcs.s	loc_202CB2
+	bcs.s	R6ScrollForegroundYBottomBoundClamp
 	andi.w	#$7FF,$C(a6)
 	subi.w	#$800,scroll_fg_y
 	andi.w	#$3FF,scroll_bg_y
-	bra.s	loc_202CB6
+	bra.s	R6ScrollForegroundYFinalize
 
 ; ------------------------------------------------------------------------------
 
-loc_202CB2:
+R6ScrollForegroundYBottomBoundClamp:
 	move.w	bottom_bound,d1
 
-loc_202CB6:
+R6ScrollForegroundYFinalize:
 	move.w	scroll_fg_y,d4
 	swap	d1
 	move.l	d1,d3
@@ -544,20 +547,20 @@ loc_202CB6:
 	andi.w	#$10,d0
 	move.b	scroll_cross_y,d1
 	eor.b	d1,d0
-	bne.s	locret_202CF8
+	bne.s	R6ScrollForegroundYReturn
 	eori.b	#$10,scroll_cross_y
 	move.w	scroll_fg_y,d0
 	sub.w	d4,d0
-	bpl.s	loc_202CF2
+	bpl.s	R6ScrollForegroundYSetDownFlag
 	bset	#0,scroll_flags_fg
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202CF2:
+R6ScrollForegroundYSetDownFlag:
 	bset	#1,scroll_flags_fg
 
-locret_202CF8:
+R6ScrollForegroundYReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -572,19 +575,19 @@ ScrollBgXY:
 	andi.w	#$10,d1
 	move.b	scroll_cross_bg_x,d3
 	eor.b	d3,d1
-	bne.s	loc_202D2E
+	bne.s	R6ScrollBackgroundXYBeginY
 	eori.b	#$10,scroll_cross_bg_x
 	sub.l	d2,d0
-	bpl.s	loc_202D28
+	bpl.s	R6ScrollBackgroundXYSetXFlag
 	bset	#2,scroll_flags_bg
-	bra.s	loc_202D2E
+	bra.s	R6ScrollBackgroundXYBeginY
 
 ; ------------------------------------------------------------------------------
 
-loc_202D28:
+R6ScrollBackgroundXYSetXFlag:
 	bset	#3,scroll_flags_bg
 
-loc_202D2E:
+R6ScrollBackgroundXYBeginY:
 	move.l	scroll_bg_y,d3
 	move.l	d3,d0
 	add.l	d5,d0
@@ -594,19 +597,19 @@ loc_202D2E:
 	andi.w	#$10,d1
 	move.b	scroll_cross_bg_y,d2
 	eor.b	d2,d1
-	bne.s	locret_202D62
+	bne.s	R6ScrollBackgroundXYReturn
 	eori.b	#$10,scroll_cross_bg_y
 	sub.l	d3,d0
-	bpl.s	loc_202D5C
+	bpl.s	R6ScrollBackgroundXYSetYFlag
 	bset	#0,scroll_flags_bg
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202D5C:
+R6ScrollBackgroundXYSetYFlag:
 	bset	#1,scroll_flags_bg
 
-locret_202D62:
+R6ScrollBackgroundXYReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -621,19 +624,19 @@ UnkScrollBgY:
 	andi.w	#$10,d1
 	move.b	scroll_cross_bg_y,d2
 	eor.b	d2,d1
-	bne.s	locret_202D98
+	bne.s	R6ScrollBackgroundYAlternateReturn
 	eori.b	#$10,scroll_cross_bg_y
 	sub.l	d3,d0
-	bpl.s	loc_202D92
+	bpl.s	R6ScrollBackgroundYAlternateSetFlag
 	bset	#4,scroll_flags_bg
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202D92:
+R6ScrollBackgroundYAlternateSetFlag:
 	bset	#5,scroll_flags_bg
 
-locret_202D98:
+R6ScrollBackgroundYAlternateReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -645,19 +648,19 @@ ScrollBgY:
 	andi.w	#$10,d1
 	move.b	scroll_cross_bg_y,d2
 	eor.b	d2,d1
-	bne.s	locret_202DC8
+	bne.s	R6ScrollBackgroundYReturn
 	eori.b	#$10,scroll_cross_bg_y
 	sub.w	d3,d0
-	bpl.s	loc_202DC2
+	bpl.s	R6ScrollBackgroundYSetFlag
 	bset	#0,scroll_flags_bg
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202DC2:
+R6ScrollBackgroundYSetFlag:
 	bset	#1,scroll_flags_bg
 
-locret_202DC8:
+R6ScrollBackgroundYReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -672,20 +675,20 @@ ScrollBgX:
 	andi.w	#$10,d1
 	move.b	scroll_cross_bg_x,d3
 	eor.b	d3,d1
-	bne.s	locret_202DFC
+	bne.s	R6ScrollBackgroundXReturn
 	eori.b	#$10,scroll_cross_bg_x
 	sub.l	d2,d0
-	bpl.s	loc_202DF6
+	bpl.s	R6ScrollBackgroundXSetAdvanceFlag
 	bset	d6,scroll_flags_bg
-	bra.s	locret_202DFC
+	bra.s	R6ScrollBackgroundXReturn
 
 ; ------------------------------------------------------------------------------
 
-loc_202DF6:
+R6ScrollBackgroundXSetAdvanceFlag:
 	addq.b	#1,d6
 	bset	d6,scroll_flags_bg
 
-locret_202DFC:
+R6ScrollBackgroundXReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -700,20 +703,20 @@ ScrollBg2X:
 	andi.w	#$10,d1
 	move.b	scroll_cross_bg2_x,d3
 	eor.b	d3,d1
-	bne.s	locret_202E30
+	bne.s	R6ScrollBackground2XReturn
 	eori.b	#$10,scroll_cross_bg2_x
 	sub.l	d2,d0
-	bpl.s	loc_202E2A
+	bpl.s	R6ScrollBackground2XSetAdvanceFlag
 	bset	d6,scroll_flags_bg2
-	bra.s	locret_202E30
+	bra.s	R6ScrollBackground2XReturn
 
 ; ------------------------------------------------------------------------------
 
-loc_202E2A:
+R6ScrollBackground2XSetAdvanceFlag:
 	addq.b	#1,d6
 	bset	d6,scroll_flags_bg2
 
-locret_202E30:
+R6ScrollBackground2XReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -728,20 +731,20 @@ ScrollBg3X:
 	andi.w	#$10,d1
 	move.b	scroll_cross_bg3_x,d3
 	eor.b	d3,d1
-	bne.s	locret_202E64
+	bne.s	R6ScrollBackground3XReturn
 	eori.b	#$10,scroll_cross_bg3_x
 	sub.l	d2,d0
-	bpl.s	loc_202E5E
+	bpl.s	R6ScrollBackground3XSetAdvanceFlag
 	bset	d6,scroll_flags_bg3
-	bra.s	locret_202E64
+	bra.s	R6ScrollBackground3XReturn
 
 ; ------------------------------------------------------------------------------
 
-loc_202E5E:
+R6ScrollBackground3XSetAdvanceFlag:
 	addq.b	#1,d6
 	bset	d6,scroll_flags_bg3
 
-locret_202E64:
+R6ScrollBackground3XReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
