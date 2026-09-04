@@ -141,39 +141,42 @@ TitleCardTextGfx:
 	incbin	"gfx/r6/title_card_text.nem"
 	even
 
-byte_233B0C:
+; Two-frame stage-animation tile data.
+R6StageGfxTwoFrameTiles0:
 	incbin	"data/r6/byte_233B0C.bin"
 	even
 
-byte_233B8C:
+R6StageGfxTwoFrameTiles1:
 	incbin	"data/r6/byte_233B8C.bin"
 	even
 
-byte_233C0C:
+; Three-frame stage-animation tile data.
+R6StageGfxThreeFrameTiles0:
 	incbin	"data/r6/byte_233C0C.bin"
 	even
 
-byte_233D0C:
+R6StageGfxThreeFrameTiles1:
 	incbin	"data/r6/byte_233D0C.bin"
 	even
 
-byte_233E0C:
+R6StageGfxThreeFrameTiles2:
 	incbin	"data/r6/byte_233E0C.bin"
 	even
 
-byte_233F0C:
+; Scripted stage-animation tile data.
+R6StageGfxScriptTiles0:
 	incbin	"data/r6/byte_233F0C.bin"
 	even
 
-byte_233F8C:
+R6StageGfxScriptTiles1:
 	incbin	"data/r6/byte_233F8C.bin"
 	even
 
-byte_23400C:
+R6StageGfxScriptTiles2:
 	incbin	"data/r6/byte_23400C.bin"
 	even
 
-byte_23408C:
+R6StageGfxScriptTiles3:
 	incbin	"data/r6/byte_23408C.bin"
 	even
 

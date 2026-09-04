@@ -4,14 +4,14 @@ AnimateStageGfx:
 	jsr	LoadPowerupArt
 	lea	stage_anim_timers,a2
 	lea	stage_anim_frames,a4
-	lea	unk_20E5D2,a1
+	lea	R6StageGfxThreeFrameAnimationTable,a1
 	move.w	#$3F,d6
 	bsr.w	AnimateTilesSimple
-	bne.w	loc_20E4B8
+	bne.w	R6StageGfxAfterBossPalette
 	bclr	#6,boss_flags
-	bne.s	loc_20E45E
+	bne.s	R6StageGfxBossPaletteTransition
 	btst	#7,boss_flags
-	beq.s	loc_20E494
+	beq.s	R6StageGfxBossPaletteUpload
 	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
@@ -19,11 +19,11 @@ AnimateStageGfx:
 	move.w	#$4E00,(a5)
 	move.w	#$82,dma_stack
 	move.w	dma_stack,(a5)
-	bra.s	loc_20E4B8
+	bra.s	R6StageGfxAfterBossPalette
 
 ; ------------------------------------------------------------------------------
 
-loc_20E45E:
+R6StageGfxBossPaletteTransition:
 	bset	#7,boss_flags
 	lea	VDP_CTRL,a5
 	move.w	#$8F01,(a5)
@@ -32,16 +32,16 @@ loc_20E45E:
 	move.l	#$50000081,(a5)
 	move.w	#0,VDP_DATA
 
-loc_20E486:
+R6StageGfxBossPaletteWait:
 	move.w	(a5),d1
 	btst	#1,d1
-	bne.s	loc_20E486
+	bne.s	R6StageGfxBossPaletteWait
 	move.w	#$8F02,(a5)
-	bra.s	loc_20E4B8
+	bra.s	R6StageGfxAfterBossPalette
 
 ; ------------------------------------------------------------------------------
 
-loc_20E494:
+R6StageGfxBossPaletteUpload:
 	lea	VDP_CTRL,a5
 	move.l	#$94009380,(a5)
 	move.l	#$968C95C0,(a5)
@@ -50,11 +50,11 @@ loc_20E494:
 	move.w	#$81,dma_stack
 	move.w	dma_stack,(a5)
 
-loc_20E4B8:
-	lea	unk_20E5E0,a1
+R6StageGfxAfterBossPalette:
+	lea	R6StageGfxTwoFrameAnimationTable,a1
 	move.w	#$1F,d6
 	bsr.w	AnimateTilesSimple
-	bne.s	loc_20E4EC
+	bne.s	R6StageGfxAfterSecondaryAnimation
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$968C95C0,(a5)
@@ -63,11 +63,11 @@ loc_20E4B8:
 	move.w	#$81,dma_stack
 	move.w	dma_stack,(a5)
 
-loc_20E4EC:
-	lea	unk_20E574,a1
+R6StageGfxAfterSecondaryAnimation:
+	lea	R6StageGfxScriptTable,a1
 	move.w	#$1F,d6
 	bsr.w	AnimateStageGfxScript
-	bne.s	locret_20E520
+	bne.s	R6StageGfxReturn
 	lea	VDP_CTRL,a5
 	move.l	#$94009340,(a5)
 	move.l	#$968C95C0,(a5)
@@ -76,22 +76,22 @@ loc_20E4EC:
 	move.w	#$81,dma_stack
 	move.w	dma_stack,(a5)
 
-locret_20E520:
+R6StageGfxReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 AnimateStageGfxScript:
 	subq.b	#1,(a2)
-	bpl.s	loc_20E568
+	bpl.s	R6StageGfxScriptNoUpdate
 	moveq	#0,d0
 	move.b	(a4),d0
 	addq.b	#1,d0
 	cmp.b	(a1),d0
-	bcs.s	loc_20E532
+	bcs.s	R6StageGfxScriptStoreFrame
 	moveq	#0,d0
 
-loc_20E532:
+R6StageGfxScriptStoreFrame:
 	move.b	d0,(a4)
 	add.w	d0,d0
 	move.b	2(a1,d0.w),(a2)
@@ -106,9 +106,9 @@ loc_20E532:
 	movea.l	2(a1,d0.w),a1
 	lea	stage_anim_gfx,a3
 
-loc_20E556:
+R6StageGfxScriptCopyLoop:
 	move.l	(a1)+,(a3)+
-	dbf	d6,loc_20E556
+	dbf	d6,R6StageGfxScriptCopyLoop
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#0,d0
@@ -116,7 +116,7 @@ loc_20E556:
 
 ; ------------------------------------------------------------------------------
 
-loc_20E568:
+R6StageGfxScriptNoUpdate:
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#1,d0
@@ -124,7 +124,8 @@ loc_20E568:
 
 ; ------------------------------------------------------------------------------
 
-unk_20E574:
+; Scripted stage-animation frame durations and tile streams.
+R6StageGfxScriptTable:
 	dc.b	4
 	dc.b	0
 	dc.b	4
@@ -135,34 +136,34 @@ unk_20E574:
 	dc.b	2
 	dc.b	$F
 	dc.b	3
-	dc.l	byte_233F0C
-	dc.l	byte_233F8C
-	dc.l	byte_23400C
-	dc.l	byte_23408C
+	dc.l	R6StageGfxScriptTiles0
+	dc.l	R6StageGfxScriptTiles1
+	dc.l	R6StageGfxScriptTiles2
+	dc.l	R6StageGfxScriptTiles3
 
 ; ------------------------------------------------------------------------------
 
 AnimateTilesSimple:
 	subq.b	#1,(a2)
-	bpl.w	loc_20E5C6
+	bpl.w	R6StageGfxSimpleNoUpdate
 	move.b	(a1),(a2)
 	moveq	#0,d0
 	move.b	(a4),d0
 	addq.b	#1,d0
 	cmp.b	1(a1),d0
-	bcs.s	loc_20E5A4
+	bcs.s	R6StageGfxSimpleStoreFrame
 	moveq	#0,d0
 
-loc_20E5A4:
+R6StageGfxSimpleStoreFrame:
 	move.b	d0,(a4)
 	add.w	d0,d0
 	add.w	d0,d0
 	movea.l	2(a1,d0.w),a1
 	lea	stage_anim_gfx,a3
 
-loc_20E5B4:
+R6StageGfxSimpleCopyLoop:
 	move.l	(a1)+,(a3)+
-	dbf	d6,loc_20E5B4
+	dbf	d6,R6StageGfxSimpleCopyLoop
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#0,d0
@@ -170,7 +171,7 @@ loc_20E5B4:
 
 ; ------------------------------------------------------------------------------
 
-loc_20E5C6:
+R6StageGfxSimpleNoUpdate:
 	adda.w	#1,a2
 	adda.w	#1,a4
 	moveq	#1,d0
@@ -178,17 +179,19 @@ loc_20E5C6:
 
 ; ------------------------------------------------------------------------------
 
-unk_20E5D2:
+; Three-frame stage-animation timing and tile streams.
+R6StageGfxThreeFrameAnimationTable:
 	dc.b	4
 	dc.b	3
-	dc.l	byte_233C0C
-	dc.l	byte_233D0C
-	dc.l	byte_233E0C
+	dc.l	R6StageGfxThreeFrameTiles0
+	dc.l	R6StageGfxThreeFrameTiles1
+	dc.l	R6StageGfxThreeFrameTiles2
 
-unk_20E5E0:
+; Two-frame stage-animation timing and tile streams.
+R6StageGfxTwoFrameAnimationTable:
 	dc.b	3
 	dc.b	2
-	dc.l	byte_233B0C
-	dc.l	byte_233B8C
+	dc.l	R6StageGfxTwoFrameTiles0
+	dc.l	R6StageGfxTwoFrameTiles1
 
 ; ------------------------------------------------------------------------------

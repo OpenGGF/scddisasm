@@ -672,6 +672,7 @@ opaque merely because they use `dc.*`.
 | M459 | Complete | Canonicalize the R6 2C scroll implementation, including its spawn initialization, foreground/background movement, row-pattern generation, and per-layer flag helpers with their tables. | J/U/E 133/133 each; audit/hygiene clean. |
 | M460 | Complete | Canonicalize the R6 1B/2B extended scroll implementations, including their spawn/credits data, background line-pattern generation, foreground clamps, and per-layer flag helpers. | J/U/E 133/133 each; audit/hygiene clean. |
 | M461 | Complete | Canonicalize the R6 1A scroll and stage-draw implementations, including spawn/credits data, sine-based background curves, block transfer/placement, and initialization tables. | J/U/E 133/133 each; audit/hygiene clean. |
+| M462 | Complete | Canonicalize the R6 stage-GFX animation family across variants 1A–3D, including scripted/special/boss-palette branches, timing tables, and backing tile streams. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
