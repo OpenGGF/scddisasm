@@ -583,8 +583,8 @@ EggmanDefeatSequenceReward:
 	move.w	#$C,obj.var_30(a0)
 	move.b	#$10,obj.routine(a0)
 	clr.w	obj.var_2a(a0)
-	move.w	word_20294C+4,right_bound
-	move.w	word_20294C+4,target_right_bound
+	move.w	R6ScrollInitialStateTable+4,right_bound
+	move.w	R6ScrollInitialStateTable+4,target_right_bound
 	move.w	#$1D,d0
 	tst.b	good_future
 	beq.s	EggmanDefeatSequenceSendMusic

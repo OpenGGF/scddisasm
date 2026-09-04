@@ -19,7 +19,7 @@ InitScroll:
 	move.b	d0,unused_scroll_die
 	move.b	d0,unused_scroll_timer
 	move.b	d0,event_routine
-	lea	word_20294C,a0
+	lea	R6ScrollInitialStateTable,a0
 	move.w	(a0)+,d0
 	move.w	d0,unused_scroll_routine
 	move.l	(a0)+,d0
@@ -39,7 +39,7 @@ InitScroll:
 
 ; ------------------------------------------------------------------------------
 
-word_20294C:
+R6ScrollInitialStateTable:
 	dc.w 4, 0, $D97, 0, $710, $60
 
 unk_202958:
