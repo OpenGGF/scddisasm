@@ -17,227 +17,227 @@
 
 Start:
 	move.l #$ff348a, $fffd08.l
-L_FF200A:
+TimeAttack_StartClearCommandValue:
 	moveq #$0, d0
-L_FF200C:
+TimeAttack_StartClearSubCpuCommand:
 	move.l d0, $a12010.l
-L_FF2012:
+TimeAttack_StartClearSubCpuParameterOne:
 	move.l d0, $a12014.l
-L_FF2018:
+TimeAttack_StartClearSubCpuParameterTwo:
 	move.l d0, $a12018.l
-L_FF201E:
+TimeAttack_StartClearSubCpuParameterThree:
 	move.l d0, $a1201c.l
-L_FF2024:
+TimeAttack_StartHaltZ80:
 	bsr.w TimeAttack_HaltZ80
-L_FF2028:
+TimeAttack_StartZ80PortValue:
 	moveq #$40, d0
-L_FF202A:
+TimeAttack_StartSetZ80Bank:
 	move.b d0, $a10009.l
-L_FF2030:
+TimeAttack_StartSetZ80RegisterOne:
 	move.b d0, $a1000b.l
-L_FF2036:
+TimeAttack_StartSetZ80RegisterTwo:
 	move.b d0, $a1000d.l
-L_FF203C:
+TimeAttack_StartSetZ80Control:
 	move.b #$c0, $a10003.l
-L_FF2044:
+TimeAttack_StartReleaseZ80:
 	bsr.w TimeAttack_ReleaseZ80
-L_FF2048:
+TimeAttack_StartClearWorkRamBase:
 	lea.l $ffaa00.l, a0
-L_FF204E:
+TimeAttack_StartWorkRamClearCount:
 	move.w #$9c7, d7
-L_FF2052:
+TimeAttack_StartClearWorkRamLong:
 	move.l #$0, (a0)+
-L_FF2058:
-	dbra d7, L_FF2052
-L_FF205C:
+TimeAttack_StartWorkRamClearLoopCheck:
+	dbra d7, TimeAttack_StartClearWorkRamLong
+TimeAttack_StartClearGraphicsValue:
 	moveq #$0, d0
-L_FF205E:
+TimeAttack_StartClearGraphicsBufferBase:
 	lea.l $ffd0a0.l, a0
-L_FF2064:
+TimeAttack_StartGraphicsBufferClearCount:
 	move.w #$7, d7
-L_FF2068:
+TimeAttack_StartClearGraphicsLong0:
 	move.l d0, (a0)+
-L_FF206A:
+TimeAttack_StartClearGraphicsLong1:
 	move.l d0, (a0)+
-L_FF206C:
+TimeAttack_StartClearGraphicsLong2:
 	move.l d0, (a0)+
-L_FF206E:
+TimeAttack_StartClearGraphicsLong3:
 	move.l d0, (a0)+
-L_FF2070:
-	dbra d7, L_FF2068
-L_FF2074:
+TimeAttack_StartGraphicsBufferClearLoopCheck:
+	dbra d7, TimeAttack_StartClearGraphicsLong0
+TimeAttack_StartSetInitialTransferCount:
 	move.w #$6, $ff3730.l
-L_FF207C:
+TimeAttack_StartWaitInitialTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF2080:
+TimeAttack_StartPushVdpRegisterTable:
 	pea.l $ff5238.l
-L_FF2086:
+TimeAttack_StartSetVdpRegisters:
 	bsr.w TimeAttack_SetVdpRegisters
-L_FF208A:
+TimeAttack_StartReleaseVdpRegisterTable:
 	lea.l $4(a7), a7
-L_FF208E:
+TimeAttack_StartVdpDataPort:
 	lea.l $c00000.l, a0
-L_FF2094:
+TimeAttack_StartClearVramCommand:
 	move.l #$40000010, $c00004.l
-L_FF209E:
+TimeAttack_StartClearVramLong:
 	move.l d0, (a0)
-L_FF20A0:
+TimeAttack_StartClearVramCommandFull:
 	move.l #$40000000, $c00004.l
-L_FF20AA:
+TimeAttack_StartClearVramCount:
 	move.w #$fff, d7
-L_FF20AE:
+TimeAttack_StartClearVramLong0:
 	move.l d0, (a0)
-L_FF20B0:
+TimeAttack_StartClearVramLong1:
 	move.l d0, (a0)
-L_FF20B2:
+TimeAttack_StartClearVramLong2:
 	move.l d0, (a0)
-L_FF20B4:
+TimeAttack_StartClearVramLong3:
 	move.l d0, (a0)
-L_FF20B6:
-	dbra d7, L_FF20AE
-L_FF20BA:
+TimeAttack_StartClearVramLoopCheck:
+	dbra d7, TimeAttack_StartClearVramLong0
+TimeAttack_StartNemesisSource402000:
 	lea.l $ff52cc.l, a0
-L_FF20C0:
+TimeAttack_StartNemesisCommand402000:
 	move.l #$40200000, $c00004.l
-L_FF20CA:
+TimeAttack_StartNemesisDecompress402000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF20CE:
+TimeAttack_StartNemesisSource512000:
 	lea.l $ff63fc.l, a0
-L_FF20D4:
+TimeAttack_StartNemesisCommand512000:
 	move.l #$51200000, $c00004.l
-L_FF20DE:
+TimeAttack_StartNemesisDecompress512000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF20E2:
+TimeAttack_StartNemesisSource5A6000:
 	lea.l $ff5cba.l, a0
-L_FF20E8:
+TimeAttack_StartNemesisCommand5A6000:
 	move.l #$5a600000, $c00004.l
-L_FF20F2:
+TimeAttack_StartNemesisDecompress5A6000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF20F6:
+TimeAttack_StartNemesisSource602000:
 	lea.l $ff6708.l, a0
-L_FF20FC:
+TimeAttack_StartNemesisCommand602000:
 	move.l #$60200000, $c00004.l
-L_FF2106:
+TimeAttack_StartNemesisDecompress602000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF210A:
+TimeAttack_StartNemesisSource658000:
 	lea.l $ff58c6.l, a0
-L_FF2110:
+TimeAttack_StartNemesisCommand658000:
 	move.l #$65800000, $c00004.l
-L_FF211A:
+TimeAttack_StartNemesisDecompress658000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF211E:
+TimeAttack_StartNemesisSource6FA000:
 	lea.l $ff5ee4.l, a0
-L_FF2124:
+TimeAttack_StartNemesisCommand6FA000:
 	move.l #$6fa00000, $c00004.l
-L_FF212E:
+TimeAttack_StartNemesisDecompress6FA000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF2132:
+TimeAttack_StartNemesisSource7D0000:
 	lea.l $ff68e0.l, a0
-L_FF2138:
+TimeAttack_StartNemesisCommand7D0000:
 	move.l #$7d000000, $c00004.l
-L_FF2142:
+TimeAttack_StartNemesisDecompress7D0000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF2146:
+TimeAttack_StartNemesisSource7DE000:
 	lea.l $ff69be.l, a0
-L_FF214C:
+TimeAttack_StartNemesisCommand7DE000:
 	move.l #$7de00000, $c00004.l
-L_FF2156:
+TimeAttack_StartNemesisDecompress7DE000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF215A:
+TimeAttack_StartNemesisSource554000:
 	lea.l $ff702a.l, a0
-L_FF2160:
+TimeAttack_StartNemesisCommand554000:
 	move.l #$55400001, $c00004.l
-L_FF216A:
+TimeAttack_StartNemesisDecompress554000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF216E:
+TimeAttack_StartNemesisSource572000:
 	lea.l $ff74b8.l, a0
-L_FF2174:
+TimeAttack_StartNemesisCommand572000:
 	move.l #$57200001, $c00004.l
-L_FF217E:
+TimeAttack_StartNemesisDecompress572000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF2182:
+TimeAttack_StartNemesisSource598000:
 	lea.l $ff756a.l, a0
-L_FF2188:
+TimeAttack_StartNemesisCommand598000:
 	move.l #$59800001, $c00004.l
-L_FF2192:
+TimeAttack_StartNemesisDecompress598000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF2196:
+TimeAttack_StartNemesisSource61A000:
 	if REGION=USA
 	lea.l $ff785e.l, a0
 	else
 	lea.l $ff7852.l, a0
 	endif
-L_FF219C:
+TimeAttack_StartNemesisCommand61A000:
 	move.l #$61a00001, $c00004.l
-L_FF21A6:
+TimeAttack_StartNemesisDecompress61A000:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF21AA:
+TimeAttack_StartClearVramTailCommand:
 	move.l #$61c00001, $c00004.l
-L_FF21B4:
+TimeAttack_StartVramFillValue:
 	moveq #$ff, d0
-L_FF21B6:
+TimeAttack_StartVramFillLong0:
 	move.l d0, $c00000.l
-L_FF21BC:
+TimeAttack_StartVramFillLong1:
 	move.l d0, $c00000.l
-L_FF21C2:
+TimeAttack_StartVramFillLong2:
 	move.l d0, $c00000.l
-L_FF21C8:
+TimeAttack_StartVramFillLong3:
 	move.l d0, $c00000.l
-L_FF21CE:
+TimeAttack_StartVramFillLong4:
 	move.l d0, $c00000.l
-L_FF21D4:
+TimeAttack_StartVramFillLong5:
 	move.l d0, $c00000.l
-L_FF21DA:
+TimeAttack_StartVramFillLong6:
 	move.l d0, $c00000.l
-L_FF21E0:
+TimeAttack_StartVramFillLong7:
 	move.l d0, $c00000.l
-L_FF21E6:
+TimeAttack_StartFinalNemesisSource:
 	lea.l $217fc4.l, a0
-L_FF21EC:
+TimeAttack_StartFinalNemesisCommand:
 	move.l #$4c000002, $c00004.l
-L_FF21F6:
+TimeAttack_StartFinalNemesisDecompress:
 	bsr.w TimeAttack_DecompressNemesisToVdp
-L_FF21FA:
+TimeAttack_StartReleaseZ80AfterGraphics:
 	bsr.w TimeAttack_HaltZ80
-L_FF21FE:
+TimeAttack_StartVdpControlPort:
 	lea.l $c00004.l, a5
-L_FF2204:
+TimeAttack_StartSetVdpRegisterOne:
 	move.l #$94089300, (a5)
-L_FF220A:
+TimeAttack_StartSetVdpRegisterTwo:
 	move.l #$96f09500, (a5)
-L_FF2210:
+TimeAttack_StartSetVdpRegisterThree:
 	move.w #$977f, (a5)
-L_FF2214:
+TimeAttack_StartSetVdpRegisterFour:
 	move.w #$4000, (a5)
-L_FF2218:
+TimeAttack_StartSetVdpAutoincrement:
 	move.w #$83, $ffaa5c.l
-L_FF2220:
+TimeAttack_StartWriteVdpAutoincrement:
 	move.w $ffaa5c.l, (a5)
-L_FF2226:
+TimeAttack_StartReleaseZ80AfterVdpSetup:
 	bsr.w TimeAttack_ReleaseZ80
-L_FF222A:
+TimeAttack_StartEnigmaSourceTable:
 	lea.l $210000.l, a0
-L_FF2230:
+TimeAttack_StartSelectEnigmaSource:
 	adda.w $e(a0), a0
-L_FF2234:
+TimeAttack_StartEnigmaDestination:
 	lea.l $ffce60.l, a1
-L_FF223A:
+TimeAttack_StartEnigmaOutputCommand:
 	move.w #$e460, d0
-L_FF223E:
+TimeAttack_StartDecompressEnigma:
 	bsr.w TimeAttack_DecompressEnigma
-L_FF2242:
+TimeAttack_StartPushEnigmaSourceOffset:
 	move.l #$11, -(a7)
-L_FF2248:
+TimeAttack_StartPushEnigmaWidth:
 	move.l #$40, -(a7)
-L_FF224E:
+TimeAttack_StartPushEnigmaHeight:
 	move.l #$f, -(a7)
-L_FF2254:
+TimeAttack_StartPushEnigmaVdpCommand:
 	move.l #$41aa0003, -(a7)
-L_FF225A:
+TimeAttack_StartPushEnigmaSource:
 	pea.l $ffce60.l
-L_FF2260:
+TimeAttack_StartCopyEnigmaToVdp:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF2264:
+TimeAttack_StartReleaseEnigmaArguments:
 	lea.l $14(a7), a7
 L_FF2268:
 	moveq #$0, d0
