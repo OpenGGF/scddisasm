@@ -145,6 +145,9 @@ family, including correction and steep-surface rejection paths.
 M488 canonicalizes the shared Enigma decompressor loop, mode table, bit reader,
 refill paths, mask table, and stream-advance helper.
 
+M489 canonicalizes the shared graphics-queue insertion, initialization,
+Nemesis processing, finalization, and graphics-list loading helpers.
+
 ### Core and system programs
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |

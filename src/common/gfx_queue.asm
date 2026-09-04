@@ -1,5 +1,7 @@
 ; ------------------------------------------------------------------------------
 
+; Graphics-list entries contain a long source pointer and a word VRAM offset.
+
 AddGfxQueue:
 	movem.l	a1-a2,-(sp)
 	lea	GfxLists,a1
@@ -8,24 +10,24 @@ AddGfxQueue:
 	lea	(a1,d0.w),a1
 	lea	gfx_queue,a2
 
-loc_202520:
+AddGfxQueueFindFreeSlot:
 	tst.l	(a2)
-	beq.s	loc_202528
+	beq.s	AddGfxQueueCopyEntry
 	addq.w	#6,a2
-	bra.s	loc_202520
+	bra.s	AddGfxQueueFindFreeSlot
 
 ; ------------------------------------------------------------------------------
 
-loc_202528:
+AddGfxQueueCopyEntry:
 	move.w	(a1)+,d0
-	bmi.s	loc_202534
+	bmi.s	AddGfxQueueDone
 
-loc_20252C:
+AddGfxQueueCopyLoop:
 	move.l	(a1)+,(a2)+
 	move.w	(a1)+,(a2)+
-	dbf	d0,loc_20252C
+	dbf	d0,AddGfxQueueCopyLoop
 
-loc_202534:
+AddGfxQueueDone:
 	movem.l	(sp)+,a1-a2
 	rts
 
@@ -40,14 +42,14 @@ InitGfxQueue:
 	bsr.s	ClearGfxQueue
 	lea	gfx_queue,a2
 	move.w	(a1)+,d0
-	bmi.s	loc_202560
+	bmi.s	InitGfxQueueDone
 
-loc_202558:
+InitGfxQueueCopyLoop:
 	move.l	(a1)+,(a2)+
 	move.w	(a1)+,(a2)+
-	dbf	d0,loc_202558
+	dbf	d0,InitGfxQueueCopyLoop
 
-loc_202560:
+InitGfxQueueDone:
 	movem.l	(sp)+,a1-a2
 	rts
 
@@ -57,26 +59,26 @@ ClearGfxQueue:
 	lea	gfx_queue,a2
 	moveq	#$1F,d0
 
-loc_20256C:
+ClearGfxQueueLoop:
 	clr.l	(a2)+
-	dbf	d0,loc_20256C
+	dbf	d0,ClearGfxQueueLoop
 	rts
 
 ; ------------------------------------------------------------------------------
 
 AdvanceGfxQueue:
 	tst.l	gfx_queue
-	beq.s	locret_2025C8
+	beq.s	AdvanceGfxQueueDone
 	tst.w	gfx_queue_tiles
-	bne.s	locret_2025C8
+	bne.s	AdvanceGfxQueueDone
 	movea.l	gfx_queue,a0
 	lea	WriteNemesisRowVram,a3
 	lea	nemesis_code_table,a1
 	move.w	(a0)+,d2
-	bpl.s	loc_202596
+	bpl.s	AdvanceGfxQueuePrepareWrite
 	adda.w	#$A,a3
 
-loc_202596:
+AdvanceGfxQueuePrepareWrite:
 	andi.w	#$7FFF,d2
 	move.w	d2,gfx_queue_tiles
 	bsr.w	BuildNemesisCodeTable
@@ -93,14 +95,14 @@ loc_202596:
 	move.l	d5,gfx_queue_read
 	move.l	d6,gfx_queue_shift
 
-locret_2025C8:
+AdvanceGfxQueueDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 ProcessGfxQueueFast:
 	tst.w	gfx_queue_tiles
-	beq.w	locret_202668
+	beq.w	ProcessGfxQueueDone
 
 ProcessGfxQueueLarge:
 	move.w	#$12,gfx_queue_process
@@ -113,7 +115,7 @@ ProcessGfxQueueLarge:
 
 ProcessGfxQueueSlow:
 	tst.w	gfx_queue_tiles
-	beq.s	locret_202668
+	beq.s	ProcessGfxQueueDone
 	tst.b	scroll_lock
 	bne.s	ProcessGfxQueueLarge
 	move.w	#3,gfx_queue_process
@@ -138,13 +140,13 @@ ProcessGfxQueueMain:
 	move.l	gfx_queue_shift,d6
 	lea	nemesis_code_table,a1
 
-loc_202638:
+ProcessGfxQueueLoop:
 	movea.w	#8,a5
 	bsr.w	NewNemesisRow
 	subq.w	#1,gfx_queue_tiles
-	beq.s	loc_20266A
+	beq.s	ProcessGfxQueueFinalize
 	subq.w	#1,gfx_queue_process
-	bne.s	loc_202638
+	bne.s	ProcessGfxQueueLoop
 	move.l	a0,gfx_queue
 	move.l	a3,gfx_queue_write
 	move.l	d0,gfx_queue_repeat
@@ -153,18 +155,18 @@ loc_202638:
 	move.l	d5,gfx_queue_read
 	move.l	d6,gfx_queue_shift
 
-locret_202668:
+ProcessGfxQueueDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20266A:
+ProcessGfxQueueFinalize:
 	lea	gfx_queue,a0
 	moveq	#$15,d0
 
-loc_202670:
+ProcessGfxQueueFinalizeLoop:
 	move.l	6(a0),(a0)+
-	dbf	d0,loc_202670
+	dbf	d0,ProcessGfxQueueFinalizeLoop
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -176,7 +178,7 @@ LoadGfxList:
 	lea	(a1,d0.w),a1
 	move.w	(a1)+,d1
 
-loc_20268C:
+LoadGfxListLoop:
 	movea.l	(a1)+,a0
 	moveq	#0,d0
 	move.w	(a1)+,d0
@@ -186,7 +188,7 @@ loc_20268C:
 	swap	d0
 	move.l	d0,VDP_CTRL
 	bsr.w	DecompNemesisVram
-	dbf	d1,loc_20268C
+	dbf	d1,LoadGfxListLoop
 	rts
 
 ; ------------------------------------------------------------------------------

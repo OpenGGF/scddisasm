@@ -699,6 +699,7 @@ opaque merely because they use `dc.*`.
 | M486 | Complete | Canonicalize the shared VBlank dispatch, DMA/update handlers, title/stage/continue paths, common VBlank transfer helper, and warp/bored timer family, migrating internal branches. | J/U/E 133/133 each; audit/hygiene clean. |
 | M487 | Complete | Canonicalize the shared player ground-collision angle selection, four-way surface probes, correction/rejection paths, and ground-angle helper family, migrating internal branches. | J/U/E 133/133 each; audit/hygiene clean. |
 | M488 | Complete | Canonicalize the shared Enigma decompressor mode loop, dispatch table, bit reader, refill paths, mask table, and stream-advance helper, migrating internal branches. | J/U/E 133/133 each; audit/hygiene clean. |
+| M489 | Complete | Canonicalize the shared graphics-queue insertion, initialization, clearing, Nemesis processing, finalization, and graphics-list loading family, migrating internal branches and documenting queue entries. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
