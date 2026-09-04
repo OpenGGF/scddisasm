@@ -2,41 +2,42 @@
 
 EggmanStatueObject:
 	tst.b	obj.subtype(a0)
-	bne.w	loc_20F0B8
+	bne.w	EggmanStatueBombObject
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20EF1A(pc,d0.w),d0
-	jsr	off_20EF1A(pc,d0.w)
+	move.w	EggmanStatueRoutineTable(pc,d0.w),d0
+	jsr	EggmanStatueRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	cmpi.b	#2,obj.routine(a0)
-	bgt.s	locret_20EF18
+	bgt.s	EggmanStatueReturn
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-locret_20EF18:
+EggmanStatueReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-off_20EF1A:
+; Eggman Statue parent routine pointers.
+EggmanStatueRoutineTable:
 	dc.w	EggmanStatueObject_1_Routine0-*
-	dc.w	EggmanStatueObject_1_Routine2-off_20EF1A
-	dc.w	EggmanStatueObject_1_Routine4-off_20EF1A
-	dc.w	EggmanStatueObject_1_Routine6-off_20EF1A
-	dc.w	EggmanStatueObject_1_Routine8-off_20EF1A
+	dc.w	EggmanStatueObject_1_Routine2-EggmanStatueRoutineTable
+	dc.w	EggmanStatueObject_1_Routine4-EggmanStatueRoutineTable
+	dc.w	EggmanStatueObject_1_Routine6-EggmanStatueRoutineTable
+	dc.w	EggmanStatueObject_1_Routine8-EggmanStatueRoutineTable
 
 ; ------------------------------------------------------------------------------
 
 EggmanStatueObject_1_Routine0:
 	tst.b	good_future
-	beq.s	loc_20EF34
+	beq.s	EggmanStatueInitialize
 	addq.l	#4,sp
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20EF34:
+EggmanStatueInitialize:
 	addq.b	#2,obj.routine(a0)
 	ori.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
@@ -46,24 +47,24 @@ loc_20EF34:
 	move.w	#$44E8,obj.sprite_tile(a0)
 	move.l	#EggmanStatueSprites,obj.sprite_data(a0)
 	move.b	#$F8,obj.collide_type(a0)
-	move.l	#byte_20F086,obj.var_2c(a0)
+	move.l	#EggmanStatueExplosionRecords,obj.var_2c(a0)
 
 EggmanStatueObject_1_Routine2:
 	tst.b	obj.collide_status(a0)
-	beq.s	loc_20EF94
+	beq.s	EggmanStatueSolidCollision
 	clr.w	obj.collide_type(a0)
 	addq.b	#2,obj.routine(a0)
 	lea	player_object,a1
 	jsr	SolidObject
-	beq.s	locret_20EF92
+	beq.s	EggmanStatueCollisionReturn
 	jsr	GetOffObject
 
-locret_20EF92:
+EggmanStatueCollisionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EF94:
+EggmanStatueSolidCollision:
 	lea	player_object,a1
 	jmp	SolidObject
 
@@ -72,17 +73,17 @@ loc_20EF94:
 EggmanStatueObject_1_Routine4:
 	movea.l	obj.var_2c(a0),a6
 	move.b	(a6)+,d0
-	bmi.s	loc_20EFF0
+	bmi.s	EggmanStatueStartExplosion
 	addq.b	#1,obj.var_3f(a0)
 	cmp.b	obj.var_3f(a0),d0
-	bne.s	locret_20EFEE
+	bne.s	EggmanStatueExplosionReturn
 	move.b	(a6)+,d5
 	move.b	(a6)+,d6
 	move.l	a6,obj.var_2c(a0)
 	ext.w	d5
 	ext.w	d6
 	jsr	SpawnObject
-	bne.s	locret_20EFEE
+	bne.s	EggmanStatueExplosionReturn
 	move.b	#$18,obj.id(a1)
 	move.b	#1,obj.routine_2(a1)
 	move.w	obj.x(a0),obj.x(a1)
@@ -92,12 +93,12 @@ EggmanStatueObject_1_Routine4:
 	move.w	#$9E,d0
 	jsr	PlayFmSound
 
-locret_20EFEE:
+EggmanStatueExplosionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EFF0:
+EggmanStatueStartExplosion:
 	addq.b	#2,obj.routine(a0)
 	move.b	#1,obj.sprite_frame(a0)
 	move.b	#$3C,obj.var_3f(a0)
@@ -107,30 +108,30 @@ loc_20EFF0:
 
 EggmanStatueObject_1_Routine6:
 	subq.b	#1,obj.var_3f(a0)
-	bne.s	locret_20F00C
+	bne.s	EggmanStatueCooldownReturn
 	addq.b	#2,obj.routine(a0)
 
-locret_20F00C:
+EggmanStatueCooldownReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 EggmanStatueObject_1_Routine8:
-	lea	byte_20F0A2(pc),a6
+	lea	EggmanStatueDebrisOffsets(pc),a6
 	move.b	obj.id(a0),d1
 	moveq	#$FFFFFFFF,d2
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 
-loc_20F020:
+EggmanStatueSpawnDebrisLoop:
 	move.b	(a6)+,d5
 	cmpi.b	#$FF,d5
-	beq.s	loc_20F060
+	beq.s	EggmanStatueDelete
 	move.b	(a6)+,d6
 	ext.w	d5
 	ext.w	d6
 	jsr	SpawnObject
-	bne.s	loc_20F060
+	bne.s	EggmanStatueDelete
 	move.b	d1,obj.id(a1)
 	move.b	d2,obj.subtype(a1)
 	move.w	d3,obj.x(a1)
@@ -140,11 +141,11 @@ loc_20F020:
 	add.w	d6,obj.y(a1)
 	move.w	d4,obj.var_2e(a1)
 	addi.w	#$26,obj.var_2e(a1)
-	bra.s	loc_20F020
+	bra.s	EggmanStatueSpawnDebrisLoop
 
 ; ------------------------------------------------------------------------------
 
-loc_20F060:
+EggmanStatueDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
@@ -153,7 +154,8 @@ EggmanStatueSprites:
 	include	"sprites/r6/eggman_statue.asm"
 	even
 
-byte_20F086:
+; Explosion records: delay and x/y debris offsets, terminated by $FF.
+EggmanStatueExplosionRecords:
 	dc.b	1, 0, 0
 	dc.b	5, $EE, $F6
 	dc.b	$A, $F6, $A
@@ -165,7 +167,8 @@ byte_20F086:
 	dc.b	$28, $F6, $A
 	dc.b	$FF
 
-byte_20F0A2:
+; Debris spawn offsets used by the final statue burst.
+EggmanStatueDebrisOffsets:
 	dc.b	-$18, -$40
 	dc.b	-8, $40
 	dc.b	8, 0
@@ -180,19 +183,20 @@ byte_20F0A2:
 
 ; ------------------------------------------------------------------------------
 
-loc_20F0B8:
+EggmanStatueBombObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F0CC(pc,d0.w),d0
-	jsr	off_20F0CC(pc,d0.w)
+	move.w	EggmanStatueBombRoutineTable(pc,d0.w),d0
+	jsr	EggmanStatueBombRoutineTable(pc,d0.w)
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-off_20F0CC:
+; Statue bomb routine pointers.
+EggmanStatueBombRoutineTable:
 	dc.w	EggmanStatueObject_0_Routine0-*
-	dc.w	EggmanStatueObject_0_Routine2-off_20F0CC
-	dc.w	EggmanStatueObject_0_Routine4-off_20F0CC
+	dc.w	EggmanStatueObject_0_Routine2-EggmanStatueBombRoutineTable
+	dc.w	EggmanStatueObject_0_Routine4-EggmanStatueBombRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -214,10 +218,10 @@ EggmanStatueObject_0_Routine2:
 	addi.l	#$400,obj.var_2a(a0)
 	move.w	obj.y(a0),d0
 	cmp.w	obj.var_2e(a0),d0
-	blt.s	loc_20F12E
+	blt.s	EggmanStatueBombAnimate
 	addq.b	#2,obj.routine(a0)
 
-loc_20F12E:
+EggmanStatueBombAnimate:
 	lea	StatueBombAnims(pc),a1
 	jmp	AnimateObject
 
