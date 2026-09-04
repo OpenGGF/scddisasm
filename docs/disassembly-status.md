@@ -73,7 +73,7 @@ validated separately against a regional CHD.
 
 ## Component Matrix
 
-M415-M460 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
+M415-M461 (2026-09-04) canonicalize the shared `objects/player.asm` boredom,
 initialization, splash, routine-dispatch, camera, main-update, power-up, and
 water-state, warp-transition, player-state, booster, ground-movement, and
 velocity/focus helpers, including focus-mode, acceleration, braking, roll/look,
@@ -241,7 +241,7 @@ this shared family, including `DEMO43C` and `DEMO82A`.
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `R61A__.MMD` | `Level/Wacky Workbench/Act 1 Present.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M414) | Classify active data debt, then relabel residual code |
+| `R61A__.MMD` | `Level/Wacky Workbench/Act 1 Present.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, 1A scroll movement family, and 1A stage-draw family are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M461) | Classify active data debt, then relabel residual code |
 | `R61B__.MMD` | `Level/Wacky Workbench/Act 1 Past.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 1B scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M460) | Classify active data debt, then relabel residual code |
 | `R61C__.MMD` | `Level/Wacky Workbench/Act 1 Good Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 1C scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain; bridge and rotation-vector suffix are shared | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M457) | Classify active data debt, then relabel residual code |
 | `R61D__.MMD` | `Level/Wacky Workbench/Act 1 Bad Future.asm` | S | Mostly semantic | Mixed | R6 player boredom/initialization/splash/dispatch helpers, shared stage-draw family, and 1D scroll movement family are semantically labeled; packed/legacy data tails and residual generic labels remain; rotation-vector suffix shared via R61 final table | Mixed but mostly named | J/U/E DEMO=0 | J/U/E 2026-09-04 (M456) | Classify active data debt, then relabel residual code |
