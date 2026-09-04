@@ -148,6 +148,9 @@ refill paths, mask table, and stream-advance helper.
 M489 canonicalizes the shared graphics-queue insertion, initialization,
 Nemesis processing, finalization, and graphics-list loading helpers.
 
+M490 canonicalizes the shared player/object block-collision front, wide and
+cardinal probe, angle-selection, and completion helpers.
+
 ### Core and system programs
 
 | Output | Entry point | Graph | Code | Data | Unresolved labels/ranges | Binary assets | Regions/switches | Validation | Next milestone |

@@ -17,35 +17,36 @@ PlayerCheckBlockFront:
 	move.b	d0,collide_angle_2
 	move.b	d0,d1
 	addi.b	#$20,d0
-	bpl.s	loc_20650E
+	bpl.s	PlayerCheckBlockFrontAnglePositive
 	move.b	d1,d0
-	bpl.s	loc_206508
+	bpl.s	PlayerCheckBlockFrontAngleNegative
 	subq.b	#1,d0
 
-loc_206508:
+PlayerCheckBlockFrontAngleNegative:
 	addi.b	#$20,d0
-	bra.s	loc_206518
+	bra.s	PlayerCheckBlockFrontSurface
 
 ; ------------------------------------------------------------------------------
 
-loc_20650E:
+PlayerCheckBlockFrontAnglePositive:
 	move.b	d1,d0
-	bpl.s	loc_206514
+	bpl.s	PlayerCheckBlockFrontAnglePositiveAdjusted
 	addq.b	#1,d0
 
-loc_206514:
+PlayerCheckBlockFrontAnglePositiveAdjusted:
 	addi.b	#$1F,d0
 
-loc_206518:
+; Select the surface probe from the quantized object angle.
+PlayerCheckBlockFrontSurface:
 	andi.b	#$C0,d0
 	beq.w	PlayerCheckBlockDown2
 	cmpi.b	#$80,d0
 	beq.w	PlayerCheckBlockUp2
 	andi.b	#$38,d1
-	bne.s	loc_206530
+	bne.s	PlayerCheckBlockFrontAxisAdjust
 	addq.w	#8,d2
 
-loc_206530:
+PlayerCheckBlockFrontAxisAdjust:
 	cmpi.b	#$40,d0
 	beq.w	PlayerCheckBlockLeft2
 	bra.w	PlayerCheckBlockRight2
@@ -97,19 +98,19 @@ PlayerCheckBlockDownWide:
 	move.w	(sp)+,d0
 	move.b	#0,d2
 
-loc_2065C8:
+PlayerCheckBlockWideSelectAngle:
 	move.b	collide_angle_2,d3
 	cmp.w	d0,d1
-	ble.s	loc_2065D6
+	ble.s	PlayerCheckBlockWideUseSecondAngle
 	move.b	collide_angle_1,d3
 	exg.l	d0,d1
 
-loc_2065D6:
+PlayerCheckBlockWideUseSecondAngle:
 	btst	#0,d3
-	beq.s	locret_2065DE
+	beq.s	PlayerCheckBlockWideDone
 	move.b	d2,d3
 
-locret_2065DE:
+PlayerCheckBlockWideDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -131,10 +132,10 @@ PlayerCheckBlockDown2:
 CheckBlockAngle:
 	move.b	collide_angle_1,d3
 	btst	#0,d3
-	beq.s	locret_206610
+	beq.s	CheckBlockAngleDone
 	move.b	d2,d3
 
-locret_206610:
+CheckBlockAngleDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -158,10 +159,10 @@ CheckBlockDown3:
 	jsr	CheckBlockY
 	move.b	collide_angle_1,d3
 	btst	#0,d3
-	beq.s	locret_20664A
+	beq.s	CheckBlockDownDone
 	move.b	#0,d3
 
-locret_20664A:
+CheckBlockDownDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -198,7 +199,7 @@ PlayerCheckBlockRightWide:
 	jsr	CheckBlockX
 	move.w	(sp)+,d0
 	move.b	#$C0,d2
-	bra.w	loc_2065C8
+	bra.w	PlayerCheckBlockWideSelectAngle
 
 ; ------------------------------------------------------------------------------
 
@@ -234,10 +235,10 @@ CheckBlockRight3:
 	jsr	CheckBlockX
 	move.b	collide_angle_1,d3
 	btst	#0,d3
-	beq.s	locret_20670A
+	beq.s	CheckBlockRightDone
 	move.b	#$C0,d3
 
-locret_20670A:
+CheckBlockRightDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -276,7 +277,7 @@ PlayerCheckBlockUpWide:
 	jsr	CheckBlockY
 	move.w	(sp)+,d0
 	move.b	#$80,d2
-	bra.w	loc_2065C8
+	bra.w	PlayerCheckBlockWideSelectAngle
 
 ; ------------------------------------------------------------------------------
 
@@ -316,10 +317,10 @@ CheckBlockUp3:
 	jsr	CheckBlockY
 	move.b	collide_angle_1,d3
 	btst	#0,d3
-	beq.s	locret_2067E0
+	beq.s	CheckBlockUpDone
 	move.b	#$80,d3
 
-locret_2067E0:
+CheckBlockUpDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -358,7 +359,7 @@ PlayerCheckBlockLeftWide:
 	jsr	CheckBlockX
 	move.w	(sp)+,d0
 	move.b	#$40,d2
-	bra.w	loc_2065C8
+	bra.w	PlayerCheckBlockWideSelectAngle
 
 ; ------------------------------------------------------------------------------
 
@@ -395,10 +396,10 @@ CheckBlockLeft3:
 	jsr	CheckBlockX
 	move.b	collide_angle_1,d3
 	btst	#0,d3
-	beq.s	locret_2068AC
+	beq.s	CheckBlockLeftDone
 	move.b	#$40,d3
 
-locret_2068AC:
+CheckBlockLeftDone:
 	rts
 
 ; ------------------------------------------------------------------------------
