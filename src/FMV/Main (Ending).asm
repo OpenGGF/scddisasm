@@ -930,49 +930,49 @@ Ending_VBlankTileAnimationTable:
 	dc.l	$046A00EE
 	dc.l	$046A00EE
 	dc.l	$FFFFFFFF
-L_FF2952:
+; Upload a queued Sub CPU transfer, then flush the command words.
+Ending_VBlankUploadPendingTransfer:
 	lea.l	$FFFF8000.w, a0
-L_FF2956:
+Ending_VBlankReadPendingTransferSize:
 	move.w	(a0), d7
-L_FF2958:
+Ending_VBlankClearPendingTransferSize:
 	clr.w	(a0)+
-L_FF295A:
+Ending_VBlankCheckPendingTransfer:
 	tst.w	d7
-L_FF295C:
-	beq.b	L_FF2972
-L_FF295E:
+	beq.b	Ending_VBlankFlushCommandWords
+Ending_VBlankPendingTransferSource:
 	move.l	(a0)+, d0
-L_FF2960:
+Ending_VBlankPendingTransferDestination:
 	move.l	(a0)+, d1
-L_FF2962:
+Ending_VBlankPendingTransferLength:
 	move.w	#$960, d2
-L_FF2966:
+Ending_VBlankPendingTransferSaveRegisters:
 	movem.l	d7/a0, -(a7)
-L_FF296A:
+Ending_VBlankPendingTransferCopy:
 	jsr	$2d4.w
-L_FF296E:
+Ending_VBlankPendingTransferRestoreRegisters:
 	movem.l	(a7)+, d7/a0
-L_FF2972:
+Ending_VBlankFlushCommandWords:
 	move.l	#$c0000000, $c00004.l
-L_FF297C:
+Ending_VBlankFlushCommandWordCount:
 	moveq	#$f, d7
-L_FF297E:
+Ending_VBlankFlushCommandWordBuffer:
 	lea.l	$FFFFc000.w, a1
-L_FF2982:
+Ending_VBlankFlushCommandWordLoop:
 	move.w	(a1)+, (a5)
-L_FF2984:
-	dbra	d7, L_FF2982
-L_FF2988:
+	dbra	d7, Ending_VBlankFlushCommandWordLoop
+Ending_VBlankReturnAfterCommandFlush:
 	bra.w	Ending_VBlankAfterTransfer
-L_FF298C:
+; Initialize the ending display registers and upload the animation rows.
+Ending_VBlankInitializeDisplay:
 	lea.l	$c00004.l, a4
-L_FF2992:
+Ending_VBlankSetDisplayRegister81:
 	move.w	#$8174, (a4)
-L_FF2996:
+Ending_VBlankSetDisplayRegister93:
 	move.w	#$9360, (a4)
-L_FF299A:
+Ending_VBlankSetDisplayRegister94:
 	move.w	#$9409, (a4)
-L_FF299E:
+Ending_VBlankSetDisplayRegister95:
 	if REGION=JAPAN
 	move.w	#$956E, (a4)
 	elseif REGION=EUROPE
@@ -980,181 +980,160 @@ L_FF299E:
 	else
 	move.w	#$9553, (a4)
 	endif
-L_FF29A2:
+Ending_VBlankSetDisplayRegister96:
 	move.w	#$9697, (a4)
-L_FF29A6:
+Ending_VBlankSetDisplayRegister97:
 	move.w	#$977f, (a4)
-L_FF29AA:
+Ending_VBlankSetDisplayRegister42:
 	move.w	#$4200, (a4)
-L_FF29AE:
+Ending_VBlankSetDisplayDataPortValue:
 	move.w	#$80, -(a7)
-L_FF29B2:
+Ending_VBlankWriteDisplayDataPortValue:
 	move.w	(a7)+, (a4)
-L_FF29B4:
+Ending_VBlankSetDisplayRegister81Again:
 	move.w	#$8164, (a4)
-L_FF29B8:
+Ending_VBlankUploadAnimationRows:
 	move.l	#$46080003, d0
-L_FF29BE:
+Ending_VBlankAnimationColumnCount:
 	move.w	#$1f, d1
-L_FF29C2:
+Ending_VBlankAnimationRowCount:
 	move.w	#$d, d2
-L_FF29C6:
+Ending_VBlankAnimationDataPointer:
 	lea.l	EndingAnimationData(pc), a3
-L_FF29CA:
+Ending_VBlankAnimationRowLoop:
 	move.l	d0, (a4)
-L_FF29CC:
+Ending_VBlankAnimationColumnCounter:
 	move.l	d1, d3
-L_FF29CE:
+Ending_VBlankAnimationColumnLoop:
 	move.w	(a3)+, (a5)
-L_FF29D0:
-	dbra	d3, L_FF29CE
-L_FF29D4:
+	dbra	d3, Ending_VBlankAnimationColumnLoop
+Ending_VBlankAnimationAdvanceRow:
 	addi.l	#$1000000, d0
-L_FF29DA:
-	dbra	d2, L_FF29CA
-L_FF29DE:
+	dbra	d2, Ending_VBlankAnimationRowLoop
+Ending_VBlankClearAnimationNameTable:
 	move.l	#$64000003, $c00004.l
-L_FF29E8:
+Ending_VBlankClearAnimationNameTableWords:
 	move.l	#$0, (a5)
-L_FF29EE:
+
+Ending_VBlankFlushAnimationCommandWords:
 	move.l	#$c0000000, $c00004.l
-L_FF29F8:
+Ending_VBlankFlushAnimationCommandWordCount:
 	moveq	#$f, d7
-L_FF29FA:
+Ending_VBlankFlushAnimationCommandWordBuffer:
 	lea.l	$FFFFc000.w, a1
-L_FF29FE:
+Ending_VBlankFlushAnimationCommandWordLoop:
 	move.w	(a1)+, (a5)
-L_FF2A00:
-	dbra	d7, L_FF29FE
-L_FF2A04:
+	dbra	d7, Ending_VBlankFlushAnimationCommandWordLoop
+Ending_VBlankSetAnimationState:
 	move.w	#$7, $FFFFfa40.w
-L_FF2A0A:
+
+Ending_VBlankReturnAfterAnimationUpload:
 	bra.w	Ending_VBlankAfterTransfer
-L_FF2A0E:
+; Clear command state and upload the ending animation tile sets.
+Ending_VBlankClearAndUploadEndingArt:
 	bsr.w	Ending_ClearInitialVdpRows
-L_FF2A12:
 	bsr.w	Ending_ClearCommandWorkspace
-L_FF2A16:
 	move.l	#$c0000000, $c00004.l
-L_FF2A20:
 	moveq	#$0, d0
-L_FF2A22:
 	moveq	#$3f, d7
-L_FF2A24:
 	lea.l	$FFFFc000.w, a1
-L_FF2A28:
+Ending_VBlankClearCommandWords:
 	move.w	d0, (a5)
-L_FF2A2A:
-	dbra	d7, L_FF2A28
-L_FF2A2E:
+	dbra	d7, Ending_VBlankClearCommandWords
+Ending_VBlankPrepareArtUpload:
 	move.l	#$40000010, $c00004.l
-L_FF2A38:
 	move.l	#$0, (a5)
-L_FF2A3E:
+
+Ending_VBlankSelectArtSet:
 	cmpi.b	#$7f, $ff0f24.l
-L_FF2A46:
-	beq.b	L_FF2AA8
-L_FF2A48:
+	beq.b	Ending_VBlankUploadArtSetB
+
+Ending_VBlankUploadArtSetA:
 	move.l	#$750a0002, $c00004.l
-L_FF2A52:
 	if REGION<>USA
 	lea.l	EndingJapanTilesA(pc), a1
 	else
 	lea.l	$ff73f0(pc), a1
 	endif
-L_FF2A56:
 	moveq	#$1d, d7
-L_FF2A58:
+Ending_VBlankUploadArtSetAFirstBlock:
 	move.w	(a1)+, (a5)
-L_FF2A5A:
-	dbra	d7, L_FF2A58
-L_FF2A5E:
+	dbra	d7, Ending_VBlankUploadArtSetAFirstBlock
+
+Ending_VBlankUploadArtSetASecondBlock:
 	move.l	#$760a0002, $c00004.l
-L_FF2A68:
 	moveq	#$1d, d7
-L_FF2A6A:
+Ending_VBlankUploadArtSetASecondLoop:
 	move.w	(a1)+, (a5)
-L_FF2A6C:
-	dbra	d7, L_FF2A6A
-L_FF2A70:
+	dbra	d7, Ending_VBlankUploadArtSetASecondLoop
+
+Ending_VBlankUploadArtSetAThirdBlock:
 	move.l	#$770a0002, $c00004.l
-L_FF2A7A:
 	moveq	#$1d, d7
-L_FF2A7C:
+Ending_VBlankUploadArtSetAThirdLoop:
 	move.w	(a1)+, (a5)
-L_FF2A7E:
-	dbra	d7, L_FF2A7C
-L_FF2A82:
+	dbra	d7, Ending_VBlankUploadArtSetAThirdLoop
+
+Ending_VBlankUploadArtSetAFourthBlock:
 	move.l	#$780a0002, $c00004.l
-L_FF2A8C:
 	moveq	#$1d, d7
-L_FF2A8E:
+Ending_VBlankUploadArtSetAFourthLoop:
 	move.w	(a1)+, (a5)
-L_FF2A90:
-	dbra	d7, L_FF2A8E
-L_FF2A94:
+	dbra	d7, Ending_VBlankUploadArtSetAFourthLoop
+
+Ending_VBlankUploadArtSetAFifthBlock:
 	move.l	#$790a0002, $c00004.l
-L_FF2A9E:
 	moveq	#$1d, d7
-L_FF2AA0:
+Ending_VBlankUploadArtSetAFifthLoop:
 	move.w	(a1)+, (a5)
-L_FF2AA2:
-	dbra	d7, L_FF2AA0
-L_FF2AA6:
-	bra.b	L_FF2AD0
-L_FF2AA8:
+	dbra	d7, Ending_VBlankUploadArtSetAFifthLoop
+	bra.b	Ending_VBlankUploadArtSetC
+
+Ending_VBlankUploadArtSetB:
 	move.l	#$75180002, $c00004.l
-L_FF2AB2:
 	if REGION<>USA
 	lea.l	EndingJapanTilesB(pc), a1
 	else
 	lea.l	$ff787c(pc), a1
 	endif
-L_FF2AB6:
 	moveq	#$f, d7
-L_FF2AB8:
+Ending_VBlankUploadArtSetBFirstLoop:
 	move.w	(a1)+, (a5)
-L_FF2ABA:
-	dbra	d7, L_FF2AB8
-L_FF2ABE:
+	dbra	d7, Ending_VBlankUploadArtSetBFirstLoop
+
+Ending_VBlankUploadArtSetBSecondBlock:
 	move.l	#$76180002, $c00004.l
-L_FF2AC8:
 	moveq	#$f, d7
-L_FF2ACA:
+Ending_VBlankUploadArtSetBSecondLoop:
 	move.w	(a1)+, (a5)
-L_FF2ACC:
-	dbra	d7, L_FF2ACA
-L_FF2AD0:
+	dbra	d7, Ending_VBlankUploadArtSetBSecondLoop
+
+Ending_VBlankUploadArtSetC:
 	move.l	#$76c00001, $c00004.l
-L_FF2ADA:
 	if REGION<>USA
 	lea.l	EndingJapanTilesC(pc), a1
 	else
 	lea.l	$ff78bc(pc), a1
 	endif
-L_FF2ADE:
 	move.w	#$12f, d7
-L_FF2AE2:
+
+Ending_VBlankSelectArtSetD:
 	cmpi.b	#$7f, $ff0f24.l
-L_FF2AEA:
-	beq.b	L_FF2AF4
-L_FF2AEC:
+	beq.b	Ending_VBlankUploadArtSetDLoop
+
+Ending_VBlankUploadArtSetD:
 	if REGION<>USA
 	lea.l	EndingJapanTilesD(pc), a1
 	else
 	lea.l	$ff751c(pc), a1
 	endif
-L_FF2AF0:
 	move.w	#$1af, d7
-L_FF2AF4:
+
+Ending_VBlankUploadArtSetDLoop:
 	move.w	(a1)+, (a5)
-L_FF2AF6:
-	dbra	d7, L_FF2AF4
-L_FF2AFA:
+	dbra	d7, Ending_VBlankUploadArtSetDLoop
 	clr.w	$FFFFfa40.w
-L_FF2AFE:
 	clr.w	$FFFFfa44.w
-L_FF2B02:
 	bra.w	Ending_VBlankAfterTransfer
 EndingAnimationData:
 	dc.l	$00100011

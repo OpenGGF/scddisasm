@@ -596,6 +596,7 @@ opaque merely because they use `dc.*`.
 | M383 | Complete | Canonicalize the ending-FMV initial VDP-row clear, palette/font upload, and hardware-gate helper family. | J/U/E 133/133 each; audit/hygiene clean. |
 | M384 | Complete | Canonicalize the ending-FMV startup/teardown loops and timer-wait control flow. | J/U/E 133/133 each; audit/hygiene clean. |
 | M385 | Complete | Canonicalize the ending-FMV VBlank dispatcher and common transfer loop. | J/U/E 133/133 each; audit/hygiene clean. |
+| M386 | Complete | Canonicalize the ending-FMV VBlank state-specific animation and tile-upload handlers. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
