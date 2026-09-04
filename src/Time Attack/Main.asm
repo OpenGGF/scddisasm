@@ -351,543 +351,543 @@ TimeAttack_StartSendRecordUpdate:
 	bsr.w TimeAttack_SendSubCpuCommandNoWait
 TimeAttack_StartPrepareRecords:
 	bsr.w TimeAttack_PrepareTimeAttackRecords
-L_FF234E:
+TimeAttack_StartClearSelectionTileSource:
 	move.l #$f, -(a7)
-L_FF2354:
+TimeAttack_StartSelectionTileWidth:
 	move.l #$40, -(a7)
-L_FF235A:
+TimeAttack_StartSelectionTileHeight:
 	move.l #$f, -(a7)
-L_FF2360:
+TimeAttack_StartSelectionTileCommand:
 	move.l #$41840003, -(a7)
-L_FF2366:
+TimeAttack_StartSelectionTileSource:
 	pea.l $ffd300.l
-L_FF236C:
+TimeAttack_StartCopySelectionTiles:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF2370:
+TimeAttack_StartReleaseSelectionTileArguments:
 	lea.l $14(a7), a7
-L_FF2374:
+TimeAttack_StartClearRecordTileSource:
 	move.l #$f, -(a7)
-L_FF237A:
+TimeAttack_StartRecordTileWidth:
 	move.l #$40, -(a7)
-L_FF2380:
+TimeAttack_StartRecordTileHeight:
 	move.l #$f, -(a7)
-L_FF2386:
+TimeAttack_StartRecordTileCommand:
 	move.l #$41d00003, -(a7)
-L_FF238C:
+TimeAttack_StartRecordTileSource:
 	pea.l $ffd500.l
-L_FF2392:
+TimeAttack_StartCopyRecordTiles:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF2396:
+TimeAttack_StartReleaseRecordTileArguments:
 	lea.l $14(a7), a7
-L_FF239A:
+TimeAttack_StartSelectionTilePaletteBit:
 	move.w #$8000, d0
-L_FF239E:
+TimeAttack_StartSelectionTilePaletteCount:
 	move.w #$1ff, d1
-L_FF23A2:
+TimeAttack_StartSelectionTilePaletteBase:
 	lea.l $ffd300.l, a0
-L_FF23A8:
+TimeAttack_StartApplySelectionTilePalette:
 	or.w d0, (a0)+
-L_FF23AA:
-	dbra d1, L_FF23A8
-L_FF23AE:
+TimeAttack_StartSelectionTilePaletteLoopCheck:
+	dbra d1, TimeAttack_StartApplySelectionTilePalette
+TimeAttack_StartDigitTilePaletteBit:
 	move.w #$8000, d0
-L_FF23B2:
+TimeAttack_StartDigitTilePaletteCount:
 	move.w #$4d, d1
-L_FF23B6:
+TimeAttack_StartDigitTilePaletteBase:
 		lea.l TimeAttack_TimeDigitTileMap.l, a0
-L_FF23BC:
+TimeAttack_StartApplyDigitTilePalette:
 	or.w d0, (a0)+
-L_FF23BE:
-	dbra d1, L_FF23BC
-L_FF23C2:
+TimeAttack_StartDigitTilePaletteLoopCheck:
+	dbra d1, TimeAttack_StartApplyDigitTilePalette
+TimeAttack_StartCheckSelectedStageMode:
 	tst.w $ff0f14.l
-L_FF23C8:
-	bne.b L_FF23F2
-L_FF23CA:
+TimeAttack_StartSkipInitialPaletteFade:
+	bne.b TimeAttack_StartLoadSelectionIndex
+TimeAttack_StartSetInitialPeriodMode:
 	move.w #$ff70, $ff3468.l
-L_FF23D2:
+TimeAttack_StartSetInitialPeriodOffset:
 	move.w #$ff70, $ff346a.l
-L_FF23DA:
+TimeAttack_StartSetPaletteTransferCount:
 	move.w #$2, $ff3730.l
-L_FF23E2:
+TimeAttack_StartWaitInitialPaletteTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF23E6:
+TimeAttack_StartSetDisplayRegister:
 	move.w #$8174, $c00004.l
-L_FF23EE:
+TimeAttack_StartFadeInitialPalette:
 	bsr.w TimeAttack_FadePaletteIn
-L_FF23F2:
+TimeAttack_StartLoadSelectionIndex:
 	moveq #$0, d0
-L_FF23F4:
+TimeAttack_StartReadSelectionIndex:
 	move.w $ff0f14.l, d0
-L_FF23FA:
-	bne.b L_FF2414
-L_FF23FC:
+TimeAttack_StartSelectionIndexBranch:
+	bne.b TimeAttack_StartConvertSelectionIndex
+TimeAttack_StartClearInitialSelection:
 	clr.w $ff3474.l
-L_FF2402:
+TimeAttack_StartClearInitialPeriodIndex:
 	clr.w $ff3478.l
-L_FF2408:
+TimeAttack_StartSetInitialAnimationCounter:
 	move.w #$10, $ffaa5a.l
-L_FF2410:
-	bra.w L_FF2486
-L_FF2414:
+TimeAttack_StartInitialSelectionBranch:
+	bra.w TimeAttack_StartSetSelectionTransferCount
+TimeAttack_StartConvertSelectionIndex:
 	cmpi.w #$16, d0
-L_FF2418:
-	bge.b L_FF2440
-L_FF241A:
+TimeAttack_StartSelectionIndexModeBranch:
+	bge.b TimeAttack_StartConvertPeriodIndex
+TimeAttack_StartConvertStageIndex:
 	subq.w #$1, d0
-L_FF241C:
+TimeAttack_StartDivideStageSelectionIndex:
 	divu.w #$3, d0
-L_FF2420:
+TimeAttack_StartStoreStageIndex:
 	move.w d0, $ff3474.l
-L_FF2426:
+TimeAttack_StartRotatePeriodIndex:
 	swap d0
-L_FF2428:
+TimeAttack_StartStorePeriodIndex:
 	move.w d0, $ff3478.l
-L_FF242E:
+TimeAttack_StartSetStagePeriodMode:
 	move.w #$ff70, $ff3468.l
-L_FF2436:
+TimeAttack_StartSetStagePeriodOffset:
 	move.w #$ff70, $ff346a.l
-L_FF243E:
-	bra.b L_FF2450
-L_FF2440:
+TimeAttack_StartSkipStageTransferSetup:
+	bra.b TimeAttack_StartSetStageTransferCount
+TimeAttack_StartConvertPeriodIndex:
 	subi.w #$16, d0
-L_FF2444:
+TimeAttack_StartStorePeriodSelectionIndex:
 	move.w d0, $ff3474.l
-L_FF244A:
+TimeAttack_StartClearPeriodSubIndex:
 	clr.w $ff3478.l
-L_FF2450:
+TimeAttack_StartSetStageTransferCount:
 	move.w #$2, $ff3730.l
-L_FF2458:
+TimeAttack_StartWaitStageTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF245C:
+TimeAttack_StartSetPeriodAnimationMode:
 	st.b $ff347e.l
-L_FF2462:
+TimeAttack_StartLoadSelectionGraphicsIndex:
 	move.w $ff3474.l, d7
-L_FF2468:
+TimeAttack_StartPrepareSelectionGraphics:
 	bsr.w TimeAttack_PrepareSelectionGraphics
-L_FF246C:
+TimeAttack_StartCopyPreparedGraphicsSource:
 	lea.l $ffd100.l, a0
-L_FF2472:
+TimeAttack_StartCopyPreparedGraphicsDestination:
 	lea.l $ff52ac.l, a1
-L_FF2478:
+TimeAttack_StartPreparedGraphicsCount:
 	moveq #$7, d0
-L_FF247A:
+TimeAttack_StartCopyPreparedGraphicsLong:
 	move.l (a0), (a1)+
-L_FF247C:
+TimeAttack_StartClearPreparedGraphicsLong:
 	clr.l (a0)+
-L_FF247E:
-	dbra d0, L_FF247A
-L_FF2482:
-	bra.w L_FF25F2
-L_FF2486:
+TimeAttack_StartPreparedGraphicsLoopCheck:
+	dbra d0, TimeAttack_StartCopyPreparedGraphicsLong
+TimeAttack_StartLoadSelectionGraphics:
+	bra.w TimeAttack_StartUploadSelectionScreen
+TimeAttack_StartSetSelectionTransferCount:
 	move.w #$e, $ff3730.l
-L_FF248E:
+TimeAttack_StartWaitSelectionTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF2492:
+TimeAttack_StartSelectionLoop:
 	tst.w $ff346c.l
-L_FF2498:
-	beq.b L_FF249E
-L_FF249A:
-	bra.w L_FF259A
-L_FF249E:
+TimeAttack_StartSelectionTransitionBranch:
+	beq.b TimeAttack_StartReadSelectionAnimationCounter
+TimeAttack_StartSelectionTransition:
+	bra.w TimeAttack_StartAnimatePeriodTransition
+TimeAttack_StartReadSelectionAnimationCounter:
 	move.w $ffaa5a.l, d0
-L_FF24A4:
+TimeAttack_StartSelectionAnimationMask:
 	andi.w #$10, d0
-L_FF24A8:
+TimeAttack_StartDrawSelectionHighlight:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF24AC:
+TimeAttack_StartReadControllerChanges:
 	move.b $ff3735.l, d0
-L_FF24B2:
+TimeAttack_StartMaskControllerChanges:
 	andi.b #$f0, d0
-L_FF24B6:
-	beq.b L_FF24E8
-L_FF24B8:
+TimeAttack_StartControllerChangesBranch:
+	beq.b TimeAttack_StartCheckRecordFlags
+TimeAttack_StartCheckSelectionDirection:
 	tst.w $ff3474.l
-L_FF24BE:
-	bpl.w L_FF24CC
-L_FF24C2:
+TimeAttack_StartSelectionDirectionBranch:
+	bpl.w TimeAttack_StartDrawSelectionHighlightDown
+TimeAttack_StartDrawSelectionHighlightUp:
 	moveq #$0, d0
-L_FF24C4:
+TimeAttack_StartDrawSelectionHighlightUpCall:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF24C8:
+TimeAttack_StartSelectionHighlightUpReturn:
 	bra.w L_FF28FA
-L_FF24CC:
+TimeAttack_StartDrawSelectionHighlightDown:
 	moveq #$1, d0
-L_FF24CE:
+TimeAttack_StartDrawSelectionHighlightDownCall:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF24D2:
+TimeAttack_StartSelectionHighlightWaitCount:
 	moveq #$7, d7
-L_FF24D4:
+TimeAttack_StartSelectionHighlightWaitLoop:
 	move.w #$10, $ff3730.l
-L_FF24DC:
+TimeAttack_StartSelectionHighlightWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF24E0:
-	dbra d7, L_FF24D4
-L_FF24E4:
-	bra.w L_FF25F2
-L_FF24E8:
+TimeAttack_StartSelectionHighlightWaitLoopCheck:
+	dbra d7, TimeAttack_StartSelectionHighlightWaitLoop
+TimeAttack_StartSelectionHighlightWaitDone:
+	bra.w TimeAttack_StartUploadSelectionScreen
+TimeAttack_StartCheckRecordFlags:
 	btst.b #$1, $ff0f1d.l
-L_FF24F0:
-	beq.b L_FF2520
-L_FF24F2:
+TimeAttack_StartRecordFlagBranch:
+	beq.b TimeAttack_StartCheckStageNavigation
+TimeAttack_StartRecordFlagDirection:
 	moveq #$3, d0
-L_FF24F4:
+TimeAttack_StartRecordFlagPeriodDelta:
 	moveq #$f8, d1
-L_FF24F6:
+TimeAttack_StartRecordFlagModeCheck:
 	tst.w $ff3468.l
-L_FF24FC:
-	beq.b L_FF2502
-L_FF24FE:
+TimeAttack_StartRecordFlagModeBranch:
+	beq.b TimeAttack_StartRecordFlagReadController
+TimeAttack_StartRecordFlagStageDelta:
 	moveq #$2, d0
-L_FF2500:
+TimeAttack_StartRecordFlagStageMask:
 	moveq #$8, d1
-L_FF2502:
+TimeAttack_StartRecordFlagReadController:
 	btst d0, $ff3734.l
-L_FF2508:
-	beq.b L_FF2520
-L_FF250A:
+TimeAttack_StartRecordFlagControllerBranch:
+	beq.b TimeAttack_StartCheckStageNavigation
+TimeAttack_StartRecordFlagSetTransition:
 	move.w d1, $ff346c.l
-L_FF2510:
+TimeAttack_StartRecordFlagSetTransitionTarget:
 	move.w d1, $ff346e.l
-L_FF2516:
+TimeAttack_StartRecordFlagHighlightMode:
 	moveq #$1, d0
-L_FF2518:
+TimeAttack_StartRecordFlagDrawHighlight:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF251C:
-	bra.w L_FF25AC
-L_FF2520:
+TimeAttack_StartRecordFlagReturn:
+	bra.w TimeAttack_StartAdvancePeriodTransition
+TimeAttack_StartCheckStageNavigation:
 	move.w $ff3474.l, d7
-L_FF2526:
+TimeAttack_StartStageNavigationPrevious:
 	btst.b #$0, $ff3734.l
-L_FF252E:
-	beq.b L_FF2532
-L_FF2530:
+TimeAttack_StartStageNavigationPreviousBranch:
+	beq.b TimeAttack_StartStageNavigationNext
+TimeAttack_StartStageNavigationDecrement:
 	subq.w #$1, d7
-L_FF2532:
+TimeAttack_StartStageNavigationNext:
 	btst.b #$1, $ff3734.l
-L_FF253A:
-	beq.b L_FF253E
-L_FF253C:
+TimeAttack_StartStageNavigationNextBranch:
+	beq.b TimeAttack_StartStageNavigationCheckLower
+TimeAttack_StartStageNavigationIncrement:
 	addq.w #$1, d7
-L_FF253E:
+TimeAttack_StartStageNavigationCheckLower:
 	cmpi.w #$ffff, d7
-L_FF2542:
-	bge.b L_FF254A
-L_FF2544:
+TimeAttack_StartStageNavigationLowerBranch:
+	bge.b TimeAttack_StartStageNavigationCheckUpper
+TimeAttack_StartStageNavigationWrapLower:
 	move.w $ff3476.l, d7
-L_FF254A:
+TimeAttack_StartStageNavigationCheckUpper:
 	cmp.w $ff3476.l, d7
-L_FF2550:
-	ble.b L_FF2556
-L_FF2552:
+TimeAttack_StartStageNavigationUpperBranch:
+	ble.b TimeAttack_StartStageNavigationCheckChanged
+TimeAttack_StartStageNavigationWrapUpper:
 	move.w #$ffff, d7
-L_FF2556:
+TimeAttack_StartStageNavigationCheckChanged:
 	cmp.w $ff3474.l, d7
-L_FF255C:
-	beq.w L_FF258A
-L_FF2560:
+TimeAttack_StartStageNavigationUnchangedBranch:
+	beq.w TimeAttack_StartSelectionWaitTransfer
+TimeAttack_StartStageNavigationDrawOld:
 	moveq #$1, d0
-L_FF2562:
+TimeAttack_StartStageNavigationDrawOldCall:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF2566:
+TimeAttack_StartStageNavigationStore:
 	move.w d7, $ff3474.l
-L_FF256C:
+TimeAttack_StartStageNavigationPrepareGraphics:
 	bsr.w TimeAttack_PrepareSelectionGraphics
-L_FF2570:
+TimeAttack_StartStageNavigationDrawNewMode:
 	moveq #$0, d0
-L_FF2572:
+TimeAttack_StartStageNavigationDrawNewCall:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF2576:
+TimeAttack_StartStageNavigationTransferCount:
 	move.w #$10, $ff3730.l
-L_FF257E:
+TimeAttack_StartStageNavigationWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF2582:
+TimeAttack_StartStageNavigationClearAnimationCounter:
 	move.w #$0, $ffaa5a.l
-L_FF258A:
+TimeAttack_StartSelectionWaitTransfer:
 	move.w #$10, $ff3730.l
-L_FF2592:
+TimeAttack_StartSelectionWaitTransferCall:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF2596:
-	bra.w L_FF2492
-L_FF259A:
+TimeAttack_StartSelectionLoopBack:
+	bra.w TimeAttack_StartSelectionLoop
+TimeAttack_StartAnimatePeriodTransition:
 	tst.w $ff3468.l
-L_FF25A0:
-	beq.b L_FF25CE
-L_FF25A2:
+TimeAttack_StartAnimatePeriodTransitionBranch:
+	beq.b TimeAttack_StartFinishPeriodTransition
+TimeAttack_StartCheckPeriodTransitionComplete:
 	cmpi.w #$ff70, $ff3468.l
-L_FF25AA:
-	beq.b L_FF25CE
-L_FF25AC:
+TimeAttack_StartPeriodTransitionCompleteBranch:
+	beq.b TimeAttack_StartFinishPeriodTransition
+TimeAttack_StartAdvancePeriodTransition:
 	move.w $ff346c.l, d0
-L_FF25B2:
+TimeAttack_StartAdvancePeriodMode:
 	add.w d0, $ff3468.l
-L_FF25B8:
+TimeAttack_StartAdvancePeriodOffset:
 	add.w d0, $ff346a.l
-L_FF25BE:
+TimeAttack_StartPeriodTransitionTransferCount:
 	move.w #$4, $ff3730.l
-L_FF25C6:
+TimeAttack_StartPeriodTransitionWait:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF25CA:
-	bra.w L_FF2492
-L_FF25CE:
+TimeAttack_StartPeriodTransitionLoopBack:
+	bra.w TimeAttack_StartSelectionLoop
+TimeAttack_StartFinishPeriodTransition:
 	clr.w $ff346c.l
-L_FF25D4:
+TimeAttack_StartClearPeriodTransitionTarget:
 	clr.w $ff346e.l
-L_FF25DA:
+TimeAttack_StartCheckSelectionIndexForGraphics:
 	move.w $ff3474.l, d7
-L_FF25E0:
-	bmi.b L_FF25E6
-L_FF25E2:
+TimeAttack_StartSelectionIndexGraphicsBranch:
+	bmi.b TimeAttack_StartClearAnimationCounter
+TimeAttack_StartPrepareSelectionGraphicsAfterTransition:
 	bsr.w TimeAttack_PrepareSelectionGraphics
-L_FF25E6:
+TimeAttack_StartClearAnimationCounter:
 	move.w #$0, $ffaa5a.l
-L_FF25EE:
-	bra.w L_FF2492
-L_FF25F2:
+TimeAttack_StartSelectionLoopAfterTransition:
+	bra.w TimeAttack_StartSelectionLoop
+TimeAttack_StartUploadSelectionScreen:
 	moveq #$1, d0
-L_FF25F4:
+TimeAttack_StartUploadSelectionScreenDrawHighlight:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF25F8:
+TimeAttack_StartUploadSelectionScreenUploadTiles:
 	bsr.w TimeAttack_UploadSelectionTileBlock
-L_FF25FC:
+TimeAttack_StartUploadSelectionScreenWidth:
 	move.l #$1f, -(a7)
-L_FF2602:
+TimeAttack_StartUploadSelectionScreenHeight:
 	move.l #$40, -(a7)
-L_FF2608:
+TimeAttack_StartUploadSelectionScreenTileCount:
 	move.l #$11, -(a7)
-L_FF260E:
+TimeAttack_StartUploadSelectionScreenCheckPeriodMode:
 	tst.w $ff3468.l
-L_FF2614:
-	bne.b L_FF2658
-L_FF2616:
+TimeAttack_StartUploadSelectionScreenUseStageSource:
+	bne.b TimeAttack_StartUploadSelectionScreenPeriodSource
+TimeAttack_StartUploadSelectionScreenStageCommand:
 	move.l #$60240003, -(a7)
-L_FF261C:
+TimeAttack_StartUploadSelectionScreenStageSource:
 	pea.l $ffd700.l
-L_FF2622:
+TimeAttack_StartUploadSelectionScreenStageCopy:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF2626:
+TimeAttack_StartUploadSelectionScreenStageRelease:
 	lea.l $14(a7), a7
-L_FF262A:
+TimeAttack_StartUploadSelectionScreenTitleWidth:
 	move.l #$1, -(a7)
-L_FF2630:
+TimeAttack_StartUploadSelectionScreenTitleHeight:
 	move.l #$40, -(a7)
-L_FF2636:
+TimeAttack_StartUploadSelectionScreenTitleOffset:
 	move.l #$0, -(a7)
-L_FF263C:
+TimeAttack_StartUploadSelectionScreenTitleCommand:
 	move.l #$64bc0003, -(a7)
-L_FF2642:
+TimeAttack_StartUploadSelectionScreenTitleSourceBase:
 	lea.l $ff749c.l, a0
-L_FF2648:
+TimeAttack_StartUploadSelectionScreenTitleIndex:
 	move.w $ff3474.l, d0
-L_FF264E:
+TimeAttack_StartUploadSelectionScreenTitleScaleIndex:
 	add.w d0, d0
-L_FF2650:
+TimeAttack_StartUploadSelectionScreenTitleScaleIndexAgain:
 	add.w d0, d0
-L_FF2652:
+TimeAttack_StartUploadSelectionScreenTitleSource:
 	pea.l (a0, d0.w)
-L_FF2656:
-	bra.b L_FF2698
-L_FF2658:
+TimeAttack_StartUploadSelectionScreenTitleCopy:
+	bra.b TimeAttack_StartUploadSelectionScreenRecordCopy
+TimeAttack_StartUploadSelectionScreenPeriodSource:
 	move.l #$602c0003, -(a7)
-L_FF265E:
+TimeAttack_StartUploadSelectionScreenPeriodSourceData:
 	pea.l $ffdb80.l
-L_FF2664:
+TimeAttack_StartUploadSelectionScreenPeriodCopy:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF2668:
+TimeAttack_StartUploadSelectionScreenPeriodRelease:
 	lea.l $14(a7), a7
-L_FF266C:
+TimeAttack_StartUploadSelectionScreenRecordWidth:
 	move.l #$5, -(a7)
-L_FF2672:
+TimeAttack_StartUploadSelectionScreenRecordHeight:
 	move.l #$40, -(a7)
-L_FF2678:
+TimeAttack_StartUploadSelectionScreenRecordTileCount:
 	move.l #$a, -(a7)
-L_FF267E:
+TimeAttack_StartUploadSelectionScreenRecordCommand:
 	move.l #$62b00003, -(a7)
-L_FF2684:
+TimeAttack_StartUploadSelectionScreenRecordSourceBase:
 	lea.l $ff7100.l, a0
-L_FF268A:
+TimeAttack_StartUploadSelectionScreenRecordIndex:
 	move.w $ff3474.l, d0
-L_FF2690:
+TimeAttack_StartUploadSelectionScreenRecordScaleIndex:
 	mulu.w #$84, d0
-L_FF2694:
+TimeAttack_StartUploadSelectionScreenRecordSource:
 	adda.w d0, a0
-L_FF2696:
+TimeAttack_StartUploadSelectionScreenRecordSourcePointer:
 	pea.l (a0)
-L_FF2698:
+TimeAttack_StartUploadSelectionScreenRecordCopy:
 	bsr.w TimeAttack_CopyVdpRect
-L_FF269C:
+TimeAttack_StartUploadSelectionScreenRecordRelease:
 	lea.l $14(a7), a7
-L_FF26A0:
+TimeAttack_StartUploadSelectionScreenTitleRow:
 	bsr.w TimeAttack_UploadSelectionTitleRow
-L_FF26A4:
+TimeAttack_StartUploadSelectionScreenRecordTable:
 	bsr.w TimeAttack_RenderSelectedTimeTable
-L_FF26A8:
+TimeAttack_StartUploadSelectionScreenWaitTransferCount:
 	move.w #$10, $ff3730.l
-L_FF26B0:
+TimeAttack_StartUploadSelectionScreenWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF26B4:
+TimeAttack_StartUploadSelectionScreenInitialOffset:
 	moveq #$f8, d0
-L_FF26B6:
+TimeAttack_StartUploadSelectionScreenCheckPeriodModeAgain:
 	tst.b $ff3468.l
-L_FF26BC:
-	beq.b L_FF26C0
-L_FF26BE:
+TimeAttack_StartUploadSelectionScreenUseStageOffset:
+	beq.b TimeAttack_StartUploadSelectionScreenStoreOffset
+TimeAttack_StartUploadSelectionScreenPeriodOffset:
 	moveq #$8, d0
-L_FF26C0:
+TimeAttack_StartUploadSelectionScreenStoreOffset:
 	move.w d0, $ff346e.l
-L_FF26C6:
-	bra.b L_FF26DC
-L_FF26C8:
+TimeAttack_StartUploadSelectionScreenAdvanceOffset:
+	bra.b TimeAttack_StartUploadSelectionScreenApplyOffset
+TimeAttack_StartUploadSelectionScreenCheckOffset:
 	cmpi.w #$ff70, $ff346a.l
-L_FF26D0:
-	beq.b L_FF26F8
-L_FF26D2:
+TimeAttack_StartUploadSelectionScreenCheckOffsetUpper:
+	beq.b TimeAttack_StartUploadSelectionScreenFinishOffset
+TimeAttack_StartUploadSelectionScreenCheckOffsetLower:
 	cmpi.w #$0, $ff346a.l
-L_FF26DA:
-	beq.b L_FF26F8
-L_FF26DC:
+TimeAttack_StartUploadSelectionScreenCheckOffsetLowerBranch:
+	beq.b TimeAttack_StartUploadSelectionScreenFinishOffset
+TimeAttack_StartUploadSelectionScreenApplyOffset:
 	move.w $ff346e.l, d0
-L_FF26E2:
+TimeAttack_StartUploadSelectionScreenAdvanceVdpOffset:
 	add.w d0, $ff346a.l
-L_FF26E8:
+TimeAttack_StartUploadSelectionScreenTransferCount:
 	move.w #$10, $ff3730.l
-L_FF26F0:
+TimeAttack_StartUploadSelectionScreenWaitOffsetTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF26F4:
-	bra.w L_FF26C8
-L_FF26F8:
+TimeAttack_StartUploadSelectionScreenOffsetLoop:
+	bra.w TimeAttack_StartUploadSelectionScreenCheckOffset
+TimeAttack_StartUploadSelectionScreenFinishOffset:
 	clr.w $ff346e.l
-L_FF26FE:
+TimeAttack_StartCheckPeriodAnimation:
 	tst.b $ff347e.l
-L_FF2704:
-	beq.b L_FF271A
-L_FF2706:
+TimeAttack_StartPeriodAnimationBranch:
+	beq.b TimeAttack_StartPeriodAnimationDone
+TimeAttack_StartPeriodAnimationDisplayCommand:
 	move.w #$8174, $c00004.l
-L_FF270E:
+TimeAttack_StartPeriodAnimationFadePalette:
 	bsr.w TimeAttack_FadePaletteIn
-L_FF2712:
+TimeAttack_StartPeriodAnimationSetCounter:
 	move.w #$10, $ffaa5a.l
-L_FF271A:
-	bra.w L_FF2786
-L_FF271E:
+TimeAttack_StartPeriodAnimationDone:
+	bra.w TimeAttack_StartCheckRecordInsertion
+TimeAttack_StartResetPeriodSubIndex:
 	clr.w $ff3478.l
-L_FF2724:
+TimeAttack_StartPreparePeriodUpload:
 	moveq #$0, d0
-L_FF2726:
+TimeAttack_StartUploadPeriodData:
 	bsr.w TimeAttack_UploadIndexedStageData
-L_FF272A:
+TimeAttack_StartInitialTransitionOffset:
 	moveq #$8, d0
-L_FF272C:
+TimeAttack_StartCheckPeriodModeForOffset:
 	tst.b $ff3468.l
-L_FF2732:
-	beq.b L_FF2736
-L_FF2734:
+TimeAttack_StartPeriodOffsetBranch:
+	beq.b TimeAttack_StartStoreTransitionOffset
+TimeAttack_StartStageTransitionOffset:
 	moveq #$f8, d0
-L_FF2736:
+TimeAttack_StartStoreTransitionOffset:
 	move.w d0, $ff346e.l
-L_FF273C:
-	bra.b L_FF2752
-L_FF273E:
+TimeAttack_StartTransitionOffsetApply:
+	bra.b TimeAttack_StartApplyTransitionOffset
+TimeAttack_StartTransitionOffsetCheck:
 	cmpi.w #$0, $ff346a.l
-L_FF2746:
-	beq.b L_FF276E
-L_FF2748:
+TimeAttack_StartTransitionOffsetLowerBranch:
+	beq.b TimeAttack_StartFinishPeriodUpload
+TimeAttack_StartTransitionOffsetUpperCheck:
 	cmpi.w #$ff70, $ff346a.l
-L_FF2750:
-	beq.b L_FF276E
-L_FF2752:
+TimeAttack_StartTransitionOffsetUpperBranch:
+	beq.b TimeAttack_StartFinishPeriodUpload
+TimeAttack_StartApplyTransitionOffset:
 	move.w $ff346e.l, d0
-L_FF2758:
+TimeAttack_StartAdvanceTransitionOffset:
 	add.w d0, $ff346a.l
-L_FF275E:
+TimeAttack_StartTransitionOffsetTransferCount:
 	move.w #$10, $ff3730.l
-L_FF2766:
+TimeAttack_StartTransitionOffsetWait:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF276A:
-	bra.w L_FF273E
-L_FF276E:
+TimeAttack_StartTransitionOffsetLoop:
+	bra.w TimeAttack_StartTransitionOffsetCheck
+TimeAttack_StartFinishPeriodUpload:
 	clr.w $ff346e.l
-L_FF2774:
+TimeAttack_StartFinishPeriodUploadDrawMode:
 	moveq #$1, d0
-L_FF2776:
+TimeAttack_StartFinishPeriodUploadDrawHighlight:
 	bsr.w TimeAttack_DrawSelectionHighlight
-L_FF277A:
+TimeAttack_StartFinishPeriodUploadSetCounter:
 	move.w #$10, $ffaa5a.l
-L_FF2782:
-	bra.w L_FF2492
-L_FF2786:
+TimeAttack_StartFinishPeriodUploadLoop:
+	bra.w TimeAttack_StartSelectionLoop
+TimeAttack_StartCheckRecordInsertion:
 	tst.b $ff347e.l
-L_FF278C:
-	beq.b L_FF27EE
-L_FF278E:
+TimeAttack_StartRecordInsertionBranch:
+	beq.b TimeAttack_StartCheckPeriodModeForRecord
+TimeAttack_StartClearRecordInsertionFlag:
 	clr.b $ff347e.l
-L_FF2794:
+TimeAttack_StartCheckRecordRank:
 	tst.w $ff347c.l
-L_FF279A:
-	beq.b L_FF27E4
-L_FF279C:
+TimeAttack_StartRecordRankBranch:
+	beq.b TimeAttack_StartSelectRecordMode
+TimeAttack_StartRecordInsertionTransferCount:
 	move.w #$e, $ff3730.l
-L_FF27A4:
+TimeAttack_StartRecordInsertionWaitTransfer:
 	bsr.w TimeAttack_WaitVdpTransfer
-L_FF27A8:
+TimeAttack_StartRecordInsertionAnimate:
 	bsr.w TimeAttack_AnimateRecordInsertion
-L_FF27AC:
+TimeAttack_StartRecordInsertionWaitFramesArgument:
 	move.l #$f, -(a7)
-L_FF27B2:
+TimeAttack_StartRecordInsertionWaitFrames:
 	bsr.w TimeAttack_WaitFrames
-L_FF27B6:
+TimeAttack_StartRecordInsertionReleaseWaitFrames:
 	lea.l $4(a7), a7
-L_FF27BA:
+TimeAttack_StartRecordInsertionSendCommand:
 		bsr.w TimeAttack_SendSubCpuCommandWithReadyWait
-L_FF27BE:
+TimeAttack_StartRecordInsertionEnterInitials:
 	bsr.w TimeAttack_EnterRecordInitials
-L_FF27C2:
+TimeAttack_StartRecordInsertionRecordPointer:
 	movea.l $ff3450.l, a0
-L_FF27C8:
+TimeAttack_StartRecordInsertionWaitSubCpu:
 	bsr.w TimeAttack_WaitSubCpuReady
-L_FF27CC:
+TimeAttack_StartRecordInsertionStoreInitials:
 	move.l $2002a0.l, (a0)
-L_FF27D2:
+TimeAttack_StartRecordInsertionSendFinalCommand:
 	bsr.w TimeAttack_SendSubCpuCommandNoWait
-L_FF27D6:
+TimeAttack_StartRecordInsertionSecondWaitFramesArgument:
 	move.l #$f, -(a7)
-L_FF27DC:
+TimeAttack_StartRecordInsertionSecondWaitFrames:
 	bsr.w TimeAttack_WaitFrames
-L_FF27E0:
+TimeAttack_StartRecordInsertionReleaseSecondWait:
 	lea.l $4(a7), a7
-L_FF27E4:
+TimeAttack_StartSelectRecordMode:
 	move.w #$2, $ff347a.l
-L_FF27EC:
-	bra.b L_FF2808
-L_FF27EE:
+TimeAttack_StartSelectRecordModeDone:
+	bra.b TimeAttack_StartSetSelectionCounter
+TimeAttack_StartCheckPeriodModeForRecord:
 	tst.w $ff3468.l
-L_FF27F4:
-	beq.b L_FF2800
-L_FF27F6:
+TimeAttack_StartRecordModeBranch:
+	beq.b TimeAttack_StartSelectStageRecordMode
+TimeAttack_StartSelectPeriodRecordMode:
 	move.w #$1, $ff347a.l
-L_FF27FE:
-	bra.b L_FF2808
-L_FF2800:
+TimeAttack_StartSelectPeriodRecordModeDone:
+	bra.b TimeAttack_StartSetSelectionCounter
+TimeAttack_StartSelectStageRecordMode:
 	move.w #$0, $ff347a.l
-L_FF2808:
+TimeAttack_StartSetSelectionCounter:
 	move.w #$10, $ffaa5a.l
-L_FF2810:
+TimeAttack_StartReadSelectionController:
 	move.b $ff3734.l, d0
-L_FF2816:
+TimeAttack_StartMaskSelectionController:
 	andi.b #$f0, d0
-L_FF281A:
-	beq.b L_FF2836
-L_FF281C:
+TimeAttack_StartSelectionControllerBranch:
+	beq.b TimeAttack_StartSelectionAnimationCheck
+TimeAttack_StartSelectionControllerMode:
 	tst.w $ff347a.l
-L_FF2822:
-	beq.w L_FF271E
-L_FF2826:
+TimeAttack_StartSelectionControllerPeriodBranch:
+	beq.w TimeAttack_StartResetPeriodSubIndex
+TimeAttack_StartSelectionControllerStageCheck:
 	cmpi.w #$1, $ff347a.l
-L_FF282E:
+TimeAttack_StartSelectionControllerStageBranch:
 	bne.w L_FF28FA
-L_FF2832:
+TimeAttack_StartSelectionControllerNextPeriod:
 	bsr.w TimeAttack_SelectNextTimePeriod
-L_FF2836:
+TimeAttack_StartSelectionAnimationCheck:
 	move.w $ffaa5a.l, d0
 L_FF283C:
 	andi.w #$10, d0
@@ -978,7 +978,7 @@ L_FF28EA:
 L_FF28F2:
 	bsr.w TimeAttack_WaitVdpTransfer
 L_FF28F6:
-	bra.w L_FF2810
+	bra.w TimeAttack_StartReadSelectionController
 L_FF28FA:
 	move.w #$e, d0
 L_FF28FE:
