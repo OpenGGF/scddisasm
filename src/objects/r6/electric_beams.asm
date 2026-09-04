@@ -3,17 +3,18 @@
 ElectricBeamsObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20CBCC(pc,d0.w),d0
-	jsr	off_20CBCC(pc,d0.w)
+	move.w	ElectricBeamsRoutineTable(pc,d0.w),d0
+	jsr	ElectricBeamsRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_20CBCC:
+; Electric Beams object routine pointers.
+ElectricBeamsRoutineTable:
 	dc.w	ElectricBeamsObject_0_Routine0-*
-	dc.w	ElectricBeamsObject_0_Routine2-off_20CBCC
-	dc.w	ElectricBeamsObject_0_Routine4-off_20CBCC
+	dc.w	ElectricBeamsObject_0_Routine2-ElectricBeamsRoutineTable
+	dc.w	ElectricBeamsObject_0_Routine4-ElectricBeamsRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -26,47 +27,47 @@ ElectricBeamsObject_0_Routine0:
 	move.b	#$10,obj.height(a0)
 	move.b	#$10,obj.width_2(a0)
 	move.b	obj.subtype(a0),obj.sprite_frame(a0)
-	bsr.w	sub_20CCF4
+	bsr.w	ElectricBeamsFindOrSpawnCompanion
 
 ElectricBeamsObject_0_Routine2:
 	tst.b	obj.subtype(a0)
-	beq.s	locret_20CC5A
-	bsr.w	sub_20CCE2
+	beq.s	ElectricBeamsIdleReturn
+	bsr.w	ElectricBeamsSyncToPlayer
 	tst.w	obj.var_3a(a0)
-	bne.s	loc_20CC5C
-	bsr.w	sub_20CD38
+	bne.s	ElectricBeamsActivationCountdown
+	bsr.w	ElectricBeamsLoadZonePalette
 	cmpi.b	#2,time_zone
-	bne.s	loc_20CC2C
+	bne.s	ElectricBeamsCheckActivationZone
 	tst.b	good_future
-	bne.s	locret_20CC5A
+	bne.s	ElectricBeamsIdleReturn
 
-loc_20CC2C:
+ElectricBeamsCheckActivationZone:
 	tst.b	act
-	bne.s	loc_20CC3E
+	bne.s	ElectricBeamsSelectActivationDelay
 	move.w	scroll_fg_y,d0
 	cmpi.w	#$400,d0
-	bcc.s	locret_20CC5A
+	bcc.s	ElectricBeamsIdleReturn
 
-loc_20CC3E:
+ElectricBeamsSelectActivationDelay:
 	move.w	#$168,d0
 	move.b	time_zone,d1
-	beq.s	loc_20CC56
+	beq.s	ElectricBeamsStoreActivationDelay
 	move.w	#$1E0,d0
 	subq.b	#1,d1
-	beq.s	loc_20CC56
+	beq.s	ElectricBeamsStoreActivationDelay
 	move.w	#$F0,d0
 
-loc_20CC56:
+ElectricBeamsStoreActivationDelay:
 	move.w	d0,obj.var_3a(a0)
 
-locret_20CC5A:
+ElectricBeamsIdleReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20CC5C:
+ElectricBeamsActivationCountdown:
 	subq.w	#1,obj.var_3a(a0)
-	bne.s	locret_20CC5A
+	bne.s	ElectricBeamsIdleReturn
 	addq.b	#2,obj.routine(a0)
 	move.w	#$78,obj.var_3a(a0)
 	move.w	#$5A,obj.var_30(a0)
@@ -77,43 +78,43 @@ loc_20CC5C:
 	jsr	PlayFmSound
 
 ElectricBeamsObject_0_Routine4:
-	bsr.w	sub_20CCE2
+	bsr.w	ElectricBeamsSyncToPlayer
 	tst.w	obj.var_30(a0)
-	beq.s	loc_20CCA6
+	beq.s	ElectricBeamsAnimateMode
 	move.b	obj.var_3c(a0),d0
-	bsr.w	sub_20CE5C
+	bsr.w	ElectricBeamsToggleFlashPalette
 	subq.w	#1,obj.var_30(a0)
-	beq.s	loc_20CCA2
+	beq.s	ElectricBeamsFinishFlash
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20CCA2:
-	bsr.w	sub_20CD38
+ElectricBeamsFinishFlash:
+	bsr.w	ElectricBeamsLoadZonePalette
 
-loc_20CCA6:
+ElectricBeamsAnimateMode:
 	move.b	obj.var_3c(a0),d0
 	addq.b	#1,d0
 	move.b	d0,r6_beam_mode
 	moveq	#0,d0
 	move.b	obj.var_3c(a0),d0
-	bsr.w	sub_20CD80
+	bsr.w	ElectricBeamsAnimatePalette
 	subq.w	#1,obj.var_3a(a0)
-	bne.s	locret_20CCE0
+	bne.s	ElectricBeamsActiveReturn
 	subq.b	#2,obj.routine(a0)
 	clr.b	r6_beam_mode
 	addq.b	#1,obj.var_3c(a0)
 	cmpi.b	#3,obj.var_3c(a0)
-	bcs.s	locret_20CCE0
+	bcs.s	ElectricBeamsActiveReturn
 	clr.b	obj.var_3c(a0)
 	clr.w	obj.var_3e(a0)
 
-locret_20CCE0:
+ElectricBeamsActiveReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20CCE2:
+ElectricBeamsSyncToPlayer:
 	lea	player_object,a1
 	move.w	obj.x(a1),obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
@@ -121,52 +122,52 @@ sub_20CCE2:
 
 ; ------------------------------------------------------------------------------
 
-sub_20CCF4:
+ElectricBeamsFindOrSpawnCompanion:
 	lea	object_spawn_pool,a1
 	move.w	#$5F,d0
 
-loc_20CCFC:
+ElectricBeamsScanObjectPool:
 	cmpi.b	#$21,obj.id(a1)
-	bne.s	loc_20CD0A
+	bne.s	ElectricBeamsSpawnCompanion
 	tst.b	obj.subtype(a1)
-	bne.s	locret_20CD36
+	bne.s	ElectricBeamsCompanionReturn
 
-loc_20CD0A:
+ElectricBeamsSpawnCompanion:
 	lea	obj.struct_len(a1),a1
-	dbf	d0,loc_20CCFC
+	dbf	d0,ElectricBeamsScanObjectPool
 	jsr	SpawnObject
-	bne.s	locret_20CD36
+	bne.s	ElectricBeamsCompanionReturn
 	move.b	#$21,obj.id(a1)
 	move.b	#1,obj.subtype(a1)
 	lea	player_object,a2
 	move.w	obj.x(a2),obj.x(a1)
 	move.w	obj.y(a2),obj.y(a1)
 
-locret_20CD36:
+ElectricBeamsCompanionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20CD38:
+ElectricBeamsLoadZonePalette:
 	lea	palette+$40,a3
 	move.w	#$626,d0
 	move.w	#$646,d2
 	move.b	time_zone,d1
-	beq.s	loc_20CD6E
+	beq.s	ElectricBeamsStoreZonePalette
 	lea	palette+$7A,a3
 	move.w	#$222,d0
 	move.w	#$680,d2
 	subq.b	#1,d1
-	beq.s	loc_20CD6E
+	beq.s	ElectricBeamsStoreZonePalette
 	move.w	#$402,d0
 	move.w	#$246,d2
 	tst.b	good_future
-	beq.s	loc_20CD6E
+	beq.s	ElectricBeamsStoreZonePalette
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20CD6E:
+ElectricBeamsStoreZonePalette:
 	lea	palette+$64,a2
 	move.w	d0,(a2)+
 	move.w	d0,(a2)+
@@ -176,7 +177,8 @@ loc_20CD6E:
 
 ; ------------------------------------------------------------------------------
 
-byte_20CD7C:
+; Palette slot offsets selected by beam mode.
+ElectricBeamsPaletteSlotOffsets:
 	dc.b	0
 	dc.b	2
 	dc.b	4
@@ -184,19 +186,19 @@ byte_20CD7C:
 
 ; ------------------------------------------------------------------------------
 
-sub_20CD80:
-	move.b	byte_20CD7C(pc,d0.w),d0
+ElectricBeamsAnimatePalette:
+	move.b	ElectricBeamsPaletteSlotOffsets(pc,d0.w),d0
 	lea	palette+$64,a2
 	lea	(a2,d0.w),a2
-	lea	word_20CE28,a1
+	lea	ElectricBeamsMainPaletteCycleDefault,a1
 	move.b	time_zone,d1
-	beq.s	loc_20CDAA
-	lea	word_20CE0E,a1
+	beq.s	ElectricBeamsAnimateMainPalette
+	lea	ElectricBeamsMainPaletteCycleZone1,a1
 	subq.b	#1,d1
-	beq.s	loc_20CDAA
-	lea	word_20CE42,a1
+	beq.s	ElectricBeamsAnimateMainPalette
+	lea	ElectricBeamsMainPaletteCycleZone2,a1
 
-loc_20CDAA:
+ElectricBeamsAnimateMainPalette:
 	moveq	#0,d1
 	move.b	obj.var_3e(a0),d1
 	add.b	d1,d1
@@ -205,21 +207,21 @@ loc_20CDAA:
 	addq.b	#1,obj.var_3e(a0)
 	move.w	(a1),d1
 	cmpi.w	#$FFFF,d1
-	bne.s	loc_20CDC8
+	bne.s	ElectricBeamsAnimateSecondaryPalette
 	clr.b	obj.var_3e(a0)
 
-loc_20CDC8:
+ElectricBeamsAnimateSecondaryPalette:
 	lea	palette+$40,a2
-	lea	word_20CE38,a1
+	lea	ElectricBeamsSecondaryPaletteCycleDefault,a1
 	move.b	time_zone,d1
-	beq.s	loc_20CDEE
+	beq.s	ElectricBeamsAnimateSecondaryPaletteCycle
 	lea	palette+$7A,a2
-	lea	word_20CE1E,a1
+	lea	ElectricBeamsSecondaryPaletteCycleZone1,a1
 	subq.b	#1,d1
-	beq.s	loc_20CDEE
-	lea	word_20CE52,a1
+	beq.s	ElectricBeamsAnimateSecondaryPaletteCycle
+	lea	ElectricBeamsSecondaryPaletteCycleZone2,a1
 
-loc_20CDEE:
+ElectricBeamsAnimateSecondaryPaletteCycle:
 	moveq	#0,d1
 	move.b	obj.var_3f(a0),d1
 	add.b	d1,d1
@@ -228,15 +230,16 @@ loc_20CDEE:
 	addq.b	#1,obj.var_3f(a0)
 	move.w	(a1),d1
 	cmpi.w	#$FFFF,d1
-	bne.s	locret_20CE0C
+	bne.s	ElectricBeamsAnimatePaletteReturn
 	clr.b	obj.var_3f(a0)
 
-locret_20CE0C:
+ElectricBeamsAnimatePaletteReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20CE0E:
+; Zone-one main beam palette cycle.
+ElectricBeamsMainPaletteCycleZone1:
 	dc.w	0
 	dc.w	$EE0
 	dc.w	0
@@ -246,14 +249,16 @@ word_20CE0E:
 	dc.w	0
 	dc.w	$FFFF
 
-word_20CE1E:
+; Zone-one secondary beam palette cycle.
+ElectricBeamsSecondaryPaletteCycleZone1:
 	dc.w	$A60
 	dc.w	$AA0
 	dc.w	$A60
 	dc.w	$AA0
 	dc.w	$FFFF
 
-word_20CE28:
+; Default-zone main beam palette cycle.
+ElectricBeamsMainPaletteCycleDefault:
 	dc.w	0
 	dc.w	$EE0
 	dc.w	0
@@ -263,14 +268,16 @@ word_20CE28:
 	dc.w	0
 	dc.w	$FFFF
 
-word_20CE38:
+; Default-zone secondary beam palette cycle.
+ElectricBeamsSecondaryPaletteCycleDefault:
 	dc.w	$846
 	dc.w	$84A
 	dc.w	$846
 	dc.w	$84A
 	dc.w	$FFFF
 
-word_20CE42:
+; Zone-two main beam palette cycle.
+ElectricBeamsMainPaletteCycleZone2:
 	dc.w	0
 	dc.w	$EE0
 	dc.w	0
@@ -280,7 +287,8 @@ word_20CE42:
 	dc.w	0
 	dc.w	$FFFF
 
-word_20CE52:
+; Zone-two secondary beam palette cycle.
+ElectricBeamsSecondaryPaletteCycleZone2:
 	dc.w	$244
 	dc.w	$248
 	dc.w	$244
@@ -289,23 +297,24 @@ word_20CE52:
 
 ; ------------------------------------------------------------------------------
 
-sub_20CE5C:
-	move.b	byte_20CE7E(pc,d0.w),d0
+ElectricBeamsToggleFlashPalette:
+	move.b	ElectricBeamsFlashPaletteSlotOffsets(pc,d0.w),d0
 	lea	palette+$64,a2
 	lea	(a2,d0.w),a2
 	move.w	#$80,d0
 	tst.b	obj.var_2e(a0)
-	beq.s	loc_20CE74
+	beq.s	ElectricBeamsFlashPaletteNormal
 	moveq	#0,d0
 
-loc_20CE74:
+ElectricBeamsFlashPaletteNormal:
 	move.w	d0,(a2)
 	eori.b	#1,obj.var_2e(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-byte_20CE7E:
+; Palette slot offsets for the beam flash toggle.
+ElectricBeamsFlashPaletteSlotOffsets:
 	dc.b	0
 	dc.b	2
 	dc.b	4
