@@ -660,6 +660,7 @@ opaque merely because they use `dc.*`.
 | M447 | Complete | Canonicalize the R6 Eggman attack, defeat sequence, capsule transition, and escape helpers, migrating their internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M448 | Complete | Canonicalize the R6 boss machine, spikes, and exhaust child-object families, migrating their routine tables and internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M449 | Complete | Canonicalize the R6 boss smoke and falling-spike child-object families, migrating their routine tables and internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M450 | Complete | Canonicalize the R6 floor-debris and electricity child-object families, migrating their routine tables and internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

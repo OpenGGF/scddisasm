@@ -1027,21 +1027,21 @@ FallSpikeDelete:
 FloorDebrisObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F0D8(pc,d0.w),d0
-	jsr	off_20F0D8(pc,d0.w)
+	move.w	FloorDebrisRoutineTable(pc,d0.w),d0
+	jsr	FloorDebrisRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	bra.w	loc_20F946
 
 ; ------------------------------------------------------------------------------
 
-off_20F0D8:
-	dc.w	FloorDebrisObject_0_Routine0-*
-	dc.w	FloorDebrisObject_0_Routine2-off_20F0D8
-	dc.w	FloorDebrisObject_0_Routine4-off_20F0D8
+FloorDebrisRoutineTable:
+	dc.w	FloorDebrisInit-*
+	dc.w	FloorDebrisFall-FloorDebrisRoutineTable
+	dc.w	FloorDebrisSettled-FloorDebrisRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-FloorDebrisObject_0_Routine0:
+FloorDebrisInit:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#3,obj.sprite_layer(a0)
@@ -1053,23 +1053,23 @@ FloorDebrisObject_0_Routine0:
 
 ; ------------------------------------------------------------------------------
 
-FloorDebrisObject_0_Routine2:
+FloorDebrisFall:
 	lea	DebrisAnims,a1
 	jsr	AnimateObject
 	bsr.w	sub_20F622
 	jsr	CheckBlockDown
 	subq.w	#1,d1
-	bgt.s	locret_20F132
+	bgt.s	FloorDebrisFallReturn
 	sub.w	d1,obj.y(a0)
 	addq.b	#2,obj.routine(a0)
 	bsr.w	sub_20F7BA
 
-locret_20F132:
+FloorDebrisFallReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-FloorDebrisObject_0_Routine4:
+FloorDebrisSettled:
 	bsr.w	sub_20F622
 	rts
 
@@ -1078,18 +1078,18 @@ FloorDebrisObject_0_Routine4:
 ElectricityObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20F148(pc,d0.w),d0
-	jmp	off_20F148(pc,d0.w)
+	move.w	ElectricityRoutineTable(pc,d0.w),d0
+	jmp	ElectricityRoutineTable(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20F148:
-	dc.w	ElectricityObject_0_Routine0-*
-	dc.w	ElectricityObject_0_Routine2-off_20F148
+ElectricityRoutineTable:
+	dc.w	ElectricityInit-*
+	dc.w	ElectricityAnimate-ElectricityRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-ElectricityObject_0_Routine0:
+ElectricityInit:
 	move.b	#2,obj.routine(a0)
 	move.b	#4,obj.sprite_flags(a0)
 	move.b	#1,obj.sprite_layer(a0)
@@ -1098,28 +1098,28 @@ ElectricityObject_0_Routine0:
 	move.w	#$4470,obj.sprite_tile(a0)
 	move.l	#ElectricitySprites,obj.sprite_data(a0)
 
-ElectricityObject_0_Routine2:
+ElectricityAnimate:
 	addq.b	#1,obj.var_2a(a0)
 	moveq	#0,d0
 	move.b	obj.var_2a(a0),d0
 	subi.b	#$1E,d0
-	bcs.s	loc_20F196
+	bcs.s	ElectricityDraw
 	divu.w	#3,d0
 	cmpi.b	#5,d0
-	beq.s	loc_20F1A8
+	beq.s	ElectricityDelete
 	move.b	d0,obj.sprite_frame(a0)
 
-loc_20F196:
+ElectricityDraw:
 	tst.b	obj.subtype(a0)
-	beq.s	loc_20F1A2
+	beq.s	ElectricityDrawNormal
 	bset	#0,obj.sprite_flags(a0)
 
-loc_20F1A2:
+ElectricityDrawNormal:
 	jmp	DrawObject
 
 ; ------------------------------------------------------------------------------
 
-loc_20F1A8:
+ElectricityDelete:
 	jmp	DeleteObject
 
 ; ------------------------------------------------------------------------------
