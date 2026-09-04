@@ -674,6 +674,7 @@ opaque merely because they use `dc.*`.
 | M461 | Complete | Canonicalize the R6 1A scroll and stage-draw implementations, including spawn/credits data, sine-based background curves, block transfer/placement, and initialization tables. | J/U/E 133/133 each; audit/hygiene clean. |
 | M462 | Complete | Canonicalize the R6 stage-GFX animation family across variants 1A–3D, including scripted/special/boss-palette branches, timing tables, and backing tile streams. | J/U/E 133/133 each; audit/hygiene clean. |
 | M463 | Complete | Canonicalize the shared R6 Snake Blocks motion/routine/pattern family and Electric Beams activation/palette state machine, migrating their tables and internal callers to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
+| M464 | Complete | Canonicalize the shared R6 Spin Platform and Bounce Platform motion, collision, and player-handoff families, migrating their routine tables and internal callers to semantic symbols. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

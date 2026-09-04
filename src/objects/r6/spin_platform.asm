@@ -3,21 +3,22 @@
 SpinPlatformObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_20D5B4(pc,d0.w),d0
-	jsr	off_20D5B4(pc,d0.w)
+	move.w	SpinPlatformRoutineTable(pc,d0.w),d0
+	jsr	SpinPlatformRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	move.w	obj.var_36(a0),d0
 	jmp	CheckObjectDespawn2
 
 ; ------------------------------------------------------------------------------
 
-off_20D5B4:
+; Spin Platform object routine pointers.
+SpinPlatformRoutineTable:
 	dc.w	SpinPlatformObject_0_Routine0-*
-	dc.w	SpinPlatformObject_0_Routine2-off_20D5B4
+	dc.w	SpinPlatformObject_0_Routine2-SpinPlatformRoutineTable
 
 ; ------------------------------------------------------------------------------
 
-sub_20D5B8:
+SpinPlatformSolidCollision:
 	move.w	obj.x(a0),d3
 	move.w	obj.y(a0),d4
 	jmp	TopSolidObject
@@ -36,60 +37,62 @@ SpinPlatformObject_0_Routine0:
 	addq.b	#2,obj.routine(a0)
 
 SpinPlatformObject_0_Routine2:
-	bsr.w	sub_20D7E6
+	bsr.w	SpinPlatformMoveDispatch
 	lea	SpinPlatformAnims(pc),a1
 	jsr	AnimateObject
 	lea	player_object,a1
-	bsr.w	sub_20D5B8
-	beq.s	locret_20D65A
+	bsr.w	SpinPlatformSolidCollision
+	beq.s	SpinPlatformSupportReturn
 	bset	#0,obj.flags(a1)
 	andi.b	#$FC,obj.sprite_flags(a1)
 	ori.b	#1,obj.sprite_flags(a1)
 	bset	#0,obj.var_2c(a1)
-	bne.s	loc_20D650
+	bne.s	SpinPlatformPlayerAlreadySupported
 	move.b	#$2D,obj.anim_id(a1)
 	moveq	#0,d0
 	move.b	d0,obj.var_2b(a1)
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
-	bcc.s	loc_20D64C
+	bcc.s	SpinPlatformStorePlayerOffset
 	neg.w	d0
 	move.b	#$80,obj.var_2b(a1)
 
-loc_20D64C:
+SpinPlatformStorePlayerOffset:
 	move.b	d0,obj.var_39(a1)
 
-loc_20D650:
+SpinPlatformPlayerAlreadySupported:
 	cmpi.b	#6,obj.routine(a1)
-	bcc.s	locret_20D65A
-	bra.s	loc_20D67A
+	bcc.s	SpinPlatformSupportReturn
+	bra.s	SpinPlatformRotatePlayer
 
 ; ------------------------------------------------------------------------------
 
-locret_20D65A:
+SpinPlatformSupportReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
+; Return nonzero when the player is within the platform's top-side height band.
+SpinPlatformCheckPlayerHeight:
 	moveq	#0,d0
 	move.b	obj.height(a1),d0
 	add.w	obj.y(a1),d0
 	sub.w	obj.y(a0),d0
-	bmi.s	loc_20D676
+	bmi.s	SpinPlatformPlayerBelowSurface
 	cmpi.w	#$10,d0
-	bcs.s	loc_20D676
+	bcs.s	SpinPlatformPlayerBelowSurface
 	moveq	#$FFFFFFFF,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D676:
+SpinPlatformPlayerBelowSurface:
 	moveq	#0,d0
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D67A:
+SpinPlatformRotatePlayer:
 	addq.b	#4,obj.var_2b(a1)
 	move.b	obj.var_2b(a1),d0
 	jsr	SineCosine
@@ -104,20 +107,20 @@ loc_20D67A:
 	move.b	d0,d1
 	andi.b	#$F0,d0
 	lsr.b	#4,d0
-	move.b	byte_20D6D8(pc,d0.w),obj.anim_index(a1)
+	move.b	SpinPlatformPlayerAnimationByAngle(pc,d0.w),obj.anim_index(a1)
 	andi.b	#$3F,d1
-	bne.s	loc_20D6BA
+	bne.s	SpinPlatformRotationContinue
 	addq.b	#1,obj.var_39(a1)
 
-loc_20D6BA:
+SpinPlatformRotationContinue:
 	move.w	p1_joy_hold,player_joy_hold
 	cmpi.b	#1,0(a1)
-	beq.s	loc_20D6CE
+	beq.s	SpinPlatformAdjustPlayerOffsetEntry
 	move.w	p2_joy_hold,player_joy_hold
 
-loc_20D6CE:
-	bsr.w	sub_20D6E8
-	bra.w	loc_20D736
+SpinPlatformAdjustPlayerOffsetEntry:
+	bsr.w	SpinPlatformAdjustPlayerOffset
+	bra.w	SpinPlatformLaunchPlayer
 
 ; ------------------------------------------------------------------------------
 
@@ -125,7 +128,8 @@ loc_20D6CE:
 
 ; ------------------------------------------------------------------------------
 
-byte_20D6D8:
+; Player animation frame selected from the platform rotation angle.
+SpinPlatformPlayerAnimationByAngle:
 	dc.b	0
 	dc.b	0
 	dc.b	0
@@ -145,51 +149,51 @@ byte_20D6D8:
 
 ; ------------------------------------------------------------------------------
 
-sub_20D6E8:
+SpinPlatformAdjustPlayerOffset:
 	move.w	obj.x(a1),d0
 	sub.w	obj.x(a0),d0
-	bcc.s	loc_20D714
+	bcc.s	SpinPlatformPlayerToRight
 	btst	#2,player_joy_hold
-	beq.s	loc_20D700
-	addq.b	#1,$39(a1)
-	bra.s	locret_20D734
-
-; ------------------------------------------------------------------------------
-
-loc_20D700:
-	btst	#3,player_joy_hold
-	beq.s	locret_20D734
-	subq.b	#1,obj.var_39(a1)
-	bcc.s	locret_20D734
-	clr.b	obj.var_39(a1)
-	bra.s	locret_20D734
-
-; ------------------------------------------------------------------------------
-
-loc_20D714:
-	btst	#3,player_joy_hold
-	beq.s	loc_20D722
+	beq.s	SpinPlatformPlayerToLeft
 	addq.b	#1,obj.var_39(a1)
-	bra.s	locret_20D734
+	bra.s	SpinPlatformPlayerOffsetReturn
 
 ; ------------------------------------------------------------------------------
 
-loc_20D722:
-	btst	#2,player_joy_hold
-	beq.s	locret_20D734
+SpinPlatformPlayerToLeft:
+	btst	#3,player_joy_hold
+	beq.s	SpinPlatformPlayerOffsetReturn
 	subq.b	#1,obj.var_39(a1)
-	bcc.s	locret_20D734
+	bcc.s	SpinPlatformPlayerOffsetReturn
+	clr.b	obj.var_39(a1)
+	bra.s	SpinPlatformPlayerOffsetReturn
+
+; ------------------------------------------------------------------------------
+
+SpinPlatformPlayerToRight:
+	btst	#3,player_joy_hold
+	beq.s	SpinPlatformPlayerToLeftFromRight
+	addq.b	#1,obj.var_39(a1)
+	bra.s	SpinPlatformPlayerOffsetReturn
+
+; ------------------------------------------------------------------------------
+
+SpinPlatformPlayerToLeftFromRight:
+	btst	#2,player_joy_hold
+	beq.s	SpinPlatformPlayerOffsetReturn
+	subq.b	#1,obj.var_39(a1)
+	bcc.s	SpinPlatformPlayerOffsetReturn
 	clr.b	obj.var_39(a1)
 
-locret_20D734:
+SpinPlatformPlayerOffsetReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D736:
+SpinPlatformLaunchPlayer:
 	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
-	beq.w	locret_20D7DC
+	beq.w	SpinPlatformLaunchReturn
 	clr.b	obj.var_2c(a1)
 	move.w	#$680,d2
 	moveq	#0,d0
@@ -207,67 +211,68 @@ loc_20D736:
 	move.b	#1,obj.var_3c(a1)
 	clr.b	obj.var_38(a1)
 	tst.b	shrunk_player
-	beq.s	loc_20D796
+	beq.s	SpinPlatformSetNormalDimensions
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)
-	bra.s	loc_20D7A2
+	bra.s	SpinPlatformSetPostLaunchDimensions
 
 ; ------------------------------------------------------------------------------
 
-loc_20D796:
+SpinPlatformSetNormalDimensions:
 	move.b	#$13,obj.height(a1)
 	move.b	#9,obj.width(a1)
 
-loc_20D7A2:
+SpinPlatformSetPostLaunchDimensions:
 	btst	#2,obj.flags(a1)
-	bne.s	loc_20D7DE
+	bne.s	SpinPlatformSetAirborneState
 	tst.b	shrunk_player
-	beq.s	loc_20D7C0
+	beq.s	SpinPlatformSetStandingDimensions
 	move.b	#$A,obj.height(a1)
 	move.b	#5,obj.width(a1)
-	bra.s	loc_20D7D0
+	bra.s	SpinPlatformSetStandingState
 
 ; ------------------------------------------------------------------------------
 
-loc_20D7C0:
+SpinPlatformSetStandingDimensions:
 	move.b	#$E,obj.height(a1)
 	move.b	#7,obj.width(a1)
 	addq.w	#5,obj.y(a1)
 
-loc_20D7D0:
+SpinPlatformSetStandingState:
 	bset	#2,obj.flags(a1)
 	move.b	#2,obj.anim_id(a1)
 
-locret_20D7DC:
+SpinPlatformLaunchReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20D7DE:
+SpinPlatformSetAirborneState:
 	bset	#4,obj.flags(a1)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20D7E6:
+SpinPlatformMoveDispatch:
 	moveq	#0,d0
 	move.b	obj.subtype(a0),d0
 	add.w	d0,d0
-	move.w	off_20D7F6(pc,d0.w),d0
-	jmp	off_20D7F6(pc,d0.w)
+	move.w	SpinPlatformMoveRoutineTable(pc,d0.w),d0
+	jmp	SpinPlatformMoveRoutineTable(pc,d0.w)
 
 ; ------------------------------------------------------------------------------
 
-off_20D7F6:
+; Sine-motion routines selected by the platform subtype.
+SpinPlatformMoveRoutineTable:
 	dc.w	SpinPlatformObject_1_Routine0-*
-	dc.w	SpinPlatformObject_1_Routine2-off_20D7F6
-	dc.w	SpinPlatformObject_1_Routine4-off_20D7F6
-	dc.w	SpinPlatformObject_1_Routine6-off_20D7F6
+	dc.w	SpinPlatformObject_1_Routine2-SpinPlatformMoveRoutineTable
+	dc.w	SpinPlatformObject_1_Routine4-SpinPlatformMoveRoutineTable
+	dc.w	SpinPlatformObject_1_Routine6-SpinPlatformMoveRoutineTable
 
 ; ------------------------------------------------------------------------------
 
 SpinPlatformObject_1_Routine4:
-	bsr.w	sub_20D85A
+	bsr.w	SpinPlatformSineOffset
 	neg.w	d0
 	add.w	obj.var_32(a0),d0
 	move.w	d0,obj.y(a0)
@@ -276,7 +281,7 @@ SpinPlatformObject_1_Routine4:
 ; ------------------------------------------------------------------------------
 
 SpinPlatformObject_1_Routine6:
-	bsr.w	sub_20D85A
+	bsr.w	SpinPlatformSineOffset
 	add.w	obj.var_32(a0),d0
 	move.w	d0,obj.y(a0)
 	rts
@@ -285,7 +290,7 @@ SpinPlatformObject_1_Routine6:
 
 SpinPlatformObject_1_Routine0:
 	move.l	obj.x(a0),-(sp)
-	bsr.w	sub_20D85A
+	bsr.w	SpinPlatformSineOffset
 	add.w	obj.var_36(a0),d0
 	move.w	d0,obj.x(a0)
 	move.l	obj.x(a0),d0
@@ -298,7 +303,7 @@ SpinPlatformObject_1_Routine0:
 
 SpinPlatformObject_1_Routine2:
 	move.l	obj.x(a0),-(sp)
-	bsr.w	sub_20D85A
+	bsr.w	SpinPlatformSineOffset
 	neg.w	d0
 	add.w	obj.var_36(a0),d0
 	move.w	d0,obj.x(a0)
@@ -310,7 +315,7 @@ SpinPlatformObject_1_Routine2:
 
 ; ------------------------------------------------------------------------------
 
-sub_20D85A:
+SpinPlatformSineOffset:
 	move.w	stage_frames,d0
 	andi.w	#$FF,d0
 	jsr	SineCosine
