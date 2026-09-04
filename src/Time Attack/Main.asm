@@ -414,7 +414,7 @@ L_FF23E2:
 L_FF23E6:
 	move.w #$8174, $c00004.l
 L_FF23EE:
-	bsr.w L_FF3736
+	bsr.w TimeAttack_FadePaletteIn
 L_FF23F2:
 	moveq #$0, d0
 L_FF23F4:
@@ -764,7 +764,7 @@ L_FF2704:
 L_FF2706:
 	move.w #$8174, $c00004.l
 L_FF270E:
-	bsr.w L_FF3736
+	bsr.w TimeAttack_FadePaletteIn
 L_FF2712:
 	move.w #$10, $ffaa5a.l
 L_FF271A:
@@ -988,7 +988,7 @@ L_FF2902:
 L_FF2904:
 	bsr.w L_FF30EC
 L_FF2908:
-	bsr.w L_FF37A8
+	bsr.w TimeAttack_FadePaletteOut
 L_FF290C:
 	moveq #$0, d0
 L_FF290E:
@@ -2580,153 +2580,153 @@ L_FF3660:
 	dc.b	$FF,$00
 ; Raise palette channels toward the selected target palette.
 TimeAttack_FadePaletteIn:
-L_FF3736:
+TimeAttack_FadePaletteInRedCount:
 	move.w #$7, d6
-L_FF373A:
+TimeAttack_FadePaletteInRedStart:
 	moveq #$0, d0
-L_FF373C:
+TimeAttack_FadePaletteInRedShift:
 	moveq #$8, d1
-L_FF373E:
+TimeAttack_FadePaletteInRedStep:
 	bsr.w TimeAttack_StepPaletteChannelIn
-L_FF3742:
+TimeAttack_FadePaletteInRedAdvance:
 	addq.w #$2, d0
-L_FF3744:
-	dbra d6, L_FF373E
-L_FF3748:
+TimeAttack_FadePaletteInRedLoopCheck:
+	dbra d6, TimeAttack_FadePaletteInRedStep
+TimeAttack_FadePaletteInGreenCount:
 	move.w #$7, d6
-L_FF374C:
+TimeAttack_FadePaletteInGreenStart:
 	moveq #$0, d0
-L_FF374E:
+TimeAttack_FadePaletteInGreenShift:
 	moveq #$4, d1
-L_FF3750:
+TimeAttack_FadePaletteInGreenStep:
 	bsr.w TimeAttack_StepPaletteChannelIn
-L_FF3754:
+TimeAttack_FadePaletteInGreenAdvance:
 	addq.w #$2, d0
-L_FF3756:
-	dbra d6, L_FF3750
-L_FF375A:
+TimeAttack_FadePaletteInGreenLoopCheck:
+	dbra d6, TimeAttack_FadePaletteInGreenStep
+TimeAttack_FadePaletteInBlueCount:
 	move.w #$7, d6
-L_FF375E:
+TimeAttack_FadePaletteInBlueStart:
 	moveq #$0, d0
-L_FF3760:
+TimeAttack_FadePaletteInBlueShift:
 	moveq #$0, d1
-L_FF3762:
+TimeAttack_FadePaletteInBlueStep:
 	bsr.w TimeAttack_StepPaletteChannelIn
-L_FF3766:
+TimeAttack_FadePaletteInBlueAdvance:
 	addq.w #$2, d0
-L_FF3768:
-	dbra d6, L_FF3762
-L_FF376C:
+TimeAttack_FadePaletteInBlueLoopCheck:
+	dbra d6, TimeAttack_FadePaletteInBlueStep
+TimeAttack_FadePaletteInReturn:
 	rts
 ; Move one selected palette channel toward its target values.
 TimeAttack_StepPaletteChannelIn:
 	lea.l $ffd0a0.l, a1
-L_FF3774:
+TimeAttack_StepPaletteChannelInTarget:
 	lea.l $ff524c.l, a2
-L_FF377A:
+TimeAttack_StepPaletteChannelInColorCount:
 	moveq #$3f, d7
-L_FF377C:
+TimeAttack_StepPaletteChannelInColorLoop:
 	move.w (a2)+, d2
-L_FF377E:
+TimeAttack_StepPaletteChannelInCurrentColor:
 	move.w (a1), d3
-L_FF3780:
+TimeAttack_StepPaletteChannelInRotateTarget:
 	ror.w d1, d2
-L_FF3782:
+TimeAttack_StepPaletteChannelInRotateCurrent:
 	ror.w d1, d3
-L_FF3784:
+TimeAttack_StepPaletteChannelInMaskTarget:
 	andi.w #$e, d2
-L_FF3788:
+TimeAttack_StepPaletteChannelInMaskCurrent:
 	andi.w #$eee0, d3
-L_FF378C:
+TimeAttack_StepPaletteChannelInCompare:
 	cmp.w d0, d2
-L_FF378E:
-	bls.b L_FF3792
-L_FF3790:
+TimeAttack_StepPaletteChannelInClampBranch:
+	bls.b TimeAttack_StepPaletteChannelInMerge
+TimeAttack_StepPaletteChannelInClamp:
 	move.w d0, d2
-L_FF3792:
+TimeAttack_StepPaletteChannelInMerge:
 	or.w d3, d2
-L_FF3794:
+TimeAttack_StepPaletteChannelInRotateBack:
 	rol.w d1, d2
-L_FF3796:
+TimeAttack_StepPaletteChannelInStore:
 	move.w d2, (a1)+
-L_FF3798:
-	dbra d7, L_FF377C
-L_FF379C:
+TimeAttack_StepPaletteChannelInColorLoopCheck:
+	dbra d7, TimeAttack_StepPaletteChannelInColorLoop
+TimeAttack_StepPaletteChannelInRequestVdpTransfer:
 	move.w #$6, $ff3730.l
-L_FF37A4:
+TimeAttack_StepPaletteChannelInWaitVdpTransfer:
 	bra.w TimeAttack_WaitVdpTransfer
 ; Lower palette channels toward black for the selection transition.
 TimeAttack_FadePaletteOut:
-L_FF37A8:
+TimeAttack_FadePaletteOutRedCount:
 	moveq #$7, d6
-L_FF37AA:
+TimeAttack_FadePaletteOutRedStart:
 	moveq #$0, d0
-L_FF37AC:
+TimeAttack_FadePaletteOutRedShift:
 	moveq #$0, d1
-L_FF37AE:
+TimeAttack_FadePaletteOutRedStep:
 	bsr.b TimeAttack_StepPaletteChannelOut
-L_FF37B0:
+TimeAttack_FadePaletteOutRedAdvance:
 	addq.w #$2, d0
-L_FF37B2:
-	dbra d6, L_FF37AE
-L_FF37B6:
+TimeAttack_FadePaletteOutRedLoopCheck:
+	dbra d6, TimeAttack_FadePaletteOutRedStep
+TimeAttack_FadePaletteOutGreenCount:
 	moveq #$7, d6
-L_FF37B8:
+TimeAttack_FadePaletteOutGreenStart:
 	moveq #$0, d0
-L_FF37BA:
+TimeAttack_FadePaletteOutGreenShift:
 	moveq #$4, d1
-L_FF37BC:
+TimeAttack_FadePaletteOutGreenStep:
 	bsr.b TimeAttack_StepPaletteChannelOut
-L_FF37BE:
+TimeAttack_FadePaletteOutGreenAdvance:
 	addq.w #$2, d0
-L_FF37C0:
-	dbra d6, L_FF37BC
-L_FF37C4:
+TimeAttack_FadePaletteOutGreenLoopCheck:
+	dbra d6, TimeAttack_FadePaletteOutGreenStep
+TimeAttack_FadePaletteOutBlueCount:
 	moveq #$7, d6
-L_FF37C6:
+TimeAttack_FadePaletteOutBlueStart:
 	moveq #$0, d0
-L_FF37C8:
+TimeAttack_FadePaletteOutBlueShift:
 	moveq #$8, d1
-L_FF37CA:
+TimeAttack_FadePaletteOutBlueStep:
 	bsr.b TimeAttack_StepPaletteChannelOut
-L_FF37CC:
+TimeAttack_FadePaletteOutBlueAdvance:
 	addq.w #$2, d0
-L_FF37CE:
-	dbra d6, L_FF37CA
-L_FF37D2:
+TimeAttack_FadePaletteOutBlueLoopCheck:
+	dbra d6, TimeAttack_FadePaletteOutBlueStep
+TimeAttack_FadePaletteOutReturn:
 	rts
 ; Reduce one selected palette channel toward black.
 TimeAttack_StepPaletteChannelOut:
 	lea.l $ffd0a0.l, a1
-L_FF37DA:
+TimeAttack_StepPaletteChannelOutColorCount:
 	moveq #$3f, d7
-L_FF37DC:
+TimeAttack_StepPaletteChannelOutColorLoop:
 	move.w (a1), d2
-L_FF37DE:
+TimeAttack_StepPaletteChannelOutRotateCurrent:
 	ror.w d1, d2
-L_FF37E0:
+TimeAttack_StepPaletteChannelOutPreserveCurrent:
 	move.w d2, d3
-L_FF37E2:
+TimeAttack_StepPaletteChannelOutMaskCurrent:
 	andi.w #$e, d2
-L_FF37E6:
+TimeAttack_StepPaletteChannelOutMaskPreserved:
 	andi.w #$eee0, d3
-L_FF37EA:
+TimeAttack_StepPaletteChannelOutSubtract:
 	sub.w d0, d2
-L_FF37EC:
-	bcc.b L_FF37F0
-L_FF37EE:
+TimeAttack_StepPaletteChannelOutClampBranch:
+	bcc.b TimeAttack_StepPaletteChannelOutMerge
+TimeAttack_StepPaletteChannelOutClamp:
 	moveq #$0, d2
-L_FF37F0:
+TimeAttack_StepPaletteChannelOutMerge:
 	or.w d3, d2
-L_FF37F2:
+TimeAttack_StepPaletteChannelOutRotateBack:
 	rol.w d1, d2
-L_FF37F4:
+TimeAttack_StepPaletteChannelOutStore:
 	move.w d2, (a1)+
-L_FF37F6:
-	dbra d7, L_FF37DC
-L_FF37FA:
+TimeAttack_StepPaletteChannelOutColorLoopCheck:
+	dbra d7, TimeAttack_StepPaletteChannelOutColorLoop
+TimeAttack_StepPaletteChannelOutRequestVdpTransfer:
 	move.w #$6, $ff3730.l
-L_FF3802:
+TimeAttack_StepPaletteChannelOutWaitVdpTransfer:
 	bra.w TimeAttack_WaitVdpTransfer
 ; Initialize all VDP registers from the 19-byte register table.
 TimeAttack_SetVdpRegisters:
