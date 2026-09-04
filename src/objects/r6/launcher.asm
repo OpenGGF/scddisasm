@@ -3,19 +3,20 @@
 LauncherObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_208E6C(pc,d0.w),d0
-	jsr	off_208E6C(pc,d0.w)
+	move.w	LauncherRoutineTable(pc,d0.w),d0
+	jsr	LauncherRoutineTable(pc,d0.w)
 	jsr	DrawObject
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_208E6C:
+; Launcher routine pointers.
+LauncherRoutineTable:
 	dc.w	LauncherObject_0_Routine0-*
-	dc.w	LauncherObject_0_Routine2-off_208E6C
-	dc.w	LauncherObject_0_Routine4-off_208E6C
-	dc.w	LauncherObject_0_Routine6-off_208E6C
-	dc.w	LauncherObject_0_Routine8-off_208E6C
+	dc.w	LauncherObject_0_Routine2-LauncherRoutineTable
+	dc.w	LauncherObject_0_Routine4-LauncherRoutineTable
+	dc.w	LauncherObject_0_Routine6-LauncherRoutineTable
+	dc.w	LauncherObject_0_Routine8-LauncherRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -42,7 +43,7 @@ LauncherObject_0_Routine0:
 LauncherObject_0_Routine2:
 	lea	player_object,a1
 	jsr	TopSolidObject
-	beq.s	locret_208F10
+	beq.s	LauncherContactReturn
 	bset	#0,obj.var_2c(a1)
 	move.w	obj.x(a0),obj.x(a1)
 	bclr	#0,obj.flags(a1)
@@ -50,7 +51,7 @@ LauncherObject_0_Routine2:
 	addq.b	#2,obj.routine(a0)
 	move.w	#$C00,obj.x_speed(a0)
 
-locret_208F10:
+LauncherContactReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -66,7 +67,7 @@ LauncherObject_0_Routine4:
 	jsr	TopSolidObject
 	move.w	p1_joy_hold,d0
 	andi.b	#$70,d0
-	beq.s	loc_208F76
+	beq.s	LauncherCheckTravelLimit
 	bclr	#0,obj.var_2c(a1)
 	move.w	#$F980,obj.y_speed(a1)
 	move.w	obj.x_speed(a0),obj.x_speed(a1)
@@ -79,22 +80,23 @@ LauncherObject_0_Routine4:
 	move.w	#$92,d0
 	jsr	PlayFmSound
 
-loc_208F76:
+
+LauncherCheckTravelLimit:
 	move.w	obj.var_2e(a0),d0
 	addi.w	#$390,d0
 	cmp.w	obj.x(a0),d0
-	bcc.s	locret_208FB2
+	bcc.s	LauncherMotionReturn
 	move.w	d0,obj.x(a0)
 	addq.b	#2,obj.routine(a0)
 	btst	#3,obj.flags(a0)
-	beq.s	locret_208FB2
+	beq.s	LauncherMotionReturn
 	bclr	#0,obj.var_2c(a1)
 	move.w	obj.x_speed(a0),obj.x_speed(a1)
 	move.b	#0,obj.anim_id(a1)
 	bset	#1,obj.flags(a1)
 	bclr	#3,obj.flags(a1)
 
-locret_208FB2:
+LauncherMotionReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -103,11 +105,11 @@ LauncherObject_0_Routine6:
 	subq.w	#4,obj.x(a0)
 	move.w	obj.var_2e(a0),d0
 	cmp.w	obj.x(a0),d0
-	bcs.s	locret_208FCE
+	bcs.s	LauncherReverseReturn
 	move.w	obj.var_2e(a0),obj.x(a0)
 	move.b	#2,obj.routine(a0)
 
-locret_208FCE:
+LauncherReverseReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -115,7 +117,7 @@ locret_208FCE:
 LauncherObject_0_Routine8:
 	movea.l	obj.var_2a(a0),a1
 	cmpi.b	#4,obj.routine(a1)
-	bcc.s	locret_208FFE
+	bcc.s	LauncherChildReturn
 	move.w	obj.x(a1),obj.x(a0)
 	subi.w	#$18,obj.x(a0)
 	move.w	obj.y(a1),obj.y(a0)
@@ -125,7 +127,7 @@ LauncherObject_0_Routine8:
 
 ; ------------------------------------------------------------------------------
 
-locret_208FFE:
+LauncherChildReturn:
 	rts
 
 ; ------------------------------------------------------------------------------

@@ -3,17 +3,18 @@
 GoddessStatueObject:
 	moveq	#0,d0
 	move.b	obj.routine(a0),d0
-	move.w	off_208868(pc,d0.w),d0
-	jsr	off_208868(pc,d0.w)
+	move.w	GoddessStatueRoutineTable(pc,d0.w),d0
+	jsr	GoddessStatueRoutineTable(pc,d0.w)
 	jmp	CheckObjectDespawn
 
 ; ------------------------------------------------------------------------------
 
-off_208868:
+; Goddess Statue routine pointers.
+GoddessStatueRoutineTable:
 	dc.w	GoddessStatueObject_0_Routine0-*
-	dc.w	GoddessStatueObject_0_Routine2-off_208868
-	dc.w	GoddessStatueObject_0_Routine4-off_208868
-	dc.w	GoddessStatueObject_0_Routine6-off_208868
+	dc.w	GoddessStatueObject_0_Routine2-GoddessStatueRoutineTable
+	dc.w	GoddessStatueObject_0_Routine4-GoddessStatueRoutineTable
+	dc.w	GoddessStatueObject_0_Routine6-GoddessStatueRoutineTable
 
 ; ------------------------------------------------------------------------------
 
@@ -26,18 +27,18 @@ GoddessStatueObject_0_Routine2:
 	move.w	player_object+obj.x,d0
 	sub.w	obj.x(a0),d0
 	addi.w	#$10,d0
-	bcs.s	locret_2088AC
+	bcs.s	GoddessStatueProximityReturn
 	cmpi.w	#$20,d0
-	bcc.s	locret_2088AC
+	bcc.s	GoddessStatueProximityReturn
 	move.w	player_object+obj.y,d0
 	sub.w	obj.y(a0),d0
 	addi.w	#$20,d0
-	bcs.s	locret_2088AC
+	bcs.s	GoddessStatueProximityReturn
 	cmpi.w	#$40,d0
-	bcc.s	locret_2088AC
+	bcc.s	GoddessStatueProximityReturn
 	addq.b	#2,obj.routine(a0)
 
-locret_2088AC:
+GoddessStatueProximityReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ GoddessStatueObject_0_Routine4:
 	bpl.s	GoddessStatueObject_0_Routine6
 	move.b	#$A,obj.var_2a(a0)
 	subq.b	#1,obj.var_2b(a0)
-	bpl.s	loc_2088C6
+	bpl.s	GoddessStatueSpawnRing
 	addq.b	#2,obj.routine(a0)
 
 GoddessStatueObject_0_Routine6:
@@ -55,9 +56,10 @@ GoddessStatueObject_0_Routine6:
 
 ; ------------------------------------------------------------------------------
 
-loc_2088C6:
+
+GoddessStatueSpawnRing:
 	jsr	SpawnObject
-	bne.s	locret_208948
+	bne.s	GoddessStatueSpawnReturn
 	move.b	#$11,obj.id(a1)
 	addq.b	#2,obj.routine(a1)
 	move.b	#8,obj.height(a1)
@@ -78,14 +80,15 @@ loc_2088C6:
 	jsr	Random
 	lsl.w	#1,d0
 	andi.w	#$E,d0
-	move.w	word_20894A(pc,d0.w),obj.x_speed(a1)
+	move.w	GoddessStatueRingSpeedTable(pc,d0.w),obj.x_speed(a1)
 
-locret_208948:
+GoddessStatueSpawnReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-word_20894A:
+; Horizontal launch speed options for spawned rings.
+GoddessStatueRingSpeedTable:
 	dc.w	-$100
 	dc.w	-$80
 	dc.w	0
