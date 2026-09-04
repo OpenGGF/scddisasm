@@ -85,7 +85,8 @@ air block-collision/landing responses, ground normalization, hurt recovery, and
 death/restart lifecycle handling, chunk/loop detection with roll entry, and
 animation frame/loop/state selection with the shrink map, graphics upload, and
 flipper interaction, plus the R6 ground movement/focus/velocity, wall-response,
-left/right movement, rolling, and air-movement families.
+left/right movement, rolling, air-movement, bounds, roll-entry, and jump-input
+families.
 Fresh J/U/E validation covers the R3/R4/R5/R7/R8 level outputs that include
 this shared family, including `DEMO43C` and `DEMO82A`.
 

@@ -1930,16 +1930,16 @@ PlayerUnusedCheckSquish:
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	bne.s	locret_20501E
+	bne.s	PlayerUnusedCheckSquishReturn
 	bsr.w	PlayerCheckBlockUpWide
 	tst.w	d1
-	bpl.s	locret_20501E
+	bpl.s	PlayerUnusedCheckSquishReturn
 	move.w	#0,obj.ground_speed(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#0,obj.y_speed(a0)
 	move.b	#$B,obj.anim_id(a0)
 
-locret_20501E:
+PlayerUnusedCheckSquishReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -1954,27 +1954,27 @@ PlayerCheckBounds:
 	move.w	left_bound,d0
 	addi.w	#$10,d0
 	cmp.w	d1,d0
-	bhi.s	loc_205074
+	bhi.s	PlayerCheckBoundsClampX
 	move.w	right_bound,d0
 	addi.w	#$130,d0
 	tst.b	boss_started
-	bne.s	loc_20504E
+	bne.s	PlayerCheckBoundsCheckRight
 	addi.w	#$38,d0
 
-loc_20504E:
+PlayerCheckBoundsCheckRight:
 	cmp.w	d1,d0
-	bls.s	loc_205074
+	bls.s	PlayerCheckBoundsClampX
 
-loc_205052:
+PlayerCheckBoundsCheckBottom:
 	move.w	bottom_bound,d0
 	addi.w	#$E0,d0
 	cmp.w	obj.y(a0),d0
-	blt.s	loc_205062
+	blt.s	PlayerCheckBoundsKillBelow
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_205062:
+PlayerCheckBoundsKillBelow:
 	cmpi.b	#$2B,obj.anim_id(a0)
 	bne.w	KillPlayer
 	move.b	#6,obj.routine(a0)
@@ -1982,110 +1982,110 @@ loc_205062:
 
 ; ------------------------------------------------------------------------------
 
-loc_205074:
+PlayerCheckBoundsClampX:
 	move.w	d0,obj.x(a0)
 	move.w	#0,obj.x+2(a0)
 	move.w	#0,obj.x_speed(a0)
 	move.w	#0,obj.ground_speed(a0)
-	bra.s	loc_205052
+	bra.s	PlayerCheckBoundsCheckBottom
 
 ; ------------------------------------------------------------------------------
 
 PlayerCheckRoll:
 	tst.b	water_slide_flag
-	bne.s	locret_2050B2
+	bne.s	PlayerCheckRollReturn
 	move.w	obj.ground_speed(a0),d0
-	bpl.s	loc_20509A
+	bpl.s	PlayerCheckRollCheckSpeed
 	neg.w	d0
 
-loc_20509A:
+PlayerCheckRollCheckSpeed:
 	cmpi.w	#$80,d0
-	bcs.s	locret_2050B2
+	bcs.s	PlayerCheckRollReturn
 	move.b	player_joy_hold,d0
 	andi.b	#$C,d0
-	bne.s	locret_2050B2
+	bne.s	PlayerCheckRollReturn
 	btst	#1,player_joy_hold
 	bne.s	PlayerStartRoll
 
-locret_2050B2:
+PlayerCheckRollReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerStartRoll:
 	btst	#2,obj.flags(a0)
-	beq.s	loc_2050BE
+	beq.s	PlayerStartRollSetRolling
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2050BE:
+PlayerStartRollSetRolling:
 	bset	#2,obj.flags(a0)
 	tst.b	shrunk_player
-	beq.s	loc_2050DA
+	beq.s	PlayerStartRollSetNormalSize
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
-	bra.s	loc_2050EA
+	bra.s	PlayerStartRollSetAnimation
 
 ; ------------------------------------------------------------------------------
 
-loc_2050DA:
+PlayerStartRollSetNormalSize:
 	move.b	#$E,obj.height(a0)
 	move.b	#7,obj.width(a0)
 	addq.w	#5,obj.y(a0)
 
-loc_2050EA:
+PlayerStartRollSetAnimation:
 	move.b	#2,obj.anim_id(a0)
 	tst.w	obj.ground_speed(a0)
-	bne.s	locret_2050FC
+	bne.s	PlayerStartRollReturn
 	move.w	#$200,obj.ground_speed(a0)
 
-locret_2050FC:
+PlayerStartRollReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerCheckJump:
 	tst.b	obj.var_2a(a0)
-	beq.s	loc_205106
+	beq.s	PlayerCheckJumpCheckHorizontal
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_205106:
+PlayerCheckJumpCheckHorizontal:
 	move.b	player_joy_hold,d0
 	andi.b	#3,d0
-	beq.s	loc_205118
+	beq.s	PlayerCheckJumpCheckTap
 	tst.w	obj.ground_speed(a0)
-	beq.w	locret_2051DA
+	beq.w	PlayerCheckJumpReturn
 
-loc_205118:
+PlayerCheckJumpCheckTap:
 	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
-	beq.w	locret_2051DA
+	beq.w	PlayerCheckJumpReturn
 	btst	#3,obj.flags(a0)
-	beq.s	loc_205134
+	beq.s	PlayerCheckJumpCheckClearance
 	jsr	PlayerCheckFlipper
-	beq.s	loc_205164
+	beq.s	PlayerCheckJumpApplyImpulse
 
-loc_205134:
+PlayerCheckJumpCheckClearance:
 	moveq	#0,d0
 	move.b	obj.angle(a0),d0
 	addi.b	#-$80,d0
 	bsr.w	PlayerCheckBlockAbove
 	cmpi.w	#6,d1
-	blt.w	locret_2051DA
+	blt.w	PlayerCheckJumpReturn
 	move.w	#$680,d2
 	btst	#6,obj.flags(a0)
-	beq.s	loc_20515A
+	beq.s	PlayerCheckJumpSetAngle
 	move.w	#$380,d2
 
-loc_20515A:
+PlayerCheckJumpSetAngle:
 	moveq	#0,d0
 	move.b	obj.angle(a0),d0
 	subi.b	#$40,d0
 
-loc_205164:
+PlayerCheckJumpApplyImpulse:
 	jsr	SineCosine
 	muls.w	d2,d1
 	asr.l	#8,d1
@@ -2102,30 +2102,30 @@ loc_205164:
 	move.w	#$92,d0
 	jsr	PlayFmSound
 	btst	#2,obj.flags(a0)
-	bne.s	loc_2051DC
+	bne.s	PlayerCheckJumpSetAirborne
 	tst.b	shrunk_player
-	beq.s	loc_2051BE
+	beq.s	PlayerCheckJumpSetNormalSize
 	move.b	#$A,obj.height(a0)
 	move.b	#5,obj.width(a0)
-	bra.s	loc_2051CE
+	bra.s	PlayerCheckJumpSetRolling
 
 ; ------------------------------------------------------------------------------
 
-loc_2051BE:
+PlayerCheckJumpSetNormalSize:
 	move.b	#$E,obj.height(a0)
 	move.b	#7,obj.width(a0)
 	addq.w	#5,obj.y(a0)
 
-loc_2051CE:
+PlayerCheckJumpSetRolling:
 	bset	#2,obj.flags(a0)
 	move.b	#2,obj.anim_id(a0)
 
-locret_2051DA:
+PlayerCheckJumpReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2051DC:
+PlayerCheckJumpSetAirborne:
 	bset	#4,obj.flags(a0)
 	rts
 
