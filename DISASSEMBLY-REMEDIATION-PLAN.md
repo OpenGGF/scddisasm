@@ -629,6 +629,7 @@ opaque merely because they use `dc.*`.
 | M416 | Complete | Canonicalize the shared player camera and main-update control-flow family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M417 | Complete | Canonicalize the shared player power-up timer and water-state transition family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
 | M418 | Complete | Canonicalize the shared player warp transition and ground/fall/roll/jump state-handler family, migrating its internal branch targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M419 | Complete | Canonicalize the shared player booster table and ground-movement preamble, attachment checks, and velocity/focus exits. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

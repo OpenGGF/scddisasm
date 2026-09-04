@@ -735,9 +735,9 @@ PlayerJumpStateAfterWater:
 
 PlayerCheckBooster3d:
 	cmpi.b	#1,time_zone
-	bne.s	locret_204294
+	bne.s	PlayerCheckBooster3dReturn
 	tst.w	zone
-	bne.s	locret_204294
+	bne.s	PlayerCheckBooster3dReturn
 	move.w	obj.y(a0),d0
 	lsr.w	#1,d0
 	andi.w	#$380,d0
@@ -746,36 +746,36 @@ PlayerCheckBooster3d:
 	add.w	d1,d0
 	lea	stage_map,a1
 	move.b	(a1,d0.w),d1
-	lea	byte_204296,a2
+	lea	PlayerCheckBooster3dSurfaceTypeTable,a2
 
-loc_20425C:
+PlayerCheckBooster3dScanTypes:
 	move.b	(a2)+,d0
-	bmi.s	loc_20426C
+	bmi.s	PlayerCheckBooster3dClearBoost
 	cmp.b	d0,d1
-	bne.s	loc_20425C
+	bne.s	PlayerCheckBooster3dScanTypes
 	bset	#1,obj.var_2c(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20426C:
+PlayerCheckBooster3dClearBoost:
 	bclr	#1,obj.var_2c(a0)
-	beq.s	locret_204294
+	beq.s	PlayerCheckBooster3dReturn
 	tst.w	obj.y_speed(a0)
-	bpl.s	locret_204294
+	bpl.s	PlayerCheckBooster3dReturn
 	cmpi.w	#$F800,obj.y_speed(a0)
-	bcc.s	locret_204294
+	bcc.s	PlayerCheckBooster3dReturn
 	move.w	#$600,obj.x_speed(a0)
 	btst	#0,obj.flags(a0)
-	beq.s	locret_204294
+	beq.s	PlayerCheckBooster3dReturn
 	neg.w	obj.x_speed(a0)
 
-locret_204294:
+PlayerCheckBooster3dReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-byte_204296:
+PlayerCheckBooster3dSurfaceTypeTable:
 	dc.b	6
 	dc.b	7
 	dc.b	8
@@ -790,53 +790,53 @@ PlayerMoveGround:
 	move.w	player_acceleration,d5
 	move.w	player_deceleration,d4
 	tst.b	water_slide_flag
-	bne.w	loc_2045C6
+	bne.w	PlayerMoveGroundSetVelocity
 	tst.w	obj.var_3e(a0)
-	bne.w	loc_204576
+	bne.w	PlayerMoveGroundNeutralFocus
 	btst	#2,player_joy_hold
-	beq.s	loc_2042C4
+	beq.s	PlayerMoveGroundAfterLeft
 	bsr.w	PlayerMoveGroundLeft
 
-loc_2042C4:
+PlayerMoveGroundAfterLeft:
 	btst	#3,player_joy_hold
-	beq.s	loc_2042D0
+	beq.s	PlayerMoveGroundCheckSlope
 	bsr.w	PlayerMoveGroundRight
 
-loc_2042D0:
+PlayerMoveGroundCheckSlope:
 	move.b	obj.angle(a0),d0
 	addi.b	#$20,d0
 	andi.b	#$C0,d0
-	bne.w	loc_204576
+	bne.w	PlayerMoveGroundNeutralFocus
 	tst.w	obj.ground_speed(a0)
-	beq.s	loc_2042F0
+	beq.s	PlayerMoveGroundStop
 	tst.b	obj.var_2a(a0)
-	beq.w	loc_204576
-	bra.s	loc_2042FC
+	beq.w	PlayerMoveGroundNeutralFocus
+	bra.s	PlayerMoveGroundCheckAttachedObject
 
 ; ------------------------------------------------------------------------------
 
-loc_2042F0:
+PlayerMoveGroundStop:
 	bclr	#5,obj.flags(a0)
 	move.b	#5,obj.anim_id(a0)
 
-loc_2042FC:
+PlayerMoveGroundCheckAttachedObject:
 	btst	#3,obj.flags(a0)
-	beq.s	loc_20434E
+	beq.s	PlayerMoveGroundCheckStep
 	moveq	#0,d0
 	move.b	obj.var_3d(a0),d0
 	lsl.w	#6,d0
 	lea	object_pool,a1
 	lea	(a1,d0.w),a1
 	tst.b	obj.flags(a1)
-	bmi.w	loc_2043A6
+	bmi.w	PlayerMoveGroundFocusMode
 	cmpi.b	#$1E,obj.id(a1)
-	bne.s	loc_20432E
+	bne.s	PlayerMoveGroundCheckAttachedRange
 	move.b	#0,obj.anim_id(a0)
-	bra.w	loc_204576
+	bra.w	PlayerMoveGroundNeutralFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_20432E:
+PlayerMoveGroundCheckAttachedRange:
 	moveq	#0,d1
 	move.b	obj.width_2(a1),d1
 	move.w	d1,d2
@@ -845,52 +845,52 @@ loc_20432E:
 	add.w	obj.x(a0),d1
 	sub.w	obj.x(a1),d1
 	cmpi.w	#4,d1
-	blt.s	loc_20438A
+	blt.s	PlayerMoveGroundCheckFacing
 	cmp.w	d2,d1
-	bge.s	loc_204378
-	bra.s	loc_2043A6
+	bge.s	PlayerMoveGroundSelectAnim
+	bra.s	PlayerMoveGroundFocusMode
 
 ; ------------------------------------------------------------------------------
 
-loc_20434E:
+PlayerMoveGroundCheckStep:
 	jsr	CheckBlockDown
 	cmpi.w	#$C,d1
-	blt.s	loc_2043A6
+	blt.s	PlayerMoveGroundFocusMode
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 	move.b	#0,obj.var_2a(a0)
 	move.w	#0,obj.ground_speed(a0)
 	cmpi.b	#3,obj.var_36(a0)
-	bne.s	loc_204382
+	bne.s	PlayerMoveGroundCheckOppositeAngle
 
-loc_204378:
+PlayerMoveGroundSelectAnim:
 	btst	#0,obj.flags(a0)
-	bne.s	loc_204392
-	bra.s	loc_20439C
+	bne.s	PlayerMoveGroundSetAnim32
+	bra.s	PlayerMoveGroundSetAnim6
 
 ; ------------------------------------------------------------------------------
 
-loc_204382:
+PlayerMoveGroundCheckOppositeAngle:
 	cmpi.b	#3,obj.var_37(a0)
-	bne.s	loc_2043A6
+	bne.s	PlayerMoveGroundFocusMode
 
-loc_20438A:
+PlayerMoveGroundCheckFacing:
 	btst	#0,obj.flags(a0)
-	bne.s	loc_20439C
+	bne.s	PlayerMoveGroundSetAnim6
 
-loc_204392:
+PlayerMoveGroundSetAnim32:
 	move.b	#$32,obj.anim_id(a0)
-	bra.w	loc_204576
+	bra.w	PlayerMoveGroundNeutralFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_20439C:
+PlayerMoveGroundSetAnim6:
 	move.b	#6,obj.anim_id(a0)
-	bra.w	loc_204576
+	bra.w	PlayerMoveGroundNeutralFocus
 
 ; ------------------------------------------------------------------------------
 
-loc_2043A6:
+PlayerMoveGroundFocusMode:
 	move.b	focus_mode,d0
 	andi.b	#$F,d0
 	beq.s	loc_2043BA
@@ -995,12 +995,12 @@ loc_2044A2:
 	move.b	#0,obj.var_2a(a0)
 	move.w	#$91,d0
 	jsr	PlayFmSound
-	bra.w	loc_204576
+	bra.w	PlayerMoveGroundNeutralFocus
 
 ; ------------------------------------------------------------------------------
 
 	bsr.w	PlayerMoveGroundLeft
-	bra.w	loc_204576
+	bra.w	PlayerMoveGroundNeutralFocus
 
 ; ------------------------------------------------------------------------------
 
@@ -1037,7 +1037,7 @@ loc_204502:
 
 loc_204514:
 	btst	#1,player_joy_hold
-	beq.s	loc_204576
+	beq.s	PlayerMoveGroundNeutralFocus
 	move.b	#8,obj.anim_id(a0)
 	tst.b	obj.var_2a(a0)
 	bne.s	loc_204558
@@ -1062,7 +1062,7 @@ loc_204558:
 
 loc_20455A:
 	btst	#1,player_joy_hold
-	beq.s	loc_204576
+	beq.s	PlayerMoveGroundNeutralFocus
 	move.b	#8,obj.anim_id(a0)
 	cmpi.w	#8,scroll_focus_y
 	beq.s	loc_20459A
@@ -1071,7 +1071,7 @@ loc_20455A:
 
 ; ------------------------------------------------------------------------------
 
-loc_204576:
+PlayerMoveGroundNeutralFocus:
 	cmpi.w	#$60,scroll_focus_y
 	bne.s	loc_204590
 	move.b	focus_mode,d0
@@ -1092,9 +1092,9 @@ loc_204596:
 loc_20459A:
 	move.b	player_joy_hold,d0
 	andi.b	#$C,d0
-	bne.s	loc_2045C6
+	bne.s	PlayerMoveGroundSetVelocity
 	move.w	obj.ground_speed(a0),d0
-	beq.s	loc_2045C6
+	beq.s	PlayerMoveGroundSetVelocity
 	bmi.s	loc_2045BA
 	sub.w	d5,d0
 	bcc.s	loc_2045B4
@@ -1102,7 +1102,7 @@ loc_20459A:
 
 loc_2045B4:
 	move.w	d0,obj.ground_speed(a0)
-	bra.s	loc_2045C6
+	bra.s	PlayerMoveGroundSetVelocity
 
 ; ------------------------------------------------------------------------------
 
@@ -1114,7 +1114,7 @@ loc_2045BA:
 loc_2045C2:
 	move.w	d0,obj.ground_speed(a0)
 
-loc_2045C6:
+PlayerMoveGroundSetVelocity:
 	move.b	obj.angle(a0),d0
 	jsr	SineCosine
 	muls.w	obj.ground_speed(a0),d1
