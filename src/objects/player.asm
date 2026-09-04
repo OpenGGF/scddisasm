@@ -1697,45 +1697,45 @@ PlayerStartRollReturn:
 
 PlayerCheckJump:
 	tst.b	obj.var_2a(a0)
-	beq.s	loc_204AD4
+	beq.s	PlayerCheckJumpInput
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204AD4:
+PlayerCheckJumpInput:
 	move.b	player_joy_hold,d0
 	andi.b	#3,d0
-	beq.s	loc_204AE6
+	beq.s	PlayerCheckJumpTap
 	tst.w	obj.ground_speed(a0)
-	beq.w	locret_204BAC
+	beq.w	PlayerCheckJumpReturn
 
-loc_204AE6:
+PlayerCheckJumpTap:
 	move.b	player_joy_tap,d0
 	andi.b	#$70,d0
-	beq.w	locret_204BAC
+	beq.w	PlayerCheckJumpReturn
 	btst	#3,obj.flags(a0)
-	beq.s	loc_204B02
+	beq.s	PlayerCheckJumpFromGround
 	jsr	PlayerCheckFlipper
-	beq.s	loc_204B32
+	beq.s	PlayerCheckJumpApplyImpulse
 
-loc_204B02:
+PlayerCheckJumpFromGround:
 	moveq	#0,d0
 	move.b	obj.angle(a0),d0
 	addi.b	#$80,d0
 	bsr.w	PlayerCheckBlockAbove
 	cmpi.w	#6,d1
-	blt.w	locret_204BAC
+	blt.w	PlayerCheckJumpReturn
 	move.w	#$680,d2
 	btst	#6,obj.flags(a0)
-	beq.s	loc_204B28
+	beq.s	PlayerCheckJumpSetAngle
 	move.w	#$380,d2
 
-loc_204B28:
+PlayerCheckJumpSetAngle:
 	moveq	#0,d0
 	move.b	obj.angle(a0),d0
 	subi.b	#$40,d0
 
-loc_204B32:
+PlayerCheckJumpApplyImpulse:
 	jsr	SineCosine
 	muls.w	d2,d1
 	asr.l	#8,d1
@@ -1752,31 +1752,31 @@ loc_204B32:
 	move.w	#$92,d0
 	jsr	PlayFmSound
 	btst	#2,obj.flags(a0)
-	bne.s	loc_204BAE
+	bne.s	PlayerCheckJumpAlreadyRolling
 	tst.b	player_shrunk_state
-	beq.s	loc_204B90
+	beq.s	PlayerCheckJumpSetNormalSize
 	move.b	#8,obj.height(a0)
 	move.b	#5,obj.width(a0)
 	addq.w	#2,obj.y(a0)
-	bra.s	loc_204BA0
+	bra.s	PlayerCheckJumpSetRolling
 
 ; ------------------------------------------------------------------------------
 
-loc_204B90:
+PlayerCheckJumpSetNormalSize:
 	move.b	#$E,obj.height(a0)
 	move.b	#7,obj.width(a0)
 	addq.w	#5,obj.y(a0)
 
-loc_204BA0:
+PlayerCheckJumpSetRolling:
 	bset	#2,obj.flags(a0)
 	move.b	#2,obj.anim_id(a0)
 
-locret_204BAC:
+PlayerCheckJumpReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204BAE:
+PlayerCheckJumpAlreadyRolling:
 	bset	#4,obj.flags(a0)
 	rts
 
@@ -1784,99 +1784,99 @@ loc_204BAE:
 
 PlayerJumpHeight:
 	tst.b	obj.var_3c(a0)
-	beq.s	loc_204BE8
+	beq.s	PlayerJumpHeightNormal
 	move.w	#-$400,d1
 	btst	#6,obj.flags(a0)
-	beq.s	loc_204BCC
+	beq.s	PlayerJumpHeightSetCap
 	move.w	#-$200,d1
 
-loc_204BCC:
+PlayerJumpHeightSetCap:
 	cmp.w	obj.y_speed(a0),d1
-	ble.s	locret_204BE6
+	ble.s	PlayerJumpHeightReturn
 	move.b	player_joy_hold,d0
 	andi.b	#$70,d0
-	bne.s	locret_204BE6
+	bne.s	PlayerJumpHeightReturn
 	move.b	#0,obj.var_2a(a0)
 	move.w	d1,obj.y_speed(a0)
 
-locret_204BE6:
+PlayerJumpHeightReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204BE8:
+PlayerJumpHeightNormal:
 	cmpi.w	#-$FC0,obj.y_speed(a0)
-	bge.s	locret_204BF6
+	bge.s	PlayerJumpHeightCapReturn
 	move.w	#-$FC0,obj.y_speed(a0)
 
-locret_204BF6:
+PlayerJumpHeightCapReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerSlopeResist:
 	tst.b	obj.var_2a(a0)
-	bne.s	locret_204C32
+	bne.s	PlayerSlopeResistSkip
 	move.b	obj.angle(a0),d0
 	addi.b	#$60,d0
 	cmpi.b	#$C0,d0
-	bcc.s	locret_204C32
+	bcc.s	PlayerSlopeResistSkip
 	move.b	obj.angle(a0),d0
 	jsr	SineCosine
 	muls.w	#$20,d0
 	asr.l	#8,d0
 	tst.w	obj.ground_speed(a0)
-	beq.s	locret_204C32
-	bmi.s	loc_204C2E
+	beq.s	PlayerSlopeResistSkip
+	bmi.s	PlayerSlopeResistApplyReverse
 	tst.w	d0
-	beq.s	locret_204C2C
+	beq.s	PlayerSlopeResistReturn
 	add.w	d0,obj.ground_speed(a0)
 
-locret_204C2C:
+PlayerSlopeResistReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204C2E:
+PlayerSlopeResistApplyReverse:
 	add.w	d0,obj.ground_speed(a0)
 
-locret_204C32:
+PlayerSlopeResistSkip:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 PlayerSlopeResistRoll:
 	tst.b	obj.var_2a(a0)
-	bne.s	locret_204C74
+	bne.s	PlayerSlopeResistRollReturn
 	move.b	obj.angle(a0),d0
 	addi.b	#$60,d0
 	cmpi.b	#$C0,d0
-	bcc.s	locret_204C74
+	bcc.s	PlayerSlopeResistRollReturn
 	move.b	obj.angle(a0),d0
 	jsr	SineCosine
 	muls.w	#$50,d0
 	asr.l	#8,d0
 	tst.w	obj.ground_speed(a0)
-	bmi.s	loc_204C6A
+	bmi.s	PlayerSlopeResistRollReverse
 	tst.w	d0
-	bpl.s	loc_204C64
+	bpl.s	PlayerSlopeResistRollStoreForward
 	asr.l	#2,d0
 
-loc_204C64:
+PlayerSlopeResistRollStoreForward:
 	add.w	d0,obj.ground_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_204C6A:
+PlayerSlopeResistRollReverse:
 	tst.w	d0
-	bmi.s	loc_204C70
+	bmi.s	PlayerSlopeResistRollStoreReverse
 	asr.l	#2,d0
 
-loc_204C70:
+PlayerSlopeResistRollStoreReverse:
 	add.w	d0,obj.ground_speed(a0)
 
-locret_204C74:
+PlayerSlopeResistRollReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
