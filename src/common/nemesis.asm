@@ -16,10 +16,10 @@ DecompNemesisMain:
 	lea	nemesis_code_table,a1
 	move.w	(a0)+,d2
 	lsl.w	#1,d2
-	bcc.s	loc_2023F2
+	bcc.s	NemesisDecodeInit
 	adda.w	#$A,a3
 
-loc_2023F2:
+NemesisDecodeInit:
 	lsl.w	#2,d2
 	movea.w	d2,a5
 	moveq	#8,d3
@@ -49,25 +49,25 @@ ProcessNemesisData:
 	ext.w	d0
 	sub.w	d0,d6
 	cmpi.w	#9,d6
-	bcc.s	loc_20243A
+	bcc.s	NemesisDecodeTableRun
 	addq.w	#8,d6
 	asl.w	#8,d5
 	move.b	(a0)+,d5
 
-loc_20243A:
+NemesisDecodeTableRun:
 	move.b	1(a1,d1.w),d1
 	move.w	d1,d0
 	andi.w	#$F,d1
 	andi.w	#$F0,d0
 
-loc_202448:
+NemesisPrepareRun:
 	lsr.w	#4,d0
 
-loc_20244A:
+NemesisEmitNibble:
 	lsl.l	#4,d4
 	or.b	d1,d4
 	subq.w	#1,d3
-	bne.s	loc_202458
+	bne.s	NemesisContinueRun
 	jmp	(a3)
 
 ; ------------------------------------------------------------------------------
@@ -76,8 +76,8 @@ NewNemesisRow:
 	moveq	#0,d4
 	moveq	#8,d3
 
-loc_202458:
-	dbf	d0,loc_20244A
+NemesisContinueRun:
+	dbf	d0,NemesisEmitNibble
 	bra.s	ProcessNemesisData
 
 ; ------------------------------------------------------------------------------
@@ -85,12 +85,12 @@ loc_202458:
 ProcessNemesisInline:
 	subq.w	#6,d6
 	cmpi.w	#9,d6
-	bcc.s	loc_20246C
+	bcc.s	NemesisDecodeInlineRun
 	addq.w	#8,d6
 	asl.w	#8,d5
 	move.b	(a0)+,d5
 
-loc_20246C:
+NemesisDecodeInlineRun:
 	subq.w	#7,d6
 	move.w	d5,d1
 	lsr.w	d6,d1
@@ -98,11 +98,11 @@ loc_20246C:
 	andi.w	#$F,d1
 	andi.w	#$70,d0
 	cmpi.w	#9,d6
-	bcc.s	loc_202448
+	bcc.s	NemesisPrepareRun
 	addq.w	#8,d6
 	asl.w	#8,d5
 	move.b	(a0)+,d5
-	bra.s	loc_202448
+	bra.s	NemesisPrepareRun
 
 ; ------------------------------------------------------------------------------
 
@@ -145,22 +145,23 @@ WriteNemesisRowXor:
 ; ------------------------------------------------------------------------------
 
 BuildNemesisCodeTable:
+	; Expand variable-length code descriptors into the 256-entry lookup table.
 	move.b	(a0)+,d0
 
-loc_2024B8:
+NemesisCodeTableBlock:
 	cmpi.b	#$FF,d0
-	bne.s	loc_2024C0
+	bne.s	NemesisCodeTablePrefix
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2024C0:
+NemesisCodeTablePrefix:
 	move.w	d0,d7
 
-loc_2024C2:
+NemesisCodeTableEntry:
 	move.b	(a0)+,d0
 	cmpi.b	#$80,d0
-	bcc.s	loc_2024B8
+	bcc.s	NemesisCodeTableBlock
 	move.b	d0,d1
 	andi.w	#$F,d7
 	andi.w	#$70,d1
@@ -171,15 +172,15 @@ loc_2024C2:
 	or.w	d1,d7
 	moveq	#8,d1
 	sub.w	d0,d1
-	bne.s	loc_2024F0
+	bne.s	NemesisCodeTableRange
 	move.b	(a0)+,d0
 	add.w	d0,d0
 	move.w	d7,(a1,d0.w)
-	bra.s	loc_2024C2
+	bra.s	NemesisCodeTableEntry
 
 ; ------------------------------------------------------------------------------
 
-loc_2024F0:
+NemesisCodeTableRange:
 	move.b	(a0)+,d0
 	lsl.w	d1,d0
 	add.w	d0,d0
@@ -187,10 +188,10 @@ loc_2024F0:
 	lsl.w	d1,d5
 	subq.w	#1,d5
 
-loc_2024FC:
+NemesisCodeTableRangeLoop:
 	move.w	d7,(a1,d0.w)
 	addq.w	#2,d0
-	dbf	d5,loc_2024FC
-	bra.s	loc_2024C2
+	dbf	d5,NemesisCodeTableRangeLoop
+	bra.s	NemesisCodeTableEntry
 
 ; ------------------------------------------------------------------------------
