@@ -8,50 +8,51 @@ PlayFmMusic:
 PlayFmSound:
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 		tst.b	fm_sound_1
-		bne.s	loc_20234A
+		bne.s	PlayFmSoundQueueSecond
 		move.b	d0,fm_sound_1
 		rts
 	endif
 
 ; ------------------------------------------------------------------------------
 
-loc_20234A:
-	tst.b	fm_sound_2
-	bne.s	loc_202356
+PlayFmSoundQueueSecond:
+		tst.b	fm_sound_2
+		bne.s	PlayFmSoundQueueThird
 	move.b	d0,fm_sound_2
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_202356:
+PlayFmSoundQueueThird:
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 		tst.b	fm_sound_3
-		bne.s	locret_202360
+		bne.s	PlayFmSoundQueueReturn
 	endif
 	move.b	d0,fm_sound_3
 
-locret_202360:
+PlayFmSoundQueueReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 FlushFmQueues:
+	; Drain pending FM sound slots to the Z80 driver in queue order.
 	jsr	StopZ80
 	if (REGION=USA)|((REGION<>USA)&(DEMO=0))
 		tst.b	fm_sound_1
-		beq.s	loc_20237C
+		beq.s	FlushFmQueueSecond
 		move.b	fm_sound_1,Z80_RAM+$1C09
 		move.b	#0,fm_sound_1
 
-loc_20237C:
+FlushFmQueueSecond:
 		tst.b	fm_sound_2
-		beq.s	loc_202390
+		beq.s	FlushFmQueueThird
 		move.b	fm_sound_2,Z80_RAM+$1C0A
 		move.b	#0,fm_sound_2
 
-loc_202390:
+FlushFmQueueThird:
 		tst.b	fm_sound_3
-		beq.s	loc_2023A4
+		beq.s	FlushFmQueuesStartZ80
 		move.b	fm_sound_3,Z80_RAM+$1C0B
 		move.b	#0,fm_sound_3
 	else
@@ -62,7 +63,7 @@ loc_202390:
 		move.b	#0,fm_sound_3
 	endif
 
-loc_2023A4:
+FlushFmQueuesStartZ80:
 	bra.w	StartZ80
 
 ; ------------------------------------------------------------------------------

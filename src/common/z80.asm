@@ -1,13 +1,14 @@
 ; ------------------------------------------------------------------------------
 
 StopZ80:
+	; Assert BUSREQ and wait until the Z80 has yielded the bus.
 	move	sr,saved_sr
 	move	#$2700,sr
 	move.w	#$100,Z80_BUS
 
-loc_2022E6:
+StopZ80Wait:
 	btst	#0,Z80_BUS
-	bne.s	loc_2022E6
+	bne.s	StopZ80Wait
 	rts
 
 ; ------------------------------------------------------------------------------
