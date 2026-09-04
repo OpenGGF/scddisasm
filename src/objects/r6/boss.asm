@@ -20,11 +20,11 @@ EggmanRoutineTable:
 	dc.w	EggmanDescend-EggmanRoutineTable
 	dc.w	EggmanHover-EggmanRoutineTable
 	dc.w	EggmanAscend-EggmanRoutineTable
-	dc.w	EggmanObject_0_RoutineA-EggmanRoutineTable
-	dc.w	EggmanObject_0_RoutineC-EggmanRoutineTable
-	dc.w	EggmanObject_0_RoutineE-EggmanRoutineTable
-	dc.w	EggmanObject_0_Routine10-EggmanRoutineTable
-	dc.w	EggmanObject_0_Routine12-EggmanRoutineTable
+	dc.w	EggmanAttack-EggmanRoutineTable
+	dc.w	EggmanDefeatFall-EggmanRoutineTable
+	dc.w	EggmanDefeatSequence-EggmanRoutineTable
+	dc.w	EggmanEscape-EggmanRoutineTable
+	dc.w	EggmanEscapeWait-EggmanRoutineTable
 	dc.w	EggmanObject_0_Routine14-EggmanRoutineTable
 
 ; ------------------------------------------------------------------------------
@@ -218,7 +218,7 @@ EggmanHover:
 ; ------------------------------------------------------------------------------
 
 EggmanHoverExit:
-	bra.w	loc_20EB26
+	bra.w	EggmanRestartAttackCycle
 
 ; ------------------------------------------------------------------------------
 
@@ -304,116 +304,116 @@ EggmanAscentTargets:
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_RoutineA:
+EggmanAttack:
 	bsr.w	EggmanMoveHover
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$1F2,obj.var_2a(a0)
-	beq.s	loc_20E9FA
+	beq.s	EggmanAttackSoundCue
 	cmpi.w	#$21C,obj.var_2a(a0)
-	beq.s	loc_20EA16
+	beq.s	EggmanAttackSetBossFlags
 	cmpi.w	#$23A,obj.var_2a(a0)
-	beq.s	loc_20EA44
+	beq.s	EggmanAttackClearBossFlag
 	cmpi.w	#$258,obj.var_2a(a0)
-	beq.s	loc_20EA4C
+	beq.s	EggmanAttackEnableEffect
 	cmpi.w	#$276,obj.var_2a(a0)
-	beq.s	loc_20EA54
+	beq.s	EggmanAttackEnableBossFlag
 	cmpi.w	#$348,obj.var_2a(a0)
-	beq.w	loc_20EAB0
-	bra.s	loc_20EA5E
+	beq.w	EggmanAttackNextPhase
+	bra.s	EggmanAttackUpdateEffects
 
 ; ------------------------------------------------------------------------------
 
-loc_20E9FA:
+EggmanAttackSoundCue:
 	move.w	#$B2,d0
 	movem.l	a0-a2,-(sp)
 	jsr	PlayFmSound
 	movem.l	(sp)+,a0-a2
 	bsr.w	sub_20F956
 	bsr.w	sub_20F846
-	bra.s	loc_20EA5E
+	bra.s	EggmanAttackUpdateEffects
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA16:
+EggmanAttackSetBossFlags:
 	move.b	boss_started,d1
 	andi.b	#$1F,d1
 	bsr.w	sub_20F956
 	cmpi.b	#1,d0
-	beq.s	loc_20EA34
+	beq.s	EggmanAttackMarkOutcomeOne
 	cmpi.b	#2,d0
-	beq.s	loc_20EA3A
+	beq.s	EggmanAttackMarkOutcomeTwo
 	ori.b	#$20,d1
-	bra.s	loc_20EA3E
+	bra.s	EggmanAttackStoreBossFlags
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA34:
+EggmanAttackMarkOutcomeOne:
 	ori.b	#$40,d1
-	bra.s	loc_20EA3E
+	bra.s	EggmanAttackStoreBossFlags
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA3A:
+EggmanAttackMarkOutcomeTwo:
 	ori.b	#$80,d1
 
-loc_20EA3E:
+EggmanAttackStoreBossFlags:
 	move.b	d1,boss_started
-	bra.s	loc_20EA5E
+	bra.s	EggmanAttackUpdateEffects
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA44:
+EggmanAttackClearBossFlag:
 	bclr	#5,boss_flags
-	bra.s	loc_20EA5E
+	bra.s	EggmanAttackUpdateEffects
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA4C:
+EggmanAttackEnableEffect:
 	move.b	#1,obj.var_36(a0)
-	bra.s	loc_20EA5E
+	bra.s	EggmanAttackUpdateEffects
 
 ; ------------------------------------------------------------------------------
 
-loc_20EA54:
+EggmanAttackEnableBossFlag:
 	bset	#5,boss_flags
 	clr.b	obj.var_36(a0)
 
-loc_20EA5E:
+EggmanAttackUpdateEffects:
 	cmpi.w	#$168,obj.var_2a(a0)
-	bgt.s	loc_20EA74
+	bgt.s	EggmanAttackSecondarySpawn
 	moveq	#0,d0
 	move.w	obj.var_2a(a0),d0
 	subi.w	#$168,d0
 	bsr.w	sub_20F754
 
-loc_20EA74:
+EggmanAttackSecondarySpawn:
 	cmpi.w	#$B4,obj.var_2a(a0)
-	blt.s	loc_20EA8A
+	blt.s	EggmanAttackCheckFinalCollision
 	moveq	#0,d0
 	move.w	obj.var_2a(a0),d0
 	subi.w	#$B4,d0
 	bsr.w	sub_20F700
 
-loc_20EA8A:
+EggmanAttackCheckFinalCollision:
 	cmpi.b	#3,obj.var_2d(a0)
-	bne.s	locret_20EAAE
+	bne.s	EggmanAttackReturn
 	tst.b	obj.collide_type(a0)
-	beq.w	loc_20EAD4
+	beq.w	EggmanDefeat
 	cmpi.w	#$B4,obj.var_2a(a0)
-	bgt.s	locret_20EAAE
+	bgt.s	EggmanAttackReturn
 	moveq	#0,d0
 	move.w	obj.var_2a(a0),d0
 	subq.w	#1,d0
 	bsr.w	sub_20F698
 
-locret_20EAAE:
+EggmanAttackReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EAB0:
+EggmanAttackNextPhase:
 	cmpi.b	#3,obj.var_2d(a0)
-	beq.s	loc_20EB26
+	beq.s	EggmanRestartAttackCycle
 	clr.w	obj.var_2a(a0)
 	move.b	#4,obj.routine(a0)
 	clr.w	obj.x_speed(a0)
@@ -423,7 +423,7 @@ loc_20EAB0:
 
 ; ------------------------------------------------------------------------------
 
-loc_20EAD4:
+EggmanDefeat:
 	bclr	#0,obj.var_2c(a0)
 	clr.w	obj.var_2a(a0)
 	move.b	#$C,obj.routine(a0)
@@ -443,7 +443,7 @@ loc_20EAD4:
 
 ; ------------------------------------------------------------------------------
 
-loc_20EB26:
+EggmanRestartAttackCycle:
 	move.w	#$168,obj.var_2a(a0)
 	clr.b	obj.var_34(a0)
 	move.b	#$A,obj.routine(a0)
@@ -451,17 +451,17 @@ loc_20EB26:
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_RoutineC:
-	bsr.w	sub_20ED3E
+EggmanDefeatFall:
+	bsr.w	EggmanConstrainPlayerDuringDefeat
 	cmpi.w	#$2A0,obj.y(a0)
-	bge.s	loc_20EB4E
+	bge.s	EggmanDefeatLand
 	bsr.w	sub_20F622
 	neg.w	obj.x_speed(a0)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EB4E:
+EggmanDefeatLand:
 	move.b	#$E,obj.routine(a0)
 	move.b	#3,obj.anim_id(a0)
 	move.b	#0,obj.sprite_frame(a0)
@@ -471,58 +471,58 @@ loc_20EB4E:
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_RoutineE:
+EggmanDefeatSequence:
 	cmpi.w	#$78,obj.var_2a(a0)
-	bne.s	loc_20EB7A
+	bne.s	EggmanDefeatSequenceCheckReset
 	andi.b	#$1F,boss_started
 
-loc_20EB7A:
+EggmanDefeatSequenceCheckReset:
 	cmpi.w	#$146,obj.var_2a(a0)
-	bgt.s	loc_20EB88
-	bsr.w	sub_20ED3E
-	bra.s	loc_20EB8C
+	bgt.s	EggmanDefeatSequenceMovePlayer
+	bsr.w	EggmanConstrainPlayerDuringDefeat
+	bra.s	EggmanDefeatSequenceUpdateTimer
 
 ; ------------------------------------------------------------------------------
 
-loc_20EB88:
-	bsr.w	sub_20ED2A
+EggmanDefeatSequenceMovePlayer:
+	bsr.w	EggmanSetPlayerDefeatPosition
 
-loc_20EB8C:
+EggmanDefeatSequenceUpdateTimer:
 	addq.w	#1,obj.var_2a(a0)
 	cmpi.w	#$B4,obj.var_2a(a0)
-	beq.w	loc_20ECC6
+	beq.w	EggmanDefeatSequenceReleasePlayer
 	cmpi.w	#$F0,obj.var_2a(a0)
-	blt.s	loc_20EBB0
+	blt.s	EggmanDefeatSequenceCheckEvents
 	bsr.w	sub_20F9BC
 	cmpi.w	#$144,obj.var_2a(a0)
-	bgt.s	loc_20EBB0
-	bra.s	loc_20EBFA
+	bgt.s	EggmanDefeatSequenceCheckEvents
+	bra.s	EggmanDefeatSequenceFadeToWhite
 
 ; ------------------------------------------------------------------------------
 
-loc_20EBB0:
+EggmanDefeatSequenceCheckEvents:
 	cmpi.w	#$145,obj.var_2a(a0)
-	beq.s	loc_20EC0E
+	beq.s	EggmanDefeatSequenceFadeScreen
 	cmpi.w	#$146,obj.var_2a(a0)
-	beq.s	loc_20EC32
+	beq.s	EggmanDefeatSequenceSpawnCapsule
 	cmpi.w	#$17F,obj.var_2a(a0)
-	beq.s	loc_20EC22
+	beq.s	EggmanDefeatSequenceFadeObjects
 	cmpi.w	#$180,obj.var_2a(a0)
-	blt.s	loc_20EBDA
+	blt.s	EggmanDefeatSequenceWaitEvent
 	cmpi.w	#$1D4,obj.var_2a(a0)
-	bgt.s	loc_20EBDA
-	bra.s	loc_20EBE6
+	bgt.s	EggmanDefeatSequenceWaitEvent
+	bra.s	EggmanDefeatSequenceFadeFromWhite
 
 ; ------------------------------------------------------------------------------
 
-loc_20EBDA:
+EggmanDefeatSequenceWaitEvent:
 	cmpi.w	#$1D5,obj.var_2a(a0)
-	beq.w	loc_20EC6C
+	beq.w	EggmanDefeatSequenceReward
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20EBE6:
+EggmanDefeatSequenceFadeFromWhite:
 	movea.l	a0,a3
 	movea.l	a0,a4
 	adda.w	#obj.var_3e,a4
@@ -532,7 +532,7 @@ loc_20EBE6:
 
 ; ------------------------------------------------------------------------------
 
-loc_20EBFA:
+EggmanDefeatSequenceFadeToWhite:
 	movea.l	a0,a3
 	movea.l	a0,a4
 	adda.w	#obj.var_3e,a4
@@ -542,7 +542,7 @@ loc_20EBFA:
 
 ; ------------------------------------------------------------------------------
 
-loc_20EC0E:
+EggmanDefeatSequenceFadeScreen:
 	bsr.w	sub_20F9BC
 	movem.l	d0-d7/a0-a6,-(sp)
 	jsr	FadeToWhite
@@ -551,7 +551,7 @@ loc_20EC0E:
 
 ; ------------------------------------------------------------------------------
 
-loc_20EC22:
+EggmanDefeatSequenceFadeObjects:
 	movem.l	d0-d7/a0-a6,-(sp)
 	jsr	BossFadeObjectsFromWhite
 	movem.l	(sp)+,d0-d7/a0-a6
@@ -559,7 +559,7 @@ loc_20EC22:
 
 ; ------------------------------------------------------------------------------
 
-loc_20EC32:
+EggmanDefeatSequenceSpawnCapsule:
 	moveq	#$14,d0
 	jsr	AddGfxQueue
 	move.b	#4,obj.anim_id(a0)
@@ -575,7 +575,7 @@ loc_20EC32:
 
 ; ------------------------------------------------------------------------------
 
-loc_20EC6C:
+EggmanDefeatSequenceReward:
 	bsr.w	sub_20F9C2
 	clr.w	obj.y_speed(a0)
 	clr.w	obj.var_32(a0)
@@ -587,10 +587,10 @@ loc_20EC6C:
 	move.w	word_20294C+4,target_right_bound
 	move.w	#$1D,d0
 	tst.b	good_future
-	beq.s	loc_20ECAE
+	beq.s	EggmanDefeatSequenceSendMusic
 	move.w	#$1C,d0
 
-loc_20ECAE:
+EggmanDefeatSequenceSendMusic:
 	movem.l	a0-a2,-(sp)
 	jsr	SubCpuCommand
 	movem.l	(sp)+,a0-a2
@@ -600,59 +600,59 @@ loc_20ECAE:
 
 ; ------------------------------------------------------------------------------
 
-loc_20ECC6:
+EggmanDefeatSequenceReleasePlayer:
 	move.b	#$3E,d0
 	bsr.w	sub_20F64C
-	bra.s	loc_20ECD4
+	bra.s	EggmanDefeatSequenceCheckPlayer
 
 ; ------------------------------------------------------------------------------
 
-loc_20ECD0:
+EggmanDefeatSequenceWaitPlayer:
 	bsr.w	sub_20F65A
 
-loc_20ECD4:
+EggmanDefeatSequenceCheckPlayer:
 	cmpi.b	#4,obj.routine(a1)
-	bne.s	loc_20ECD0
+	bne.s	EggmanDefeatSequenceWaitPlayer
 	move.b	#8,obj.routine(a1)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-EggmanObject_0_Routine10:
-	bsr.w	sub_20ED08
+EggmanEscape:
+	bsr.w	EggmanLoadCapsulePalette
 	bsr.w	sub_20F622
 	cmpi.w	#$EF0,obj.x(a0)
-	bge.s	loc_20ECF6
+	bge.s	EggmanEscapeComplete
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20ECF6:
+EggmanEscapeComplete:
 	move.b	#$12,obj.routine(a0)
 	clr.b	boss_started
 
-EggmanObject_0_Routine12:
-	bsr.w	sub_20ED08
+EggmanEscapeWait:
+	bsr.w	EggmanLoadCapsulePalette
 	addq.l	#4,sp
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20ED08:
+EggmanLoadCapsulePalette:
 	btst	#1,obj.var_2c(a0)
-	bne.s	locret_20ED28
+	bne.s	EggmanLoadCapsulePaletteReturn
 	lea	player_object,a1
 	cmpi.w	#$C00,obj.x(a1)
-	blt.s	locret_20ED28
+	blt.s	EggmanLoadCapsulePaletteReturn
 	bset	#1,obj.var_2c(a0)
 	jsr	LoadCapsulePalette
 
-locret_20ED28:
+EggmanLoadCapsulePaletteReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-sub_20ED2A:
+EggmanSetPlayerDefeatPosition:
 	lea	player_object,a1
 	clr.w	obj.x_speed(a1)
 	clr.w	obj.ground_speed(a1)
@@ -661,28 +661,28 @@ sub_20ED2A:
 
 ; ------------------------------------------------------------------------------
 
-sub_20ED3E:
+EggmanConstrainPlayerDuringDefeat:
 	lea	player_object,a1
 	btst	#7,obj.flags(a1)
-	bne.s	locret_20ED76
+	bne.s	EggmanConstrainPlayerDuringDefeatReturn
 	clr.w	obj.x_speed(a1)
 	clr.w	obj.ground_speed(a1)
 	cmpi.w	#$28C,obj.y(a1)
-	ble.s	loc_20ED60
+	ble.s	EggmanConstrainPlayerLowerY
 	move.w	#$28C,obj.y(a1)
 
-loc_20ED60:
+EggmanConstrainPlayerLowerY:
 	cmpi.w	#$AC0,obj.x(a1)
-	bge.s	loc_20ED70
+	bge.s	EggmanConstrainPlayerUpperX
 	move.w	#$A70,obj.x(a1)
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20ED70:
+EggmanConstrainPlayerUpperX:
 	move.w	#$B10,obj.x(a1)
 
-locret_20ED76:
+EggmanConstrainPlayerDuringDefeatReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
