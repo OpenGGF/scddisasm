@@ -1,5 +1,4 @@
-; ------------------------------------------------------------------------------
-
+; 14-byte records: X/Y bounds, X/Y velocity, mode, and switch flags.
 WaterCurrents:
 	dc.w	$1340, $680, $1380, $7A0, 0, -$400
 	dc.b	1, 6

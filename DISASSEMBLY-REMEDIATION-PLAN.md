@@ -714,6 +714,7 @@ opaque merely because they use `dc.*`.
 | M501 | Complete | Canonicalize the shared pseudo-random generator, migrating its seed-initialization branch and documenting the 32-bit seed/16-bit return contract. | J/U/E 133/133 each; audit/hygiene clean. |
 | M502 | Complete | Canonicalize the R4 stage bootstrap and main-loop family, migrating reset, palette/graphics waits, object-state clears, water setup, pause/restart, per-frame update, and player-spawn branches to semantic symbols and documenting the entry flow. | J/U/E 133/133 each; audit/hygiene clean. |
 | M503 | Complete | Canonicalize the R4 animation-timer, stage-music, life-icon, water-update, and act-specific water-event family, migrating dispatch-table and branch consumers and documenting the timer, command, and water-state roles. | J/U/E 133/133 each; audit/hygiene clean. |
+| M504 | Complete | Canonicalize the R4 water-current record consumer and pause/unpause audio-control family, migrating current-record scans, input adjustments, sentinel exits, and music-mode branches and documenting the 14-byte current-record format. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote

@@ -771,50 +771,51 @@ WaterEventsAct3SetTarget:
 
 ; ------------------------------------------------------------------------------
 
+; Apply the active 14-byte water-current records to the player.
 CheckWaterCurrents:
 	lea	player_object,a1
 	cmpi.b	#$2B,obj.anim_id(a1)
-	beq.w	locret_201DF2
+	beq.w	CheckWaterCurrentsDone
 	btst	#0,obj.var_2c(a1)
-	bne.w	locret_201DF2
+	bne.w	CheckWaterCurrentsDone
 	tst.b	(a1)
-	beq.w	locret_201DF2
+	beq.w	CheckWaterCurrentsDone
 	tst.w	debug_mode
-	bne.w	locret_201DF2
+	bne.w	CheckWaterCurrentsDone
 	moveq	#0,d0
 	move.b	act,d0
 	cmpi.b	#2,d0
-	bcc.w	locret_201DF2
+	bcc.w	CheckWaterCurrentsDone
 	lea	WaterCurrents,a2
 
-loc_201D10:
+CheckWaterCurrentsScan:
 	move.w	obj.x(a1),d0
 	cmp.w	(a2),d0
-	bcs.w	loc_201DD8
+	bcs.w	CheckWaterCurrentsNext
 	cmp.w	4(a2),d0
-	bcc.w	loc_201DD8
+	bcc.w	CheckWaterCurrentsNext
 	move.w	obj.y(a1),d2
 	cmp.w	2(a2),d2
-	bcs.w	loc_201DD8
+	bcs.w	CheckWaterCurrentsNext
 	cmp.w	6(a2),d2
-	bcc.w	loc_201DD8
+	bcc.w	CheckWaterCurrentsNext
 	move.b	stage_vblank_frames+3,d0
 	andi.b	#$3F,d0
-	bne.s	loc_201D46
+	bne.s	CheckWaterCurrentsSelectSwitch
 	move.w	#$D0,d0
 
-loc_201D46:
+CheckWaterCurrentsSelectSwitch:
 	lea	switch_flags,a3
 	moveq	#0,d0
 	move.b	$D(a2),d0
 	cmpi.b	#1,$C(a2)
-	bne.s	loc_201D62
+	bne.s	CheckWaterCurrentsApplyCurrent
 	btst	#6,(a3,d0.w)
-	beq.w	locret_201DF2
+	beq.w	CheckWaterCurrentsDone
 
-loc_201D62:
+CheckWaterCurrentsApplyCurrent:
 	cmpi.b	#4,obj.routine(a1)
-	bcc.w	loc_201DEE
+	bcc.w	CheckWaterCurrentsClearFlag
 	move.b	#1,water_current_flag
 	clr.b	obj.var_3c(a1)
 	move.w	8(a2),obj.x_speed(a1)
@@ -822,49 +823,49 @@ loc_201D62:
 	move.b	#$F,obj.anim_id(a1)
 	bset	#1,obj.flags(a1)
 	cmpi.b	#2,$C(a2)
-	bne.s	loc_201DA6
+	bne.s	CheckWaterCurrentsInput
 	btst	#5,(a3,d0.w)
-	beq.s	loc_201DA6
+	beq.s	CheckWaterCurrentsInput
 	neg.w	obj.x_speed(a1)
 	neg.w	obj.y_speed(a1)
 
-loc_201DA6:
+CheckWaterCurrentsInput:
 	btst	#0,player_joy_hold
-	beq.s	loc_201DB2
+	beq.s	CheckWaterCurrentsInputDown
 	subq.w	#1,$C(a1)
 
-loc_201DB2:
+CheckWaterCurrentsInputDown:
 	btst	#1,player_joy_hold
-	beq.s	loc_201DBE
+	beq.s	CheckWaterCurrentsInputLeft
 	addq.w	#1,$C(a1)
 
-loc_201DBE:
+CheckWaterCurrentsInputLeft:
 	btst	#2,player_joy_hold
-	beq.s	loc_201DCA
+	beq.s	CheckWaterCurrentsInputRight
 	subq.w	#1,8(a1)
 
-loc_201DCA:
+CheckWaterCurrentsInputRight:
 	btst	#3,player_joy_hold
-	beq.s	locret_201DD6
+	beq.s	CheckWaterCurrentsInputDone
 	addq.w	#1,8(a1)
 
-locret_201DD6:
+CheckWaterCurrentsInputDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_201DD8:
+CheckWaterCurrentsNext:
 	adda.w	#$E,a2
 	tst.b	(a2)
-	bpl.w	loc_201D10
+	bpl.w	CheckWaterCurrentsScan
 	tst.b	water_current_flag
-	beq.s	locret_201DF2
+	beq.s	CheckWaterCurrentsDone
 	move.b	#0,obj.anim_id(a1)
 
-loc_201DEE:
+CheckWaterCurrentsClearFlag:
 	clr.b	water_current_flag
 
-locret_201DF2:
+CheckWaterCurrentsDone:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -873,62 +874,63 @@ locret_201DF2:
 
 ; ------------------------------------------------------------------------------
 
+; Pause and resume Sub CPU music while retaining the current time-zone mode.
 PauseMusic:
 	move.w	#$AB,d0
 	jsr	PlayFmSound
 	bset	#7,paused
-	bne.s	locret_201E3A
+	bne.s	PauseMusicDone
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	beq.s	loc_201E20
+	beq.s	PauseMusicNormal
 
-loc_201E16:
+PauseMusicSpecial:
 	move.w	#$D5,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-loc_201E20:
+PauseMusicNormal:
 	tst.b	invincible
-	bne.s	loc_201E16
+	bne.s	PauseMusicSpecial
 	tst.b	speed_shoes
-	bne.s	loc_201E16
+	bne.s	PauseMusicSpecial
 	move.w	#$90,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-locret_201E3A:
+PauseMusicDone:
 	rts
 
 ; ------------------------------------------------------------------------------
 
 UnpauseMusic:
 	bclr	#7,paused
-	beq.s	locret_201E76
+	beq.s	UnpauseMusicDone
 	move.b	time_zone,d0
 	bclr	#7,d0
 	tst.b	d0
-	beq.s	loc_201E5C
+	beq.s	UnpauseMusicNormal
 
-loc_201E52:
+UnpauseMusicSpecial:
 	move.w	#$D6,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-loc_201E5C:
+UnpauseMusicNormal:
 	tst.b	invincible
-	bne.s	loc_201E52
+	bne.s	UnpauseMusicSpecial
 	tst.b	speed_shoes
-	bne.s	loc_201E52
+	bne.s	UnpauseMusicSpecial
 	move.w	#$91,d0
 	jmp	SubCpuCommand
 
 ; ------------------------------------------------------------------------------
 
-locret_201E76:
+UnpauseMusicDone:
 	rts
 
 ; ------------------------------------------------------------------------------
