@@ -10,195 +10,195 @@ Padding1:
 	; The USA C image retains this 684-byte legacy block before StageChunks.
 R63C_USA_AnimateStageGfx:
 	move.b $6608(a2), $588f(a2)
-L_R63C_20FD5A:
+R63C_USA_AnimateStageGfxJump:
 	jmp $20392c.l
-L_R63C_20FD60:
+R63C_USA_AnimateStageGfxReturn:
 	rts
 R63C_USA_AnimateStageGfxAlt:
 	jsr $206674.l
-L_R63C_20FD68:
+R63C_USA_AnimateStageGfxAltSetCounterBase:
 	lea.l $FFFFF66C.w, a2
-L_R63C_20FD6C:
+R63C_USA_AnimateStageGfxAltSetFrameBase:
 	lea.l $FFFFF666.w, a4
-L_R63C_20FD70:
+R63C_USA_AnimateStageGfxAltSelectTableB:
 	lea.l R63C_USA_AnimationTableB.l, a1
-L_R63C_20FD76:
+R63C_USA_AnimateStageGfxAltSetTableBCount:
 	move.w #$3f, d6
-L_R63C_20FD7A:
+R63C_USA_AnimateStageGfxAltAnimateTableB:
 	bsr.w R63C_USA_AnimateTilesSimpleAlt
-L_R63C_20FD7E:
-	bne.b L_R63C_20FDA4
-L_R63C_20FD80:
+R63C_USA_AnimateStageGfxAltTableBStatusBranch:
+	bne.b R63C_USA_AnimateStageGfxAltSelectTableBSecondPass
+R63C_USA_AnimateStageGfxAltPrepareVdp:
 	lea.l $c00004.l, a5
-L_R63C_20FD86:
+R63C_USA_AnimateStageGfxAltSetVdpSource:
 	move.l #$94009380, (a5)
-L_R63C_20FD8C:
+R63C_USA_AnimateStageGfxAltSetVdpDestination:
 	move.l #$968c95c0, (a5)
-L_R63C_20FD92:
+R63C_USA_AnimateStageGfxAltSetVdpLength:
 	move.w #$977f, (a5)
-L_R63C_20FD96:
+R63C_USA_AnimateStageGfxAltSetVramOffset:
 	move.w #$5640, (a5)
-L_R63C_20FD9A:
+R63C_USA_AnimateStageGfxAltSetVdpIncrement:
 	move.w #$81, $FFFFF640.w
-L_R63C_20FDA0:
+R63C_USA_AnimateStageGfxAltWriteVdpIncrement:
 	move.w $FFFFF640.w, (a5)
-L_R63C_20FDA4:
+R63C_USA_AnimateStageGfxAltSelectTableBSecondPass:
 	lea.l $20fecc.l, a1
-L_R63C_20FDAA:
+R63C_USA_AnimateStageGfxAltSetTableBSecondCount:
 	move.w #$1f, d6
-L_R63C_20FDAE:
+R63C_USA_AnimateStageGfxAltAnimateTableBSecond:
 	bsr.w R63C_USA_AnimateTilesSimpleAlt
-L_R63C_20FDB2:
-	bne.b L_R63C_20FDD8
-L_R63C_20FDB4:
+R63C_USA_AnimateStageGfxAltTableBSecondStatusBranch:
+	bne.b R63C_USA_AnimateStageGfxAltSelectTableA
+R63C_USA_AnimateStageGfxAltPrepareVdpSecond:
 	lea.l $c00004.l, a5
-L_R63C_20FDBA:
+R63C_USA_AnimateStageGfxAltSetVdpSourceSecond:
 	move.l #$94009340, (a5)
-L_R63C_20FDC0:
+R63C_USA_AnimateStageGfxAltSetVdpDestinationSecond:
 	move.l #$968c95c0, (a5)
-L_R63C_20FDC6:
+R63C_USA_AnimateStageGfxAltSetVdpLengthSecond:
 	move.w #$977f, (a5)
-L_R63C_20FDCA:
+R63C_USA_AnimateStageGfxAltSetVramOffsetSecond:
 	move.w #$55c0, (a5)
-L_R63C_20FDCE:
+R63C_USA_AnimateStageGfxAltSetVdpIncrementSecond:
 	move.w #$81, $FFFFF640.w
-L_R63C_20FDD4:
+R63C_USA_AnimateStageGfxAltWriteVdpIncrementSecond:
 	move.w $FFFFF640.w, (a5)
-L_R63C_20FDD8:
+R63C_USA_AnimateStageGfxAltSelectTableA:
 	lea.l R63C_USA_AnimationTableA.l, a1
-L_R63C_20FDDE:
+R63C_USA_AnimateStageGfxAltSetTableACount:
 	move.w #$1f, d6
-L_R63C_20FDE2:
+R63C_USA_AnimateStageGfxAltAnimateTableA:
 	bsr.w R63C_USA_AnimateTilesSimple
-L_R63C_20FDE6:
-	bne.b L_R63C_20FE0C
-L_R63C_20FDE8:
+R63C_USA_AnimateStageGfxAltTableAStatusBranch:
+	bne.b R63C_USA_AnimateStageGfxAltReturn
+R63C_USA_AnimateStageGfxAltPrepareVdpA:
 	lea.l $c00004.l, a5
-L_R63C_20FDEE:
+R63C_USA_AnimateStageGfxAltSetVdpSourceA:
 	move.l #$94009340, (a5)
-L_R63C_20FDF4:
+R63C_USA_AnimateStageGfxAltSetVdpDestinationA:
 	move.l #$968c95c0, (a5)
-L_R63C_20FDFA:
+R63C_USA_AnimateStageGfxAltSetVdpLengthA:
 	move.w #$977f, (a5)
-L_R63C_20FDFE:
+R63C_USA_AnimateStageGfxAltSetVramOffsetA:
 	move.w #$5540, (a5)
-L_R63C_20FE02:
+R63C_USA_AnimateStageGfxAltSetVdpIncrementA:
 	move.w #$81, $FFFFF640.w
-L_R63C_20FE08:
+R63C_USA_AnimateStageGfxAltWriteVdpIncrementA:
 	move.w $FFFFF640.w, (a5)
-L_R63C_20FE0C:
+R63C_USA_AnimateStageGfxAltReturn:
 	rts
 R63C_USA_AnimateTilesSimple:
 	subq.b #$1, (a2)
-L_R63C_20FE10:
-	bpl.b L_R63C_20FE54
-L_R63C_20FE12:
+R63C_USA_AnimateTilesSimpleCounterCheck:
+	bpl.b R63C_USA_AnimateTilesSimpleNoUpdate
+R63C_USA_AnimateTilesSimpleResetIndex:
 	moveq #$0, d0
-L_R63C_20FE14:
+R63C_USA_AnimateTilesSimpleLoadIndex:
 	move.b (a4), d0
-L_R63C_20FE16:
+R63C_USA_AnimateTilesSimpleAdvanceIndex:
 	addq.b #$1, d0
-L_R63C_20FE18:
+R63C_USA_AnimateTilesSimpleLimitCheck:
 	cmp.b (a1), d0
-L_R63C_20FE1A:
-	bcs.b L_R63C_20FE1E
-L_R63C_20FE1C:
+R63C_USA_AnimateTilesSimpleLimitBranch:
+	bcs.b R63C_USA_AnimateTilesSimpleStoreIndex
+R63C_USA_AnimateTilesSimpleWrapIndex:
 	moveq #$0, d0
-L_R63C_20FE1E:
+R63C_USA_AnimateTilesSimpleStoreIndex:
 	move.b d0, (a4)
-L_R63C_20FE20:
+R63C_USA_AnimateTilesSimpleScaleIndex:
 	add.w d0, d0
-L_R63C_20FE22:
+R63C_USA_AnimateTilesSimpleLoadFrameDuration:
 	move.b $2(a1, d0.w), (a2)
-L_R63C_20FE26:
+R63C_USA_AnimateTilesSimpleLoadTileOffset:
 	move.b $3(a1, d0.w), d0
-L_R63C_20FE2A:
+R63C_USA_AnimateTilesSimpleSignExtendTileOffset:
 	ext.w d0
-L_R63C_20FE2C:
+R63C_USA_AnimateTilesSimpleScaleTileOffset:
 	add.w d0, d0
-L_R63C_20FE2E:
+R63C_USA_AnimateTilesSimpleScaleTileOffsetAgain:
 	add.w d0, d0
-L_R63C_20FE30:
+R63C_USA_AnimateTilesSimpleLoadFrameCount:
 	moveq #$0, d1
-L_R63C_20FE32:
+R63C_USA_AnimateTilesSimpleReadFrameCount:
 	move.b (a1), d1
-L_R63C_20FE34:
+R63C_USA_AnimateTilesSimpleScaleFrameCount:
 	add.w d1, d1
-L_R63C_20FE36:
+R63C_USA_AnimateTilesSimpleAddTileOffset:
 	add.w d1, d0
-L_R63C_20FE38:
+R63C_USA_AnimateTilesSimpleLoadTilePointer:
 	movea.l $2(a1, d0.w), a1
-L_R63C_20FE3C:
+R63C_USA_AnimateTilesSimpleSetTileCopyBase:
 	lea.l $ff1980.l, a3
-L_R63C_20FE42:
+R63C_USA_AnimateTilesSimpleCopyTile:
 	move.l (a1)+, (a3)+
-L_R63C_20FE44:
-	dbra d6, L_R63C_20FE42
-L_R63C_20FE48:
+R63C_USA_AnimateTilesSimpleCopyLoopCheck:
+	dbra d6, R63C_USA_AnimateTilesSimpleCopyTile
+R63C_USA_AnimateTilesSimpleAdvanceCounterBase:
 	adda.w #$1, a2
-L_R63C_20FE4C:
+R63C_USA_AnimateTilesSimpleAdvanceFrameBase:
 	adda.w #$1, a4
-L_R63C_20FE50:
+R63C_USA_AnimateTilesSimpleReadyStatus:
 	moveq #$0, d0
-L_R63C_20FE52:
+R63C_USA_AnimateTilesSimpleReturnReady:
 	rts
-L_R63C_20FE54:
+R63C_USA_AnimateTilesSimpleNoUpdate:
 	adda.w #$1, a2
-L_R63C_20FE58:
+R63C_USA_AnimateTilesSimpleAdvanceCounterBaseNoUpdate:
 	adda.w #$1, a4
-L_R63C_20FE5C:
+R63C_USA_AnimateTilesSimpleAdvanceFrameBaseNoUpdate:
 	moveq #$1, d0
-L_R63C_20FE5E:
+R63C_USA_AnimateTilesSimpleReturnBusy:
 	rts
 R63C_USA_AnimationTableA:
 	dc.w	$0400,$0400,$0901,$0402,$0F03,$0023,$3F0C,$0023,$3F8C,$0023,$400C,$0023,$408C
 R63C_USA_AnimateTilesSimpleAlt:
 	subq.b #$1, (a2)
-L_R63C_20FE7C:
-	bpl.w L_R63C_20FEB2
-L_R63C_20FE80:
+R63C_USA_AnimateTilesSimpleAltCounterCheck:
+	bpl.w R63C_USA_AnimateTilesSimpleAltNoUpdate
+R63C_USA_AnimateTilesSimpleAltLoadDuration:
 	move.b (a1), (a2)
-L_R63C_20FE82:
+R63C_USA_AnimateTilesSimpleAltResetIndex:
 	moveq #$0, d0
-L_R63C_20FE84:
+R63C_USA_AnimateTilesSimpleAltLoadIndex:
 	move.b (a4), d0
-L_R63C_20FE86:
+R63C_USA_AnimateTilesSimpleAltAdvanceIndex:
 	addq.b #$1, d0
-L_R63C_20FE88:
+R63C_USA_AnimateTilesSimpleAltLimitCheck:
 	cmp.b $1(a1), d0
-L_R63C_20FE8C:
-	bcs.b L_R63C_20FE90
-L_R63C_20FE8E:
+R63C_USA_AnimateTilesSimpleAltLimitBranch:
+	bcs.b R63C_USA_AnimateTilesSimpleAltStoreIndex
+R63C_USA_AnimateTilesSimpleAltWrapIndex:
 	moveq #$0, d0
-L_R63C_20FE90:
+R63C_USA_AnimateTilesSimpleAltStoreIndex:
 	move.b d0, (a4)
-L_R63C_20FE92:
+R63C_USA_AnimateTilesSimpleAltScaleIndex:
 	add.w d0, d0
-L_R63C_20FE94:
+R63C_USA_AnimateTilesSimpleAltScaleIndexAgain:
 	add.w d0, d0
-L_R63C_20FE96:
+R63C_USA_AnimateTilesSimpleAltLoadTilePointer:
 	movea.l $2(a1, d0.w), a1
-L_R63C_20FE9A:
+R63C_USA_AnimateTilesSimpleAltSetTileCopyBase:
 	lea.l $ff1980.l, a3
-L_R63C_20FEA0:
+R63C_USA_AnimateTilesSimpleAltCopyTile:
 	move.l (a1)+, (a3)+
-L_R63C_20FEA2:
-	dbra d6, L_R63C_20FEA0
-L_R63C_20FEA6:
+R63C_USA_AnimateTilesSimpleAltCopyLoopCheck:
+	dbra d6, R63C_USA_AnimateTilesSimpleAltCopyTile
+R63C_USA_AnimateTilesSimpleAltAdvanceCounterBase:
 	adda.w #$1, a2
-L_R63C_20FEAA:
+R63C_USA_AnimateTilesSimpleAltAdvanceFrameBase:
 	adda.w #$1, a4
-L_R63C_20FEAE:
+R63C_USA_AnimateTilesSimpleAltReadyStatus:
 	moveq #$0, d0
-L_R63C_20FEB0:
+R63C_USA_AnimateTilesSimpleAltReturnReady:
 	rts
-L_R63C_20FEB2:
+R63C_USA_AnimateTilesSimpleAltNoUpdate:
 	adda.w #$1, a2
-L_R63C_20FEB6:
+R63C_USA_AnimateTilesSimpleAltAdvanceCounterBaseNoUpdate:
 	adda.w #$1, a4
-L_R63C_20FEBA:
+R63C_USA_AnimateTilesSimpleAltAdvanceFrameBaseNoUpdate:
 	moveq #$1, d0
-L_R63C_20FEBC:
+R63C_USA_AnimateTilesSimpleAltReturnBusy:
 	rts
 R63C_USA_AnimationTableB:
 	dc.w	$0403,$0023,$3C0C,$0023,$3D0C,$0023,$3E0C,$0302,$0023,$3B0C,$0023,$3B8C,$0323,$81DC,$0223,$6F30

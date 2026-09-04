@@ -621,6 +621,7 @@ opaque merely because they use `dc.*`.
 | M408 | Complete | Canonicalize the Time Attack selection transition loop, highlight updates, and title/table screen upload sequence. | J/U/E 133/133 each; audit/hygiene clean. |
 | M409 | Complete | Canonicalize the Time Attack stage/period navigation loop and selected-stage handoff sequence. | J/U/E 133/133 each; audit/hygiene clean. |
 | M410 | Complete | Canonicalize the Time Attack period-animation dispatch stubs and overlapping frame targets. | J/U/E 133/133 each; audit/hygiene clean. |
+| M411 | Complete | Canonicalize the USA R63C stage-GFX orchestration and tile-animation family, including frame tables and status branches. | J/U/E 133/133 each; audit/hygiene clean. |
 
 Add a row whenever a milestone is selected. Mark it complete only in the same
 commit that contains the finished, validated work. The Git history and remote
