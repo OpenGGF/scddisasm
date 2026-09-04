@@ -1,5 +1,6 @@
 ; ------------------------------------------------------------------------------
 
+; Dispatch zone-specific stage events, then ease the active bottom bound.
 StageEvents:
 	moveq	#0,d0
 	move.b	zone,d0
@@ -7,43 +8,43 @@ StageEvents:
 	move.w	StageEventsIndex(pc,d0.w),d0
 	jsr	StageEventsIndex(pc,d0.w)
 	cmpi.b	#$2B,player_object+obj.anim_id
-	bne.s	loc_2034CA
+	bne.s	StageEventsUpdateBottomBound
 	move.w	scroll_fg_y,bottom_bound
 	move.w	scroll_fg_y,target_bottom_bound
 
-loc_2034CA:
+StageEventsUpdateBottomBound:
 	moveq	#4,d1
 	move.w	target_bottom_bound,d0
 	sub.w	bottom_bound,d0
-	beq.s	locret_2034F8
-	bcc.s	loc_2034FA
+	beq.s	StageEventsReturn
+	bcc.s	StageEventsAdvanceBottomBound
 	neg.w	d1
 	move.w	scroll_fg_y,d0
 	cmp.w	target_bottom_bound,d0
-	bls.s	loc_2034EE
+	bls.s	StageEventsClampBottomBound
 	move.w	d0,bottom_bound
 	andi.w	#$FFFE,bottom_bound
 
-loc_2034EE:
+StageEventsClampBottomBound:
 	add.w	d1,bottom_bound
 	move.b	#1,bottom_bound_shift
 
-locret_2034F8:
+StageEventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2034FA:
+StageEventsAdvanceBottomBound:
 	move.w	scroll_fg_y,d0
 	addq.w	#8,d0
 	cmp.w	bottom_bound,d0
-	bcs.s	loc_203512
+	bcs.s	StageEventsStoreBottomBound
 	btst	#1,player_object+obj.flags
-	beq.s	loc_203512
+	beq.s	StageEventsStoreBottomBound
 	add.w	d1,d1
 	add.w	d1,d1
 
-loc_203512:
+StageEventsStoreBottomBound:
 	add.w	d1,bottom_bound
 	move.b	#1,bottom_bound_shift
 	rts
@@ -81,29 +82,29 @@ R11Events:
 	cmpi.b	#1,time_zone
 	bne.s	R12Events
 	cmpi.w	#$1C16,player_object+obj.x
-	bcs.s	loc_203564
+	bcs.s	R11EventsCheckPlayerWindow
 	cmpi.w	#$21C6,player_object+obj.x
-	bcc.s	loc_203564
+	bcc.s	R11EventsCheckPlayerWindow
 	move.w	#$88,scroll_focus_y
 
-loc_203564:
+R11EventsCheckPlayerWindow:
 	move.w	#$710,target_bottom_bound
 	cmpi.w	#$840,scroll_fg_x
-	bcs.s	locret_2035A2
+	bcs.s	R11EventsReturn
 	tst.b	update_hud_time
-	beq.s	loc_20358E
+	beq.s	R11EventsLateBounds
 	cmpi.w	#$820,left_bound
-	bcc.s	loc_20358E
+	bcc.s	R11EventsLateBounds
 	move.w	#$820,left_bound
 	move.w	#$820,target_left_bound
 
-loc_20358E:
+R11EventsLateBounds:
 	move.w	#$410,target_bottom_bound
 	cmpi.w	#$E00,scroll_fg_x
-	bcs.s	locret_2035A2
+	bcs.s	R11EventsReturn
 	move.w	#$310,target_bottom_bound
 
-locret_2035A2:
+R11EventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -116,13 +117,13 @@ R12Events:
 
 R13Events:
 	tst.b	boss_flags
-	bne.s	locret_2035C4
+	bne.s	R13EventsReturn
 	move.w	#$310,target_bottom_bound
 	move.w	#$D70,d0
 	move.w	#$310,d1
 	bsr.w	CheckBossStart
 
-locret_2035C4:
+R13EventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -151,13 +152,13 @@ R312Events:
 
 R33Events:
 	tst.b	boss_flags
-	bne.w	loc_2035F6
+	bne.w	R33EventsSetBossBounds
 	move.w	#$510,target_bottom_bound
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2035F6:
+R33EventsSetBossBounds:
 	move.w	#$60,d1
 	bra.w	SetBossBounds
 
@@ -165,49 +166,49 @@ loc_2035F6:
 
 R6Events:
 	btst	#4,boss_flags
-	bne.s	loc_20360E
+	bne.s	R6EventsBossBounds
 	move.w	#$710,target_bottom_bound
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20360E:
+R6EventsBossBounds:
 	move.w	#$BA0,d0
 	move.w	#$1D0,d1
 	bsr.w	CheckBossStart
-	bne.w	locret_20365A
+	bne.w	R6EventsReturn
 	lea	player_object,a1
 	cmpi.w	#$298,$C(a1)
-	ble.s	loc_20363E
+	ble.s	R6EventsSelectEarlyBound
 	cmpi.w	#$498,$C(a1)
-	ble.s	loc_203638
+	ble.s	R6EventsSelectMiddleBound
 	move.w	#$5D0,d0
-	bra.s	loc_203642
+	bra.s	R6EventsApplyBound
 
 ; ------------------------------------------------------------------------------
 
-loc_203638:
+R6EventsSelectMiddleBound:
 	move.w	#$3D0,d0
-	bra.s	loc_203642
+	bra.s	R6EventsApplyBound
 
 ; ------------------------------------------------------------------------------
 
-loc_20363E:
+R6EventsSelectEarlyBound:
 	move.w	#$1D0,d0
 
-loc_203642:
+R6EventsApplyBound:
 	move.w	d0,d1
 	move.w	d0,target_bottom_bound
 	sub.w	bottom_bound,d0
-	bge.s	loc2_203650
+	bge.s	R6EventsBoundDelta
 	neg.w	d0
 
-loc2_203650:
+R6EventsBoundDelta:
 	cmpi.w	#2,d0
-	bgt.s	locret_20365A
+	bgt.s	R6EventsReturn
 	move.w	d1,bottom_bound
 
-locret_20365A:
+R6EventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -238,9 +239,9 @@ R53Events:
 	move.w	#$E10,d0
 	move.w	#$1F8,d1
 	bsr.w	CheckBossStart
-	bne.s	locret_203696
+	bne.s	R53EventsReturn
 	tst.b	boss_flags
-	bne.s	loc_203698
+	bne.s	R53EventsSetBossBounds
 	if def(R4_VARIANT)
 		if (REGION<>USA)&(DEMO<>0)&(R4_VARIANT=8)
 			move.w	#$310,target_bottom_bound
@@ -251,12 +252,12 @@ R53Events:
 	move.w	#$320,target_bottom_bound
 	endif
 
-locret_203696:
+R53EventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_203698:
+R53EventsSetBossBounds:
 	move.w	#$1F8,bottom_bound
 	move.w	#$1F8,target_bottom_bound
 	rts
@@ -287,13 +288,13 @@ R812Events:
 
 R83Events:
 	tst.b	boss_flags
-	bne.s	loc_2036D4
+	bne.s	R83EventsSetBossBounds
 	move.w	#$310,target_bottom_bound
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2036D4:
+R83EventsSetBossBounds:
 	move.w	#$10C,d0
 	move.w	d0,top_bound
 	move.w	d0,target_top_bound
@@ -327,19 +328,19 @@ R41Events:
 
 R42Events:
 	cmpi.b	#$2B,player_object+obj.anim_id
-	beq.s	loc_20372E
+	beq.s	R42EventsWideBounds
 	cmpi.b	#6,player_object+obj.routine
-	bcc.s	loc_20372E
+	bcc.s	R42EventsWideBounds
 	move.w	#$800,bottom_bound
 	move.w	#$800,target_bottom_bound
 	cmpi.w	#$200,scroll_fg_x
-	bcs.s	locret_20373A
+	bcs.s	R42EventsReturn
 
-loc_20372E:
+R42EventsWideBounds:
 	move.w	#$710,bottom_bound
 	move.w	#$710,target_bottom_bound
 
-locret_20373A:
+R42EventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -348,16 +349,16 @@ R43Events:
 	move.w	#$AF8,d0
 	move.w	#$4C0,d1
 	bsr.w	CheckBossStart
-	bne.s	locret_203750
+	bne.s	R43EventsReturn
 	tst.b	boss_flags
-	bne.s	loc_203752
+	bne.s	R43EventsSetBossBounds
 
-locret_203750:
+R43EventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_203752:
+R43EventsSetBossBounds:
 	move.w	#$4F0,bottom_bound
 	move.w	#$4F0,target_bottom_bound
 	rts
@@ -395,34 +396,35 @@ R72Events:
 R73Events:
 	lea	player_object,a1
 	cmpi.w	#$930,obj.x(a1)
-	bge.s	loc_20379C
+	bge.s	R73EventsCheckProgress
 	move.w	#$210,target_bottom_bound
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_20379C:
+R73EventsCheckProgress:
 	cmpi.w	#$DC0,8(a1)
-	blt.s	loc_2037AC
+	blt.s	R73EventsRampBound
 	move.w	#$210,target_bottom_bound
 	rts
 
 ; ------------------------------------------------------------------------------
 
-loc_2037AC:
+R73EventsRampBound:
 	move.w	#$120,d0
 	move.w	d0,d1
 	move.w	d0,target_bottom_bound
 	sub.w	bottom_bound,d1
-	bpl.s	loc_2037BE
+	bpl.s	R73EventsBoundDelta
 	neg.w	d1
 
-loc_2037BE:
+
+R73EventsBoundDelta:
 	cmpi.w	#4,d1
-	bge.s	locret_2037C8
+	bge.s	R73EventsReturn
 	move.w	d0,bottom_bound
 
-locret_2037C8:
+R73EventsReturn:
 	rts
 
 ; ------------------------------------------------------------------------------
@@ -436,30 +438,31 @@ CheckBossStart:
 ; ------------------------------------------------------------------------------
 
 SetBossBounds:
+	; Move vertical limits and left bound toward the boss trigger position.
 	move.w	d1,target_bottom_bound
 	sub.w	bottom_bound,d1
-	bpl.s	loc_2037E0
+	bpl.s	SetBossBoundsApplyDelta
 	neg.w	d1
 
-loc_2037E0:
+SetBossBoundsApplyDelta:
 	cmpi.w	#4,d1
-	bge.s	loc_2037EC
+	bge.s	SetBossBoundsCheckPosition
 	move.w	target_bottom_bound,bottom_bound
 
-loc_2037EC:
+SetBossBoundsCheckPosition:
 	move.w	player_object+obj.x,d0
 	subi.w	#$A0,d0
 	cmp.w	left_bound,d0
-	blt.s	loc_20380C
+	blt.s	SetBossBoundsTriggered
 	cmp.w	right_bound,d0
-	ble.s	loc_203804
+	ble.s	SetBossBoundsStoreLeft
 	move.w	right_bound,d0
 
-loc_203804:
+SetBossBoundsStoreLeft:
 	move.w	d0,left_bound
 	move.w	d0,target_left_bound
 
-loc_20380C:
+SetBossBoundsTriggered:
 	moveq	#1,d0
 	rts
 
